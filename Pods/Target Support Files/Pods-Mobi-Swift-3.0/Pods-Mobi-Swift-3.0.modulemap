@@ -1,0 +1,6 @@
+framework module Pods_Mobi_Swift_3_0 {
+  umbrella header "Pods-Mobi-Swift-3.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

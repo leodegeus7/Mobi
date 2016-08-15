@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static Util.(convertCoordinateToAddress(Double, long : Double, completion : (result : [String : String]) -&gt; ()) -&gt; ()).(closure #1):Util.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeMark.addressDictionary![&quot;State&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "placeMark.addressDictionary">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MenuTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.filterContentForSearchText(String) -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

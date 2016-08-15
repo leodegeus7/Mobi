@@ -20,7 +20,7 @@ class Address: NSObject {
   dynamic var long = ""
   dynamic var completeAddress = false
   dynamic var currentClassState = ""
-  dynamic var coordinates = CLLocation()
+  dynamic var coordinates:CLLocation!
   
   required init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String) {
     super.init()
@@ -42,7 +42,7 @@ class Address: NSObject {
     }
   }
   
-  convenience init(lat:String,long:String,convert:Bool) {
+  convenience init(lat:String,long:String,convert:Bool,completionSuper: (result: Address) -> Void) {
     self.init(lat: lat,long:long,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"")
     if (convert) {
       let myLatitute = Double(lat)! as CLLocationDegrees
@@ -63,6 +63,7 @@ class Address: NSObject {
         } else {
           self.completeAddress = false
         }
+        completionSuper(result: self)
       })
     } else {
       self.completeAddress = false

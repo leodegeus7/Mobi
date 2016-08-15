@@ -72,46 +72,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.news.append(third)
     
     
-    let address1 = Address(lat: "-25.4289541", long: "-49.2671369", convert: true)
-    let address2 = Address(lat: "-24.121974", long: "-49.2171569", convert: true)
-    let address3 = Address(lat: "-24.421974", long: "-49.2171369", convert: true)
-    let address4 = Address(lat: "-25.5289541", long: "-49.2111369", convert: true)
-    
-    let radio1 = Radio(id: "1", name: "Radio Local", address: address1)
-    let radio2 = Radio(id: "2", name: "Radio Band", address: address2)
-    let radio3 = Radio(id: "3", name: "Radio Antena Sul", address: address3)
-    let radio4 = Radio(id: "4", name: "Radio Jovem Pan", address: address4)
-    let radio5 = Radio(id: "5", name: "Radio 2", address: address2)
-    let radio6 = Radio(id: "6", name: "Radio Sertão", address: address4)
-    
-    radio1.likenumber = 10
-    radio2.likenumber = 2
-    radio3.likenumber = 100
-    radio4.likenumber = 154
-    radio5.likenumber = 345
-    radio6.likenumber = 12
-
-    radio1.setThumbnailImage("test-1.png")
-    radio2.setThumbnailImage("test-2.jpg")
-    radio3.setThumbnailImage("test-3.png")
-    radio4.setThumbnailImage("test-4.png")
-    radio5.setThumbnailImage("test-2.jpg")
-    radio6.setThumbnailImage("test-3.png")
-    
-    DataManager.sharedInstance.allRadios.append(radio1)
-    DataManager.sharedInstance.allRadios.append(radio2)
-    DataManager.sharedInstance.allRadios.append(radio3)
-    DataManager.sharedInstance.allRadios.append(radio4)
-    DataManager.sharedInstance.allRadios.append(radio5)
-    DataManager.sharedInstance.allRadios.append(radio6)
-    
-    DataManager.sharedInstance.topRadios.append(radio2)
-    DataManager.sharedInstance.topRadios.append(radio4)
-    DataManager.sharedInstance.topRadios.append(radio1)
-
-    DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
-  
-
+    //let address1 = Address(lat: "-25.4289541", long: "-49.2671369", convert: true)
+    let address1 = Address(lat: "-25.4289541", long: "-49.2671369", convert: true) { (result) in
+      let radio1 = Radio(id: "1", name: "Radio Local", address: result)
+      radio1.likenumber = 10
+      radio1.setThumbnailImage("test-1.png")
+      DataManager.sharedInstance.allRadios.append(radio1)
+      DataManager.sharedInstance.topRadios.append(radio1)
+      DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
+      DataManager.sharedInstance.favoriteRadios.append(radio1)
+    }
+    let address2 = Address(lat: "-24.121974", long: "-49.2171569", convert: true) { (result) in
+      let radio2 = Radio(id: "2", name: "Radio Band", address: result)
+      let radio5 = Radio(id: "5", name: "Radio 2", address: result)
+      radio2.likenumber = 2
+      radio5.likenumber = 345
+      radio2.setThumbnailImage("test-2.jpg")
+      radio5.setThumbnailImage("test-2.jpg")
+      DataManager.sharedInstance.allRadios.append(radio2)
+      DataManager.sharedInstance.topRadios.append(radio2)
+      DataManager.sharedInstance.allRadios.append(radio5)
+      DataManager.sharedInstance.favoriteRadios.append(radio2)
+      DataManager.sharedInstance.recentsRadios.append(radio5)
+      DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
+    }
+    let address3 = Address(lat: "-24.421974", long: "-49.2171369", convert: true) { (result) in
+      let radio3 = Radio(id: "3", name: "Radio Antena Sul", address: result)
+      radio3.likenumber = 100
+      radio3.setThumbnailImage("test-3.png")
+      DataManager.sharedInstance.allRadios.append(radio3)
+      DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
+    }
+    let address4 = Address(lat: "-25.5289541", long: "-49.2111369", convert: true) { (result) in
+      let radio4 = Radio(id: "4", name: "Radio Jovem Pan", address: result)
+      let radio6 = Radio(id: "6", name: "Radio Sertão", address: result)
+      radio4.likenumber = 154
+      radio6.likenumber = 12
+      radio6.setThumbnailImage("test-3.png")
+      radio4.setThumbnailImage("test-4.png")
+      DataManager.sharedInstance.allRadios.append(radio4)
+      
+      
+      DataManager.sharedInstance.topRadios.append(radio4)
+      DataManager.sharedInstance.allRadios.append(radio6)
+      DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
+    }
 
 
   }

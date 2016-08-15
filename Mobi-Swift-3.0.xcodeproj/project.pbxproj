@@ -52,6 +52,7 @@
 		B7F530F41D62486600831561 /* test-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F01D62486600831561 /* test-2.jpg */; };
 		B7F530F51D62486600831561 /* test-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F11D62486600831561 /* test-3.png */; };
 		B7F530F61D62486600831561 /* test-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F21D62486600831561 /* test-4.png */; };
+		B7F530F81D6258F200831561 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F71D6258F100831561 /* marker.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,8 @@
 		B7F530F01D62486600831561 /* test-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-2.jpg"; sourceTree = "<group>"; };
 		B7F530F11D62486600831561 /* test-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-3.png"; sourceTree = "<group>"; };
 		B7F530F21D62486600831561 /* test-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-4.png"; sourceTree = "<group>"; };
+		B7F530F71D6258F100831561 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
+		B7F530F91D6261D400831561 /* Simulation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Simulation.gpx; sourceTree = "<group>"; };
 		F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mobi_Swift_3_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +235,7 @@
 				B73681361D590BA300EC94A9 /* AppDelegate.swift */,
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
+				B7F530F91D6261D400831561 /* Simulation.gpx */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -253,6 +257,7 @@
 				B7D90DF81D5A41C000D15089 /* test56x52.jpg */,
 				B7D584E11D5D2085003D5A1F /* okImage.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
+				B7F530F71D6258F100831561 /* marker.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
 				B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */,
 				B7D90DF91D5A41C000D15089 /* test56x52.jpg in Resources */,
+				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B7F530F51D62486600831561 /* test-3.png in Resources */,
 				B7F530ED1D623F9000831561 /* heart.png in Resources */,

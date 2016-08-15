@@ -62,5 +62,40 @@ class Util: NSObject {
   }
   
   
+  static func getOverdueInterval(date:NSDate) -> String {
+    
+    var interval = NSCalendar.currentCalendar().components(.Year, fromDate: date, toDate: NSDate(), options: []).year
+    
+    if interval > 0 {
+      return interval == 1 ? "\(interval)" + " " + "ano" :
+        "\(interval)" + " " + "anos"
+    }
+    
+    interval = NSCalendar.currentCalendar().components(.Month, fromDate: date, toDate: NSDate(), options: []).month
+    if interval > 0 {
+      return interval == 1 ? "\(interval)" + " " + "mês" :
+        "\(interval)" + " " + "meses"
+    }
+    
+    interval = NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: NSDate(), options: []).day
+    if interval > 1 {
+      return interval == 1 ? "\(interval)" + " " + "dia" :
+        "\(interval)" + " " + "dias"
+    }
+    
+    interval = NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: NSDate(), options: []).hour
+    if interval > 0 {
+      return interval == 1 ? "\(interval)" + " " + "hora" :
+        "\(interval)" + " " + "horas"
+    }
+    
+    interval = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: NSDate(), options: []).minute
+    if interval > 0 {
+      return interval == 1 ? "\(interval)" + " " + "minuto" :
+        "\(interval)" + " " + "minutos"
+    }
+    
+    return "poucos segundos"
+  }
 }
 

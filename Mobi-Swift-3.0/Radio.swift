@@ -19,6 +19,8 @@ class Radio: NSObject, CLLocationManagerDelegate {
   dynamic var thumbnail:UIImage!
   dynamic var streamingLink:NSURL!
   dynamic var typeOfStreaming = ""
+  dynamic var lastAccessDate:NSDate!
+  dynamic var lastAccessString = ""
   
   init(id:String,name:String,address:Address) {
     super.init()
@@ -27,11 +29,15 @@ class Radio: NSObject, CLLocationManagerDelegate {
     self.id = Int(id)!
     self.formattedLocal = setFormattedLocalString(address)
     
-    if (DataManager.sharedInstance.userLocation != nil) {
+    if (DataManager.sharedInstance.userLocation != nil && self.address.coordinates != nil) {
       let loc1 = DataManager.sharedInstance.userLocation
       let loc2 = self.address.coordinates
       distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(loc1, destination: loc2)
     }
+    if let last = lastAccessDate {
+       self.lastAccessString = Util.getOverdueInterval(last)
+    }
+
   }
   
   func setThumbnailImage(image:String) {
@@ -46,6 +52,15 @@ class Radio: NSObject, CLLocationManagerDelegate {
     let distanceMeters = source.distanceFromLocation(destination)
     return Int(distanceMeters)
   }
-
+  
+  func resetDistanceFromUser() {
+    self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(DataManager.sharedInstance.userLocation, destination: self.address.coordinates)
+  }
+  
+  func updateOverdueInterval() {
+    if let last = lastAccessDate {
+      self.lastAccessString = Util.getOverdueInterval(last)}
+  }
+  
   
 }

@@ -40,5 +40,17 @@ class DataManager: NSObject {
     return Static.instance!
   }
   
+  func updateRadioDistance() {
+    for radio in localRadios {
+      radio.resetDistanceFromUser()
+    }
+    localRadios.sortInPlace({ $0.distanceFromUser < $1.distanceFromUser })
+  }
+  
+  func updateOverdueInterval() {
+    for radio in recentsRadios {
+      radio.updateOverdueInterval()
+    }
+  }
   
 }

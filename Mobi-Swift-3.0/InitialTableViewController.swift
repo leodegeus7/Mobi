@@ -51,6 +51,10 @@ class InitialTableViewController: UITableViewController {
 
         return selectedRadioArray.count
     }
+  
+    override func viewDidAppear(animated: Bool) {
+      DataManager.sharedInstance.updateOverdueInterval()
+    }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("initialCell", forIndexPath: indexPath) as! InitialTableViewCell
@@ -67,11 +71,20 @@ class InitialTableViewController: UITableViewController {
             cell.labelName.text = selectedRadioArray[indexPath.row].name
             cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
             cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)"
+            cell.imageSmallOne.image = UIImage(named: "marker.png")
+            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
             cell.imageSmallTwo.image = UIImage(named: "heart.png")
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-            cell.labelDescriptionTwo.text = ""
+            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
             break
+        case .Recent:
+          cell.labelName.text = selectedRadioArray[indexPath.row].name
+          cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+          cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
+          cell.imageSmallOne.image = UIImage(named: "marker.png")
+          cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+          cell.imageSmallTwo.image = UIImage(named: "heart.png")
+          cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+          break
           default:
             break
         }
@@ -102,11 +115,13 @@ class InitialTableViewController: UITableViewController {
   
   @IBAction func buttonLocalClick(sender: AnyObject) {
     selectedMode = .Local
+    DataManager.sharedInstance.updateRadioDistance()
     changeTableViewStatus()
   }
 
   @IBAction func buttonRecentsClick(sender: AnyObject) {
     selectedMode = .Recent
+    DataManager.sharedInstance.updateOverdueInterval()
     changeTableViewStatus()
   }
 

@@ -47,11 +47,11 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Nxq-ga-mfX">
+                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nxq-ga-mfX">
                                     <rect key="frame" x="20" y="20" width="560" height="60"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxv-Ga-NUG">
-                                            <rect key="frame" x="0.0" y="0.0" width="110" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="60"/>
                                             <color key="backgroundColor" red="1" green="0.13672508750000001" blue="0.1551653077" alpha="1" colorSpace="calibratedRGB"/>
                                             <inset key="contentEdgeInsets" minX="24" minY="24" maxX="24" maxY="24"/>
                                             <state key="normal" title="Button"/>
@@ -60,7 +60,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-A7-fbX">
-                                            <rect key="frame" x="150" y="0.0" width="110" height="60"/>
+                                            <rect key="frame" x="145" y="0.0" width="125" height="60"/>
                                             <color key="backgroundColor" red="0.17254901959999999" green="0.38823529410000002" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                             <inset key="contentEdgeInsets" minX="24" minY="24" maxX="24" maxY="24"/>
                                             <state key="normal" title="Button"/>
@@ -69,7 +69,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKi-dL-DMh">
-                                            <rect key="frame" x="300" y="0.0" width="110" height="60"/>
+                                            <rect key="frame" x="290" y="0.0" width="125" height="60"/>
                                             <color key="backgroundColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="NIV-Zi-M5O"/>
@@ -82,7 +82,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kt-dD-kFz">
-                                            <rect key="frame" x="450" y="0.0" width="110" height="60"/>
+                                            <rect key="frame" x="435" y="0.0" width="125" height="60"/>
                                             <color key="backgroundColor" red="0.1747988760471344" green="0.72927397489547729" blue="0.80576461553573608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <inset key="contentEdgeInsets" minX="24" minY="24" maxX="24" maxY="24"/>
                                             <state key="normal" title="Button"/>
@@ -173,14 +173,14 @@
                                             </variation>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8YS-HW-pSS">
-                                            <rect key="frame" x="330" y="82" width="29" height="29"/>
+                                            <rect key="frame" x="300" y="82" width="29" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="29" id="PN2-8h-5KL"/>
                                                 <constraint firstAttribute="height" constant="29" id="h9k-aq-Nf4"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZQ-ku-iE6">
-                                            <rect key="frame" x="367" y="82" width="145" height="21"/>
+                                            <rect key="frame" x="337" y="82" width="145" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="145" id="JuF-2H-mNS"/>
                                             </constraints>
@@ -203,7 +203,7 @@
                                         <constraint firstItem="wS8-V3-DhP" firstAttribute="leading" secondItem="WkA-ky-H6V" secondAttribute="trailing" constant="8" id="c0n-Hv-Iwh"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="v7w-Qo-ZLt" secondAttribute="bottom" id="gLN-sV-rug"/>
                                         <constraint firstItem="wS8-V3-DhP" firstAttribute="top" secondItem="WkA-ky-H6V" secondAttribute="top" id="mrO-Sj-DxV"/>
-                                        <constraint firstItem="8YS-HW-pSS" firstAttribute="leading" secondItem="wS8-V3-DhP" secondAttribute="trailing" constant="60" id="nf2-GR-stX"/>
+                                        <constraint firstItem="8YS-HW-pSS" firstAttribute="leading" secondItem="wS8-V3-DhP" secondAttribute="trailing" constant="30" id="nf2-GR-stX"/>
                                         <constraint firstItem="8YS-HW-pSS" firstAttribute="top" secondItem="WkA-ky-H6V" secondAttribute="top" id="xa3-dZ-PjJ"/>
                                         <constraint firstItem="v7w-Qo-ZLt" firstAttribute="top" secondItem="30g-jr-ZdJ" secondAttribute="topMargin" constant="-8" id="yTM-Kx-fI3"/>
                                     </constraints>

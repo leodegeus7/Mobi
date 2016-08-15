@@ -15,10 +15,11 @@ class DataManager: NSObject {
   
   var news = [New]()
   var audioConfig:AudioConfig!
-  var allRadios = [Radio]()
+
   
   
   //Groups of radios
+  var allRadios = [Radio]()
   var topRadios = [Radio]()
   var favoriteRadios = [Radio]()
   var recentsRadios = [Radio]()
@@ -38,4 +39,6 @@ class DataManager: NSObject {
     }
     return Static.instance!
   }
+  
+  
 }

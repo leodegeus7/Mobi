@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class Radio: NSObject, CLLocationManagerDelegate {
-  dynamic var id:Int
+  dynamic var id = -1
   dynamic var name = ""
   dynamic var address:Address!
   dynamic var likenumber = -1
@@ -21,10 +21,11 @@ class Radio: NSObject, CLLocationManagerDelegate {
   dynamic var typeOfStreaming = ""
   
   init(id:String,name:String,address:Address) {
+    super.init()
     self.name = name
     self.address = address
     self.id = Int(id)!
-    self.formattedLocal = Radio.setFormattedLocal(address)
+    self.formattedLocal = setFormattedLocalString(address)
     
     if (DataManager.sharedInstance.userLocation != nil) {
       let loc1 = DataManager.sharedInstance.userLocation
@@ -37,7 +38,7 @@ class Radio: NSObject, CLLocationManagerDelegate {
     self.thumbnail = UIImage(named: image)
   }
   
-  static func setFormattedLocal(address:Address) -> String {
+  func setFormattedLocalString(address:Address) -> String {
     return address.city + " - " + address.state
   }
   

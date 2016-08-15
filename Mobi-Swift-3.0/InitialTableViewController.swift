@@ -63,6 +63,15 @@ class InitialTableViewController: UITableViewController {
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
             cell.labelDescriptionTwo.text = ""
             break
+        case .Local:
+            cell.labelName.text = selectedRadioArray[indexPath.row].name
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+            cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
+            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)"
+            cell.imageSmallTwo.image = UIImage(named: "heart.png")
+            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.labelDescriptionTwo.text = ""
+            break
           default:
             break
         }

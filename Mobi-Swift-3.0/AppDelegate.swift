@@ -108,8 +108,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.topRadios.append(radio2)
     DataManager.sharedInstance.topRadios.append(radio4)
     DataManager.sharedInstance.topRadios.append(radio1)
-    
-    
+
+    DataManager.sharedInstance.localRadios = DataManager.sharedInstance.allRadios
   
 
 
@@ -120,6 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     let locValue:CLLocationCoordinate2D = manager.location!.coordinate
     let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
     DataManager.sharedInstance.userLocation = myLocation
+    
   }
 
 }

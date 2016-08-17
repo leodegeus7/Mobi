@@ -27,7 +27,8 @@ class Radio: NSObject, CLLocationManagerDelegate {
     super.init()
     self.name = name
     self.id = Int(id)!
-
+    completionSuper(result: true)
+    
     
 //    self.address = Address(latitude: lat, longitude: long, convert: true, completionSuper: { (result) in
 //      completionSuper(result: true)
@@ -45,6 +46,7 @@ class Radio: NSObject, CLLocationManagerDelegate {
 
   }
   
+  
   func setThumbnailImage(image:String) {
     self.thumbnail = UIImage(named: image)
   }
@@ -58,13 +60,14 @@ class Radio: NSObject, CLLocationManagerDelegate {
     return Int(distanceMeters)
   }
   
-  func resetDistanceFromUser() -> Bool{
+  func resetDistanceFromUser() -> Bool {
     if let userLocation = DataManager.sharedInstance.userLocation {
-      self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: self.address.coordinates)
-      return true
-    } else {
-      return false
+      if let addressCordinate = self.address.coordinates {
+        self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: addressCordinate)
+        return true
+      }
     }
+    return false
   }
   
   func updateOverdueInterval() {

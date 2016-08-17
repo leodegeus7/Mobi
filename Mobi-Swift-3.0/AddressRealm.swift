@@ -24,7 +24,6 @@ class AddressRealm: Object  {
   dynamic var completeAddress = false
   var currentClassState = classState.Initial
   dynamic var coordinates:CLLocation!
-// Specify properties to ignore (Realm won't persist these)
   
   enum classState {
     case CompleteAddress
@@ -39,7 +38,7 @@ class AddressRealm: Object  {
     return ["currentClassState","coordinates"]
   }
   
-  convenience init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String) {
+  convenience init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String,repository:Bool) {
     self.init()
     if (lat != "" && long != "") {
       coordinates = CLLocation(latitude: Double(lat)!, longitude: Double(long)!)
@@ -52,18 +51,29 @@ class AddressRealm: Object  {
     self.zip = zip
     self.lat = lat
     self.long = long
+    self.coordinates = CLLocation(latitude: Double(lat)!, longitude: Double(long)!)
     if verifyInformation() {
       completeAddress = true
     } else {
       completeAddress = false
     }
+    if(repository) {
+      try! DataManager.sharedInstance.realm.write {
+        DataManager.sharedInstance.realm.add(self)
+      }
+    }
   }
   
-  convenience init(latitude:String,longitude:String,convert:Bool,completionSuper: (result: AddressRealm) -> Void) {
-    self.init(lat: latitude,long:longitude,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"")
+  convenience init(latitude:String,longitude:String,convert:Bool,repository:Bool,completionSuper: (result: AddressRealm) -> Void) {
+    self.init(lat: latitude,long:longitude,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"",repository:false)
     if (convert) {
       Address.getAddress(self, completion: { (resultAddress) in
         if resultAddress == true {
+          if(repository) {
+            try! DataManager.sharedInstance.realm.write {
+              DataManager.sharedInstance.realm.add(self)
+            }
+          }
           completionSuper(result: self)
         } else {
           //completionSuper(result: completionSuper)

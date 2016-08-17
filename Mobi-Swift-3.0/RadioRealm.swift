@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import CoreLocation
+import RealmSwift
 
 class RadioRealm: Object {
   dynamic var id = -1
@@ -24,17 +25,37 @@ class RadioRealm: Object {
   dynamic var address:AddressRealm!
   
   
-//  convenience init(id:String,name:String,lat:String,long:String) {
-//    self.init()
-//    self.name = name
-//    self.id = Int(id)!
-//    let address = AddressRealm(lat: lat, long: long, country: <#T##String#>, city: <#T##String#>, state: <#T##String#>, street: <#T##String#>, streetNumber: <#T##String#>, zip: <#T##String#>)
-//    
-//  }
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,lastAccessDate:NSDate,repository:Bool) {
+    self.init()
+    self.name = name
+    self.id = Int(id)!
+    self.thumbnail = thumbnail
+    self.lastAccessDate = lastAccessDate
+    self.likenumber = Int(likenumber)!
+    let addressVar = AddressRealm(lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
+    self.address = addressVar
+    
+    
+    if(repository) {
+      try! DataManager.sharedInstance.realm.write {
+        if let add = (self.address) {
+          DataManager.sharedInstance.realm.add(self)
+        }
+      }
+    }
+    
+    try! DataManager.sharedInstance.realm.write {
+      self.address = addressVar
+    }
+    
+    
+  }
   
   
   func setThumbnailImage(image:String) {
-    self.thumbnail = image
+    try! DataManager.sharedInstance.realm.write {
+        self.thumbnail = image
+    }
   }
   
   func setFormattedLocalString(address:Address) -> String {
@@ -48,7 +69,9 @@ class RadioRealm: Object {
   
   func resetDistanceFromUser() -> Bool{
     if let userLocation = DataManager.sharedInstance.userLocation {
-      self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: self.address.coordinates)
+      try! DataManager.sharedInstance.realm.write {
+        self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: self.address.coordinates)
+      }
       return true
     } else {
       return false

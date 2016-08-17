@@ -4,72 +4,88 @@
 //
 //  Created by Desenvolvimento Access Mobile on 8/17/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  A classe realiza o request pelo Alamofire e tenta tratar possíveis erros 
+
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
-public enum requestResult {
-  case ErrorInToken
-  case ErrorInParsingJSon
-  case ErrorInReturnFromServer
-  case ErrorInDataInformation
-  case OK
-  case inProgress
+
+///////////////////////////////////////////////////////////
+//MARK: --- REQUEST RESULT AND ERRORS ---
+///////////////////////////////////////////////////////////
+
+public enum requestResult: Int {
+  case ErrorInToken = -6000
+  case ErrorInParsingJSon = -6001
+  case ErrorInReturnFromServer = -6002
+  case ErrorInDataInformation = -6003
+  case ErrorInAccessToURL = -6004
+  case OK = 1
+  case inProgress = 0
 }
 
 class RequestManager: NSObject {
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VARIABLES TO CONTROL THE CLASS ---
+  ///////////////////////////////////////////////////////////
   
+  var resultText = requestResult.inProgress
+  lazy var resultCode : Int = {return self.resultText.rawValue}()
+  var existData = false
+
+  ///////////////////////////////////////////////////////////
+  //MARK: --- REQUEST FUNCTION ---
+  ///////////////////////////////////////////////////////////
   
-  var resultEnum = requestResult.inProgress
-  
-  
-  let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
-  
-  func requestJson(link:String,completion: (result: Dictionary<requestResult,NSDictionary>) -> Void) -> requestResult{
-    let requestResult = requestJsonProcess(link) { (result) in
-      let resultFromRequest =
-      completion(result: resultFromRequest)
-    }
-    return requestResult
-  }
-  
-  private func requestJsonProcess(link:String,completion: (result: Dictionary<String,AnyObject>) -> Void) -> requestResult{
-    //Dictionary<requestResult,NSDictionary>)
-    if let userTokenString = DataManager.sharedInstance.userToken {
-      let headers = ["userToken": userTokenString]
-      Alamofire.request(.GET, "\(baseURL)\(link)", headers: headers).responseJSON { (response) in
+  func requestJson(link:String,completion: (result: Dictionary<String,AnyObject>) -> Void){
+        var resultText = requestResult.inProgress
+        resultCode = 0
+        existData = false
         let emptyDic:NSDictionary = ["":""]
-        if let JSON = response.result.value {
-          if let dic2 = JSON as? NSDictionary {
-            if let data = dic2["data"] as? NSArray {
-              if let data2 = data[0] as? NSDictionary {
-                self.resultEnum = .OK
-                var dic:Dictionary<String,AnyObject>
-                dic["requestResult"] = self.resultEnum
-                dic["data"] = self.data2
+        let headers = ["userToken": "\(DataManager.sharedInstance.userToken)"]
+        Alamofire.request(.GET, "\(DataManager.sharedInstance.baseURL)\(link)", headers: headers).responseJSON { (response) in
+          
+          switch response.result {
+          case .Success:
+            if let value = response.result.value {
+              let json = JSON(value)
+              if let data = json["data"][0].dictionaryObject {
+                self.resultText = .OK
+                var dic = Dictionary<String,AnyObject>()
+                dic["requestResult"] = "\(self.resultText)"
+                dic["data"] = data
+                self.existData = true
+                completion(result: dic)
+              } else {
+                self.resultText = .ErrorInDataInformation
+                var dic = Dictionary<String,AnyObject>()
+                dic["requestResult"] = "\(self.resultText)"
+                if let data = json["error"][0].dictionaryObject {
+                  self.existData = true
+                  completion(result: data)
+                }
+                dic["data"] = emptyDic
                 completion(result: dic)
               }
             } else {
-              self.resultEnum = .ErrorInDataInformation
-              completion(result: [self.resultEnum:emptyDic])
+              self.resultText = .ErrorInReturnFromServer
+              var dic = Dictionary<String,AnyObject>()
+              dic["requestResult"] = "\(self.resultText)"
+              dic["data"] = emptyDic
+              completion(result: dic)
             }
-          } else {
-            self.resultEnum = .ErrorInParsingJSon
-            completion(result: [self.resultEnum:emptyDic])
+          case .Failure(let error):
+            self.resultText = .ErrorInAccessToURL
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText) - \(error)"
+            dic["data"] = emptyDic
+            completion(result: dic)
           }
-        } else {
-          self.resultEnum = .ErrorInReturnFromServer
-          completion(result: [self.resultEnum:emptyDic])
         }
-      }
-      resultEnum = .inProgress
-      return resultEnum
-    } else {
-      resultEnum = .ErrorInToken
-      return resultEnum
-    }
-    
   }
+  
+
 }

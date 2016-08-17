@@ -9,23 +9,25 @@
 import UIKit
 import CoreLocation
 import Alamofire
+import RealmSwift
 
 class DataManager: NSObject {
   
+  let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
   var userToken:String!
 
   var userLocation:CLLocation!
   
   var news = [New]()
   var audioConfig:AudioConfig!
-  
+  var realm:Realm!
   
   //Groups of radios
-  var allRadios = [Radio]()
-  var topRadios = [Radio]()
-  var favoriteRadios = [Radio]()
-  var recentsRadios = [Radio]()
-  var localRadios = [Radio]()
+  var allRadios = [RadioRealm]()
+  var topRadios = [RadioRealm]()
+  var favoriteRadios = [RadioRealm]()
+  var recentsRadios = [RadioRealm]()
+  var localRadios = [RadioRealm]()
   
   enum actualCondition {
     case Ok

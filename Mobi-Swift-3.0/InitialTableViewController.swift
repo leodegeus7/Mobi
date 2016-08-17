@@ -18,7 +18,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   let locationManager = CLLocationManager()
   
-  var selectedRadioArray:[Radio]!
+  var selectedRadioArray:[RadioRealm]!
   enum modes {
     case Top
     case Local
@@ -65,7 +65,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
           case .Top:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
             cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
-            cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
+            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "heart.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
             cell.labelDescriptionTwo.text = ""
@@ -73,22 +73,22 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         case .Local:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
             cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
-            cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
+            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "marker.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
             cell.imageSmallTwo.image = UIImage(named: "heart.png")
             cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
             break
         case .Recent:
-          cell.labelName.text = selectedRadioArray[indexPath.row].name
-          cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
-          cell.imageBig.image = selectedRadioArray[indexPath.row].thumbnail
-          cell.imageSmallOne.image = UIImage(named: "marker.png")
-          cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
-          cell.imageSmallTwo.image = UIImage(named: "heart.png")
-          cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-          break
-          default:
+            cell.labelName.text = selectedRadioArray[indexPath.row].name
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+            cell.imageSmallOne.image = UIImage(named: "marker.png")
+            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+            cell.imageSmallTwo.image = UIImage(named: "heart.png")
+            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            break
+        default:
             break
         }
       

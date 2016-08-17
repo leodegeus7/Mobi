@@ -56,6 +56,8 @@
 		B7F530F61D62486600831561 /* test-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F21D62486600831561 /* test-4.png */; };
 		B7F530F81D6258F200831561 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530F71D6258F100831561 /* marker.png */; };
 		B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DF81D64D86D000EE185 /* RequestManager.swift */; };
+		B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DFA1D64F34D000EE185 /* Data.swift */; };
+		B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +114,8 @@
 		B7F530F71D6258F100831561 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
 		B7F530F91D6261D400831561 /* Simulation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Simulation.gpx; sourceTree = "<group>"; };
 		B7F65DF81D64D86D000EE185 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		B7F65DFA1D64F34D000EE185 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
 		F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mobi_Swift_3_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -209,6 +213,8 @@
 				B7880BA31D5E461C002B235A /* Address.swift */,
 				B7880BA91D5E5F46002B235A /* Radio.swift */,
 				B7F65DF81D64D86D000EE185 /* RequestManager.swift */,
+				B7F65DFA1D64F34D000EE185 /* Data.swift */,
+				B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -455,12 +461,14 @@
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
+				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B7E697381D591BF900EC276F /* CustomViewController.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */,
 				B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */,
+				B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */,
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,
 				B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */,
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,

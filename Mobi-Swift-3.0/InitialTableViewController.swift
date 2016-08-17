@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
 
-class InitialTableViewController: UITableViewController {
+class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
 
   @IBOutlet weak var buttonTop: UIButton!
   @IBOutlet weak var buttonLocal: UIButton!
   @IBOutlet weak var buttonRecents: UIButton!
   @IBOutlet weak var buttonFavorite: UIButton!
+  
+  let locationManager = CLLocationManager()
   
   var selectedRadioArray:[Radio]!
   enum modes {
@@ -114,9 +117,33 @@ class InitialTableViewController: UITableViewController {
   }
   
   @IBAction func buttonLocalClick(sender: AnyObject) {
-    selectedMode = .Local
-    DataManager.sharedInstance.updateRadioDistance()
-    changeTableViewStatus()
+    if let local = DataManager.sharedInstance.userLocation {
+      print(local)
+      selectedMode = .Local
+      DataManager.sharedInstance.updateRadioDistance()
+      changeTableViewStatus()
+    } else {
+      self.locationManager.requestWhenInUseAuthorization()
+      
+      if CLLocationManager.locationServicesEnabled() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+        selectedMode = .Local
+        DataManager.sharedInstance.updateRadioDistance()
+        changeTableViewStatus()
+        if let local = DataManager.sharedInstance.userLocation {
+          print(local)
+        } else {
+          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
+        }
+      }
+      else {
+        Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
+      }
+
+      
+    }
   }
 
   @IBAction func buttonRecentsClick(sender: AnyObject) {
@@ -145,6 +172,12 @@ class InitialTableViewController: UITableViewController {
     tableView.reloadData()
   }
   
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+    let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+    DataManager.sharedInstance.userLocation = myLocation
+    
+  }
 
 
 }

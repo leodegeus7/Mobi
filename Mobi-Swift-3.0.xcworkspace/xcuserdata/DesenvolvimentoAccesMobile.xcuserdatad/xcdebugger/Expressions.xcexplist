@@ -3,7 +3,34 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
+         contextName = "MenuTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.filterContentForSearchText(String) -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Radio.resetDistanceFromUser() -&gt; ():Radio.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.userLocation">
+            </PersistentString>
+            <PersistentString
+               value = "self.address.coordinates">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "static Util.(convertCoordinateToAddress(Double, long : Double, completion : (result : [String : String]) -&gt; ()) -&gt; ()).(closure #1):Util.swift">
@@ -17,21 +44,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+         contextName = "static Address.(getAddress(Address, completion : (resultAddress : Bool) -&gt; ()) -&gt; ()).(closure #1):Address.swift">
       </ContextState>
       <ContextState
-         contextName = "MenuTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:MenuTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.filterContentForSearchText(String) -&gt; ():GenreViewController.swift">
+         contextName = "AppDelegate.application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool:AppDelegate.swift">
          <PersistentStrings>
             <PersistentString
-               value = "searchResults">
+               value = "realm.objects(RadioRealm)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/Util.swift"
-            timestampString = "492727173.624175"
+            timestampString = "493062869.456891"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "convertCoordinateToAddress(_:long:completion:)"
             landmarkType = "5">
          </BreakpointContent>

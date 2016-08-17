@@ -46,6 +46,8 @@
 		B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E6973F1D591EE400EC276F /* TopMenuTableViewCell.swift */; };
 		B7E697421D591F8E00EC276F /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E697411D591F8E00EC276F /* MyUser.swift */; };
 		B7E697441D59208800EC276F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E697431D59208800EC276F /* DataManager.swift */; };
+		B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F325631D63993900B3BC42 /* RadioRealm.swift */; };
+		B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */; };
 		B7F530EB1D6230D700831561 /* InitialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F530EA1D6230D700831561 /* InitialTableViewCell.swift */; };
 		B7F530ED1D623F9000831561 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530EC1D623F9000831561 /* heart.png */; };
 		B7F530F31D62486600831561 /* test-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F530EF1D62486600831561 /* test-1.png */; };
@@ -98,6 +100,8 @@
 		B7E6973F1D591EE400EC276F /* TopMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuTableViewCell.swift; sourceTree = "<group>"; };
 		B7E697411D591F8E00EC276F /* MyUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
 		B7E697431D59208800EC276F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		B7F325631D63993900B3BC42 /* RadioRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioRealm.swift; sourceTree = "<group>"; };
+		B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRealm.swift; sourceTree = "<group>"; };
 		B7F530EA1D6230D700831561 /* InitialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialTableViewCell.swift; sourceTree = "<group>"; };
 		B7F530EC1D623F9000831561 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		B7F530EF1D62486600831561 /* test-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-1.png"; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
 				B7F530F91D6261D400831561 /* Simulation.gpx */,
+				B7F325631D63993900B3BC42 /* RadioRealm.swift */,
+				B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -442,11 +448,13 @@
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
+				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B7E697381D591BF900EC276F /* CustomViewController.swift in Sources */,
+				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */,
 				B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */,
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,

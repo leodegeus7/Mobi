@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import MapKit
 
 class Util: NSObject {
@@ -22,6 +23,47 @@ class Util: NSObject {
     return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     
   }
+  
+  // Simple alert, OK only
+  static func displayAlert(view:UIViewController,title: String, message: String, action: String) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let defaultAction: UIAlertAction = UIAlertAction(
+      title: action,
+      style: UIAlertActionStyle.Default,
+      handler: nil
+    )
+    alert.addAction(defaultAction)
+    view.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  // OK/Cancel alert type
+  static func displayAlert(view:UIViewController, title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let yesAction: UIAlertAction = UIAlertAction(
+      title: okTitle,
+      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        okAction()
+    }
+    let noAction: UIAlertAction = UIAlertAction(
+      title: cancelTitle,
+      style: UIAlertActionStyle.Default,
+      handler: { (action: UIAlertAction!) -> Void in
+        cancelAction()
+      }
+    )
+    alert.addAction(yesAction)
+    alert.addAction(noAction)
+    view.presentViewController(alert, animated: true, completion: nil)
+  }
+
   
   static func convertCoordinateToAddress(lat:CLLocationDegrees,long:CLLocationDegrees, completion: (result: [String:String]) -> Void){
     let geoCoder = CLGeocoder()
@@ -97,5 +139,7 @@ class Util: NSObject {
     
     return "poucos segundos"
   }
+  
 }
+
 

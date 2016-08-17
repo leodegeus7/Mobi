@@ -1,15 +1,17 @@
 //
-//  Address.swift
+//  AddressRealm.swift
 //  Mobi-Swift-3.0
 //
-//  Created by Desenvolvimento Access Mobile on 8/12/16.
+//  Created by Desenvolvimento Access Mobile on 8/16/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
 //
 
-import UIKit
-import MapKit
+import Foundation
+import RealmSwift
+import CoreLocation
 
-class Address: NSObject {
+
+class AddressRealm: Object  {
   dynamic var state = ""
   dynamic var city = ""
   dynamic var zip = ""
@@ -22,6 +24,7 @@ class Address: NSObject {
   dynamic var completeAddress = false
   var currentClassState = classState.Initial
   dynamic var coordinates:CLLocation!
+// Specify properties to ignore (Realm won't persist these)
   
   enum classState {
     case CompleteAddress
@@ -32,8 +35,12 @@ class Address: NSObject {
     case LocalJustWithLocalName
   }
   
-  required init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String) {
-    super.init()
+  override static func ignoredProperties() -> [String] {
+    return ["currentClassState","coordinates"]
+  }
+  
+  convenience init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String) {
+    self.init()
     if (lat != "" && long != "") {
       coordinates = CLLocation(latitude: Double(lat)!, longitude: Double(long)!)
     }
@@ -52,20 +59,21 @@ class Address: NSObject {
     }
   }
   
-//  convenience init(latitude:String,longitude:String,convert:Bool,completionSuper: (result: Address) -> Void) {
-//    self.init(lat: latitude,long:longitude,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"")
-//    if (convert) {
-//      Address.getAddress(self, completion: { (resultAddress) in
-//        if resultAddress == true {
-//          completionSuper(result: self)
-//        } else {
-//          //completionSuper(result: completionSuper)
-//        }
-//      })
-//    } else {
-//      completionSuper(result: self)
-//    }
-//  }
+  convenience init(latitude:String,longitude:String,convert:Bool,completionSuper: (result: AddressRealm) -> Void) {
+    self.init(lat: latitude,long:longitude,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"")
+    if (convert) {
+      Address.getAddress(self, completion: { (resultAddress) in
+        if resultAddress == true {
+          completionSuper(result: self)
+        } else {
+          //completionSuper(result: completionSuper)
+        }
+      })
+    } else {
+      completionSuper(result: self)
+    }
+  }
+  
   
   func verifyInformation() -> Bool {
     if (lat != "" && long != "" && city != "" && state != "" && country != "") {
@@ -88,7 +96,7 @@ class Address: NSObject {
     return false
   }
   
-  static func getAddress(address:AddressRealm,completion: (resultAddress: Bool) -> Void) {
+  static func getAddress(address:Address,completion: (resultAddress: Bool) -> Void) {
     if let coord = address.coordinates {
       Util.convertCoordinateToAddress(coord.coordinate.latitude, long: coord.coordinate.longitude, completion: { (result) in
         if result["City"] != nil {
@@ -112,7 +120,7 @@ class Address: NSObject {
         if result["LocalName"] != nil {
           address.localName = result["LocalName"]!
         }
-
+        
         if address.verifyInformation() {
           address.completeAddress = true
         } else {
@@ -124,9 +132,5 @@ class Address: NSObject {
       completion(resultAddress: false)
     }
   }
-  
-
-    
-    
 
 }

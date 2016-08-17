@@ -8,14 +8,16 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
 
 class DataManager: NSObject {
+  
+  var userToken:String!
   
   var userLocation:CLLocation!
   
   var news = [New]()
   var audioConfig:AudioConfig!
-
   
   
   //Groups of radios
@@ -24,6 +26,11 @@ class DataManager: NSObject {
   var favoriteRadios = [Radio]()
   var recentsRadios = [Radio]()
   var localRadios = [Radio]()
+  
+  enum actualCondition {
+    case Ok
+    case Without
+  }
   
 
   
@@ -52,5 +59,37 @@ class DataManager: NSObject {
       radio.updateOverdueInterval()
     }
   }
+  
+  func requestJson(link:String,completion: (result: NSDictionary) -> Void) {
+    if let userTokenString = userToken {
+      let headers = ["userToken": userTokenString]
+      Alamofire.request(.GET, "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/\(link)", headers: headers).responseJSON { (response) in
+        if let JSON = response.result.value {
+          if let dic2 = JSON as? NSDictionary {
+            if let data = dic2["data"] as? NSArray {
+              if let data2 = data[0] as? NSDictionary {
+                completion(result: data2)
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    
+  }
+  
+//  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
+//    if radios.count < index {
+//      if radios[index].address.currentClassState != .CompleteAddress {
+//        Address.getAddress(radios[index].address, completion: { (resultAddress) in
+//          self.updateAddressFromRadios(index+1, radios: radios, completion: completion)
+//      })
+//      }
+//      return false
+//    } else {
+//      return true
+//    }
+//  }
   
 }

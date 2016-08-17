@@ -1,52 +1,40 @@
 //
-//  Radio.swift
+//  RadioRealm.swift
 //  Mobi-Swift-3.0
 //
-//  Created by Desenvolvimento Access Mobile on 8/12/16.
+//  Created by Desenvolvimento Access Mobile on 8/16/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
 //
 
-import UIKit
-import CoreLocation
+import Foundation
 import RealmSwift
+import CoreLocation
 
-class Radio: NSObject, CLLocationManagerDelegate {
+class RadioRealm: Object {
   dynamic var id = -1
   dynamic var name = ""
-  dynamic var address:Address!
   dynamic var likenumber = -1
   dynamic var distanceFromUser = -1
+  dynamic var thumbnail:String!
   dynamic var formattedLocal = ""
-  dynamic var thumbnail:UIImage!
-  dynamic var streamingLink:NSURL!
+  dynamic var streamingLink = ""
   dynamic var typeOfStreaming = ""
   dynamic var lastAccessDate:NSDate!
   dynamic var lastAccessString = ""
+  dynamic var address:AddressRealm!
   
-  init(id:String,name:String,lat:String,long:String, completionSuper: (result: Bool) -> Void) {
-    super.init()
-    self.name = name
-    self.id = Int(id)!
-
-    
-//    self.address = Address(latitude: lat, longitude: long, convert: true, completionSuper: { (result) in
-//      completionSuper(result: true)
-//      self.formattedLocal = self.setFormattedLocalString(self.address)
-//    })
-    
-//    if (DataManager.sharedInstance.userLocation != nil && self.address.coordinates != nil) {
-//      let loc1 = DataManager.sharedInstance.userLocation
-//      let loc2 = self.address.coordinates
-//      distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(loc1, destination: loc2)
-//    }
-//    if let last = lastAccessDate {
-//       self.lastAccessString = Util.getOverdueInterval(last)
-//    }
-
-  }
+  
+//  convenience init(id:String,name:String,lat:String,long:String) {
+//    self.init()
+//    self.name = name
+//    self.id = Int(id)!
+//    let address = AddressRealm(lat: lat, long: long, country: <#T##String#>, city: <#T##String#>, state: <#T##String#>, street: <#T##String#>, streetNumber: <#T##String#>, zip: <#T##String#>)
+//    
+//  }
+  
   
   func setThumbnailImage(image:String) {
-    self.thumbnail = UIImage(named: image)
+    self.thumbnail = image
   }
   
   func setFormattedLocalString(address:Address) -> String {
@@ -71,7 +59,10 @@ class Radio: NSObject, CLLocationManagerDelegate {
     if let last = lastAccessDate {
       self.lastAccessString = Util.getOverdueInterval(last)}
   }
-  
-  
-}
 
+// Specify properties to ignore (Realm won't persist these)
+    
+//  override static func ignoredProperties() -> [String] {
+//    return []
+//  }
+}

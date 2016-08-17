@@ -35,9 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
 //    let radio1 = RadioRealm(id: "1", name: "Radio Difusora", lat: "-25.4289541", long: "-49.2671369")
     
     
-    DataManager.sharedInstance.requestJson("stationunit") { (result) in
-      print(result)
-    }
+      let manager = RequestManager()
+      manager.requestJson("stationunit") { (result) -> Void in
+        print(result)
+      }
+    
+    
 
 
     

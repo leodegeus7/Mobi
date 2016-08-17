@@ -13,7 +13,7 @@ import Alamofire
 class DataManager: NSObject {
   
   var userToken:String!
-  
+
   var userLocation:CLLocation!
   
   var news = [New]()
@@ -31,8 +31,6 @@ class DataManager: NSObject {
     case Ok
     case Without
   }
-  
-
   
   
   class var sharedInstance: DataManager {
@@ -60,24 +58,9 @@ class DataManager: NSObject {
     }
   }
   
-  func requestJson(link:String,completion: (result: NSDictionary) -> Void) {
-    if let userTokenString = userToken {
-      let headers = ["userToken": userTokenString]
-      Alamofire.request(.GET, "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/\(link)", headers: headers).responseJSON { (response) in
-        if let JSON = response.result.value {
-          if let dic2 = JSON as? NSDictionary {
-            if let data = dic2["data"] as? NSArray {
-              if let data2 = data[0] as? NSDictionary {
-                completion(result: data2)
-              }
-            }
-          }
-        }
-      }
-    }
-    
-    
-  }
+
+  
+
   
 //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
 //    if radios.count < index {

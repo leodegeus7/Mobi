@@ -17,7 +17,7 @@ class RadioRealm: Object {
   dynamic var likenumber = -1
   dynamic var distanceFromUser = -1
   dynamic var thumbnail:String!
-  dynamic var formattedLocal = ""
+
   dynamic var streamingLink = ""
   dynamic var typeOfStreaming = ""
   dynamic var lastAccessDate:NSDate!
@@ -32,15 +32,12 @@ class RadioRealm: Object {
     self.thumbnail = thumbnail
     self.lastAccessDate = lastAccessDate
     self.likenumber = Int(likenumber)!
-    let addressVar = AddressRealm(lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
+    let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
-    
     
     if(repository) {
       try! DataManager.sharedInstance.realm.write {
-        if let add = (self.address) {
-          DataManager.sharedInstance.realm.add(self)
-        }
+          DataManager.sharedInstance.realm.add(self, update: true)
       }
     }
     
@@ -51,6 +48,9 @@ class RadioRealm: Object {
     
   }
   
+  override class func primaryKey() -> String? {
+    return "id"
+  }
   
   func setThumbnailImage(image:String) {
     try! DataManager.sharedInstance.realm.write {
@@ -58,9 +58,7 @@ class RadioRealm: Object {
     }
   }
   
-  func setFormattedLocalString(address:Address) -> String {
-    return address.city + " - " + address.state
-  }
+
   
   static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
     let distanceMeters = source.distanceFromLocation(destination)
@@ -70,7 +68,7 @@ class RadioRealm: Object {
   func resetDistanceFromUser() -> Bool{
     if let userLocation = DataManager.sharedInstance.userLocation {
       try! DataManager.sharedInstance.realm.write {
-        self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: self.address.coordinates)
+        self.distanceFromUser = RadioRealm.distanceBetweenTwoLocationsMeters(userLocation, destination: CLLocation(latitude: Double(address.lat)!, longitude: Double(address.long)!))
       }
       return true
     } else {
@@ -80,8 +78,14 @@ class RadioRealm: Object {
   
   func updateOverdueInterval() {
     if let last = lastAccessDate {
-      self.lastAccessString = Util.getOverdueInterval(last)}
+      try! DataManager.sharedInstance.realm.write {
+        self.lastAccessString = Util.getOverdueInterval(last)
+      }
+
+    }
   }
+  
+  
 
 // Specify properties to ignore (Realm won't persist these)
     

@@ -30,7 +30,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return DataManager.sharedInstance.news.count
+        return DataManager.sharedInstance.allNews.count
     }
 
 
@@ -39,15 +39,15 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
 //      
       if (indexPath.row == 0) {
         let cell = tableView.dequeueReusableCellWithIdentifier("secondCell", forIndexPath: indexPath) as! SecondNewTableViewCell
-        cell.labelDate.text = DataManager.sharedInstance.news[indexPath.row].date
-        cell.labelTitle.text = DataManager.sharedInstance.news[indexPath.row].title
-        cell.textDescription.text = DataManager.sharedInstance.news[indexPath.row].newDescription
+        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
         return cell
       } else if (indexPath.row == 1) {
         let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-        cell.labelDate.text = DataManager.sharedInstance.news[indexPath.row].date
-        cell.labelTitle.text = DataManager.sharedInstance.news[indexPath.row].title
-        cell.textDescription.text = DataManager.sharedInstance.news[indexPath.row].newDescription
+        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
         cell.imageDescription.backgroundColor = UIColor.redColor()
         return cell
       }

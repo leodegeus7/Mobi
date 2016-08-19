@@ -10,10 +10,10 @@ import UIKit
 import CoreLocation
 import RealmSwift
 
-class Radio: NSObject, CLLocationManagerDelegate {
+class Radio2: NSObject, CLLocationManagerDelegate {
   dynamic var id = -1
   dynamic var name = ""
-  dynamic var address:Address!
+  dynamic var address:Address2!
   dynamic var likenumber = -1
   dynamic var distanceFromUser = -1
   dynamic var formattedLocal = ""
@@ -51,7 +51,7 @@ class Radio: NSObject, CLLocationManagerDelegate {
     self.thumbnail = UIImage(named: image)
   }
   
-  func setFormattedLocalString(address:Address) -> String {
+  func setFormattedLocalString(address:Address2) -> String {
     return address.city + " - " + address.state
   }
   
@@ -63,7 +63,7 @@ class Radio: NSObject, CLLocationManagerDelegate {
   func resetDistanceFromUser() -> Bool {
     if let userLocation = DataManager.sharedInstance.userLocation {
       if let addressCordinate = self.address.coordinates {
-        self.distanceFromUser = Radio.distanceBetweenTwoLocationsMeters(userLocation, destination: addressCordinate)
+        self.distanceFromUser = Radio2.distanceBetweenTwoLocationsMeters(userLocation, destination: addressCordinate)
         return true
       }
     }

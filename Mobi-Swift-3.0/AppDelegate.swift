@@ -26,19 +26,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     //defineTestData()
     DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     
+    print(Util.findDocsDirectory())
 
     
     
 
     
-//    
-//    let manager = RequestManager()
-//    manager.requestJson("station") { (result) -> Void in
-//        let data = Data.response(result)
-//      
-//    }
-//    
-//    
+    
+    let manager = RequestManager()
+    manager.requestJson("stationunit/search/history") { (result) -> Void in
+        let data = Data.response(result)
+        print(result)
+      
+    }
+    
+    
 
 
     
@@ -51,32 +53,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     RealmWrapper.eraseRealmFile("default")
     RealmWrapper.realmStart("default")
-    let date = NSDate()
-    let radio1 = RadioRealm(id: "1", name: "Radio1", country: "Brasil", city: "Carambei", state: "Parana", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date, repository: true)
-    radio1.setThumbnailImage("test-4.png")
-    let radio2 = RadioRealm(id: "1", name: "Radio2", country: "Brasil", city: "Carambei", state: "Parana", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date, repository: true)
-    radio2.setThumbnailImage("test-4.png")
-    let radio3 = RadioRealm(id: "1", name: "Radio3", country: "Brasil", city: "Carambei", state: "Parana", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date, repository: true)
-    radio3.setThumbnailImage("test-4.png")
-    let radio4 = RadioRealm(id: "1", name: "Radio4", country: "Brasil", city: "Carambei", state: "Parana", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date, repository: true)
-    radio3.setThumbnailImage("test-4.png")
-    let radio5 = RadioRealm(id: "1", name: "Radio5", country: "Brasil", city: "Carambei", state: "Parana", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date, repository: true)
-    radio1.setThumbnailImage("test-4.png")
+    
+    let date1 = NSTimeInterval(-1000)
+    let date11 = NSDate(timeInterval: date1, sinceDate: NSDate())
+    let date2 = NSTimeInterval(-10000)
+    let date21 = NSDate(timeInterval: date2, sinceDate: NSDate())
+    let date3 = NSTimeInterval(-10)
+    let date31 = NSDate(timeInterval: date3, sinceDate: NSDate())
+    let date4 = NSTimeInterval(-3000)
+    let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+
+    
+    let radio1 = RadioRealm(id: "1", name: "Radio1", country: "Brasil", city: "Carambei", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4281541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date11, repository: true)
+    //radio1.setThumbnailImage("test-4.png")
+    let radio2 = RadioRealm(id: "2", name: "Radio2", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date21, repository: true)
+    //radio2.setThumbnailImage("test-4.png")
+    let radio3 = RadioRealm(id: "3", name: "Radio3", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date21, repository: true)
+    //radio3.setThumbnailImage("test-4.png")
+    let radio4 = RadioRealm(id: "4", name: "Radio4", country: "Brasil", city: "Palmas", state: "Rio Grande do Sul", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.5289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date41, repository: true)
+    //radio3.setThumbnailImage("test-4.png")
+    let radio5 = RadioRealm(id: "5", name: "Radio5", country: "Brasil", city: "Seila", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date21, repository: true)
+    //radio1.setThumbnailImage("test-4.png")
+    let radio6 = RadioRealm(id: "6", name: "Radio6", country: "Brasil", city: "Seila", state: "Roraima", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date21, repository: true)
+    
+    let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textos", img: "", date: "Há 2 dias")
+    let secondNew = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Testando a segunda notícia", date: "Há 3 dias")
+    let thirdNew = NewRealm(id: "3",img: "", date: "Há 1 dias")
+    
+    DataManager.sharedInstance.allNews.append(firstNew)
+    DataManager.sharedInstance.allNews.append(secondNew)
+    DataManager.sharedInstance.allNews.append(thirdNew)
+    
+    
     DataManager.sharedInstance.allRadios.append(radio1)
-    DataManager.sharedInstance.allRadios.append(radio2)
+
     DataManager.sharedInstance.allRadios.append(radio3)
     DataManager.sharedInstance.allRadios.append(radio4)
-    DataManager.sharedInstance.allRadios.append(radio5)
+
+    DataManager.sharedInstance.allRadios.append(radio6)
     
     DataManager.sharedInstance.localRadios.append(radio3)
     DataManager.sharedInstance.localRadios.append(radio5)
     
     DataManager.sharedInstance.favoriteRadios.append(radio2)
-//    
-//    DataManager.sharedInstance.recentsRadios.append(radio1)
+
     
     DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
-    
+    DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
     return true
   }
 

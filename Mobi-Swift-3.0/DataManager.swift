@@ -11,14 +11,27 @@ import CoreLocation
 import Alamofire
 import RealmSwift
 
+struct City {
+  var cityName : String!
+  var radios : [RadioRealm]!
+}
+struct State {
+  var stateName : String!
+  var radios : [RadioRealm]!
+}
+
+enum NSComparisonResult : Int {
+  case OrderedAscending
+  case OrderedSame
+  case OrderedDescending
+}
+
 class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
   var userToken:String!
 
   var userLocation:CLLocation!
-  
-  var news = [New]()
   var audioConfig:AudioConfig!
   var realm:Realm!
   
@@ -28,6 +41,10 @@ class DataManager: NSObject {
   var favoriteRadios = [RadioRealm]()
   var recentsRadios = [RadioRealm]()
   var localRadios = [RadioRealm]()
+  
+  
+  var allNews = [NewRealm]()
+  var addressId = 0
   
   enum actualCondition {
     case Ok
@@ -54,10 +71,11 @@ class DataManager: NSObject {
     localRadios.sortInPlace({ $0.distanceFromUser < $1.distanceFromUser })
   }
   
-  func updateOverdueInterval() {
+  func updateAllOverdueInterval() {
     for radio in recentsRadios {
       radio.updateOverdueInterval()
     }
+    recentsRadios.sortInPlace({ $0.lastAccessDate.compare($1.lastAccessDate) == .OrderedDescending })
   }
   
 
@@ -78,3 +96,4 @@ class DataManager: NSObject {
 //  }
   
 }
+

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
+  - PKRevealController (2.0.6)
   - Realm (1.0.2):
     - Realm/Headers (= 1.0.2)
   - Realm/Headers (1.0.2)
@@ -9,15 +10,17 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
+  - PKRevealController
   - RealmSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 302b71efbb5218e16052aa243acb374e99f6d14b
+PODFILE CHECKSUM: 65c31ef934fa49fd2fbd1b9d0e1d02c23153cd4f
 
 COCOAPODS: 1.0.1

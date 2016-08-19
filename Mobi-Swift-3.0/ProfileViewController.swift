@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Alamofire
 
-class ProfileViewController: UIViewController {
+
+class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
   @IBOutlet weak var imageUser: UIImageView!
   @IBOutlet weak var labelName: UILabel!
@@ -23,11 +25,12 @@ class ProfileViewController: UIViewController {
   @IBOutlet weak var labelFollowers: UILabel!
   @IBOutlet weak var tableViewFavorites: FavoritesTableView!
   
+    var selectedRadioArray = DataManager.sharedInstance.favoriteRadios
   
     override func viewDidLoad() {
         super.viewDidLoad()
       navigationController?.title = "Perfil"
-      
+      tableViewFavorites.rowHeight = 120
         // Do any additional setup after loading the view.
     }
 
@@ -35,7 +38,24 @@ class ProfileViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return DataManager.sharedInstance.favoriteRadios.count
+  }
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("favoriteCell", forIndexPath: indexPath) as! FavoriteTableViewCell
+    cell.labelName.text = selectedRadioArray[indexPath.row].name
+    cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+    cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+    cell.imageSmallOne.image = UIImage(named: "heart.png")
+    cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+    return cell
+  }
 
     /*
     // MARK: - Navigation

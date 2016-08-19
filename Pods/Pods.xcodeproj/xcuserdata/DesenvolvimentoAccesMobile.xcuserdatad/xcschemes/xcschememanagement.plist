@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PKRevealController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Mobi-Swift-3.0.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,17 +37,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1DAAC1A61A84B3B738634A6932BEB8FE</key>
+		<key>5ED4E20200D543CDC05C1EA166832858</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B2FC9FB6C8688C9C4CD560E97DD71B2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>71579F5F59ED866C4A9657AE129CA8DE</key>
+		<key>6BCD53903424B7FDE47E94349B614201</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A8D450E3BA6ABDEE6E2CA564C47AF234</key>
+		<key>BB5F588C3EF24EDB4118D016FB38540B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C902B5744085B253399F7184F4900D88</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBF452D9313EF913EA92AD5D72258A8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

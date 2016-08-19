@@ -56,7 +56,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
   
     override func viewDidAppear(animated: Bool) {
-      DataManager.sharedInstance.updateOverdueInterval()
+      DataManager.sharedInstance.updateAllOverdueInterval()
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -64,15 +64,16 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         switch selectedMode {
           case .Top:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "heart.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
             cell.labelDescriptionTwo.text = ""
             break
         case .Local:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "marker.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
@@ -81,12 +82,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
             break
         case .Recent:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].formattedLocal
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "marker.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
             cell.imageSmallTwo.image = UIImage(named: "heart.png")
-            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.labelDescriptionTwo.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
             break
         default:
             break
@@ -148,7 +149,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
 
   @IBAction func buttonRecentsClick(sender: AnyObject) {
     selectedMode = .Recent
-    DataManager.sharedInstance.updateOverdueInterval()
+    DataManager.sharedInstance.updateAllOverdueInterval()
     changeTableViewStatus()
   }
 

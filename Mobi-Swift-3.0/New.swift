@@ -8,7 +8,7 @@
 
 import UIKit
 
-class New {
+class New2 {
   dynamic var title = ""
   dynamic var img:String
   dynamic var type:String

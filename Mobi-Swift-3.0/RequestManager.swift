@@ -41,7 +41,6 @@ class RequestManager: NSObject {
   ///////////////////////////////////////////////////////////
   
   func requestJson(link:String,completion: (result: Dictionary<String,AnyObject>) -> Void){
-        var resultText = requestResult.inProgress
         resultCode = 0
         existData = false
         let emptyDic:NSDictionary = ["":""]

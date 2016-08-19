@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Address: NSObject {
+class Address2: NSObject {
   dynamic var state = ""
   dynamic var city = ""
   dynamic var zip = ""

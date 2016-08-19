@@ -6,4 +6,5 @@ target 'Mobi-Swift-3.0' do
 pod 'Alamofire', '~> 3.4'
     pod 'SwiftyJSON'
 pod 'RealmSwift' 
+pod 'PKRevealController'
 end

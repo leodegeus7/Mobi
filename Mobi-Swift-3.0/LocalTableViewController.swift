@@ -11,11 +11,18 @@ import UIKit
 class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     var isSearchOn = false
     var searchResults = [String]()
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    var states = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espirito Santo", "Goias", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piaui", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"]
+  
+  var data = Dictionary<String,[RadioRealm]>()
+  
+  var objectArray = [State]()
+  var radiosInSelectedState = State()
+  
   @IBOutlet weak var searchBar: UISearchBar!
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        separateInformation()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,7 +47,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
         if isSearchOn == true && !searchResults.isEmpty {
           return searchResults.count
         } else {
-          return items.count
+          return objectArray.count
         }
     }
 
@@ -48,9 +55,9 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
         if isSearchOn == true && !searchResults.isEmpty {
-          cell.labelLocal.text = searchResults[indexPath.item]
+          cell.labelLocal.text = searchResults[indexPath.row]
         } else {
-          cell.labelLocal.text = items[indexPath.row]
+          cell.labelLocal.text = objectArray[indexPath.row].stateName
         }
       
 
@@ -78,7 +85,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   
   func filterContentForSearchText(text: String) {
     searchResults.removeAll(keepCapacity: false)
-    for item in items {
+    for item in states {
       let stringToLookFor = item as NSString
       
       if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
@@ -94,7 +101,40 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true //possibilita funcionar o tap do background com o tap na célula
   }
-
+  
+  
+  func separateInformation() {
+    
+    for state in states {
+      var radiosInState = [RadioRealm]()
+      for radio in DataManager.sharedInstance.allRadios {
+        if radio.address.state == state {
+          radiosInState.append(radio)
+        }
+      }
+      if (radiosInState.count != 0) {
+        data[state] = radiosInState
+      }
+    }
+    
+    for (key, value) in data {
+      objectArray.append(State(stateName: key, radios: value))
+    }
+    objectArray.sortInPlace({$0.stateName < $1.stateName})
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    self.radiosInSelectedState = objectArray[indexPath.row]
+    performSegueWithIdentifier("detailViewCities", sender: self)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if (segue.identifier == "detailViewCities") {
+      let localCitiesVC = (segue.destinationViewController as! LocalCitiesViewController)
+      let state = State(stateName: radiosInSelectedState.stateName, radios: radiosInSelectedState.radios)
+      localCitiesVC.radiosInSelectedState = state
+    }
+  }
 
     /*
     // Override to support conditional editing of the table view.

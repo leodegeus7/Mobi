@@ -22,8 +22,12 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      
+      
         separateInformation()
-
+        navigationController?.navigationBar.hidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

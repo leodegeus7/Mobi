@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SideMenu
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
 
@@ -33,6 +34,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         super.viewDidLoad()
         changeTableViewStatus()
         tableView.rowHeight = 120
+        let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
+        self.navigationItem.leftBarButtonItem = menuButton
+      
+        setupSideMenu()
 
       
     }
@@ -48,6 +53,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
 
         return 1
     }
+  
+  func showMenu () {
+    self.performSegueWithIdentifier("initialView", sender: self)
+  }
+  
   
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -178,6 +188,20 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
     DataManager.sharedInstance.userLocation = myLocation
     
+  }
+  
+  private func setupSideMenu() {
+    // Define the menus
+//    SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("LeftMenuNavigationController") as? UISideMenuNavigationController
+//
+//    
+//    // Enable gestures. The left and/or right menus must be set up above for these to work.
+//    // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+//    SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+//    SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+//    
+//    // Set up a cool background image for demo purposes
+//    SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
   }
 
 

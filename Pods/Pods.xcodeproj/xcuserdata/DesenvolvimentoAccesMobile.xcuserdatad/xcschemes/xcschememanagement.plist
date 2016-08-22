@@ -4,12 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
+		<key>ARNTransitionAnimator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PKRevealController.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,6 +29,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SideMenu-SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5ED4E20200D543CDC05C1EA166832858</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6BCD53903424B7FDE47E94349B614201</key>
+		<key>67A590106BD2F1726886EA0DFD17758E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,17 +57,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB5F588C3EF24EDB4118D016FB38540B</key>
+		<key>7C5780557991901935655B5E7F876F62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C902B5744085B253399F7184F4900D88</key>
+		<key>7ED6B2928BD2DF098D8E4840782E200D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FBF452D9313EF913EA92AD5D72258A8E</key>
+		<key>887A1F399C1C0E18F1B9EEA0FD58F115</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E569800D80B1517A66A84E2779B035D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C16C2EA86267CD0A2F8E03A0EFFA9751</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8A3470505D9114E0755FFE507676D62</key>
 		<dict>
 			<key>primary</key>
 			<true/>

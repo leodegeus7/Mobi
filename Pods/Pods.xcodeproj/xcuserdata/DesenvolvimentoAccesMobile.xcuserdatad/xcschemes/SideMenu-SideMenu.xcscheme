@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9E569800D80B1517A66A84E2779B035D'
-               BlueprintName = 'RealmSwift'
+               BlueprintIdentifier = 'C16C2EA86267CD0A2F8E03A0EFFA9751'
+               BlueprintName = 'SideMenu-SideMenu'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RealmSwift.framework'>
+               BuildableName = 'SideMenu.bundle'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

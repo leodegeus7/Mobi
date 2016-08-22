@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9E569800D80B1517A66A84E2779B035D'
-               BlueprintName = 'RealmSwift'
+               BlueprintIdentifier = '887A1F399C1C0E18F1B9EEA0FD58F115'
+               BlueprintName = 'ARNTransitionAnimator'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RealmSwift.framework'>
+               BuildableName = 'ARNTransitionAnimator.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

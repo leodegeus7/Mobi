@@ -14,13 +14,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AddressRealm.setFormattedLocalString() -&gt; ():AddressRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LocalCitiesViewController.separateInformation() -&gt; ():LocalCitiesViewController.swift">
+         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "citiesArray">
@@ -28,7 +22,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
+         contextName = "AddressRealm.setFormattedLocalString() -&gt; ():AddressRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocalCitiesViewController.separateInformation() -&gt; ():LocalCitiesViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "citiesArray">
@@ -47,7 +44,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static Address.(getAddress(Address, completion : (resultAddress : Bool) -&gt; ()) -&gt; ()).(closure #1):Address.swift">
+         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
       </ContextState>
       <ContextState
          contextName = "LocalTableViewController.separateInformation() -&gt; ():LocalTableViewController.swift">
@@ -64,10 +61,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
+         contextName = "static Address.(getAddress(Address, completion : (resultAddress : Bool) -&gt; ()) -&gt; ()).(closure #1):Address.swift">
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+         contextName = "LocalCitiesViewController.viewDidLoad() -&gt; ():LocalCitiesViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "radiosInSelectedState.stateName">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "AppDelegate.application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool:AppDelegate.swift">
@@ -78,7 +80,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocalCitiesViewController.viewDidLoad() -&gt; ():LocalCitiesViewController.swift">
+         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "modalVC">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">

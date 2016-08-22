@@ -28,9 +28,9 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
   var selectedCity = City()
   
   override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = radiosInSelectedState.stateName
-        separateInformation()
+    super.viewDidLoad()
+    separateInformation()
+    self.title = radiosInSelectedState.stateName
     
     if radiosInSelectedState.radios.count == 2 {
       height.constant = 240

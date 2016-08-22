@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		207F048F0BA50AB9074CEEA3 /* Pods_Mobi_Swift_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */; };
+		B7084B6E1D6B6F740013DAFC /* ViewOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */; };
+		B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */; };
+		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
 		B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73681361D590BA300EC94A9 /* AppDelegate.swift */; };
 		B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B736813A1D590BA300EC94A9 /* Main.storyboard */; };
 		B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B736813D1D590BA300EC94A9 /* Assets.xcassets */; };
@@ -67,6 +70,9 @@
 /* Begin PBXFileReference section */
 		38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.release.xcconfig"; sourceTree = "<group>"; };
 		47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.debug.xcconfig"; sourceTree = "<group>"; };
+		B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOneViewController.swift; sourceTree = "<group>"; };
+		B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		B73681331D590BA300EC94A9 /* Mobi-Swift-3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobi-Swift-3.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B73681361D590BA300EC94A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B736813B1D590BA300EC94A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -142,6 +148,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B7084B6C1D6B6F0D0013DAFC /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */,
+				B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */,
+				B7084B711D6B6FDB0013DAFC /* LineView.swift */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 		B736812A1D590BA200EC94A9 = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +220,7 @@
 		B7D90E0A1D5A569C00D15089 /* Controler */ = {
 			isa = PBXGroup;
 			children = (
+				B7084B6C1D6B6F0D0013DAFC /* Player */,
 				B74ECF161D5BA140001AFC32 /* GenreViewController.swift */,
 				B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */,
 				B7D90E001D5A53E900D15089 /* NewsTableViewController.swift */,
@@ -467,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */,
 				B74ECF1F1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift in Sources */,
 				B7D90E031D5A53F800D15089 /* LocalTableViewController.swift in Sources */,
 				B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */,
@@ -501,12 +519,14 @@
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
 				B7D90E091D5A549600D15089 /* StremingTableViewController.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
+				B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */,
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,
 				B7880BAA1D5E5F46002B235A /* Radio.swift in Sources */,
 				B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */,
 				B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */,
 				B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */,
+				B7084B6E1D6B6F740013DAFC /* ViewOneViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

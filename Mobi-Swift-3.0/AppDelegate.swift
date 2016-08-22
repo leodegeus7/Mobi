@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     
     let manager = RequestManager()
-    manager.requestJson("stationunit/search/history") { (result) -> Void in
+    manager.requestJson("stationunit") { (result) -> Void in
         let data = Data.response(result)
         print(result)
       

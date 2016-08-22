@@ -23,7 +23,7 @@ class LoadViewController: UIViewController {
     
 
   @IBAction func onClickSegueButton(sender: AnyObject) {
-    self.performSegueWithIdentifier("InitialViewSegue", sender: self)
+//    self.performSegueWithIdentifier("InitialViewSegue", sender: self)
   }
 
     /*

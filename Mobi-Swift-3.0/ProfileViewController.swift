@@ -27,12 +27,18 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
     var selectedRadioArray = DataManager.sharedInstance.favoriteRadios
   
+  @IBOutlet weak var backButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
       navigationController?.title = "Perfil"
       tableViewFavorites.rowHeight = 120
+      backButton.target = self.revealViewController()
+      backButton.action = #selector(SWRevealViewController.revealToggle(_:))
+      self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         // Do any additional setup after loading the view.
     }
+  
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

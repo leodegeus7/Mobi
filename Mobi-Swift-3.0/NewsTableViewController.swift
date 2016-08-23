@@ -10,8 +10,13 @@ import UIKit
 
 class NewsTableViewController: UITableViewController, UITextViewDelegate {
 
+  @IBOutlet weak var menuButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      menuButton.target = self.revealViewController()
+      menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+           self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())   
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 400
     }
@@ -27,7 +32,11 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+  
+  override func viewWillAppear(animated: Bool) {
+    self.navigationController?.setNavigationBarHidden(true, animated: true)
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+  }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return DataManager.sharedInstance.allNews.count

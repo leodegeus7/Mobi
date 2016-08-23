@@ -29,14 +29,23 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   var selectedMode = modes.Top
 
+  @IBOutlet weak var openMenu: UIBarButtonItem!
   
     override func viewDidLoad() {
         super.viewDidLoad()
         changeTableViewStatus()
         tableView.rowHeight = 120
-        let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
-        self.navigationItem.leftBarButtonItem = menuButton
+        //let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
       
+        openMenu.target = self.revealViewController()
+        openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
+
+      if revealViewController() != nil {
+        openMenu.target = self.revealViewController()
+        openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
+      }
+      
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())   
         setupSideMenu()
 
       

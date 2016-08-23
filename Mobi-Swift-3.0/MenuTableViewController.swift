@@ -81,8 +81,8 @@ class MenuTableViewController: UITableViewController {
     if (indexPath.row == 0) {
       self.performSegueWithIdentifier("profileScreen", sender: self)
     } else if (indexPath.row == 1) {
-      dismissViewControllerAnimated(true, completion: nil)
-      //self.performSegueWithIdentifier("initialScreen", sender: self)
+      //dismissViewControllerAnimated(true, completion: nil)
+      self.performSegueWithIdentifier("initialScreen", sender: self)
     } else if (indexPath.row == 2) {
       self.performSegueWithIdentifier("genreScreen", sender: self)
     } else if (indexPath.row == 3) {

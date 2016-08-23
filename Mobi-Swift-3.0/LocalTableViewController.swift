@@ -15,6 +15,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   
   var data = Dictionary<String,[RadioRealm]>()
   
+  @IBOutlet weak var menuButton: UIBarButtonItem!
   var objectArray = [State]()
   var radiosInSelectedState = State()
   
@@ -24,6 +25,10 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
         super.viewDidLoad()
       
       
+        menuButton.target = self.revealViewController()
+        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+      
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
       
         separateInformation()
         navigationController?.navigationBar.hidden = false

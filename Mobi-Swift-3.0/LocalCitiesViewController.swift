@@ -30,6 +30,7 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
   override func viewDidLoad() {
     super.viewDidLoad()
     separateInformation()
+  
     self.title = radiosInSelectedState.stateName
     
     if radiosInSelectedState.radios.count == 2 {

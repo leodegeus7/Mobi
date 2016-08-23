@@ -29,6 +29,8 @@
 		B7880BAC1D5E6B84002B235A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7880BAB1D5E6B84002B235A /* AVFoundation.framework */; };
 		B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */; };
 		B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */; };
+		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
+		B7B0261A1D6CD3F900BFB78A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B026191D6CD3F900BFB78A /* ViewController.swift */; };
 		B7B4A9F41D5A71D700297BF0 /* FavoritesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
@@ -94,6 +96,10 @@
 		B7880BAB1D5E6B84002B235A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
 		B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewViewController.swift; sourceTree = "<group>"; };
+		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
+		B7B026191D6CD3F900BFB78A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableView.swift; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
@@ -297,10 +303,14 @@
 		B7D90E0F1D5A578200D15089 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */,
+				B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */,
+				B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */,
 				B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */,
 				B7D90E101D5A579300D15089 /* Images */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */,
+				B7B026191D6CD3F900BFB78A /* ViewController.swift */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -507,6 +517,7 @@
 				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B7E697381D591BF900EC276F /* CustomViewController.swift in Sources */,
+				B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */,
 				B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
@@ -517,6 +528,7 @@
 				B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */,
 				B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */,
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
+				B7B0261A1D6CD3F900BFB78A /* ViewController.swift in Sources */,
 				B7B4A9F41D5A71D700297BF0 /* FavoritesTableView.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
 				B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */,
@@ -644,6 +656,7 @@
 			baseConfigurationReference = 47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
@@ -651,6 +664,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.Mobi-Swift-3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -659,6 +674,7 @@
 			baseConfigurationReference = 38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
@@ -666,6 +682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.Mobi-Swift-3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
 			};
 			name = Release;
 		};

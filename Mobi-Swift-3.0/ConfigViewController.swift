@@ -10,6 +10,8 @@ import UIKit
 
 class ConfigViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+  @IBOutlet weak var menuButton: UIBarButtonItem!
+  
   @IBOutlet weak var tableViewAudio: UITableView!
   @IBOutlet weak var sliderGraves: UISlider!
   @IBOutlet weak var sliderMedios: UISlider!
@@ -30,6 +32,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
       
+      menuButton.target = self.revealViewController()
+      menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+      
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         //define color buttons in bottom of view
         colorButtons.append(button1X1)
         colorButtons.append(button1x2)

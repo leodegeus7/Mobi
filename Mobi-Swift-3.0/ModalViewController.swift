@@ -22,27 +22,27 @@ class ModalViewController: UIViewController, errorMessageDelegate, sharedInstanc
     override func viewDidLoad() {
         super.viewDidLoad()
       
-//      do {
-//        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-//        print("AVAudioSession Category Playback OK")
-//        do {
-//          try AVAudioSession.sharedInstance().setActive(true)
-//          print("AVAudioSession is Active")
-//          
-//        } catch let error as NSError {
-//          print(error.localizedDescription)
-//        }
-//      } catch let error as NSError {
-//        print(error.localizedDescription)
-//      }
-//      
-//      RadioPlayer.sharedInstance.errorDelegate = self
-//      RadioPlayer.sharedInstance.instanceDelegate = self
-//      
-//      if RadioPlayer.sharedInstance.currentlyPlaying() {
-//        radioSwitch.image = UIImage(named: "Radio_Switch_Active")
-//        listenLabel.text = "Click to Pause Radio Stream:"
-//      }
+      do {
+        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        print("AVAudioSession Category Playback OK")
+        do {
+          try AVAudioSession.sharedInstance().setActive(true)
+          print("AVAudioSession is Active")
+          
+        } catch let error as NSError {
+          print(error.localizedDescription)
+        }
+      } catch let error as NSError {
+        print(error.localizedDescription)
+      }
+      
+      RadioPlayer.sharedInstance.errorDelegate = self
+      RadioPlayer.sharedInstance.instanceDelegate = self
+      
+      if RadioPlayer.sharedInstance.currentlyPlaying() {
+        radioSwitch.image = UIImage(named: "Radio_Switch_Active")
+        listenLabel.text = "Click to Pause Radio Stream:"
+      }
       
       let effect = UIBlurEffect(style: .Light)
       let blurView = UIVisualEffectView(effect: effect)

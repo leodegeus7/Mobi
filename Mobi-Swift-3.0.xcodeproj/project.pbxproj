@@ -20,6 +20,7 @@
 		B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1C1D5BBC99001AFC32 /* FirstNewTableViewCell.swift */; };
 		B74ECF1F1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */; };
 		B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */; };
+		B759C0221D6E10540005515F /* clock-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B759C0211D6E10540005515F /* clock-icon.png */; };
 		B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */; };
 		B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6291D664E21005A00B3 /* NewRealm.swift */; };
 		B7880BA41D5E461C002B235A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BA31D5E461C002B235A /* Address.swift */; };
@@ -87,6 +88,7 @@
 		B74ECF1C1D5BBC99001AFC32 /* FirstNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNewTableViewCell.swift; sourceTree = "<group>"; };
 		B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondNewTableViewCell.swift; sourceTree = "<group>"; };
 		B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdNewTableViewCell.swift; sourceTree = "<group>"; };
+		B759C0211D6E10540005515F /* clock-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-icon.png"; sourceTree = "<group>"; };
 		B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B769B6291D664E21005A00B3 /* NewRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRealm.swift; sourceTree = "<group>"; };
 		B7880BA31D5E461C002B235A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -96,9 +98,9 @@
 		B7880BAB1D5E6B84002B235A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
 		B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewViewController.swift; sourceTree = "<group>"; };
-		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
+		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
+		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "Mobi-Swift-3.0/SWRevealViewController.m"; sourceTree = "<group>"; };
+		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mobi-Swift-3.0-Bridging-Header.h"; path = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B7B026191D6CD3F900BFB78A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableView.swift; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -225,6 +227,16 @@
 			name = "Profile Cells";
 			sourceTree = "<group>";
 		};
+		B7B0261B1D6CE65300BFB78A /* SWReveal */ = {
+			isa = PBXGroup;
+			children = (
+				B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */,
+				B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */,
+				B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */,
+			);
+			name = SWReveal;
+			sourceTree = "<group>";
+		};
 		B7D90E0A1D5A569C00D15089 /* Controler */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,10 +315,6 @@
 		B7D90E0F1D5A578200D15089 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */,
-				B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */,
-				B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */,
-				B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */,
 				B7D90E101D5A579300D15089 /* Images */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */,
@@ -320,7 +328,9 @@
 			children = (
 				B7F530EE1D62484E00831561 /* TestLogo */,
 				B7D90DF81D5A41C000D15089 /* test56x52.jpg */,
+				B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */,
 				B7D584E11D5D2085003D5A1F /* okImage.png */,
+				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
 				B7F530F71D6258F100831561 /* marker.png */,
 			);
@@ -349,6 +359,7 @@
 		D49D2FC35E851E08064CD55B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7B0261B1D6CE65300BFB78A /* SWReveal */,
 				B7880BAB1D5E6B84002B235A /* AVFoundation.framework */,
 				B7880BA71D5E493A002B235A /* MapKit.framework */,
 				B7880BA51D5E491F002B235A /* CoreLocation.framework */,
@@ -401,7 +412,7 @@
 				TargetAttributes = {
 					B73681321D590BA300EC94A9 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 4V6XCMA27T;
+						DevelopmentTeam = QHJFUMS8K9;
 					};
 				};
 			};
@@ -429,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7F530F41D62486600831561 /* test-2.jpg in Resources */,
+				B759C0221D6E10540005515F /* clock-icon.png in Resources */,
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
 				B7F530F31D62486600831561 /* test-1.png in Resources */,
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,

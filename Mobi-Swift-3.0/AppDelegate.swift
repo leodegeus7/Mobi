@@ -76,13 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     //radio1.setThumbnailImage("test-4.png")
     let radio6 = RadioRealm(id: "6", name: "Radio6", country: "Brasil", city: "Seila", state: "Roraima", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", lastAccessDate: date21, repository: true)
     
-    let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textos", img: "", date: "Há 2 dias")
+    let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textos/n\noiii", img: "", date: "Há 2 dias")
     let secondNew = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Testando a segunda notícia", date: "Há 3 dias")
-    let thirdNew = NewRealm(id: "3",img: "", date: "Há 1 dias")
+//    let thirdNew = NewRealm(id: "3",img: "", date: "Há 1 dias")
     
     DataManager.sharedInstance.allNews.append(firstNew)
-    DataManager.sharedInstance.allNews.append(secondNew)
-    DataManager.sharedInstance.allNews.append(thirdNew)
+    //DataManager.sharedInstance.allNews.append(secondNew)
+//    DataManager.sharedInstance.allNews.append(thirdNew)
     
     
     DataManager.sharedInstance.allRadios.append(radio1)

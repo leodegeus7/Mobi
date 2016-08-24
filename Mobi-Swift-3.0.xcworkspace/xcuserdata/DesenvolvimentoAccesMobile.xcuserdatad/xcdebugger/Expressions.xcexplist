@@ -83,13 +83,33 @@
          contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
-      </ContextState>
-      <ContextState
          contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "modalVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.heightView.constant">
+            </PersistentString>
+            <PersistentString
+               value = "cell.labelDate.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "cell.labelTitle.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageDescription.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "cell.textDescription.frame.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

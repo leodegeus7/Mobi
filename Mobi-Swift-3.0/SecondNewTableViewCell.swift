@@ -10,10 +10,12 @@ import UIKit
 
 class SecondNewTableViewCell: UITableViewCell {
 
+  @IBOutlet weak var heightView: NSLayoutConstraint!
 
   @IBOutlet weak var labelDate: UILabel!
   @IBOutlet weak var labelTitle: UILabel!
   @IBOutlet weak var textDescription: UITextView!
+  @IBOutlet weak var heightTextDescription: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

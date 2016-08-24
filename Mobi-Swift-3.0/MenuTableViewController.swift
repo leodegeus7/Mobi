@@ -19,11 +19,12 @@ class MenuTableViewController: UITableViewController {
       return
     }
     
-    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
-    imageView.contentMode = .ScaleAspectFit
-    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
-    tableView.backgroundView = imageView
-
+//    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
+//    imageView.contentMode = .ScaleAspectFit
+//    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+//    tableView.backgroundView = imageView
+    tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+    tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.navigationItem.setHidesBackButton(true, animated: false)
   }
   
@@ -52,18 +53,19 @@ class MenuTableViewController: UITableViewController {
       userCell.nameUser.text = "Fulano"
       //let imageUserVar = UIImage()
       //cell.imageUser.image =
+      userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
       return userCell
       
     } else if(indexPath.row != 5) {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
-      
+      firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
       return firstTypeCell
     }
     
     let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
     secondTypeCell.labelText.text = menuArray[4]
-    
+    secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
     return secondTypeCell
     
     

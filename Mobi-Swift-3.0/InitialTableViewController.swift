@@ -87,8 +87,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "heart.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.widthTextOne.constant = 30
             cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
             cell.labelDescriptionTwo.text = ""
+            
             break
         case .Local:
             cell.labelName.text = selectedRadioArray[indexPath.row].name
@@ -96,6 +98,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
             cell.imageSmallOne.image = UIImage(named: "marker.png")
             cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+            cell.widthTextOne.constant = 80
+            cell.widthTextTwo.constant = 30
             cell.imageSmallTwo.image = UIImage(named: "heart.png")
             cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
             break
@@ -103,12 +107,22 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
             cell.labelName.text = selectedRadioArray[indexPath.row].name
             cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
             cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
-            cell.imageSmallOne.image = UIImage(named: "marker.png")
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+            cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
+            cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
             cell.imageSmallTwo.image = UIImage(named: "heart.png")
-            cell.labelDescriptionTwo.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
+            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.widthTextOne.constant = 110
+            cell.widthTextTwo.constant = 30
             break
-        default:
+        case .Favorite:
+            cell.labelName.text = selectedRadioArray[indexPath.row].name
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+            cell.imageSmallOne.image = UIImage(named: "heart.png")
+            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+            cell.widthTextOne.constant = 30
+            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+            cell.labelDescriptionTwo.text = ""
             break
         }
       

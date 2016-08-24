@@ -45,25 +45,32 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
 
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//      
-      if (indexPath.row == 0) {
-        let cell = tableView.dequeueReusableCellWithIdentifier("secondCell", forIndexPath: indexPath) as! SecondNewTableViewCell
-        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-        return cell
-      } else if (indexPath.row == 1) {
+
+      if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
         let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
         cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
         cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
         cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
         cell.imageDescription.backgroundColor = UIColor.redColor()
+        let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        cell.heightView.constant = cell.labelDate.frame.height + cell.labelTitle.frame.height + heightTV + cell.imageDescription.frame.height
         return cell
-      }
+      } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
+        let cell = tableView.dequeueReusableCellWithIdentifier("secondCell", forIndexPath: indexPath) as! SecondNewTableViewCell
+        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
+        let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        cell.heightView.constant = cell.labelDate.frame.height + cell.labelTitle.frame.height + heightTV
+        return cell
+      } else {
         let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
         cell.imageDescription.backgroundColor = UIColor.blueColor()
-      return cell
-  }
+        return cell
+      }
+
+      
+}
 
 
 

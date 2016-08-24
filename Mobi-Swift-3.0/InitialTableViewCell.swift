@@ -17,6 +17,11 @@ class InitialTableViewCell: UITableViewCell {
   @IBOutlet weak var imageSmallTwo: UIImageView!
   @IBOutlet weak var labelDescriptionOne: UILabel!
   @IBOutlet weak var labelDescriptionTwo: UILabel!
+  
+  
+  @IBOutlet weak var widthTextOne: NSLayoutConstraint!
+  @IBOutlet weak var widthTextTwo: NSLayoutConstraint!
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

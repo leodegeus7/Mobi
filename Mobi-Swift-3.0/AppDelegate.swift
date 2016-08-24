@@ -78,11 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textos/n\noiii", img: "", date: "Há 2 dias")
     let secondNew = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Testando a segunda notícia", date: "Há 3 dias")
-//    let thirdNew = NewRealm(id: "3",img: "", date: "Há 1 dias")
+    let thirdNew = NewRealm(id: "3",img: "", date: "Há 1 dias")
     
     DataManager.sharedInstance.allNews.append(firstNew)
-    //DataManager.sharedInstance.allNews.append(secondNew)
-//    DataManager.sharedInstance.allNews.append(thirdNew)
+    DataManager.sharedInstance.allNews.append(secondNew)
+    DataManager.sharedInstance.allNews.append(thirdNew)
     
     
     DataManager.sharedInstance.allRadios.append(radio1)

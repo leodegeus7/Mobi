@@ -66,6 +66,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
       } else {
         let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
         cell.imageDescription.backgroundColor = UIColor.blueColor()
+        cell.heightView.constant = cell.imageDescription.frame.height
         return cell
       }
 

@@ -10,6 +10,7 @@ import UIKit
 
 class SecondNewTableViewCell: UITableViewCell {
 
+  @IBOutlet weak var view: UIView!
   @IBOutlet weak var heightView: NSLayoutConstraint!
 
   @IBOutlet weak var labelDate: UILabel!

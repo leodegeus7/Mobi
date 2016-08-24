@@ -10,6 +10,8 @@ import UIKit
 
 class ThirdNewTableViewCell: UITableViewCell {
 
+  @IBOutlet weak var view: UIView!
+  @IBOutlet weak var heightView: NSLayoutConstraint!
   @IBOutlet weak var imageDescription: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -21,17 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
     defineInitialParameters()
-    //defineTestData()
     DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     
     print(Util.findDocsDirectory())
 
-    
-    
-
-    
     
     let manager = RequestManager()
     manager.requestJson("stationunit") { (result) -> Void in
@@ -40,17 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         print(data)
     }
     
-    
 
-
-    
-    
-    
-    
-    
-    
-    
-    
     RealmWrapper.eraseRealmFile("default")
     RealmWrapper.realmStart("default")
     
@@ -66,15 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     let radio1 = RadioRealm(id: "1", name: "Radio1", country: "Brasil", city: "Carambei", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4281541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Music", lastAccessDate: date11, repository: true)
 
-    //radio1.setThumbnailImage("test-4.png")
+    radio1.setThumbnailImage("test-4.png")
     let radio2 = RadioRealm(id: "2", name: "Radio2", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 5, genre: "Comedy", lastAccessDate: date21, repository: true)
-    //radio2.setThumbnailImage("test-4.png")
+    radio2.setThumbnailImage("test-4.png")
     let radio3 = RadioRealm(id: "3", name: "Radio3", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 1, genre: "Nothing", lastAccessDate: date31, repository: true)
-    //radio3.setThumbnailImage("test-4.png")
+    radio3.setThumbnailImage("test-4.png")
     let radio4 = RadioRealm(id: "4", name: "Radio4", country: "Brasil", city: "Palmas", state: "Rio Grande do Sul", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.5289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 4, genre: "Drama", lastAccessDate: date41, repository: true)
-    //radio3.setThumbnailImage("test-4.png")
+    radio3.setThumbnailImage("test-4.png")
     let radio5 = RadioRealm(id: "5", name: "Radio5", country: "Brasil", city: "Seila", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 0, genre: "Legal", lastAccessDate: date21, repository: true)
-    //radio1.setThumbnailImage("test-4.png")
+    radio1.setThumbnailImage("test-4.png")
     let radio6 = RadioRealm(id: "6", name: "Radio6", country: "Brasil", city: "Seila", state: "Roraima", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Leo", lastAccessDate: date21, repository: true)
     
     let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textosoii", img: "", date: "Há 2 dias")
@@ -88,10 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     
     DataManager.sharedInstance.allRadios.append(radio1)
-
+    DataManager.sharedInstance.allRadios.append(radio2)
     DataManager.sharedInstance.allRadios.append(radio3)
     DataManager.sharedInstance.allRadios.append(radio4)
-
+    DataManager.sharedInstance.allRadios.append(radio5)
     DataManager.sharedInstance.allRadios.append(radio6)
     
     DataManager.sharedInstance.localRadios.append(radio3)

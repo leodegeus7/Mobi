@@ -15,6 +15,11 @@ struct City {
   var cityName : String!
   var radios : [RadioRealm]!
 }
+
+struct Genre {
+  var genreName : String!
+  var radios : [RadioRealm]!
+}
 struct State {
   var stateName : String!
   var radios : [RadioRealm]!
@@ -42,6 +47,8 @@ class DataManager: NSObject {
   var recentsRadios = [RadioRealm]()
   var localRadios = [RadioRealm]()
   
+  var isPlay = false
+  var playerIsLoaded = false
   
   var allNews = [NewRealm]()
   var addressId = 0
@@ -51,6 +58,8 @@ class DataManager: NSObject {
     case Without
   }
   
+  var viewOne = ViewOneViewController()
+  var radioVC = RadioViewController()
   
   class var sharedInstance: DataManager {
     struct Static {

@@ -22,6 +22,7 @@ class ModalViewController: UIViewController, errorMessageDelegate, sharedInstanc
     override func viewDidLoad() {
         super.viewDidLoad()
       
+      
       do {
         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
         print("AVAudioSession Category Playback OK")
@@ -49,6 +50,7 @@ class ModalViewController: UIViewController, errorMessageDelegate, sharedInstanc
       blurView.frame = self.view.bounds
       self.view.addSubview(blurView)
       self.view.sendSubviewToBack(blurView)
+      
     }
   
   func toggle() {
@@ -83,12 +85,12 @@ class ModalViewController: UIViewController, errorMessageDelegate, sharedInstanc
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    print("ModalViewController viewWillAppear")
+    DataManager.sharedInstance.playerIsLoaded = true
   }
   
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
-    print("ModalViewController viewWillDisappear")
+        DataManager.sharedInstance.playerIsLoaded = false
   }
   
   func playRadio() {

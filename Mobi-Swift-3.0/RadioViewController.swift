@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, errorMessageDelegate, sharedInstanceDelegate {
   
   @IBOutlet weak var imageLogo: UIImageView!
   @IBOutlet weak var labelName: UILabel!
@@ -21,20 +22,24 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   @IBOutlet weak var starThree: UIImageView!
   @IBOutlet weak var starFour: UIImageView!
   @IBOutlet weak var starFive: UIImageView!
-  
   @IBOutlet weak var tableViewMusic: UITableView!
+  @IBOutlet weak var buttonPlay: UIButton!
   
   var stars = [UIImageView]()
   var actualRadio = DataManager.sharedInstance.allRadios[0]
+  var tapCloseButtonActionHandler : (Void -> Void)?
+  var firstErrorSkip = true
+  var firstInstanceSkip = true
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    DataManager.sharedInstance.radioVC = self
     imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
     labelName.text = actualRadio.name
     labelLocal.text = actualRadio.address.formattedLocal
     labelLikes.text = "\(actualRadio.likenumber)"
     labelStars.text = "\(actualRadio.stars)"
-
+    self.title = "Resumo"
     stars.append(starOne)
     stars.append(starTwo)
     stars.append(starThree)
@@ -43,9 +48,48 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     for star in stars  {
       star.image = UIImage(named: "starOFF.png")
     }
-    for index in 0...actualRadio.stars-1 {
-      stars[index].image = UIImage(named: "star.png")
+    if actualRadio.stars != 0 {
+      for index in 0...actualRadio.stars-1 {
+        stars[index].image = UIImage(named: "star.png")
+      }
     }
+    
+    do {
+      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+      print("AVAudioSession Category Playback OK")
+      do {
+        try AVAudioSession.sharedInstance().setActive(true)
+        print("AVAudioSession is Active")
+        
+      } catch let error as NSError {
+        print(error.localizedDescription)
+      }
+    } catch let error as NSError {
+      print(error.localizedDescription)
+    }
+    
+    RadioPlayer.sharedInstance.errorDelegate = self
+    RadioPlayer.sharedInstance.instanceDelegate = self
+    
+    if RadioPlayer.sharedInstance.currentlyPlaying() {
+        buttonPlay.imageView?.image = UIImage(named: "play.png")
+    }
+    
+    let effect = UIBlurEffect(style: .Light)
+    let blurView = UIVisualEffectView(effect: effect)
+    blurView.frame = self.view.bounds
+    self.view.addSubview(blurView)
+    self.view.sendSubviewToBack(blurView)
+    changeButtonIcon()
+  }
+  
+  func toggle() {
+    if RadioPlayer.sharedInstance.currentlyPlaying() {
+      pauseRadio()
+    } else {
+      playRadio()
+    }
+    changeButtonIcon()
   }
   
   override func didReceiveMemoryWarning() {
@@ -83,22 +127,99 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     print(indexPath.row)
   }
   
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return "AO VIVO"
-  }
+
   
-  
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+
   @IBAction func buttonFeedback(sender: AnyObject) {
   }
+  
+  @IBAction func buttonPlayTap(sender: AnyObject) {
+    toggle()
+    if DataManager.sharedInstance.isPlay {
+      DataManager.sharedInstance.isPlay = false
+      
+    } else {
+      DataManager.sharedInstance.isPlay = true
+    }
+
+    if !DataManager.sharedInstance.playerIsLoaded {
+      let viewOne = DataManager.sharedInstance.viewOne
+      viewOne.tapMiniPlayerButton(viewOne)
+      DataManager.sharedInstance.playerIsLoaded = true
+    }
+
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    changeButtonIcon()
+  }
+  
+  
+  func playRadio() {
+    firstErrorSkip = false
+    firstInstanceSkip = false
+    
+    if RadioPlayer.sharedInstance.errorMessage != "" || RadioPlayer.sharedInstance.bufferFull() {
+      resetStream()
+    } else {
+      RadioPlayer.sharedInstance.play()
+    }
+  }
+  
+  func pauseRadio() {
+    RadioPlayer.sharedInstance.pause()
+  }
+  
+  func resetStream() {
+    print("Reloading interrupted stream");
+    RadioPlayer.sharedInstance.resetPlayer()
+    //RadioPlayer.sharedInstance = RadioPlayer();
+    RadioPlayer.sharedInstance.errorDelegate = self
+    RadioPlayer.sharedInstance.instanceDelegate = self
+    if RadioPlayer.sharedInstance.bufferFull() {
+      RadioPlayer.sharedInstance.play()
+    } else {
+      playRadio()
+    }
+  }
+  
+  func errorMessageChanged(newVal: String) {
+    if !firstErrorSkip {
+      print("Error changed to '\(newVal)'")
+      if RadioPlayer.sharedInstance.errorMessage != "" {
+        print("Showing Error Message")
+        let alertController = UIAlertController(title: "Stream Failure", message: RadioPlayer.sharedInstance.errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        pauseRadio()
+        
+      }
+    } else {
+      print("Skipping first init")
+      firstErrorSkip = false
+    }
+  }
+  
+  func sharedInstanceChanged(newVal: Bool) {
+    if !firstInstanceSkip {
+      print("Detected New Instance")
+      if newVal {
+        RadioPlayer.sharedInstance.play()
+      }
+    } else {
+      firstInstanceSkip = false
+    }
+  }
+
+  func changeButtonIcon() {
+    if DataManager.sharedInstance.isPlay {
+      DataManager.sharedInstance.radioVC.buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+    } else if !DataManager.sharedInstance.isPlay {
+      DataManager.sharedInstance.radioVC.buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+    }
+  }
+  
   
 }

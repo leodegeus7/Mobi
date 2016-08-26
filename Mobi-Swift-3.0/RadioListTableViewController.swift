@@ -9,97 +9,65 @@
 import UIKit
 
 class RadioListTableViewController: UITableViewController {
-
   
-    var radios = [RadioRealm]()
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.rowHeight = 120
-        self.title = radios[0].address.city
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+  var radios = [RadioRealm]()
+  var selectedRadio = RadioRealm()
+  var superSegue = String()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    tableView.rowHeight = 120
+    if superSegue == "detailGenre" {
+      self.title = radios[0].genre
+    } else {
+      self.title = radios[0].address.city
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  // MARK: - Table view data source
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    // #warning Incomplete implementation, return the number of sections
+    return 1
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // #warning Incomplete implementation, return the number of rows
+    return radios.count
+  }
+  
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("radioCell", forIndexPath: indexPath) as! InitialTableViewCell
+    
+    cell.labelName.text = radios[indexPath.row].name
+    cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
+    cell.imageBig.image = UIImage(named: radios[indexPath.row].thumbnail)
+    cell.imageSmallOne.image = UIImage(named: "heart.png")
+    cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
+    cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+    cell.labelDescriptionTwo.text = ""
+    
+    return cell
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    selectedRadio = radios[indexPath.row]
+    performSegueWithIdentifier("detailRadio", sender: self)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "detailRadio" {
+      let radioVC = (segue.destinationViewController as! RadioViewController)
+      radioVC.actualRadio = selectedRadio
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return radios.count
-    }
-
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("radioCell", forIndexPath: indexPath) as! InitialTableViewCell
-
-        cell.labelName.text = radios[indexPath.row].name
-        cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
-        cell.imageBig.image = UIImage(named: radios[indexPath.row].thumbnail)
-        cell.imageSmallOne.image = UIImage(named: "heart.png")
-        cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
-        cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-        cell.labelDescriptionTwo.text = ""
-
-        return cell
-    }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+  }
+  
+  }

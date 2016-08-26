@@ -6,6 +6,6 @@ target 'Mobi-Swift-3.0' do
 pod 'Alamofire', '~> 3.4'
     pod 'SwiftyJSON'
 pod 'RealmSwift' 
-pod "ARNTransitionAnimator"
 pod 'SideMenu'
+pod "ARNTransitionAnimator"
 end

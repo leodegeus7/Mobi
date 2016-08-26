@@ -10,11 +10,11 @@ import UIKit
 
 class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     var isSearchOn = false
-    var searchResults = [String]()
+    var searchResults = [State]()
     var states = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espirito Santo", "Goias", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piaui", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"]
   
   var data = Dictionary<String,[RadioRealm]>()
-  
+  var buttonLateralMenu = UIBarButtonItem()
   @IBOutlet weak var menuButton: UIBarButtonItem!
   var objectArray = [State]()
   var radiosInSelectedState = State()
@@ -25,8 +25,8 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
         super.viewDidLoad()
       
       
-        menuButton.target = self.revealViewController()
-        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        buttonLateralMenu.target = self.revealViewController()
+        buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
       
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
       
@@ -64,7 +64,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
         if isSearchOn == true && !searchResults.isEmpty {
-          cell.labelLocal.text = searchResults[indexPath.row]
+          cell.labelLocal.text = searchResults[indexPath.row].stateName
         } else {
           cell.labelLocal.text = objectArray[indexPath.row].stateName
         }
@@ -94,11 +94,11 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   
   func filterContentForSearchText(text: String) {
     searchResults.removeAll(keepCapacity: false)
-    for item in states {
-      let stringToLookFor = item as NSString
+    for state in objectArray {
+      let stringToLookFor = state.stateName as NSString
       
       if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
-        searchResults.append(item)
+        searchResults.append(state)
       }
     }
   }
@@ -133,7 +133,11 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    self.radiosInSelectedState = objectArray[indexPath.row]
+    if !isSearchOn {
+      self.radiosInSelectedState = objectArray[indexPath.row]
+    } else {
+      self.radiosInSelectedState = searchResults[indexPath.row]
+    }
     performSegueWithIdentifier("detailViewCities", sender: self)
   }
   
@@ -145,49 +149,14 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     }
   }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  @IBAction func menuTap(sender: AnyObject) {
+    searchBar.resignFirstResponder()
+    view.endEditing(true)
+    UIApplication.sharedApplication().sendAction(buttonLateralMenu.action, to: buttonLateralMenu.target, from: self, forEvent: nil)
+  }
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
+  }
 }

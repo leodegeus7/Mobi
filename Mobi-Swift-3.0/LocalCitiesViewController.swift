@@ -13,10 +13,10 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
   @IBOutlet weak var tableViewRadiosInState: UITableView!
   @IBOutlet weak var tableViewCities: UITableView!
   
-  var radiosInState = [RadioRealm]()
-  var citiesInState = Dictionary<String,[RadioRealm]>()
-  
 
+  var citiesInState = Dictionary<String,[RadioRealm]>()
+  var selectedRadio = RadioRealm()
+  
 
   @IBOutlet weak var height: NSLayoutConstraint!
   
@@ -108,16 +108,23 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if tableView == tableViewCities {
             selectedCity = citiesArray[indexPath.row]
-      performSegueWithIdentifier("segueRadio", sender: self)
+      performSegueWithIdentifier("detailCity", sender: self)
 
+    } else if tableView == tableViewRadiosInState {
+      selectedRadio = radiosInSelectedState.radios[indexPath.row]
+      performSegueWithIdentifier("detailRadio", sender: self)
     }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "segueRadio" {
+    if segue.identifier == "detailCity" {
       let localCitiesVC = (segue.destinationViewController as! RadioListTableViewController)
       let radios = selectedCity.radios
       localCitiesVC.radios = radios
+      localCitiesVC.superSegue = "detailCity"
+    } else if segue.identifier == "detailRadio" {
+      let radioVC = (segue.destinationViewController as! RadioViewController)
+      radioVC.actualRadio = selectedRadio
     }
   }
   

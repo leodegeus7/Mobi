@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 import CoreLocation
-import RealmSwift
+
 
 class RadioRealm: Object {
   dynamic var id = -1

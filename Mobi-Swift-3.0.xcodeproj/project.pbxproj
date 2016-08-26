@@ -11,6 +11,9 @@
 		B7084B6E1D6B6F740013DAFC /* ViewOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */; };
 		B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
+		B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */; };
+		B70DFA4B1D70C847000DDBD6 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4A1D70C847000DDBD6 /* play.png */; };
+		B70DFA4D1D70C84C000DDBD6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4C1D70C84C000DDBD6 /* pause.png */; };
 		B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73681361D590BA300EC94A9 /* AppDelegate.swift */; };
 		B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B736813A1D590BA300EC94A9 /* Main.storyboard */; };
 		B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B736813D1D590BA300EC94A9 /* Assets.xcassets */; };
@@ -82,6 +85,9 @@
 		B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOneViewController.swift; sourceTree = "<group>"; };
 		B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreRealm.swift; sourceTree = "<group>"; };
+		B70DFA4A1D70C847000DDBD6 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		B70DFA4C1D70C84C000DDBD6 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		B73681331D590BA300EC94A9 /* Mobi-Swift-3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobi-Swift-3.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B73681361D590BA300EC94A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B736813B1D590BA300EC94A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -178,6 +184,17 @@
 			name = Player;
 			sourceTree = "<group>";
 		};
+		B70DFA491D70AC90000DDBD6 /* RealmClass */ = {
+			isa = PBXGroup;
+			children = (
+				B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */,
+				B7F325631D63993900B3BC42 /* RadioRealm.swift */,
+				B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */,
+				B769B6291D664E21005A00B3 /* NewRealm.swift */,
+			);
+			name = RealmClass;
+			sourceTree = "<group>";
+		};
 		B736812A1D590BA200EC94A9 = {
 			isa = PBXGroup;
 			children = (
@@ -254,7 +271,6 @@
 				B74ECF161D5BA140001AFC32 /* GenreViewController.swift */,
 				B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */,
 				B7D90E001D5A53E900D15089 /* NewsTableViewController.swift */,
-				B7D90E021D5A53F800D15089 /* LocalTableViewController.swift */,
 				B7D90E061D5A542400D15089 /* ProfileViewController.swift */,
 				B7D90E081D5A549600D15089 /* StremingTableViewController.swift */,
 				B7D90DFC1D5A500500D15089 /* InitialTableViewController.swift */,
@@ -262,6 +278,7 @@
 				B7E697371D591BF900EC276F /* CustomViewController.swift */,
 				B7E697391D591C1C00EC276F /* MenuTableViewController.swift */,
 				B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */,
+				B7D90E021D5A53F800D15089 /* LocalTableViewController.swift */,
 				B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */,
 				B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */,
 				B74B0E5F1D6F6C8800012D8E /* RadioViewController.swift */,
@@ -272,6 +289,7 @@
 		B7D90E0B1D5A56A600D15089 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B70DFA491D70AC90000DDBD6 /* RealmClass */,
 				B7E697431D59208800EC276F /* DataManager.swift */,
 				B7E697411D591F8E00EC276F /* MyUser.swift */,
 				B7D584D71D5CE4C0003D5A1F /* New.swift */,
@@ -317,9 +335,6 @@
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
 				B7F530F91D6261D400831561 /* Simulation.gpx */,
-				B7F325631D63993900B3BC42 /* RadioRealm.swift */,
-				B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */,
-				B769B6291D664E21005A00B3 /* NewRealm.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -347,6 +362,8 @@
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
+				B70DFA4A1D70C847000DDBD6 /* play.png */,
+				B70DFA4C1D70C84C000DDBD6 /* pause.png */,
 				B7F530F71D6258F100831561 /* marker.png */,
 			);
 			name = Images;
@@ -456,6 +473,7 @@
 			files = (
 				B7F530F41D62486600831561 /* test-2.jpg in Resources */,
 				B759C0221D6E10540005515F /* clock-icon.png in Resources */,
+				B70DFA4B1D70C847000DDBD6 /* play.png in Resources */,
 				B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */,
 				B74B0E681D6F762400012D8E /* starOFF.png in Resources */,
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
@@ -463,6 +481,7 @@
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
 				B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */,
 				B7D90DF91D5A41C000D15089 /* test56x52.jpg in Resources */,
+				B70DFA4D1D70C84C000DDBD6 /* pause.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
@@ -567,6 +586,7 @@
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
 				B7D90E091D5A549600D15089 /* StremingTableViewController.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
+				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
 				B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */,
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,

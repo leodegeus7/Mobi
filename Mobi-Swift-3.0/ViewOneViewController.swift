@@ -18,12 +18,13 @@ class ViewOneViewController: UIViewController {
   @IBOutlet weak var tabBar: UITabBar!
   
   private var animator : ARNTransitionAnimator!
-  private var modalVC : ModalViewController!
+  private var modalVC: RadioViewController!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    DataManager.sharedInstance.viewOne = self
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    self.modalVC = storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? ModalViewController
+    self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? RadioViewController)
     self.modalVC.modalPresentationStyle = .OverFullScreen
     self.modalVC.tapCloseButtonActionHandler = { [unowned self] in
       self.animator.interactiveType = .None
@@ -115,7 +116,7 @@ class ViewOneViewController: UIViewController {
         
         if completeTransition {
           self.miniPlayerView.alpha = 0.0
-          self.modalVC.view.removeFromSuperview()
+          //self.modalVC.view.removeFromSuperview()
           containerView.addSubview(self.modalVC.view)
           self.animator.interactiveType = .Dismiss
           self.animator.gestureTargetView = self.modalVC.view
@@ -181,11 +182,11 @@ class ViewOneViewController: UIViewController {
         self.endAppearanceTransition()
         
         if completeTransition {
-          self.modalVC.view.removeFromSuperview()
+          //self.modalVC.view.removeFromSuperview()
           self.animator.gestureTargetView = self.miniPlayerView
           self.animator.interactiveType = .Present
         } else {
-          self.modalVC.view.removeFromSuperview()
+          //self.modalVC.view.removeFromSuperview()
           containerView.addSubview(self.modalVC.view)
           self.beginAppearanceTransition(false, animated: false)
           self.endAppearanceTransition()

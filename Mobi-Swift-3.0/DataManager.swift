@@ -59,7 +59,7 @@ class DataManager: NSObject {
   }
   
   var viewOne = ViewOneViewController()
-  var radioVC = RadioViewController()
+ //var radioVC = RadioViewController()
   
   class var sharedInstance: DataManager {
     struct Static {

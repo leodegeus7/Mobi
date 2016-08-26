@@ -33,7 +33,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    DataManager.sharedInstance.radioVC = self
+    //DataManager.sharedInstance.radioVC = self
     imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
     labelName.text = actualRadio.name
     labelLocal.text = actualRadio.address.formattedLocal
@@ -143,8 +143,8 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
 
     if !DataManager.sharedInstance.playerIsLoaded {
-      let viewOne = DataManager.sharedInstance.viewOne
-      viewOne.tapMiniPlayerButton(viewOne)
+     // let viewOne = DataManager.sharedInstance.viewOne
+      //viewOne.tapMiniPlayerButton(viewOne)
       DataManager.sharedInstance.playerIsLoaded = true
     }
 
@@ -214,10 +214,12 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   }
 
   func changeButtonIcon() {
-    if DataManager.sharedInstance.isPlay {
-      DataManager.sharedInstance.radioVC.buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
-    } else if !DataManager.sharedInstance.isPlay {
-      DataManager.sharedInstance.radioVC.buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+    if !RadioPlayer.sharedInstance.currentlyPlaying()  {
+      buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+      //DataManager.sharedInstance.viewOne.labelFirst.text = actualRadio.name
+    } else {
+      buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+      //DataManager.sharedInstance.viewOne.labelSecond.text = actualRadio.address.formattedLocal
     }
   }
   

@@ -14,6 +14,8 @@ class ViewOneViewController: UIViewController {
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var miniPlayerButton: UIButton!
   @IBOutlet weak var miniPlayerView: LineView!
+  @IBOutlet weak var labelFirst: UILabel!
+  @IBOutlet weak var labelSecond: UILabel!
   
   @IBOutlet weak var tabBar: UITabBar!
   
@@ -22,7 +24,7 @@ class ViewOneViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    DataManager.sharedInstance.viewOne = self
+   // DataManager.sharedInstance.viewOne = self
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? RadioViewController)
     self.modalVC.modalPresentationStyle = .OverFullScreen

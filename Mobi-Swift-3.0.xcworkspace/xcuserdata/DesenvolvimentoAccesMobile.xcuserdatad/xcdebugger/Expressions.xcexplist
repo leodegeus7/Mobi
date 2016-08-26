@@ -9,14 +9,6 @@
          contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
       </ContextState>
       <ContextState
-         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "citiesArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "LocalCitiesViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():LocalCitiesViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -25,10 +17,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "citiesArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "NewsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "cell.textDescription.frame.height">
+               value = "cell.imageDescription.frame.height">
             </PersistentString>
             <PersistentString
                value = "cell.heightView.constant">
@@ -43,7 +43,7 @@
                value = "cell.labelTitle.frame.height">
             </PersistentString>
             <PersistentString
-               value = "cell.imageDescription.frame.height">
+               value = "cell.textDescription.frame.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -116,15 +116,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.viewDidLoad() -&gt; ():GenreViewController.swift">
-      </ContextState>
-      <ContextState
          contextName = "ARNTransitionAnimator.(finishInteractiveTransitionAnimated(Bool) -&gt; ()).(closure #1):ARNTransitionAnimator.swift">
          <PersistentStrings>
             <PersistentString
                value = "transitionContext">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.viewDidLoad() -&gt; ():GenreViewController.swift">
       </ContextState>
       <ContextState
          contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
@@ -147,7 +147,12 @@
          contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         contextName = "GenreViewController.menuTap(AnyObject) -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchBar">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RadioViewController.init(coder : NSCoder) -&gt; RadioViewController?:RadioViewController.swift">
@@ -158,18 +163,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.menuTap(AnyObject) -&gt; ():GenreViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "searchBar">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RadioRealm.(resetDistanceFromUser() -&gt; Bool).(closure #1):RadioRealm.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.address.coordinates">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

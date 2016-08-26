@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    print("Iniciou!")
     defineInitialParameters()
     DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     

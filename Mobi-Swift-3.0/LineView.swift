@@ -16,6 +16,7 @@ class LineView: UIView {
     topLine.lineWidth = 0.2
     topLine.stroke()
     
+    
     let bottomLine = UIBezierPath(rect: CGRectMake(0, self.frame.size.height - 0.5, self.frame.size.width, 0.5))
     UIColor.lightGrayColor().setStroke()
     bottomLine.lineWidth = 0.2

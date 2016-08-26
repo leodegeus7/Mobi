@@ -30,6 +30,32 @@
             </objects>
             <point key="canvasLocation" x="3143.5" y="120.5"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="7tx-38-LlA">
+            <objects>
+                <viewController id="OGk-1Q-DTA" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W1i-aK-bAl"/>
+                        <viewControllerLayoutGuide type="bottom" id="kE8-0J-0ZS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qfB-8r-qRk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eym-GY-FE5">
+                                <rect key="frame" x="84" y="226" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mwr-OD-UA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3987" y="-172"/>
+        </scene>
         <!--Load View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -2100,6 +2126,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="containerView" destination="SxU-Uf-SXJ" id="mR0-2F-cVb"/>
+                        <outlet property="labelFirst" destination="zBj-aA-qQZ" id="11o-GA-m12"/>
+                        <outlet property="labelSecond" destination="VWH-N7-04I" id="UTv-JC-Hw0"/>
                         <outlet property="miniPlayerButton" destination="Tsd-PA-Gan" id="3SR-Jo-kcg"/>
                         <outlet property="miniPlayerView" destination="mRE-1m-omq" id="3mq-ra-asw"/>
                         <outlet property="tabBar" destination="FHl-As-TGT" id="URJ-K2-q6f"/>

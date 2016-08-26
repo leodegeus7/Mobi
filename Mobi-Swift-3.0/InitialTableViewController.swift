@@ -11,7 +11,7 @@ import CoreLocation
 import SideMenu
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
-
+  
   @IBOutlet weak var buttonTop: UIButton!
   @IBOutlet weak var buttonLocal: UIButton!
   @IBOutlet weak var buttonRecents: UIButton!
@@ -28,109 +28,110 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   var selectedMode = modes.Top
-
+  var selectedRadio = RadioRealm()
+  
   @IBOutlet weak var openMenu: UIBarButtonItem!
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        changeTableViewStatus()
-        tableView.rowHeight = 120
-        //let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
-      
-        openMenu.target = self.revealViewController()
-        openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
-
-      if revealViewController() != nil {
-        openMenu.target = self.revealViewController()
-        openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
-      }
-      
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())   
-        setupSideMenu()
-
-      
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    changeTableViewStatus()
+    tableView.rowHeight = 120
+    //let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
+    
+    openMenu.target = self.revealViewController()
+    openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
+    
+    if revealViewController() != nil {
+      openMenu.target = self.revealViewController()
+      openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
-        return 1
-    }
+    
+    self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    
+    
+    
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    
+  }
+  
+  // MARK: - Table view data source
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    return 1
+  }
   
   func showMenu () {
     self.performSegueWithIdentifier("initialView", sender: self)
   }
   
   
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return selectedRadioArray.count
-    }
   
-    override func viewDidAppear(animated: Bool) {
-      DataManager.sharedInstance.updateAllOverdueInterval()
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("initialCell", forIndexPath: indexPath) as! InitialTableViewCell
-        switch selectedMode {
-          case .Top:
-            cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
-            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
-            cell.imageSmallOne.image = UIImage(named: "heart.png")
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-            cell.widthTextOne.constant = 30
-            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-            cell.labelDescriptionTwo.text = ""
-            
-            break
-        case .Local:
-            cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
-            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
-            cell.imageSmallOne.image = UIImage(named: "marker.png")
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
-            cell.widthTextOne.constant = 80
-            cell.widthTextTwo.constant = 30
-            cell.imageSmallTwo.image = UIImage(named: "heart.png")
-            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-            break
-        case .Recent:
-            cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
-            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
-            cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
-            cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
-            cell.imageSmallTwo.image = UIImage(named: "heart.png")
-            cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-            cell.widthTextOne.constant = 110
-            cell.widthTextTwo.constant = 30
-            break
-        case .Favorite:
-            cell.labelName.text = selectedRadioArray[indexPath.row].name
-            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
-            cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
-            cell.imageSmallOne.image = UIImage(named: "heart.png")
-            cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-            cell.widthTextOne.constant = 30
-            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-            cell.labelDescriptionTwo.text = ""
-            break
-        }
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    return selectedRadioArray.count
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    DataManager.sharedInstance.updateAllOverdueInterval()
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("initialCell", forIndexPath: indexPath) as! InitialTableViewCell
+    switch selectedMode {
+    case .Top:
+      cell.labelName.text = selectedRadioArray[indexPath.row].name
+      cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageSmallOne.image = UIImage(named: "heart.png")
+      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+      cell.widthTextOne.constant = 30
+      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+      cell.labelDescriptionTwo.text = ""
       
-      
-
-
-        return cell
+      break
+    case .Local:
+      cell.labelName.text = selectedRadioArray[indexPath.row].name
+      cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageSmallOne.image = UIImage(named: "marker.png")
+      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+      cell.widthTextOne.constant = 80
+      cell.widthTextTwo.constant = 30
+      cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+      break
+    case .Recent:
+      cell.labelName.text = selectedRadioArray[indexPath.row].name
+      cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
+      cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
+      cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+      cell.widthTextOne.constant = 110
+      cell.widthTextTwo.constant = 30
+      break
+    case .Favorite:
+      cell.labelName.text = selectedRadioArray[indexPath.row].name
+      cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageSmallOne.image = UIImage(named: "heart.png")
+      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+      cell.widthTextOne.constant = 30
+      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+      cell.labelDescriptionTwo.text = ""
+      break
     }
+    
+    
+    
+    
+    return cell
+  }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if (selectedMode == .Top) {
@@ -175,17 +176,17 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       else {
         Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
       }
-
+      
       
     }
   }
-
+  
   @IBAction func buttonRecentsClick(sender: AnyObject) {
     selectedMode = .Recent
     DataManager.sharedInstance.updateAllOverdueInterval()
     changeTableViewStatus()
   }
-
+  
   @IBAction func buttonFavoriteClick(sender: AnyObject) {
     selectedMode = .Favorite
     changeTableViewStatus()
@@ -213,19 +214,25 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     
   }
   
-  private func setupSideMenu() {
-    // Define the menus
-//    SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("LeftMenuNavigationController") as? UISideMenuNavigationController
-//
-//    
-//    // Enable gestures. The left and/or right menus must be set up above for these to work.
-//    // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
-//    SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-//    SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-//    
-//    // Set up a cool background image for demo purposes
-//    SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    switch selectedMode {
+    case .Favorite:
+      selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
+    case .Local:
+      selectedRadio = DataManager.sharedInstance.localRadios[indexPath.row]
+    case .Recent:
+      selectedRadio = DataManager.sharedInstance.recentsRadios[indexPath.row]
+    case .Top:
+      selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
+    }
+    performSegueWithIdentifier("detailRadio", sender: self)
   }
-
-
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "detailRadio" {
+      let radioVC = (segue.destinationViewController as! RadioViewController)
+      radioVC.actualRadio = selectedRadio
+    }
+  }
+  
 }

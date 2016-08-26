@@ -54,6 +54,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
         cell.imageDescription.backgroundColor = UIColor.redColor()
         let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
         cell.heightView.constant = cell.labelDate.frame.height + cell.labelTitle.frame.height + heightTV + cell.imageDescription.frame.height
+        cell.contentView.layoutIfNeeded()
         return cell
       } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
         let cell = tableView.dequeueReusableCellWithIdentifier("secondCell", forIndexPath: indexPath) as! SecondNewTableViewCell

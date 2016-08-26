@@ -23,15 +23,19 @@ class RadioRealm: Object {
   dynamic var lastAccessDate:NSDate!
   dynamic var lastAccessString = ""
   dynamic var address:AddressRealm!
+  dynamic var stars = -1
+  dynamic var genre:String!
   
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,lastAccessDate:NSDate,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,stars:Int,genre:String,lastAccessDate:NSDate,repository:Bool) {
     self.init()
     self.name = name
     self.id = Int(id)!
     self.thumbnail = thumbnail
     self.lastAccessDate = lastAccessDate
     self.likenumber = Int(likenumber)!
+    self.stars = stars
+    self.genre = genre
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
     

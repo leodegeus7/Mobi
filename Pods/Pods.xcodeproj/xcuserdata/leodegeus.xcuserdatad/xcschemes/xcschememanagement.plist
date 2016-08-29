@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ARNTransitionAnimator.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -24,6 +29,16 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>SideMenu-SideMenu.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>SideMenu.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -42,6 +57,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>67A590106BD2F1726886EA0DFD17758E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>71579F5F59ED866C4A9657AE129CA8DE</key>
 		<dict>
 			<key>primary</key>
@@ -52,7 +72,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7C5780557991901935655B5E7F876F62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7ED6B2928BD2DF098D8E4840782E200D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>887A1F399C1C0E18F1B9EEA0FD58F115</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E569800D80B1517A66A84E2779B035D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A8D450E3BA6ABDEE6E2CA564C47AF234</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C16C2EA86267CD0A2F8E03A0EFFA9751</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8A3470505D9114E0755FFE507676D62</key>
 		<dict>
 			<key>primary</key>
 			<true/>

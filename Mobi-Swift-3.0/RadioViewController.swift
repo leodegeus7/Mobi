@@ -31,6 +31,8 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   var firstErrorSkip = true
   var firstInstanceSkip = true
   
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     //DataManager.sharedInstance.radioVC = self
@@ -54,12 +56,13 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
       }
     }
     
+    
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-      print("AVAudioSession Category Playback OK")
+      
       do {
         try AVAudioSession.sharedInstance().setActive(true)
-        print("AVAudioSession is Active")
+        
         
       } catch let error as NSError {
         print(error.localizedDescription)
@@ -71,8 +74,10 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     RadioPlayer.sharedInstance.errorDelegate = self
     RadioPlayer.sharedInstance.instanceDelegate = self
     
-    if RadioPlayer.sharedInstance.currentlyPlaying() {
-        buttonPlay.imageView?.image = UIImage(named: "play.png")
+    if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+        buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+    } else {
+        buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
     }
     
     let effect = UIBlurEffect(style: .Light)
@@ -80,16 +85,18 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     blurView.frame = self.view.bounds
     self.view.addSubview(blurView)
     self.view.sendSubviewToBack(blurView)
-    changeButtonIcon()
+    
+    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
+
   }
   
   func toggle() {
     if RadioPlayer.sharedInstance.currentlyPlaying() {
       pauseRadio()
     } else {
+        DataManager.sharedInstance.radioInExecution = actualRadio
       playRadio()
     }
-    changeButtonIcon()
   }
   
   override func didReceiveMemoryWarning() {
@@ -134,24 +141,25 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
+    DataManager.sharedInstance.viewOne.miniPlayerView.hidden = false
+    //DataManager.sharedInstance.viewOne.setupAnimator()
+    DataManager.sharedInstance.viewOne.tapMiniPlayerButton(DataManager.sharedInstance.viewOne)
+    DataManager.sharedInstance.radioInExecution = actualRadio
     toggle()
-    if DataManager.sharedInstance.isPlay {
-      DataManager.sharedInstance.isPlay = false
-      
-    } else {
-      DataManager.sharedInstance.isPlay = true
-    }
-
+    RadioPlayer.sharedInstance.sendNotification()
     if !DataManager.sharedInstance.playerIsLoaded {
-     // let viewOne = DataManager.sharedInstance.viewOne
-      //viewOne.tapMiniPlayerButton(viewOne)
+        
       DataManager.sharedInstance.playerIsLoaded = true
     }
-
+    
+    
+    if !RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+        //aqui o radio será pausado, por isso, precisamos tirar o radio do datamanager
+        DataManager.sharedInstance.radioInExecution = RadioRealm()
+    }
   }
   
   override func viewWillAppear(animated: Bool) {
-    changeButtonIcon()
   }
   
   
@@ -213,14 +221,14 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
   }
 
-  func changeButtonIcon() {
-    if !RadioPlayer.sharedInstance.currentlyPlaying()  {
-      buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
-      //DataManager.sharedInstance.viewOne.labelFirst.text = actualRadio.name
+  func updateIcons() {
+    
+    if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+        buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
-      buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
-      //DataManager.sharedInstance.viewOne.labelSecond.text = actualRadio.address.formattedLocal
+        buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
     }
+    
   }
   
   

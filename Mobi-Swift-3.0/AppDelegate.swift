@@ -87,6 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
     DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
+    
+//    DataManager.sharedInstance.viewOne.view.hidden = true
     return true
   }
 

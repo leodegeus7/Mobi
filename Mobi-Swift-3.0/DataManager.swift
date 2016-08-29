@@ -49,6 +49,7 @@ class DataManager: NSObject {
   
   var isPlay = false
   var playerIsLoaded = false
+    var radioInExecution = RadioRealm()
   
   var allNews = [NewRealm]()
   var addressId = 0

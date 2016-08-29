@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "RadioViewController.buttonPlayTap(AnyObject) -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewOneViewController.updatePlayerIcons() -&gt; ():ViewOneViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution == actualRadio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "mach_msg_trap:(null)">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

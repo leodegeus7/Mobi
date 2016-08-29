@@ -27,7 +27,8 @@ class RadioPlayer : NSObject {
   private var player = AVPlayer(URL: NSURL(string: "http://stream.hostpg.com.br:8000")!)
   private var playerItem = AVPlayerItem?()
   private var isPlaying = false
-  
+    var notificationCenter = NSNotificationCenter.defaultCenter()
+    
   var errorDelegate:errorMessageDelegate? = nil
   var errorMessage = "" {
     didSet {
@@ -158,6 +159,10 @@ class RadioPlayer : NSObject {
   func currentlyPlaying() -> Bool {
     return isPlaying
   }
+    
+    func sendNotification() {
+        notificationCenter.postNotificationName("updateIcons", object: nil)
+    }
   
 }
 protocol sharedInstanceDelegate {

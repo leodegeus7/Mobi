@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		207F048F0BA50AB9074CEEA3 /* Pods_Mobi_Swift_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */; };
 		B7084B6E1D6B6F740013DAFC /* ViewOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */; };
-		B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
 		B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */; };
 		B70DFA4B1D70C847000DDBD6 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4A1D70C847000DDBD6 /* play.png */; };
@@ -77,13 +76,14 @@
 		B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */; };
 		B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
+		CDBB19761D74AA8900BF0405 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */; };
+		CDBB19781D74B29F00BF0405 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBB19771D74B29F00BF0405 /* arrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.release.xcconfig"; sourceTree = "<group>"; };
 		47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.debug.xcconfig"; sourceTree = "<group>"; };
 		B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOneViewController.swift; sourceTree = "<group>"; };
-		B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreRealm.swift; sourceTree = "<group>"; };
 		B70DFA4A1D70C847000DDBD6 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
@@ -156,6 +156,8 @@
 		B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroungMenu.jpg; sourceTree = "<group>"; };
 		B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
+		CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		CDBB19771D74B29F00BF0405 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mobi_Swift_3_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -178,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				B7084B6D1D6B6F740013DAFC /* ViewOneViewController.swift */,
-				B7084B6F1D6B6FB00013DAFC /* ModalViewController.swift */,
 				B7084B711D6B6FDB0013DAFC /* LineView.swift */,
 			);
 			name = Player;
@@ -282,6 +283,7 @@
 				B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */,
 				B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */,
 				B74B0E5F1D6F6C8800012D8E /* RadioViewController.swift */,
+				CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -299,6 +301,7 @@
 				B7F65DF81D64D86D000EE185 /* RequestManager.swift */,
 				B7F65DFA1D64F34D000EE185 /* Data.swift */,
 				B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */,
+				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -343,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				B7D90E101D5A579300D15089 /* Images */,
-				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */,
 				B7B026191D6CD3F900BFB78A /* ViewController.swift */,
 			);
@@ -356,6 +358,7 @@
 				B7F530EE1D62484E00831561 /* TestLogo */,
 				B7D90DF81D5A41C000D15089 /* test56x52.jpg */,
 				B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */,
+				CDBB19771D74B29F00BF0405 /* arrow.png */,
 				B7D584E11D5D2085003D5A1F /* okImage.png */,
 				B74B0E611D6F6F1600012D8E /* happy.jpg */,
 				B74B0E631D6F751700012D8E /* star.png */,
@@ -485,6 +488,7 @@
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
+				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
 				B7F530F51D62486600831561 /* test-3.png in Resources */,
 				B7F530ED1D623F9000831561 /* heart.png in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
@@ -564,6 +568,7 @@
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
 				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
+				CDBB19761D74AA8900BF0405 /* PlayerViewController.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B74B0E601D6F6C8800012D8E /* RadioViewController.swift in Sources */,
 				B7E697381D591BF900EC276F /* CustomViewController.swift in Sources */,
@@ -587,7 +592,6 @@
 				B7D90E091D5A549600D15089 /* StremingTableViewController.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
-				B7084B701D6B6FB00013DAFC /* ModalViewController.swift in Sources */,
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,
 				B7880BAA1D5E5F46002B235A /* Radio.swift in Sources */,

@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         completeProfileViewInfo()
         navigationController?.title = "Perfil"
-        tableViewFavorites.rowHeight = 120
+        tableViewFavorites.rowHeight = 130
         
         backButton.target = self.revealViewController()
         backButton.action = #selector(SWRevealViewController.revealToggle(_:))

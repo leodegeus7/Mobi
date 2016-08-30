@@ -156,6 +156,14 @@ class Util: NSObject {
       }
       return result
   }
+  
+  func imageResize(image:UIImage, sizeChange:CGSize) -> UIImage {
+    UIGraphicsBeginImageContext(sizeChange)
+    image.drawInRect(CGRect(x: 0,y: 0,width: sizeChange.width,height: sizeChange.height))
+    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return resizedImage
+  }
 }
 
 extension NSLayoutConstraint {

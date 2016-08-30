@@ -51,14 +51,21 @@ class RequestManager: NSObject {
           case .Success:
             if let value = response.result.value {
               let json = JSON(value)
-              if let data = json["data"][0].dictionaryObject {
+              if let data = json["data"].dictionaryObject {
                 self.resultText = .OK
                 var dic = Dictionary<String,AnyObject>()
                 dic["requestResult"] = "\(self.resultText)"
                 dic["data"] = data
                 self.existData = true
                 completion(result: dic)
-              } else {
+              } else if let data = json["data"].arrayObject {
+                self.resultText = .OK
+                var dic = Dictionary<String,AnyObject>()
+                dic["requestResult"] = "\(self.resultText)"
+                dic["data"] = data
+                self.existData = true
+                completion(result: dic)
+              }else {
                 self.resultText = .ErrorInDataInformation
                 var dic = Dictionary<String,AnyObject>()
                 dic["requestResult"] = "\(self.resultText)"

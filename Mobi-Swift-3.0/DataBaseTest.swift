@@ -35,15 +35,12 @@ class DataBaseTest: NSObject {
         
         let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textosoii", img: "", date: "Há 2 dias")
         let firstNew2 = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Bomfadlkfkjsdgfkhsdgkfhsdkjghsdlg xh gosdhgo hsdghs ishg oishdgo ihsoihs  ihoghsd lgd dia, estou testando os textosoii", img: "", date: "Há 4 dias")
-        let firstNew3 = NewRealm(id: "3",newTitle: "Teste 3", newDescription: "Bom diafafxffxf, estou testando os textosoii", img: "", date: "Há 2 semanas")
-        
+
         
         DataManager.sharedInstance.allNews.append(firstNew)
-        DataManager.sharedInstance.allNews.append(firstNew2)
-        DataManager.sharedInstance.allNews.append(firstNew3)
-        
-        
-        
+        //DataManager.sharedInstance.allNews.append(firstNew2)
+
+      
         DataManager.sharedInstance.allRadios.append(radio1)
         DataManager.sharedInstance.allRadios.append(radio2)
         DataManager.sharedInstance.allRadios.append(radio3)

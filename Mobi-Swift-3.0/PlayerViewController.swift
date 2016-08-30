@@ -239,7 +239,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     
     @IBAction func hidePlayerAction(sender: AnyObject) {
-        DataManager.sharedInstance.viewOne.hidePlayer()
+        DataManager.sharedInstance.miniPlayerView.hidePlayer()
     }
 
     

@@ -35,10 +35,11 @@ class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
   var userToken:String!
-
+    var myUser = UserRealm()
   var userLocation:CLLocation!
   var audioConfig:AudioConfig!
   var realm:Realm!
+    
   
   //Groups of radios
   var allRadios = [RadioRealm]()
@@ -59,7 +60,7 @@ class DataManager: NSObject {
     case Without
   }
   
-  var viewOne = ViewOneViewController()
+  var miniPlayerView = MiniPlayerViewController()
  //var radioVC = RadioViewController()
   
   class var sharedInstance: DataManager {

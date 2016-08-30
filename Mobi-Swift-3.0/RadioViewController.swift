@@ -141,9 +141,9 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
-    DataManager.sharedInstance.viewOne.miniPlayerView.hidden = false
-    //DataManager.sharedInstance.viewOne.setupAnimator()
-    DataManager.sharedInstance.viewOne.tapMiniPlayerButton(DataManager.sharedInstance.viewOne)
+    DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
+    //DataManager.sharedInstance.miniPlayerView.setupAnimator()
+    DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
     DataManager.sharedInstance.radioInExecution = actualRadio
     toggle()
     RadioPlayer.sharedInstance.sendNotification()

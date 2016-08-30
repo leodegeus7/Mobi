@@ -1,5 +1,5 @@
 //
-//  ViewOneViewController.swift
+//  MiniPlayerViewController.swift
 //  Mobi-Swift-3.0
 //
 //  Created by Desenvolvimento Access Mobile on 8/22/16.
@@ -9,7 +9,7 @@
 import UIKit
 import ARNTransitionAnimator
 
-class ViewOneViewController: UIViewController {
+class MiniPlayerViewController: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var miniPlayerButton: UIButton!
@@ -28,7 +28,7 @@ class ViewOneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DataManager.sharedInstance.viewOne = self
+        DataManager.sharedInstance.miniPlayerView = self
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? PlayerViewController)
         self.modalVC.modalPresentationStyle = .OverFullScreen
@@ -42,7 +42,7 @@ class ViewOneViewController: UIViewController {
         
         labelFirst.text = "Oi"
         
-        notificationCenter.addObserver(self, selector: #selector(ViewOneViewController.updatePlayerIcons), name: "updateIcons", object: nil)
+        notificationCenter.addObserver(self, selector: #selector(MiniPlayerViewController.updatePlayerIcons), name: "updateIcons", object: nil)
         self.setupAnimator()
         self.miniPlayerView.hidden = true
     }

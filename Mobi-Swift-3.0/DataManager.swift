@@ -31,6 +31,7 @@ enum NSComparisonResult : Int {
   case OrderedDescending
 }
 
+
 class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
@@ -86,7 +87,11 @@ class DataManager: NSObject {
     for radio in recentsRadios {
       radio.updateOverdueInterval()
     }
-    recentsRadios.sortInPlace({ $0.lastAccessDate.compare($1.lastAccessDate) == .OrderedDescending })
+    if recentsRadios.count > 0 {
+      if let _ = recentsRadios[0].lastAccessDate {
+        recentsRadios.sortInPlace({ $0.lastAccessDate.compare($1.lastAccessDate) == .OrderedDescending })
+      }
+    }
   }
   
 

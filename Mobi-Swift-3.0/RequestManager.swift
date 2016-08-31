@@ -16,7 +16,7 @@ import SwiftyJSON
 //MARK: --- REQUEST RESULT AND ERRORS ---
 ///////////////////////////////////////////////////////////
 
-public enum requestResult: Int {
+public enum RequestResult: Int {
   case ErrorInToken = -6000
   case ErrorInParsingJSon = -6001
   case ErrorInReturnFromServer = -6002
@@ -26,19 +26,52 @@ public enum requestResult: Int {
   case inProgress = 0
 }
 
+public enum StationUnitRequest {
+  case stationUnits
+  case stationUnitsFavorites(pageNumber:Int,pageSize:Int)
+  case stationUnitsLocation(pageNumber:Int,pageSize:Int,lat:Int,long:Int)
+  case stationUnitsHistoric(pageNumber:Int,pageSize:Int)
+  case stationUnitsUserFavorite(pageNumber:Int,pageSize:Int)
+}
+
+
+
 class RequestManager: NSObject {
+  
+
   
   ///////////////////////////////////////////////////////////
   //MARK: --- VARIABLES TO CONTROL THE CLASS ---
   ///////////////////////////////////////////////////////////
   
-  var resultText = requestResult.inProgress
+  var resultText = RequestResult.inProgress
   lazy var resultCode : Int = {return self.resultText.rawValue}()
   var existData = false
 
   ///////////////////////////////////////////////////////////
   //MARK: --- REQUEST FUNCTION ---
   ///////////////////////////////////////////////////////////
+  
+  func requestStationUnits(staticUnitRequest:StationUnitRequest,completion: (result: Dictionary<String,AnyObject>) -> Void){
+    var url = ""
+    switch staticUnitRequest {
+    case .stationUnits:
+            url = "stationunit"
+    case .stationUnitsFavorites(let pageNumber, let pageSize):
+            url = "stationunit/search/likes?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+    case .stationUnitsHistoric(let pageNumber, let pageSize):
+            url = "stationunit/search/history?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+    case .stationUnitsLocation(let pageNumber, let pageSize,let lat, let long):
+            url = "stationunit/search/location?latitude=\(lat)&longitude=\(long)&pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+    case .stationUnitsUserFavorite(let pageNumber, let pageSize):
+            url = "stationunit/search/userfavorites?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+    }
+    
+    requestJson(url) { (result) in
+      completion(result: result)
+    }
+    
+  }
   
   func requestJson(link:String,completion: (result: Dictionary<String,AnyObject>) -> Void){
         resultCode = 0

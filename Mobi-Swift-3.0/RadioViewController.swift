@@ -38,7 +38,9 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     //DataManager.sharedInstance.radioVC = self
     imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
     labelName.text = actualRadio.name
-    labelLocal.text = actualRadio.address.formattedLocal
+    if let _ = actualRadio.address {
+      labelLocal.text = actualRadio.address.formattedLocal
+    }
     labelLikes.text = "\(actualRadio.likenumber)"
     labelStars.text = "\(actualRadio.stars)"
     self.title = "Resumo"
@@ -50,7 +52,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     for star in stars  {
       star.image = UIImage(named: "starOFF.png")
     }
-    if actualRadio.stars != 0 {
+    if actualRadio.stars != 0 && actualRadio.stars != -1 {
       for index in 0...actualRadio.stars-1 {
         stars[index].image = UIImage(named: "star.png")
       }

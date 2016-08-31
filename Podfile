@@ -8,4 +8,5 @@ pod 'Alamofire', '~> 3.4'
 pod 'RealmSwift' 
 pod 'SideMenu'
 pod "ARNTransitionAnimator"
+pod 'Kingfisher', '~> 2.4'
 end

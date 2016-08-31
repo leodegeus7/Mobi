@@ -32,6 +32,13 @@
 		B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */; };
 		B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6291D664E21005A00B3 /* NewRealm.swift */; };
 		B77D58B31D761EF800F1E77B /* OneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D58B21D761EF800F1E77B /* OneTableViewController.swift */; };
+		B77DEA631D774A8200695546 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA621D774A8200695546 /* Bolts.framework */; };
+		B77DEA641D774A8200695546 /* Bolts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA621D774A8200695546 /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77DEA661D774A9F00695546 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */; };
+		B77DEA671D774A9F00695546 /* FBSDKCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77DEA691D774AAE00695546 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */; };
+		B77DEA6A1D774AAE00695546 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77DEA6C1D77567700695546 /* FileSupport.swift */; };
 		B7880BA41D5E461C002B235A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BA31D5E461C002B235A /* Address.swift */; };
 		B7880BA61D5E491F002B235A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7880BA51D5E491F002B235A /* CoreLocation.framework */; };
 		B7880BA81D5E493A002B235A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7880BA71D5E493A002B235A /* MapKit.framework */; };
@@ -40,7 +47,6 @@
 		B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */; };
 		B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
-		B7B0261A1D6CD3F900BFB78A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B026191D6CD3F900BFB78A /* ViewController.swift */; };
 		B7B4A9F41D5A71D700297BF0 /* FavoritesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
@@ -84,6 +90,22 @@
 		CDBB19781D74B29F00BF0405 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBB19771D74B29F00BF0405 /* arrow.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B77DEA5E1D77498100695546 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B77DEA641D774A8200695546 /* Bolts.framework in Embed Frameworks */,
+				B77DEA671D774A9F00695546 /* FBSDKCoreKit.framework in Embed Frameworks */,
+				B77DEA6A1D774AAE00695546 /* FBSDKLoginKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.release.xcconfig"; sourceTree = "<group>"; };
 		47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.debug.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +135,11 @@
 		B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B769B6291D664E21005A00B3 /* NewRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRealm.swift; sourceTree = "<group>"; };
 		B77D58B21D761EF800F1E77B /* OneTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTableViewController.swift; sourceTree = "<group>"; };
+		B77DEA621D774A8200695546 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
+		B77DEA6C1D77567700695546 /* FileSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSupport.swift; sourceTree = "<group>"; };
 		B7880BA31D5E461C002B235A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		B7880BA51D5E491F002B235A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B7880BA71D5E493A002B235A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -123,7 +150,6 @@
 		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
 		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "Mobi-Swift-3.0/SWRevealViewController.m"; sourceTree = "<group>"; };
 		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mobi-Swift-3.0-Bridging-Header.h"; path = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
-		B7B026191D6CD3F900BFB78A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B7B4A9F31D5A71D700297BF0 /* FavoritesTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableView.swift; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
@@ -174,8 +200,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B77DEA631D774A8200695546 /* Bolts.framework in Frameworks */,
+				B77DEA661D774A9F00695546 /* FBSDKCoreKit.framework in Frameworks */,
 				B7880BAC1D5E6B84002B235A /* AVFoundation.framework in Frameworks */,
 				B7880BA81D5E493A002B235A /* MapKit.framework in Frameworks */,
+				B77DEA691D774AAE00695546 /* FBSDKLoginKit.framework in Frameworks */,
 				B7880BA61D5E491F002B235A /* CoreLocation.framework in Frameworks */,
 				207F048F0BA50AB9074CEEA3 /* Pods_Mobi_Swift_3_0.framework in Frameworks */,
 			);
@@ -208,6 +237,9 @@
 		B736812A1D590BA200EC94A9 = {
 			isa = PBXGroup;
 			children = (
+				B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */,
+				B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */,
+				B77DEA621D774A8200695546 /* Bolts.framework */,
 				B73681351D590BA300EC94A9 /* Mobi-Swift-3.0 */,
 				B73681341D590BA300EC94A9 /* Products */,
 				D96CE5A3C70A4107CD2E4F90 /* Pods */,
@@ -343,11 +375,13 @@
 		B7D90E0E1D5A573800D15089 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
 				B73681361D590BA300EC94A9 /* AppDelegate.swift */,
 				CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */,
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
 				B7F530F91D6261D400831561 /* Simulation.gpx */,
+				B77DEA6C1D77567700695546 /* FileSupport.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -357,7 +391,6 @@
 			children = (
 				B7D90E101D5A579300D15089 /* Images */,
 				B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */,
-				B7B026191D6CD3F900BFB78A /* ViewController.swift */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -437,6 +470,7 @@
 				B73681311D590BA300EC94A9 /* Resources */,
 				42F82E71A5A4A9B1BD1D20CE /* [CP] Embed Pods Frameworks */,
 				9A100191B2244902248528F4 /* [CP] Copy Pods Resources */,
+				B77DEA5E1D77498100695546 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -600,7 +634,6 @@
 				B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */,
 				B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */,
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
-				B7B0261A1D6CD3F900BFB78A /* ViewController.swift in Sources */,
 				B7B4A9F41D5A71D700297BF0 /* FavoritesTableView.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
 				B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */,
@@ -614,6 +647,7 @@
 				B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */,
 				B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */,
 				B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */,
+				B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */,
 				B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -731,6 +765,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.Mobi-Swift-3-0";
@@ -749,6 +787,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.Mobi-Swift-3-0";

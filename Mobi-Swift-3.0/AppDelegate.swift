@@ -12,9 +12,14 @@ import AVFoundation
 import CoreLocation
 import RealmSwift
 import Alamofire
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
+  
+
+
   
   var window: UIWindow?
   var player = AVAudioPlayer()
@@ -24,24 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     print("Iniciou!")
     defineInitialParameters()
     DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
+    print(FileSupport.findDocsDirectory())
     
-    print(Util.findDocsDirectory())
-
-    
-    let manager = RequestManager()
-    manager.requestJson("stationunit") { (result) -> Void in
-        let data = Data.response(result)
-        print(result)
-        print(data)
-    }
     
 
     RealmWrapper.eraseRealmFile("default")
     RealmWrapper.realmStart("default")
-    
-    DataBaseTest.init() //banco de dados teste
-    
-    return true
+    downloadFacebookUpdatedInfo()
+    DataBaseTest.completeInfo()
+    return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
   func applicationWillResignActive(application: UIApplication) {
@@ -63,8 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
 
   func applicationWillTerminate(application: UIApplication) {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+    loginManager.logOut()
   }
+  
+  func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
+  {
+    return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+  }
+  
   
   func defineInitialParameters() {
     let audioConfig = AudioConfig(grave: 0, medio: 0, agudo: 0,audioQuality: "Automático")
@@ -78,6 +81,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.userLocation = myLocation
     
   }
+
+  func downloadFacebookUpdatedInfo() {
+    if (FBSDKAccessToken.currentAccessToken() != nil) {
+      //aqui consigo informacoes para dar update em algo do face
+    }
+  }
+  
 
 }
 

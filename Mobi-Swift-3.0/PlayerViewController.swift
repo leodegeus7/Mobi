@@ -26,7 +26,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var buttonPlay: UIButton!
     
     var stars = [UIImageView]()
-    var actualRadio = DataManager.sharedInstance.allRadios[0]
+  var actualRadio = RadioRealm()
     var tapCloseButtonActionHandler : (Void -> Void)?
     var firstErrorSkip = true
     var firstInstanceSkip = true
@@ -81,7 +81,10 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     func updateInfoOfView() {
         imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
         labelName.text = actualRadio.name
-        labelLocal.text = actualRadio.address.formattedLocal
+
+        if let _ = actualRadio.address {
+          labelLocal.text = actualRadio.address.formattedLocal
+        }
         labelLikes.text = "\(actualRadio.likenumber)"
         labelStars.text = "\(actualRadio.stars)"
         self.title = "Resumo"
@@ -93,7 +96,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
         for star in stars  {
             star.image = UIImage(named: "starOFF.png")
         }
-        if actualRadio.stars != 0 {
+        if actualRadio.stars != 0 && actualRadio.stars != -1 {
             for index in 0...actualRadio.stars-1 {
                 stars[index].image = UIImage(named: "star.png")
             }

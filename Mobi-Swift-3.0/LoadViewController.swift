@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import SideMenu
 
 class LoadViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        requestInitialInformation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,15 +24,21 @@ class LoadViewController: UIViewController {
   @IBAction func onClickSegueButton(sender: AnyObject) {
 //    self.performSegueWithIdentifier("InitialViewSegue", sender: self)
   }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+  
+  func requestInitialInformation() {
+    let manager = RequestManager()
+    manager.requestStationUnits(.stationUnits) { (result) in
+      let data = Data.response(result)
+      print(result)
+      print(data)
+      let array = result["data"] as! NSArray
+      for singleResult in array {
+        let dic = singleResult as! NSDictionary
+        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
+        DataManager.sharedInstance.allRadios.append(radio)
+      }
+      DataBaseTest.infoWithoutRadios()
+      self.performSegueWithIdentifier("initialSegue", sender: self)
     }
-    */
-
+  }
 }

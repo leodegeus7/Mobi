@@ -71,7 +71,6 @@ class MiniPlayerViewController: UIViewController {
         // Present
         
         self.animator.presentationBeforeHandler = { [unowned self] containerView, transitionContext in
-            print("start presentation")
             self.beginAppearanceTransition(false, animated: false)
             
             self.animator.direction = .Top
@@ -143,7 +142,6 @@ class MiniPlayerViewController: UIViewController {
         // Dismiss
         
         self.animator.dismissalBeforeHandler = { [unowned self] containerView, transitionContext in
-            print("start dismissal")
             self.beginAppearanceTransition(true, animated: false)
             
             self.view.insertSubview(self.modalVC.view, belowSubview: self.tabBar)
@@ -239,7 +237,9 @@ class MiniPlayerViewController: UIViewController {
     
     func updatePlayerIcons() {
         labelFirst.text = DataManager.sharedInstance.radioInExecution.name
-        labelSecond.text = DataManager.sharedInstance.radioInExecution.address.formattedLocal
+        if let _ = DataManager.sharedInstance.radioInExecution.address {
+          labelSecond.text = DataManager.sharedInstance.radioInExecution.address.formattedLocal
+        }
         if RadioPlayer.sharedInstance.currentlyPlaying() {
             playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
         } else {

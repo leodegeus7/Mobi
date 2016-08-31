@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 
 class Util: NSObject {
-
+  
   static func getRandomColor() -> UIColor{
     
     let randomRed:CGFloat = CGFloat(drand48())
@@ -63,7 +63,7 @@ class Util: NSObject {
     alert.addAction(noAction)
     view.presentViewController(alert, animated: true, completion: nil)
   }
-
+  
   
   static func convertCoordinateToAddress(lat:CLLocationDegrees,long:CLLocationDegrees, completion: (result: [String:String]) -> Void){
     let geoCoder = CLGeocoder()
@@ -99,9 +99,6 @@ class Util: NSObject {
     })
   }
   
-  static func findDocsDirectory() -> String{
-    return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-  }
   
   
   static func getOverdueInterval(date:NSDate) -> String {
@@ -141,20 +138,20 @@ class Util: NSObject {
   }
   
   static func removeDuplicateStrings(array: [String]) -> [String] {
-      var encountered = Set<String>()
-      var result: [String] = []
-      for value in array {
-        if encountered.contains(value) {
-          // Do not add a duplicate element.
-        }
-        else {
-          // Add value to the set.
-          encountered.insert(value)
-          // ... Append the value.
-          result.append(value)
-        }
+    var encountered = Set<String>()
+    var result: [String] = []
+    for value in array {
+      if encountered.contains(value) {
+        // Do not add a duplicate element.
       }
-      return result
+      else {
+        // Add value to the set.
+        encountered.insert(value)
+        // ... Append the value.
+        result.append(value)
+      }
+    }
+    return result
   }
   
   func imageResize(image:UIImage, sizeChange:CGSize) -> UIImage {
@@ -164,6 +161,7 @@ class Util: NSObject {
     UIGraphicsEndImageContext()
     return resizedImage
   }
+  
 }
 
 extension NSLayoutConstraint {

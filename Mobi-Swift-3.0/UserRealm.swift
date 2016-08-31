@@ -17,21 +17,24 @@ class UserRealm: Object {
     dynamic var address:AddressRealm!
     var favoritesRadios:[RadioRealm]!
     dynamic var birthDate = ""
-    dynamic var userImage = ""
+    dynamic var userImage = "profilePic.jpg"
     dynamic var following = -1
     dynamic var followers = -1
-    
-    convenience init(id:String, name:String, sex: String, address:AddressRealm, birthDate:String, userImage:String, following:String, followers:String) {
+  dynamic var userUImage:UIImage!
+  
+    convenience init(id:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String) {
         self.init()
         self.id = id
         self.name = name
         self.sex = sex
         self.address = address
         self.birthDate = birthDate
-        self.userImage = userImage
         self.followers = Int(followers)!
         self.following = Int(following)!
-        
+      
+      if FileSupport.testIfFileExistInDocuments(self.userImage){
+        userUImage = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())\(userImage)")
+      }
         try! DataManager.sharedInstance.realm.write {
             DataManager.sharedInstance.realm.add(self, update: true)
         }
@@ -46,7 +49,13 @@ class UserRealm: Object {
             self.favoritesRadios = favorites
         }
     }
-    
+  
+  func updateImagePath(imagePath:String) {
+    try! DataManager.sharedInstance.realm.write {
+      self.userImage = imagePath
+    }
+  }
+  
     func updateFollowers(following:String,followers:String) {
         try! DataManager.sharedInstance.realm.write {
             self.followers = Int(followers)!
@@ -55,7 +64,7 @@ class UserRealm: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["favoritesRadios"]
+        return ["favoritesRadios","userUImage"]
     }
     
 }

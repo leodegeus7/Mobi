@@ -28,33 +28,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xJc-IC-fnQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3143.5" y="120.5"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="7tx-38-LlA">
-            <objects>
-                <viewController id="OGk-1Q-DTA" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="W1i-aK-bAl"/>
-                        <viewControllerLayoutGuide type="bottom" id="kE8-0J-0ZS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qfB-8r-qRk">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eym-GY-FE5">
-                                <rect key="frame" x="84" y="226" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mwr-OD-UA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3987" y="-172"/>
+            <point key="canvasLocation" x="3143.5" y="153.5"/>
         </scene>
         <!--Load View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -73,7 +47,7 @@
                                 <state key="normal" title="Segue"/>
                                 <connections>
                                     <action selector="onClickSegueButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7j0-gK-XdJ"/>
-                                    <segue destination="Ato-Xa-1Ua" kind="show" id="zKw-jT-RfT"/>
+                                    <segue destination="Nbo-bM-1H9" kind="show" identifier="initialSegue" id="C40-UZ-bnl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3150" y="-1532"/>
+            <point key="canvasLocation" x="2549.5" y="153.5"/>
         </scene>
         <!--Initial Table View Controller-->
         <scene sceneID="hTk-pj-xvP">
@@ -979,6 +953,10 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-Bh-fbC" customClass="FBSDKLoginButton">
+                                                <rect key="frame" x="96" y="467" width="128" height="30"/>
+                                                <state key="normal" title="FACEBOOK LOGIN"/>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="fUN-Qu-KOb" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" constant="13" id="0fy-Sv-240"/>
@@ -992,9 +970,11 @@
                                             <constraint firstAttribute="bottom" secondItem="y0h-9W-XB3" secondAttribute="bottom" id="RCZ-mx-wuX"/>
                                             <constraint firstItem="Pxv-CJ-cCn" firstAttribute="top" secondItem="fUN-Qu-KOb" secondAttribute="bottom" constant="33" id="aJi-5H-P2O"/>
                                             <constraint firstItem="lEX-gi-xnH" firstAttribute="top" secondItem="0Ey-Hw-ajb" secondAttribute="bottom" constant="22" id="cBG-qm-Txm"/>
+                                            <constraint firstItem="Fad-Bh-fbC" firstAttribute="centerX" secondItem="ZDY-Io-lG7" secondAttribute="centerX" id="dpg-dR-W2Z"/>
                                             <constraint firstAttribute="height" constant="1000" id="mCd-Ua-F1y"/>
                                             <constraint firstItem="fUN-Qu-KOb" firstAttribute="top" secondItem="GUJ-xD-Ngz" secondAttribute="bottom" constant="8" id="ppI-76-bdt"/>
                                             <constraint firstItem="lEX-gi-xnH" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" constant="13" id="tob-zm-oCv"/>
+                                            <constraint firstItem="Fad-Bh-fbC" firstAttribute="top" secondItem="2X5-AG-cUL" secondAttribute="bottom" constant="19" id="txG-Vc-s7l"/>
                                             <constraint firstItem="qaf-ok-r1q" firstAttribute="top" secondItem="ZDY-Io-lG7" secondAttribute="top" constant="23" id="vwt-7n-a4M"/>
                                             <constraint firstItem="qaf-ok-r1q" firstAttribute="centerX" secondItem="ZDY-Io-lG7" secondAttribute="centerX" id="zLD-Nr-E7g"/>
                                         </constraints>
@@ -1045,6 +1025,7 @@
                     <connections>
                         <outlet property="backButton" destination="nid-2v-mWu" id="rmc-bD-QjQ"/>
                         <outlet property="buttonEdit" destination="fUN-Qu-KOb" id="o9q-su-wOu"/>
+                        <outlet property="buttonFacebook" destination="Fad-Bh-fbC" id="qz1-nQ-uZl"/>
                         <outlet property="imageUser" destination="qaf-ok-r1q" id="dfK-1j-35M"/>
                         <outlet property="labelAddress" destination="vuq-Nz-FBS" id="yTI-ta-TUd"/>
                         <outlet property="labelCity" destination="KQ2-hJ-BDG" id="fnM-SY-Hdd"/>
@@ -1081,13 +1062,13 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gL6-Fm-qGv">
                                             <rect key="frame" x="8" y="8" width="584" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7p-ne-CxM">
                                             <rect key="frame" x="8" y="37" width="584" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-hH-aWN">
@@ -2012,7 +1993,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="Nbo-bM-1H9" kind="embed" id="LfD-hC-S8j"/>
+                                    <segue destination="Nbo-bM-1H9" kind="embed" id="K03-Gf-mMu"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRE-1m-omq" customClass="LineView" customModule="Mobi_Swift_3_0" customModuleProvider="target">
@@ -2973,8 +2954,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="mPE-vl-vCt"/>
                                 <exclude reference="iwd-TV-p7R"/>
+                                <exclude reference="mPE-vl-vCt"/>
                             </mask>
                         </variation>
                     </view>
@@ -2999,7 +2980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IjZ-Eq-jYX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3727" y="6278"/>
+            <point key="canvasLocation" x="3575" y="6453"/>
         </scene>
     </scenes>
     <resources>
@@ -3012,8 +2993,9 @@
         <image name="test56x52.jpg" width="56" height="52"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="EVh-4D-Cbw"/>
+        <segue reference="K03-Gf-mMu"/>
         <segue reference="LMO-xc-EaP"/>
         <segue reference="sIH-Gs-V2g"/>
-        <segue reference="EVh-4D-Cbw"/>
     </inferredMetricsTieBreakers>
 </document>

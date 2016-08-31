@@ -48,8 +48,18 @@ class RadioRealm: Object {
     try! DataManager.sharedInstance.realm.write {
       self.address = addressVar
     }
-    
-    
+  }
+  
+  convenience init(id:String,name:String,thumbnail:String,repository:Bool) {
+    self.init()
+    self.name = name
+    self.id = Int(id)!
+    self.thumbnail = thumbnail
+    if(repository) {
+      try! DataManager.sharedInstance.realm.write {
+        DataManager.sharedInstance.realm.add(self, update: true)
+      }
+    }
   }
   
   override class func primaryKey() -> String? {

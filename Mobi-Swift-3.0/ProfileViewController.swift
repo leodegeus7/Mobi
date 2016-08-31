@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var imageUser: UIImageView!
     @IBOutlet weak var labelName: UILabel!
@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var tableViewFavorites: FavoritesTableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
+    @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
     
     var selectedRadioArray:[RadioRealm]!
     var myUser = DataManager.sharedInstance.myUser
@@ -33,7 +34,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureFacebook()
         completeProfileViewInfo()
         navigationController?.title = "Perfil"
         tableViewFavorites.rowHeight = 130
@@ -41,7 +42,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         backButton.target = self.revealViewController()
         backButton.action = #selector(SWRevealViewController.revealToggle(_:))
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        
+      
         imageUser.layer.cornerRadius = imageUser.bounds.height / 2
         imageUser.layer.borderColor = UIColor.blackColor().CGColor
         imageUser.layer.borderWidth = 3.0
@@ -82,10 +83,44 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         labelDateBirth.text = myUser.birthDate
         labelFollowers.text = "\(myUser.followers)"
         labelFollowing.text = "\(myUser.following)"
-        imageUser.image = UIImage(named: myUser.userImage)
+        labelAddress.text = myUser.address.formattedLocal
+        if FileSupport.testIfFileExistInDocuments(myUser.userImage) {
+            let path = "\(FileSupport.findDocsDirectory())\(myUser.userImage)"
+            let image = UIImage(contentsOfFile: path)
+            imageUser.image = image
+        }
+
         selectedRadioArray = myUser.favoritesRadios
     }
-    
+  
+    func configureFacebook()
+    {
+      buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+      buttonFacebook.delegate = self
+    }
+  
+  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
+  {
+    FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+      let strFirstName: String = (result.objectForKey("first_name") as? String)!
+      let strLastName: String = (result.objectForKey("last_name") as? String)!
+      let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+      let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
+      DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
+      self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
+      print(strFirstName)
+    }
+  }
+
+  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+  {
+    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+    loginManager.logOut()
+
+
+  }
+
+
     
     
 }

@@ -40,6 +40,23 @@
       </ContextState>
       <ContextState
          contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;id&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "(Array)[0].key">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;image&quot;]![&quot;identifier40&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "radio">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "LocalTableViewController.viewDidLoad() -&gt; ():LocalTableViewController.swift">
@@ -77,13 +94,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static Util.removeDuplicateStrings([String]) -&gt; [String]:Util.swift">
+         contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #1):ProfileViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "Radio.resetDistanceFromUser() -&gt; Bool:Radio.swift">
+         contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.address.coordinates">
+               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "FileSupport.findDocsDirectory()">
+            </PersistentString>
+            <PersistentString
+               value = "UIImage(contentsOfFile: path)!">
+            </PersistentString>
+            <PersistentString
+               value = "myUser.userImage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -92,6 +126,17 @@
          <PersistentStrings>
             <PersistentString
                value = "json[&quot;data&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Util.removeDuplicateStrings([String]) -&gt; [String]:Util.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Radio.resetDistanceFromUser() -&gt; Bool:Radio.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.address.coordinates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -165,6 +210,14 @@
          contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
+         contextName = "InitialTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedRadioArray[0].name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "RadioRealm.(resetDistanceFromUser() -&gt; Bool).(closure #1):RadioRealm.swift">
          <PersistentStrings>
             <PersistentString
@@ -204,6 +257,14 @@
          <PersistentStrings>
             <PersistentString
                value = "modalVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(requestInitialInformation() -&gt; ()).(closure #1):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -276,13 +337,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
                value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

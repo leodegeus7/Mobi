@@ -1,18 +1,20 @@
 //
-//  CustomViewController.swift
+//  ViewController.swift
 //  Mobi-Swift-3.0
 //
-//  Created by Desenvolvimento Access Mobile on 8/8/16.
+//  Created by Desenvolvimento Access Mobile on 9/1/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
 //
 
 import UIKit
+import Kingfisher
 
-class CustomViewController: UIViewController {
+class ViewController: UIViewController {
 
+  @IBOutlet weak var image: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        image.kf_setImageWithURL(NSURL(string: "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/image/download?identifier=ZDNlZDEwM2MtZTRlZS00YjA0LTllMjctOTA3NDRmMTY1MWY3"))
         // Do any additional setup after loading the view.
     }
 

@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import SideMenu
+import Kingfisher
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
   
@@ -47,7 +48,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
     
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-    
+
     
     
   }
@@ -87,7 +88,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let address = selectedRadioArray[indexPath.row].address {
         cell.labelLocal.text = address.formattedLocal
       }
-      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "heart.png")
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       cell.widthTextOne.constant = 30
@@ -100,7 +101,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let address = selectedRadioArray[indexPath.row].address {
         cell.labelLocal.text = address.formattedLocal
       }
-      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "marker.png")
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
       cell.widthTextOne.constant = 80
@@ -113,7 +114,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let address = selectedRadioArray[indexPath.row].address {
         cell.labelLocal.text = address.formattedLocal
       }
-      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
        if let _ = DataManager.sharedInstance.recentsRadios[0].lastAccessDate {
         cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
@@ -128,7 +129,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let address = selectedRadioArray[indexPath.row].address {
         cell.labelLocal.text = address.formattedLocal
       }
-      cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "heart.png")
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       cell.widthTextOne.constant = 30

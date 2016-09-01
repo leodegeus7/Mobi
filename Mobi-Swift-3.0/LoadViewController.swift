@@ -25,6 +25,12 @@ class LoadViewController: UIViewController {
 //    self.performSegueWithIdentifier("InitialViewSegue", sender: self)
   }
   
+//  override func viewWillDisappear(animated: Bool) {
+//    self.dismissViewControllerAnimated(true) { 
+//      
+//    }
+//  }
+  
   func requestInitialInformation() {
     let manager = RequestManager()
     manager.requestStationUnits(.stationUnits) { (result) in

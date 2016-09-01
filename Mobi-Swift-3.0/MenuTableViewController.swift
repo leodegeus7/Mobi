@@ -26,6 +26,7 @@ class MenuTableViewController: UITableViewController {
     tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.navigationItem.setHidesBackButton(true, animated: false)
+
   }
   
   override func didReceiveMemoryWarning() {

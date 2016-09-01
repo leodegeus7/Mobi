@@ -67,6 +67,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "UIImage(contentsOfFile: path)!">
+            </PersistentString>
+            <PersistentString
+               value = "FileSupport.findDocsDirectory()">
+            </PersistentString>
+            <PersistentString
+               value = "myUser.userImage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Radio.resetDistanceFromUser() -&gt; ():Radio.swift">
          <PersistentStrings>
             <PersistentString
@@ -74,14 +91,6 @@
             </PersistentString>
             <PersistentString
                value = "self.address.coordinates">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "recentsRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -97,19 +106,10 @@
          contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #1):ProfileViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
+         contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
-            </PersistentString>
-            <PersistentString
-               value = "FileSupport.findDocsDirectory()">
-            </PersistentString>
-            <PersistentString
-               value = "UIImage(contentsOfFile: path)!">
-            </PersistentString>
-            <PersistentString
-               value = "myUser.userImage">
+               value = "recentsRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -118,6 +118,20 @@
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MiniPlayerViewController.(setupAnimator() -&gt; ()).(closure #1):MiniPlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tabBar">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "self.modalVC">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -337,13 +351,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+            </PersistentString>
+            <PersistentString
                value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
                value = "cell.labelTitle.text">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

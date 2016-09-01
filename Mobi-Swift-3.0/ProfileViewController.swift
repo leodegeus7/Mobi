@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var buttonEdit: UIButton!
     @IBOutlet weak var labelFollowing: UILabel!
     @IBOutlet weak var labelFollowers: UILabel!
-    @IBOutlet weak var tableViewFavorites: FavoritesTableView!
+    @IBOutlet weak var tableViewFavorites: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("favoriteCell", forIndexPath: indexPath) as! FavoriteTableViewCell
         cell.labelName.text = selectedRadioArray[indexPath.row].name
         cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
-        cell.imageBig.image = UIImage(named: selectedRadioArray[indexPath.row].thumbnail)
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "heart.png")
         cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
         return cell

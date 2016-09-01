@@ -96,7 +96,7 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
       let cell = tableView.dequeueReusableCellWithIdentifier("radioCell") as! InitialTableViewCell
       cell.labelName.text = radiosInSelectedState.radios[indexPath.row].name
       cell.labelLocal.text = radiosInSelectedState.radios[indexPath.row].address.formattedLocal
-      cell.imageBig.image = UIImage(named: radiosInSelectedState.radios[indexPath.row].thumbnail)
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radiosInSelectedState.radios[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "heart.png")
       cell.labelDescriptionOne.text = "\(radiosInSelectedState.radios[indexPath.row].likenumber)"
       cell.imageSmallTwo.image = UIImage(contentsOfFile: "")

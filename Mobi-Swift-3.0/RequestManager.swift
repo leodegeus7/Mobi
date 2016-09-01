@@ -126,5 +126,9 @@ class RequestManager: NSObject {
         }
   }
   
+  static func getLinkFromImageWithIdentifierString(identifier:String) -> String{
+    return "\(DataManager.sharedInstance.baseURL)image/download?identifier=\(identifier)"
+  }
+  
 
 }

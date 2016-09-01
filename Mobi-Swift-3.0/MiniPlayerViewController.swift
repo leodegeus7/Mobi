@@ -28,6 +28,7 @@ class MiniPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         DataManager.sharedInstance.miniPlayerView = self
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? PlayerViewController)
@@ -77,6 +78,7 @@ class MiniPlayerViewController: UIViewController {
             
             self.modalVC.view.frame.origin.y = self.miniPlayerView.frame.origin.y + self.miniPlayerView.frame.size.height
             self.view.insertSubview(self.modalVC.view, belowSubview: self.tabBar)
+            //self.view.insertSubview(self.modalVC.view, atIndex: 0)
             
             self.view.layoutIfNeeded()
             self.modalVC.view.layoutIfNeeded()

@@ -174,6 +174,8 @@ typedef NS_ENUM( NSInteger, FrontViewPosition)
     
 };
 
+
+
 // Enum values for toggleAnimationType
 typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 {

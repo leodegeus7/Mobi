@@ -29,6 +29,8 @@
 #import "SWRevealViewController.h"
 
 
+
+
 #pragma mark - StatusBar Helper Function
 
 // computes the required offset adjustment due to the status bar for the passed in view,
@@ -61,7 +63,6 @@ static CGFloat statusBarAdjustment( UIView* view )
 
 @end
 
-
 @interface SWRevealViewController()
 - (void)_getRevealWidth:(CGFloat*)pRevealWidth revealOverDraw:(CGFloat*)pRevealOverdraw forSymetry:(int)symetry;
 - (void)_getBounceBack:(BOOL*)pBounceBack pStableDrag:(BOOL*)pStableDrag forSymetry:(int)symetry;
@@ -87,6 +88,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     self = [super initWithFrame:frame];
     if ( self )
     {
+      
         _c = controller;
         CGRect bounds = self.bounds;
     
@@ -96,8 +98,11 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
         [self addSubview:_frontView];
     }
+  
     return self;
 }
+
+
 
 
 - (void)reloadShadow
@@ -759,7 +764,9 @@ const int FrontViewPositionNone = 0xff;
     // and resume it back to the previous state, it is possible to override this behaviour by
     // intercepting it on the panGestureBegan and panGestureEnded delegates
     _userInteractionStore = _contentView.userInteractionEnabled;
+
 }
+
 
 
 - (NSUInteger)supportedInterfaceOrientations

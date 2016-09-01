@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Kingfisher
 
 class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, errorMessageDelegate, sharedInstanceDelegate {
   
@@ -36,7 +37,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   override func viewDidLoad() {
     super.viewDidLoad()
     //DataManager.sharedInstance.radioVC = self
-    imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
+    imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
     labelName.text = actualRadio.name
     if let _ = actualRadio.address {
       labelLocal.text = actualRadio.address.formattedLocal

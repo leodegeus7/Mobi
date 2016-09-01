@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Kingfisher
 
 class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, errorMessageDelegate, sharedInstanceDelegate {
     
@@ -79,7 +80,8 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func updateInfoOfView() {
-        imageLogo.image = UIImage(named: "\(actualRadio.thumbnail)")
+        //imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+
         labelName.text = actualRadio.name
 
         if let _ = actualRadio.address {

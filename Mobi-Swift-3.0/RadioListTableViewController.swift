@@ -49,7 +49,7 @@ class RadioListTableViewController: UITableViewController {
     
     cell.labelName.text = radios[indexPath.row].name
     cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
-    cell.imageBig.image = UIImage(named: radios[indexPath.row].thumbnail)
+    cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
     cell.imageSmallOne.image = UIImage(named: "heart.png")
     cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
     cell.imageSmallTwo.image = UIImage(contentsOfFile: "")

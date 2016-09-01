@@ -9,7 +9,8 @@
 import UIKit
 
 class LoadViewController: UIViewController {
-
+    var initialView = MiniPlayerViewController()
+    var notificationCenter = NSNotificationCenter.defaultCenter()
     override func viewDidLoad() {
         super.viewDidLoad()
         requestInitialInformation()
@@ -22,14 +23,7 @@ class LoadViewController: UIViewController {
     
 
   @IBAction func onClickSegueButton(sender: AnyObject) {
-//    self.performSegueWithIdentifier("InitialViewSegue", sender: self)
-  }
-  
-//  override func viewWillDisappear(animated: Bool) {
-//    self.dismissViewControllerAnimated(true) { 
-//      
-//    }
-//  }
+    }
   
   func requestInitialInformation() {
     let manager = RequestManager()
@@ -42,9 +36,18 @@ class LoadViewController: UIViewController {
         let dic = singleResult as! NSDictionary
         let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
         DataManager.sharedInstance.allRadios.append(radio)
-      }
-      DataBaseTest.infoWithoutRadios()
-      self.performSegueWithIdentifier("initialSegue", sender: self)
+        }
+        DataBaseTest.infoWithoutRadios()
+        //self.storyboard?.instantiateViewControllerWithIdentifier("firstView")
+        self.notificationCenter.postNotificationName("reloadData", object: nil)
+        self.dismissViewControllerAnimated(true, completion: { 
+        
+        })
+        //self.presentViewController(vc!, animated: true, completion: nil)
+       // self.initialView.modalPresentationStyle = .OverFullScreen
     }
   }
+    
 }
+
+

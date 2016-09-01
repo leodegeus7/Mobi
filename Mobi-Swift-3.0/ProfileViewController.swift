@@ -67,7 +67,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("favoriteCell", forIndexPath: indexPath) as! FavoriteTableViewCell
         cell.labelName.text = selectedRadioArray[indexPath.row].name
-        cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+        if let _ = selectedRadioArray[indexPath.row].address {
+            cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
+        }
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "heart.png")
         cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"

@@ -27,7 +27,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var buttonPlay: UIButton!
     
     var stars = [UIImageView]()
-  var actualRadio = RadioRealm()
+  var actualRadio = DataManager.sharedInstance.radioInExecution
     var tapCloseButtonActionHandler : (Void -> Void)?
     var firstErrorSkip = true
     var firstInstanceSkip = true
@@ -37,7 +37,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        actualRadio = DataManager.sharedInstance.radioInExecution
         updateInfoOfView()
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -80,7 +80,8 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func updateInfoOfView() {
-        //imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+        actualRadio = DataManager.sharedInstance.radioInExecution
+        imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
 
         labelName.text = actualRadio.name
 

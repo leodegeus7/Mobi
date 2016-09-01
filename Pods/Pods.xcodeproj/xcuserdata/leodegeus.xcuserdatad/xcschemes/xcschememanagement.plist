@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>Pods-Mobi-Swift-3.0.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -47,6 +52,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1B539A0DF980E13968EC7A28ADF3A596</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1C4B9806282A9C49D5D7109CD37B6C3C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1DAAC1A61A84B3B738634A6932BEB8FE</key>
 		<dict>
 			<key>primary</key>
@@ -58,6 +73,11 @@
 			<true/>
 		</dict>
 		<key>67A590106BD2F1726886EA0DFD17758E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69A8208B89ED31480B77B56318232633</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +107,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>95559E4B3F33D89B4FF31BBAC6BD16B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9E569800D80B1517A66A84E2779B035D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A4CF12FA4E3B0A365F603B593CA98371</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +132,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E507D01D2885701D335E40C1C3CF2BB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E8A3470505D9114E0755FFE507676D62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E96E13C4D3B5B5FC0651440734C2BF4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -30,10 +30,22 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   var selectedMode = modes.Top
   var selectedRadio = RadioRealm()
-  
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   @IBOutlet weak var openMenu: UIBarButtonItem!
+    
+
   
   override func viewDidLoad() {
+    if DataManager.sharedInstance.allRadios.count == 0 {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let windows = app.window
+        windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
+        })
+        
+    }
+    notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
     super.viewDidLoad()
     changeTableViewStatus()
     tableView.rowHeight = 120
@@ -46,13 +58,21 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       openMenu.target = self.revealViewController()
       openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
-    
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 
     
     
   }
   
+    
+    func reloadData() {
+        selectedMode = modes.Top
+        changeTableViewStatus()
+        tableView.reloadData()
+        if ((self.refreshControl?.refreshing) != nil) {
+            self.refreshControl?.endRefreshing()
+        }
+    }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
@@ -246,4 +266,21 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
   }
   
+    func requestInitialInformation(completion: (resultAddress: Bool) -> Void) {
+        let manager = RequestManager()
+        manager.requestStationUnits(.stationUnits) { (result) in
+            let data = Data.response(result)
+            print(result)
+            print(data)
+            let array = result["data"] as! NSArray
+            for singleResult in array {
+                let dic = singleResult as! NSDictionary
+                let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
+                DataManager.sharedInstance.allRadios.append(radio)
+            }
+            DataBaseTest.infoWithoutRadios()
+            completion(resultAddress: true)
+            //self.performSegueWithIdentifier("initialSegue", sender: self)
+        }
+    }
 }

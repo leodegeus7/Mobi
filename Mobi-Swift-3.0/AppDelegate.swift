@@ -37,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     RealmWrapper.realmStart("default")
     downloadFacebookUpdatedInfo()
     //DataBaseTest.completeInfo()
-    requestInitialInformation { (resultAddress) in
-      
-    }
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
@@ -91,23 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
   }
   
-  func requestInitialInformation(completion: (resultAddress: Bool) -> Void) {
-    let manager = RequestManager()
-    manager.requestStationUnits(.stationUnits) { (result) in
-      let data = Data.response(result)
-      print(result)
-      print(data)
-      let array = result["data"] as! NSArray
-      for singleResult in array {
-        let dic = singleResult as! NSDictionary
-        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
-        DataManager.sharedInstance.allRadios.append(radio)
-      }
-      DataBaseTest.infoWithoutRadios()
-      completion(resultAddress: true)
-      //self.performSegueWithIdentifier("initialSegue", sender: self)
-    }
-  }
   
 
 }

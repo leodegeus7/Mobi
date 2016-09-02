@@ -113,6 +113,13 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   
   
   func separateInformation() {
+    if DataManager.sharedInstance.allRadios.count == 0 {
+        return
+    }
+    
+    if DataManager.sharedInstance.allRadios[0].address == nil {
+        return
+    }
     
     for state in states {
       var radiosInState = [RadioRealm]()

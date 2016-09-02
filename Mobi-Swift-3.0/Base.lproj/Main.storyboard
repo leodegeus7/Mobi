@@ -1114,8 +1114,14 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="26o-mm-DoV">
                                             <rect key="frame" x="8" y="181" width="584" height="131"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="131" id="XiU-qc-Nvw"/>
                                                 <constraint firstAttribute="width" secondItem="26o-mm-DoV" secondAttribute="height" multiplier="584:131" id="y5z-pK-moM"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="y5z-pK-moM"/>
+                                                </mask>
+                                            </variation>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -1135,6 +1141,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="heightTextView" destination="XiU-qc-Nvw" id="mSb-kR-sKY"/>
                                     <outlet property="imageDescription" destination="26o-mm-DoV" id="XV3-tN-fn0"/>
                                     <outlet property="labelDate" destination="p7p-ne-CxM" id="0ZR-vn-Hue"/>
                                     <outlet property="labelTitle" destination="gL6-Fm-qGv" id="C5S-Of-Cdd"/>

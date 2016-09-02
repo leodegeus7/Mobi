@@ -140,6 +140,13 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   
   
   func separateInformation() {
+    if DataManager.sharedInstance.allRadios.count == 0 {
+
+        return
+    }
+    if DataManager.sharedInstance.allRadios[0].genre == nil {
+        return
+    }
     var genres = [String]()
     
     for radio in DataManager.sharedInstance.allRadios {

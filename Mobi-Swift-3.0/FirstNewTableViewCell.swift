@@ -15,6 +15,7 @@ class FirstNewTableViewCell: UITableViewCell {
   @IBOutlet weak var textDescription: UITextView!
   @IBOutlet weak var imageDescription: UIImageView!
   
+    @IBOutlet weak var heightTextView: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()

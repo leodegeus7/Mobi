@@ -24,7 +24,7 @@ class NewRealm: Object {
   dynamic var img:String!
   dynamic var type:String!
   var typeCase = newType.inProcess
-  dynamic var newDescription: String!
+  dynamic var newDescription = ""
   dynamic var date: String!
   
   convenience init(id:String, newTitle:String, newDescription: String, date:String) {

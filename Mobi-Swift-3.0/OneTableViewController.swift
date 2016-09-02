@@ -42,8 +42,8 @@ class OneTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
       cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-      cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-//      cell.imageDescription.backgroundColor = UIColor.redColor()
+      cell.textDescription.text = "\(DataManager.sharedInstance.allNews[indexPath.row].newDescription)"//DataManager.sharedInstance.allNews[indexPath.row].newDescription
+      cell.imageDescription.backgroundColor = UIColor.redColor()
 
         // Configure the cell...
 

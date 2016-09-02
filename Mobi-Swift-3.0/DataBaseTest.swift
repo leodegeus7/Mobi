@@ -40,7 +40,7 @@ class DataBaseTest: NSObject {
     let firstNew2 = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Bomfadlkfkjsdgfkhsdgkfhsdkjghsdlg xh gosdhgo hsdghs ishg oishdgo ihsoihs  ihoghsd lgd dia, estou testando os textosoii", img: "", date: "Há 4 dias")
     
     
-    DataManager.sharedInstance.allNews.append(firstNew)
+   // DataManager.sharedInstance.allNews.append(firstNew)
     //DataManager.sharedInstance.allNews.append(firstNew2)
     
     
@@ -86,11 +86,12 @@ class DataBaseTest: NSObject {
     
     DataManager.sharedInstance.myUser = myUser
     
-    let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textosoii", img: "", date: "Há 2 dias")
-    let firstNew2 = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Bomfadlkfkjsdgfkhsdgkfhsdkjghsdlg xh gosdhgo hsdghs ishg oishdgo ihsoihs  ihoghsd lgd dia, estou testando os textosoii", img: "", date: "Há 4 dias")
-    
-    
-    DataManager.sharedInstance.allNews.append(firstNew)
+    let firstNew3 = New(id: "1",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
+    let firstNew1 = New(id: "2",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
+    let secondNew2 = New(id: "5",newTitle: "Ai", newDescription: "Nossa, funciona", date: "Há 12 segundos")
+    DataManager.sharedInstance.allNews.append(firstNew1)
+    DataManager.sharedInstance.allNews.append(firstNew3)
+    DataManager.sharedInstance.allNews.append(secondNew2)
   }
   
 }

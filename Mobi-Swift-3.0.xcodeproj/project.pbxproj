@@ -10,6 +10,8 @@
 		207F048F0BA50AB9074CEEA3 /* Pods_Mobi_Swift_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */; };
 		B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
+		B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C92181D7A08CA008F24AF /* LoginViewController.swift */; };
+		B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */; };
 		B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */; };
 		B70DFA4B1D70C847000DDBD6 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4A1D70C847000DDBD6 /* play.png */; };
 		B70DFA4D1D70C84C000DDBD6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4C1D70C84C000DDBD6 /* pause.png */; };
@@ -32,7 +34,6 @@
 		B759C0221D6E10540005515F /* clock-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B759C0211D6E10540005515F /* clock-icon.png */; };
 		B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */; };
 		B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6291D664E21005A00B3 /* NewRealm.swift */; };
-		B77D58B31D761EF800F1E77B /* OneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D58B21D761EF800F1E77B /* OneTableViewController.swift */; };
 		B77DEA631D774A8200695546 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA621D774A8200695546 /* Bolts.framework */; };
 		B77DEA641D774A8200695546 /* Bolts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA621D774A8200695546 /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B77DEA661D774A9F00695546 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */; };
@@ -109,6 +110,8 @@
 		47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobi-Swift-3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0.debug.xcconfig"; sourceTree = "<group>"; };
 		B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		B70C92181D7A08CA008F24AF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSupport.swift; sourceTree = "<group>"; };
 		B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreRealm.swift; sourceTree = "<group>"; };
 		B70DFA4A1D70C847000DDBD6 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		B70DFA4C1D70C84C000DDBD6 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
@@ -134,7 +137,6 @@
 		B759C0211D6E10540005515F /* clock-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-icon.png"; sourceTree = "<group>"; };
 		B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B769B6291D664E21005A00B3 /* NewRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRealm.swift; sourceTree = "<group>"; };
-		B77D58B21D761EF800F1E77B /* OneTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTableViewController.swift; sourceTree = "<group>"; };
 		B77DEA621D774A8200695546 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				B7F325631D63993900B3BC42 /* RadioRealm.swift */,
 				B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */,
 				B7E697411D591F8E00EC276F /* UserRealm.swift */,
+				B7D584D71D5CE4C0003D5A1F /* New.swift */,
 				B769B6291D664E21005A00B3 /* NewRealm.swift */,
 			);
 			name = RealmClass;
@@ -319,7 +322,7 @@
 				B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */,
 				B74B0E5F1D6F6C8800012D8E /* RadioViewController.swift */,
 				CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */,
-				B77D58B21D761EF800F1E77B /* OneTableViewController.swift */,
+				B70C92181D7A08CA008F24AF /* LoginViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -329,7 +332,6 @@
 			children = (
 				B70DFA491D70AC90000DDBD6 /* RealmClass */,
 				B7E697431D59208800EC276F /* DataManager.swift */,
-				B7D584D71D5CE4C0003D5A1F /* New.swift */,
 				B7D584DF1D5D1674003D5A1F /* AudioConfig.swift */,
 				B7880BA31D5E461C002B235A /* Address.swift */,
 				B7880BA91D5E5F46002B235A /* Radio.swift */,
@@ -378,6 +380,7 @@
 				B77DEA6C1D77567700695546 /* FileSupport.swift */,
 				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
 				B74BB93A1D78ABF80076FE2D /* ViewController.swift */,
+				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -607,12 +610,13 @@
 				B74BB93B1D78ABF80076FE2D /* ViewController.swift in Sources */,
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
+				B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
+				B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */,
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
-				B77D58B31D761EF800F1E77B /* OneTableViewController.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
 				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
 				CDBB19761D74AA8900BF0405 /* PlayerViewController.swift in Sources */,

@@ -172,5 +172,49 @@ extension NSLayoutConstraint {
   }
 }
 
+extension UIViewController {
+  
+  // Simple alert, OK only
+  func displayAlert(title title: String, message: String, action: String) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let defaultAction: UIAlertAction = UIAlertAction(
+      title: action,
+      style: UIAlertActionStyle.Default,
+      handler: nil
+    )
+    alert.addAction(defaultAction)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  // OK/Cancel alert type
+  func displayAlert(title title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let yesAction: UIAlertAction = UIAlertAction(
+      title: okTitle,
+      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        okAction()
+    }
+    let noAction: UIAlertAction = UIAlertAction(
+      title: cancelTitle,
+      style: UIAlertActionStyle.Default,
+      handler: { (action: UIAlertAction!) -> Void in
+        cancelAction()
+      }
+    )
+    alert.addAction(yesAction)
+    alert.addAction(noAction)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+}
+
 
 

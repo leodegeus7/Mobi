@@ -54,6 +54,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
 
         }
       
+        self.title = "Configurações"
+      
         // define audio tableview parameters
         tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
       

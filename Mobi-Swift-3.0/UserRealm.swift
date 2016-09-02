@@ -62,6 +62,7 @@ class UserRealm: Object {
             self.following = Int(following)!
         }
     }
+  
     
     override static func ignoredProperties() -> [String] {
         return ["favoritesRadios","userUImage"]

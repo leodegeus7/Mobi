@@ -38,6 +38,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     
     self.collectionView.addGestureRecognizer(tapRecognizer)
     
+    self.title = "Gêneros"
     
   }
   

@@ -11,9 +11,19 @@ import UIKit
 class LoadViewController: UIViewController {
     var initialView = MiniPlayerViewController()
     var notificationCenter = NSNotificationCenter.defaultCenter()
+  
+    var requestInfo = true
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      if (requestInfo) {
         requestInitialInformation()
+      } else {
+        DataBaseTest.completeInfo()
+        self.dismissViewControllerAnimated(true, completion: {
+        
+        })
+      }
     }
 
     override func didReceiveMemoryWarning() {

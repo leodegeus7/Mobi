@@ -45,7 +45,7 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
     }
     
     let count = citiesArray.count
-    
+      self.title = "Cidades"
     tableViewCities.frame = CGRectMake(0, 0, 460, 40*CGFloat(count))
     height2.constant = 40*CGFloat(count)
         // Do any additional setup after loading the view.

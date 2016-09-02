@@ -19,6 +19,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 400
+    self.title = "Notícias"
   }
   
   override func didReceiveMemoryWarning() {
@@ -51,16 +52,19 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
       cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
       cell.imageDescription.backgroundColor = UIColor.redColor()
-//      let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+      
+      cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
 //      cell.heightView.constant = cell.labelDate.frame.height + cell.labelTitle.frame.height + heightTV + cell.imageDescription.frame.height
       return cell
     } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
-      let cell = tableView.dequeueReusableCellWithIdentifier("secondCell", forIndexPath: indexPath) as! SecondNewTableViewCell
-      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+      let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+      cell.labelDate.text = "oi"
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
       cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
       let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-      cell.heightView.constant = cell.labelDate.frame.height + cell.labelTitle.frame.height + heightTV
+      cell.heightTextView.constant = heightTV
+      cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
+      cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
       return cell
     } else {
       let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell

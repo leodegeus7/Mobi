@@ -47,6 +47,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## Firebase
+
+Copyright 2016 Google Inc.
+
+## FirebaseAnalytics
+
+Copyright 2016 Google
+
+## FirebaseAuth
+
+Copyright 2016 Google
+
+## FirebaseInstanceID
+
+Copyright 2016 Google Inc.
+
+## GoogleInterchangeUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleNetworkingUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleParsingUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleSymbolUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleUtilities
+
+Copyright 2015 Google Inc.
+
 ## Kingfisher
 
 The MIT License (MIT)

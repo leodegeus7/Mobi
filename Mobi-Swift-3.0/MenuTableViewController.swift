@@ -52,6 +52,12 @@ class MenuTableViewController: UITableViewController {
     if (indexPath.row == 0) {
       let userCell = tableView.dequeueReusableCellWithIdentifier("TopCell", forIndexPath: indexPath) as! TopMenuTableViewCell
       userCell.nameUser.text = "Fulano"
+      if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
+        userCell.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
+      }
+      if DataManager.sharedInstance.myUser.name != "" {
+        userCell.nameUser.text = DataManager.sharedInstance.myUser.name
+      }
       //let imageUserVar = UIImage()
       //cell.imageUser.image =
       userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)

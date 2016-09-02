@@ -98,7 +98,15 @@ class RequestManager: NSObject {
                 dic["data"] = data
                 self.existData = true
                 completion(result: dic)
-              }else {
+              } else if let data = json["data"].string {
+                self.resultText = .OK
+                var dic = Dictionary<String,AnyObject>()
+                dic["requestResult"] = "\(self.resultText)"
+                dic["data"] = data
+                self.existData = true
+                completion(result: dic)
+              }
+              else {
                 self.resultText = .ErrorInDataInformation
                 var dic = Dictionary<String,AnyObject>()
                 dic["requestResult"] = "\(self.resultText)"
@@ -125,10 +133,20 @@ class RequestManager: NSObject {
           }
         }
   }
+  //"user/autenticatenative?email=\(email)&password=\(password)"
+  func loginInServer(email:String,password:String,completion: (result: Dictionary<String,AnyObject>) -> Void) {
+    self.requestJson("user/autenticatenative?email=\(email)&password=\(password)") { (result) in
+      completion(result: result)
+      let data = Data.response(result)
+      
+    }
+  }
   
   static func getLinkFromImageWithIdentifierString(identifier:String) -> String{
     return "\(DataManager.sharedInstance.baseURL)image/download?identifier=\(identifier)"
   }
+  
+  
   
 
 }

@@ -47,6 +47,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         imageUser.layer.borderColor = UIColor.blackColor().CGColor
         imageUser.layer.borderWidth = 3.0
         imageUser.clipsToBounds = true
+        self.title = "Perfil"
     }
     
     

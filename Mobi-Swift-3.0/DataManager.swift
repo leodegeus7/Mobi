@@ -53,7 +53,7 @@ class DataManager: NSObject {
   var playerIsLoaded = false
     var radioInExecution = RadioRealm()
   
-  var allNews = [NewRealm]()
+  var allNews = [New]()
   var addressId = 0
   
   enum actualCondition {

@@ -14,6 +14,7 @@ import RealmSwift
 import Alamofire
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
@@ -31,12 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     print(FileSupport.findDocsDirectory())
     
-    
 
     RealmWrapper.eraseRealmFile("default")
     RealmWrapper.realmStart("default")
     downloadFacebookUpdatedInfo()
-    //DataBaseTest.completeInfo()
+    FIRApp.configure()
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 

@@ -20,15 +20,15 @@ class MiniPlayerViewController: UIViewController {
     @IBOutlet weak var tabBar: UITabBar!
     
     private var animator : ARNTransitionAnimator!
-    private var modalVC: PlayerViewController!
-    
+    private var modalVC : PlayerViewController!
+  
     var notificationCenter = NSNotificationCenter.defaultCenter()
     
     @IBOutlet weak var playButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         DataManager.sharedInstance.miniPlayerView = self
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? PlayerViewController)
@@ -36,7 +36,7 @@ class MiniPlayerViewController: UIViewController {
         self.modalVC.tapCloseButtonActionHandler = { [unowned self] in
             self.animator.interactiveType = .None
         }
-        
+        DataManager.sharedInstance.playerClass = modalVC
         let color = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.3)
         
         self.miniPlayerButton.setBackgroundImage(self.generateImageWithColor(color), forState: .Highlighted)

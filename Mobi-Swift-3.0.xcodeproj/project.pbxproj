@@ -48,6 +48,8 @@
 		B7880BAC1D5E6B84002B235A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7880BAB1D5E6B84002B235A /* AVFoundation.framework */; };
 		B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */; };
 		B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */; };
+		B78BE4C31D7DE4ED008E1CA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B78BE4C21D7DE4ED008E1CA4 /* GoogleService-Info.plist */; };
+		B78BE4C51D7DFCAC008E1CA4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78BE4C41D7DFCAB008E1CA4 /* RegisterViewController.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
@@ -149,6 +151,8 @@
 		B7880BAB1D5E6B84002B235A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
 		B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewViewController.swift; sourceTree = "<group>"; };
+		B78BE4C21D7DE4ED008E1CA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B78BE4C41D7DFCAB008E1CA4 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
 		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "Mobi-Swift-3.0/SWRevealViewController.m"; sourceTree = "<group>"; };
 		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mobi-Swift-3.0-Bridging-Header.h"; path = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -317,12 +321,13 @@
 				B7E697331D59162D00EC276F /* LoadViewController.swift */,
 				B7E697391D591C1C00EC276F /* MenuTableViewController.swift */,
 				B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */,
+				B70C92181D7A08CA008F24AF /* LoginViewController.swift */,
 				B7D90E021D5A53F800D15089 /* LocalTableViewController.swift */,
 				B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */,
 				B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */,
 				B74B0E5F1D6F6C8800012D8E /* RadioViewController.swift */,
 				CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */,
-				B70C92181D7A08CA008F24AF /* LoginViewController.swift */,
+				B78BE4C41D7DFCAB008E1CA4 /* RegisterViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
 				B74BB93A1D78ABF80076FE2D /* ViewController.swift */,
 				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
+				B78BE4C21D7DE4ED008E1CA4 /* GoogleService-Info.plist */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -534,6 +540,7 @@
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
+				B78BE4C31D7DE4ED008E1CA4 /* GoogleService-Info.plist in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
 				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
 				B7F530F51D62486600831561 /* test-3.png in Resources */,
@@ -639,6 +646,7 @@
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
+				B78BE4C51D7DFCAC008E1CA4 /* RegisterViewController.swift in Sources */,
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,
 				B7880BAA1D5E5F46002B235A /* Radio.swift in Sources */,

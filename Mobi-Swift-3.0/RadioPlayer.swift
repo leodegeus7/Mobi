@@ -24,11 +24,12 @@ class RadioPlayer : NSObject {
       }
     }
   }
-  private var player = AVPlayer(URL: NSURL(string: "http://stream.hostpg.com.br:8000")!)
+  
+  private var player = AVPlayer(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!)
   private var playerItem = AVPlayerItem?()
   private var isPlaying = false
-    var notificationCenter = NSNotificationCenter.defaultCenter()
-    
+  var notificationCenter = NSNotificationCenter.defaultCenter()
+  
   var errorDelegate:errorMessageDelegate? = nil
   var errorMessage = "" {
     didSet {
@@ -43,7 +44,7 @@ class RadioPlayer : NSObject {
     
     errorMessage = ""
     
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: "http://stream.hostpg.com.br:8000")!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!, options: nil)
     
     let statusKey = "tracks"
     
@@ -88,7 +89,7 @@ class RadioPlayer : NSObject {
   func resetPlayer() {
     errorMessage = ""
     
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: "http://stream.hostpg.com.br:8000")!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!, options: nil)
     
     let statusKey = "tracks"
     
@@ -110,6 +111,7 @@ class RadioPlayer : NSObject {
           self.errorMessage = error!.localizedDescription
           print(error!)
         }
+        
         
       })
     })
@@ -159,10 +161,10 @@ class RadioPlayer : NSObject {
   func currentlyPlaying() -> Bool {
     return isPlaying
   }
-    
-    func sendNotification() {
-        notificationCenter.postNotificationName("updateIcons", object: nil)
-    }
+  
+  func sendNotification() {
+    notificationCenter.postNotificationName("updateIcons", object: nil)
+  }
   
 }
 protocol sharedInstanceDelegate {

@@ -99,6 +99,14 @@ class RadioRealm: Object {
     }
   }
   
+  func updateStremingLink(link:String) {
+    if link != "" {
+      try! DataManager.sharedInstance.realm.write {
+        self.streamingLink = link
+      }
+    }
+  }
+  
   
 
 // Specify properties to ignore (Realm won't persist these)

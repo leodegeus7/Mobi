@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 
 class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,FBSDKLoginButtonDelegate {
@@ -27,7 +28,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
-    
+    @IBOutlet weak var buttonLogin: UIButton!
+  
     var selectedRadioArray:[RadioRealm]!
     var myUser = DataManager.sharedInstance.myUser
     
@@ -48,10 +50,19 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         imageUser.layer.borderWidth = 3.0
         imageUser.clipsToBounds = true
         self.title = "Perfil"
+      
     }
     
-    
-    
+  override func viewWillAppear(animated: Bool) {
+    if DataManager.sharedInstance.isLogged == true {
+      buttonLogin.setTitle("Logout", forState: .Normal)
+      buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+    } else {
+      buttonLogin.setTitle("Login", forState: .Normal)
+      buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
+    }
+  }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -123,6 +134,23 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
 
   }
 
+  @IBAction func loginButtonTap(sender: AnyObject) {
+    if DataManager.sharedInstance.isLogged {
+      func okAction() {
+          try! FIRAuth.auth()?.signOut()
+          DataManager.sharedInstance.isLogged = false
+          buttonLogin.setTitle("Logout", forState: .Normal)
+          buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+          self.dismissViewControllerAnimated(true, completion: nil)
+      }
+      func cancelAction() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+      }
+      self.displayAlert(title: "Atenação", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+    } else {
+      performSegueWithIdentifier("loginScreen", sender: self)
+    }
+  }
 
     
     

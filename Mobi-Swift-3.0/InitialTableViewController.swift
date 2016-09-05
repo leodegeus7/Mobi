@@ -10,6 +10,9 @@ import UIKit
 import CoreLocation
 import SideMenu
 import Kingfisher
+import Firebase
+import FirebaseAuth
+import FirebaseInstanceID
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
   
@@ -17,6 +20,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   @IBOutlet weak var buttonLocal: UIButton!
   @IBOutlet weak var buttonRecents: UIButton!
   @IBOutlet weak var buttonFavorite: UIButton!
+  
   
   let locationManager = CLLocationManager()
   

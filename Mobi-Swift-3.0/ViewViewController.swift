@@ -93,16 +93,17 @@ class ViewViewController: UIViewController, errorMessageDelegate, sharedInstance
   func resetStream() {
     print("Reloading interrupted stream");
     RadioPlayer.sharedInstance.resetPlayer()
-    //RadioPlayer.sharedInstance = RadioPlayer();
     RadioPlayer.sharedInstance.errorDelegate = self
     RadioPlayer.sharedInstance.instanceDelegate = self
     if RadioPlayer.sharedInstance.bufferFull() {
-      radioSwitch.image = UIImage(named: "Radio_Switch_Active")
-      listenLabel.text = "Click to Pause Radio Stream:"
+      self.radioSwitch.image = UIImage(named: "Radio_Switch_Active")
+      self.listenLabel.text = "Click to Pause Radio Stream:"
       RadioPlayer.sharedInstance.play()
     } else {
-      playRadio()
+      self.playRadio()
     }
+
+
   }
   
   func errorMessageChanged(newVal: String) {

@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Alamofire
 import RealmSwift
+import Firebase
 
 struct City {
   var cityName : String!
@@ -36,11 +37,11 @@ class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
   var userToken:String!
-    var myUser = UserRealm()
+  var myUser = UserRealm()
   var userLocation:CLLocation!
   var audioConfig:AudioConfig!
   var realm:Realm!
-    
+  
   
   //Groups of radios
   var allRadios = [RadioRealm]()
@@ -50,11 +51,12 @@ class DataManager: NSObject {
   var localRadios = [RadioRealm]()
   
   var isPlay = false
-  var playerIsLoaded = false
-    var radioInExecution = RadioRealm()
+  var radioInExecution = RadioRealm()
   
   var allNews = [New]()
   var addressId = 0
+  
+  var isLogged = false
   
   enum actualCondition {
     case Ok
@@ -62,7 +64,7 @@ class DataManager: NSObject {
   }
   
   var miniPlayerView = MiniPlayerViewController()
- //var radioVC = RadioViewController()
+  var playerClass:PlayerViewController!
   
   class var sharedInstance: DataManager {
     struct Static {
@@ -94,22 +96,22 @@ class DataManager: NSObject {
     }
   }
   
-
   
-
   
-//  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
-//    if radios.count < index {
-//      if radios[index].address.currentClassState != .CompleteAddress {
-//        Address.getAddress(radios[index].address, completion: { (resultAddress) in
-//          self.updateAddressFromRadios(index+1, radios: radios, completion: completion)
-//      })
-//      }
-//      return false
-//    } else {
-//      return true
-//    }
-//  }
+  
+  
+  //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
+  //    if radios.count < index {
+  //      if radios[index].address.currentClassState != .CompleteAddress {
+  //        Address.getAddress(radios[index].address, completion: { (resultAddress) in
+  //          self.updateAddressFromRadios(index+1, radios: radios, completion: completion)
+  //      })
+  //      }
+  //      return false
+  //    } else {
+  //      return true
+  //    }
+  //  }
   
 }
 

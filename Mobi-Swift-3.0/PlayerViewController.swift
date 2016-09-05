@@ -37,7 +37,10 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    actualRadio = DataManager.sharedInstance.radioInExecution
+
+//    if let _ = actualRadio. {
+//        actualRadio = DataManager.sharedInstance.radioInExecution
+//    }
     updateInfoOfView()
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -73,9 +76,8 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     if RadioPlayer.sharedInstance.currentlyPlaying() {
       pauseRadio()
     } else {
-      DataManager.sharedInstance.radioInExecution = actualRadio
+      actualRadio = DataManager.sharedInstance.radioInExecution
       playRadio()
-      
     }
   }
   
@@ -155,17 +157,9 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
+
     toggle()
     RadioPlayer.sharedInstance.sendNotification()
-    if !RadioPlayer.sharedInstance.currentlyPlaying() {
-      DataManager.sharedInstance.radioInExecution = actualRadio
-    }
-    if !DataManager.sharedInstance.playerIsLoaded {
-      DataManager.sharedInstance.playerIsLoaded = true
-    }
-    
-    
-    
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -190,14 +184,14 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   func resetStream() {
     print("Reloading interrupted stream");
     RadioPlayer.sharedInstance.resetPlayer()
-    //RadioPlayer.sharedInstance = RadioPlayer();
     RadioPlayer.sharedInstance.errorDelegate = self
     RadioPlayer.sharedInstance.instanceDelegate = self
     if RadioPlayer.sharedInstance.bufferFull() {
       RadioPlayer.sharedInstance.play()
     } else {
-      playRadio()
+      self.playRadio()
     }
+
   }
   
   func errorMessageChanged(newVal: String) {

@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DataBaseTest: NSObject {
 
 
- 
+
   static func completeInfo() {
     
     let date1 = NSTimeInterval(-1000)
@@ -61,7 +62,7 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
     
     let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
-    let myUser = UserRealm(id: "1", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
+    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
     myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
     
     DataManager.sharedInstance.myUser = myUser
@@ -81,7 +82,7 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
     
     let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
-    let myUser = UserRealm(id: "1", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
+    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
     myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
     
     DataManager.sharedInstance.myUser = myUser
@@ -92,6 +93,22 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.allNews.append(firstNew1)
     DataManager.sharedInstance.allNews.append(firstNew3)
     DataManager.sharedInstance.allNews.append(secondNew2)
+    
+    DataManager.sharedInstance.allRadios[0].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[1].updateStremingLink("http://cdn.rj.assocrj.com.br:8000/stream/1")
+    DataManager.sharedInstance.allRadios[2].updateStremingLink("http://transamerica.crossradio.com.br:9100/live.aac")
+    DataManager.sharedInstance.allRadios[3].updateStremingLink("http://sh.upx.com.br:8238")
+    DataManager.sharedInstance.allRadios[4].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[5].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[6].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    
+  }
+  
+  static func realmUpdate(realm:Realm) {
+      let radios = realm.objects(RadioRealm.self)
+      DataManager.sharedInstance.allRadios = Array(radios)
+      infoWithoutRadios()
+    
   }
   
 }

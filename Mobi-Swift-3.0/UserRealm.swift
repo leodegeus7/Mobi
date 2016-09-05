@@ -11,44 +11,53 @@ import RealmSwift
 import CoreLocation
 
 class UserRealm: Object {
-    dynamic var id = ""
-    dynamic var name = ""
-    dynamic var sex = ""
-    dynamic var address:AddressRealm!
-    var favoritesRadios:[RadioRealm]!
-    dynamic var birthDate = ""
-    dynamic var userImage = "profilePic.jpg"
-    dynamic var following = -1
-    dynamic var followers = -1
+  dynamic var id = ""
+  dynamic var name = ""
+  dynamic var sex = ""
+  dynamic var address:AddressRealm!
+  var favoritesRadios:[RadioRealm]!
+  dynamic var birthDate = ""
+  dynamic var userImage = "profilePic.jpg"
+  dynamic var following = -1
+  dynamic var followers = -1
   dynamic var userUImage:UIImage!
+  dynamic var email =  ""
+  dynamic var password = ""
   
-    convenience init(id:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String) {
-        self.init()
-        self.id = id
-        self.name = name
-        self.sex = sex
-        self.address = address
-        self.birthDate = birthDate
-        self.followers = Int(followers)!
-        self.following = Int(following)!
-      
-      if FileSupport.testIfFileExistInDocuments(self.userImage){
-        userUImage = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())\(userImage)")
-      }
-        try! DataManager.sharedInstance.realm.write {
-            DataManager.sharedInstance.realm.add(self, update: true)
-        }
-    }
+  convenience init(id:String, email:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String) {
+    self.init()
+    self.email = email
+    self.id = id
+    self.name = name
+    self.sex = sex
+    self.address = address
+    self.birthDate = birthDate
+    self.followers = Int(followers)!
+    self.following = Int(following)!
     
-    override static func primaryKey() -> String? {
-        return "id"
+    if FileSupport.testIfFileExistInDocuments(self.userImage){
+      userUImage = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())\(userImage)")
     }
-    
-    func updateFavorites(favorites:[RadioRealm]) {
-        try! DataManager.sharedInstance.realm.write {
-            self.favoritesRadios = favorites
-        }
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(self, update: true)
     }
+  }
+  
+  override static func primaryKey() -> String? {
+    return "id"
+  }
+  
+  func updateFavorites(favorites:[RadioRealm]) {
+    try! DataManager.sharedInstance.realm.write {
+      self.favoritesRadios = favorites
+    }
+  }
+  
+  func updatePassowrd(password:String) {
+    try! DataManager.sharedInstance.realm.write {
+      self.password = password
+    }
+  }
   
   func updateImagePath(imagePath:String) {
     try! DataManager.sharedInstance.realm.write {
@@ -56,17 +65,17 @@ class UserRealm: Object {
     }
   }
   
-    func updateFollowers(following:String,followers:String) {
-        try! DataManager.sharedInstance.realm.write {
-            self.followers = Int(followers)!
-            self.following = Int(following)!
-        }
+  func updateFollowers(following:String,followers:String) {
+    try! DataManager.sharedInstance.realm.write {
+      self.followers = Int(followers)!
+      self.following = Int(following)!
     }
+  }
   
-    
-    override static func ignoredProperties() -> [String] {
-        return ["favoritesRadios","userUImage"]
-    }
-    
+  
+  override static func ignoredProperties() -> [String] {
+    return ["favoritesRadios","userUImage"]
+  }
+  
 }
 

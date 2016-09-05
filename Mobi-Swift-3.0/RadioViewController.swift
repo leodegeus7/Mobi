@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Kingfisher
 
-class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, errorMessageDelegate, sharedInstanceDelegate {
+class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
   
   @IBOutlet weak var imageLogo: UIImageView!
   @IBOutlet weak var labelName: UILabel!
@@ -29,8 +29,6 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   var stars = [UIImageView]()
   var actualRadio = DataManager.sharedInstance.allRadios[0]
   var tapCloseButtonActionHandler : (Void -> Void)?
-  var firstErrorSkip = true
-  var firstInstanceSkip = true
   
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
@@ -60,22 +58,6 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     
-    do {
-      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-      
-      do {
-        try AVAudioSession.sharedInstance().setActive(true)
-        
-        
-      } catch let error as NSError {
-        print(error.localizedDescription)
-      }
-    } catch let error as NSError {
-      print(error.localizedDescription)
-    }
-    
-    RadioPlayer.sharedInstance.errorDelegate = self
-    RadioPlayer.sharedInstance.instanceDelegate = self
     
     if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
         buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
@@ -93,14 +75,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 
   }
   
-  func toggle() {
-    if RadioPlayer.sharedInstance.currentlyPlaying() {
-      pauseRadio()
-    } else {
-        DataManager.sharedInstance.radioInExecution = actualRadio
-      playRadio()
-    }
-  }
+
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -144,88 +119,23 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
-    toggle()
-    RadioPlayer.sharedInstance.sendNotification()
     DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
-    //DataManager.sharedInstance.miniPlayerView.setupAnimator()
+    if (RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution != actualRadio){
+      DataManager.sharedInstance.radioInExecution = actualRadio
+      //RadioPlayer.sharedInstance.pause()
+      DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
+      //RadioPlayer.sharedInstance.play()
+    }
+    else {
+      DataManager.sharedInstance.radioInExecution = actualRadio
+      DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
+    }
     if (RadioPlayer.sharedInstance.currentlyPlaying()){
-        DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+      DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
     }
-    DataManager.sharedInstance.radioInExecution = actualRadio
 
-    if !DataManager.sharedInstance.playerIsLoaded {
-        
-      DataManager.sharedInstance.playerIsLoaded = true
-    }
-    
-    
-    if !RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
-        //aqui o radio será pausado, por isso, precisamos tirar o radio do datamanager
-        DataManager.sharedInstance.radioInExecution = RadioRealm()
-    }
   }
   
-  override func viewWillAppear(animated: Bool) {
-  }
-  
-  
-  func playRadio() {
-    firstErrorSkip = false
-    firstInstanceSkip = false
-    
-    if RadioPlayer.sharedInstance.errorMessage != "" || RadioPlayer.sharedInstance.bufferFull() {
-      resetStream()
-    } else {
-      RadioPlayer.sharedInstance.play()
-    }
-  }
-  
-  func pauseRadio() {
-    RadioPlayer.sharedInstance.pause()
-  }
-  
-  func resetStream() {
-    print("Reloading interrupted stream");
-    RadioPlayer.sharedInstance.resetPlayer()
-    //RadioPlayer.sharedInstance = RadioPlayer();
-    RadioPlayer.sharedInstance.errorDelegate = self
-    RadioPlayer.sharedInstance.instanceDelegate = self
-    if RadioPlayer.sharedInstance.bufferFull() {
-      RadioPlayer.sharedInstance.play()
-    } else {
-      playRadio()
-    }
-  }
-  
-  func errorMessageChanged(newVal: String) {
-    if !firstErrorSkip {
-      print("Error changed to '\(newVal)'")
-      if RadioPlayer.sharedInstance.errorMessage != "" {
-        print("Showing Error Message")
-        let alertController = UIAlertController(title: "Stream Failure", message: RadioPlayer.sharedInstance.errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        pauseRadio()
-        
-      }
-    } else {
-      print("Skipping first init")
-      firstErrorSkip = false
-    }
-  }
-  
-  func sharedInstanceChanged(newVal: Bool) {
-    if !firstInstanceSkip {
-      print("Detected New Instance")
-      if newVal {
-        RadioPlayer.sharedInstance.play()
-      }
-    } else {
-      firstInstanceSkip = false
-    }
-  }
 
   func updateIcons() {
     

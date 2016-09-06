@@ -9,6 +9,7 @@ pod 'RealmSwift'
 pod 'SideMenu'
 pod "ARNTransitionAnimator"
 pod 'Kingfisher', '~> 2.4'
-pod 'Firebase/Auth'
-pod ‘Firebase’
+pod ‘Firebase/Core’
+pod ‘Firebase/Database’
+pod ‘Firebase/Auth’
 end

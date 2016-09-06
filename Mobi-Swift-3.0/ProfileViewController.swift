@@ -11,6 +11,7 @@ import Alamofire
 import Firebase
 
 
+
 class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var imageUser: UIImageView!
@@ -27,7 +28,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var tableViewFavorites: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
-    @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
+    @IBOutlet weak var buttonFacebook: UIButton!
     @IBOutlet weak var buttonLogin: UIButton!
   
     var selectedRadioArray:[RadioRealm]!
@@ -36,7 +37,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureFacebook()
+        //configureFacebook()
         completeProfileViewInfo()
         navigationController?.title = "Perfil"
         tableViewFavorites.rowHeight = 130
@@ -51,6 +52,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         imageUser.clipsToBounds = true
         self.title = "Perfil"
       
+
+      
     }
     
   override func viewWillAppear(animated: Bool) {
@@ -61,6 +64,20 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonLogin.setTitle("Login", forState: .Normal)
       buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
     }
+    
+    FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
+      if let user = user {
+        self.buttonLogin.setTitle("Logout", forState: .Normal)
+        DataManager.sharedInstance.isLogged = true
+              self.buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+      } else {
+        self.buttonLogin.setTitle("Login", forState: .Normal)
+        DataManager.sharedInstance.isLogged = false
+              self.buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
+      }
+    })
+    
+
   }
   
     override func didReceiveMemoryWarning() {
@@ -107,11 +124,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         selectedRadioArray = myUser.favoritesRadios
     }
   
-    func configureFacebook()
-    {
-      buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
-      buttonFacebook.delegate = self
-    }
+//    func configureFacebook()
+//    {
+//      buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+//      buttonFacebook.delegate = self
+//    }
   
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
   {
@@ -137,6 +154,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBAction func loginButtonTap(sender: AnyObject) {
     if DataManager.sharedInstance.isLogged {
       func okAction() {
+        
           try! FIRAuth.auth()?.signOut()
           DataManager.sharedInstance.isLogged = false
           buttonLogin.setTitle("Logout", forState: .Normal)
@@ -151,7 +169,37 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       performSegueWithIdentifier("loginScreen", sender: self)
     }
   }
+  
+  func facebookLoginInButton() {
+    let facebookLogin = FBSDKLoginManager()
+    
+    facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) { (facebookResult, facebookError) in
+      if facebookError != nil {
+        print("\(facebookError)")
+      } else if facebookResult.isCancelled {
+        print("Facebook login is canceled")
+      } else {
+        let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+        print("Facebook logado")
+        let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+        FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+          if error == nil {
+            print("Login pelo Facebook corretamente")
+            DataManager.sharedInstance.isLogged = true
+            self.displayAlert(title: "Tudo certo \(user?.email)", message: "Logado com sucesso", action: "Ok")
+          } else {
+              self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
+          }
+        })
+        
+      }
+    }
 
+  }
+
+  @IBAction func facebookButtontap(sender: AnyObject) {
+    facebookLoginInButton()
+  }
     
     
 }

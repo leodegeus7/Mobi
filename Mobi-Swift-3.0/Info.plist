@@ -18,21 +18,22 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb1768503930105725</string>
-			</array>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>1768503930105725</string>
-	<key>FacebookDisplayName</key>
-	<string>Mobi</string>
+  
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb1673692689618704</string>
+      </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>1673692689618704</string>
+  <key>FacebookDisplayName</key>
+  <string>mobi</string>
+  
+
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbauth2:/</string>

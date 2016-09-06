@@ -16,6 +16,7 @@ class MiniPlayerViewController: UIViewController {
     @IBOutlet weak var miniPlayerView: LineView!
     @IBOutlet weak var labelFirst: UILabel!
     @IBOutlet weak var labelSecond: UILabel!
+  @IBOutlet weak var imageRadio: UIImageView!
     
     @IBOutlet weak var tabBar: UITabBar!
     
@@ -241,7 +242,9 @@ class MiniPlayerViewController: UIViewController {
         labelFirst.text = DataManager.sharedInstance.radioInExecution.name
         if let _ = DataManager.sharedInstance.radioInExecution.address {
           labelSecond.text = DataManager.sharedInstance.radioInExecution.address.formattedLocal
+          
         }
+        imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.radioInExecution.thumbnail)))
         if RadioPlayer.sharedInstance.currentlyPlaying() {
             playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
         } else {

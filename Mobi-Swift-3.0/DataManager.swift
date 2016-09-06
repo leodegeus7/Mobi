@@ -12,6 +12,7 @@ import Alamofire
 import RealmSwift
 import Firebase
 
+
 struct City {
   var cityName : String!
   var radios : [RadioRealm]!

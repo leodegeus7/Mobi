@@ -952,9 +952,12 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-Bh-fbC" customClass="FBSDKLoginButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-Bh-fbC">
                                                 <rect key="frame" x="96" y="467" width="128" height="30"/>
                                                 <state key="normal" title="FACEBOOK LOGIN"/>
+                                                <connections>
+                                                    <action selector="facebookButtontap:" destination="zg7-Af-AaC" eventType="touchUpInside" id="UFF-nQ-5lZ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bub-hp-do3">
                                                 <rect key="frame" x="138" y="494" width="45" height="30"/>
@@ -2181,6 +2184,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRE-1m-omq" customClass="LineView" customModule="Mobi_Swift_3_0" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGQ-9R-j71">
+                                        <rect key="frame" x="10" y="5" width="34" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="21Q-Xc-1zW"/>
+                                            <constraint firstAttribute="width" secondItem="mGQ-9R-j71" secondAttribute="height" multiplier="1:1" id="IAv-YR-CI8"/>
+                                            <constraint firstAttribute="width" constant="240" id="Lz2-PT-Lej"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="21Q-Xc-1zW"/>
+                                                <exclude reference="Lz2-PT-Lej"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBj-aA-qQZ">
                                         <rect key="frame" x="125" y="0.0" width="125" height="21"/>
                                         <constraints>
@@ -2229,22 +2246,27 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3mu-md-mKM"/>
+                                    <constraint firstItem="mGQ-9R-j71" firstAttribute="leading" secondItem="mRE-1m-omq" secondAttribute="leading" constant="67" id="82K-CM-mbu"/>
                                     <constraint firstItem="zBj-aA-qQZ" firstAttribute="top" secondItem="mRE-1m-omq" secondAttribute="top" id="B9v-Wt-60G"/>
                                     <constraint firstAttribute="trailing" secondItem="Tsd-PA-Gan" secondAttribute="trailing" constant="48" id="CIz-dV-wH2"/>
                                     <constraint firstAttribute="bottom" secondItem="VWH-N7-04I" secondAttribute="bottom" constant="2" id="Lzw-dg-xHn"/>
                                     <constraint firstItem="Tsd-PA-Gan" firstAttribute="leading" secondItem="mRE-1m-omq" secondAttribute="leading" id="ND2-cG-sOI"/>
+                                    <constraint firstAttribute="bottom" secondItem="mGQ-9R-j71" secondAttribute="bottom" constant="5" id="OUW-Cl-BVI"/>
                                     <constraint firstAttribute="bottom" secondItem="XYw-la-EYi" secondAttribute="bottom" constant="7" id="V9o-Mw-p40"/>
                                     <constraint firstAttribute="trailing" secondItem="XYw-la-EYi" secondAttribute="trailing" constant="7" id="dZO-ce-h6f"/>
                                     <constraint firstItem="Tsd-PA-Gan" firstAttribute="top" secondItem="mRE-1m-omq" secondAttribute="top" id="eFw-lK-C6b"/>
                                     <constraint firstAttribute="bottom" secondItem="XYw-la-EYi" secondAttribute="bottom" constant="10" id="fzz-0p-904"/>
+                                    <constraint firstItem="mGQ-9R-j71" firstAttribute="leading" secondItem="mRE-1m-omq" secondAttribute="leading" constant="10" id="iVC-PA-Vhu"/>
                                     <constraint firstAttribute="bottom" secondItem="Tsd-PA-Gan" secondAttribute="bottom" id="jLF-KG-qn0"/>
                                     <constraint firstItem="XYw-la-EYi" firstAttribute="centerY" secondItem="mRE-1m-omq" secondAttribute="centerY" id="mwz-Rd-eFV"/>
                                     <constraint firstAttribute="centerX" secondItem="VWH-N7-04I" secondAttribute="centerX" id="ndM-PO-Rae"/>
                                     <constraint firstAttribute="centerX" secondItem="zBj-aA-qQZ" secondAttribute="centerX" id="sQy-dE-qaG"/>
                                     <constraint firstItem="XYw-la-EYi" firstAttribute="top" secondItem="mRE-1m-omq" secondAttribute="top" constant="7" id="xNE-pT-haK"/>
+                                    <constraint firstItem="mGQ-9R-j71" firstAttribute="top" secondItem="mRE-1m-omq" secondAttribute="top" constant="5" id="zP9-0q-jr4"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="82K-CM-mbu"/>
                                         <exclude reference="fzz-0p-904"/>
                                         <exclude reference="xNE-pT-haK"/>
                                     </mask>
@@ -2286,6 +2308,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="containerView" destination="SxU-Uf-SXJ" id="mR0-2F-cVb"/>
+                        <outlet property="imageRadio" destination="mGQ-9R-j71" id="Iup-L8-JpD"/>
                         <outlet property="labelFirst" destination="zBj-aA-qQZ" id="11o-GA-m12"/>
                         <outlet property="labelSecond" destination="VWH-N7-04I" id="UTv-JC-Hw0"/>
                         <outlet property="miniPlayerButton" destination="Tsd-PA-Gan" id="3SR-Jo-kcg"/>

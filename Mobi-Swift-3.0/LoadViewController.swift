@@ -47,7 +47,7 @@ class LoadViewController: UIViewController {
         let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
         DataManager.sharedInstance.allRadios.append(radio)
         }
-        DataBaseTest.infoWithoutRadios()
+        DataBaseTest.separateRadios()
         //self.storyboard?.instantiateViewControllerWithIdentifier("firstView")
         self.notificationCenter.postNotificationName("reloadData", object: nil)
         self.dismissViewControllerAnimated(true, completion: { 

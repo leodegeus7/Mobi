@@ -34,6 +34,7 @@ class UserRealm: Object {
     self.birthDate = birthDate
     self.followers = Int(followers)!
     self.following = Int(following)!
+    self.password = ""
     
     if FileSupport.testIfFileExistInDocuments(self.userImage){
       userUImage = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())\(userImage)")
@@ -53,10 +54,15 @@ class UserRealm: Object {
     }
   }
   
-  func updatePassowrd(password:String) {
-    try! DataManager.sharedInstance.realm.write {
-      self.password = password
-    }
+  func updatePassword(password:String) -> UserRealm {
+    DataManager.sharedInstance.realm.beginWrite()
+       self.password = password
+    try! DataManager.sharedInstance.realm.commitWrite()
+//    try! DataManager.sharedInstance.realm.write {
+//      self.password = password
+//      //try! DataManager.sharedInstance.realm.commitWrite()
+//    }
+    return self
   }
   
   func updateImagePath(imagePath:String) {

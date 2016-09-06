@@ -104,10 +104,41 @@ class DataBaseTest: NSObject {
     
   }
   
+  static func separateRadios() {
+    DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[3])
+    DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[2])
+    
+    DataManager.sharedInstance.favoriteRadios.append(DataManager.sharedInstance.allRadios[1])
+    
+    
+    DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
+    DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
+    
+    
+    DataManager.sharedInstance.myUser = DataManager.sharedInstance.realm.objects(UserRealm.self).first!
+    
+    let firstNew3 = New(id: "1",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
+    let firstNew1 = New(id: "2",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
+    let secondNew2 = New(id: "5",newTitle: "Ai", newDescription: "Nossa, funciona", date: "Há 12 segundos")
+    DataManager.sharedInstance.allNews.append(firstNew1)
+    DataManager.sharedInstance.allNews.append(firstNew3)
+    DataManager.sharedInstance.allNews.append(secondNew2)
+    
+    DataManager.sharedInstance.allRadios[0].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[1].updateStremingLink("http://cdn.rj.assocrj.com.br:8000/stream/1")
+    DataManager.sharedInstance.allRadios[2].updateStremingLink("http://transamerica.crossradio.com.br:9100/live.aac")
+    DataManager.sharedInstance.allRadios[3].updateStremingLink("http://sh.upx.com.br:8238")
+    DataManager.sharedInstance.allRadios[4].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[5].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    DataManager.sharedInstance.allRadios[6].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+    
+  }
+  
   static func realmUpdate(realm:Realm) {
       let radios = realm.objects(RadioRealm.self)
       DataManager.sharedInstance.allRadios = Array(radios)
-      infoWithoutRadios()
+      separateRadios()
+    //infoWithoutRadios()
     
   }
   

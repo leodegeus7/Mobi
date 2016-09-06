@@ -15,6 +15,9 @@ import Alamofire
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import FirebaseDatabase
+import FirebaseAuth
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
@@ -41,11 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       Realm.Configuration.defaultConfiguration = config
       let realm = try! Realm(configuration: config)
       DataBaseTest.realmUpdate(realm)
-      let user = realm.objects(UserRealm.self).filter("id == 1")
-      let  myUser = user.first
+      DataManager.sharedInstance.realm = realm
+      let user = realm.objects(UserRealm.self)
+      
+      let  myUser = Array(user).first
       if myUser!.password != "" && myUser!.email != ""  {
         loginWithUserRealm(myUser!, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
+          print("deu")
         })
       }
     } else {
@@ -57,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     downloadFacebookUpdatedInfo()
     FIRApp.configure()
-    
+    FIRDatabase.database().persistenceEnabled = true 
     
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
@@ -114,20 +120,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   func downloadFacebookUpdatedInfo() {
     if (FBSDKAccessToken.currentAccessToken() != nil) {
       //aqui consigo informacoes para dar update em algo do face
+      
     }
   }
   
   func loginWithUserRealm(user:UserRealm,completion: (result: Bool) -> Void) {
+    FIRDatabase.database().reference()
+
     FIRAuth.auth()?.signInWithEmail(user.email, password: user.password, completion: { (user, error) in
       if error == nil {
         print(user?.email)
         print(user?.displayName)
         print(user)
         DataManager.sharedInstance.isLogged = true
-      
-      } 
-      completion(result: true)
+        completion(result: true)
+      }
     })
+
   }
   
   

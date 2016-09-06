@@ -11,8 +11,6 @@ import CoreLocation
 import SideMenu
 import Kingfisher
 import Firebase
-import FirebaseAuth
-import FirebaseInstanceID
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
   

@@ -81,11 +81,11 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
     DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
     
-    let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
-    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
-    myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
-    
-    DataManager.sharedInstance.myUser = myUser
+//    let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
+//    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
+    DataManager.sharedInstance.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
+//    
+//    DataManager.sharedInstance.myUser = myUser
     
     let firstNew3 = New(id: "1",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
     let firstNew1 = New(id: "2",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
@@ -109,6 +109,8 @@ class DataBaseTest: NSObject {
   static func realmUpdate(realm:Realm) {
       let radios = realm.objects(RadioRealm.self)
       DataManager.sharedInstance.allRadios = Array(radios)
+      let users = realm.objects(UserRealm.self)
+    DataManager.sharedInstance.myUser = users.first!
       //separateRadios()
       infoWithoutRadios()
     

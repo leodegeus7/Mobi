@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var tableViewFavorites: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
-    @IBOutlet weak var buttonFacebook: UIButton!
+    @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
     @IBOutlet weak var buttonLogin: UIButton!
   
     var selectedRadioArray:[RadioRealm]!
@@ -124,23 +124,45 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         selectedRadioArray = myUser.favoritesRadios
     }
   
-//    func configureFacebook()
-//    {
-//      buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
-//      buttonFacebook.delegate = self
-//    }
+    func configureFacebook()
+    {
+      buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+      buttonFacebook.delegate = self
+    }
   
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
   {
+    //facebookLoginInButton()
     FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
       let strFirstName: String = (result.objectForKey("first_name") as? String)!
-      let strLastName: String = (result.objectForKey("last_name") as? String)!
+      
       let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
       let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
       DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
       self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
       print(strFirstName)
     }
+    let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+    print("Facebook logado")
+    let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+    FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+      if error == nil {
+        print("Login pelo Facebook corretamente")
+        DataManager.sharedInstance.isLogged = true
+        self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
+      } else {
+        self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
+      }
+    })
+//    FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+//      let strFirstName: String = (result.objectForKey("first_name") as? String)!
+//      let strLastName: String = (result.objectForKey("last_name") as? String)!
+//      let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+//      let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
+//      DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
+//      self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
+//      print(strFirstName)
+//    }
   }
 
   func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
@@ -164,7 +186,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       func cancelAction() {
         self.dismissViewControllerAnimated(true, completion: nil)
       }
-      self.displayAlert(title: "Atenação", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+      self.displayAlert(title: "Atenção", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     } else {
       performSegueWithIdentifier("loginScreen", sender: self)
     }
@@ -173,24 +195,13 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   func facebookLoginInButton() {
     let facebookLogin = FBSDKLoginManager()
     
-    facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) { (facebookResult, facebookError) in
+    facebookLogin.logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self) { (facebookResult, facebookError) in
       if facebookError != nil {
         print("\(facebookError)")
       } else if facebookResult.isCancelled {
         print("Facebook login is canceled")
       } else {
-        let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-        print("Facebook logado")
-        let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
-        FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
-          if error == nil {
-            print("Login pelo Facebook corretamente")
-            DataManager.sharedInstance.isLogged = true
-            self.displayAlert(title: "Tudo certo \(user?.email)", message: "Logado com sucesso", action: "Ok")
-          } else {
-              self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
-          }
-        })
+        
         
       }
     }

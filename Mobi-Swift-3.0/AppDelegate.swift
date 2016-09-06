@@ -45,11 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       let realm = try! Realm(configuration: config)
       DataBaseTest.realmUpdate(realm)
       DataManager.sharedInstance.realm = realm
-      let user = realm.objects(UserRealm.self)
-      
-      let  myUser = Array(user).first
-      if myUser!.password != "" && myUser!.email != ""  {
-        loginWithUserRealm(myUser!, completion: { (result) in
+      if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
+        loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
           print("deu")
         })

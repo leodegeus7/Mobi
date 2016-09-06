@@ -58,6 +58,10 @@ class MenuTableViewController: UITableViewController {
       if DataManager.sharedInstance.myUser.name != "" {
         userCell.nameUser.text = DataManager.sharedInstance.myUser.name
       }
+      userCell.imageUser.layer.cornerRadius = userCell.imageUser.bounds.height / 4
+      userCell.imageUser.layer.borderColor = UIColor.blackColor().CGColor
+      userCell.imageUser.layer.borderWidth = 3.0
+      userCell.imageUser.clipsToBounds = true
       //let imageUserVar = UIImage()
       //cell.imageUser.image =
       userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)

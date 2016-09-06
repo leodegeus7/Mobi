@@ -104,7 +104,10 @@ class RadioPlayer : NSObject {
           let playerItem = AVPlayerItem(asset: asset)
           //playerItem.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: &ItemStatusContext)
           
+          
           self.player = AVPlayer(playerItem: playerItem)
+        
+          
           self.sharedInstanceBool = true
           
         } else {

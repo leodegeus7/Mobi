@@ -606,7 +606,7 @@
             </objects>
             <point key="canvasLocation" x="4320" y="3878"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Delegate-->
         <scene sceneID="mqe-ZX-vXG">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="zg7-Af-AaC" customClass="ProfileViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
@@ -952,11 +952,11 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-Bh-fbC">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-Bh-fbC" customClass="FBSDKLoginButton">
                                                 <rect key="frame" x="96" y="467" width="128" height="30"/>
                                                 <state key="normal" title="FACEBOOK LOGIN"/>
                                                 <connections>
-                                                    <action selector="facebookButtontap:" destination="zg7-Af-AaC" eventType="touchUpInside" id="UFF-nQ-5lZ"/>
+                                                    <outlet property="delegate" destination="zg7-Af-AaC" id="XXZ-Xq-Mzi"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bub-hp-do3">
@@ -3159,8 +3159,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="mPE-vl-vCt"/>
                                 <exclude reference="iwd-TV-p7R"/>
+                                <exclude reference="mPE-vl-vCt"/>
                             </mask>
                         </variation>
                     </view>

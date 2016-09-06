@@ -144,7 +144,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
@@ -308,7 +308,7 @@
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/LoginViewController.swift"
-                  timestampString = "494882545.337974"
+                  timestampString = "494886363.518714"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -323,7 +323,7 @@
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/LoginViewController.swift"
-                  timestampString = "494882545.338118"
+                  timestampString = "494886363.518867"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "39"
@@ -352,7 +352,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/LoginViewController.swift"

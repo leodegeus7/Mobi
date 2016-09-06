@@ -39,7 +39,7 @@ class LoginViewController: UIViewController , UITextViewDelegate {
           self.indicatorActivity.hidden = true
           self.indicatorActivity.stopAnimating()
           if error == nil {
-            DataManager.sharedInstance.myUser =  DataManager.sharedInstance.myUser.updatePassword(self.textFieldPassword.text!)
+            //DataManager.sharedInstance.myUser =  DataManager.sharedInstance.myUser.updatePassword(self.textFieldPassword.text!)
             print(user?.email)
             print(user?.displayName)
             print(user)

@@ -108,13 +108,13 @@
                value = "myUser">
             </PersistentString>
             <PersistentString
-               value = "realm.objects(RadioRealm)">
+               value = "user">
             </PersistentString>
             <PersistentString
                value = "realm.objects(UserRealm.self)">
             </PersistentString>
             <PersistentString
-               value = "user">
+               value = "realm.objects(RadioRealm)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -141,13 +141,13 @@
          contextName = "InitialTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
+               value = "selectedRadioArray[0].name">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.isLogged">
             </PersistentString>
             <PersistentString
-               value = "selectedRadioArray[0].name">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -203,6 +203,9 @@
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -274,13 +277,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
                value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -322,6 +325,14 @@
       </ContextState>
       <ContextState
          contextName = "UserRealm.(updatePassword(String) -&gt; ()).(closure #1):UserRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static DataBaseTest.separateRadios() -&gt; ():DataBaseTest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.realm.objects(UserRealm.self).first">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">

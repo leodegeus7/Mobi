@@ -76,6 +76,10 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate {
     
   }
   
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+
   
   
 }

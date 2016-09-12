@@ -194,6 +194,10 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
 
   }
   
+  @IBAction func searchbuttonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+
   
 }
 

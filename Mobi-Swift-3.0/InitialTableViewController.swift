@@ -285,4 +285,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
             //self.performSegueWithIdentifier("initialSegue", sender: self)
         }
     }
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
 }

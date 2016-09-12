@@ -9,55 +9,62 @@
 import UIKit
 
 class LoadViewController: UIViewController {
-    var initialView = MiniPlayerViewController()
-    var notificationCenter = NSNotificationCenter.defaultCenter()
+  var initialView = MiniPlayerViewController()
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   
-    var requestInfo = true
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      if (requestInfo) {
-        requestInitialInformation()
-      } else {
-        DataBaseTest.completeInfo()
-        self.dismissViewControllerAnimated(true, completion: {
-        
-        })
-      }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  var requestInfo = true
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-
-  @IBAction func onClickSegueButton(sender: AnyObject) {
+    if (requestInfo) {
+      requestInitialInformation()
+    } else {
+      DataBaseTest.completeInfo()
+      self.dismissViewControllerAnimated(true, completion: {
+        
+      })
     }
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  
+  @IBAction func onClickSegueButton(sender: AnyObject) {
+  }
   
   func requestInitialInformation() {
     let manager = RequestManager()
     manager.requestStationUnits(.stationUnits) { (result) in
-      let data = Data.response(result)
-      print(result)
-      print(data)
       let array = result["data"] as! NSArray
       for singleResult in array {
         let dic = singleResult as! NSDictionary
         let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
         DataManager.sharedInstance.allRadios.append(radio)
-        }
-        DataBaseTest.infoWithoutRadios()
-        //self.storyboard?.instantiateViewControllerWithIdentifier("firstView")
-        self.notificationCenter.postNotificationName("reloadData", object: nil)
-        self.dismissViewControllerAnimated(true, completion: { 
+      }
+      DataBaseTest.infoWithoutRadios()
+      //self.storyboard?.instantiateViewControllerWithIdentifier("firstView")
+      self.notificationCenter.postNotificationName("reloadData", object: nil)
+      self.dismissViewControllerAnimated(true, completion: {
         
-        })
-        //self.presentViewController(vc!, animated: true, completion: nil)
-       // self.initialView.modalPresentationStyle = .OverFullScreen
+      })
+      //self.presentViewController(vc!, animated: true, completion: nil)
+      // self.initialView.modalPresentationStyle = .OverFullScreen
     }
-  }
+    manager.requestJson("stationunit/search/userfavorites?pageNumber=1&pageSize=100") { (result) in
+      let array = result["data"] as! NSArray
+      for singleResult in array {
+        let dic = singleResult as! NSDictionary
+        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
+        DataManager.sharedInstance.allRadios.append(radio)
+      }
+
+    }
     
+  }
+  
 }
 
 

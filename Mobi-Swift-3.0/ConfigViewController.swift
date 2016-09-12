@@ -164,5 +164,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.audioConfig.setAgudoParameter(currentValue)
   }
   
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
   
 }

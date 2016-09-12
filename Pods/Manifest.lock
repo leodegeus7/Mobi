@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (3.4.2)
   - ARNTransitionAnimator (1.1.0)
+  - Fabric (1.6.8)
   - Firebase/Analytics (3.5.2):
     - FirebaseAnalytics (~> 3.3)
   - Firebase/Auth (3.5.2):
@@ -42,10 +43,15 @@ PODS:
     - Realm (= 1.0.2)
   - SideMenu (1.2.0)
   - SwiftyJSON (2.3.2)
+  - TwitterCore (2.4.0):
+    - Fabric
+  - TwitterKit (2.4.0):
+    - TwitterCore (= 2.4.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - ARNTransitionAnimator
+  - Fabric
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -53,10 +59,13 @@ DEPENDENCIES:
   - RealmSwift
   - SideMenu
   - SwiftyJSON
+  - TwitterCore
+  - TwitterKit
 
 SPEC CHECKSUMS:
   Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
   FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
@@ -72,7 +81,9 @@ SPEC CHECKSUMS:
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SideMenu: ca3f5cee9f711191be4edb938eb2ce1de1595293
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
+  TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: 3992a709e3d714f04942bcd3baf7bb1ef3375015
+PODFILE CHECKSUM: cb50dcf1dba65544ec49f724e74ea4854c4defec
 
 COCOAPODS: 1.0.1

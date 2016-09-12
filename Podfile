@@ -12,4 +12,7 @@ pod 'Kingfisher', '~> 2.4'
 pod ‘Firebase/Core’
 pod ‘Firebase/Database’
 pod ‘Firebase/Auth’
+pod 'Fabric'
+pod 'TwitterKit'
+pod 'TwitterCore'
 end

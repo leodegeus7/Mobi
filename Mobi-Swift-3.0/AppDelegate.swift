@@ -17,6 +17,8 @@ import FBSDKLoginKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import Fabric
+import TwitterKit
 
 
 @UIApplicationMain
@@ -59,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     //RealmWrapper.eraseRealmFile("default")
     
     downloadFacebookUpdatedInfo()
+    Fabric.with([Twitter.self])
     FIRApp.configure()
     FIRDatabase.database().persistenceEnabled = true 
     

@@ -50,6 +50,8 @@ class RadioRealm: Object {
     }
   }
   
+  
+  
   convenience init(id:String,name:String,thumbnail:String,repository:Bool) {
     self.init()
     self.name = name

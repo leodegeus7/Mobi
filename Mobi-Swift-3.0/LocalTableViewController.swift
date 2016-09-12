@@ -166,4 +166,8 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     textField.resignFirstResponder()
     return true
   }
+  
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
 }

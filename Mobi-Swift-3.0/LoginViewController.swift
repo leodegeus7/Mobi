@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 class LoginViewController: UIViewController , UITextViewDelegate {
   
   @IBOutlet weak var indicatorActivity: UIActivityIndicatorView!

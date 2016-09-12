@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import TwitterKit
 
 
 
@@ -28,6 +29,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var tableViewFavorites: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
+    @IBOutlet weak var buttonTwitter: UIButton!
     @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
     @IBOutlet weak var buttonLogin: UIButton!
   
@@ -54,8 +56,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       
 
       
+
+      
     }
-    
+  
   override func viewWillAppear(animated: Bool) {
     if DataManager.sharedInstance.isLogged == true {
       buttonLogin.setTitle("Logout", forState: .Normal)
@@ -211,6 +215,31 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBAction func facebookButtontap(sender: AnyObject) {
     facebookLoginInButton()
   }
-    
+  
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+  
+  @IBAction func twitterButtonTap(sender: AnyObject) {
+    Twitter.sharedInstance().logInWithCompletion { session, error in
+      if (session != nil) {
+        print("signed in as \(session!.userName)")
+        print("sessao token \((session?.authToken)!)")
+        let cretential = FIRTwitterAuthProvider.credentialWithToken((session?.authToken)!, secret: (session?.authTokenSecret)!)
+        FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+          if error == nil {
+            print("Login pelo Facebook corretamente")
+            DataManager.sharedInstance.isLogged = true
+            self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
+          } else {
+            self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
+          }
+        })
+      } else {
+        print("error: \(error!.localizedDescription)")
+      }
+    }
+  }
+  
     
 }

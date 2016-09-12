@@ -33,6 +33,13 @@ enum NSComparisonResult : Int {
   case OrderedDescending
 }
 
+enum searchMode {
+  case All
+  case Radios
+  case Genre
+  case Local
+}
+
 
 class DataManager: NSObject {
   
@@ -98,9 +105,12 @@ class DataManager: NSObject {
   }
   
   
-  
-  
-  
+  func instantiateSearch(navigation:UINavigationController) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("searchView") as? SearchTableViewController
+    navigation.pushViewController(vc!, animated: true)
+
+  }
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
   //    if radios.count < index {
   //      if radios[index].address.currentClassState != .CompleteAddress {

@@ -19,7 +19,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   var searchRadios = [RadioRealm]()
   var searchAll = Dictionary<searchMode,[AnyObject]>()
   
-  
+  var selectedRadio = RadioRealm()
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.rowHeight = 120
@@ -134,6 +134,23 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       break
     }
     tableView.reloadData()
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    switch selectedMode {
+    case .Radios:
+      selectedRadio = searchRadios[indexPath.row]
+      performSegueWithIdentifier("detailRadio", sender: self)
+    default:
+      break
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "detailRadio" {
+      let radioVC = (segue.destinationViewController as! RadioViewController)
+      radioVC.actualRadio = selectedRadio
+    }
   }
   
 }

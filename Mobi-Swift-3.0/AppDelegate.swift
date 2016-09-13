@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     print(FileSupport.findDocsDirectory())
     
 
-
+    RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
           RealmWrapper.realmStart("default")
       var config = Realm.Configuration()
@@ -61,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     //RealmWrapper.eraseRealmFile("default")
     
     downloadFacebookUpdatedInfo()
+    Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
     FIRApp.configure()
     FIRDatabase.database().persistenceEnabled = true 

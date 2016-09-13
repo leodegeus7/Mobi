@@ -25,6 +25,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   @IBOutlet weak var starFive: UIImageView!
   @IBOutlet weak var tableViewMusic: UITableView!
   @IBOutlet weak var buttonPlay: UIButton!
+  @IBOutlet weak var buttonFav: UIButton!
   
   var stars = [UIImageView]()
   var actualRadio = DataManager.sharedInstance.radioInExecution
@@ -38,9 +39,6 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    if let _ = actualRadio. {
-//        actualRadio = DataManager.sharedInstance.radioInExecution
-//    }
     updateInfoOfView()
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -61,6 +59,12 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     if RadioPlayer.sharedInstance.currentlyPlaying() {
       buttonPlay.imageView?.image = UIImage(named: "play.png")
+    }
+    
+    if !actualRadio.isFavorite {
+      imageLike.image = UIImage(named: "heart.png")
+    } else {
+      imageLike.image = UIImage(named: "heartRed.png")
     }
     
     let effect = UIBlurEffect(style: .Light)
@@ -242,5 +246,22 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
   }
   
+  @IBAction func buttonFavTap(sender: AnyObject) {
+    let manager = RequestManager()
+    if actualRadio.isFavorite {
+      imageLike.image = UIImage(named: "heart.png")
+      actualRadio.updateIsFavorite(false)
+      manager.deleteFavRadio(actualRadio.id, completion: { (result) in
+        print(result)
+      })
+    } else {
+      imageLike.image = UIImage(named: "heartRed.png")
+      actualRadio.updateIsFavorite(true)
+      manager.favRadio(actualRadio.id, completion: { (result) in
+        print(result)
+      })
+    }
+
+  }
   
 }

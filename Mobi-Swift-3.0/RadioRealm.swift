@@ -25,9 +25,11 @@ class RadioRealm: Object {
   dynamic var address:AddressRealm!
   dynamic var stars = -1
   dynamic var genre:String!
+  dynamic var isFavorite = false
+  dynamic var streamingLinks = [Link]()
   
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,stars:Int,genre:String,lastAccessDate:NSDate,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,stars:Int,genre:String,lastAccessDate:NSDate,isFavorite:Bool,repository:Bool) {
     self.init()
     self.name = name
     self.id = Int(id)!
@@ -36,6 +38,7 @@ class RadioRealm: Object {
     self.likenumber = Int(likenumber)!
     self.stars = stars
     self.genre = genre
+    self.isFavorite = isFavorite
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
     
@@ -109,11 +112,21 @@ class RadioRealm: Object {
     }
   }
   
+  func updateStremingLinks(link:[Link]) {
+        self.streamingLinks = link
+  }
+  
+  func updateIsFavorite(fav:Bool) {
+      try! DataManager.sharedInstance.realm.write {
+        self.isFavorite = fav
+    }
+  }
   
 
-// Specify properties to ignore (Realm won't persist these)
     
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
+  override static func ignoredProperties() -> [String] {
+    return ["streamingLinks"]
+  }
+  
+
 }

@@ -53,14 +53,14 @@ class LoadViewController: UIViewController {
       //self.presentViewController(vc!, animated: true, completion: nil)
       // self.initialView.modalPresentationStyle = .OverFullScreen
     }
-    manager.requestJson("stationunit/search/userfavorites?pageNumber=1&pageSize=100") { (result) in
-      let array = result["data"] as! NSArray
-      for singleResult in array {
-        let dic = singleResult as! NSDictionary
-        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
-        DataManager.sharedInstance.allRadios.append(radio)
+    manager.requestJson("stationunit/search/userfavorites?pageNumber=0&pageSize=100") { (result) in
+      if let array = result["data"]!["records"] as? NSArray {
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
+          DataManager.sharedInstance.favoriteRadios.append(radio)
+        }
       }
-
     }
     
   }

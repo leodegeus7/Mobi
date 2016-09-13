@@ -24,18 +24,18 @@ class DataBaseTest: NSObject {
     let date4 = NSTimeInterval(-3000)
     let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
     
-    let radio1 = RadioRealm(id: "1", name: "Radio1", country: "Brasil", city: "Carambei", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4281541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Music", lastAccessDate: date11, repository: true)
+    let radio1 = RadioRealm(id: "1", name: "Radio1", country: "Brasil", city: "Carambei", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.4281541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Music", lastAccessDate: date11, isFavorite: false, repository: true)
     
     radio1.setThumbnailImage("test-4.png")
-    let radio2 = RadioRealm(id: "2", name: "Radio2", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 5, genre: "Comedy", lastAccessDate: date21, repository: true)
+    let radio2 = RadioRealm(id: "2", name: "Radio2", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 5, genre: "Comedy", lastAccessDate: date21, isFavorite: false, repository: true)
     radio2.setThumbnailImage("test-4.png")
-    let radio3 = RadioRealm(id: "3", name: "Radio3", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 1, genre: "Nothing", lastAccessDate: date31, repository: true)
+    let radio3 = RadioRealm(id: "3", name: "Radio3", country: "Brasil", city: "Castro", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.1089541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 1, genre: "Nothing", lastAccessDate: date31, isFavorite: false, repository: true)
     radio3.setThumbnailImage("test-4.png")
-    let radio4 = RadioRealm(id: "4", name: "Radio4", country: "Brasil", city: "Palmas", state: "Rio Grande do Sul", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.5289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 4, genre: "Drama", lastAccessDate: date41, repository: true)
+    let radio4 = RadioRealm(id: "4", name: "Radio4", country: "Brasil", city: "Palmas", state: "Rio Grande do Sul", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.5289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 4, genre: "Drama", lastAccessDate: date41, isFavorite: false, repository: true)
     radio3.setThumbnailImage("test-4.png")
-    let radio5 = RadioRealm(id: "5", name: "Radio5", country: "Brasil", city: "Seila", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 0, genre: "Legal", lastAccessDate: date21, repository: true)
+    let radio5 = RadioRealm(id: "5", name: "Radio5", country: "Brasil", city: "Seila", state: "Acre", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 0, genre: "Legal", lastAccessDate: date21, isFavorite: false, repository: true)
     radio1.setThumbnailImage("test-4.png")
-    let radio6 = RadioRealm(id: "6", name: "Radio6", country: "Brasil", city: "Seila", state: "Roraima", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Leo", lastAccessDate: date21, repository: true)
+    let radio6 = RadioRealm(id: "6", name: "Radio6", country: "Brasil", city: "Seila", state: "Roraima", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145000", lat: "-25.2289541", long: "-49.2671369", thumbnail: "test-1.png", likenumber: "28", stars: 3, genre: "Leo", lastAccessDate: date21, isFavorite: false, repository: true)
     
     let firstNew = NewRealm(id: "1",newTitle: "Teste 1", newDescription: "Bom dia, estou testando os textosoii", img: "", date: "Há 2 dias")
     let firstNew2 = NewRealm(id: "2",newTitle: "Teste 2", newDescription: "Bomfadlkfkjsdgfkhsdgkfhsdkjghsdlg xh gosdhgo hsdghs ishg oishdgo ihsoihs  ihoghsd lgd dia, estou testando os textosoii", img: "", date: "Há 4 dias")
@@ -75,17 +75,16 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[3])
     DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[2])
     
-    DataManager.sharedInstance.favoriteRadios.append(DataManager.sharedInstance.allRadios[1])
     
     
     DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
     DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
     
-//    let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
-//    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
-    DataManager.sharedInstance.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
+    let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
+    let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")
+    myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
 //    
-//    DataManager.sharedInstance.myUser = myUser
+    DataManager.sharedInstance.myUser = myUser
     
     let firstNew3 = New(id: "1",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
     let firstNew1 = New(id: "2",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
@@ -94,13 +93,7 @@ class DataBaseTest: NSObject {
     DataManager.sharedInstance.allNews.append(firstNew3)
     DataManager.sharedInstance.allNews.append(secondNew2)
     
-    DataManager.sharedInstance.allRadios[0].updateStremingLink("http://stm27.srvstm.com:20520/stream")
-    DataManager.sharedInstance.allRadios[1].updateStremingLink("http://cdn.rj.assocrj.com.br:8000/stream/1")
-    DataManager.sharedInstance.allRadios[2].updateStremingLink("http://transamerica.crossradio.com.br:9100/live.aac")
-    DataManager.sharedInstance.allRadios[3].updateStremingLink("http://sh.upx.com.br:8238")
-    DataManager.sharedInstance.allRadios[4].updateStremingLink("http://stm27.srvstm.com:20520/stream")
-    DataManager.sharedInstance.allRadios[5].updateStremingLink("http://stm27.srvstm.com:20520/stream")
-    DataManager.sharedInstance.allRadios[6].updateStremingLink("http://stm27.srvstm.com:20520/stream")
+
     
   }
   

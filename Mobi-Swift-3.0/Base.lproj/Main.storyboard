@@ -1385,10 +1385,10 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="spv-Ae-NLk"/>
                                                             <exclude reference="40D-2L-uBv"/>
-                                                            <exclude reference="j74-PI-NK8"/>
                                                             <exclude reference="GXF-pS-uaK"/>
+                                                            <exclude reference="j74-PI-NK8"/>
+                                                            <exclude reference="spv-Ae-NLk"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
@@ -1499,11 +1499,12 @@
                     </tableView>
                     <connections>
                         <outlet property="searchBar" destination="YsJ-a5-Stc" id="YbX-5I-DYJ"/>
+                        <segue destination="fg6-C9-OS2" kind="show" identifier="detailRadio" id="maa-b4-e0Q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZh-QM-7cr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2349" y="4043"/>
+            <point key="canvasLocation" x="2517" y="6337"/>
         </scene>
         <!--Local Table View Controller-->
         <scene sceneID="111-u7-LgD">
@@ -2314,7 +2315,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7md-x0-RgF">
-                                <rect key="frame" x="0.0" y="44" width="320" height="756"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="780"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVx-th-jvz">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="530"/>
@@ -2371,17 +2372,25 @@
                                                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkY-CO-VOT">
-                                                        <rect key="frame" x="102" y="19" width="150" height="150"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkY-CO-VOT">
+                                                        <rect key="frame" x="101" y="19" width="150" height="150"/>
                                                         <state key="normal" title="Button" image="play.png"/>
                                                         <connections>
                                                             <action selector="buttonPlayTap:" destination="fg6-C9-OS2" eventType="touchUpInside" id="CIM-gn-HWZ"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYG-ud-Co3">
+                                                        <rect key="frame" x="139" y="237" width="37" height="37"/>
+                                                        <connections>
+                                                            <action selector="buttonFavTap:" destination="fg6-C9-OS2" eventType="touchUpInside" id="UsH-jL-Sy4"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="aYG-ud-Co3" firstAttribute="height" secondItem="QTJ-WS-hwL" secondAttribute="height" constant="10" id="2He-4s-un8"/>
                                                     <constraint firstItem="reX-xV-HR1" firstAttribute="top" secondItem="NYd-Uo-h0e" secondAttribute="bottom" constant="5" id="2Zp-E7-5fc"/>
+                                                    <constraint firstItem="aYG-ud-Co3" firstAttribute="width" secondItem="QTJ-WS-hwL" secondAttribute="width" constant="10" id="2uQ-K5-ySg"/>
                                                     <constraint firstItem="gGj-Eg-qlw" firstAttribute="top" secondItem="0rg-wE-ark" secondAttribute="top" constant="19" id="4Rj-rb-U4X"/>
                                                     <constraint firstItem="QTJ-WS-hwL" firstAttribute="trailing" secondItem="OmW-pA-ggk" secondAttribute="trailing" constant="-6" id="7hU-jF-POw"/>
                                                     <constraint firstItem="KkY-CO-VOT" firstAttribute="centerX" secondItem="gGj-Eg-qlw" secondAttribute="centerX" id="F3T-nL-w6s"/>
@@ -2391,10 +2400,12 @@
                                                     <constraint firstItem="KkY-CO-VOT" firstAttribute="width" secondItem="gGj-Eg-qlw" secondAttribute="width" id="PQ6-aR-8bc"/>
                                                     <constraint firstItem="NYd-Uo-h0e" firstAttribute="top" secondItem="gGj-Eg-qlw" secondAttribute="bottom" constant="8" id="SNa-SV-5WG"/>
                                                     <constraint firstAttribute="width" secondItem="0rg-wE-ark" secondAttribute="height" multiplier="152:119" id="Sr5-Bm-RbZ"/>
+                                                    <constraint firstItem="QTJ-WS-hwL" firstAttribute="centerY" secondItem="aYG-ud-Co3" secondAttribute="centerY" id="cqJ-UO-cLI"/>
                                                     <constraint firstItem="2eg-6T-xSD" firstAttribute="leading" secondItem="QTJ-WS-hwL" secondAttribute="trailing" constant="3" id="hR7-wm-Ffj"/>
                                                     <constraint firstItem="reX-xV-HR1" firstAttribute="centerX" secondItem="0rg-wE-ark" secondAttribute="centerX" id="iJj-Bp-IaM"/>
                                                     <constraint firstItem="gGj-Eg-qlw" firstAttribute="centerX" secondItem="0rg-wE-ark" secondAttribute="centerX" id="itq-UE-XLh"/>
                                                     <constraint firstItem="KkY-CO-VOT" firstAttribute="centerY" secondItem="gGj-Eg-qlw" secondAttribute="centerY" id="jSW-HI-0AL"/>
+                                                    <constraint firstItem="QTJ-WS-hwL" firstAttribute="centerX" secondItem="aYG-ud-Co3" secondAttribute="centerX" id="l11-j6-o0g"/>
                                                     <constraint firstItem="QTJ-WS-hwL" firstAttribute="top" secondItem="reX-xV-HR1" secondAttribute="bottom" constant="10" id="pEw-dQ-uEV"/>
                                                     <constraint firstItem="OmW-pA-ggk" firstAttribute="centerX" secondItem="0rg-wE-ark" secondAttribute="centerX" id="rRI-1a-hUw"/>
                                                     <constraint firstItem="KkY-CO-VOT" firstAttribute="height" secondItem="gGj-Eg-qlw" secondAttribute="height" id="u2f-q7-CBr"/>
@@ -2651,6 +2662,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
+                        <outlet property="buttonFav" destination="aYG-ud-Co3" id="Txc-Ho-l35"/>
                         <outlet property="buttonPlay" destination="KkY-CO-VOT" id="hDq-fa-gsH"/>
                         <outlet property="imageLike" destination="QTJ-WS-hwL" id="JsK-Ws-jN0"/>
                         <outlet property="imageLogo" destination="gGj-Eg-qlw" id="EZd-GH-KiV"/>
@@ -2928,12 +2940,21 @@
                                                             <action selector="buttonPlayTap:" destination="gBU-1f-4FG" eventType="touchUpInside" id="UJd-nX-Q7E"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGv-WE-yFg">
+                                                        <rect key="frame" x="139" y="258" width="37" height="37"/>
+                                                        <connections>
+                                                            <action selector="buttonFavTap:" destination="gBU-1f-4FG" eventType="touchUpInside" id="xbe-si-okb"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="fuI-z0-IkD" firstAttribute="trailing" secondItem="kmW-bE-LgB" secondAttribute="trailing" constant="-6" id="5sn-kr-Ed2"/>
+                                                    <constraint firstItem="gGv-WE-yFg" firstAttribute="width" secondItem="fuI-z0-IkD" secondAttribute="width" constant="10" id="7nG-3z-rh9"/>
                                                     <constraint firstItem="FX6-wq-iAb" firstAttribute="width" secondItem="Tjm-nZ-50r" secondAttribute="width" id="9Ll-1h-tW7"/>
                                                     <constraint firstItem="wMV-zR-BPu" firstAttribute="top" secondItem="fEb-uI-YG1" secondAttribute="bottom" constant="5" id="BLf-vJ-NSh"/>
+                                                    <constraint firstItem="gGv-WE-yFg" firstAttribute="height" secondItem="fuI-z0-IkD" secondAttribute="height" constant="10" id="GGn-sd-Rxj"/>
+                                                    <constraint firstItem="fuI-z0-IkD" firstAttribute="centerX" secondItem="gGv-WE-yFg" secondAttribute="centerX" id="Hz3-XI-6qJ"/>
                                                     <constraint firstItem="qZa-p2-l46" firstAttribute="bottom" secondItem="fuI-z0-IkD" secondAttribute="bottom" id="OqP-nL-wfF"/>
                                                     <constraint firstItem="Tjm-nZ-50r" firstAttribute="top" secondItem="8tm-En-oCc" secondAttribute="top" constant="40" id="Q95-x0-ye4"/>
                                                     <constraint firstItem="FX6-wq-iAb" firstAttribute="centerX" secondItem="Tjm-nZ-50r" secondAttribute="centerX" id="TKt-oa-Fg5"/>
@@ -2943,6 +2964,7 @@
                                                     <constraint firstItem="FX6-wq-iAb" firstAttribute="height" secondItem="Tjm-nZ-50r" secondAttribute="height" id="cQn-ku-wtn"/>
                                                     <constraint firstItem="FX6-wq-iAb" firstAttribute="centerY" secondItem="Tjm-nZ-50r" secondAttribute="centerY" id="ext-eB-ViQ"/>
                                                     <constraint firstItem="Tjm-nZ-50r" firstAttribute="top" secondItem="kmW-bE-LgB" secondAttribute="bottom" constant="-2" id="g2u-dR-xRh"/>
+                                                    <constraint firstItem="fuI-z0-IkD" firstAttribute="centerY" secondItem="gGv-WE-yFg" secondAttribute="centerY" id="iy4-rL-xXV"/>
                                                     <constraint firstItem="qZa-p2-l46" firstAttribute="leading" secondItem="fuI-z0-IkD" secondAttribute="trailing" constant="3" id="l9g-vh-vNG"/>
                                                     <constraint firstItem="FX6-wq-iAb" firstAttribute="top" secondItem="8tm-En-oCc" secondAttribute="top" constant="20" id="q1R-vW-4lu"/>
                                                     <constraint firstItem="fuI-z0-IkD" firstAttribute="top" secondItem="wMV-zR-BPu" secondAttribute="bottom" constant="10" id="rYP-Gb-rcf"/>
@@ -3040,6 +3062,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
+                        <outlet property="buttonFav" destination="gGv-WE-yFg" id="jjZ-mI-pg3"/>
                         <outlet property="buttonPlay" destination="FX6-wq-iAb" id="RqI-3F-pLO"/>
                         <outlet property="imageLike" destination="fuI-z0-IkD" id="coo-4E-vDJ"/>
                         <outlet property="imageLogo" destination="Tjm-nZ-50r" id="qcO-W2-2Uo"/>
@@ -3585,7 +3608,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LMO-xc-EaP"/>
-        <segue reference="xKA-Qq-2La"/>
         <segue reference="v0E-OW-DaC"/>
+        <segue reference="maa-b4-e0Q"/>
     </inferredMetricsTieBreakers>
 </document>

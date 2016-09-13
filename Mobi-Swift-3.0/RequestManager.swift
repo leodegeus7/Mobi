@@ -36,6 +36,8 @@ public enum StationUnitRequest {
 
 
 
+
+
 class RequestManager: NSObject {
   
   
@@ -43,6 +45,7 @@ class RequestManager: NSObject {
   ///////////////////////////////////////////////////////////
   //MARK: --- VARIABLES TO CONTROL THE CLASS ---
   ///////////////////////////////////////////////////////////
+  let headers = ["userToken": "\(DataManager.sharedInstance.userToken)"]
   
   var resultText = RequestResult.inProgress
   lazy var resultCode : Int = {return self.resultText.rawValue}()
@@ -77,7 +80,6 @@ class RequestManager: NSObject {
     resultCode = 0
     existData = false
     let emptyDic:NSDictionary = ["":""]
-    let headers = ["userToken": "\(DataManager.sharedInstance.userToken)"]
     Alamofire.request(.GET, "\(DataManager.sharedInstance.baseURL)\(link)", headers: headers).responseJSON { (response) in
       
       switch response.result {
@@ -153,7 +155,7 @@ class RequestManager: NSObject {
       
       let data = Data.response(result)
       if let stateList = data["stateList"] as? NSArray {
-      
+        
       }
       
       if let nameList = data["nameList"] as? NSArray {
@@ -172,8 +174,8 @@ class RequestManager: NSObject {
             long = 0
           }
           let likes = dic["likes"] as! Int
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(likes)", stars: 3, genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), repository: true)
-
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(likes)", stars: 3, genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+          
           radioResult.append(radio)
         }
       }
@@ -193,7 +195,138 @@ class RequestManager: NSObject {
     
   }
   
+  func favRadio(radioId:Int,completion: (result: Dictionary<String,AnyObject>) -> Void) {
+    let dicParameters = [
+      "id" : radioId
+    ]
+    let parameters = [
+      "stationUnit": dicParameters
+    ]
+    let emptyDic:NSDictionary = ["":""]
+    Alamofire.request(.PUT, "\(DataManager.sharedInstance.baseURL)userfavoritestation", parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+      switch response.result {
+      case .Success:
+        if let value = response.result.value {
+          let json = JSON(value)
+          if let data = json["data"].dictionaryObject {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else if let data = json["data"].arrayObject {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else if let data = json["data"].string {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else {
+            self.resultText = .ErrorInDataInformation
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            if let data = json["error"].dictionaryObject!["message"] as? String {
+              self.existData = true
+              dic["data"] = data
+              completion(result: dic)
+            }
+            dic["data"] = emptyDic
+            completion(result: dic)
+          }
+          
+        }
+      case .Failure(let error):
+        self.resultText = .ErrorInReturnFromServer
+        var dic = Dictionary<String,AnyObject>()
+        dic["requestResult"] = "\(self.resultText) - \(error.localizedDescription)"
+        dic["data"] = emptyDic
+        completion(result: dic)
+      }
+    }
+  }
   
+  func deleteFavRadio(radioId:Int,completion: (result: Dictionary<String,AnyObject>) -> Void) {
+    let dicParameters = [
+      "id" : radioId
+    ]
+    let parameters = [
+      "stationUnit": dicParameters
+    ]
+    let emptyDic:NSDictionary = ["":""]
+    Alamofire.request(.DELETE, "\(DataManager.sharedInstance.baseURL)userfavoritestation", parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+      switch response.result {
+      case .Success:
+        if let value = response.result.value {
+          let json = JSON(value)
+          if let data = json["data"].dictionaryObject {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else if let data = json["data"].arrayObject {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else if let data = json["data"].string {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else {
+            self.resultText = .ErrorInDataInformation
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            if let _ = json.error {
+              if let data = json["error"].dictionaryObject!["message"] as? String {
+                self.existData = true
+                dic["data"] = data
+                completion(result: dic)
+              }
+            }
+            dic["data"] = emptyDic
+            completion(result: dic)
+          }
+          
+        }
+      case .Failure(let error):
+        self.resultText = .ErrorInReturnFromServer
+        var dic = Dictionary<String,AnyObject>()
+        dic["requestResult"] = "\(self.resultText) - \(error.localizedDescription)"
+        dic["data"] = emptyDic
+        completion(result: dic)
+      }
+    }
+  }
   
+  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
+    requestJson("stationunit/\(radio.id)/streaming") { (result) in
+      let data = result["data"] as! NSArray
+      var links = [Link]()
+      for linkDic in data {
+        if let _ = linkDic["description"] {
+          let descr = linkDic["description"] as! String
+          let link = linkDic["link"] as! String
+          let linkClass = Link(type: descr, link: link)
+          links.append(linkClass)
+        }
+      }
+      radio.updateStremingLinks(links)
+    }
+  }
   
 }

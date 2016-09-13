@@ -25,7 +25,7 @@ class RadioPlayer : NSObject {
     }
   }
   
-  private var player = AVPlayer(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!)
+  private var player = AVPlayer()
   private var playerItem = AVPlayerItem?()
   private var isPlaying = false
   var notificationCenter = NSNotificationCenter.defaultCenter()
@@ -43,8 +43,8 @@ class RadioPlayer : NSObject {
     super.init()
     
     errorMessage = ""
-    
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!, options: nil)
+//    let url = DataManager.sharedInstance.radioInExecution.streamingLinks[0].link
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: "")!, options: nil)
     
     let statusKey = "tracks"
     
@@ -89,7 +89,7 @@ class RadioPlayer : NSObject {
   func resetPlayer() {
     errorMessage = ""
     
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLink)!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLinks[0].link)!, options: nil)
     
     let statusKey = "tracks"
     

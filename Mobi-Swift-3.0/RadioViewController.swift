@@ -25,6 +25,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   @IBOutlet weak var starFive: UIImageView!
   @IBOutlet weak var tableViewMusic: UITableView!
   @IBOutlet weak var buttonPlay: UIButton!
+  @IBOutlet weak var buttonFav: UIButton!
   
   var stars = [UIImageView]()
   var actualRadio = DataManager.sharedInstance.allRadios[0]
@@ -57,6 +58,11 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
       }
     }
     
+    if !actualRadio.isFavorite {
+      imageLike.image = UIImage(named: "heart.png")
+    } else {
+      imageLike.image = UIImage(named: "heartRed.png")
+    }
     
     
     if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
@@ -72,7 +78,12 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     self.view.sendSubviewToBack(blurView)
     
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
-
+    
+    
+    let manager = RequestManager()
+    manager.getStreamingLinksFromRadio(actualRadio) { (result) in
+      //oi
+    }
   }
   
 
@@ -147,5 +158,24 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
   }
   
+  @IBAction func buttonFavTap(sender: AnyObject) {
+    let manager = RequestManager()
+    if actualRadio.isFavorite {
+      imageLike.image = UIImage(named: "heart.png")
+      actualRadio.updateIsFavorite(false)
+      //localizar id da radio favoritada
+      manager.deleteFavRadio(actualRadio.id, completion: { (result) in
+        print(result)
+      })
+    } else {
+      imageLike.image = UIImage(named: "heartRed.png")
+      actualRadio.updateIsFavorite(true)
+      manager.favRadio(actualRadio.id, completion: { (result) in
+        print(result)
+      })
+    }
+  }
+  
+
   
 }

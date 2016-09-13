@@ -49,9 +49,7 @@ class UserRealm: Object {
   }
   
   func updateFavorites(favorites:[RadioRealm]) {
-    try! DataManager.sharedInstance.realm.write {
       self.favoritesRadios = favorites
-    }
   }
   
   func updatePassword(password:String) -> UserRealm {

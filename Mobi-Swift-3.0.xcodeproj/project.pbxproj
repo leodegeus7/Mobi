@@ -77,6 +77,8 @@
 		B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E6973F1D591EE400EC276F /* TopMenuTableViewCell.swift */; };
 		B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E697411D591F8E00EC276F /* UserRealm.swift */; };
 		B7E697441D59208800EC276F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E697431D59208800EC276F /* DataManager.swift */; };
+		B7EE9D301D886E2E00AE27D1 /* heartRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B7EE9D2F1D886E2E00AE27D1 /* heartRed.png */; };
+		B7EE9D321D8893CE00AE27D1 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE9D311D8893CE00AE27D1 /* Link.swift */; };
 		B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F325631D63993900B3BC42 /* RadioRealm.swift */; };
 		B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */; };
 		B7F530EB1D6230D700831561 /* InitialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F530EA1D6230D700831561 /* InitialTableViewCell.swift */; };
@@ -190,6 +192,8 @@
 		B7E6973F1D591EE400EC276F /* TopMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuTableViewCell.swift; sourceTree = "<group>"; };
 		B7E697411D591F8E00EC276F /* UserRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRealm.swift; sourceTree = "<group>"; };
 		B7E697431D59208800EC276F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		B7EE9D2F1D886E2E00AE27D1 /* heartRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRed.png; sourceTree = "<group>"; };
+		B7EE9D311D8893CE00AE27D1 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		B7F325631D63993900B3BC42 /* RadioRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioRealm.swift; sourceTree = "<group>"; };
 		B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRealm.swift; sourceTree = "<group>"; };
 		B7F530EA1D6230D700831561 /* InitialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialTableViewCell.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				B7F65DFA1D64F34D000EE185 /* Data.swift */,
 				B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
+				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 		B7D90E101D5A579300D15089 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B7EE9D2F1D886E2E00AE27D1 /* heartRed.png */,
 				B7F530EE1D62484E00831561 /* TestLogo */,
 				B7D90DF81D5A41C000D15089 /* test56x52.jpg */,
 				B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */,
@@ -575,6 +581,7 @@
 				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
 				B7F530F51D62486600831561 /* test-3.png in Resources */,
 				B7F530ED1D623F9000831561 /* heart.png in Resources */,
+				B7EE9D301D886E2E00AE27D1 /* heartRed.png in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
 				B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */,
 			);
@@ -679,6 +686,7 @@
 				B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */,
 				B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */,
 				B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */,
+				B7EE9D321D8893CE00AE27D1 /* Link.swift in Sources */,
 				B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */,
 				B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */,
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,

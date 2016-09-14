@@ -295,7 +295,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         self.selectedRadioArray[indexPath.row].updateIsFavorite(false)
         manager.deleteFavRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
         })
-        self.reloadData()
+        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
       }
       
       favorite.backgroundColor = UIColor.orangeColor()
@@ -305,7 +305,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
         manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
         })
-        self.reloadData()
+        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
       }
       
       favorite.backgroundColor = UIColor.orangeColor()

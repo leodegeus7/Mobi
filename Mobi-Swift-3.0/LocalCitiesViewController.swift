@@ -9,65 +9,85 @@
 import UIKit
 
 class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-
+  
   @IBOutlet weak var tableViewRadiosInState: UITableView!
   @IBOutlet weak var tableViewCities: UITableView!
   
-
   var citiesInState = Dictionary<String,[RadioRealm]>()
   var selectedRadio = RadioRealm()
+  var citiesArray = [CityRealm]()
+  var selectedState = StateRealm()
+  var selectedCity = CityRealm()
   
-
   @IBOutlet weak var height: NSLayoutConstraint!
-  
   @IBOutlet weak var height2: NSLayoutConstraint!
-
-  var citiesArray = [City]()
-  var radiosInSelectedState = State()
   
-  var selectedCity = City()
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   override func viewDidLoad() {
-    super.viewDidLoad()
-    separateInformation()
-  
-    self.title = radiosInSelectedState.stateName
     
-    if radiosInSelectedState.radios.count == 2 {
-      height.constant = 240
-      tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 240)
-    } else  if radiosInSelectedState.radios.count == 1 {
-      height.constant = 120
-      tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 120)
-    } else  if radiosInSelectedState.radios.count >= 3 {
-      height.constant = 360
-      tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 360)
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL CONFIG ---
+    ///////////////////////////////////////////////////////////
+    
+    super.viewDidLoad()
+    self.title = selectedState.name
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+
+    
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL REQUEST ---
+    ///////////////////////////////////////////////////////////
+    
+    let managerRadios = RequestManager()
+    managerRadios.requestRadiosInStates(selectedState.id) { (resultState) in
+      self.selectedState.updateRadiosOfState(resultState)
+      if self.selectedState.radios.count == 2 {
+        self.height.constant = 240
+        self.tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 240)
+      } else  if self.selectedState.radios.count == 1 {
+        self.height.constant = 120
+        self.tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 120)
+      } else  if self.selectedState.radios.count >= 3 {
+        self.height.constant = 360
+        self.tableViewRadiosInState.frame = CGRectMake(0, 0, 460, 360)
+      }
+      self.tableViewRadiosInState.reloadData()
     }
     
-    let count = citiesArray.count
-      self.title = "Cidades"
-    tableViewCities.frame = CGRectMake(0, 0, 460, 40*CGFloat(count))
-    height2.constant = 40*CGFloat(count)
-        // Do any additional setup after loading the view.
+    let managerCities = RequestManager()
+    managerCities.requestCitiesInState(selectedState.id) { (resultCities) in
+      self.citiesArray = resultCities
+      let count = self.citiesArray.count
+      self.tableViewCities.frame = CGRectMake(0, 0, 460, 40*CGFloat(count))
+      self.height2.constant = 40*CGFloat(count)
+      self.tableViewCities.reloadData()
+      self.selectedState.updateCityOfState(resultCities)
+    }
   }
-
+  
   override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
-
-  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if tableView == tableViewRadiosInState {
-      if radiosInSelectedState.radios.count > 3 {
+      if selectedState.radios.count > 3 {
         return 3
       } else {
-        return radiosInSelectedState.radios.count
+        return selectedState.radios.count
       }
     }
     else if tableView == tableViewCities {
@@ -83,22 +103,24 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
     }
     return 40
   }
-
   
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if tableView == tableViewCities {
       let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-      cell.textLabel?.text = citiesArray[indexPath.row].cityName
-
+      cell.textLabel?.text = citiesArray[indexPath.row].name
       return cell
     } else {
       let cell = tableView.dequeueReusableCellWithIdentifier("radioCell") as! InitialTableViewCell
-      cell.labelName.text = radiosInSelectedState.radios[indexPath.row].name
-      cell.labelLocal.text = radiosInSelectedState.radios[indexPath.row].address.formattedLocal
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radiosInSelectedState.radios[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
-      cell.labelDescriptionOne.text = "\(radiosInSelectedState.radios[indexPath.row].likenumber)"
+      cell.labelName.text = selectedState.radios[indexPath.row].name
+      cell.labelLocal.text = selectedState.radios[indexPath.row].address.formattedLocal
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedState.radios[indexPath.row].thumbnail)))
+      if selectedState.radios[indexPath.row].isFavorite {
+        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+      }
+      cell.labelDescriptionOne.text = "\(selectedState.radios[indexPath.row].likenumber)"
       cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
       cell.labelDescriptionTwo.text = ""
       return cell
@@ -106,67 +128,39 @@ class LocalCitiesViewController: UIViewController, UITableViewDelegate,UITableVi
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    view.addSubview(activityIndicator)
+    activityIndicator.hidden = false
+    tableViewCities.allowsSelection = false
+    tableViewRadiosInState.allowsSelection = false
+    let manager = RequestManager()
     if tableView == tableViewCities {
-            selectedCity = citiesArray[indexPath.row]
-      performSegueWithIdentifier("detailCity", sender: self)
-
+      selectedCity = citiesArray[indexPath.row]
+      manager.requestRadiosInCity(selectedCity.id, completion: { (resultCity) in
+        self.selectedCity.updateRadiosOfCity(resultCity)
+        self.tableViewCities.allowsSelection = true
+        self.tableViewRadiosInState.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        self.performSegueWithIdentifier("detailCity", sender: self)
+      })
     } else if tableView == tableViewRadiosInState {
-      selectedRadio = radiosInSelectedState.radios[indexPath.row]
+      selectedRadio = selectedState.radios[indexPath.row]
       performSegueWithIdentifier("detailRadio", sender: self)
     }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "detailCity" {
-      let localCitiesVC = (segue.destinationViewController as! RadioListTableViewController)
+      let radioListVC = (segue.destinationViewController as! RadioListTableViewController)
       let radios = selectedCity.radios
-      localCitiesVC.radios = radios
-      localCitiesVC.superSegue = "detailCity"
+      radioListVC.radios = Array(radios)
+      radioListVC.superSegue = "detailCity"
+      
     } else if segue.identifier == "detailRadio" {
       let radioVC = (segue.destinationViewController as! RadioViewController)
       radioVC.actualRadio = selectedRadio
     }
   }
   
-  func separateInformation() {
-    var citiesName = [String]()
-    let allRadiosInState = radiosInSelectedState.radios
-    
-    var nameOfCities = [String]()
-    
-    for radio in allRadiosInState {
-      if radio.address.city != "" {
-        nameOfCities.append(radio.address.city)
-      }
-    }
-
-
-    for city in nameOfCities {
-      citiesName.append(city)
-    }
-    citiesName = Util.removeDuplicateStrings(citiesName)
-    
-    for city in citiesName {
-      var radios = [RadioRealm]()
-      for radio in allRadiosInState {
-        if (city == radio.address.city) {
-          radios.append(radio)
-          break
-        }
-      }
-      citiesArray.append(City(cityName: city, radios: radios))
-    }
-    
-}
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
 }

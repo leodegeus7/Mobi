@@ -61,6 +61,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   override func viewWillAppear(animated: Bool) {
+    tableViewFavorites.reloadData()
     if DataManager.sharedInstance.isLogged == true {
       buttonLogin.setTitle("Logout", forState: .Normal)
       buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
@@ -110,7 +111,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
     }
     cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-    cell.imageSmallOne.image = UIImage(named: "heart.png")
+    if selectedRadioArray[indexPath.row].isFavorite {
+      cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+    } else {
+      cell.imageSmallOne.image = UIImage(named: "heart.png")
+    }
     cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
     return cell
   }
@@ -130,8 +135,16 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       let image = UIImage(contentsOfFile: path)
       imageUser.image = image
     }
+    self.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
+    selectedRadioArray = self.myUser.favoritesRadios
+    let manager = RequestManager()
+    manager.requestUserFavorites { (resultFav) in
+      self.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
+      self.selectedRadioArray = self.myUser.favoritesRadios
+      self.tableViewFavorites.reloadData()
+    }
     
-    selectedRadioArray = myUser.favoritesRadios
+
   }
   
   func configureFacebook()

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "495491790.311518"
+            timestampString = "495568084.393331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
             landmarkName = "getStreamingLinksFromRadio(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/LoadViewController.swift"
-            timestampString = "495492838.412946"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495565145.988161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "requestInitialInformation()"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "genericRequest(_:parameters:urlTerminationWithoutInitialCharacter:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/LoadViewController.swift"
-            timestampString = "495492853.106277"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495565243.222451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "requestInitialInformation()"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "genericRequest(_:parameters:urlTerminationWithoutInitialCharacter:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,46 +73,254 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/LoadViewController.swift"
-            timestampString = "495492859.426657"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495565257.093528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "requestInitialInformation()"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "genericRequest(_:parameters:urlTerminationWithoutInitialCharacter:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495565737.212133"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "genericRequest(_:parameters:urlTerminationWithoutInitialCharacter:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495566437.776039"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "genericRequest(_:parameters:urlTerminationWithoutInitialCharacter:completion:)"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Mobi_Swift_3_0.LoadViewController.requestInitialInformation () -&gt; ()"
+                  symbolName = "Mobi_Swift_3_0.RequestManager.genericRequest (Alamofire.Method, parameters : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, urlTerminationWithoutInitialCharacter : Swift.String, completion : (result : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/LoadViewController.swift"
-                  timestampString = "495493663.396623"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RequestManager.swift"
+                  timestampString = "495566437.778573"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "222">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "377">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Mobi_Swift_3_0.LoadViewController.(requestInitialInformation () -&gt; ()).(closure #2)"
+                  symbolName = "Mobi_Swift_3_0.RequestManager.(genericRequest (Alamofire.Method, parameters : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, urlTerminationWithoutInitialCharacter : Swift.String, completion : (result : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/LoadViewController.swift"
-                  timestampString = "495493663.396791"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RequestManager.swift"
+                  timestampString = "495566437.778734"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "37">
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "179">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495568084.393331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "deleteFavRadio(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495568084.393331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "favRadio(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RadioRealm.swift"
+            timestampString = "495569748.511707"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "init(id:name:country:city:state:street:streetNumber:zip:lat:long:thumbnail:likenumber:stars:genre:lastAccessDate:isFavorite:repository:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/InitialTableViewController.swift"
+            timestampString = "495569835.422878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "viewDidAppear(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/InitialTableViewController.swift"
+            timestampString = "495570233.203115"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "changeTableViewStatus()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/InitialTableViewController.swift"
+            timestampString = "495570350.271428"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "changeTableViewStatus()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobi_Swift_3_0.InitialTableViewController.changeTableViewStatus () -&gt; ()"
+                  moduleName = "Mobi-Swift-3.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/InitialTableViewController.swift"
+                  timestampString = "495570350.543175"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "257"
+                  endingLineNumber = "257"
+                  offsetFromSymbolStart = "369">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobi_Swift_3_0.InitialTableViewController.(changeTableViewStatus () -&gt; ()).(closure #1)"
+                  moduleName = "Mobi-Swift-3.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/InitialTableViewController.swift"
+                  timestampString = "495570350.543323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "258"
+                  endingLineNumber = "258"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RequestManager.swift"
+            timestampString = "495571928.938695"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "requestMusicGenre(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/LocalCitiesViewController.swift"
+            timestampString = "495580472.857477"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/InitialTableViewController.swift"
+            timestampString = "495581395.06602"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "tableView(_:editActionsForRowAtIndexPath:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

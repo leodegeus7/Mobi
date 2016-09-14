@@ -28,7 +28,18 @@
          contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #1):ProfileViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "DataManager.(updateAllOverdueInterval() -&gt; ()).(closure #1):DataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "AddressRealm.setFormattedLocalString() -&gt; ():AddressRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(deleteFavRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "LoginViewController.(buttonLogin(AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
@@ -39,21 +50,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(deleteFavRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
          contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "modalVC">
+               value = "DataManager.sharedInstance.allMusicGenre">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -66,21 +66,43 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "modalVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.buttonFavTap(AnyObject) -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestUserFavorites((resultFav : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.(twitterButtonTap(AnyObject) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data[&quot;email&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "data as NSDictionary">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "GenreViewController.separateInformation() -&gt; ():GenreViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioViewController.viewDidLoad() -&gt; ():RadioViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -93,13 +115,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.(twitterButtonTap(AnyObject) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
+         contextName = "RadioViewController.viewDidLoad() -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data[&quot;email&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "data as NSDictionary">
+               value = "actualRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -136,7 +155,7 @@
                value = "myUser">
             </PersistentString>
             <PersistentString
-               value = "user">
+               value = "DataManager.sharedInstance.myUser.email">
             </PersistentString>
             <PersistentString
                value = "realm.objects(RadioRealm)">
@@ -151,7 +170,15 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.email">
+               value = "user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedRadioArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -192,13 +219,13 @@
          contextName = "InitialTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
+               value = "selectedRadioArray[0].name">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.isLogged">
             </PersistentString>
             <PersistentString
-               value = "selectedRadioArray[0].name">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -224,6 +251,17 @@
          <PersistentStrings>
             <PersistentString
                value = "dataArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InitialTableViewController.viewDidAppear(Bool) -&gt; ():InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -283,7 +321,23 @@
          contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #2):RadioViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
+         contextName = "InitialTableViewController.(changeTableViewStatus() -&gt; ()).(closure #1):InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[0]">
+            </PersistentString>
+            <PersistentString
+               value = "([String : AnyObject])parameters">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
@@ -300,6 +354,9 @@
             <PersistentString
                value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -311,15 +368,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "json[0]">
-            </PersistentString>
-            <PersistentString
-               value = "([String : AnyObject])parameters">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
       </ContextState>
       <ContextState
          contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
@@ -361,13 +410,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
                value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -404,6 +453,12 @@
       </ContextState>
       <ContextState
          contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(genericRequest(Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, stars : Int, genre : String, lastAccessDate : NSDate, isFavorite : Bool, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1):ProfileViewController.swift">
@@ -513,10 +568,10 @@
          contextName = "RequestManager.(favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[&quot;error&quot;]">
+               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
             </PersistentString>
             <PersistentString
-               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
+               value = "json[&quot;error&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -560,6 +615,9 @@
                value = "actualRadio.thumbnail">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataManager.updateAllOverdueInterval() -&gt; ():DataManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">

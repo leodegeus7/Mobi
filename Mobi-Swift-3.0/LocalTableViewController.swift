@@ -9,71 +9,95 @@
 import UIKit
 
 class LocalTableViewController: UITableViewController,UISearchBarDelegate {
-    var isSearchOn = false
-    var searchResults = [State]()
-    var states = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espirito Santo", "Goias", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piaui", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"]
-  
+  var isSearchOn = false
+  var searchResults = [StateRealm]()
   var data = Dictionary<String,[RadioRealm]>()
   var buttonLateralMenu = UIBarButtonItem()
-  @IBOutlet weak var menuButton: UIBarButtonItem!
-  var objectArray = [State]()
-  var radiosInSelectedState = State()
+  var objectArray = [StateRealm]()
+  var selectedState = StateRealm()
   
+  
+  @IBOutlet weak var menuButton: UIBarButtonItem!
   @IBOutlet weak var searchBar: UISearchBar!
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      
-        buttonLateralMenu.target = self.revealViewController()
-        buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
-      
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-      
-        separateInformation()
-        navigationController?.navigationBar.hidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        self.title = "Locais"
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+  override func viewDidLoad() {
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL CONFIG ---
+    ///////////////////////////////////////////////////////////
+    
+    super.viewDidLoad()
+    buttonLateralMenu.target = self.revealViewController()
+    buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
+    self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    navigationController?.navigationBar.hidden = false
+    self.navigationController?.setNavigationBarHidden(false, animated: false)
+    self.title = "Locais"
+
+    ///////////////////////////////////////////////////////////
+    //MARK: --- REQUEST STATES ---
+    ///////////////////////////////////////////////////////////
+    
+    let manager = RequestManager()
+    manager.requestStates() { (resultState) in
+      if resultState == true {
+        self.tableView.reloadData()
+      }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearchOn == true && !searchResults.isEmpty {
-          return searchResults.count
-        } else {
-          return objectArray.count
-        }
-    }
-
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
-        if isSearchOn == true && !searchResults.isEmpty {
-          cell.labelLocal.text = searchResults[indexPath.row].stateName
-        } else {
-          cell.labelLocal.text = objectArray[indexPath.row].stateName
-        }
-      
-
-        return cell
-    }
+    
+  }
   
-  //MARK: --- SearchBar Delegate ---
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    // #warning Incomplete implementation, return the number of sections
+    return 1
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if isSearchOn == true && !searchResults.isEmpty {
+      return searchResults.count
+    } else {
+      return DataManager.sharedInstance.allStates.count
+    }
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
+    if isSearchOn == true && !searchResults.isEmpty {
+      cell.labelLocal.text = searchResults[indexPath.row].name
+    } else {
+      cell.labelLocal.text = DataManager.sharedInstance.allStates[indexPath.row].name
+    }
+    return cell
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if !isSearchOn {
+      self.selectedState = DataManager.sharedInstance.allStates[indexPath.row]
+    } else {
+      self.selectedState = searchResults[indexPath.row]
+    }
+    performSegueWithIdentifier("detailViewCities", sender: self)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "detailViewCities") {
+          let localCitiesVC = (segue.destinationViewController as! LocalCities2TableViewController)
+          localCitiesVC.selectedState = selectedState
+        }
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- SEARCHBAR DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func searchBarCancelButtonClicked(searchBar: UISearchBar) {
     searchBar.text = nil
@@ -92,70 +116,32 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     }
   }
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- OTHERS ---
+  ///////////////////////////////////////////////////////////
+  
+  @IBAction func searchButtonTap(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+  
   func filterContentForSearchText(text: String) {
     searchResults.removeAll(keepCapacity: false)
     for state in objectArray {
-      let stringToLookFor = state.stateName as NSString
-      
+      let stringToLookFor = state.name as NSString
       if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
         searchResults.append(state)
       }
     }
   }
   
-  func collectionViewBackgroundTapped() { //dissmiss keyboard
+  func collectionViewBackgroundTapped() {
     searchBar.resignFirstResponder()
   }
   
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true //possibilita funcionar o tap do background com o tap na célula
+    return true
   }
   
-  
-  func separateInformation() {
-    if DataManager.sharedInstance.allRadios.count == 0 {
-        return
-    }
-    
-    if DataManager.sharedInstance.allRadios[0].address == nil {
-        return
-    }
-    
-    for state in states {
-      var radiosInState = [RadioRealm]()
-      for radio in DataManager.sharedInstance.allRadios {
-        if radio.address.state == state {
-          radiosInState.append(radio)
-        }
-      }
-      if (radiosInState.count != 0) {
-        data[state] = radiosInState
-      }
-    }
-    
-    for (key, value) in data {
-      objectArray.append(State(stateName: key, radios: value))
-    }
-    objectArray.sortInPlace({$0.stateName < $1.stateName})
-  }
-  
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if !isSearchOn {
-      self.radiosInSelectedState = objectArray[indexPath.row]
-    } else {
-      self.radiosInSelectedState = searchResults[indexPath.row]
-    }
-    performSegueWithIdentifier("detailViewCities", sender: self)
-  }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if (segue.identifier == "detailViewCities") {
-      let localCitiesVC = (segue.destinationViewController as! LocalCitiesViewController)
-      let state = State(stateName: radiosInSelectedState.stateName, radios: radiosInSelectedState.radios)
-      localCitiesVC.radiosInSelectedState = state
-    }
-  }
-
   @IBAction func menuTap(sender: AnyObject) {
     searchBar.resignFirstResponder()
     view.endEditing(true)
@@ -167,7 +153,5 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     return true
   }
   
-  @IBAction func searchButtonTap(sender: AnyObject) {
-    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
-  }
+
 }

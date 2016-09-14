@@ -501,6 +501,46 @@
             </objects>
             <point key="canvasLocation" x="3143" y="1124"/>
         </scene>
+        <!--Local Cities2 Table View Controller-->
+        <scene sceneID="sgy-5B-SCA">
+            <objects>
+                <tableViewController id="0OC-hz-Knw" customClass="LocalCities2TableViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nhA-cv-P2a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="chk-t7-JFG" style="IBUITableViewCellStyleDefault" id="uuj-Tp-BPP">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uuj-Tp-BPP" id="Re7-HL-wr8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="chk-t7-JFG">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0OC-hz-Knw" id="GOs-zZ-M6h"/>
+                            <outlet property="delegate" destination="0OC-hz-Knw" id="wxc-GU-uD8"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="Qki-Up-Xnn" kind="show" identifier="detailCity" id="bzi-4U-0gJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s6t-vk-MAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3475" y="4003"/>
+        </scene>
         <!--Genre View Controller-->
         <scene sceneID="lzV-m2-YEv">
             <objects>
@@ -1576,7 +1616,7 @@
                     <connections>
                         <outlet property="menuButton" destination="N8n-5w-AEc" id="h4X-ou-aGY"/>
                         <outlet property="searchBar" destination="De6-Mc-B9M" id="woL-xV-F4U"/>
-                        <segue destination="Y9c-cl-yK5" kind="show" identifier="detailViewCities" id="qmt-7F-NG5"/>
+                        <segue destination="0OC-hz-Knw" kind="show" identifier="detailViewCities" id="kr6-96-zvE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mSc-CR-dDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1825,7 +1865,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5E-Fe-Nqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3481" y="4090"/>
+            <point key="canvasLocation" x="7289" y="5324"/>
         </scene>
         <!--Radio List Table View Controller-->
         <scene sceneID="ybI-TP-SAX">
@@ -2382,7 +2422,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYG-ud-Co3">
                                                         <rect key="frame" x="139" y="237" width="37" height="37"/>
                                                         <connections>
-                                                            <action selector="buttonFavTap:" destination="fg6-C9-OS2" eventType="touchUpInside" id="UsH-jL-Sy4"/>
+                                                            <action selector="buttonFavTap:" destination="fg6-C9-OS2" eventType="touchUpInside" id="qVM-ek-l2C"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -3053,8 +3093,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="mPE-vl-vCt"/>
                                 <exclude reference="iwd-TV-p7R"/>
+                                <exclude reference="mPE-vl-vCt"/>
                             </mask>
                         </variation>
                     </view>
@@ -3080,7 +3120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IjZ-Eq-jYX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3609" y="6337"/>
+            <point key="canvasLocation" x="4265" y="6337"/>
         </scene>
         <!--Config View Controller-->
         <scene sceneID="bxs-Ld-qmo">
@@ -3608,7 +3648,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LMO-xc-EaP"/>
-        <segue reference="v0E-OW-DaC"/>
-        <segue reference="maa-b4-e0Q"/>
+        <segue reference="bzi-4U-0gJ"/>
+        <segue reference="EVh-4D-Cbw"/>
     </inferredMetricsTieBreakers>
 </document>

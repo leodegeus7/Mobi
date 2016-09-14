@@ -34,18 +34,18 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   var selectedRadio = RadioRealm()
   var notificationCenter = NSNotificationCenter.defaultCenter()
   @IBOutlet weak var openMenu: UIBarButtonItem!
-    
-
+  
+  
   
   override func viewDidLoad() {
     if DataManager.sharedInstance.allRadios.count == 0 {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
-        let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        let windows = app.window
-        windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
-        })
-        
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
+      let app = UIApplication.sharedApplication().delegate as! AppDelegate
+      let windows = app.window
+      windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
+      })
+      
     }
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
     super.viewDidLoad()
@@ -61,20 +61,20 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-
+    
     
     
   }
   
-    
-    func reloadData() {
-        selectedMode = modes.Top
-        changeTableViewStatus()
-        tableView.reloadData()
-        if ((self.refreshControl?.refreshing) != nil) {
-            self.refreshControl?.endRefreshing()
-        }
+  
+  func reloadData() {
+    selectedMode = modes.Top
+    changeTableViewStatus()
+    tableView.reloadData()
+    if ((self.refreshControl?.refreshing) != nil) {
+      self.refreshControl?.endRefreshing()
     }
+  }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
@@ -98,8 +98,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     return selectedRadioArray.count
   }
   
+  override func viewWillAppear(animated: Bool) {
+    tableView.reloadData()
+  }
+  
   override func viewDidAppear(animated: Bool) {
-    DataManager.sharedInstance.updateAllOverdueInterval()
+    if DataManager.sharedInstance.recentsRadios.count > 0 {
+      DataManager.sharedInstance.updateAllOverdueInterval()
+    }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -111,11 +117,15 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         cell.labelLocal.text = address.formattedLocal
       }
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       cell.widthTextOne.constant = 30
       cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
       cell.labelDescriptionTwo.text = ""
+      if selectedRadioArray[indexPath.row].isFavorite {
+        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+      }
       
       break
     case .Local:
@@ -128,7 +138,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
       cell.widthTextOne.constant = 80
       cell.widthTextTwo.constant = 30
-      cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      if selectedRadioArray[indexPath.row].isFavorite {
+        cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      }
       cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       break
     case .Recent:
@@ -138,10 +152,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       }
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
-       if let _ = DataManager.sharedInstance.recentsRadios[0].lastAccessDate {
+      if let _ = DataManager.sharedInstance.recentsRadios[0].lastAccessDate {
         cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
       }
-      cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      if selectedRadioArray[indexPath.row].isFavorite {
+        cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallTwo.image = UIImage(named: "heart.png")
+      }
       cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       cell.widthTextOne.constant = 110
       cell.widthTextTwo.constant = 30
@@ -152,7 +170,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         cell.labelLocal.text = address.formattedLocal
       }
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
+      if selectedRadioArray[indexPath.row].isFavorite {
+        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+      }
       cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
       cell.widthTextOne.constant = 30
       cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
@@ -231,6 +253,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     } else if (selectedMode == .Local) {
       selectedRadioArray = DataManager.sharedInstance.localRadios
     } else if (selectedMode == .Favorite) {
+      let manager = RequestManager()
+      manager.requestUserFavorites({ (resultFav) in
+        self.selectedRadioArray = DataManager.sharedInstance.favoriteRadios
+        self.tableView.reloadData()
+      })
       selectedRadioArray = DataManager.sharedInstance.favoriteRadios
     } else if (selectedMode == .Recent) {
       selectedRadioArray = DataManager.sharedInstance.recentsRadios
@@ -261,6 +288,40 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     performSegueWithIdentifier("detailRadio", sender: self)
   }
   
+  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    let manager = RequestManager()
+    if selectedRadioArray[indexPath.row].isFavorite {
+      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
+        self.selectedRadioArray[indexPath.row].updateIsFavorite(false)
+        manager.deleteFavRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+        })
+        self.reloadData()
+      }
+      
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
+    } else {
+      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
+        self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
+        manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+        })
+        self.reloadData()
+      }
+      
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
+    }
+  }
+  
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    // you need to implement this method too or you can't swipe to display the actions
+  }
+  
+  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    // the cells you would like the actions to appear needs to be editable
+    return true
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "detailRadio" {
       let radioVC = (segue.destinationViewController as! RadioViewController)
@@ -268,23 +329,23 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
   }
   
-    func requestInitialInformation(completion: (resultAddress: Bool) -> Void) {
-        let manager = RequestManager()
-        manager.requestStationUnits(.stationUnits) { (result) in
-            let data = Data.response(result)
-            print(result)
-            print(data)
-            let array = result["data"] as! NSArray
-            for singleResult in array {
-                let dic = singleResult as! NSDictionary
-                let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
-                DataManager.sharedInstance.allRadios.append(radio)
-            }
-            DataBaseTest.infoWithoutRadios()
-            completion(resultAddress: true)
-            //self.performSegueWithIdentifier("initialSegue", sender: self)
-        }
+  func requestInitialInformation(completion: (resultAddress: Bool) -> Void) {
+    let manager = RequestManager()
+    manager.requestStationUnits(.stationUnits) { (result) in
+      let data = Data.response(result)
+      print(result)
+      print(data)
+      let array = result["data"] as! NSArray
+      for singleResult in array {
+        let dic = singleResult as! NSDictionary
+        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
+        DataManager.sharedInstance.allRadios.append(radio)
+      }
+      DataBaseTest.infoWithoutRadios()
+      completion(resultAddress: true)
+      //self.performSegueWithIdentifier("initialSegue", sender: self)
     }
+  }
   @IBAction func searchButtonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }

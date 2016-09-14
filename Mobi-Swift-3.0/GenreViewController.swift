@@ -12,33 +12,48 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var menuButton: UIBarButtonItem!
+  
   var isSearchOn = false
-  var searchResults = [Genre]()
-  var selectedGenre = Genre()
-  var allGenre = [Genre]()
+  var searchResults = [GenreRealm]()
+  var selectedGenre = GenreRealm()
   private let reuseIdentifier = "GenreCell"
-  var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
   private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
   var buttonLateralMenu = UIBarButtonItem()
-  @IBOutlet weak var menuButton: UIBarButtonItem!
+  
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    separateInformation()
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- BASIC CONFIG ---
+    ///////////////////////////////////////////////////////////
+    
     collectionView.backgroundView?.backgroundColor = UIColor.clearColor()
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-    
     buttonLateralMenu.target = self.revealViewController()
     buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
-    
     let tapRecognizer = UITapGestureRecognizer()
     tapRecognizer.numberOfTapsRequired = 2
-    
     tapRecognizer.addTarget(self, action: #selector(GenreViewController.collectionViewBackgroundTapped))
-    
     self.collectionView.addGestureRecognizer(tapRecognizer)
-    
     self.title = "Gêneros"
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- REQUEST GENRE ---
+    ///////////////////////////////////////////////////////////
+    
+    let manager = RequestManager()
+    manager.requestMusicGenre { (resultGenre) in
+      if resultGenre == true {
+        self.collectionView.reloadData()
+      }
+    }
     
   }
   
@@ -47,7 +62,9 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     // Dispose of any resources that can be recreated.
   }
   
-  //MARK: --- CollectionView Delegate ---
+  ///////////////////////////////////////////////////////////
+  //MARK: --- COLECTIONVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
     return 1
@@ -57,37 +74,43 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     if isSearchOn == true && !searchResults.isEmpty {
       return searchResults.count
     } else {
-      return allGenre.count
+      return DataManager.sharedInstance.allMusicGenre.count
     }
-    
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GenreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
-    
     if isSearchOn == true && !searchResults.isEmpty {
-      cell.labelText.text = searchResults[indexPath.item].genreName
+      cell.labelText.text = searchResults[indexPath.item].name
     } else {
-      cell.labelText.text = self.allGenre[indexPath.item].genreName
+      cell.labelText.text = DataManager.sharedInstance.allMusicGenre[indexPath.item].name
     }
-    
-    
     cell.backgroundColor = UIColor.whiteColor()
-    
     return cell
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    view.addSubview(activityIndicator)
+    activityIndicator.hidden = false
+    collectionView.allowsSelection = false
     if !isSearchOn {
-      self.selectedGenre = allGenre[indexPath.row]
+      self.selectedGenre = DataManager.sharedInstance.allMusicGenre[indexPath.row]
     } else {
       self.selectedGenre = searchResults[indexPath.row]
     }
-    performSegueWithIdentifier("detailGenre", sender: self)
+    let manager = RequestManager()
+    manager.requestRadiosInGenre(selectedGenre.id) { (resultGenre) in
+      self.selectedGenre.updateRadiosOfGenre(resultGenre)
+      self.collectionView.allowsSelection = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      self.performSegueWithIdentifier("detailGenre", sender: self)
+    }
   }
   
-  //MARK: --- CollectionView Layout Delegate ---
+  ///////////////////////////////////////////////////////////
+  //MARK: --- COLLECTIOVIEW LAYOUT DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     return CGSizeMake((collectionView.frame.size.width / 3)-4, (collectionView.frame.size.width / 3)-4)
@@ -101,7 +124,9 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     return 3
   }
   
-  //MARK: --- SearchBar Delegate ---
+  ///////////////////////////////////////////////////////////
+  //MARK: --- SEARCH BAR DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func searchBarCancelButtonClicked(searchBar: UISearchBar!) {
     searchBar.text = nil
@@ -121,10 +146,8 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   
   func filterContentForSearchText(text: String) {
     searchResults.removeAll(keepCapacity: false)
-    for genre in allGenre {
-      
-      let stringToLookFor = genre.genreName as NSString
-      
+    for genre in DataManager.sharedInstance.allMusicGenre {
+      let stringToLookFor = genre.name as NSString
       if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
         searchResults.append(genre)
       }
@@ -140,41 +163,11 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   }
   
   
-  func separateInformation() {
-    if DataManager.sharedInstance.allRadios.count == 0 {
-
-        return
-    }
-    if DataManager.sharedInstance.allRadios[0].genre == nil {
-        return
-    }
-    var genres = [String]()
-    
-    for radio in DataManager.sharedInstance.allRadios {
-      if radio.genre != "" {
-        genres.append(radio.genre)
-      }
-    }
-    
-    genres = Util.removeDuplicateStrings(genres)
-    
-    for genre in genres {
-      var radios = [RadioRealm]()
-      for radio in DataManager.sharedInstance.allRadios {
-        if (genre == radio.genre) {
-          radios.append(radio)
-          break
-        }
-      }
-      allGenre.append(Genre(genreName: genre, radios: radios))
-    }
-    
-  }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "detailGenre" {
       let radioVC = (segue.destinationViewController as! RadioListTableViewController)
-      radioVC.radios = selectedGenre.radios
+      radioVC.radios = Array(selectedGenre.radios)
       radioVC.superSegue = "detailGenre"
     }
   }
@@ -190,14 +183,11 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     return true
   }
   
-  override func viewDidDisappear(animated: Bool) {
-
-  }
   
   @IBAction func searchbuttonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
-
+  
   
 }
 

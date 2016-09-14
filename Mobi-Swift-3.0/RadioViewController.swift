@@ -163,15 +163,12 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     if actualRadio.isFavorite {
       imageLike.image = UIImage(named: "heart.png")
       actualRadio.updateIsFavorite(false)
-      //localizar id da radio favoritada
-      manager.deleteFavRadio(actualRadio.id, completion: { (result) in
-        print(result)
+      manager.deleteFavRadio(actualRadio, completion: { (result) in
       })
     } else {
       imageLike.image = UIImage(named: "heartRed.png")
       actualRadio.updateIsFavorite(true)
-      manager.favRadio(actualRadio.id, completion: { (result) in
-        print(result)
+      manager.favRadio(actualRadio, completion: { (resultFav) in
       })
     }
   }

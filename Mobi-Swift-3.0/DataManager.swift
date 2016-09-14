@@ -13,19 +13,6 @@ import RealmSwift
 import Firebase
 
 
-struct City {
-  var cityName : String!
-  var radios : [RadioRealm]!
-}
-
-struct Genre {
-  var genreName : String!
-  var radios : [RadioRealm]!
-}
-struct State {
-  var stateName : String!
-  var radios : [RadioRealm]!
-}
 
 enum NSComparisonResult : Int {
   case OrderedAscending
@@ -57,6 +44,9 @@ class DataManager: NSObject {
   var favoriteRadios = [RadioRealm]()
   var recentsRadios = [RadioRealm]()
   var localRadios = [RadioRealm]()
+  
+  var allMusicGenre = [GenreRealm]()
+  var allStates = [StateRealm]()
   
   var isPlay = false
   var radioInExecution = RadioRealm()
@@ -97,11 +87,12 @@ class DataManager: NSObject {
     for radio in recentsRadios {
       radio.updateOverdueInterval()
     }
-    if recentsRadios.count > 0 {
-      if let _ = recentsRadios[0].lastAccessDate {
-        recentsRadios.sortInPlace({ $0.lastAccessDate.compare($1.lastAccessDate) == .OrderedDescending })
-      }
-    }
+    //EM MANUTENÇÃO - PRECISA PUXAR OS RECENTES DO SERVIDOR
+//    if DataManager.sharedInstance.recentsRadios.count > 0 {
+//      if recentsRadios[0].lastAccessDate != nil {
+//        recentsRadios.sortInPlace({ $0.lastAccessDate.compare($1.lastAccessDate) == .OrderedDescending })
+//      }
+//    }
   }
   
   

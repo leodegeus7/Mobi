@@ -45,26 +45,29 @@ class LoadViewController: UIViewController {
         DataManager.sharedInstance.allRadios.append(radio)
       }
       DataBaseTest.infoWithoutRadios()
-      //self.storyboard?.instantiateViewControllerWithIdentifier("firstView")
       self.notificationCenter.postNotificationName("reloadData", object: nil)
-      self.dismissViewControllerAnimated(true, completion: {
+      
+      let genreManager = RequestManager()
+      genreManager.requestMusicGenre({ (resultGenre) in
+         
+      })
+      
+      let localManager = RequestManager()
+      localManager.requestStates({ (resultState) in
         
       })
-      //self.presentViewController(vc!, animated: true, completion: nil)
-      // self.initialView.modalPresentationStyle = .OverFullScreen
-    }
-    manager.requestJson("stationunit/search/userfavorites?pageNumber=0&pageSize=100") { (result) in
-      if let array = result["data"]!["records"] as? NSArray {
-        for singleResult in array {
-          let dic = singleResult as! NSDictionary
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
-          DataManager.sharedInstance.favoriteRadios.append(radio)
-        }
-      }
+      
+      let favManager = RequestManager()
+      favManager.requestUserFavorites({ (resultFav) in
+        self.dismissViewControllerAnimated(true, completion: {
+          
+        })
+      })
+
     }
     
+    
   }
-  
 }
 
 

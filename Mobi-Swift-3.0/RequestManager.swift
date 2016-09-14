@@ -195,73 +195,10 @@ class RequestManager: NSObject {
     
   }
   
-  func favRadio(radioId:Int,completion: (result: Dictionary<String,AnyObject>) -> Void) {
-    let dicParameters = [
-      "id" : radioId
-    ]
-    let parameters = [
-      "stationUnit": dicParameters
-    ]
+  func genericRequest(method:Alamofire.Method,parameters:[String:AnyObject],urlTerminationWithoutInitialCharacter:String,completion: (result: Dictionary<String,AnyObject>) -> Void) {
     let emptyDic:NSDictionary = ["":""]
-    Alamofire.request(.PUT, "\(DataManager.sharedInstance.baseURL)userfavoritestation", parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
-      switch response.result {
-      case .Success:
-        if let value = response.result.value {
-          let json = JSON(value)
-          if let data = json["data"].dictionaryObject {
-            self.resultText = .OK
-            var dic = Dictionary<String,AnyObject>()
-            dic["requestResult"] = "\(self.resultText)"
-            dic["data"] = data
-            self.existData = true
-            completion(result: dic)
-          } else if let data = json["data"].arrayObject {
-            self.resultText = .OK
-            var dic = Dictionary<String,AnyObject>()
-            dic["requestResult"] = "\(self.resultText)"
-            dic["data"] = data
-            self.existData = true
-            completion(result: dic)
-          } else if let data = json["data"].string {
-            self.resultText = .OK
-            var dic = Dictionary<String,AnyObject>()
-            dic["requestResult"] = "\(self.resultText)"
-            dic["data"] = data
-            self.existData = true
-            completion(result: dic)
-          } else {
-            self.resultText = .ErrorInDataInformation
-            var dic = Dictionary<String,AnyObject>()
-            dic["requestResult"] = "\(self.resultText)"
-            if let data = json["error"].dictionaryObject!["message"] as? String {
-              self.existData = true
-              dic["data"] = data
-              completion(result: dic)
-            }
-            dic["data"] = emptyDic
-            completion(result: dic)
-          }
-          
-        }
-      case .Failure(let error):
-        self.resultText = .ErrorInReturnFromServer
-        var dic = Dictionary<String,AnyObject>()
-        dic["requestResult"] = "\(self.resultText) - \(error.localizedDescription)"
-        dic["data"] = emptyDic
-        completion(result: dic)
-      }
-    }
-  }
-  
-  func deleteFavRadio(radioId:Int,completion: (result: Dictionary<String,AnyObject>) -> Void) {
-    let dicParameters = [
-      "id" : radioId
-    ]
-    let parameters = [
-      "stationUnit": dicParameters
-    ]
-    let emptyDic:NSDictionary = ["":""]
-    Alamofire.request(.DELETE, "\(DataManager.sharedInstance.baseURL)userfavoritestation", parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+    
+    Alamofire.request(method, "\(DataManager.sharedInstance.baseURL)\(urlTerminationWithoutInitialCharacter)", parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
       switch response.result {
       case .Success:
         if let value = response.result.value {
@@ -297,9 +234,13 @@ class RequestManager: NSObject {
                 dic["data"] = data
                 completion(result: dic)
               }
+              dic["data"] = emptyDic
+              completion(result: dic)
+            } else {
+              self.existData = false
+              dic["data"] = emptyDic
+              completion(result: dic)
             }
-            dic["data"] = emptyDic
-            completion(result: dic)
           }
           
         }
@@ -310,6 +251,35 @@ class RequestManager: NSObject {
         dic["data"] = emptyDic
         completion(result: dic)
       }
+    }
+  }
+  
+  func favRadio(radio:RadioRealm,completion: (resultFav: Dictionary<String,AnyObject>) -> Void) {
+    let dicParameters = [
+      "id" : radio.id
+    ]
+    let parameters = [
+      "stationUnit": dicParameters
+    ]
+    genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "userfavoritestation") { (result) in
+      if let resultRequest = result["requestResult"] as? RequestResult{
+        if resultRequest == .OK {
+          print("Radio \(radio.name) favoritada com sucesso")
+        }
+        completion(resultFav: result)
+      }
+    }
+  }
+  
+  func deleteFavRadio(radio:RadioRealm,completion: (resultFav: Dictionary<String,AnyObject>) -> Void) {
+    let dicParameters = [
+      "id" : radio.id
+    ]
+    let parameters = [
+      "stationUnit": dicParameters
+    ]
+    genericRequest(.DELETE, parameters: parameters, urlTerminationWithoutInitialCharacter: "userfavoritestation") { (result) in
+      completion(resultFav: result)
     }
   }
   
@@ -328,5 +298,147 @@ class RequestManager: NSObject {
       radio.updateStremingLinks(links)
     }
   }
+  
+  
+  func requestUserFavorites(completion: (resultFav: Bool) -> Void) {
+    requestJson("stationunit/search/userfavorites?pageNumber=0&pageSize=100") { (result) in
+      if let array = result["data"]!["records"] as? NSArray {
+        DataManager.sharedInstance.favoriteRadios = []
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          DataManager.sharedInstance.favoriteRadios.append(radio)
+        }
+        completion(resultFav: true)
+      } else {
+        completion(resultFav: false)
+      }
+    }
+  }
+  
+  func requestMusicGenre(completion: (resultGenre: Bool) -> Void) {
+    requestJson("musicgenre?pageNumber=0&pageSize=100") { (result) in
+      if let array = result["data"] as? NSArray {
+        DataManager.sharedInstance.allMusicGenre = []
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let genre = GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:"")
+          DataManager.sharedInstance.allMusicGenre.append(genre)
+        }
+        
+        DataManager.sharedInstance.allMusicGenre.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        
+        completion(resultGenre: true)
+      }
+      else {
+        completion(resultGenre: false)
+      }
+    }
+  }
+  
+  func requestStates(completion: (resultState: Bool) -> Void) {
+    requestJson("address/state?pageNumber=0&pageSize=100") { (result) in
+      if let array = result["data"] as? NSArray {
+        DataManager.sharedInstance.allStates = []
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let state = StateRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, acronym: dic["acronym"] as! String)
+          DataManager.sharedInstance.allStates.append(state)
+        }
+        
+        DataManager.sharedInstance.allStates.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        
+        completion(resultState: true)
+      }
+      else {
+        completion(resultState: false)
+      }
+    }
+  }
+  
+  func requestCitiesInState(stateId:String,completion: (resultCities: [CityRealm]) -> Void) {
+    requestJson("address/city?stateId=\(stateId)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var cities = [CityRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let city = CityRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String)
+          cities.append(city)
+        }
+        
+        cities.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        
+        completion(resultCities: cities)
+      }
+      else {
+        completion(resultCities: [])
+      }
+    }
+  }
+  
+  func requestRadiosInStates(stateId:String,completion: (resultState: [RadioRealm]) -> Void) {
+    requestJson("stationunit/search/state?id=\(stateId)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        radios.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        completion(resultState: radios)
+      }
+      else {
+        completion(resultState: [])
+      }
+    }
+  }
+  
+  func requestRadiosInCity(cityId:String,completion: (resultCity: [RadioRealm]) -> Void) {
+    requestJson("stationunit/search/city?id=\(cityId)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        radios.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        completion(resultCity: radios)
+      }
+      else {
+        completion(resultCity: [])
+      }
+    }
+  }
+  
+  func requestRadiosInGenre(genreId:String,completion: (resultGenre: [RadioRealm]) -> Void) {
+    requestJson("stationunit/search/musicgenre?id=\(genreId)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        radios.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
+        completion(resultGenre: radios)
+      }
+      else {
+        completion(resultGenre: [])
+      }
+    }
+  }
+
   
 }

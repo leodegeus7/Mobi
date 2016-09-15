@@ -15,6 +15,8 @@ protocol errorMessageDelegate {
 
 class RadioPlayer : NSObject {
   
+  var actualRadio = RadioRealm()
+  
   static let sharedInstance = RadioPlayer()
   var instanceDelegate:sharedInstanceDelegate? = nil
   var sharedInstanceBool = false {
@@ -89,7 +91,7 @@ class RadioPlayer : NSObject {
   func resetPlayer() {
     errorMessage = ""
     
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: DataManager.sharedInstance.radioInExecution.streamingLinks[0].link)!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: actualRadio.streamingLinks[0].link)!, options: nil)
     
     let statusKey = "tracks"
     

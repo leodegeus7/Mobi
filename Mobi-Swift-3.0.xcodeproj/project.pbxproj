@@ -26,6 +26,10 @@
 		B74B0E641D6F751700012D8E /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = B74B0E631D6F751700012D8E /* star.png */; };
 		B74B0E681D6F762400012D8E /* starOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = B74B0E671D6F762400012D8E /* starOFF.png */; };
 		B74BB93B1D78ABF80076FE2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BB93A1D78ABF80076FE2D /* ViewController.swift */; };
+		B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */; };
+		B74D652C1D8B1836007798F4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D652B1D8B1836007798F4 /* Comment.swift */; };
+		B74D652F1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */; };
+		B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */ = {isa = PBXBuildFile; fileRef = B74D65301D8B3E2B007798F4 /* CellDesign.xib */; };
 		B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF161D5BA140001AFC32 /* GenreViewController.swift */; };
 		B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */; };
 		B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1C1D5BBC99001AFC32 /* FirstNewTableViewCell.swift */; };
@@ -144,6 +148,11 @@
 		B74B0E671D6F762400012D8E /* starOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starOFF.png; sourceTree = "<group>"; };
 		B74BB9361D78AB5A0076FE2D /* Tests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tests.playground; sourceTree = "<group>"; };
 		B74BB93A1D78ABF80076FE2D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
+		B74D652B1D8B1836007798F4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		B74D652D1D8B3704007798F4 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		B74D65301D8B3E2B007798F4 /* CellDesign.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellDesign.xib; sourceTree = "<group>"; };
 		B74ECF161D5BA140001AFC32 /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTableViewCell.swift; sourceTree = "<group>"; };
 		B74ECF1C1D5BBC99001AFC32 /* FirstNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNewTableViewCell.swift; sourceTree = "<group>"; };
@@ -349,10 +358,11 @@
 			children = (
 				B7084B6C1D6B6F0D0013DAFC /* Player */,
 				B74ECF161D5BA140001AFC32 /* GenreViewController.swift */,
+				B7D90DFC1D5A500500D15089 /* InitialTableViewController.swift */,
 				B7D90E021D5A53F800D15089 /* LocalTableViewController.swift */,
 				B7D90E001D5A53E900D15089 /* NewsTableViewController.swift */,
+				B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */,
 				B7D90E061D5A542400D15089 /* ProfileViewController.swift */,
-				B7D90DFC1D5A500500D15089 /* InitialTableViewController.swift */,
 				B7E697331D59162D00EC276F /* LoadViewController.swift */,
 				B7E697391D591C1C00EC276F /* MenuTableViewController.swift */,
 				B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */,
@@ -381,6 +391,7 @@
 				B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
+				B74D652B1D8B1836007798F4 /* Comment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -406,6 +417,7 @@
 				B736813A1D590BA300EC94A9 /* Main.storyboard */,
 				B736813D1D590BA300EC94A9 /* Assets.xcassets */,
 				B736813F1D590BA300EC94A9 /* LaunchScreen.storyboard */,
+				B74D65301D8B3E2B007798F4 /* CellDesign.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -492,6 +504,8 @@
 				B7880BA71D5E493A002B235A /* MapKit.framework */,
 				B7880BA51D5E491F002B235A /* CoreLocation.framework */,
 				F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */,
+				B74D652D1D8B3704007798F4 /* UIScrollView+EmptyDataSet.h */,
+				B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */,
 				B77384B31D7F394E00701070 /* FirebaseAuth.framework */,
 			);
 			name = Frameworks;
@@ -579,6 +593,7 @@
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
 				B7F530F31D62486600831561 /* test-1.png in Resources */,
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
+				B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */,
 				B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */,
 				B7D90DF91D5A41C000D15089 /* test56x52.jpg in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause.png in Resources */,
@@ -678,8 +693,10 @@
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
 				B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */,
+				B74D652F1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
+				B74D652C1D8B1836007798F4 /* Comment.swift in Sources */,
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
 				B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */,
@@ -705,6 +722,7 @@
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
 				B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
+				B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */,
 				B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */,
 				B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */,
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,

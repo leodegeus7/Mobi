@@ -154,12 +154,19 @@ class Util: NSObject {
     return result
   }
   
-  func imageResize(image:UIImage, sizeChange:CGSize) -> UIImage {
+  static func imageResize(image:UIImage, sizeChange:CGSize) -> UIImage {
     UIGraphicsBeginImageContext(sizeChange)
     image.drawInRect(CGRect(x: 0,y: 0,width: sizeChange.width,height: sizeChange.height))
     let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return resizedImage
+  }
+  
+  static func convertStringToNSDate(dateString:String) -> NSDate{
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    let date = dateFormatter.dateFromString(dateString)
+    return date!
   }
   
 }

@@ -4,7 +4,7 @@
 //
 //  Created by Desenvolvimento Access Mobile on 8/9/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 import CoreLocation
@@ -18,10 +18,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   @IBOutlet weak var buttonLocal: UIButton!
   @IBOutlet weak var buttonRecents: UIButton!
   @IBOutlet weak var buttonFavorite: UIButton!
+  @IBOutlet weak var openMenu: UIBarButtonItem!
   
-  
+  var selectedMode = modes.Top
+  var selectedRadio = RadioRealm()
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   let locationManager = CLLocationManager()
-  
   var selectedRadioArray:[RadioRealm]!
   enum modes {
     case Top
@@ -30,14 +32,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     case Favorite
   }
   
-  var selectedMode = modes.Top
-  var selectedRadio = RadioRealm()
-  var notificationCenter = NSNotificationCenter.defaultCenter()
-  @IBOutlet weak var openMenu: UIBarButtonItem!
-  
-  
-  
   override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- BASIC CONFIG ---
+    ///////////////////////////////////////////////////////////
+    
     if DataManager.sharedInstance.allRadios.count == 0 {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
@@ -45,25 +46,18 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       let windows = app.window
       windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
       })
-      
     }
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
-    super.viewDidLoad()
     changeTableViewStatus()
     tableView.rowHeight = 120
-    //let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action:#selector(showMenu))
-    
     openMenu.target = self.revealViewController()
     openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
-    
     if revealViewController() != nil {
       openMenu.target = self.revealViewController()
       openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-    
-    
-    
+    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
   }
   
   
@@ -80,36 +74,20 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     
   }
   
-  // MARK: - Table view data source
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    
     return 1
   }
   
-  func showMenu () {
-    self.performSegueWithIdentifier("initialView", sender: self)
-  }
-  
-  
-  
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
     return selectedRadioArray.count
   }
   
-  override func viewWillAppear(animated: Bool) {
-    tableView.reloadData()
-  }
-  
-  override func viewDidAppear(animated: Bool) {
-    if DataManager.sharedInstance.recentsRadios.count > 0 {
-      DataManager.sharedInstance.updateAllOverdueInterval()
-    }
-  }
-  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("initialCell", forIndexPath: indexPath) as! InitialTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
     switch selectedMode {
     case .Top:
       cell.labelName.text = selectedRadioArray[indexPath.row].name
@@ -126,7 +104,6 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       } else {
         cell.imageSmallOne.image = UIImage(named: "heart.png")
       }
-      
       break
     case .Local:
       cell.labelName.text = selectedRadioArray[indexPath.row].name
@@ -181,10 +158,6 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       cell.labelDescriptionTwo.text = ""
       break
     }
-    
-    
-    
-    
     return cell
   }
   
@@ -201,51 +174,67 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     return ""
   }
   
-  @IBAction func buttonTopClick(sender: AnyObject) {
-    selectedMode = .Top
-    changeTableViewStatus()
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    switch selectedMode {
+    case .Favorite:
+      selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
+    case .Local:
+      selectedRadio = DataManager.sharedInstance.localRadios[indexPath.row]
+    case .Recent:
+      selectedRadio = DataManager.sharedInstance.recentsRadios[indexPath.row]
+    case .Top:
+      selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
+    }
+    DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
   }
   
-  @IBAction func buttonLocalClick(sender: AnyObject) {
-    if let local = DataManager.sharedInstance.userLocation {
-      print(local)
-      selectedMode = .Local
-      DataManager.sharedInstance.updateRadioDistance()
-      changeTableViewStatus()
+  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    let manager = RequestManager()
+    if selectedRadioArray[indexPath.row].isFavorite {
+      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
+        self.selectedRadioArray[indexPath.row].updateIsFavorite(false)
+        manager.deleteFavRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+        })
+        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+      }
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
     } else {
-      self.locationManager.requestWhenInUseAuthorization()
-      
-      if CLLocationManager.locationServicesEnabled() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
-        selectedMode = .Local
-        DataManager.sharedInstance.updateRadioDistance()
-        changeTableViewStatus()
-        if let local = DataManager.sharedInstance.userLocation {
-          print(local)
-        } else {
-          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
-        }
+      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
+        self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
+        manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+        })
+        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
       }
-      else {
-        Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
-      }
-      
-      
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
     }
   }
   
-  @IBAction func buttonRecentsClick(sender: AnyObject) {
-    selectedMode = .Recent
-    DataManager.sharedInstance.updateAllOverdueInterval()
-    changeTableViewStatus()
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
   }
   
-  @IBAction func buttonFavoriteClick(sender: AnyObject) {
-    selectedMode = .Favorite
-    changeTableViewStatus()
+  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    return true
   }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VIEW FUNCTIONS ---
+  ///////////////////////////////////////////////////////////
+  
+  override func viewWillAppear(animated: Bool) {
+    tableView.reloadData()
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    if DataManager.sharedInstance.recentsRadios.count > 0 {
+      DataManager.sharedInstance.updateAllOverdueInterval()
+    }
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- DATA FUNCTIONS ---
+  ///////////////////////////////////////////////////////////
   
   func changeTableViewStatus() {
     if (selectedMode == .Top) {
@@ -267,61 +256,6 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.reloadData()
   }
   
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-    let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-    DataManager.sharedInstance.userLocation = myLocation
-    
-  }
-  
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    switch selectedMode {
-    case .Favorite:
-      selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
-    case .Local:
-      selectedRadio = DataManager.sharedInstance.localRadios[indexPath.row]
-    case .Recent:
-      selectedRadio = DataManager.sharedInstance.recentsRadios[indexPath.row]
-    case .Top:
-      selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
-    }
-    performSegueWithIdentifier("detailRadio", sender: self)
-  }
-  
-  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-    let manager = RequestManager()
-    if selectedRadioArray[indexPath.row].isFavorite {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
-        self.selectedRadioArray[indexPath.row].updateIsFavorite(false)
-        manager.deleteFavRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
-        })
-        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-      }
-      
-      favorite.backgroundColor = UIColor.orangeColor()
-      return [favorite]
-    } else {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
-        self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
-        manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
-        })
-        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-      }
-      
-      favorite.backgroundColor = UIColor.orangeColor()
-      return [favorite]
-    }
-  }
-  
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    // you need to implement this method too or you can't swipe to display the actions
-  }
-  
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // the cells you would like the actions to appear needs to be editable
-    return true
-  }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "detailRadio" {
       let radioVC = (segue.destinationViewController as! RadioViewController)
@@ -329,23 +263,68 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
   }
   
-  func requestInitialInformation(completion: (resultAddress: Bool) -> Void) {
-    let manager = RequestManager()
-    manager.requestStationUnits(.stationUnits) { (result) in
-      let data = Data.response(result)
-      print(result)
-      print(data)
-      let array = result["data"] as! NSArray
-      for singleResult in array {
-        let dic = singleResult as! NSDictionary
-        let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: true)
-        DataManager.sharedInstance.allRadios.append(radio)
+  ///////////////////////////////////////////////////////////
+  //MARK: --- OTHERS FUNCTIONS ---
+  ///////////////////////////////////////////////////////////
+  
+  func showMenu () {
+    self.performSegueWithIdentifier("initialView", sender: self)
+  }
+  
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+    let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+    DataManager.sharedInstance.userLocation = myLocation
+    
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- IBACTIONS ---
+  ///////////////////////////////////////////////////////////
+  
+  @IBAction func buttonTopClick(sender: AnyObject) {
+    selectedMode = .Top
+    changeTableViewStatus()
+  }
+  
+  @IBAction func buttonLocalClick(sender: AnyObject) {
+    if let local = DataManager.sharedInstance.userLocation {
+      print(local)
+      selectedMode = .Local
+      DataManager.sharedInstance.updateRadioDistance()
+      changeTableViewStatus()
+    } else {
+      self.locationManager.requestWhenInUseAuthorization()
+      if CLLocationManager.locationServicesEnabled() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+        selectedMode = .Local
+        DataManager.sharedInstance.updateRadioDistance()
+        changeTableViewStatus()
+        if let local = DataManager.sharedInstance.userLocation {
+          print(local)
+        } else {
+          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
+        }
       }
-      DataBaseTest.infoWithoutRadios()
-      completion(resultAddress: true)
-      //self.performSegueWithIdentifier("initialSegue", sender: self)
+      else {
+        Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
+      }
     }
   }
+  
+  @IBAction func buttonRecentsClick(sender: AnyObject) {
+    selectedMode = .Recent
+    DataManager.sharedInstance.updateAllOverdueInterval()
+    changeTableViewStatus()
+  }
+  
+  @IBAction func buttonFavoriteClick(sender: AnyObject) {
+    selectedMode = .Favorite
+    changeTableViewStatus()
+  }
+  
   @IBAction func searchButtonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }

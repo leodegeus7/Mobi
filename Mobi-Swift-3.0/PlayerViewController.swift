@@ -33,12 +33,14 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   var firstErrorSkip = true
   var firstInstanceSkip = true
   
+  var newRadioToPlay = RadioRealm()
+  
   let notificationCenter = NSNotificationCenter.defaultCenter()
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     updateInfoOfView()
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -77,16 +79,22 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   }
   
   func toggle() {
-    if RadioPlayer.sharedInstance.currentlyPlaying() {
-      pauseRadio()
+    
+    if (newRadioToPlay != DataManager.sharedInstance.radioInExecution) {
+      resetStream()
     } else {
-      actualRadio = DataManager.sharedInstance.radioInExecution
-      playRadio()
+      if RadioPlayer.sharedInstance.currentlyPlaying(){
+        pauseRadio()
+      } else {
+        actualRadio = DataManager.sharedInstance.radioInExecution
+        playRadio()
+      }
     }
+    DataManager.sharedInstance.radioInExecution = actualRadio
   }
   
   func updateInfoOfView() {
-    actualRadio = DataManager.sharedInstance.radioInExecution
+    actualRadio = RadioPlayer.sharedInstance.actualRadio
     imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
     
     labelName.text = actualRadio.name
@@ -161,7 +169,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
-
+    
     toggle()
     RadioPlayer.sharedInstance.sendNotification()
   }
@@ -195,7 +203,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     } else {
       self.playRadio()
     }
-
+    
   }
   
   func errorMessageChanged(newVal: String) {
@@ -259,7 +267,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
       manager.favRadio(actualRadio, completion: { (resultFav) in
       })
     }
-
+    
   }
   
 }

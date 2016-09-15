@@ -4,7 +4,7 @@
 //
 //  Created by Desenvolvimento Access Mobile on 8/10/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 
@@ -154,15 +154,13 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     }
   }
   
-  func collectionViewBackgroundTapped() { //dissmiss keyboard
+  func collectionViewBackgroundTapped() {
     searchBar.resignFirstResponder()
   }
   
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true //possibilita funcionar o tap do background com o tap na célula
+    return true
   }
-  
-  
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "detailGenre" {
@@ -183,12 +181,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     return true
   }
   
-  
   @IBAction func searchbuttonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
-  
-  
 }
-
-

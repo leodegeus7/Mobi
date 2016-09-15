@@ -44,6 +44,18 @@ class UserRealm: Object {
     }
   }
   
+  convenience init(id:String,email:String,name:String,image:String) {
+    self.init()
+    self.email = email
+    self.name = name
+    self.id = id
+    self.userImage = image
+    
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(self, update: true)
+    }
+  }
+  
   override static func primaryKey() -> String? {
     return "id"
   }
@@ -56,10 +68,6 @@ class UserRealm: Object {
     DataManager.sharedInstance.realm.beginWrite()
        self.password = password
     try! DataManager.sharedInstance.realm.commitWrite()
-//    try! DataManager.sharedInstance.realm.write {
-//      self.password = password
-//      //try! DataManager.sharedInstance.realm.commitWrite()
-//    }
     return self
   }
   

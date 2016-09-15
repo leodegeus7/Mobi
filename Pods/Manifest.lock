@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (3.4.2)
   - ARNTransitionAnimator (1.1.0)
+  - DZNEmptyDataSet (1.8.1)
   - Fabric (1.6.8)
   - Firebase/Analytics (3.5.2):
     - FirebaseAnalytics (~> 3.3)
@@ -51,6 +52,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - ARNTransitionAnimator
+  - DZNEmptyDataSet
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -65,6 +67,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
   FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
@@ -84,6 +87,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: cb50dcf1dba65544ec49f724e74ea4854c4defec
+PODFILE CHECKSUM: b435f6ab007c7e4a9a0f98c73f6c7614d9a58d4b
 
 COCOAPODS: 1.0.1

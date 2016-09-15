@@ -27,6 +27,13 @@ enum searchMode {
   case Local
 }
 
+enum PostType : Int {
+  case Text = 0
+  case Image = 1
+  case Audio = 2
+  case Video = 3
+  case Undefined = -1
+}
 
 class DataManager: NSObject {
   
@@ -55,6 +62,7 @@ class DataManager: NSObject {
   var addressId = 0
   
   var isLogged = false
+
   
   enum actualCondition {
     case Ok
@@ -100,8 +108,15 @@ class DataManager: NSObject {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewControllerWithIdentifier("searchView") as? SearchTableViewController
     navigation.pushViewController(vc!, animated: true)
-
   }
+  
+  func instantiateRadioDetailView(navigation:UINavigationController,radio:RadioRealm) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("radioDetail") as? RadioViewController
+    vc?.actualRadio = radio
+    navigation.pushViewController(vc!, animated: true)
+  }
+  
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
   //    if radios.count < index {
   //      if radios[index].address.currentClassState != .CompleteAddress {

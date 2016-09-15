@@ -296,6 +296,7 @@ class RequestManager: NSObject {
         }
       }
       radio.updateStremingLinks(links)
+      completion(result: true)
     }
   }
   
@@ -313,6 +314,7 @@ class RequestManager: NSObject {
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
           DataManager.sharedInstance.favoriteRadios.append(radio)
         }
+        DataManager.sharedInstance.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
         completion(resultFav: true)
       } else {
         completion(resultFav: false)
@@ -439,6 +441,48 @@ class RequestManager: NSObject {
       }
     }
   }
-
+  
+  func requestWallOfRadio(radio:RadioRealm,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
+    requestJson("stationunit/\(radio.id)/wall?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var comments = [Comment]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          var user = UserRealm()
+          if let image = dic["personUser"]!["image"] as? String {
+            user = UserRealm(id: "\(dic["personUser"]!["id"])", email: dic["personUser"]!["email"] as! String, name: dic["personUser"]!["name"] as! String, image: image)
+          } else {
+            user = UserRealm(id: "\(dic["personUser"]!["id"])", email: dic["personUser"]!["email"] as! String, name: dic["personUser"]!["name"] as! String, image: "")
+          }
+          
+          let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["approvedDatetime"] as! String), user: user, text: dic["text"] as! String)
+          
+          switch dic["postType"] as! Int {
+          case 0:
+            comment.postType = .Text
+          case 1:
+            comment.postType = .Image
+            comment.addImageReference(dic["text"] as! String)
+          case 2:
+            comment.postType = .Audio
+              comment.addImageReference(dic["attachmentIdentifier"] as! String)
+          case 3:
+            comment.postType = .Video
+              comment.addVideoReference(dic["attachmentIdentifier"] as! String)
+          default:
+            comment.postType = .Undefined
+          }
+          comments.append(comment)
+          
+        }
+        comments.sortInPlace({ $0.date.compare($1.date) == .OrderedAscending })
+        completion(resultWall: comments)
+      }
+      else {
+        completion(resultWall: [])
+      }
+    }
+  }
+  
   
 }

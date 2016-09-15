@@ -15,4 +15,5 @@ pod ‘Firebase/Auth’
 pod 'Fabric'
 pod 'TwitterKit'
 pod 'TwitterCore'
+pod 'DZNEmptyDataSet'
 end

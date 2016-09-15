@@ -31,8 +31,8 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   var actualRadio = DataManager.sharedInstance.allRadios[0]
   var tapCloseButtonActionHandler : (Void -> Void)?
   
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    
+  let notificationCenter = NSNotificationCenter.defaultCenter()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     //DataManager.sharedInstance.radioVC = self
@@ -66,9 +66,9 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     
     if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
-        buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+      buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
-        buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+      buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
     }
     
     let effect = UIBlurEffect(style: .Light)
@@ -79,14 +79,14 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     
-    
+    buttonPlay.hidden = true
     let manager = RequestManager()
     manager.getStreamingLinksFromRadio(actualRadio) { (result) in
-      //oi
+      self.buttonPlay.hidden = false
     }
   }
   
-
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -123,37 +123,32 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     print(indexPath.row)
   }
   
-
   
-
+  
+  
   @IBAction func buttonFeedback(sender: AnyObject) {
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
+    RadioPlayer.sharedInstance.actualRadio = actualRadio
     DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
-    if (RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution != actualRadio){
-      DataManager.sharedInstance.radioInExecution = actualRadio
-      //RadioPlayer.sharedInstance.pause()
-      DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
-      //RadioPlayer.sharedInstance.play()
-    }
-    else {
-      DataManager.sharedInstance.radioInExecution = actualRadio
-      DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
-    }
+    DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
     if (RadioPlayer.sharedInstance.currentlyPlaying()){
       DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
     }
-
+    
   }
   
-
+  
   func updateIcons() {
-    
-    if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+    if (RadioPlayer.sharedInstance.actualRadio == DataManager.sharedInstance.radioInExecution) {
+      if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
         buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
-    } else {
+      } else {
         buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+      }
+    } else {
+      buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
     }
     
   }
@@ -173,6 +168,6 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
   }
   
-
+  
   
 }

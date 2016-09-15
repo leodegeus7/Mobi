@@ -23,6 +23,7 @@ class RadioListTableViewController: UITableViewController {
     } else {
       self.title = radios[0].address.city
     }
+    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
 
   }
   
@@ -45,7 +46,7 @@ class RadioListTableViewController: UITableViewController {
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("radioCell", forIndexPath: indexPath) as! InitialTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
     
     cell.labelName.text = radios[indexPath.row].name
     cell.labelLocal.text = radios[indexPath.row].address.formattedLocal

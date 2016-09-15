@@ -27,6 +27,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     searchAll[.Genre] = [String]()
     searchAll[.Local] = [String]()
     self.title = "Pesquisar"
+    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
   }
   
   override func didReceiveMemoryWarning() {
@@ -61,7 +62,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     switch selectedMode {
     case .Radios:
-        let cell = tableView.dequeueReusableCellWithIdentifier("radioCell", forIndexPath: indexPath) as! InitialTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
         cell.labelName.text = searchRadios[indexPath.row].name
         if let address = searchRadios[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
@@ -135,6 +136,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     }
     tableView.reloadData()
   }
+  
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     switch selectedMode {

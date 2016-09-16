@@ -290,8 +290,9 @@ class RequestManager: NSObject {
       for linkDic in data {
         if let _ = linkDic["description"] {
           let descr = linkDic["description"] as! String
-          let link = linkDic["link"] as! String
-          let linkClass = Link(type: descr, link: link)
+          let link = linkDic["linkLow"] as! String
+          let linkType = linkDic["linkType"] as! Int
+          let linkClass = Link(type: descr, link: link,linkType: linkType)
           links.append(linkClass)
         }
       }

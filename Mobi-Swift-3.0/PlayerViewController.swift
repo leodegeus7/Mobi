@@ -28,7 +28,6 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   @IBOutlet weak var buttonFav: UIButton!
   
   var stars = [UIImageView]()
-  var actualRadio = DataManager.sharedInstance.radioInExecution
   var tapCloseButtonActionHandler : (Void -> Void)?
   var firstErrorSkip = true
   var firstInstanceSkip = true
@@ -63,7 +62,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
       buttonPlay.imageView?.image = UIImage(named: "play.png")
     }
     
-    if !actualRadio.isFavorite {
+    if !RadioPlayer.sharedInstance.actualRadio.isFavorite {
       imageLike.image = UIImage(named: "heart.png")
     } else {
       imageLike.image = UIImage(named: "heartRed.png")
@@ -80,30 +79,29 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   
   func toggle() {
     
-    if (newRadioToPlay != DataManager.sharedInstance.radioInExecution) {
-      resetStream()
+    if (RadioPlayer.sharedInstance.actualRadio != DataManager.sharedInstance.radioInExecution) {
+        resetStream()
     } else {
       if RadioPlayer.sharedInstance.currentlyPlaying(){
         pauseRadio()
       } else {
-        actualRadio = DataManager.sharedInstance.radioInExecution
         playRadio()
       }
     }
-    DataManager.sharedInstance.radioInExecution = actualRadio
+    DataManager.sharedInstance.radioInExecution = RadioPlayer.sharedInstance.actualRadio
+    
   }
   
   func updateInfoOfView() {
-    actualRadio = RadioPlayer.sharedInstance.actualRadio
-    imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+    imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(RadioPlayer.sharedInstance.actualRadio.thumbnail)))
     
-    labelName.text = actualRadio.name
+    labelName.text = RadioPlayer.sharedInstance.actualRadio.name
     
-    if let _ = actualRadio.address {
-      labelLocal.text = actualRadio.address.formattedLocal
+    if let _ = RadioPlayer.sharedInstance.actualRadio.address {
+      labelLocal.text = RadioPlayer.sharedInstance.actualRadio.address.formattedLocal
     }
-    labelLikes.text = "\(actualRadio.likenumber)"
-    labelStars.text = "\(actualRadio.stars)"
+    labelLikes.text = "\(RadioPlayer.sharedInstance.actualRadio.likenumber)"
+    labelStars.text = "\(RadioPlayer.sharedInstance.actualRadio.stars)"
     self.title = "Resumo"
     stars.append(starOne)
     stars.append(starTwo)
@@ -113,8 +111,8 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     for star in stars  {
       star.image = UIImage(named: "starOFF.png")
     }
-    if actualRadio.stars != 0 && actualRadio.stars != -1 {
-      for index in 0...actualRadio.stars-1 {
+    if RadioPlayer.sharedInstance.actualRadio.stars != 0 && RadioPlayer.sharedInstance.actualRadio.stars != -1 {
+      for index in 0...RadioPlayer.sharedInstance.actualRadio.stars-1 {
         stars[index].image = UIImage(named: "star.png")
       }
     }
@@ -244,7 +242,6 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     } else {
       buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
     }
-    actualRadio = DataManager.sharedInstance.radioInExecution
     updateInfoOfView()
   }
   
@@ -256,15 +253,15 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   
   @IBAction func buttonFavTap(sender: AnyObject) {
     let manager = RequestManager()
-    if actualRadio.isFavorite {
+    if RadioPlayer.sharedInstance.actualRadio.isFavorite {
       imageLike.image = UIImage(named: "heart.png")
-      actualRadio.updateIsFavorite(false)
-      manager.deleteFavRadio(actualRadio, completion: { (result) in
+      RadioPlayer.sharedInstance.actualRadio.updateIsFavorite(false)
+      manager.deleteFavRadio(RadioPlayer.sharedInstance.actualRadio, completion: { (result) in
       })
     } else {
       imageLike.image = UIImage(named: "heartRed.png")
-      actualRadio.updateIsFavorite(true)
-      manager.favRadio(actualRadio, completion: { (resultFav) in
+      RadioPlayer.sharedInstance.actualRadio.updateIsFavorite(true)
+      manager.favRadio(RadioPlayer.sharedInstance.actualRadio, completion: { (resultFav) in
       })
     }
     

@@ -35,6 +35,13 @@ enum PostType : Int {
   case Undefined = -1
 }
 
+enum StreamingLinkType : Int {
+  case High = 0
+  case Normal = 1
+  case Low = 2
+  case Undefined = -1
+}
+
 class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"

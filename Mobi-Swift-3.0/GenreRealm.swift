@@ -4,7 +4,7 @@
 //
 //  Created by Desenvolvimento Access Mobile on 8/26/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 import RealmSwift

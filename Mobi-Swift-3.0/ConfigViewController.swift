@@ -117,30 +117,18 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   //MARK: --- Button Color Click Function ---
   
   func buttonGridTapped(sender: UIButton?) { //to know the selected color
-    var color = ""
-    switch sender!.tag {
-    case 11:
-      color = ""
-    case 12:
-      color = ""
-    case 13:
-      color = ""
-    case 14:
-      color = ""
-    case 21:
-      color = ""
-    case 22:
-      color = ""
-    case 23:
-      color = ""
-    case 24:
-      color = ""
-    default:
-      color = ""
-    }
+    let colorButton = sender?.backgroundColor
+    let components = CGColorGetComponents(colorButton?.CGColor)
+    let color = ColorRealm(name: "", red: components[0], green: components[1], blue: components[2], alpha: CGColorGetAlpha(colorButton?.CGColor))
+    
+    DataManager.sharedInstance.interfaceColor = color
+    self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
+    
     let button = sender! as UIButton
+    
     button.imageView?.image = UIImage(contentsOfFile: "okImage")
-    print("Selected Color \(color)")
+    print("Selected Color \(sender?.backgroundColor)")
+    DataManager.sharedInstance.existInterfaceColor = true
   }
 
   

@@ -20,7 +20,7 @@ class Util: NSObject {
     
     let randomBlue:CGFloat = CGFloat(drand48())
     
-    return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+    return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 0.5)
     
   }
   

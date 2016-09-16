@@ -36,9 +36,8 @@ enum PostType : Int {
 }
 
 enum StreamingLinkType : Int {
-  case High = 0
-  case Normal = 1
-  case Low = 2
+  case Low = 0
+  case High = 1
   case Undefined = -1
 }
 
@@ -70,6 +69,7 @@ class DataManager: NSObject {
   
   var isLogged = false
 
+  var streamingManager = StreamingManager()
   
   enum actualCondition {
     case Ok
@@ -78,6 +78,9 @@ class DataManager: NSObject {
   
   var miniPlayerView = MiniPlayerViewController()
   var playerClass:PlayerViewController!
+  
+  var interfaceColor = ColorRealm()
+  var existInterfaceColor = false
   
   class var sharedInstance: DataManager {
     struct Static {

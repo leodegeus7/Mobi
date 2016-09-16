@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dij-rS-tAu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ato-Xa-1Ua">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1964,10 +1964,10 @@
             </objects>
             <point key="canvasLocation" x="3957" y="-735"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="OrU-Ac-5Nc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IOP-3x-5Kg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IOP-3x-5Kg" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GQd-tj-hoH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1982,10 +1982,10 @@
             </objects>
             <point key="canvasLocation" x="1089" y="2383"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="MC0-Mu-SiQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aj8-Fg-tzJ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aj8-Fg-tzJ" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2gD-Yh-pES">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2000,10 +2000,10 @@
             </objects>
             <point key="canvasLocation" x="5127" y="2370"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="R9H-EX-9wY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nbH-4z-3H1" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nbH-4z-3H1" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f96-BC-Sh9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2018,10 +2018,10 @@
             </objects>
             <point key="canvasLocation" x="2668" y="2383"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="e58-df-E4U">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1AE-Tg-lTM" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1AE-Tg-lTM" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="teI-1u-Rhw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2036,10 +2036,10 @@
             </objects>
             <point key="canvasLocation" x="3475" y="2370"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="EFH-9g-NKz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="911-Ia-pLA" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="911-Ia-pLA" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1qE-6x-lX7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2054,10 +2054,10 @@
             </objects>
             <point key="canvasLocation" x="4320" y="2370"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Model-->
         <scene sceneID="S7b-Ij-fGD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Fh-6U-naw" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Fh-6U-naw" customClass="NavigationControllerModel" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nTz-5n-bHP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

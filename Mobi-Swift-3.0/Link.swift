@@ -19,8 +19,6 @@ class Link: NSObject {
     switch link {
     case "Link Padrão":
       self.linkType = .Low
-    case "Link Normal":
-      self.linkType = .Normal
     case "Link Alto":
       self.linkType = .High
     default:

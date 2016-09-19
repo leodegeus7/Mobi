@@ -104,6 +104,16 @@ class DataBaseTest: NSObject {
       DataManager.sharedInstance.allRadios = Array(radios)
       let users = realm.objects(UserRealm.self)
     DataManager.sharedInstance.myUser = users.first!
+      let color = realm.objects(ColorRealm.self)
+    if color.count > 0 {
+      let red = color.first?.red
+      let green = color.first?.green
+      let blue = color.first?.blue
+      let alpha = color.first?.alpha
+      let color2 = ColorRealm(name: "", red: red!, green: green!, blue: blue!, alpha: alpha!)
+      DataManager.sharedInstance.interfaceColor = color2
+      DataManager.sharedInstance.existInterfaceColor = true
+    }
       //separateRadios()
       infoWithoutRadios()
     

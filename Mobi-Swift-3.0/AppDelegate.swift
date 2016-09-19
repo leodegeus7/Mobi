@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     print(FileSupport.findDocsDirectory())
     
 
-    RealmWrapper.eraseRealmFile("default")
+    //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
           RealmWrapper.realmStart("default")
       var config = Realm.Configuration()
@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       print(user.email)
     }
     
+    try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
     
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }

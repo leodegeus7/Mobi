@@ -168,6 +168,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
     
+    //DataManager.sharedInstance.streamingManager.play(RadioPlayer.sharedInstance.actualRadio, streamingType: .Low)
     toggle()
     RadioPlayer.sharedInstance.sendNotification()
   }

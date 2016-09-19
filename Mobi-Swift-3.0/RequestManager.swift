@@ -283,22 +283,54 @@ class RequestManager: NSObject {
     }
   }
   
-  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
+//  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
+//    requestJson("stationunit/\(radio.id)/streaming") { (result) in
+//      let data = result["data"] as! NSArray
+//      var links = [Link]()
+//      for linkDic in data {
+//        if let _ = linkDic["description"] {
+//          let descr = linkDic["description"] as! String
+//          let link = linkDic["linkLow"] as! String
+//          let linkType = linkDic["linkType"] as! Int
+//          let linkClass = Link(type: descr, link: link,linkType: linkType)
+//          links.append(linkClass)
+//        }
+//      }
+//      radio.updateStremingLinks(links)
+//      completion(result: true)
+//    }
+//  }
+  
+  func getAudioChannelsFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
     requestJson("stationunit/\(radio.id)/streaming") { (result) in
       let data = result["data"] as! NSArray
-      var links = [Link]()
-      for linkDic in data {
-        if let _ = linkDic["description"] {
-          let descr = linkDic["description"] as! String
-          let link = linkDic["linkLow"] as! String
-          let linkType = linkDic["linkType"] as! Int
-          let linkClass = Link(type: descr, link: link,linkType: linkType)
-          links.append(linkClass)
+      var audioChannels = [AudioChannel]()
+      for audioDic in data {
+        if let descr = audioDic["description"] as? String {
+          var linkHighString = ""
+          var linkLowString = ""
+          var linkRdsString = ""
+          let id = audioDic["id"] as! Int
+          let linkType = audioDic["linkType"] as! Int
+          let active = audioDic["active"] as! Int
+          if let audioLink = audioDic["linkHigh"] as? String {
+            linkHighString = audioLink
+          }
+          if let audioLink = audioDic["linkRds"] as? String {
+            linkRdsString = audioLink
+          }
+          if let audioLink = audioDic["linkLow"] as? String {
+            linkLowString = audioLink
+          }
+
+          let audioClass = AudioChannel(id: id, active: active, desc: descr, linkHigh: linkHighString, linkLow: linkLowString, linkRds: linkRdsString, linkType: linkType)
+          audioChannels.append(audioClass)
         }
       }
-      radio.updateStremingLinks(links)
+      radio.updateAudioChannels(audioChannels)
       completion(result: true)
-    }
+
+  }
   }
   
   
@@ -482,6 +514,13 @@ class RequestManager: NSObject {
       else {
         completion(resultWall: [])
       }
+    }
+  }
+  
+  func authUserWithToken(token:String,completion: (result: ([String:AnyObject])) -> Void) {
+    requestJson("user/auth/\(token)") { (result) in
+      print(result)
+      completion(result: result)
     }
   }
   

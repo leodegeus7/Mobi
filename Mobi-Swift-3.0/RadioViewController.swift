@@ -81,8 +81,8 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     buttonPlay.hidden = true
     let manager = RequestManager()
-    manager.getStreamingLinksFromRadio(actualRadio) { (result) in
-      self.buttonPlay.hidden = false
+    manager.getAudioChannelsFromRadio(actualRadio) { (result) in
+          self.buttonPlay.hidden = false
     }
   }
   

@@ -36,6 +36,9 @@
 		B74ECF1F1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */; };
 		B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */; };
 		B759C0221D6E10540005515F /* clock-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B759C0211D6E10540005515F /* clock-icon.png */; };
+		B75E332A1D906C6700713783 /* AudioChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75E33291D906C6700713783 /* AudioChannel.swift */; };
+		B75E34141D90822500713783 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B75E34131D90822500713783 /* libxml2.tbd */; };
+		B75E34161D90823500713783 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B75E34151D90823500713783 /* libxml2.2.tbd */; };
 		B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198D71D89D9FD00B83B6E /* StateRealm.swift */; };
 		B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198D91D89E15D00B83B6E /* CityRealm.swift */; };
 		B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198DB1D89EDF700B83B6E /* LocalCities2TableViewController.swift */; };
@@ -172,6 +175,9 @@
 		B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondNewTableViewCell.swift; sourceTree = "<group>"; };
 		B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdNewTableViewCell.swift; sourceTree = "<group>"; };
 		B759C0211D6E10540005515F /* clock-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-icon.png"; sourceTree = "<group>"; };
+		B75E33291D906C6700713783 /* AudioChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioChannel.swift; sourceTree = "<group>"; };
+		B75E34131D90822500713783 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		B75E34151D90823500713783 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		B76198D71D89D9FD00B83B6E /* StateRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRealm.swift; sourceTree = "<group>"; };
 		B76198D91D89E15D00B83B6E /* CityRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityRealm.swift; sourceTree = "<group>"; };
 		B76198DB1D89EDF700B83B6E /* LocalCities2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCities2TableViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +279,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B75E34161D90823500713783 /* libxml2.2.tbd in Frameworks */,
+				B75E34141D90822500713783 /* libxml2.tbd in Frameworks */,
 				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
 				B77384B41D7F394E00701070 /* FirebaseAuth.framework in Frameworks */,
 				B77384A81D7F30A800701070 /* libc++.tbd in Frameworks */,
@@ -466,6 +474,7 @@
 				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
 				CD3D51691D8C860600A6F402 /* StreamingManager.swift */,
 				CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */,
+				B75E33291D906C6700713783 /* AudioChannel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -499,17 +508,17 @@
 		B7D90E0E1D5A573800D15089 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
+				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
 				B73681361D590BA300EC94A9 /* AppDelegate.swift */,
 				CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */,
-				B73681421D590BA300EC94A9 /* Info.plist */,
-				B7D584DD1D5D0484003D5A1F /* Util.swift */,
-				B7F530F91D6261D400831561 /* Simulation.gpx */,
 				B77DEA6C1D77567700695546 /* FileSupport.swift */,
-				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
+				B7D584DD1D5D0484003D5A1F /* Util.swift */,
 				B74BB93A1D78ABF80076FE2D /* ViewController.swift */,
-				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
+				B73681421D590BA300EC94A9 /* Info.plist */,
+				B7F530F91D6261D400831561 /* Simulation.gpx */,
+				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
 				B77384B51D7F559A00701070 /* GoogleService-Info.plist */,
+				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -568,6 +577,8 @@
 		D49D2FC35E851E08064CD55B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B75E34151D90823500713783 /* libxml2.2.tbd */,
+				B75E34131D90822500713783 /* libxml2.tbd */,
 				B77C498A1D8C68D600AFF826 /* StreamingKit */,
 				B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */,
 				B77384AB1D7F32D300701070 /* Security.framework */,
@@ -786,6 +797,7 @@
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
 				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
+				B75E332A1D906C6700713783 /* AudioChannel.swift in Sources */,
 				CDBB19761D74AA8900BF0405 /* PlayerViewController.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B74B0E601D6F6C8800012D8E /* RadioViewController.swift in Sources */,

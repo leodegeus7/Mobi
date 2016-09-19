@@ -91,7 +91,8 @@ class RadioPlayer : NSObject {
   func resetPlayer() {
     errorMessage = ""
     
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: actualRadio.streamingLinks[0].link)!, options: nil)
+    let link = actualRadio.audioChannels[0].returnLink()
+    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: link)!, options: nil)
     
     let statusKey = "tracks"
     

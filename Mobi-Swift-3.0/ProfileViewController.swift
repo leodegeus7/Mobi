@@ -184,6 +184,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
       print("Facebook logado")
       let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+      
+      
       FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
         if error == nil {
           print("Login pelo Facebook corretamente")
@@ -192,6 +194,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         } else {
           self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
         }
+      })
+      
+      let request2 = RequestManager()
+      request2.authUserWithToken(accessToken, completion: { (result) in
+        print(result)
       })
     }
   }

@@ -38,6 +38,7 @@ enum PostType : Int {
 enum StreamingLinkType : Int {
   case Low = 0
   case High = 1
+  case Rds = 2
   case Undefined = -1
 }
 

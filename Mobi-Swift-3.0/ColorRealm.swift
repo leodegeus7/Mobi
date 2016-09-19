@@ -18,9 +18,9 @@ class ColorRealm: Object {
   dynamic var alpha:CGFloat = -1.0
   dynamic var color = UIColor()
   dynamic var id = ""
-  dynamic var name = ""
+  dynamic var name = Int()
   
-  convenience init(name:String,red:CGFloat,green:CGFloat,blue:CGFloat,alpha:CGFloat) {
+  convenience init(name:Int,red:CGFloat,green:CGFloat,blue:CGFloat,alpha:CGFloat) {
     self.init()
     self.name = name
     self.red = red
@@ -38,7 +38,7 @@ class ColorRealm: Object {
 
   
   override class func primaryKey() -> String? {
-    return "id"
+    return "name"
   }
   
   override static func ignoredProperties() -> [String] {

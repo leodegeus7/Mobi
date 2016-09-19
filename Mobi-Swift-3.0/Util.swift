@@ -14,13 +14,13 @@ class Util: NSObject {
   
   static func getRandomColor() -> UIColor{
     
-    let randomRed:CGFloat = CGFloat(drand48())
+    let randomRed:CGFloat = CGFloat(drand48())/2+0.5
     
-    let randomGreen:CGFloat = CGFloat(drand48())
+    let randomGreen:CGFloat = CGFloat(drand48())/2+0.5
     
-    let randomBlue:CGFloat = CGFloat(drand48())
+    let randomBlue:CGFloat = CGFloat(drand48())/2+0.5
     
-    return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 0.5)
+    return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
     
   }
   

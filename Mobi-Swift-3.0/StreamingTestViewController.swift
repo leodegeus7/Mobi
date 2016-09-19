@@ -21,9 +21,9 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
       let equalizer:(Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32) = (60, 150, 400, 1000, 2400, 15000, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-      let options = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: true, equalizerBandFrequencies: equalizer, readBufferSize: 50, bufferSizeInSeconds: 10, secondsRequiredToStartPlaying: 3, gracePeriodAfterSeekInSeconds: 3, secondsRequiredToStartPlayingAfterBufferUnderun: 3)
+      let options = STKAudioPlayerOptions(flushQueueOnSeek: false, enableVolumeMixer: true, equalizerBandFrequencies: equalizer, readBufferSize: 5, bufferSizeInSeconds: 10, secondsRequiredToStartPlaying: 0.5, gracePeriodAfterSeekInSeconds: 1, secondsRequiredToStartPlayingAfterBufferUnderun: 5)
         audio = STKAudioPlayer(options: options)
-        audio.play("http://www.abstractpath.com/files/audiosamples/sample.mp3")
+        audio.play(RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink())
             audio.equalizerEnabled = true
         // Do any additional setup after loading the view.
     }
@@ -37,6 +37,10 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
     faixa = Int(textField.text!)!
     textField.resignFirstResponder()
     return true
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    audio.pause()
   }
 
   @IBAction func scroll1Scroll(sender: AnyObject) {
@@ -98,16 +102,10 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
   }
   
   @IBAction func switchChanged(sender: AnyObject) {
-    audio.play("http://stm27.srvstm.com:20520/stream")
-  }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    if swii.on {
+      audio.play(RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink())
+    } else {
+      audio.pause()
     }
-    */
-
+  }
 }

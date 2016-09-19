@@ -119,7 +119,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   func buttonGridTapped(sender: UIButton?) { //to know the selected color
     let colorButton = sender?.backgroundColor
     let components = CGColorGetComponents(colorButton?.CGColor)
-    let color = ColorRealm(name: "", red: components[0], green: components[1], blue: components[2], alpha: CGColorGetAlpha(colorButton?.CGColor))
+    let color = ColorRealm(name: 1, red: components[0], green: components[1], blue: components[2], alpha: CGColorGetAlpha(colorButton?.CGColor))
     
     DataManager.sharedInstance.interfaceColor = color
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color

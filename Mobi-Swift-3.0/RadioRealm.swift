@@ -26,7 +26,7 @@ class RadioRealm: Object {
   dynamic var stars = -1
   dynamic var genre:String!
   dynamic var isFavorite = false
-  dynamic var streamingLinks = [Link]()
+  dynamic var audioChannels = [AudioChannel]()
   
   
   convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,stars:Int,genre:String,lastAccessDate:NSDate,isFavorite:Bool,repository:Bool) {
@@ -112,8 +112,8 @@ class RadioRealm: Object {
     }
   }
   
-  func updateStremingLinks(link:[Link]) {
-        self.streamingLinks = link
+  func updateAudioChannels(audioChannels:[AudioChannel]) {
+        self.audioChannels = audioChannels
   }
   
   func updateIsFavorite(fav:Bool) {
@@ -125,7 +125,7 @@ class RadioRealm: Object {
 
     
   override static func ignoredProperties() -> [String] {
-    return ["streamingLinks"]
+    return ["audioChannels"]
   }
   
 

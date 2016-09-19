@@ -11,6 +11,7 @@ import SideMenu
 
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
+  @IBOutlet weak var viewTop: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -18,15 +19,42 @@ class MenuTableViewController: UITableViewController {
     guard tableView.backgroundView == nil else {
       return
     }
+    if DataManager.sharedInstance.existInterfaceColor {
+      let color = DataManager.sharedInstance.interfaceColor.color
+      viewTop.backgroundColor = color
+    }
     
-//    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
-//    imageView.contentMode = .ScaleAspectFit
-//    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
-//    tableView.backgroundView = imageView
-    tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+    //    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
+    //    imageView.contentMode = .ScaleAspectFit
+    //    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+    //    tableView.backgroundView = imageView
     tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.navigationItem.setHidesBackButton(true, animated: false)
-
+    
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+    if DataManager.sharedInstance.existInterfaceColor {
+      super.tableView.backgroundColor = UIColor.whiteColor()
+      let color = DataManager.sharedInstance.interfaceColor.color
+      tableView.backgroundColor = color
+      viewTop.backgroundColor = color
+    }
+    if tableView.visibleCells.count > 0 {
+      if DataManager.sharedInstance.existInterfaceColor {
+        for index in 0...6 {
+          let indexPath = NSIndexPath(forItem: index, inSection: 0)
+          let cell = tableView.cellForRowAtIndexPath(indexPath)
+          var color = DataManager.sharedInstance.interfaceColor.color
+          color = color.colorWithAlphaComponent(1)
+          if (indexPath.row == 0) {
+            color = color.colorWithAlphaComponent(0.8)
+          }
+          cell!.backgroundColor = color
+        }
+      }
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -46,7 +74,6 @@ class MenuTableViewController: UITableViewController {
     return 7
   }
   
-  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if (indexPath.row == 0) {
@@ -64,19 +91,32 @@ class MenuTableViewController: UITableViewController {
       userCell.imageUser.clipsToBounds = true
       //let imageUserVar = UIImage()
       //cell.imageUser.image =
-      userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+      //userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+      if DataManager.sharedInstance.existInterfaceColor {
+        var color = DataManager.sharedInstance.interfaceColor.color
+        color = color.colorWithAlphaComponent(0.8)
+        userCell.backgroundColor = color
+      }
       return userCell
       
     } else if(indexPath.row != 5) {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
       firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+      if DataManager.sharedInstance.existInterfaceColor {
+        let color = DataManager.sharedInstance.interfaceColor.color
+        firstTypeCell.backgroundColor = color
+      }
       return firstTypeCell
     }
     
     let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
     secondTypeCell.labelText.text = menuArray[4]
     secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    if DataManager.sharedInstance.existInterfaceColor {
+      let color = DataManager.sharedInstance.interfaceColor.color
+      secondTypeCell.backgroundColor = color
+    }
     return secondTypeCell
     
     
@@ -125,4 +165,6 @@ class MenuTableViewController: UITableViewController {
     
     presentViewController(sleepAlert, animated: true, completion:nil)
   }
+  
+  
 }

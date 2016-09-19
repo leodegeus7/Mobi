@@ -9,20 +9,14 @@
 import UIKit
 
 class Link: NSObject {
-  var type :String!
   var link :String!
   var linkType = StreamingLinkType.Undefined
   
-  init(type:String,link:String,linkType:Int) {
-    self.type = type
+  convenience init(link:String,linkType:StreamingLinkType) {
+    self.init()
     self.link = link
-    switch link {
-    case "Link Padrão":
-      self.linkType = .Low
-    case "Link Alto":
-      self.linkType = .High
-    default:
-      self.linkType = .Undefined
-    }
+    self.linkType = linkType
   }
+  
+
 }

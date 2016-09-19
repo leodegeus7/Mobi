@@ -111,6 +111,8 @@
 		B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */; };
 		B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
+		CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65021D904B9D002B88EA /* ColorRealm.swift */; };
+		CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */; };
 		CD3D516A1D8C860600A6F402 /* StreamingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D51691D8C860600A6F402 /* StreamingManager.swift */; };
 		CD44898D1D75FEBE00A500A2 /* myImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD44898C1D75FEBE00A500A2 /* myImage.jpg */; };
 		CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */; };
@@ -256,6 +258,8 @@
 		B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroungMenu.jpg; sourceTree = "<group>"; };
 		B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
+		CD0B65021D904B9D002B88EA /* ColorRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorRealm.swift; sourceTree = "<group>"; };
+		CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerModel.swift; sourceTree = "<group>"; };
 		CD3D51691D8C860600A6F402 /* StreamingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingManager.swift; sourceTree = "<group>"; };
 		CD44898C1D75FEBE00A500A2 /* myImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = myImage.jpg; sourceTree = "<group>"; };
 		CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseTest.swift; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 				B7D584D71D5CE4C0003D5A1F /* New.swift */,
 				B769B6291D664E21005A00B3 /* NewRealm.swift */,
 				B76198D91D89E15D00B83B6E /* CityRealm.swift */,
+				CD0B65021D904B9D002B88EA /* ColorRealm.swift */,
 			);
 			name = RealmClass;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
 				CD3D51691D8C860600A6F402 /* StreamingManager.swift */,
+				CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 				B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */,
 				B74ECF1F1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift in Sources */,
 				B7D90E031D5A53F800D15089 /* LocalTableViewController.swift in Sources */,
+				CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */,
 				B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */,
 				B77C49A01D8C68D600AFF826 /* STKAutoRecoveringHTTPDataSource.m in Sources */,
 				B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */,
@@ -759,6 +766,7 @@
 				B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */,
 				B7D90DFD1D5A500500D15089 /* InitialTableViewController.swift in Sources */,
 				B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */,
+				CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */,
 				B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */,
 				B77C499F1D8C68D600AFF826 /* STKAudioPlayer.m in Sources */,
 				B7F530EB1D6230D700831561 /* InitialTableViewCell.swift in Sources */,

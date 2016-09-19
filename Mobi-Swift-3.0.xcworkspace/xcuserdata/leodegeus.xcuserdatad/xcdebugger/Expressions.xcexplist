@@ -27,14 +27,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "InitialTableViewController.reloadData() -&gt; ():InitialTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.topRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "RadioViewController.buttonPlayTap(AnyObject) -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -42,6 +34,14 @@
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InitialTableViewController.reloadData() -&gt; ():InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.topRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -68,13 +68,13 @@
          contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
+               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution == actualRadio">
             </PersistentString>
             <PersistentString
-               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
+               value = "DataManager.sharedInstance.radioInExecution">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -83,6 +83,20 @@
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StreamingTestViewController.scroool2(AnyObject) -&gt; ():StreamingTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "value">
+            </PersistentString>
+            <PersistentString
+               value = "(24/sender.maximumValue)*value">
+            </PersistentString>
+            <PersistentString
+               value = "sender.maximumValue">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

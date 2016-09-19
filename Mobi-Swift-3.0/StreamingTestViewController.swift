@@ -20,10 +20,10 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
   var faixa = 1
     override func viewDidLoad() {
         super.viewDidLoad()
-      let equalizer:(Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32) = (50, 100, 200, 400, 800, 600, 2600, 16000, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+      let equalizer:(Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32) = (60, 150, 400, 1000, 2400, 15000, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
       let options = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: true, equalizerBandFrequencies: equalizer, readBufferSize: 50, bufferSizeInSeconds: 10, secondsRequiredToStartPlaying: 3, gracePeriodAfterSeekInSeconds: 3, secondsRequiredToStartPlayingAfterBufferUnderun: 3)
         audio = STKAudioPlayer(options: options)
-        audio.play("http://stm27.srvstm.com:20520/stream")
+        audio.play("http://www.abstractpath.com/files/audiosamples/sample.mp3")
             audio.equalizerEnabled = true
         // Do any additional setup after loading the view.
     }
@@ -40,22 +40,65 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
   }
 
   @IBAction func scroll1Scroll(sender: AnyObject) {
-        audio.setGain(Float(faixa), forEqualizerBand: Int32(scroll1.value))
-
+    let value = scroll1.value as Float
+    let maxValueScroll = Float(scroll1.maximumValue)
+    let minValueScroll = Float(scroll1.minimumValue)
+    if value > 0 {
+        let faixa5 = (24/maxValueScroll)*value
+        let faixa4 = (16/maxValueScroll)*value
+        let faixa3 = (8/maxValueScroll)*value
+        audio.setGain(faixa5, forEqualizerBand: 5)
+        audio.setGain(faixa4, forEqualizerBand: 4)
+        audio.setGain(faixa3, forEqualizerBand: 3)
+    } else {
+        let faixa5 = (-96/minValueScroll)*value
+        let faixa4 = (-64/minValueScroll)*value
+        let faixa3 = (-32/minValueScroll)*value
+        audio.setGain(faixa5, forEqualizerBand: 5)
+        audio.setGain(faixa4, forEqualizerBand: 4)
+        audio.setGain(faixa3, forEqualizerBand: 3)
+    }
   }
   @IBAction func scroool2(sender: AnyObject) {
+    let value = scroll2.value as Float
+    let maxValueScroll = Float(scroll2.maximumValue)
+    let minValueScroll = Float(scroll2.minimumValue)
+    if value > 0 {
+        let faixa0 = (24/maxValueScroll)*value
+        let faixa1 = (16/maxValueScroll)*value
+        let faixa2 = (8/maxValueScroll)*value
+        audio.setGain(faixa0, forEqualizerBand: 0)
+        audio.setGain(faixa1, forEqualizerBand: 1)
+        audio.setGain(faixa2, forEqualizerBand: 2)
+    } else {
+        let faixa0 = (-96/minValueScroll)*value
+        let faixa1 = (-64/minValueScroll)*value
+        let faixa2 = (-32/minValueScroll)*value
+        audio.setGain(faixa0, forEqualizerBand: 0)
+        audio.setGain(faixa1, forEqualizerBand: 1)
+        audio.setGain(faixa2, forEqualizerBand: 2)
+    }
   }
   
   @IBAction func scroll3(sender: AnyObject) {
+    let value = scroll3.value as Float
+    let maxValueScroll = Float(scroll3.maximumValue)
+    let minValueScroll = Float(scroll3.minimumValue)
+    if value > 0 {
+        let faixa2 = (16/maxValueScroll)*value
+        let faixa3 = (16/maxValueScroll)*value
+        audio.setGain(faixa3, forEqualizerBand: 3)
+        audio.setGain(faixa2, forEqualizerBand: 2)
+    } else {
+        let faixa2 = (-64/minValueScroll)*value
+        let faixa3 = (-64/minValueScroll)*value
+        audio.setGain(faixa2, forEqualizerBand: 2)
+        audio.setGain(faixa3, forEqualizerBand: 3)
+    }
   }
   
   @IBAction func switchChanged(sender: AnyObject) {
-    if swii.on {
-      audio.setGain(24, forEqualizerBand: 4)
-    } else {
-      audio.setGain(24, forEqualizerBand: -24)
-    }
-        audio.play("http://stm27.srvstm.com:20520/stream")
+    audio.play("http://stm27.srvstm.com:20520/stream")
   }
     /*
     // MARK: - Navigation

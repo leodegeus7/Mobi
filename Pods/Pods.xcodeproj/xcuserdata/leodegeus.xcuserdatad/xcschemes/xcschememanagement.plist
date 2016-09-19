@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>DZNEmptyDataSet.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -52,6 +57,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1B539A0DF980E13968EC7A28ADF3A596</key>
 		<dict>
 			<key>primary</key>
@@ -62,12 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1D6565F857DF03D87D7FA326479A9D05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1DAAC1A61A84B3B738634A6932BEB8FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>24FC8A543478D0680E94368B13DA4366</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5B2FC9FB6C8688C9C4CD560E97DD71B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F2B824F40DDEE62B6D240111903EFD9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,6 +157,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CCB79D5C3988ED7CBADBEECE567F12CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF699C4D4CA38305EE050DF28504960E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E507D01D2885701D335E40C1C3CF2BB6</key>
 		<dict>
 			<key>primary</key>
@@ -143,6 +178,11 @@
 			<true/>
 		</dict>
 		<key>E96E13C4D3B5B5FC0651440734C2BF4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F444FA520EEF31680A278E0395BC5A99</key>
 		<dict>
 			<key>primary</key>
 			<true/>

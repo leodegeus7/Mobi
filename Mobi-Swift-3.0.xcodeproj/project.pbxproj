@@ -111,6 +111,7 @@
 		B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */; };
 		B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
+		CD3D516A1D8C860600A6F402 /* StreamingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D51691D8C860600A6F402 /* StreamingManager.swift */; };
 		CD44898D1D75FEBE00A500A2 /* myImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD44898C1D75FEBE00A500A2 /* myImage.jpg */; };
 		CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */; };
 		CDBB19761D74AA8900BF0405 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */; };
@@ -255,6 +256,7 @@
 		B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroungMenu.jpg; sourceTree = "<group>"; };
 		B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
+		CD3D51691D8C860600A6F402 /* StreamingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingManager.swift; sourceTree = "<group>"; };
 		CD44898C1D75FEBE00A500A2 /* myImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = myImage.jpg; sourceTree = "<group>"; };
 		CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseTest.swift; sourceTree = "<group>"; };
 		CDBB19751D74AA8900BF0405 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				B74D652B1D8B1836007798F4 /* Comment.swift */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
+				CD3D51691D8C860600A6F402 /* StreamingManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				B77C49A11D8C68D600AFF826 /* STKCoreFoundationDataSource.m in Sources */,
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
 				B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */,
+				CD3D516A1D8C860600A6F402 /* StreamingManager.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
 				B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */,
 				B77C49A31D8C68D600AFF826 /* STKDataSourceWrapper.m in Sources */,

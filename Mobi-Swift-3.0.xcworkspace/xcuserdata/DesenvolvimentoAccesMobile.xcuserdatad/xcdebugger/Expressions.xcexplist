@@ -200,6 +200,9 @@
          contextName = "static Util.convertStringToNSDate(String) -&gt; NSDate:Util.swift">
       </ContextState>
       <ContextState
+         contextName = "AppDelegate.application(UIApplication, didReceiveLocalNotification : UILocalNotification) -&gt; ():AppDelegate.swift">
+      </ContextState>
+      <ContextState
          contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #2):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -511,6 +514,14 @@
          <PersistentStrings>
             <PersistentString
                value = "radiosInState">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuTableViewController.(sleepFunction(AnyObject) -&gt; ()).(closure #1):MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "action.title!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

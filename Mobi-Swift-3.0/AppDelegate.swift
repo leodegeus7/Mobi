@@ -131,6 +131,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
   }
   
+  func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    RadioPlayer.sharedInstance.pause()
+  }
+  
   static func realmUpdate(realm:Realm) {
     let radios = realm.objects(RadioRealm.self)
     DataManager.sharedInstance.allRadios = Array(radios)

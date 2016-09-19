@@ -224,6 +224,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
+
   }
   
   override func viewDidAppear(animated: Bool) {

@@ -154,7 +154,25 @@ class MenuTableViewController: UITableViewController {
     let values = ["15 min","30 min","45 min","60 min","90 min"]
     for value in values {
       let actionOption = UIAlertAction(title: value, style: UIAlertActionStyle.Default, handler: { (action) in
-        
+        switch action.title! {
+        case "15 min":
+          Util.sleepNotification(15*60)
+          break
+        case "30 min":
+          Util.sleepNotification(30*60)
+          break
+        case "45 min":
+          Util.sleepNotification(45*60)
+          break
+        case "60 min":
+          Util.sleepNotification(60*60)
+          break
+        case "90 min":
+          Util.sleepNotification(90*60)
+          break
+        default:
+          break
+        }
       })
       sleepAlert.addAction(actionOption)
       sheets.append(actionOption)

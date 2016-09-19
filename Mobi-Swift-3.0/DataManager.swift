@@ -72,6 +72,8 @@ class DataManager: NSObject {
 
   var streamingManager = StreamingManager()
   
+  var sleepTimer = NSTimer()
+  
   enum actualCondition {
     case Ok
     case Without

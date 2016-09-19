@@ -13,18 +13,12 @@ import MapKit
 class Util: NSObject {
   
   static func getRandomColor() -> UIColor{
-    
     let randomRed:CGFloat = CGFloat(drand48())/2+0.5
-    
     let randomGreen:CGFloat = CGFloat(drand48())/2+0.5
-    
     let randomBlue:CGFloat = CGFloat(drand48())/2+0.5
-    
     return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
-    
   }
   
-  // Simple alert, OK only
   static func displayAlert(view:UIViewController,title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
@@ -40,7 +34,6 @@ class Util: NSObject {
     view.presentViewController(alert, animated: true, completion: nil)
   }
   
-  // OK/Cancel alert type
   static func displayAlert(view:UIViewController, title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
     let alert: UIAlertController = UIAlertController(
       title: title,
@@ -169,6 +162,31 @@ class Util: NSObject {
     return date!
   }
   
+  static func sleepNotification(seconds:Int) {
+    
+    if RadioPlayer.sharedInstance.currentlyPlaying() {
+      let title:String = "SleepMode"
+      
+      let calendar = NSCalendar.currentCalendar()
+      let calendarComponents = NSDateComponents()
+      calendarComponents.hour = 0
+      calendarComponents.second = seconds
+      calendarComponents.minute = 0
+      calendar.timeZone = NSTimeZone.defaultTimeZone()
+      let dateToFire = calendar.dateFromComponents(calendarComponents)
+      
+      let notification = UILocalNotification()
+      let dict:NSDictionary = ["ID" : "your ID goes here"]
+      notification.userInfo = dict as! [String : String]
+      notification.alertBody = "\(title)"
+      notification.alertAction = "Open"
+      notification.fireDate = dateToFire
+      notification.soundName = UILocalNotificationDefaultSoundName
+      UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    } else {
+      
+    }
+  }
 }
 
 extension NSLayoutConstraint {

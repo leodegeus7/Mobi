@@ -187,6 +187,55 @@ class Util: NSObject {
       
     }
   }
+  
+  static func displayAlert(title title: String, message: String, action: String) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let defaultAction: UIAlertAction = UIAlertAction(
+      title: action,
+      style: UIAlertActionStyle.Default,
+      handler: nil
+    )
+    alert.addAction(defaultAction)
+    Util.findTopView().presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  static func displayAlert(title title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let yesAction: UIAlertAction = UIAlertAction(
+      title: okTitle,
+      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        okAction()
+    }
+    let noAction: UIAlertAction = UIAlertAction(
+      title: cancelTitle,
+      style: UIAlertActionStyle.Default,
+      handler: { (action: UIAlertAction!) -> Void in
+        cancelAction()
+      }
+    )
+    alert.addAction(yesAction)
+    alert.addAction(noAction)
+    Util.findTopView().presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  static func findTopView() -> UIViewController {
+    if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+      while let presentedViewController = topController.presentedViewController {
+        topController = presentedViewController
+        return topController
+      }
+    }
+    let view = UIViewController()
+    return view
+  }
 }
 
 extension NSLayoutConstraint {

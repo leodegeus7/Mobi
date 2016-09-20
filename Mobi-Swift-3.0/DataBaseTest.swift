@@ -86,12 +86,12 @@ class DataBaseTest: NSObject {
         //
         DataManager.sharedInstance.myUser = myUser
         
-        let firstNew3 = New(id: "1",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
-        let firstNew1 = New(id: "2",newTitle: "Oi", newDescription: "Onjsfjkdbksbdgkjhbsdkgfjbsdkvskjfbskdan f adjghf ajngbkudj kjaeg a jgk", img: "", date: "Há 4 dias")
-        let secondNew2 = New(id: "5",newTitle: "Ai", newDescription: "Nossa, funciona", date: "Há 12 segundos")
+      let firstNew3 = New(id: "1",newTitle: "ATENÇÃO RADIODIFUSORES!", newDescription: "A partir desta segunda-feira (19), o programa A Voz do Brasil deve ser veiculado no horário normal, das 19h às 20h, de segunda a sexta-feira, em cadeia nacional de rádio.                                                 ", img: "new1.png", date: "Há 4 dias")
+      let firstNew1 = New(id: "2",newTitle: "Jornalistas pedem fim da violência", newDescription: "Ataques e agressões por parte da Polícia Militar contra profissionais da comunicação durante cobertura jornalística levaram a ONG Rio de Paz a organizar um protesto a favor de uma imprensa livre e contra a violência./nReunidos em um ato nesta quarta-feira (14) em frente ao MASP, em São Paulo (SP).", img: "new2.jpg", date: "Há 5 dias")
+//        let secondNew2 = New(id: "5",newTitle: "Ai", newDescription: "Nossa, funciona", date: "Há 12 segundos")
         DataManager.sharedInstance.allNews.append(firstNew1)
         DataManager.sharedInstance.allNews.append(firstNew3)
-        DataManager.sharedInstance.allNews.append(secondNew2)
+//        DataManager.sharedInstance.allNews.append(secondNew2)
         
         
         

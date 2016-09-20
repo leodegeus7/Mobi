@@ -21,8 +21,12 @@ class StreamingTestViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
       let equalizer:(Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32) = (60, 150, 400, 1000, 2400, 15000, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-      let options = STKAudioPlayerOptions(flushQueueOnSeek: false, enableVolumeMixer: true, equalizerBandFrequencies: equalizer, readBufferSize: 5, bufferSizeInSeconds: 10, secondsRequiredToStartPlaying: 0.5, gracePeriodAfterSeekInSeconds: 1, secondsRequiredToStartPlayingAfterBufferUnderun: 5)
-        audio = STKAudioPlayer(options: options)
+
+      var options = STKAudioPlayerOptions()
+      options.equalizerBandFrequencies = equalizer
+      audio = STKAudioPlayer(options: options)
+      audio.equalizerEnabled = true
+        //audio = STKAudioPlayer(options: options)
         audio.play(RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink())
             audio.equalizerEnabled = true
         // Do any additional setup after loading the view.

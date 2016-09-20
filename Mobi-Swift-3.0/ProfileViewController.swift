@@ -197,7 +197,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       })
       
       let request2 = RequestManager()
-      request2.authUserWithToken(accessToken, completion: { (result) in
+      request2.authUserWithToken(accessToken, provider: .Facebook, completion: { (result) in
         print(result)
       })
     }

@@ -143,7 +143,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   }
   
   @IBAction func menuTap(sender: AnyObject) {
-    searchBar.resignFirstResponder()
+    //searchBar.resignFirstResponder()
     view.endEditing(true)
     UIApplication.sharedApplication().sendAction(buttonLateralMenu.action, to: buttonLateralMenu.target, from: self, forEvent: nil)
   }

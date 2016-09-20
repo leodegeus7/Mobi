@@ -53,13 +53,13 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
       cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-      cell.imageDescription.backgroundColor = UIColor.redColor()
+      cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
       
       cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
       return cell
     } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
       let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-      cell.labelDate.text = "oi"
+      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
       cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
       let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
@@ -69,7 +69,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       return cell
     } else {
       let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
-      cell.imageDescription.backgroundColor = UIColor.blueColor()
+      cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
       cell.heightView.constant = cell.imageDescription.frame.height
       return cell
     }

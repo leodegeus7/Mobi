@@ -20,8 +20,6 @@ import FirebaseAuth
 import Fabric
 import TwitterKit
 
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
   var window: UIWindow?
@@ -61,7 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-    
+
+
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
   

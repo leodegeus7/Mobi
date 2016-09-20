@@ -34,6 +34,13 @@ public enum StationUnitRequest {
   case stationUnitsUserFavorite(pageNumber:Int,pageSize:Int)
 }
 
+public enum AuthProvider: Int {
+  case Native = 0
+  case Facebook = 1
+  case Google = 2
+  case Twitter = 3
+}
+
 
 
 
@@ -283,23 +290,23 @@ class RequestManager: NSObject {
     }
   }
   
-//  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
-//    requestJson("stationunit/\(radio.id)/streaming") { (result) in
-//      let data = result["data"] as! NSArray
-//      var links = [Link]()
-//      for linkDic in data {
-//        if let _ = linkDic["description"] {
-//          let descr = linkDic["description"] as! String
-//          let link = linkDic["linkLow"] as! String
-//          let linkType = linkDic["linkType"] as! Int
-//          let linkClass = Link(type: descr, link: link,linkType: linkType)
-//          links.append(linkClass)
-//        }
-//      }
-//      radio.updateStremingLinks(links)
-//      completion(result: true)
-//    }
-//  }
+  //  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
+  //    requestJson("stationunit/\(radio.id)/streaming") { (result) in
+  //      let data = result["data"] as! NSArray
+  //      var links = [Link]()
+  //      for linkDic in data {
+  //        if let _ = linkDic["description"] {
+  //          let descr = linkDic["description"] as! String
+  //          let link = linkDic["linkLow"] as! String
+  //          let linkType = linkDic["linkType"] as! Int
+  //          let linkClass = Link(type: descr, link: link,linkType: linkType)
+  //          links.append(linkClass)
+  //        }
+  //      }
+  //      radio.updateStremingLinks(links)
+  //      completion(result: true)
+  //    }
+  //  }
   
   func getAudioChannelsFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
     requestJson("stationunit/\(radio.id)/streaming") { (result) in
@@ -322,15 +329,15 @@ class RequestManager: NSObject {
           if let audioLink = audioDic["linkLow"] as? String {
             linkLowString = audioLink
           }
-
+          
           let audioClass = AudioChannel(id: id, active: active, desc: descr, linkHigh: linkHighString, linkLow: linkLowString, linkRds: linkRdsString, linkType: linkType)
           audioChannels.append(audioClass)
         }
       }
       radio.updateAudioChannels(audioChannels)
       completion(result: true)
-
-  }
+      
+    }
   }
   
   
@@ -498,10 +505,10 @@ class RequestManager: NSObject {
             comment.addImageReference(dic["text"] as! String)
           case 2:
             comment.postType = .Audio
-              comment.addImageReference(dic["attachmentIdentifier"] as! String)
+            comment.addImageReference(dic["attachmentIdentifier"] as! String)
           case 3:
             comment.postType = .Video
-              comment.addVideoReference(dic["attachmentIdentifier"] as! String)
+            comment.addVideoReference(dic["attachmentIdentifier"] as! String)
           default:
             comment.postType = .Undefined
           }
@@ -517,12 +524,34 @@ class RequestManager: NSObject {
     }
   }
   
-  func authUserWithToken(token:String,completion: (result: ([String:AnyObject])) -> Void) {
-    requestJson("user/auth/\(token)") { (result) in
+  func authUserWithToken(token:String,provider:AuthProvider,completion: (result: ([String:AnyObject])) -> Void) {
+    
+    var url = ""
+    switch provider {
+    case .Native:
+      url = "user/autenticate?access_token=\(token)&provider=0"
+    case .Facebook:
+      url = "user/autenticate?access_token=\(token)&provider=1"
+    case .Google:
+      url = "user/autenticate?access_token=\(token)&provider=2"
+    case .Twitter:
+      url = "user/autenticate?access_token=\(token)&provider=3"
+    }
+    requestJson(url) { (result) in
       print(result)
       completion(result: result)
     }
   }
   
-  
+  func testServer(completion: (result: Bool) -> Void) {
+    requestJson("stationunit") { (result) in
+      let requestResult = result["requestResult"] as! RequestResult
+      if requestResult == .OK {
+        completion(result: true)
+      } else {
+        completion(result: false)
+      }
+    }
+  }
+
 }

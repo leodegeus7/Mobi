@@ -204,12 +204,12 @@ class MiniPlayerViewController: UIViewController {
   }
   
   func updatePlayerIcons() {
-    labelFirst.text = RadioPlayer.sharedInstance.actualRadio.name
-    if let _ = RadioPlayer.sharedInstance.actualRadio.address {
-      labelSecond.text = RadioPlayer.sharedInstance.actualRadio.address.formattedLocal
+    labelFirst.text = StreamingRadioManager.sharedInstance.actualRadio.name
+    if let _ = StreamingRadioManager.sharedInstance.actualRadio.address {
+      labelSecond.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
     }
-    imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(RadioPlayer.sharedInstance.actualRadio.thumbnail)))
-    if RadioPlayer.sharedInstance.currentlyPlaying() {
+    imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(StreamingRadioManager.sharedInstance.actualRadio.thumbnail)))
+    if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
       playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
@@ -222,7 +222,7 @@ class MiniPlayerViewController: UIViewController {
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
     modalVC.buttonPlayTap(self)
-    RadioPlayer.sharedInstance.sendNotification()
+    StreamingRadioManager.sharedInstance.sendNotification()
     updatePlayerIcons()
   }
 }

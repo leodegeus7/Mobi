@@ -65,7 +65,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     
-    if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+    if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
       buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
       buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
@@ -82,7 +82,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     buttonPlay.hidden = true
     let manager = RequestManager()
     manager.getAudioChannelsFromRadio(actualRadio) { (result) in
-          self.buttonPlay.hidden = false
+      self.buttonPlay.hidden = false
     }
   }
   
@@ -130,25 +130,36 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
   }
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
-    RadioPlayer.sharedInstance.actualRadio = actualRadio
-    DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
-    DataManager.sharedInstance.playerClass.buttonPlayTap(DataManager.sharedInstance.playerClass)
-    if (RadioPlayer.sharedInstance.currentlyPlaying()){
+    if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
+      if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+        StreamingRadioManager.sharedInstance.stop()
+      } else {
+        StreamingRadioManager.sharedInstance.play(actualRadio)
+        DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
+        DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+      }
+    } else {
+      StreamingRadioManager.sharedInstance.play(actualRadio)
+      DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
       DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
     }
     
+
+    
+    StreamingRadioManager.sharedInstance.sendNotification()
+
   }
   
   
   func updateIcons() {
-    if (RadioPlayer.sharedInstance.actualRadio == DataManager.sharedInstance.radioInExecution) {
-      if RadioPlayer.sharedInstance.currentlyPlaying() && DataManager.sharedInstance.radioInExecution == actualRadio {
+    if (StreamingRadioManager.sharedInstance.currentlyPlaying()) {
+      if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
         buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
       } else {
         buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
       }
     } else {
-      buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
+        buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
     }
     
   }

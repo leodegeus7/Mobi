@@ -58,6 +58,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    
+    let requestTest = RequestManager()
+    requestTest.testServer { (result) in
+      if !result {
+        Util.displayAlert(self, title: "Atenção", message: "Tivemos um problema ao conectar aos nossos servidores", action: "Ok")
+      }
+    }
+    
   }
   
   

@@ -69,8 +69,6 @@ class DataManager: NSObject {
   var addressId = 0
   
   var isLogged = false
-
-  var streamingManager = StreamingManager()
   
   var sleepTimer = NSTimer()
   

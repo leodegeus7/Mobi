@@ -136,7 +136,7 @@ class RequestManager: NSObject {
       case .Failure(let error):
         self.resultText = .ErrorInAccessToURL
         var dic = Dictionary<String,AnyObject>()
-        dic["requestResult"] = "\(self.resultText) - \(error)"
+        dic["requestResult"] = "\(self.resultText)"
         dic["data"] = emptyDic
         completion(result: dic)
       }
@@ -545,8 +545,8 @@ class RequestManager: NSObject {
   
   func testServer(completion: (result: Bool) -> Void) {
     requestJson("stationunit") { (result) in
-      let requestResult = result["requestResult"] as! RequestResult
-      if requestResult == .OK {
+      let requestResult = result["requestResult"] as! String
+      if requestResult == "OK" {
         completion(result: true)
       } else {
         completion(result: false)

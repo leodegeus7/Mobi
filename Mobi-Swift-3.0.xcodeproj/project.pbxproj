@@ -335,6 +335,7 @@
 				B769B6291D664E21005A00B3 /* NewRealm.swift */,
 				B76198D91D89E15D00B83B6E /* CityRealm.swift */,
 				CD0B65021D904B9D002B88EA /* ColorRealm.swift */,
+				B7D584DF1D5D1674003D5A1F /* AudioConfig.swift */,
 			);
 			name = RealmClass;
 			sourceTree = "<group>";
@@ -491,7 +492,6 @@
 			children = (
 				B70DFA491D70AC90000DDBD6 /* RealmClass */,
 				B7E697431D59208800EC276F /* DataManager.swift */,
-				B7D584DF1D5D1674003D5A1F /* AudioConfig.swift */,
 				B7880BA31D5E461C002B235A /* Address.swift */,
 				B7880BA91D5E5F46002B235A /* Radio.swift */,
 				B7F65DF81D64D86D000EE185 /* RequestManager.swift */,

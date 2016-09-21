@@ -59,13 +59,13 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         // define audio tableview parameters
         tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
       
-        if (DataManager.sharedInstance.audioConfig.audioQuality == "Baixo") {
+        if (DataManager.sharedInstance.audioConfig.audioQuality == 1) {
           let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
           tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        } else if (DataManager.sharedInstance.audioConfig.audioQuality == "Alto") {
+        } else if (DataManager.sharedInstance.audioConfig.audioQuality == 2) {
           let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
           tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        } else if (DataManager.sharedInstance.audioConfig.audioQuality == "Automático") {
+        } else if (DataManager.sharedInstance.audioConfig.audioQuality == 0) {
           let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
           tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
         }
@@ -74,6 +74,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         sliderGraves.value = Float(DataManager.sharedInstance.audioConfig.grave)
         sliderAgudos.value = Float(DataManager.sharedInstance.audioConfig.agudo)
         sliderMedios.value = Float(DataManager.sharedInstance.audioConfig.medio)
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,11 +107,11 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if (indexPath.row == 0) {
-      DataManager.sharedInstance.audioConfig.audioQuality = "Baixo"
+      DataManager.sharedInstance.audioConfig.audioQuality = 2
     } else if (indexPath.row == 1) {
-      DataManager.sharedInstance.audioConfig.audioQuality = "Alto"
+      DataManager.sharedInstance.audioConfig.audioQuality = 1
     } else if (indexPath.row == 2) {
-      DataManager.sharedInstance.audioConfig.audioQuality = "Automático"
+      DataManager.sharedInstance.audioConfig.audioQuality = 0
     }
   }
   
@@ -135,19 +136,68 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   //MARK: --- Slider Events Function ---
   
   @IBAction func sliderGraveChanged(sender: AnyObject) {
-    let value = sliderGraves.value
+    let value = sliderGraves.value as Float
+    let maxValueScroll = Float(sliderGraves.maximumValue)
+    let minValueScroll = Float(sliderGraves.minimumValue)
+    if value > 0 {
+      let faixa0 = (24/maxValueScroll)*value
+      let faixa1 = (16/maxValueScroll)*value
+      let faixa2 = (8/maxValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa0, forEqualizerBand: 0)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa1, forEqualizerBand: 1)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa2, forEqualizerBand: 2)
+    } else {
+      let faixa0 = (-96/minValueScroll)*value
+      let faixa1 = (-64/minValueScroll)*value
+      let faixa2 = (-32/minValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa0, forEqualizerBand: 0)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa1, forEqualizerBand: 1)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa2, forEqualizerBand: 2)
+    }
     let currentValue = Int(value)
     DataManager.sharedInstance.audioConfig.setGraveParameter(currentValue)
   }
 
   @IBAction func sliderMedioChanged(sender: AnyObject) {
-    let value = sliderMedios.value
+    let value = sliderMedios.value as Float
+    let maxValueScroll = Float(sliderMedios.maximumValue)
+    let minValueScroll = Float(sliderMedios.minimumValue)
+
+    if value > 0 {
+      let faixa2 = (16/maxValueScroll)*value
+      let faixa3 = (16/maxValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa3, forEqualizerBand: 3)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa2, forEqualizerBand: 2)
+    } else {
+      let faixa2 = (-64/minValueScroll)*value
+      let faixa3 = (-64/minValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa2, forEqualizerBand: 2)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa3, forEqualizerBand: 3)
+    }
+
     let currentValue = Int(value)
     DataManager.sharedInstance.audioConfig.setMedioParameter(currentValue)
   }
 
   @IBAction func sliderAgudoChanged(sender: AnyObject) {
-    let value = sliderAgudos.value
+    let value = sliderAgudos.value as Float
+    let maxValueScroll = Float(sliderAgudos.maximumValue)
+    let minValueScroll = Float(sliderAgudos.minimumValue)
+    if value > 0 {
+      let faixa5 = (24/maxValueScroll)*value
+      let faixa4 = (16/maxValueScroll)*value
+      let faixa3 = (8/maxValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa5, forEqualizerBand: 5)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa4, forEqualizerBand: 4)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa3, forEqualizerBand: 3)
+    } else {
+      let faixa5 = (-96/minValueScroll)*value
+      let faixa4 = (-64/minValueScroll)*value
+      let faixa3 = (-32/minValueScroll)*value
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa5, forEqualizerBand: 5)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa4, forEqualizerBand: 4)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa3, forEqualizerBand: 3)
+    }
     let currentValue = Int(value)
     DataManager.sharedInstance.audioConfig.setAgudoParameter(currentValue)
   }

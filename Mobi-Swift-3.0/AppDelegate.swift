@@ -28,8 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     print("Iniciou!")
-    defineInitialParameters()
-    DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
+    //DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
+    DataManager.sharedInstance.userToken = "0143363d-c4f4-4b9b-9b51-7ec5d8680460"
+    
     print(FileSupport.findDocsDirectory())
     //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
@@ -38,8 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       config.fileURL = config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("default.realm")
       Realm.Configuration.defaultConfiguration = config
       let realm = try! Realm(configuration: config)
-      AppDelegate.realmUpdate(realm)
       DataManager.sharedInstance.realm = realm
+     // defineInitialParameters()
+      AppDelegate.realmUpdate(realm)
       if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
         loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
@@ -57,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
     }
-    
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 
 
@@ -96,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func defineInitialParameters() {
-    let audioConfig = AudioConfig(grave: 0, medio: 0, agudo: 0,audioQuality: "Automático")
+    let audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0,audioQuality: 0)
     DataManager.sharedInstance.audioConfig = audioConfig
     
   }
@@ -135,6 +136,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   static func realmUpdate(realm:Realm) {
+    let configRealm = realm.objects(AudioConfig.self).filter("id == 1")
+    if configRealm.count > 0 {
+      for config in configRealm {
+        let id = config.id
+        let grave = config.grave
+        let medio = config.medio
+        let agudo = config.agudo
+        let audioQuality = config.audioQuality
+        let userConfig = AudioConfig(id: "\(id)", grave: grave, medio: medio, agudo: agudo, audioQuality: audioQuality)
+        DataManager.sharedInstance.audioConfig = userConfig
+        Util.applyEqualizerToStreamingInBaseOfSliders()
+      }
+    } else {
+        DataManager.sharedInstance.audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0, audioQuality: 0)
+    }
+    
     let radios = realm.objects(RadioRealm.self)
     DataManager.sharedInstance.allRadios = Array(radios)
     let users = realm.objects(UserRealm.self)

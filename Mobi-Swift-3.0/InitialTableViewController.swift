@@ -38,14 +38,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
-    
-    if DataManager.sharedInstance.allRadios.count == 0 {
+    if !DataManager.sharedInstance.isLoadScreenAppered {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
       let app = UIApplication.sharedApplication().delegate as! AppDelegate
       let windows = app.window
       windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
       })
+      DataManager.sharedInstance.isLoadScreenAppered = true
     }
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
     changeTableViewStatus()
@@ -232,7 +232,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
-
+    
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -246,12 +246,23 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   ///////////////////////////////////////////////////////////
   
   func changeTableViewStatus() {
+    let manager = RequestManager()
     if (selectedMode == .Top) {
       selectedRadioArray = DataManager.sharedInstance.topRadios
+      manager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+        self.selectedRadioArray = DataManager.sharedInstance.topRadios
+        self.tableView.reloadData()
+      })
     } else if (selectedMode == .Local) {
       selectedRadioArray = DataManager.sharedInstance.localRadios
+      if let local = DataManager.sharedInstance.userLocation {
+        let localRadioManager = RequestManager()
+        localRadioManager.requestLocalRadios(CGFloat(local.coordinate.latitude), longitude: CGFloat(local.coordinate.longitude), pageNumber: 0, pageSize: 20, completion: { (resultHistoric) in
+          self.selectedRadioArray = DataManager.sharedInstance.localRadios
+          self.tableView.reloadData()
+        })
+      }
     } else if (selectedMode == .Favorite) {
-      let manager = RequestManager()
       manager.requestUserFavorites({ (resultFav) in
         self.selectedRadioArray = DataManager.sharedInstance.favoriteRadios
         self.tableView.reloadData()
@@ -259,6 +270,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       selectedRadioArray = DataManager.sharedInstance.favoriteRadios
     } else if (selectedMode == .Recent) {
       selectedRadioArray = DataManager.sharedInstance.recentsRadios
+      manager.requestHistoricRadios(0, pageSize: 20, completion: { (resultTop) in
+        self.selectedRadioArray = DataManager.sharedInstance.recentsRadios
+        self.tableView.reloadData()
+      })
     } else {
       print("A string ")
     }

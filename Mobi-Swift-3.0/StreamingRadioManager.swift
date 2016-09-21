@@ -81,17 +81,24 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     actualRadio = radio
     audioPlayer.play(actualRadio.audioChannels[0].returnLink())
     isPlaying = true
+    let historicManager = RequestManager()
+    historicManager.markRadioHistoric(radio) { (resultFav) in
+    }
   }
   
   func playActualRadio() -> Bool {
     if actualRadio.name != "" {
       audioPlayer.play(actualRadio.audioChannels[0].returnLink())
       isPlaying = true
+      let historicManager = RequestManager()
+        historicManager.markRadioHistoric(actualRadio) { (resultFav) in
+      }
       return true
     } else {
       return false
     }
   }
+  
   
   func currentlyPlaying() -> Bool {
     if isPlaying {

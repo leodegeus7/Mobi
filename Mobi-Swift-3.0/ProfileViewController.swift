@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
   
+  @IBOutlet weak var heightTableView: NSLayoutConstraint!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -91,6 +92,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     } else {
       buttonTwitter.setTitle("Login Twitter", forState: .Normal)
     }
+    
+    let requestManager = RequestManager()
+    requestManager.requestMyUserInfo { (result) in
+      self.myUser = DataManager.sharedInstance.myUser
+      self.completeProfileViewInfo()
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -102,6 +109,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   ///////////////////////////////////////////////////////////
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    heightTableView.constant = 130*CGFloat(myUser.favoritesRadios.count)
     return myUser.favoritesRadios.count
   }
   
@@ -138,12 +146,16 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     labelName.text = myUser.name
     labelCity.text = myUser.address.city
     labelState.text = myUser.address.state
-    labelGender.text = myUser.sex
+    if myUser.sex == "M" {
+      labelGender.text = "Masculino"
+    } else if myUser.sex == "F" {
+      labelGender.text = "Feminino"
+    }
     labelCountry.text = myUser.address.country
-    labelDateBirth.text = myUser.birthDate
+    labelDateBirth.text = Util.convertDateToShowString(myUser.birthDate)
     labelFollowers.text = "\(myUser.followers)"
     labelFollowing.text = "\(myUser.following)"
-    labelAddress.text = myUser.address.formattedLocal
+    labelAddress.text = "\(myUser.address.street), \(myUser.address.streetNumber)"
     if FileSupport.testIfFileExistInDocuments(myUser.userImage) {
       let path = "\(FileSupport.findDocsDirectory())\(myUser.userImage)"
       let image = UIImage(contentsOfFile: path)

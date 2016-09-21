@@ -29,7 +29,7 @@ public enum RequestResult: Int {
 public enum StationUnitRequest {
   case stationUnits
   case stationUnitsFavorites(pageNumber:Int,pageSize:Int)
-  case stationUnitsLocation(pageNumber:Int,pageSize:Int,lat:Int,long:Int)
+  case stationUnitsLocation(pageNumber:Int,pageSize:Int,lat:CGFloat,long:CGFloat)
   case stationUnitsHistoric(pageNumber:Int,pageSize:Int)
   case stationUnitsUserFavorite(pageNumber:Int,pageSize:Int)
 }
@@ -62,7 +62,7 @@ class RequestManager: NSObject {
   //MARK: --- REQUEST FUNCTION ---
   ///////////////////////////////////////////////////////////
   
-  func requestStationUnits(staticUnitRequest:StationUnitRequest,completion: (result: Dictionary<String,AnyObject>) -> Void){
+  func requestStationUnits(staticUnitRequest:StationUnitRequest,completion: (resultRadios: Dictionary<String,AnyObject>) -> Void){
     var url = ""
     switch staticUnitRequest {
     case .stationUnits:
@@ -78,9 +78,69 @@ class RequestManager: NSObject {
     }
     
     requestJson(url) { (result) in
-      completion(result: result)
+      completion(resultRadios: result)
     }
     
+  }
+  
+  func requestTopLikesRadios(pageNumber:Int,pageSize:Int,completion: (resultTop: [RadioRealm]) -> Void) {
+    requestStationUnits(.stationUnitsFavorites(pageNumber: pageNumber, pageSize: pageSize)) { (resultRadios) in
+      if let array = resultRadios["data"]!["records"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        DataManager.sharedInstance.topRadios = radios
+        completion(resultTop: radios)
+      }
+      else {
+        completion(resultTop: [])
+      }
+    }
+  }
+  
+  func requestHistoricRadios(pageNumber:Int,pageSize:Int,completion: (resultHistoric: [RadioRealm]) -> Void) {
+    requestStationUnits(.stationUnitsHistoric(pageNumber: pageNumber, pageSize: pageSize)) { (resultRadios) in
+      if let array = resultRadios["data"]!["records"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        DataManager.sharedInstance.recentsRadios = radios
+        completion(resultHistoric: radios)
+      }
+      else {
+        completion(resultHistoric: [])
+      }
+    }
+  }
+  
+  func requestLocalRadios(latitude:CGFloat,longitude:CGFloat,pageNumber:Int,pageSize:Int,completion: (resultHistoric: [RadioRealm]) -> Void) {
+    requestStationUnits(.stationUnitsLocation(pageNumber: pageNumber, pageSize: pageSize, lat: latitude, long: longitude)) { (resultRadios) in
+      if let array = resultRadios["data"]!["records"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        DataManager.sharedInstance.localRadios = radios
+        completion(resultHistoric: radios)
+      }
+      else {
+        completion(resultHistoric: [])
+      }
+    }
   }
   
   func requestJson(link:String,completion: (result: Dictionary<String,AnyObject>) -> Void){
@@ -272,6 +332,23 @@ class RequestManager: NSObject {
       if let resultRequest = result["requestResult"] as? RequestResult{
         if resultRequest == .OK {
           print("Radio \(radio.name) favoritada com sucesso")
+        }
+        completion(resultFav: result)
+      }
+    }
+  }
+  
+  func markRadioHistoric(radio:RadioRealm,completion: (resultFav: Dictionary<String,AnyObject>) -> Void) {
+    let dicParameters = [
+      "id" : radio.id
+    ]
+    let parameters = [
+      "stationUnit": dicParameters
+    ]
+    genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "stationunit/history") { (result) in
+      if let resultRequest = result["requestResult"] as? RequestResult{
+        if resultRequest == .OK {
+          print("Radio \(radio.name) marcada no histórico com sucesso")
         }
         completion(resultFav: result)
       }
@@ -553,5 +630,80 @@ class RequestManager: NSObject {
       }
     }
   }
+  
+  func requestMyUserInfo(completion: (result: Bool) -> Void) {
+    requestJson("user/token?value=\(DataManager.sharedInstance.userToken)") { (result) in
+      let json = JSON(result["data"]!).dictionary
+      
+      if let resultDic = JSON(result["data"]!).dictionary {
+        var id = -1
+        var email = ""
+        var name = ""
+        var genre = ""
+        var image = ""
+        var city = ""
+        var state = ""
+        var birthdate = ""
+        var inactiveDate = ""
+        var streetName = ""
+        var zipCode = ""
+        var addressID = -1
+        var latitude:Double = -1
+        var longitude:Double = -1
+        var streetNumber = ""
 
+        if let idAux = resultDic["id"]?.int {
+          id = idAux
+        }
+        if let emailAux = resultDic["email"]?.string {
+          email = emailAux
+        }
+        if let nameAux = resultDic["name"]?.string {
+          name = nameAux
+        }
+        if let genreAux = resultDic["genre"]?.string {
+          genre = genreAux
+        }
+        if let birthdateAux = resultDic["birthdate"]?.string {
+          birthdate = birthdateAux
+        }
+        if let addressIDAux = resultDic["address"]!["id"].int {
+          addressID = addressIDAux
+        }
+        if let latitudeAux = resultDic["address"]!["latitude"].double {
+          latitude = latitudeAux
+        }
+        if let longitudeAux = resultDic["address"]!["longitude"].double {
+          longitude = longitudeAux
+        }
+        if let streetNameAux = resultDic["address"]!["street"]["name"].string {
+          streetName = streetNameAux
+        }
+        if let zipCodeAux = resultDic["address"]!["street"]["zip"].string {
+          zipCode = zipCodeAux
+        }
+        if let streetNumberAux = resultDic["address"]!["number"].string {
+          streetNumber = streetNumberAux
+        }
+        if let cityAux = resultDic["address"]!["street"]["district"]["city"]["name"].string {
+          city = cityAux
+        }
+        if let stateAux = resultDic["address"]!["street"]["district"]["city"]["state"]["acronym"].string {
+          state = stateAux
+        }
+        
+        
+        if state != "" && city != "" && streetName != "" {
+          let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
+          let user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0")
+          DataManager.sharedInstance.myUser = user
+          completion(result: true)
+        }
+        else {
+          completion(result: false)
+        }
+      }
+    }
+  }
+  
 }

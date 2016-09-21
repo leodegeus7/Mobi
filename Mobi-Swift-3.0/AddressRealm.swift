@@ -36,6 +36,7 @@ class AddressRealm: Object  {
     case Initial
     case LocalJustWithLocalName
   }
+
   
   override static func ignoredProperties() -> [String] {
     return ["currentClassState","coordinates"]

@@ -51,7 +51,7 @@ class LoadViewController: UIViewController {
       
       let genreManager = RequestManager()
       genreManager.requestMusicGenre({ (resultGenre) in
-         
+        
       })
       
       let localManager = RequestManager()
@@ -61,13 +61,33 @@ class LoadViewController: UIViewController {
       
       let favManager = RequestManager()
       favManager.requestUserFavorites({ (resultFav) in
-        self.dismissViewControllerAnimated(true, completion: {
+        
+        let profileManager = RequestManager()
+        profileManager.requestMyUserInfo({ (result) in
           
+          let likesManager = RequestManager()
+          likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+            
+            let historicManager = RequestManager()
+            historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
+              
+              self.dismissViewControllerAnimated(true, completion: {
+                
+              })
+            })
+          })
         })
       })
       
-
-
+      if let local = DataManager.sharedInstance.userLocation {
+        let localRadioManager = RequestManager()
+        localRadioManager.requestLocalRadios(CGFloat(local.coordinate.latitude), longitude: CGFloat(local.coordinate.longitude), pageNumber: 0, pageSize: 20, completion: { (resultHistoric) in
+        })
+      }
+      
+      
+      
+      
     }
     
     

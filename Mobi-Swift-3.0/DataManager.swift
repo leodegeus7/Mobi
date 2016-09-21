@@ -42,6 +42,12 @@ enum StreamingLinkType : Int {
   case Undefined = -1
 }
 
+enum StremingQuallity : Int {
+  case Automatico = 0
+  case Low = 1
+  case High = 2
+}
+
 class DataManager: NSObject {
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
@@ -51,6 +57,7 @@ class DataManager: NSObject {
   var audioConfig:AudioConfig!
   var realm:Realm!
   
+  var isLoadScreenAppered = false
   
   //Groups of radios
   var allRadios = [RadioRealm]()

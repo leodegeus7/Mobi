@@ -16,7 +16,7 @@ class UserRealm: Object {
   dynamic var sex = ""
   dynamic var address:AddressRealm!
   var favoritesRadios:[RadioRealm]!
-  dynamic var birthDate = ""
+  dynamic var birthDate = NSDate()
   dynamic var userImage = "profilePic.jpg"
   dynamic var following = -1
   dynamic var followers = -1
@@ -31,7 +31,7 @@ class UserRealm: Object {
     self.name = name
     self.sex = sex
     self.address = address
-    self.birthDate = birthDate
+    self.birthDate = Util.convertStringToNSDate(birthDate)
     self.followers = Int(followers)!
     self.following = Int(following)!
     self.password = ""

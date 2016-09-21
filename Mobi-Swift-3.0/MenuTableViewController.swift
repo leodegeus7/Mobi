@@ -44,8 +44,14 @@ class MenuTableViewController: UITableViewController {
     if tableView.visibleCells.count > 0 {
       if DataManager.sharedInstance.existInterfaceColor {
         for index in 0...6 {
+
           let indexPath = NSIndexPath(forItem: index, inSection: 0)
           let cell = tableView.cellForRowAtIndexPath(indexPath)
+          if index == 0 {
+            let cell2 = tableView.cellForRowAtIndexPath(indexPath) as! TopMenuTableViewCell
+            
+            cell2.nameUser.text = DataManager.sharedInstance.myUser.name
+          }
           var color = DataManager.sharedInstance.interfaceColor.color
           color = color.colorWithAlphaComponent(1)
           if (indexPath.row == 0) {
@@ -55,6 +61,7 @@ class MenuTableViewController: UITableViewController {
         }
       }
     }
+    
   }
   
   override func didReceiveMemoryWarning() {

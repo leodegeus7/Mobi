@@ -991,6 +991,7 @@
                         <outlet property="buttonFacebook" destination="Fad-Bh-fbC" id="qz1-nQ-uZl"/>
                         <outlet property="buttonLogin" destination="bub-hp-do3" id="oeB-OQ-CO4"/>
                         <outlet property="buttonTwitter" destination="Tym-AN-f0q" id="gh2-bh-MRf"/>
+                        <outlet property="heightTableView" destination="bwq-Nv-Dgo" id="iFf-PA-JQe"/>
                         <outlet property="imageUser" destination="qaf-ok-r1q" id="dfK-1j-35M"/>
                         <outlet property="labelAddress" destination="vuq-Nz-FBS" id="yTI-ta-TUd"/>
                         <outlet property="labelCity" destination="KQ2-hJ-BDG" id="fnM-SY-Hdd"/>
@@ -2868,7 +2869,7 @@
                                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <slider opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="247" verticalHuggingPriority="249" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-vx-dhZ">
+                                                                                    <slider opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="247" verticalHuggingPriority="249" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-vx-dhZ">
                                                                                         <rect key="frame" x="19" y="0.0" width="259" height="31"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="277" id="Fst-TA-DQw"/>
@@ -2879,6 +2880,9 @@
                                                                                                 <exclude reference="Fst-TA-DQw"/>
                                                                                             </mask>
                                                                                         </variation>
+                                                                                        <connections>
+                                                                                            <action selector="sliderGraveChanged:" destination="CJl-Dp-q78" eventType="valueChanged" id="afr-TT-hgD"/>
+                                                                                        </connections>
                                                                                     </slider>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-eS-0VM">
                                                                                         <rect key="frame" x="289" y="5" width="11" height="21"/>
@@ -2918,7 +2922,7 @@
                                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <slider opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="247" horizontalCompressionResistancePriority="746" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-f7-ve3">
+                                                                                    <slider opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="247" horizontalCompressionResistancePriority="746" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-f7-ve3">
                                                                                         <rect key="frame" x="16" y="0.0" width="265" height="31"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="277" id="Ek1-fX-vKp"/>
@@ -2928,6 +2932,9 @@
                                                                                                 <exclude reference="Ek1-fX-vKp"/>
                                                                                             </mask>
                                                                                         </variation>
+                                                                                        <connections>
+                                                                                            <action selector="sliderMedioChanged:" destination="CJl-Dp-q78" eventType="valueChanged" id="DhE-xM-GZR"/>
+                                                                                        </connections>
                                                                                     </slider>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gsn-UN-E4Y">
                                                                                         <rect key="frame" x="289" y="5" width="11" height="21"/>
@@ -2957,7 +2964,7 @@
                                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <slider opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="247" horizontalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="5jZ-xQ-Cey">
+                                                                                    <slider opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="247" horizontalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="5jZ-xQ-Cey">
                                                                                         <rect key="frame" x="16" y="0.0" width="265" height="31"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="277" id="oud-Q5-0Lz"/>
@@ -2967,6 +2974,9 @@
                                                                                                 <exclude reference="oud-Q5-0Lz"/>
                                                                                             </mask>
                                                                                         </variation>
+                                                                                        <connections>
+                                                                                            <action selector="sliderAgudoChanged:" destination="CJl-Dp-q78" eventType="valueChanged" id="xj6-9m-lth"/>
+                                                                                        </connections>
                                                                                     </slider>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WX4-5S-P0a">
                                                                                         <rect key="frame" x="289" y="5" width="11" height="21"/>

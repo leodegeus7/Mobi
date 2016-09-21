@@ -7,34 +7,60 @@
 //
 
 import UIKit
+import RealmSwift
 
-class AudioConfig: NSObject {
+class AudioConfig: Object {
+  dynamic var id = -1
   dynamic var grave = 0
   dynamic var medio = 0
   dynamic var agudo = 0
-  dynamic var audioQuality = ""
+  dynamic var audioQuality = 0
   
-  required init(grave: Int,medio: Int, agudo: Int, audioQuality:String) {
+  
+  convenience init(id:String,grave: Int,medio: Int, agudo: Int, audioQuality:Int) {
+    self.init()
+    self.id = Int(id)!
     self.grave = grave
     self.medio = medio
     self.agudo = agudo
     self.audioQuality = audioQuality
+    
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(self, update: true)
+    }
+  }
+  
+  override class func primaryKey() -> String? {
+    return "id"
   }
   
   func setGraveParameter(grave: Int) {
-    self.grave = grave
+    try! DataManager.sharedInstance.realm.write {
+      self.grave = grave
+    }
+    
   }
   
   func setMedioParameter(medio: Int) {
-    self.medio = medio
+    try! DataManager.sharedInstance.realm.write {
+      self.medio = medio
+    }
+    
   }
   
   func setAgudoParameter(agudo: Int) {
-    self.agudo = agudo
+    try! DataManager.sharedInstance.realm.write {
+      self.agudo = agudo
+    }
+    
   }
   
-  func setAudioQualityParameter(audioQuality: String){
-    self.audioQuality = audioQuality
+  func setAudioQualityParameter(audioQuality: Int){
+    DataManager.sharedInstance.realm.beginWrite()
+    try! DataManager.sharedInstance.realm.write {
+      self.audioQuality = audioQuality
+          try! DataManager.sharedInstance.realm.commitWrite()
+    }
   }
 }
 

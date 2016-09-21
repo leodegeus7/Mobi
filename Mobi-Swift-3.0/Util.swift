@@ -156,10 +156,32 @@ class Util: NSObject {
   }
   
   static func convertStringToNSDate(dateString:String) -> NSDate{
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-    let date = dateFormatter.dateFromString(dateString)
-    return date!
+    if dateString.characters.count == 10 {
+      if !dateString.containsString("/") {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(dateString)
+        return date!
+      } else {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date = dateFormatter.dateFromString(dateString)
+        return date!
+      }
+    } else {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+      let date = dateFormatter.dateFromString(dateString)
+      return date!
+    }
+    
+  }
+  
+  static func convertDateToShowString(date:NSDate) -> String {
+    let calender = NSCalendar.currentCalendar()
+    let components = calender.components([.Day, .Month, . Year], fromDate: date)
+    let dateString = "\(components.day)/\(components.month)/\(components.year)"
+    return dateString
   }
   
   static func sleepNotification(seconds:Int) {
@@ -235,6 +257,61 @@ class Util: NSObject {
     }
     let view = UIViewController()
     return view
+  }
+  
+  static func applyEqualizerToStreamingInBaseOfSliders() {
+    let valueMedioSlider = Double(DataManager.sharedInstance.audioConfig.grave)
+    let maxValueScroll = 5.0
+    let minValueScroll = -5.0
+    
+    if valueMedioSlider > 0 {
+      let faixa2 = (16/maxValueScroll)*valueMedioSlider
+      let faixa3 = (16/maxValueScroll)*valueMedioSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa3), forEqualizerBand: 3)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa2), forEqualizerBand: 2)
+    } else {
+      let faixa2 = (-64/minValueScroll)*valueMedioSlider
+      let faixa3 = (-64/minValueScroll)*valueMedioSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa2), forEqualizerBand: 2)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa3), forEqualizerBand: 3)
+    }
+    
+    let valueGraveSlider = Double(DataManager.sharedInstance.audioConfig.grave)
+
+    if valueGraveSlider > 0 {
+      let faixa0 = (24/maxValueScroll)*valueGraveSlider
+      let faixa1 = (16/maxValueScroll)*valueGraveSlider
+      let faixa2 = (8/maxValueScroll)*valueGraveSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa0), forEqualizerBand: 0)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa1), forEqualizerBand: 1)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa2), forEqualizerBand: 2)
+    } else {
+      let faixa0 = (-96/minValueScroll)*valueGraveSlider
+      let faixa1 = (-64/minValueScroll)*valueGraveSlider
+      let faixa2 = (-32/minValueScroll)*valueGraveSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa0), forEqualizerBand: 0)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa1), forEqualizerBand: 1)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa2), forEqualizerBand: 2)
+    }
+    
+    
+    let valueAgudoSlider = Double(DataManager.sharedInstance.audioConfig.agudo)
+
+    if valueAgudoSlider > 0 {
+      let faixa5 = (24/maxValueScroll)*valueAgudoSlider
+      let faixa4 = (16/maxValueScroll)*valueAgudoSlider
+      let faixa3 = (8/maxValueScroll)*valueAgudoSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa5), forEqualizerBand: 5)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa4), forEqualizerBand: 4)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa3), forEqualizerBand: 3)
+    } else {
+      let faixa5 = (-96/minValueScroll)*valueAgudoSlider
+      let faixa4 = (-64/minValueScroll)*valueAgudoSlider
+      let faixa3 = (-32/minValueScroll)*valueAgudoSlider
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa5), forEqualizerBand: 5)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa4), forEqualizerBand: 4)
+      StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa3), forEqualizerBand: 3)
+    }
   }
 }
 

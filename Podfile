@@ -16,4 +16,5 @@ pod 'Fabric'
 pod 'TwitterKit'
 pod 'TwitterCore'
 pod 'DZNEmptyDataSet'
+pod 'PullToRefresh'
 end

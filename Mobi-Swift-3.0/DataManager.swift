@@ -78,6 +78,10 @@ class DataManager: NSObject {
   var isLogged = false
   
   var sleepTimer = NSTimer()
+  var isSleepModeEnabled  = false
+  var dateSleep = NSDate()
+  
+  var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
   
   enum actualCondition {
     case Ok
@@ -134,6 +138,7 @@ class DataManager: NSObject {
     vc?.actualRadio = radio
     navigation.pushViewController(vc!, animated: true)
   }
+  
   
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
   //    if radios.count < index {

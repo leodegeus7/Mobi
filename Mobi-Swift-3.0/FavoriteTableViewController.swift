@@ -77,6 +77,7 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
       let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
         DataManager.sharedInstance.favoriteRadios[indexPath.row].updateIsFavorite(false)
+        DataManager.sharedInstance.favoriteRadios[indexPath.row].removeOneLikesNumber()
         manager.deleteFavRadio(DataManager.sharedInstance.favoriteRadios[indexPath.row], completion: { (result) in
           manager.requestUserFavorites({ (resultFav) in
           })
@@ -92,9 +93,11 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     } else {
       let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
         DataManager.sharedInstance.favoriteRadios[indexPath.row].updateIsFavorite(true)
+        DataManager.sharedInstance.favoriteRadios[indexPath.row].addOneLikesNumber()
         manager.favRadio(DataManager.sharedInstance.favoriteRadios[indexPath.row], completion: { (result) in
           self.tableView.reloadData()
         })
+        
         
       }
       

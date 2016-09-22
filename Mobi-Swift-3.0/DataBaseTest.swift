@@ -72,6 +72,7 @@ class DataBaseTest: NSObject {
     }
     
     static func infoWithoutRadios() {
+      DataManager.sharedInstance.localRadios = []
         DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[3])
         DataManager.sharedInstance.localRadios.append(DataManager.sharedInstance.allRadios[2])
         

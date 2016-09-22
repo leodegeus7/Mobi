@@ -59,6 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
     }
+    
+    if (UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:)))) {
+      UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert, categories: nil))
+    }
+    
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 
 
@@ -130,9 +135,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     })
     
   }
+
   
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-    RadioPlayer.sharedInstance.pause()
+    if notification.alertTitle == "SleepMode" {
+      if DataManager.sharedInstance.isSleepModeEnabled {
+        if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+          StreamingRadioManager.sharedInstance.stop()
+          Util.displayAlert(Util.findTopView(), title: "Sleep Mode", message: "Modo dormir desligado", action: "Ok")
+          StreamingRadioManager.sharedInstance.sendNotification()
+        }
+        DataManager.sharedInstance.isSleepModeEnabled = false
+      }
+    }
   }
   
   static func realmUpdate(realm:Realm) {

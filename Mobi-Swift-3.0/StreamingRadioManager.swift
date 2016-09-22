@@ -44,6 +44,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     //MARK: --- AUDIOPLAYER CONFIG ---
     ///////////////////////////////////////////////////////////
     
+    UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
     audioPlayer = STKAudioPlayer(options: options)
     audioPlayer.equalizerEnabled = true
     audioPlayer.meteringEnabled = true

@@ -12,7 +12,7 @@ import SideMenu
 import Kingfisher
 import Firebase
 
-class InitialTableViewController: UITableViewController, CLLocationManagerDelegate {
+class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   @IBOutlet weak var buttonTop: UIButton!
   @IBOutlet weak var buttonLocal: UIButton!
@@ -65,6 +65,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         Util.displayAlert(self, title: "Atenção", message: "Tivemos um problema ao conectar aos nossos servidores", action: "Ok")
       }
     }
+    
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
     
   }
   
@@ -198,25 +202,45 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
     let manager = RequestManager()
+    
+    
+    
     if selectedRadioArray[indexPath.row].isFavorite {
       let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
         self.selectedRadioArray[indexPath.row].updateIsFavorite(false)
+        self.selectedRadioArray[indexPath.row].removeOneLikesNumber()
         manager.deleteFavRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+          manager.requestUserFavorites({ (resultFav) in
+          })
         })
-        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        if self.selectedMode == .Favorite {
+          DataManager.sharedInstance.favoriteRadios.removeAtIndex(indexPath.row)
+          self.selectedRadioArray = DataManager.sharedInstance.favoriteRadios
+          tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+          if DataManager.sharedInstance.favoriteRadios.count == 0 {
+            tableView.reloadData()
+          }
+        } else {
+          self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
       }
       favorite.backgroundColor = UIColor.orangeColor()
       return [favorite]
     } else {
       let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
         self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
+        self.selectedRadioArray[indexPath.row].addOneLikesNumber()
         manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+          self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+          
         })
-        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        
       }
+      
       favorite.backgroundColor = UIColor.orangeColor()
       return [favorite]
     }
+    
   }
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -351,5 +375,40 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   @IBAction func searchButtonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+  
+  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    if selectedMode == .Favorite {
+      str = "Sem Favoritos"
+    } else if selectedMode == .Recent {
+      str = "Nenhuma rádio foi reproduzida"
+    } else {
+      str = "Nenhuma radio para mostrar"
+    }
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    if selectedMode == .Favorite {
+      str = "Você não marcou nenhuma rádio como favorito, retorne a início e marque algumas!"
+    } else if selectedMode == .Recent {
+      str = "Selecione alguma rádio e as reproduza para que possamos gerar seu histórico"
+    } else {
+      str = "Nenhuma radio para mostrar"
+    }
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+  }
+  
+  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+    dismissViewControllerAnimated(true) {
+    }
   }
 }

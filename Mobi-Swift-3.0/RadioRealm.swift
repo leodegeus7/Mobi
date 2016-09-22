@@ -122,8 +122,18 @@ class RadioRealm: Object {
     }
   }
   
-
-    
+  func addOneLikesNumber() {
+    try! DataManager.sharedInstance.realm.write {
+      self.likenumber += 1
+    }
+  }
+  
+  func removeOneLikesNumber() {
+    try! DataManager.sharedInstance.realm.write {
+      self.likenumber -= 1
+    }
+  }
+  
   override static func ignoredProperties() -> [String] {
     return ["audioChannels"]
   }

@@ -11,6 +11,7 @@ import SideMenu
 
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
+  var switchTimer = NSTimer()
   @IBOutlet weak var viewTop: UIView!
   
   override func viewDidLoad() {
@@ -34,6 +35,7 @@ class MenuTableViewController: UITableViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
+    
     tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     if DataManager.sharedInstance.existInterfaceColor {
       super.tableView.backgroundColor = UIColor.whiteColor()
@@ -44,7 +46,7 @@ class MenuTableViewController: UITableViewController {
     if tableView.visibleCells.count > 0 {
       if DataManager.sharedInstance.existInterfaceColor {
         for index in 0...6 {
-
+          
           let indexPath = NSIndexPath(forItem: index, inSection: 0)
           let cell = tableView.cellForRowAtIndexPath(indexPath)
           if index == 0 {
@@ -62,6 +64,44 @@ class MenuTableViewController: UITableViewController {
       }
     }
     
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    updateSwitch()
+    switchTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(MenuTableViewController.updateInterfaceTimer), userInfo: nil, repeats: true)
+    
+  }
+  
+  func updateInterfaceTimer() {
+    updateSwitch()
+  }
+  
+  override func viewDidDisappear(animated: Bool) {
+    switchTimer.invalidate()
+
+  }
+  
+  func updateSwitch() {
+    let indexPath = NSIndexPath(forItem: 5, inSection: 0)
+    let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
+    if DataManager.sharedInstance.isSleepModeEnabled {
+      let interval = Double(NSDate().timeIntervalSinceDate(DataManager.sharedInstance.dateSleep))*(-1)
+      if interval < 60 {
+        cell.labelText.text = "Dormir em \(Int(interval)) seg"
+      } else {
+        cell.labelText.text = "Dormir em \(Int(interval/60)) min"
+      }
+      cell.switchStatus.enabled = true
+      cell.switchStatus.setOn(true, animated: false)
+    } else {
+      cell.labelText.text = "Dormir"
+      if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+        cell.switchStatus.enabled = true
+        cell.switchStatus.setOn(false, animated: false)
+      } else {
+        cell.switchStatus.enabled = false
+      }
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -118,6 +158,7 @@ class MenuTableViewController: UITableViewController {
     }
     
     let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
+    secondTypeCell.tag = 102
     secondTypeCell.labelText.text = menuArray[4]
     secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
     if DataManager.sharedInstance.existInterfaceColor {
@@ -155,40 +196,52 @@ class MenuTableViewController: UITableViewController {
   }
   
   @IBAction func sleepFunction(sender: AnyObject) {
-    let sleepAlert = UIAlertController(title: "Escolha um período", message: "hello", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    let indexPath = NSIndexPath(forItem: 5, inSection: 0)
+    let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
     
-    var sheets = [UIAlertAction]()
-    let values = ["15 min","30 min","45 min","60 min","90 min"]
-    for value in values {
-      let actionOption = UIAlertAction(title: value, style: UIAlertActionStyle.Default, handler: { (action) in
-        switch action.title! {
-        case "15 min":
-          Util.sleepNotification(15*60)
-          break
-        case "30 min":
-          Util.sleepNotification(30*60)
-          break
-        case "45 min":
-          Util.sleepNotification(45*60)
-          break
-        case "60 min":
-          Util.sleepNotification(60*60)
-          break
-        case "90 min":
-          Util.sleepNotification(90*60)
-          break
-        default:
-          break
+    if DataManager.sharedInstance.isSleepModeEnabled {
+      for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as [UILocalNotification] {
+        if notification.alertTitle == "SleepMode" {
+          UIApplication.sharedApplication().cancelLocalNotification(notification)
         }
-      })
-      sleepAlert.addAction(actionOption)
-      sheets.append(actionOption)
+      }
+      DataManager.sharedInstance.isSleepModeEnabled = false
+    } else {
+      let sleepAlert = UIAlertController(title: "Função dormir", message: "Escolha um período e iremos parar a radio para você", preferredStyle: UIAlertControllerStyle.ActionSheet)
+      
+      var sheets = [UIAlertAction]()
+      let values = ["15 min","30 min","45 min","60 min","90 min"]
+      for value in values {
+        let actionOption = UIAlertAction(title: value, style: UIAlertActionStyle.Default, handler: { (action) in
+          switch action.title! {
+          case "15 min":
+            Util.sleepNotification(5)
+            break
+          case "30 min":
+            Util.sleepNotification(30*60)
+            break
+          case "45 min":
+            Util.sleepNotification(45*60)
+            break
+          case "60 min":
+            Util.sleepNotification(60*60)
+            break
+          case "90 min":
+            Util.sleepNotification(90*60)
+            break
+          default:
+            break
+          }
+        })
+        sleepAlert.addAction(actionOption)
+        sheets.append(actionOption)
+      }
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+      sleepAlert.addAction(cancelAction)
+      
+      presentViewController(sleepAlert, animated: true, completion:nil)
     }
-    
-    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
-    sleepAlert.addAction(cancelAction)
-    
-    presentViewController(sleepAlert, animated: true, completion:nil)
   }
   
   

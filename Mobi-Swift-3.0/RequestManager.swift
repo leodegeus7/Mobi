@@ -329,8 +329,8 @@ class RequestManager: NSObject {
       "stationUnit": dicParameters
     ]
     genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "userfavoritestation") { (result) in
-      if let resultRequest = result["requestResult"] as? RequestResult{
-        if resultRequest == .OK {
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
           print("Radio \(radio.name) favoritada com sucesso")
         }
         completion(resultFav: result)
@@ -633,77 +633,82 @@ class RequestManager: NSObject {
   
   func requestMyUserInfo(completion: (result: Bool) -> Void) {
     requestJson("user/token?value=\(DataManager.sharedInstance.userToken)") { (result) in
-      let json = JSON(result["data"]!).dictionary
-      
-      if let resultDic = JSON(result["data"]!).dictionary {
-        var id = -1
-        var email = ""
-        var name = ""
-        var genre = ""
-        var image = ""
-        var city = ""
-        var state = ""
-        var birthdate = ""
-        var inactiveDate = ""
-        var streetName = ""
-        var zipCode = ""
-        var addressID = -1
-        var latitude:Double = -1
-        var longitude:Double = -1
-        var streetNumber = ""
-
-        if let idAux = resultDic["id"]?.int {
-          id = idAux
-        }
-        if let emailAux = resultDic["email"]?.string {
-          email = emailAux
-        }
-        if let nameAux = resultDic["name"]?.string {
-          name = nameAux
-        }
-        if let genreAux = resultDic["genre"]?.string {
-          genre = genreAux
-        }
-        if let birthdateAux = resultDic["birthdate"]?.string {
-          birthdate = birthdateAux
-        }
-        if let addressIDAux = resultDic["address"]!["id"].int {
-          addressID = addressIDAux
-        }
-        if let latitudeAux = resultDic["address"]!["latitude"].double {
-          latitude = latitudeAux
-        }
-        if let longitudeAux = resultDic["address"]!["longitude"].double {
-          longitude = longitudeAux
-        }
-        if let streetNameAux = resultDic["address"]!["street"]["name"].string {
-          streetName = streetNameAux
-        }
-        if let zipCodeAux = resultDic["address"]!["street"]["zip"].string {
-          zipCode = zipCodeAux
-        }
-        if let streetNumberAux = resultDic["address"]!["number"].string {
-          streetNumber = streetNumberAux
-        }
-        if let cityAux = resultDic["address"]!["street"]["district"]["city"]["name"].string {
-          city = cityAux
-        }
-        if let stateAux = resultDic["address"]!["street"]["district"]["city"]["state"]["acronym"].string {
-          state = stateAux
-        }
-        
-        
-        if state != "" && city != "" && streetName != "" {
-          let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
-          let user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0")
-          DataManager.sharedInstance.myUser = user
-          completion(result: true)
-        }
-        else {
-          completion(result: false)
+      if let resultRequest = result["requestResult"] as?  String {
+        if resultRequest == "OK" {
+          let json = JSON(result["data"]!).dictionary
+          if let resultDic = JSON(result["data"]!).dictionary {
+            var id = -1
+            var email = ""
+            var name = ""
+            var genre = ""
+            var image = ""
+            var city = ""
+            var state = ""
+            var birthdate = ""
+            var inactiveDate = ""
+            var streetName = ""
+            var zipCode = ""
+            var addressID = -1
+            var latitude:Double = -1
+            var longitude:Double = -1
+            var streetNumber = ""
+            
+            if let idAux = resultDic["id"]?.int {
+              id = idAux
+            }
+            if let emailAux = resultDic["email"]?.string {
+              email = emailAux
+            }
+            if let nameAux = resultDic["name"]?.string {
+              name = nameAux
+            }
+            if let genreAux = resultDic["genre"]?.string {
+              genre = genreAux
+            }
+            if let birthdateAux = resultDic["birthdate"]?.string {
+              birthdate = birthdateAux
+            }
+            if let addressIDAux = resultDic["address"]?["id"].int {
+              addressID = addressIDAux
+            }
+            if let latitudeAux = resultDic["address"]?["latitude"].double {
+              latitude = latitudeAux
+            }
+            if let longitudeAux = resultDic["address"]?["longitude"].double {
+              longitude = longitudeAux
+            }
+            if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+              streetName = streetNameAux
+            }
+            if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+              zipCode = zipCodeAux
+            }
+            if let streetNumberAux = resultDic["address"]?["number"].string {
+              streetNumber = streetNumberAux
+            }
+            if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
+              city = cityAux
+            }
+            if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+              state = stateAux
+            }
+            
+            
+            if state != "" && city != "" && streetName != "" {
+              let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
+              let user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0")
+              DataManager.sharedInstance.myUser = user
+              completion(result: true)
+            }
+            else {
+              completion(result: false)
+            }
+          }
+          
         }
       }
     }
+    
   }
   
 }

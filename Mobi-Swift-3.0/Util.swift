@@ -186,29 +186,34 @@ class Util: NSObject {
   
   static func sleepNotification(seconds:Int) {
     
-    if RadioPlayer.sharedInstance.currentlyPlaying() {
+    if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       let title:String = "SleepMode"
       
-      let calendar = NSCalendar.currentCalendar()
-      let calendarComponents = NSDateComponents()
-      calendarComponents.hour = 0
-      calendarComponents.second = seconds
-      calendarComponents.minute = 0
-      calendar.timeZone = NSTimeZone.defaultTimeZone()
-      let dateToFire = calendar.dateFromComponents(calendarComponents)
-      
+      let date = NSDate(timeIntervalSinceNow: Double(seconds))
+
       let notification = UILocalNotification()
       let dict:NSDictionary = ["ID" : "your ID goes here"]
       notification.userInfo = dict as! [String : String]
       notification.alertBody = "\(title)"
       notification.alertAction = "Open"
-      notification.fireDate = dateToFire
+      notification.alertTitle = "SleepMode"
+      notification.timeZone = NSTimeZone.defaultTimeZone()
+      notification.fireDate = date
       notification.soundName = UILocalNotificationDefaultSoundName
       UIApplication.sharedApplication().scheduleLocalNotification(notification)
+      DataManager.sharedInstance.dateSleep = date
+      DataManager.sharedInstance.isSleepModeEnabled = true
+      
+      
+      
     } else {
       
     }
   }
+  
+
+  
+
   
   static func displayAlert(title title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
@@ -249,14 +254,8 @@ class Util: NSObject {
   }
   
   static func findTopView() -> UIViewController {
-    if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
-      while let presentedViewController = topController.presentedViewController {
-        topController = presentedViewController
-        return topController
-      }
-    }
-    let view = UIViewController()
-    return view
+    
+    return (UIApplication.sharedApplication().keyWindow?.rootViewController)!
   }
   
   static func applyEqualizerToStreamingInBaseOfSliders() {
@@ -312,6 +311,15 @@ class Util: NSObject {
       StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa4), forEqualizerBand: 4)
       StreamingRadioManager.sharedInstance.audioPlayer.setGain(Float(faixa3), forEqualizerBand: 3)
     }
+  
+  }
+  
+  static func createServerOffNotification(view:UIViewController,tryAgainAction:()->Void) {
+    
+    func cancelAction() {
+      view.dismissViewControllerAnimated(true, completion: nil)
+    }
+    self.displayAlert(title: "Server OFF", message: "Estamos tendo dificuldades ao conectar aos servidores, tente novamente mais tarde", okTitle: "Tentar novamente", cancelTitle: "Entrar modo offline", okAction: tryAgainAction, cancelAction: cancelAction)
   }
 }
 

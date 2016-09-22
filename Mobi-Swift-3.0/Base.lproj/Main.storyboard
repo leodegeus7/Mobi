@@ -302,11 +302,11 @@
                                                 </mask>
                                             </variation>
                                             <connections>
-                                                <action selector="sleepFunction:" destination="S8D-7b-I5d" eventType="valueChanged" id="eeI-qL-hxq"/>
+                                                <action selector="sleepFunction:" destination="S8D-7b-I5d" eventType="valueChanged" id="9bA-1R-OML"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og0-WO-1eX">
-                                            <rect key="frame" x="18" y="8" width="169" height="27"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og0-WO-1eX">
+                                            <rect key="frame" x="20" y="8" width="169" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="169" id="Q3G-Cg-gnA"/>
                                                 <constraint firstAttribute="width" secondItem="og0-WO-1eX" secondAttribute="height" multiplier="2:1" id="zSU-xo-oRT"/>

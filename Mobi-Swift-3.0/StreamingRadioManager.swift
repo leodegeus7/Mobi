@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MediaPlayer
+import Kingfisher
 
 class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
@@ -14,7 +16,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   var audioPlayer = STKAudioPlayer()
   var isPlaying = false
   var actualRadio = RadioRealm()
-  var predecessorRadio = RadioRealm()
+  internal var predecessorRadio = RadioRealm()
   var notificationCenter = NSNotificationCenter.defaultCenter()
   
   class var sharedInstance: StreamingRadioManager {
@@ -45,6 +47,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     ///////////////////////////////////////////////////////////
     
     UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+
     audioPlayer = STKAudioPlayer(options: options)
     audioPlayer.equalizerEnabled = true
     audioPlayer.meteringEnabled = true
@@ -81,6 +84,11 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     predecessorRadio = actualRadio
     actualRadio = radio
     audioPlayer.play(actualRadio.audioChannels[0].returnLink())
+    
+    defineInfoCenter()
+
+
+
     isPlaying = true
     let historicManager = RequestManager()
     historicManager.markRadioHistoric(radio) { (resultFav) in
@@ -119,6 +127,17 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
   func sendNotification() {
     notificationCenter.postNotificationName("updateIcons", object: nil)
+  }
+  
+  func defineInfoCenter() {
+    let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)"]
+    MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+    
+    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
+      let albumArt = MPMediaItemArtwork(image: image!)
+      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
+      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+    }
   }
 
 }

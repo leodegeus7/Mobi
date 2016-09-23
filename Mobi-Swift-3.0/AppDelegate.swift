@@ -27,21 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
     print("Iniciou!")
     //DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     DataManager.sharedInstance.userToken = "0143363d-c4f4-4b9b-9b51-7ec5d8680460"
-    
     print(FileSupport.findDocsDirectory())
     //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
-      RealmWrapper.realmStart("default")
-      var config = Realm.Configuration()
-      config.fileURL = config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("default.realm")
-      Realm.Configuration.defaultConfiguration = config
-      let realm = try! Realm(configuration: config)
-      DataManager.sharedInstance.realm = realm
-     // defineInitialParameters()
-      AppDelegate.realmUpdate(realm)
+      
+      startRealm(0)
+      // defineInitialParameters()
+      
       if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
         loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
@@ -65,8 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-
-
+    
+    
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
   
@@ -102,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func defineInitialParameters() {
-    let audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0,audioQuality: 0)
+    let audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0,audioType: 0)
     DataManager.sharedInstance.audioConfig = audioConfig
     
   }
@@ -135,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     })
     
   }
-
+  
   
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
     if notification.alertTitle == "SleepMode" {
@@ -158,13 +154,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         let grave = config.grave
         let medio = config.medio
         let agudo = config.agudo
-        let audioQuality = config.audioQuality
-        let userConfig = AudioConfig(id: "\(id)", grave: grave, medio: medio, agudo: agudo, audioQuality: audioQuality)
+        let audioQuality = config.audioType
+        let userConfig = AudioConfig(id: "\(id)", grave: grave, medio: medio, agudo: agudo, audioType: audioQuality)
         DataManager.sharedInstance.audioConfig = userConfig
         Util.applyEqualizerToStreamingInBaseOfSliders()
       }
     } else {
-        DataManager.sharedInstance.audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0, audioQuality: 0)
+      DataManager.sharedInstance.audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0, audioType: 0)
     }
     
     let radios = realm.objects(RadioRealm.self)
@@ -190,6 +186,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     DataBaseTest.infoWithoutRadios()
   }
+  func startRealm(numberOfTryTimes:Int) {
+    RealmWrapper.realmStart("default")
+    var config = Realm.Configuration()
+    config.fileURL = config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("default.realm")
+    Realm.Configuration.defaultConfiguration = config
+    do{
+      let realm = try Realm(configuration: config)
+      DataManager.sharedInstance.realm = realm
+      AppDelegate.realmUpdate(realm)
+      return
+    } catch let error as NSError {
+      if numberOfTryTimes == 1 {
+        DataManager.sharedInstance.statusApp = .ProblemWithRealm
+        return
+      } else {
+        if error.code == 10 {
+          RealmWrapper.eraseRealmFile("default")
+          startRealm(1)
+        }
+      }
+    }
+  }
+  
+  override func remoteControlReceivedWithEvent(event: UIEvent?) {
+    let rc = (event?.subtype)! as UIEventSubtype
+    switch rc {
+    case .RemoteControlPause:
+      StreamingRadioManager.sharedInstance.stop()
+    case .RemoteControlPlay:
+      StreamingRadioManager.sharedInstance.playActualRadio()
+    default:
+      break
+    }
+  }
+  
+  
   
   
 }

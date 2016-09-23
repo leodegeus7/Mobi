@@ -33,7 +33,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func viewDidLoad() {
-    super.viewDidLoad()
+
     
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
@@ -47,6 +47,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       })
       DataManager.sharedInstance.isLoadScreenAppered = true
     }
+    super.viewDidLoad()
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
     changeTableViewStatus()
     tableView.rowHeight = 120
@@ -374,6 +375,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   @IBAction func searchButtonTap(sender: AnyObject) {
+    
+
+    
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   

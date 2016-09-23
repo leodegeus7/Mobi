@@ -188,9 +188,7 @@ class Util: NSObject {
     
     if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       let title:String = "SleepMode"
-      
       let date = NSDate(timeIntervalSinceNow: Double(seconds))
-
       let notification = UILocalNotification()
       let dict:NSDictionary = ["ID" : "your ID goes here"]
       notification.userInfo = dict as! [String : String]
@@ -204,6 +202,12 @@ class Util: NSObject {
       DataManager.sharedInstance.dateSleep = date
       DataManager.sharedInstance.isSleepModeEnabled = true
       
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        NSThread.sleepForTimeInterval(Double(date.timeIntervalSinceDate(NSDate())))
+        dispatch_async(dispatch_get_main_queue(), {
+            StreamingRadioManager.sharedInstance.stop()
+        })
+      })
       
       
     } else {

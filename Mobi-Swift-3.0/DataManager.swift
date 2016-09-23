@@ -48,7 +48,16 @@ enum StremingQuallity : Int {
   case High = 2
 }
 
+enum StatusApp : Int {
+  case CorrectyStatus = 0
+  case ProblemWithRealm = 1
+  case ProblemWithServer = 2
+  case ProblemWithInternet = 3
+}
+
 class DataManager: NSObject {
+
+  var statusApp:StatusApp = .CorrectyStatus
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
   var userToken:String!

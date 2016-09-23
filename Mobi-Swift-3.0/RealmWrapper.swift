@@ -25,6 +25,7 @@ class RealmWrapper: NSObject {
   }
   
   static func eraseRealmFile(fileName:String) -> Bool {
+    print("Erase realm Data")
     let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
     let realmURLs = [
       realmURL,

@@ -9,7 +9,7 @@
 import UIKit
 
 class ConfigViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+  
   @IBOutlet weak var menuButton: UIBarButtonItem!
   
   @IBOutlet weak var tableViewAudio: UITableView!
@@ -29,58 +29,58 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   @IBOutlet weak var button2x4: UIButton!
   var colorButtons = [UIButton]()
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      menuButton.target = self.revealViewController()
-      menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-      
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        //define color buttons in bottom of view
-        colorButtons.append(button1X1)
-        colorButtons.append(button1x2)
-        colorButtons.append(button1x3)
-        colorButtons.append(button1x4)
-        colorButtons.append(button2x1)
-        colorButtons.append(button2x2)
-        colorButtons.append(button2x3)
-        colorButtons.append(button2x4)
-        for button in colorButtons {
-          button.frame.size.width = colorView.bounds.width/4
-          button.frame.size.height = colorView.bounds.height/2
-          button.backgroundColor = Util.getRandomColor()
-          button.titleLabel?.text = ""
-          button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
-
-        }
-      
-        self.title = "Configurações"
-      
-        // define audio tableview parameters
-        tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-      
-        if (DataManager.sharedInstance.audioConfig.audioQuality == 1) {
-          let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
-          tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        } else if (DataManager.sharedInstance.audioConfig.audioQuality == 2) {
-          let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
-          tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        } else if (DataManager.sharedInstance.audioConfig.audioQuality == 0) {
-          let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
-          tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        }
-      
-        //define sliders config
-        sliderGraves.value = Float(DataManager.sharedInstance.audioConfig.grave)
-        sliderAgudos.value = Float(DataManager.sharedInstance.audioConfig.agudo)
-        sliderMedios.value = Float(DataManager.sharedInstance.audioConfig.medio)
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.view.userInteractionEnabled = true
+    menuButton.target = self.revealViewController()
+    menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+    
+    self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    //define color buttons in bottom of view
+    colorButtons.append(button1X1)
+    colorButtons.append(button1x2)
+    colorButtons.append(button1x3)
+    colorButtons.append(button1x4)
+    colorButtons.append(button2x1)
+    colorButtons.append(button2x2)
+    colorButtons.append(button2x3)
+    colorButtons.append(button2x4)
+    for button in colorButtons {
+      button.frame.size.width = colorView.bounds.width/4
+      button.frame.size.height = colorView.bounds.height/2
+      button.backgroundColor = Util.getRandomColor()
+      button.titleLabel?.text = ""
+      button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
       
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    self.title = "Configurações"
+    
+    // define audio tableview parameters
+    tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    
+    if (DataManager.sharedInstance.audioConfig.audioType == 1) {
+      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
+      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
+      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
     }
+    
+    //define sliders config
+    sliderGraves.value = Float(DataManager.sharedInstance.audioConfig.grave)
+    sliderAgudos.value = Float(DataManager.sharedInstance.audioConfig.agudo)
+    sliderMedios.value = Float(DataManager.sharedInstance.audioConfig.medio)
+    
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   
   //MARK: --- Table View DataSource and Table View Delegate Function ---
   
@@ -107,11 +107,11 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if (indexPath.row == 0) {
-      DataManager.sharedInstance.audioConfig.audioQuality = 2
+      DataManager.sharedInstance.audioConfig.setAudioTypeQuality(2)
     } else if (indexPath.row == 1) {
-      DataManager.sharedInstance.audioConfig.audioQuality = 1
+      DataManager.sharedInstance.audioConfig.setAudioTypeQuality(1)
     } else if (indexPath.row == 2) {
-      DataManager.sharedInstance.audioConfig.audioQuality = 0
+      DataManager.sharedInstance.audioConfig.setAudioTypeQuality(0)
     }
   }
   
@@ -125,13 +125,15 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.interfaceColor = color
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     
-    let button = sender! as UIButton
-    
-    button.imageView?.image = UIImage(contentsOfFile: "okImage")
+    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
+    okimage.frame = sender!.frame
+    okimage.center = sender!.center
+    sender!.addSubview(okimage)
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
+    print(sender?.tag)
   }
-
+  
   
   //MARK: --- Slider Events Function ---
   
@@ -157,12 +159,12 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     let currentValue = Int(value)
     DataManager.sharedInstance.audioConfig.setGraveParameter(currentValue)
   }
-
+  
   @IBAction func sliderMedioChanged(sender: AnyObject) {
     let value = sliderMedios.value as Float
     let maxValueScroll = Float(sliderMedios.maximumValue)
     let minValueScroll = Float(sliderMedios.minimumValue)
-
+    
     if value > 0 {
       let faixa2 = (16/maxValueScroll)*value
       let faixa3 = (16/maxValueScroll)*value
@@ -174,11 +176,11 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa2, forEqualizerBand: 2)
       StreamingRadioManager.sharedInstance.audioPlayer.setGain(faixa3, forEqualizerBand: 3)
     }
-
+    
     let currentValue = Int(value)
     DataManager.sharedInstance.audioConfig.setMedioParameter(currentValue)
   }
-
+  
   @IBAction func sliderAgudoChanged(sender: AnyObject) {
     let value = sliderAgudos.value as Float
     let maxValueScroll = Float(sliderAgudos.maximumValue)
@@ -205,5 +207,6 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   @IBAction func searchButtonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
+  
   
 }

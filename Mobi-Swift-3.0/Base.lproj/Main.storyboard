@@ -750,7 +750,7 @@
                                                     <action selector="loginButtonTap:" destination="zg7-Af-AaC" eventType="touchUpInside" id="vAP-bC-z5s"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tym-AN-f0q">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tym-AN-f0q">
                                                 <rect key="frame" x="240" y="467" width="65" height="30"/>
                                                 <state key="normal" title="TWITTER"/>
                                                 <connections>
@@ -1135,7 +1135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBw-GN-dMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5127" y="4500"/>
+            <point key="canvasLocation" x="5127" y="4205"/>
         </scene>
         <!--News Table View Controller-->
         <scene sceneID="x0e-O1-2sP">

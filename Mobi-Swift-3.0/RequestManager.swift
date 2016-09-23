@@ -624,8 +624,10 @@ class RequestManager: NSObject {
     requestJson("stationunit") { (result) in
       let requestResult = result["requestResult"] as! String
       if requestResult == "OK" {
+        DataManager.sharedInstance.statusApp = .CorrectyStatus
         completion(result: true)
       } else {
+        DataManager.sharedInstance.statusApp = .ProblemWithInternet
         completion(result: false)
       }
     }

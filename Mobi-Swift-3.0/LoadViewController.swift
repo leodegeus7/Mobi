@@ -17,7 +17,11 @@ class LoadViewController: UIViewController {
     super.viewDidLoad()
     
     if (requestInfo) {
-      requestInitialInformation()
+      if DataManager.sharedInstance.statusApp == .ProblemWithRealm {
+        Util.displayAlert(title: "Problemas", message: "Tivermos problemas ao acessar o banco de dados local. Reinstale o app para voltar ao funcionamento", action: "OK")
+      } else {
+        requestInitialInformation()
+      }
     } else {
       DataBaseTest.completeInfo()
       self.dismissViewControllerAnimated(true, completion: {

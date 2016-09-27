@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,16 +17,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IXl-yd-AbH">
-                        <rect key="frame" x="14" y="9" width="320" height="102"/>
+                        <rect key="frame" x="14" y="13" width="312" height="92"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="iWF-n2-TdO">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="102"/>
+                                <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iWF-n2-TdO" secondAttribute="height" multiplier="1:1" identifier="ID014" id="1Y6-H5-fS6"/>
                                     <constraint firstAttribute="height" constant="111" identifier="ID014" id="3eH-bB-Ugq"/>
                                     <constraint firstAttribute="height" constant="111" identifier="ID015" id="UaN-kJ-ITV"/>
                                     <constraint firstAttribute="width" constant="100" identifier="ID012" id="WoT-J3-OMx"/>
                                     <constraint firstAttribute="width" constant="111" identifier="ID016" id="ogh-oL-ccO"/>
+                                    <constraint firstAttribute="width" secondItem="iWF-n2-TdO" secondAttribute="height" multiplier="1:1" id="y7N-4w-bqN"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -37,10 +39,10 @@
                                 </variation>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="lAS-5W-1Fw">
-                                <rect key="frame" x="120" y="0.0" width="200" height="102"/>
+                                <rect key="frame" x="112" y="0.0" width="200" height="92"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-dV-Qef">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="57"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="47"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYs-Pf-ww2">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="24"/>
@@ -52,7 +54,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7w-5I-Fwe">
-                                                <rect key="frame" x="0.0" y="27" width="200" height="30"/>
+                                                <rect key="frame" x="0.0" y="27" width="200" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" red="0.57248467209999998" green="0.57258617879999996" blue="0.57247823480000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -60,7 +62,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-tj-QA2">
-                                        <rect key="frame" x="0.0" y="82" width="196" height="20"/>
+                                        <rect key="frame" x="0.0" y="72" width="196" height="20"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lRc-sf-Nwb">
                                                 <rect key="frame" x="0.0" y="0.0" width="78" height="20"/>
@@ -117,6 +119,10 @@
                         </subviews>
                     </stackView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="iWF-n2-TdO" secondAttribute="bottom" constant="5" id="LrH-IM-1tW"/>
+                    <constraint firstItem="iWF-n2-TdO" firstAttribute="top" secondItem="pPl-1T-UOJ" secondAttribute="topMargin" constant="5" id="PEp-6S-43z"/>
+                </constraints>
             </tableViewCellContentView>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="IXl-yd-AbH" secondAttribute="bottom" constant="9" identifier="ID002" id="iaO-EN-DeF"/>

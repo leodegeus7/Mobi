@@ -335,6 +335,13 @@ extension NSLayoutConstraint {
   }
 }
 
+extension UIView {
+  func loadFromNibNamed(nibNamed:String, bundle: NSBundle?
+    = nil) -> UIView? {
+    return UINib(nibName: nibNamed, bundle: bundle).instantiateWithOwner(nil, options: nil).first as? UIView
+  }
+}
+
 extension UIViewController {
   
   // Simple alert, OK only

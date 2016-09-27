@@ -18,6 +18,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   @IBOutlet weak var buttonLocal: UIButton!
   @IBOutlet weak var buttonRecents: UIButton!
   @IBOutlet weak var buttonFavorite: UIButton!
+  
+  
+  
   @IBOutlet weak var openMenu: UIBarButtonItem!
   
   var selectedMode = modes.Top

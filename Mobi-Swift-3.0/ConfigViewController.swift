@@ -125,10 +125,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.interfaceColor = color
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     
-    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
-    okimage.frame = sender!.frame
-    okimage.center = sender!.center
-    sender!.addSubview(okimage)
+//    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
+//    okimage.frame = sender!.frame
+//    okimage.center = sender!.center
+//    sender!.addSubview(okimage)
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
     print(sender?.tag)

@@ -65,11 +65,14 @@ class RadioListTableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     selectedRadio = radios[indexPath.row]
-    performSegueWithIdentifier("detailRadio", sender: self)
+    performSegueWithIdentifier("detailRadio2", sender: self)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "detailRadio" {
+    if segue.identifier == "detailRadio2" {
+      let radioVC = (segue.destinationViewController as! RadioTableViewController)
+      radioVC.actualRadio = selectedRadio
+    } else     if segue.identifier == "detailRadio" {
       let radioVC = (segue.destinationViewController as! RadioViewController)
       radioVC.actualRadio = selectedRadio
     }

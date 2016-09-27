@@ -77,7 +77,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     self.view.addSubview(blurView)
     self.view.sendSubviewToBack(blurView)
     
-    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
+
     
     buttonPlay.hidden = true
     let manager = RequestManager()

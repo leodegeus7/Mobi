@@ -441,11 +441,12 @@ class RequestManager: NSObject {
   
   func requestMusicGenre(completion: (resultGenre: Bool) -> Void) {
     requestJson("musicgenre?pageNumber=0&pageSize=100") { (result) in
-      if let array = result["data"] as? NSArray {
+      if let array = result["data"]!["records"] as? NSArray {
         DataManager.sharedInstance.allMusicGenre = []
         for singleResult in array {
           let dic = singleResult as! NSDictionary
-          let genre = GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:"")
+          let genre =
+            GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:"")
           DataManager.sharedInstance.allMusicGenre.append(genre)
         }
         
@@ -461,7 +462,7 @@ class RequestManager: NSObject {
   
   func requestStates(completion: (resultState: Bool) -> Void) {
     requestJson("address/state?pageNumber=0&pageSize=100") { (result) in
-      if let array = result["data"] as? NSArray {
+      if let array = result["data"]!["records"] as? NSArray {
         DataManager.sharedInstance.allStates = []
         for singleResult in array {
           let dic = singleResult as! NSDictionary
@@ -621,7 +622,7 @@ class RequestManager: NSObject {
   }
   
   func testServer(completion: (result: Bool) -> Void) {
-    requestJson("stationunit") { (result) in
+    requestJson("stationunit/7") { (result) in
       let requestResult = result["requestResult"] as! String
       if requestResult == "OK" {
         DataManager.sharedInstance.statusApp = .CorrectyStatus

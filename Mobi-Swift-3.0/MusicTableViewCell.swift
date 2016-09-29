@@ -13,7 +13,7 @@ class MusicTableViewCell: UITableViewCell {
   @IBOutlet weak var imageMusic: UIImageView!
   @IBOutlet weak var labelMusicName: UILabel!
   @IBOutlet weak var labelArtist: UILabel!
-  @IBOutlet weak var labelAlbum: UILabel!
+
   @IBOutlet weak var buttonNLike: UIButton!
   @IBOutlet weak var butonLike: UIButton!
     override func awakeFromNib() {

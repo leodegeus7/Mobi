@@ -15,8 +15,9 @@ class RadioDetailTableViewCell: UITableViewCell {
   @IBOutlet weak var labelLocal: UILabel!
   @IBOutlet weak var imageHeart: UIImageView!
   @IBOutlet weak var labelLikes: UILabel!
-  @IBOutlet weak var labelListening: UILabel!
   @IBOutlet weak var labelScore: UILabel!
+  @IBOutlet weak var viewBack: UIView!
+  @IBOutlet weak var playButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

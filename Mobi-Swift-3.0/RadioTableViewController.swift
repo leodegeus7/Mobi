@@ -31,6 +31,7 @@ class RadioTableViewController: UITableViewController {
   }
   var selectedMode:SelectedRadioMode = .DetailRadio
   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let button = UIButton(type: UIButtonType.InfoLight)
@@ -45,20 +46,16 @@ class RadioTableViewController: UITableViewController {
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
     //viewTop.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
-
+    
     
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let color = ColorRealm(name: 2, red: components[0]-0.75, green: components[1]-0.75, blue: components[2]-0.75, alpha: 1)
+    let color = ColorRealm(name: 2, red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
     
-
-    navigationController?.navigationBar.backgroundColor = color.color
+    navigationController?.navigationBar.barTintColor = color.color
     
     
     // Uncomment the following line to preserve selection between presentations
     self.clearsSelectionOnViewWillAppear = true
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
   
   override func didReceiveMemoryWarning() {
@@ -68,10 +65,19 @@ class RadioTableViewController: UITableViewController {
   
   // MARK: - Table view data source
   
+  
+  override func viewWillAppear(animated: Bool) {
+    if !actualRadio.isFavorite {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+    } else {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+    }
+  }
+  
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .DetailRadio:
-      return 4
+      return 5
     default:
       return 1
     }
@@ -81,7 +87,9 @@ class RadioTableViewController: UITableViewController {
     switch selectedMode {
     case .DetailRadio:
       if section == 3 {
-        return DataManager.sharedInstance.favoriteRadios.count
+        return DataManager.sharedInstance.favoriteRadios.count + 1
+      } else if section == 4 {
+        return 2
       } else {
         return 1
       }
@@ -128,22 +136,36 @@ class RadioTableViewController: UITableViewController {
         }
         cell.labelLikes.text = "\(actualRadio.likenumber)"
         cell.labelScore.text = "\(actualRadio.stars)"
-        cell.labelListening.text = "-"
-        if !actualRadio.isFavorite {
-          cell.imageHeart.image = UIImage(named: "heart.png")
+        
+        
+        let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+        let color = ColorRealm(name: 3, red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
+        
+        cell.viewBack.alpha = 0
+        //cell.viewBack.backgroundColor = color.color
+        cell.playButton.backgroundColor = color.color
+        cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
+        cell.imageRadio.layer.borderWidth = 0
+        cell.imageRadio.clipsToBounds = true
+        if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
+          cell.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
         } else {
-          cell.imageHeart.image = UIImage(named: "heartRed.png")
+          cell.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
         }
-//        if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
-//          buttonActionNav.image =  Util.imageResize(UIImage(named: "pause.png")!, sizeChange: CGSize(width: 20, height: 20))
-//        } else {
-//          buttonActionNav.image =  Util.imageResize(UIImage(named: "play.png")!, sizeChange: CGSize(width: 20, height: 20))
-//        }
+        
+        if !actualRadio.isFavorite {
+          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+        } else {
+          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+        
+        
         return cell
       case 1:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualMusic", forIndexPath: indexPath) as! MusicTableViewCell
         cell.labelMusicName.text = "Happy"
-        cell.labelAlbum.text = "G I R L"
         cell.labelArtist.text = "Pharell Willians"
         cell.buttonNLike.backgroundColor = UIColor.clearColor()
         cell.butonLike.backgroundColor = UIColor.clearColor()
@@ -152,7 +174,7 @@ class RadioTableViewController: UITableViewController {
       case 2:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
         cell.labelName.text = "Programa da Manha"
-        cell.labelSchedule.text = "10:00 - 11:00"
+        cell.labelSecondName.text = "Programa Matutino"
         cell.imagePerson.image = UIImage(named: "happy.jpg")
         cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
         cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
@@ -162,7 +184,8 @@ class RadioTableViewController: UITableViewController {
         cell.labelGuests.text = "Toninho e Fulanhinho de tal"
         return cell
       case 3:
-        let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+        if indexPath.row <= DataManager.sharedInstance.favoriteRadios.count-1 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
           cell.labelName.text = DataManager.sharedInstance.favoriteRadios[indexPath.row].name
           if let address = DataManager.sharedInstance.favoriteRadios[indexPath.row].address {
             cell.labelLocal.text = address.formattedLocal
@@ -177,7 +200,30 @@ class RadioTableViewController: UITableViewController {
           } else {
             cell.imageSmallOne.image = UIImage(named: "heart.png")
           }
+          cell.tag = 120
           return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+          cell.labelReadMore.text = "Ver Mais"
+          cell.tag = 140
+          return cell
+        }
+      case 4:
+        switch indexPath.row {
+        case 0:
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = "Avaliações"
+          cell.tag = 110
+          return cell
+        case 1:
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = "Contato"
+          cell.tag = 130
+          return cell
+        default:
+          let cell = UITableViewCell()
+          return cell
+        }
       default:
         let cell = UITableViewCell()
         return cell
@@ -186,10 +232,7 @@ class RadioTableViewController: UITableViewController {
       let cell = UITableViewCell()
       return cell
     }
-    
     let cell = UITableViewCell()
-    
-    // Configure the cell... actualMusic detailRadio actualProgram
     return cell
   }
   
@@ -205,6 +248,8 @@ class RadioTableViewController: UITableViewController {
         return "PROGRAMA ATUAL"
       case 3:
         return "RADIOS SEMELHANTES"
+      case 4:
+        return "OUTROS"
       default:
         return ""
       }
@@ -213,70 +258,66 @@ class RadioTableViewController: UITableViewController {
     }
   }
   
-//  override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    switch selectedMode {
-//    case .DetailRadio:
-//      switch indexPath.section {
-//      case 0:
-//        return super
-//      case 1:
-//        <#code#>
-//      case 2:
-//        <#code#>
-//      case 3:
-//        <#code#>
-//      default:
-//        <#code#>
-//      }
-//    default:
-//      <#code#>
-//    }
-//  }
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let cell = tableView.cellForRowAtIndexPath(indexPath)
+    let cellTag = (cell?.tag)!
+    switch cellTag {
+    case 110:
+      performSegueWithIdentifier("reviewSegue", sender: self)
+    case 120:
+      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: DataManager.sharedInstance.favoriteRadios[indexPath.row])
+    case 130:
+      performSegueWithIdentifier("contactSegue", sender: self)
+    default:
+      break
+    }
+  }
   
+  @IBAction func buttonPlayTapped(sender: AnyObject) {
+    if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
+      if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+        StreamingRadioManager.sharedInstance.stop()
+      } else {
+        StreamingRadioManager.sharedInstance.play(actualRadio)
+        DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
+        DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+      }
+    } else {
+      StreamingRadioManager.sharedInstance.play(actualRadio)
+      DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
+      DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+    }
+    
+    StreamingRadioManager.sharedInstance.sendNotification()
+  }
   
-  /*
-   // Override to support conditional editing of the table view.
-   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the specified item to be editable.
-   return true
-   }
-   */
+  func updateIcons() {
+    let cellFirst = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
+    if (StreamingRadioManager.sharedInstance.currentlyPlaying()) {
+      if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
+        cellFirst.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
+      } else {
+        cellFirst.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
+      }
+    } else {
+      cellFirst.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
+    }
+  }
   
-  /*
-   // Override to support editing the table view.
-   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-   if editingStyle == .Delete {
-   // Delete the row from the data source
-   tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-   } else if editingStyle == .Insert {
-   // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-   }
-   }
-   */
+  func buttonFavTap() {
+    let manager = RequestManager()
+    if actualRadio.isFavorite {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+      actualRadio.updateIsFavorite(false)
+      manager.deleteFavRadio(actualRadio, completion: { (result) in
+      })
+    } else {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+      actualRadio.updateIsFavorite(true)
+      manager.favRadio(actualRadio, completion: { (resultFav) in
+      })
+    }
+  }
   
-  /*
-   // Override to support rearranging the table view.
-   override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-   
-   }
-   */
-  
-  /*
-   // Override to support conditional rearranging of the table view.
-   override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the item to be re-orderable.
-   return true
-   }
-   */
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
   
 }

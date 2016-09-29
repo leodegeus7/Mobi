@@ -91,6 +91,11 @@
 		B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
+		B7BB84A41D9C47030033D823 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A31D9C47030033D823 /* View.xib */; };
+		B7BB84A61D9D84FF0033D823 /* AppConfigRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */; };
+		B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A71D9D92F10033D823 /* heartRedFilled.png */; };
+		B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A91D9DA7AC0033D823 /* dislike.png */; };
+		B7BB84AC1D9DA7B20033D823 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84AB1D9DA7B20033D823 /* like.png */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
 		B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */; };
 		B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */; };
@@ -124,6 +129,8 @@
 		B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DFA1D64F34D000EE185 /* Data.swift */; };
 		B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */; };
 		B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */; };
+		B7F8C0C61D9DAE6300848351 /* SimpleFlagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */; };
+		B7F8C0C81D9DB21400848351 /* ReadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */; };
 		B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
 		CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65021D904B9D002B88EA /* ColorRealm.swift */; };
@@ -251,6 +258,11 @@
 		B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "Mobi-Swift-3.0/SWRevealViewController.m"; sourceTree = "<group>"; };
 		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mobi-Swift-3.0-Bridging-Header.h"; path = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7BB84A31D9C47030033D823 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigRealm.swift; sourceTree = "<group>"; };
+		B7BB84A71D9D92F10033D823 /* heartRedFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRedFilled.png; sourceTree = "<group>"; };
+		B7BB84A91D9DA7AC0033D823 /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike.png; sourceTree = "<group>"; };
+		B7BB84AB1D9DA7B20033D823 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigTableViewCell.swift; sourceTree = "<group>"; };
 		B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +297,8 @@
 		B7F65DFA1D64F34D000EE185 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
 		B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroungMenu.jpg; sourceTree = "<group>"; };
+		B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleFlagTableViewCell.swift; sourceTree = "<group>"; };
+		B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMoreTableViewCell.swift; sourceTree = "<group>"; };
 		B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
 		CD0B65021D904B9D002B88EA /* ColorRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorRealm.swift; sourceTree = "<group>"; };
@@ -335,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */,
+				B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */,
 				B76198D71D89D9FD00B83B6E /* StateRealm.swift */,
 				B7F325631D63993900B3BC42 /* RadioRealm.swift */,
 				B7F325651D63A1AE00B3BC42 /* AddressRealm.swift */,
@@ -354,6 +369,8 @@
 				B73532EB1D9AD7E6008504BA /* RadioDetailTableViewCell.swift */,
 				B74B0E5D1D6F6B4A00012D8E /* MusicTableViewCell.swift */,
 				B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */,
+				B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */,
+				B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */,
 			);
 			name = "Radio Cells";
 			sourceTree = "<group>";
@@ -567,6 +584,7 @@
 				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
 				B77384B51D7F559A00701070 /* GoogleService-Info.plist */,
 				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
+				B7BB84A31D9C47030033D823 /* View.xib */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -596,6 +614,9 @@
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
+				B7BB84A71D9D92F10033D823 /* heartRedFilled.png */,
+				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
+				B7BB84AB1D9DA7B20033D823 /* like.png */,
 				B70DFA4A1D70C847000DDBD6 /* play.png */,
 				B70DFA4C1D70C84C000DDBD6 /* pause.png */,
 				B71E2AA61D76123E00451DED /* hamburgerIcon.png */,
@@ -731,16 +752,20 @@
 				B77892ED1D91D727009D6105 /* icone-coracao.png in Resources */,
 				B7F530F31D62486600831561 /* test-1.png in Resources */,
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
+				B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */,
 				B77892EB1D91D722009D6105 /* icone-historico.png in Resources */,
 				B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */,
 				B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */,
 				B7D90DF91D5A41C000D15089 /* test56x52.jpg in Resources */,
+				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
+				B7BB84AC1D9DA7B20033D823 /* like.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
 				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
+				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
 				B77384B61D7F559A00701070 /* GoogleService-Info.plist in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
 				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
@@ -852,6 +877,7 @@
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
 				B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */,
+				B7F8C0C81D9DB21400848351 /* ReadMoreTableViewCell.swift in Sources */,
 				B74ECF211D5BBE57001AFC32 /* ThirdNewTableViewCell.swift in Sources */,
 				B7D90E011D5A53E900D15089 /* NewsTableViewController.swift in Sources */,
 				B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */,
@@ -864,6 +890,7 @@
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */,
+				B7F8C0C61D9DAE6300848351 /* SimpleFlagTableViewCell.swift in Sources */,
 				B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */,
 				B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */,
 				B7EE9D321D8893CE00AE27D1 /* Link.swift in Sources */,
@@ -885,6 +912,7 @@
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
 				B77C49A51D8C68D600AFF826 /* STKLocalFileDataSource.m in Sources */,
+				B7BB84A61D9D84FF0033D823 /* AppConfigRealm.swift in Sources */,
 				B78BE4C51D7DFCAC008E1CA4 /* RegisterViewController.swift in Sources */,
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,

@@ -15,7 +15,7 @@ class AudioConfig: Object {
   dynamic var medio = 0
   dynamic var agudo = 0
   dynamic var audioType = 0
-  
+  var streamingQuality:StremingQuality = .Undefined
   
   convenience init(id:String,grave: Int,medio: Int, agudo: Int, audioType:Int) {
     self.init()
@@ -56,10 +56,23 @@ class AudioConfig: Object {
   }
   
   func setAudioTypeQuality(audioType: Int) {
+    switch audioType {
+    case 0:
+      streamingQuality = .Automatic
+    case 1:
+      streamingQuality = .Low
+    case 2:
+      streamingQuality = .High
+    default:
+      streamingQuality = .Undefined
+    }
     try! DataManager.sharedInstance.realm.write {
       self.audioType = audioType
     }
-    
+  }
+  
+  override static func ignoredProperties() -> [String] {
+    return ["streamingQuality"]
   }
   
 }

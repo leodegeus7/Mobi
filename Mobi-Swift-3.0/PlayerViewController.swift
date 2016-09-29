@@ -149,7 +149,6 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     if tableView == tableViewMusic {
       let cell = tableView.dequeueReusableCellWithIdentifier("tableViewMusicCell", forIndexPath: indexPath) as! MusicTableViewCell
       cell.labelMusicName.text = "Happy"
-      cell.labelAlbum.text = "G I R L"
       cell.labelArtist.text = "Pharell Willians"
       cell.buttonNLike.backgroundColor = UIColor.clearColor()
       cell.butonLike.backgroundColor = UIColor.clearColor()

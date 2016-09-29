@@ -1,21 +1,16 @@
 //
-//  ActualProgramTableViewCell.swift
+//  ReadMoreTableViewCell.swift
 //  Mobi-Swift-3.0
 //
-//  Created by Desenvolvimento Access Mobile on 9/27/16.
+//  Created by Desenvolvimento Access Mobile on 9/29/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
 //
 
 import UIKit
 
-class ActualProgramTableViewCell: UITableViewCell {
+class ReadMoreTableViewCell: UITableViewCell {
 
-  @IBOutlet weak var labelName: UILabel!
-  @IBOutlet weak var imagePerson: UIImageView!
-  @IBOutlet weak var labelNamePerson: UILabel!
-  @IBOutlet weak var labelGuests: UILabel!
-  @IBOutlet weak var labelSecondName: UILabel!
-  
+  @IBOutlet weak var labelReadMore: UILabel!
   
     override func awakeFromNib() {
         super.awakeFromNib()

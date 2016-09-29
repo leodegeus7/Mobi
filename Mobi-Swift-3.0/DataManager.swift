@@ -42,10 +42,11 @@ enum StreamingLinkType : Int {
   case Undefined = -1
 }
 
-enum StremingQuallity : Int {
-  case Automatico = 0
+enum StremingQuality : Int {
+  case Automatic = 0
   case Low = 1
   case High = 2
+  case Undefined = 3
 }
 
 enum StatusApp : Int {
@@ -57,6 +58,8 @@ enum StatusApp : Int {
 
 class DataManager: NSObject {
 
+  var configApp = AppConfigRealm()
+  
   var statusApp:StatusApp = .CorrectyStatus
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
@@ -91,6 +94,7 @@ class DataManager: NSObject {
   var dateSleep = NSDate()
   
   var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+  
   
   enum actualCondition {
     case Ok

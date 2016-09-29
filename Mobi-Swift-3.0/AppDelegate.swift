@@ -184,8 +184,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     }
+    
+    let appConfigRealm = realm.objects(AppConfigRealm.self).filter("id == 1")
+    if appConfigRealm.count > 0 {
+      DataManager.sharedInstance.configApp = appConfigRealm.first!
+    }
+
+    
     DataBaseTest.infoWithoutRadios()
   }
+  
   func startRealm(numberOfTryTimes:Int) {
     RealmWrapper.realmStart("default")
     var config = Realm.Configuration()

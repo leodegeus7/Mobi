@@ -45,10 +45,32 @@ class AudioChannel: NSObject {
   }
   
   func returnLink() -> String {
-    if existHighLink {
-      return self.linkHigh.link
-    } else if existLowLink {
-      return self.linkLow.link
+    
+    switch  DataManager.sharedInstance.audioConfig.streamingQuality  {
+    case .Low:
+      if existLowLink {
+        return self.linkLow.link
+      } else {
+        return self.linkHigh.link
+      }
+    case .High:
+      if existHighLink {
+        return self.linkHigh.link
+      } else if existLowLink {
+        return self.linkLow.link
+      }
+    case .Automatic:
+      if existHighLink {
+        return self.linkHigh.link
+      } else if existLowLink {
+        return self.linkLow.link
+      }
+    default:
+      if existHighLink {
+        return self.linkHigh.link
+      } else if existLowLink {
+        return self.linkLow.link
+      }
     }
     return ""
   }

@@ -23,10 +23,16 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   @IBOutlet weak var button1x2: UIButton!
   @IBOutlet weak var button1x3: UIButton!
   @IBOutlet weak var button1x4: UIButton!
+  @IBOutlet weak var button1x5: UIButton!
   @IBOutlet weak var button2x1: UIButton!
   @IBOutlet weak var button2x2: UIButton!
   @IBOutlet weak var button2x3: UIButton!
   @IBOutlet weak var button2x4: UIButton!
+  @IBOutlet weak var button2x5: UIButton!
+  
+  @IBOutlet weak var stackColors: UIStackView!
+  
+  var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
   
   override func viewDidLoad() {
@@ -41,10 +47,12 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     colorButtons.append(button1x2)
     colorButtons.append(button1x3)
     colorButtons.append(button1x4)
+    colorButtons.append(button1x5)
     colorButtons.append(button2x1)
     colorButtons.append(button2x2)
     colorButtons.append(button2x3)
     colorButtons.append(button2x4)
+    colorButtons.append(button2x5)
     for button in colorButtons {
       button.frame.size.width = colorView.bounds.width/4
       button.frame.size.height = colorView.bounds.height/2
@@ -74,6 +82,28 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     sliderGraves.value = Float(DataManager.sharedInstance.audioConfig.grave)
     sliderAgudos.value = Float(DataManager.sharedInstance.audioConfig.agudo)
     sliderMedios.value = Float(DataManager.sharedInstance.audioConfig.medio)
+    
+    
+    let imageCheck = UIImage(named: "okImage.png")
+    let imageCheckSized = Util.imageResize(imageCheck!, sizeChange: CGSize(width: 0.5*CGFloat(stackColors.frame.width/((CGFloat(colorButtons.count)/2.0)-1.0)), height: 0.5*(stackColors.frame.height/3)))
+    imageCheckView = UIImageView(image: imageCheckSized)
+    
+    
+    
+    for button in colorButtons {
+      if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
+            
+        let sender = button
+        imageCheckView.frame = (sender.frame)
+        if (sender.tag) > 20 {
+          imageCheckView.center.y = sender.center.y + (sender.frame).maxY - (sender.frame).minY
+        }
+        stackColors.addSubview(imageCheckView)
+        break
+      }
+    }
+    
+    
     
   }
   
@@ -125,13 +155,23 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.interfaceColor = color
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     
-//    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
-//    okimage.frame = sender!.frame
-//    okimage.center = sender!.center
-//    sender!.addSubview(okimage)
+    //    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
+    //    okimage.frame = sender!.frame
+    //    okimage.center = sender!.center
+    //    sender!.addSubview(okimage)
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
     print(sender?.tag)
+    
+    DataManager.sharedInstance.configApp.updatecoordColorConfig((sender?.tag)!)
+    
+    imageCheckView.frame = (sender?.frame)!
+    if (sender?.tag)! > 20 {
+      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
+    }
+    
+    stackColors.addSubview(imageCheckView)
+    
   }
   
   

@@ -14,11 +14,8 @@ import Firebase
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
-  @IBOutlet weak var buttonTop: UIButton!
-  @IBOutlet weak var buttonLocal: UIButton!
-  @IBOutlet weak var buttonRecents: UIButton!
-  @IBOutlet weak var buttonFavorite: UIButton!
   
+  @IBOutlet weak var segmentedControlMenu: UISegmentedControl!
   
   
   @IBOutlet weak var openMenu: UIBarButtonItem!
@@ -36,7 +33,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func viewDidLoad() {
-
+    
     
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
@@ -74,6 +71,17 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
     
+    
+    
+    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
+    
+    segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
+    segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
+    segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
+    segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
   }
   
   
@@ -202,6 +210,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
     }
     DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
+    
+    
   }
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -253,6 +263,47 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
     return true
   }
+  
+  @IBAction func segmentedAction(sender: UISegmentedControl) {
+    switch segmentedControlMenu.selectedSegmentIndex {
+    case 0:
+      selectedMode = .Top
+    case 1:
+      if let local = DataManager.sharedInstance.userLocation {
+        print(local)
+        selectedMode = .Local
+        DataManager.sharedInstance.updateRadioDistance()
+      } else {
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+          locationManager.delegate = self
+          locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+          locationManager.startUpdatingLocation()
+          selectedMode = .Local
+          DataManager.sharedInstance.updateRadioDistance()
+          if let local = DataManager.sharedInstance.userLocation {
+            print(local)
+          } else {
+            Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
+          }
+        }
+        else {
+          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
+        }
+      }
+      break
+    case 2:
+      selectedMode = .Recent
+      DataManager.sharedInstance.updateAllOverdueInterval()
+      break
+    case 3:
+      selectedMode = .Favorite
+      break
+    default: break
+    }
+    changeTableViewStatus()
+  }
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- VIEW FUNCTIONS ---
@@ -334,53 +385,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   //MARK: --- IBACTIONS ---
   ///////////////////////////////////////////////////////////
   
-  @IBAction func buttonTopClick(sender: AnyObject) {
-    selectedMode = .Top
-    changeTableViewStatus()
-  }
-  
-  @IBAction func buttonLocalClick(sender: AnyObject) {
-    if let local = DataManager.sharedInstance.userLocation {
-      print(local)
-      selectedMode = .Local
-      DataManager.sharedInstance.updateRadioDistance()
-      changeTableViewStatus()
-    } else {
-      self.locationManager.requestWhenInUseAuthorization()
-      if CLLocationManager.locationServicesEnabled() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
-        selectedMode = .Local
-        DataManager.sharedInstance.updateRadioDistance()
-        changeTableViewStatus()
-        if let local = DataManager.sharedInstance.userLocation {
-          print(local)
-        } else {
-          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
-        }
-      }
-      else {
-        Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
-      }
-    }
-  }
-  
-  @IBAction func buttonRecentsClick(sender: AnyObject) {
-    selectedMode = .Recent
-    DataManager.sharedInstance.updateAllOverdueInterval()
-    changeTableViewStatus()
-  }
-  
-  @IBAction func buttonFavoriteClick(sender: AnyObject) {
-    selectedMode = .Favorite
-    changeTableViewStatus()
-  }
   
   @IBAction func searchButtonTap(sender: AnyObject) {
-    
-
-    
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   

@@ -48,6 +48,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1673692689618704</string>
 	<key>FacebookDisplayName</key>

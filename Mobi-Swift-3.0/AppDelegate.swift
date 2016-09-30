@@ -19,6 +19,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import Fabric
 import TwitterKit
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
@@ -61,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+    
     
     
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -181,6 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         let color2 = ColorRealm(name: 1, red: red, green: green, blue: blue, alpha: alpha)
         colors.append(color2)
       }
+      Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     }

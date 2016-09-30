@@ -34,6 +34,20 @@ class ColorRealm: Object {
     }
   }
   
+  convenience init(name:Int,color:UIColor) {
+    self.init()
+    self.name = name
+    self.color = color
+    let components = CGColorGetComponents(color.CGColor)
+    self.red = components[0]
+    self.green = components[1]
+    self.blue = components[2]
+    self.alpha = CGColorGetAlpha(color.CGColor)
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(self, update: true)
+    }
+  }
+  
   
 
   

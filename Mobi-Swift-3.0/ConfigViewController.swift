@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ChameleonFramework
+
 
 class ConfigViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -35,6 +37,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
   
+  let colorArray:[UIColor] = [FlatRed(),FlatOrange(),FlatYellow(),FlatMint(),FlatPurple(),FlatRedDark(),FlatOrangeDark(),FlatYellowDark(),FlatMintDark(),FlatPurpleDark()]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.userInteractionEnabled = true
@@ -43,6 +47,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     //define color buttons in bottom of view
+    
     colorButtons.append(button1X1)
     colorButtons.append(button1x2)
     colorButtons.append(button1x3)
@@ -53,13 +58,15 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     colorButtons.append(button2x3)
     colorButtons.append(button2x4)
     colorButtons.append(button2x5)
+    
+    var i = 0
     for button in colorButtons {
       button.frame.size.width = colorView.bounds.width/4
       button.frame.size.height = colorView.bounds.height/2
-      button.backgroundColor = Util.getRandomColor()
       button.titleLabel?.text = ""
+      button.backgroundColor = colorArray[i]
       button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
-      
+      i += 1
     }
     
     self.title = "Configurações"
@@ -92,7 +99,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     
     for button in colorButtons {
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
-            
+        
         let sender = button
         imageCheckView.frame = (sender.frame)
         if (sender.tag) > 20 {
@@ -148,23 +155,39 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   //MARK: --- Button Color Click Function ---
   
   func buttonGridTapped(sender: UIButton?) { //to know the selected color
-    let colorButton = sender?.backgroundColor
-    let components = CGColorGetComponents(colorButton?.CGColor)
-    let color = ColorRealm(name: 1, red: components[0], green: components[1], blue: components[2], alpha: CGColorGetAlpha(colorButton?.CGColor))
     
-    DataManager.sharedInstance.interfaceColor = color
+    switch (sender?.tag)! {
+    case 11:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
+    case 12:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], withContentStyle: UIContentStyle.Contrast)
+    case 13:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], withContentStyle: UIContentStyle.Contrast)
+    case 14:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[3], withContentStyle: UIContentStyle.Contrast)
+    case 15:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[4], withContentStyle: UIContentStyle.Contrast)
+    case 21:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[5], withContentStyle: UIContentStyle.Contrast)
+    case 22:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[6], withContentStyle: UIContentStyle.Contrast)
+    case 23:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[7], withContentStyle: UIContentStyle.Contrast)
+    case 24:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], withContentStyle: UIContentStyle.Contrast)
+    case 25:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  withContentStyle: UIContentStyle.Contrast)
+    default:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  withContentStyle: UIContentStyle.Contrast)
+    }
+    
+    DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (sender?.backgroundColor)!)
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
-    
-    //    let okimage = UIImageView(image: UIImage(named: "okImage.png"))
-    //    okimage.frame = sender!.frame
-    //    okimage.center = sender!.center
-    //    sender!.addSubview(okimage)
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
     print(sender?.tag)
     
     DataManager.sharedInstance.configApp.updatecoordColorConfig((sender?.tag)!)
-    
     imageCheckView.frame = (sender?.frame)!
     if (sender?.tag)! > 20 {
       imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY

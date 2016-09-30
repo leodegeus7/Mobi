@@ -4,7 +4,7 @@ use_frameworks!
 
 target 'Mobi-Swift-3.0' do
 pod 'Alamofire', '~> 3.4'
-    pod 'SwiftyJSON'
+pod 'SwiftyJSON'
 pod 'RealmSwift' 
 pod 'SideMenu'
 pod "ARNTransitionAnimator"
@@ -17,4 +17,7 @@ pod 'TwitterKit'
 pod 'TwitterCore'
 pod 'DZNEmptyDataSet'
 pod 'PullToRefresh'
+pod 'ChameleonFramework/Swift'
+pod 'FirebaseUI/Database'
+pod 'FirebaseUI/Auth'
 end

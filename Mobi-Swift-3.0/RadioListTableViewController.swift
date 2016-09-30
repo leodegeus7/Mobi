@@ -25,6 +25,8 @@ class RadioListTableViewController: UITableViewController {
     }
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
 
+    
+
   }
   
   override func didReceiveMemoryWarning() {

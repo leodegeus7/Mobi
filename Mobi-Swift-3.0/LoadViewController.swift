@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class LoadViewController: UIViewController {
   var initialView = MiniPlayerViewController()
@@ -19,16 +20,17 @@ class LoadViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if DataManager.sharedInstance.existInterfaceColor {
-      self.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+      let rect = view.frame
+      self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.LeftToRight, withFrame: rect, andColors: [DataManager.sharedInstance.interfaceColor.color,DataManager.sharedInstance.interfaceColor.color.colorWithMinimumSaturation(70)])
     }
-
+    
     loadTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
     let indicator = UIActivityIndicatorView()
     indicator.startAnimating()
     indicator.center = view.center
     self.view.addSubview(indicator)
     
-
+    
     
     
     if (requestInfo) {
@@ -59,17 +61,17 @@ class LoadViewController: UIViewController {
     testManager.testServer { (result) in
       
       if result {
-//        let manager = RequestManager()
-//        manager.requestStationUnits(.stationUnits) { (result) in
-//
-//        }
+        //        let manager = RequestManager()
+        //        manager.requestStationUnits(.stationUnits) { (result) in
+        //
+        //        }
         
-//        let array = result["data"] as! NSArray
-//        for singleResult in array {
-//          let dic = singleResult as! NSDictionary
-//          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: false)
-//          DataManager.sharedInstance.allRadios.append(radio)
-//        }
+        //        let array = result["data"] as! NSArray
+        //        for singleResult in array {
+        //          let dic = singleResult as! NSDictionary
+        //          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: false)
+        //          DataManager.sharedInstance.allRadios.append(radio)
+        //        }
         
         
         DataBaseTest.infoWithoutRadios()
@@ -119,12 +121,12 @@ class LoadViewController: UIViewController {
   }
   
   func timerExplode() {
-
+    
     func okAction() {
       
     }
     func cancelAction() {
-
+      
     }
     self.displayAlert(title: "TimerOut", message: "Tempo de requisição de dados expirado", okTitle: "Tente Novamente", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     loadTimer.invalidate()

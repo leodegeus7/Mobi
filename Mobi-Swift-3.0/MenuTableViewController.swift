@@ -78,7 +78,7 @@ class MenuTableViewController: UITableViewController {
   
   override func viewDidDisappear(animated: Bool) {
     switchTimer.invalidate()
-
+    
   }
   
   func updateSwitch() {
@@ -133,9 +133,10 @@ class MenuTableViewController: UITableViewController {
         userCell.nameUser.text = DataManager.sharedInstance.myUser.name
       }
       userCell.imageUser.layer.cornerRadius = userCell.imageUser.bounds.height / 4
-      userCell.imageUser.layer.borderColor = UIColor.blackColor().CGColor
-      userCell.imageUser.layer.borderWidth = 3.0
+      userCell.imageUser.layer.borderColor = UIColor.whiteColor().CGColor
+      userCell.imageUser.layer.borderWidth = 0
       userCell.imageUser.clipsToBounds = true
+      userCell.selectionStyle = UITableViewCellSelectionStyle.None
       //let imageUserVar = UIImage()
       //cell.imageUser.image =
       //userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
@@ -150,6 +151,7 @@ class MenuTableViewController: UITableViewController {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
       firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+      firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
       if DataManager.sharedInstance.existInterfaceColor {
         let color = DataManager.sharedInstance.interfaceColor.color
         firstTypeCell.backgroundColor = color
@@ -161,6 +163,7 @@ class MenuTableViewController: UITableViewController {
     secondTypeCell.tag = 102
     secondTypeCell.labelText.text = menuArray[4]
     secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    secondTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
     if DataManager.sharedInstance.existInterfaceColor {
       let color = DataManager.sharedInstance.interfaceColor.color
       secondTypeCell.backgroundColor = color

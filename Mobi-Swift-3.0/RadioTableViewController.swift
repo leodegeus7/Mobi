@@ -21,6 +21,8 @@ class RadioTableViewController: UITableViewController {
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
   
+  var similarRadios = [RadioRealm]()
+  
   let notificationCenter = NSNotificationCenter.defaultCenter()
   
   enum SelectedRadioMode {
@@ -36,7 +38,7 @@ class RadioTableViewController: UITableViewController {
     super.viewDidLoad()
     let button = UIButton(type: UIButtonType.InfoLight)
     buttonActionNav = UIBarButtonItem.init(customView: button)
-    
+    similarRadios = DataManager.sharedInstance.favoriteRadios
     
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     let manager = RequestManager()
@@ -49,9 +51,8 @@ class RadioTableViewController: UITableViewController {
     
     
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let color = ColorRealm(name: 2, red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
-    
-    navigationController?.navigationBar.barTintColor = color.color
+    let color = UIColor(red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
+    navigationController?.navigationBar.barTintColor = color
     
     
     // Uncomment the following line to preserve selection between presentations
@@ -87,15 +88,20 @@ class RadioTableViewController: UITableViewController {
     switch selectedMode {
     case .DetailRadio:
       if section == 3 {
-        return DataManager.sharedInstance.favoriteRadios.count + 1
+        if similarRadios.count <= 3 {
+          similarRadios.count
+        } else {
+          return similarRadios.count + 1
+        }
       } else if section == 4 {
-        return 2
+        return 3
       } else {
         return 1
       }
     default:
       return 0
     }
+    return 0
   }
   
   @IBAction func segmentedControlChanged(sender: UISegmentedControl) {
@@ -139,7 +145,7 @@ class RadioTableViewController: UITableViewController {
         
         
         let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-        let color = ColorRealm(name: 3, red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
+        let color = ColorRealm(name: 3, red: components[0]-0.05, green: components[1]-0.05, blue: components[2]-0.05, alpha: 1)
         
         cell.viewBack.alpha = 0
         //cell.viewBack.backgroundColor = color.color
@@ -152,14 +158,6 @@ class RadioTableViewController: UITableViewController {
         } else {
           cell.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
         }
-        
-        if !actualRadio.isFavorite {
-          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
-        } else {
-          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
-        }
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
         
         
         return cell
@@ -182,6 +180,7 @@ class RadioTableViewController: UITableViewController {
         cell.imagePerson.clipsToBounds = true
         cell.labelNamePerson.text = "Marcos"
         cell.labelGuests.text = "Toninho e Fulanhinho de tal"
+        cell.tag = 150
         return cell
       case 3:
         if indexPath.row <= DataManager.sharedInstance.favoriteRadios.count-1 {

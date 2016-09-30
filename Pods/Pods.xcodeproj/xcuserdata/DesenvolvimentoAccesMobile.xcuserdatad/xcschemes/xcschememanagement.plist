@@ -14,7 +14,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,27 +82,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A075C4857A26695C1740D700780EDA4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>222F12D173F951CF342764D9247CAB2A</key>
+		<key>202A7A81D83434438E600508EC31EA43</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>402643E3E5D84C847CFB0E7831988C6F</key>
+		<key>23488375011749CB219D0ABEF7D3B879</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59A140BA70E5E9BD1A4E4EF5885C5FCE</key>
+		<key>3C5685456B3ED2A700DBD8CC7DE83D96</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E174EDA20A95CDF694CFD90F4308A5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77EEF657D63A6C4890A31D2E6E29591C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,17 +132,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC6F4FC53D456B83BCD80199B42884B5</key>
+		<key>8A2374572536D9612D6A95C3FCEF8DF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DADB6A62BA7871857A32010813F8EF40</key>
+		<key>9D0F2E5EA1B46A5D72FFD42B0B39DBBC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E556CD325A4C03E83E2AA0E6C647E862</key>
+		<key>A83EEAB76CBE142DD38498D41B28DD7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE83587D8D64EC909FEB264E552AC856</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -23,7 +23,7 @@ class NavigationControllerModel: UINavigationController {
   
   override func viewWillAppear(animated: Bool) {
     if DataManager.sharedInstance.existInterfaceColor {
-      self.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
+
     }
   }
 

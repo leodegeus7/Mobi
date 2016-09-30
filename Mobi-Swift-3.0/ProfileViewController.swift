@@ -8,11 +8,17 @@
 
 import UIKit
 import Alamofire
-import Firebase
 import TwitterKit
+import Firebase
+import FirebaseAuthUI
+import FirebaseDatabaseUI
+import FirebaseGoogleAuthUI
+import FirebaseFacebookAuthUI
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,FBSDKLoginButtonDelegate {
-  
+class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate {
+  //FBSDKLoginButtonDelegate
   @IBOutlet weak var imageUser: UIImageView!
   @IBOutlet weak var labelName: UILabel!
   @IBOutlet weak var labelAddress: UILabel!
@@ -27,11 +33,14 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var tableViewFavorites: UITableView!
   @IBOutlet weak var backButton: UIBarButtonItem!
   @IBOutlet weak var buttonTwitter: UIButton!
-  @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
+ // @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
   @IBOutlet weak var buttonLogin: UIButton!
+  @IBOutlet weak var buttonReadMore: UIButton!
   
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
+  var kFacebookAppID = "1673692689618704"
+  var db = FIRDatabaseReference.init()
   
   @IBOutlet weak var heightTableView: NSLayoutConstraint!
   
@@ -55,14 +64,20 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     imageUser.clipsToBounds = true
     self.title = "Perfil"
     tableViewFavorites.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    
   }
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- VIEW FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
   override func viewDidAppear(animated: Bool) {
-
+    buttonEdit.layer.cornerRadius = buttonEdit.frame.height/2
+    buttonEdit.clipsToBounds = true
+    buttonLogin.layer.cornerRadius = buttonLogin.frame.height/2
+    buttonLogin.clipsToBounds = true
+    buttonReadMore.backgroundColor = UIColor.clearColor()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -175,51 +190,78 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- LOGIN FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
-  func configureFacebook()
-  {
-    buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
-    buttonFacebook.delegate = self
-  }
+//  func configureFacebook()
+//  {
+//    buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+//    buttonFacebook.delegate = self
+//  }
+//  
+//  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
+//  {
+//    if !result.isCancelled {
+//      FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+//        let strFirstName: String = (result.objectForKey("first_name") as? String)!
+//        
+//        let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+//        let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
+//        DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
+//        self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
+//        print(strFirstName)
+//      }
+//      let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+//      print("Facebook logado")
+//      let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+//      
+//      
+//      FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+//        if error == nil {
+//          print("Login pelo Facebook corretamente")
+//          DataManager.sharedInstance.isLogged = true
+//          self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
+//        } else {
+//          self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
+//        }
+//      })
+//      
+//      let request2 = RequestManager()
+//      request2.authUserWithToken(accessToken, provider: .Facebook, completion: { (result) in
+//        print(result)
+//      })
+//    }
+//  }
   
-  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
-  {
-    if !result.isCancelled {
-      FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
-        let strFirstName: String = (result.objectForKey("first_name") as? String)!
-        
-        let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-        let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
-        DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
-        self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
-        print(strFirstName)
-      }
-      let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-      print("Facebook logado")
-      let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+//  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+//  {
+//    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+//    loginManager.logOut()
+//  }
+  
+  func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
+    if error != nil {
+      //Problem signing in
+    }else {
+      //User is in! Here is where we code after signing in
       
-      
-      FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
-        if error == nil {
-          print("Login pelo Facebook corretamente")
-          DataManager.sharedInstance.isLogged = true
-          self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
-        } else {
-          self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
-        }
-      })
-      
-      let request2 = RequestManager()
-      request2.authUserWithToken(accessToken, provider: .Facebook, completion: { (result) in
-        print(result)
-      })
     }
   }
   
-  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
-  {
-    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
-    loginManager.logOut()
+
+  
+  func login() {
+    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
+    let options = FIRApp.defaultApp()?.options
+    let clientId = options?.clientID
+    let facebookProvider = FIRFacebookAuthUI(appID: kFacebookAppID)
+    authUI?.delegate = self
+    authUI?.signInProviders = [facebookProvider!]
+    let authViewController = authUI?.authViewController()
+    self.presentViewController(authViewController!, animated: true, completion: nil)
   }
+  
+  func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
+    let sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
+    return (FIRAuthUI.authUI()?.handleOpenURL(url, sourceApplication: sourceApplication))!
+    }
   
   @IBAction func loginButtonTap(sender: AnyObject) {
     if DataManager.sharedInstance.isLogged {
@@ -235,7 +277,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
       self.displayAlert(title: "Atenção", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     } else {
-      performSegueWithIdentifier("loginScreen", sender: self)
+      login()
+      //performSegueWithIdentifier("loginScreen", sender: self)
     }
   }
   

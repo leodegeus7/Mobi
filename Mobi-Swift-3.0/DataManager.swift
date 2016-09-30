@@ -147,7 +147,7 @@ class DataManager: NSObject {
   
   func instantiateRadioDetailView(navigation:UINavigationController,radio:RadioRealm) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("radioDetail") as? RadioViewController
+    let vc = storyboard.instantiateViewControllerWithIdentifier("radioTableDetail") as? RadioTableViewController
     vc?.actualRadio = radio
     navigation.pushViewController(vc!, animated: true)
   }

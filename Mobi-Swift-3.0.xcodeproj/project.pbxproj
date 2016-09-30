@@ -60,7 +60,6 @@
 		B77892EB1D91D722009D6105 /* icone-historico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EA1D91D722009D6105 /* icone-historico.png */; };
 		B77892ED1D91D727009D6105 /* icone-coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EC1D91D727009D6105 /* icone-coracao.png */; };
 		B77892EF1D91D72C009D6105 /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EE1D91D72C009D6105 /* icone-local.png */; };
-		B77892F11D91D740009D6105 /* logo-mobi.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892F01D91D740009D6105 /* logo-mobi.png */; };
 		B77892F31D91D773009D6105 /* icone-grafico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892F21D91D773009D6105 /* icone-grafico.png */; };
 		B77C49891D8C68A800AFF826 /* StreamingTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77C49881D8C68A800AFF826 /* StreamingTestViewController.swift */; };
 		B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C498C1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m */; };
@@ -131,6 +130,10 @@
 		B7F7F6671D6B952A00AD809E /* backgroungMenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */; };
 		B7F8C0C61D9DAE6300848351 /* SimpleFlagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */; };
 		B7F8C0C81D9DB21400848351 /* ReadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */; };
+		B7F8C1041D9ED74100848351 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8C1031D9ED74100848351 /* QuartzCore.framework */; };
+		B7F8C1061D9ED74A00848351 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */; };
+		B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F8C1091D9EF16C00848351 /* logo-mobi.png */; };
+		B7F8C10C1D9EFCE200848351 /* LoginFirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C10B1D9EFCE200848351 /* LoginFirebaseViewController.swift */; };
 		B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
 		CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65021D904B9D002B88EA /* ColorRealm.swift */; };
@@ -217,7 +220,6 @@
 		B77892EA1D91D722009D6105 /* icone-historico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-historico.png"; sourceTree = "<group>"; };
 		B77892EC1D91D727009D6105 /* icone-coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-coracao.png"; sourceTree = "<group>"; };
 		B77892EE1D91D72C009D6105 /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
-		B77892F01D91D740009D6105 /* logo-mobi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-mobi.png"; sourceTree = "<group>"; };
 		B77892F21D91D773009D6105 /* icone-grafico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-grafico.png"; sourceTree = "<group>"; };
 		B77C49881D8C68A800AFF826 /* StreamingTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingTestViewController.swift; sourceTree = "<group>"; };
 		B77C498B1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+STKAudioPlayer.h"; sourceTree = "<group>"; };
@@ -299,6 +301,10 @@
 		B7F7F6661D6B952900AD809E /* backgroungMenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroungMenu.jpg; sourceTree = "<group>"; };
 		B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleFlagTableViewCell.swift; sourceTree = "<group>"; };
 		B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMoreTableViewCell.swift; sourceTree = "<group>"; };
+		B7F8C1031D9ED74100848351 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B7F8C1091D9EF16C00848351 /* logo-mobi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-mobi.png"; sourceTree = "<group>"; };
+		B7F8C10B1D9EFCE200848351 /* LoginFirebaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFirebaseViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFD1D677A2C00E06D26 /* LocalCitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesViewController.swift; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
 		CD0B65021D904B9D002B88EA /* ColorRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorRealm.swift; sourceTree = "<group>"; };
@@ -315,6 +321,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F8C1061D9ED74A00848351 /* CoreGraphics.framework in Frameworks */,
+				B7F8C1041D9ED74100848351 /* QuartzCore.framework in Frameworks */,
 				B75E34161D90823500713783 /* libxml2.2.tbd in Frameworks */,
 				B75E34141D90822500713783 /* libxml2.tbd in Frameworks */,
 				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
@@ -378,9 +386,6 @@
 		B736812A1D590BA200EC94A9 = {
 			isa = PBXGroup;
 			children = (
-				B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */,
-				B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */,
-				B77DEA621D774A8200695546 /* Bolts.framework */,
 				B73681351D590BA300EC94A9 /* Mobi-Swift-3.0 */,
 				B73681341D590BA300EC94A9 /* Products */,
 				D96CE5A3C70A4107CD2E4F90 /* Pods */,
@@ -442,7 +447,7 @@
 		B77892E91D91D71A009D6105 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				B77892F01D91D740009D6105 /* logo-mobi.png */,
+				B7F8C1091D9EF16C00848351 /* logo-mobi.png */,
 				B77892EC1D91D727009D6105 /* icone-coracao.png */,
 				B77892EA1D91D722009D6105 /* icone-historico.png */,
 				B77892F21D91D773009D6105 /* icone-grafico.png */,
@@ -565,6 +570,7 @@
 				B736813F1D590BA300EC94A9 /* LaunchScreen.storyboard */,
 				B74D65301D8B3E2B007798F4 /* CellDesign.xib */,
 				B73532E61D9AD744008504BA /* RadioDetailView.xib */,
+				B7F8C10B1D9EFCE200848351 /* LoginFirebaseViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -647,6 +653,11 @@
 		D49D2FC35E851E08064CD55B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */,
+				B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */,
+				B77DEA621D774A8200695546 /* Bolts.framework */,
+				B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */,
+				B7F8C1031D9ED74100848351 /* QuartzCore.framework */,
 				B75E34151D90823500713783 /* libxml2.2.tbd */,
 				B75E34131D90822500713783 /* libxml2.tbd */,
 				B77C498A1D8C68D600AFF826 /* StreamingKit */,
@@ -746,7 +757,6 @@
 				B70DFA4B1D70C847000DDBD6 /* play.png in Resources */,
 				B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */,
 				CD44898D1D75FEBE00A500A2 /* myImage.jpg in Resources */,
-				B77892F11D91D740009D6105 /* logo-mobi.png in Resources */,
 				B74B0E681D6F762400012D8E /* starOFF.png in Resources */,
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
 				B77892ED1D91D727009D6105 /* icone-coracao.png in Resources */,
@@ -765,6 +775,7 @@
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
 				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
+				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
 				B77384B61D7F559A00701070 /* GoogleService-Info.plist in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
@@ -890,6 +901,7 @@
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */,
+				B7F8C10C1D9EFCE200848351 /* LoginFirebaseViewController.swift in Sources */,
 				B7F8C0C61D9DAE6300848351 /* SimpleFlagTableViewCell.swift in Sources */,
 				B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */,
 				B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */,

@@ -16,6 +16,7 @@ import FirebaseGoogleAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
+import ChameleonFramework
 
 class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate {
   //FBSDKLoginButtonDelegate
@@ -33,9 +34,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var tableViewFavorites: UITableView!
   @IBOutlet weak var backButton: UIBarButtonItem!
   @IBOutlet weak var buttonTwitter: UIButton!
- // @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
+  // @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
   @IBOutlet weak var buttonLogin: UIButton!
   @IBOutlet weak var buttonReadMore: UIButton!
+  
   
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
@@ -108,6 +110,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonTwitter.setTitle("Login Twitter", forState: .Normal)
     }
     
+    if !DataManager.sharedInstance.isLogged {
+      loginButtonTap(self)
+    }
+    
     let requestManager = RequestManager()
     requestManager.requestMyUserInfo { (result) in
       self.myUser = DataManager.sharedInstance.myUser
@@ -150,7 +156,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadioArray[indexPath.row])
+    DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadioArray[indexPath.row])
   }
   
   ///////////////////////////////////////////////////////////
@@ -190,78 +196,120 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- LOGIN FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
-//  func configureFacebook()
-//  {
-//    buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
-//    buttonFacebook.delegate = self
-//  }
-//  
-//  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
-//  {
-//    if !result.isCancelled {
-//      FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
-//        let strFirstName: String = (result.objectForKey("first_name") as? String)!
-//        
-//        let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-//        let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
-//        DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
-//        self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
-//        print(strFirstName)
-//      }
-//      let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-//      print("Facebook logado")
-//      let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
-//      
-//      
-//      FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
-//        if error == nil {
-//          print("Login pelo Facebook corretamente")
-//          DataManager.sharedInstance.isLogged = true
-//          self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
-//        } else {
-//          self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
-//        }
-//      })
-//      
-//      let request2 = RequestManager()
-//      request2.authUserWithToken(accessToken, provider: .Facebook, completion: { (result) in
-//        print(result)
-//      })
-//    }
-//  }
+  //  func configureFacebook()
+  //  {
+  //    buttonFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+  //    buttonFacebook.delegate = self
+  //  }
+  //
+  //  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
+  //  {
+  //    if !result.isCancelled {
+  //      FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+  //        let strFirstName: String = (result.objectForKey("first_name") as? String)!
+  //
+  //        let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+  //        let profilePicFilePath = FileSupport.saveJPGImageInDocs(UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)!, name: "profilePic")
+  //        DataManager.sharedInstance.myUser.updateImagePath(profilePicFilePath)
+  //        self.imageUser.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
+  //        print(strFirstName)
+  //      }
+  //      let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+  //      print("Facebook logado")
+  //      let cretential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken!)
+  //
+  //
+  //      FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+  //        if error == nil {
+  //          print("Login pelo Facebook corretamente")
+  //          DataManager.sharedInstance.isLogged = true
+  //          self.displayAlert(title: "Tudo certo \((user?.email)!)", message: "Logado com sucesso", action: "Ok")
+  //        } else {
+  //          self.displayAlert(title: "Erro ao logar pelo facebook", message: (error?.localizedDescription)!, action: "Ok")
+  //        }
+  //      })
+  //
+  //      let request2 = RequestManager()
+  //      request2.authUserWithToken(accessToken, provider: .Facebook, completion: { (result) in
+  //        print(result)
+  //      })
+  //    }
+  //  }
   
-//  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
-//  {
-//    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
-//    loginManager.logOut()
-//  }
+  //  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+  //  {
+  //    let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+  //    loginManager.logOut()
+  //  }
   
   func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
     if error != nil {
+      if !DataManager.sharedInstance.isLogged {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+        self.navigationController!.pushViewController(vc!, animated: false)
+      }
       //Problem signing in
     }else {
+      DataManager.sharedInstance.isLogged = true
+      DataManager.sharedInstance.needUpdateMenu = true
       //User is in! Here is where we code after signing in
       
     }
   }
   
+  func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
+    let fir = FIRAuthPickerViewController(authUI: authUI)
+    fir.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    
+    let backgroudImage = UIImageView(frame: fir.view.frame)
+    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
 
+    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    
+    fir.view.backgroundColor = color
+    
+    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
+    image2.image = UIImage(named: "fundo-login-mobi.jpg")
+    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
+    image.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    image.alpha = 0.2
+    image2.addSubview(image)
+    
+    
+    fir.view.insertSubview(image2, atIndex: 0)
+    
+    
+    
+    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
+    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
+    logoImage.center = image2.center
+    logoImage.frame.origin.y = -30
+    fir.view.addSubview(logoImage)
+    return fir
+  }
+  
   
   func login() {
     let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
-    let options = FIRApp.defaultApp()?.options
-    let clientId = options?.clientID
+    //let options = FIRApp.defaultApp()?.options
+    //let clientId = options?.clientID
     let facebookProvider = FIRFacebookAuthUI(appID: kFacebookAppID)
     authUI?.delegate = self
     authUI?.signInProviders = [facebookProvider!]
     let authViewController = authUI?.authViewController()
-    self.presentViewController(authViewController!, animated: true, completion: nil)
+    authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+
+    
+    UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
+    self.presentViewController(authViewController!, animated: false, completion: nil)
   }
   
   func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
     let sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
     return (FIRAuthUI.authUI()?.handleOpenURL(url, sourceApplication: sourceApplication))!
-    }
+  }
   
   @IBAction func loginButtonTap(sender: AnyObject) {
     if DataManager.sharedInstance.isLogged {
@@ -270,7 +318,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         DataManager.sharedInstance.isLogged = false
         buttonLogin.setTitle("Logout", forState: .Normal)
         buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {
+        })
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+        self.navigationController!.pushViewController(vc!, animated: true)
       }
       func cancelAction() {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -290,6 +342,34 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   
+  func twitterButtonTap2() {
+    let store = Twitter.sharedInstance().sessionStore
+    if let userID = store.session()?.userID {
+      store.logOutUserID(userID)
+      buttonTwitter.setTitle("Login Twitter", forState: .Normal)
+    } else {
+      Twitter.sharedInstance().logInWithCompletion { session, error in
+        if (session != nil) {
+          self.buttonTwitter.setTitle("Logout Twitter", forState: .Normal)
+          print("signed in as \(session!.userName)")
+          print("sessao token \((session?.authToken)!)")
+          
+          let cretential = FIRTwitterAuthProvider.credentialWithToken(session!.authToken, secret: session!.authTokenSecret)
+          FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
+            if error == nil {
+              print("Login pelo twitter feito corretamente")
+              DataManager.sharedInstance.isLogged = true
+              self.displayAlert(title: "Tudo certo \((user?.displayName)!)", message: "Logado com sucesso", action: "Ok")
+            } else {
+              self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
+            }
+          })
+        } else {
+          print("error: \(error!.localizedDescription)")
+        }
+      }
+    }
+  }
   @IBAction func twitterButtonTap(sender: AnyObject) {
     let store = Twitter.sharedInstance().sessionStore
     if let userID = store.session()?.userID {

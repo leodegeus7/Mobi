@@ -24,9 +24,8 @@ class RadioListTableViewController: UITableViewController {
       self.title = radios[0].address.city
     }
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-
     
-
+    
   }
   
   override func didReceiveMemoryWarning() {
@@ -66,6 +65,8 @@ class RadioListTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let cell = tableView.cellForRowAtIndexPath(indexPath)
+    
     selectedRadio = radios[indexPath.row]
     performSegueWithIdentifier("detailRadio2", sender: self)
   }
@@ -80,4 +81,38 @@ class RadioListTableViewController: UITableViewController {
     }
   }
   
+  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    let manager = RequestManager()
+    if radios[indexPath.row].isFavorite {
+      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
+        self.radios[indexPath.row].updateIsFavorite(false)
+        self.radios[indexPath.row].removeOneLikesNumber()
+        manager.deleteFavRadio(self.radios[indexPath.row], completion: { (result) in
+          manager.requestUserFavorites({ (resultFav) in
+          })
+        })
+        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+      }
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
+    } else {
+      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
+        self.radios[indexPath.row].updateIsFavorite(true)
+        self.radios[indexPath.row].addOneLikesNumber()
+        manager.favRadio(self.radios[indexPath.row], completion: { (result) in
+          self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        })
+      }
+      favorite.backgroundColor = UIColor.orangeColor()
+      return [favorite]
+    }
   }
+  
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  }
+  
+  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    return true
+  }
+  
+}

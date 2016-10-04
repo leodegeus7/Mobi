@@ -40,7 +40,6 @@ class LoadViewController: UIViewController {
         requestInitialInformation()
       }
     } else {
-      DataBaseTest.completeInfo()
       self.dismissViewControllerAnimated(true, completion: {
         
       })

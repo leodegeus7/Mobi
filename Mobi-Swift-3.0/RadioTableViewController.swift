@@ -89,7 +89,7 @@ class RadioTableViewController: UITableViewController {
     case .DetailRadio:
       if section == 3 {
         if similarRadios.count <= 3 {
-          similarRadios.count
+          return similarRadios.count
         } else {
           return similarRadios.count + 1
         }
@@ -267,6 +267,8 @@ class RadioTableViewController: UITableViewController {
       DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: DataManager.sharedInstance.favoriteRadios[indexPath.row])
     case 130:
       performSegueWithIdentifier("contactSegue", sender: self)
+    case 150:
+      performSegueWithIdentifier("programSegue", sender: self)
     default:
       break
     }

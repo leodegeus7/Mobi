@@ -8,6 +8,8 @@
 
 import UIKit
 import SideMenu
+import Firebase
+import FirebaseAuthUI
 
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
@@ -35,35 +37,53 @@ class MenuTableViewController: UITableViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
-    
-    tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
-    if DataManager.sharedInstance.existInterfaceColor {
-      super.tableView.backgroundColor = UIColor.whiteColor()
-      let color = DataManager.sharedInstance.interfaceColor.color
-      tableView.backgroundColor = color
-      viewTop.backgroundColor = color
-    }
-    if tableView.visibleCells.count > 0 {
+    if DataManager.sharedInstance.needUpdateMenu {
+      tableView.reloadData()
+      DataManager.sharedInstance.needUpdateMenu = false
+    } else {
+      tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
       if DataManager.sharedInstance.existInterfaceColor {
-        for index in 0...6 {
-          
-          let indexPath = NSIndexPath(forItem: index, inSection: 0)
-          let cell = tableView.cellForRowAtIndexPath(indexPath)
-          if index == 0 {
-            let cell2 = tableView.cellForRowAtIndexPath(indexPath) as! TopMenuTableViewCell
-            
-            cell2.nameUser.text = DataManager.sharedInstance.myUser.name
+        super.tableView.backgroundColor = UIColor.whiteColor()
+        let color = DataManager.sharedInstance.interfaceColor.color
+        tableView.backgroundColor = color
+        viewTop.backgroundColor = color
+      }
+      if tableView.visibleCells.count > 0 {
+        if DataManager.sharedInstance.existInterfaceColor {
+          for index in 0...6 {
+            let indexPath = NSIndexPath(forItem: index, inSection: 0)
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            if index == 0 {
+              let cell2 = tableView.cellForRowAtIndexPath(indexPath) as! TopMenuTableViewCell
+              if !DataManager.sharedInstance.isLogged {
+                cell2.nameUser.text = "Clique para logar"
+                cell2.imageUser.image = UIImage(named: "avatar.png")
+              } else {
+                if DataManager.sharedInstance.myUser.name != "" {
+                  if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
+                    cell2.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
+                  }
+                  cell2.nameUser.text = DataManager.sharedInstance.myUser.name
+                } else {
+                  cell2.nameUser.text = "Perfil"
+                  cell2.imageUser.image = UIImage(named: "avatar.png")
+                }
+              }
+              cell2.imageUser.layer.cornerRadius = cell2.imageUser.bounds.height / 4
+              cell2.imageUser.layer.borderColor = UIColor.whiteColor().CGColor
+              cell2.imageUser.layer.borderWidth = 0
+              cell2.imageUser.clipsToBounds = true
+            }
+            var color = DataManager.sharedInstance.interfaceColor.color
+            color = color.colorWithAlphaComponent(1)
+            if (indexPath.row == 0) {
+              color = color.colorWithAlphaComponent(0.8)
+            }
+            cell!.backgroundColor = color
           }
-          var color = DataManager.sharedInstance.interfaceColor.color
-          color = color.colorWithAlphaComponent(1)
-          if (indexPath.row == 0) {
-            color = color.colorWithAlphaComponent(0.8)
-          }
-          cell!.backgroundColor = color
         }
       }
     }
-    
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -118,20 +138,32 @@ class MenuTableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
-    return 7
+    if DataManager.sharedInstance.isLogged {
+      return 8
+    } else {
+      return 7
+    }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if (indexPath.row == 0) {
       let userCell = tableView.dequeueReusableCellWithIdentifier("TopCell", forIndexPath: indexPath) as! TopMenuTableViewCell
-      userCell.nameUser.text = "Fulano"
-      if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
-        userCell.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
+      if !DataManager.sharedInstance.isLogged {
+        userCell.nameUser.text = "Clique para logar"
+        userCell.imageUser.image = UIImage(named: "avatar.png")
+      } else {
+        if DataManager.sharedInstance.myUser.name != "" {
+          if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
+            userCell.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
+          }
+          userCell.nameUser.text = DataManager.sharedInstance.myUser.name
+        } else {
+          userCell.nameUser.text = "Perfil"
+          userCell.imageUser.image = UIImage(named: "avatar.png")
+        }
       }
-      if DataManager.sharedInstance.myUser.name != "" {
-        userCell.nameUser.text = DataManager.sharedInstance.myUser.name
-      }
+      
       userCell.imageUser.layer.cornerRadius = userCell.imageUser.bounds.height / 4
       userCell.imageUser.layer.borderColor = UIColor.whiteColor().CGColor
       userCell.imageUser.layer.borderWidth = 0
@@ -147,6 +179,16 @@ class MenuTableViewController: UITableViewController {
       }
       return userCell
       
+    } else if (indexPath.row == 7) {
+      let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
+      firstTypeCell.labelText.text = "Logout"
+      firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+      firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
+      if DataManager.sharedInstance.existInterfaceColor {
+        let color = DataManager.sharedInstance.interfaceColor.color
+        firstTypeCell.backgroundColor = color
+      }
+      return firstTypeCell
     } else if(indexPath.row != 5) {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
@@ -195,12 +237,25 @@ class MenuTableViewController: UITableViewController {
       self.performSegueWithIdentifier("newsScreen", sender: self)
     } else if (indexPath.row == 6) {
       self.performSegueWithIdentifier("configScreen", sender: self)
+    } else if (indexPath.row == 7) {
+      func okAction() {
+        try! FIRAuth.auth()?.signOut()
+        DataManager.sharedInstance.isLogged = false
+        tableView.reloadData()
+        self.dismissViewControllerAnimated(true, completion: {
+        })
+        
+      }
+      func cancelAction() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+      }
+      self.displayAlert(title: "Atenção", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     }
   }
   
   @IBAction func sleepFunction(sender: AnyObject) {
     let indexPath = NSIndexPath(forItem: 5, inSection: 0)
-    let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
+    //let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
     
     if DataManager.sharedInstance.isSleepModeEnabled {
       for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as [UILocalNotification] {
@@ -218,7 +273,7 @@ class MenuTableViewController: UITableViewController {
         let actionOption = UIAlertAction(title: value, style: UIAlertActionStyle.Default, handler: { (action) in
           switch action.title! {
           case "15 min":
-            Util.sleepNotification(5)
+            Util.sleepNotification(15*60)
             break
           case "30 min":
             Util.sleepNotification(30*60)

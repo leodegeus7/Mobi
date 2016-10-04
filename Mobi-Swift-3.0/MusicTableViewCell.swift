@@ -9,24 +9,27 @@
 import UIKit
 
 class MusicTableViewCell: UITableViewCell {
-
+  
   @IBOutlet weak var imageMusic: UIImageView!
   @IBOutlet weak var labelMusicName: UILabel!
   @IBOutlet weak var labelArtist: UILabel!
-
+  
   @IBOutlet weak var buttonNLike: UIButton!
   @IBOutlet weak var butonLike: UIButton!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let viewSelected = UIView()
+    viewSelected.backgroundColor = colorAlpha
+    self.selectedBackgroundView = viewSelected
+  }
+  
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    
+    // Configure the view for the selected state
+  }
+  
   @IBAction func buttonNLike(sender: AnyObject) {
     buttonNLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
     butonLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)

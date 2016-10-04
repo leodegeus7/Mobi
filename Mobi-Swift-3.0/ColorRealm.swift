@@ -48,7 +48,6 @@ class ColorRealm: Object {
     }
   }
   
-  
 
   
   override class func primaryKey() -> String? {

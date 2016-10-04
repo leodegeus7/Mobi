@@ -153,7 +153,7 @@ class AddressRealm: Object  {
   }
   
   func setFormattedLocalString() {
-    self.formattedLocal = city + " - " + state
+    self.formattedLocal = city
   }
 
 }

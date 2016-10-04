@@ -14,7 +14,10 @@ class SimpleFlagTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    // Initialization code
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let viewSelected = UIView()
+    viewSelected.backgroundColor = colorAlpha
+    self.selectedBackgroundView = viewSelected
   }
   
   override func setSelected(selected: Bool, animated: Bool) {

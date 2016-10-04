@@ -63,6 +63,7 @@ class DataManager: NSObject {
   var statusApp:StatusApp = .CorrectyStatus
   
   let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
+  //let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api"
   var userToken:String!
   var myUser = UserRealm()
   var userLocation:CLLocation!
@@ -102,10 +103,12 @@ class DataManager: NSObject {
   }
   
   var miniPlayerView = MiniPlayerViewController()
-  var playerClass:PlayerViewController!
+  var playerClass:Player2ViewController!
   
   var interfaceColor = ColorRealm()
   var existInterfaceColor = false
+  
+  var needUpdateMenu = false
   
   class var sharedInstance: DataManager {
     struct Static {

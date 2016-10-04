@@ -21,7 +21,7 @@ class MiniPlayerViewController: UIViewController {
   @IBOutlet weak var playButton: UIButton!
   
   private var animator : ARNTransitionAnimator!
-  private var modalVC : PlayerViewController!
+  private var modalVC : Player2ViewController!
   var notificationCenter = NSNotificationCenter.defaultCenter()
   
   override func viewDidLoad() {
@@ -33,11 +33,12 @@ class MiniPlayerViewController: UIViewController {
     
     DataManager.sharedInstance.miniPlayerView = self
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? PlayerViewController)
+    self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? Player2ViewController)
     self.modalVC.modalPresentationStyle = .OverFullScreen
     DataManager.sharedInstance.playerClass = modalVC
     let color = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.3)
     self.miniPlayerButton.setBackgroundImage(self.generateImageWithColor(color), forState: .Highlighted)
+    self.miniPlayerButton.backgroundColor = UIColor.clearColor()
     labelFirst.text = "Oi"
     notificationCenter.addObserver(self, selector: #selector(MiniPlayerViewController.updatePlayerIcons), name: "updateIcons", object: nil)
     self.setupAnimator()
@@ -45,6 +46,7 @@ class MiniPlayerViewController: UIViewController {
     self.modalVC.tapCloseButtonActionHandler = { [unowned self] in
       self.animator.interactiveType = .None
     }
+    playButton.backgroundColor = UIColor.clearColor()
   }
   
   override func didReceiveMemoryWarning() {
@@ -209,6 +211,7 @@ class MiniPlayerViewController: UIViewController {
       labelSecond.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
     }
     imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(StreamingRadioManager.sharedInstance.actualRadio.thumbnail)))
+
     if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
@@ -221,7 +224,7 @@ class MiniPlayerViewController: UIViewController {
   ///////////////////////////////////////////////////////////
   
   @IBAction func buttonPlayTap(sender: AnyObject) {
-    modalVC.buttonPlayTap(self)
+    modalVC.buttonPlayTapped(self)
     StreamingRadioManager.sharedInstance.sendNotification()
     updatePlayerIcons()
   }

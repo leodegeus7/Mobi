@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "RadioTableViewController.viewWillAppear(Bool) -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ProfileViewController.loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,10 +19,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.viewWillAppear(Bool) -&gt; ():RadioTableViewController.swift">
+         contextName = "ProfileViewController.authPickerViewControllerForAuthUI(FIRAuthUI) -&gt; FIRAuthPickerViewController:ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualRadio">
+               value = "backgroudImage">
+            </PersistentString>
+            <PersistentString
+               value = "backgroudImage.image">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -196,13 +207,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
+         contextName = "RequestManager.(genericRequest(Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(viewWillAppear(Bool) -&gt; ()).(closure #1):ProfileViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(genericRequest(Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "static DataBaseTest.separateRadios() -&gt; ():DataBaseTest.swift">
@@ -213,7 +221,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "static Util.convertStringToNSDate(String) -&gt; NSDate:Util.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4).(closure #1):AppDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #2):LoadViewController.swift">
@@ -315,10 +329,10 @@
                value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
-               value = "cell.labelTitle.text">
+               value = "cell.textDescription.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -553,6 +567,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4):AppDelegate.swift">
+      </ContextState>
+      <ContextState
          contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -613,6 +630,9 @@
                value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestStates((resultState : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #2):RadioViewController.swift">
@@ -706,6 +726,14 @@
          <PersistentStrings>
             <PersistentString
                value = "error?.localizedDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuTableViewController.viewWillAppear(Bool) -&gt; ():MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -821,6 +849,14 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(favRadio(RadioRealm, completion : (resultFav : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "similarRadios">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #1):RadioViewController.swift">

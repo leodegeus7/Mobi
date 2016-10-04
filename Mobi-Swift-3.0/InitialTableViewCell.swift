@@ -9,7 +9,7 @@
 import UIKit
 
 class InitialTableViewCell: UITableViewCell {
-
+  
   @IBOutlet weak var imageBig: UIImageView!
   @IBOutlet weak var labelName: UILabel!
   @IBOutlet weak var labelLocal: UILabel!
@@ -22,15 +22,21 @@ class InitialTableViewCell: UITableViewCell {
   @IBOutlet weak var widthTextOne: NSLayoutConstraint!
   @IBOutlet weak var widthTextTwo: NSLayoutConstraint!
   
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let viewSelected = UIView()
+    viewSelected.backgroundColor = colorAlpha
+    self.selectedBackgroundView = viewSelected
+    // Initialization code
+  }
+  
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    
+    // Configure the view for the selected state
+  }
+  
+  
+  
 }

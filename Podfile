@@ -20,4 +20,5 @@ pod 'PullToRefresh'
 pod 'ChameleonFramework/Swift'
 pod 'FirebaseUI/Database'
 pod 'FirebaseUI/Auth'
+pod 'Eureka'
 end

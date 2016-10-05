@@ -21,7 +21,12 @@ class LoadViewController: UIViewController {
     super.viewDidLoad()
     if DataManager.sharedInstance.existInterfaceColor {
       let rect = view.frame
-      self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.LeftToRight, withFrame: rect, andColors: [DataManager.sharedInstance.interfaceColor.color,DataManager.sharedInstance.interfaceColor.color.colorWithMinimumSaturation(70)])
+      
+      let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+      let colorBlack = DataManager.sharedInstance.interfaceColor.color
+      let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+      view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: rect, andColors: [colorWhite,colorBlack])
+      
     }
     
     loadTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
@@ -78,6 +83,7 @@ class LoadViewController: UIViewController {
         
         let genreManager = RequestManager()
         genreManager.requestMusicGenre({ (resultGenre) in
+          
         })
         
         let localManager = RequestManager()

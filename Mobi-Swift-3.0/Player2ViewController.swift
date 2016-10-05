@@ -28,6 +28,7 @@ class Player2ViewController: UIViewController {
   @IBOutlet weak var butonLike: UIButton!
   
   @IBOutlet weak var segmentedControlProgram: UISegmentedControl!
+  @IBOutlet weak var imageIndicatorDown: UIButton!
   
   @IBOutlet weak var viewProgram: UIView!
   @IBOutlet weak var viewMusic: UIView!
@@ -40,34 +41,45 @@ class Player2ViewController: UIViewController {
   let notificationCenter = NSNotificationCenter.defaultCenter()
   var tapCloseButtonActionHandler : (Void -> Void)?
   
+  
+  var colorBlack : UIColor!
+  var colorWhite : UIColor!
+  
   @IBOutlet weak var viewFirst: UIView!
   @IBOutlet weak var viewSeparator: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    updateInfoOfView()
+
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
-      buttonFav.setImage(UIImage(named: "heart.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
     } else {
-      buttonFav.setImage(UIImage(named: "heartRed.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
-    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(1)
-    view.backgroundColor = colorAlpha
-    viewFirst.backgroundColor = colorAlpha
+
     
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let color = UIColor(red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
-    viewSeparator.backgroundColor = color
-    segmentedControlProgram.tintColor = color
+    colorBlack = DataManager.sharedInstance.interfaceColor.color
+    colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    view.backgroundColor = colorWhite
+    viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
+    
+    imageIndicatorDown.backgroundColor = UIColor.clearColor()
+    
+    
+
+    viewSeparator.backgroundColor = UIColor.whiteColor()
+    segmentedControlProgram.tintColor = UIColor.whiteColor()
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
-    // Do any additional setup after loading the view.
+    updateInfoOfView()
+    segmentedChanged(self)
   }
   
   override func viewWillAppear(animated: Bool) {
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
-      buttonFav.setImage(UIImage(named: "heart.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
     } else {
-      buttonFav.setImage(UIImage(named: "heartRedFilled.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
   }
   
@@ -91,19 +103,21 @@ class Player2ViewController: UIViewController {
     imageLogo.layer.cornerRadius = imageLogo.bounds.height / 6
     imageLogo.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
     imageLogo.layer.backgroundColor = UIColor.whiteColor().CGColor
-    imageLogo.layer.borderWidth = 1
-    
-    labelName.text = StreamingRadioManager.sharedInstance.actualRadio.name
-    
+    imageLogo.layer.borderColor = colorBlack.CGColor
+    imageLogo.layer.borderWidth = 2
+    imageLogo.clipsToBounds = true
+    labelName.text = StreamingRadioManager.sharedInstance.actualRadio.name.uppercaseString
+    labelName.textColor = UIColor.whiteColor()
     if let _ = StreamingRadioManager.sharedInstance.actualRadio.address {
-      labelLocal.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
+      labelLocal.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal.uppercaseString
+      labelLocal.textColor = UIColor.whiteColor()
     }
     
     if StreamingRadioManager.sharedInstance.currentlyPlaying()  {
       //so mostra o play para a radio que esta tocando
       buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
     } else {
-      buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+      buttonPlay.setImage(UIImage(named: "play1.png"), forState: .Normal)
     }
     
     labelMusicName.text = "Happy"
@@ -121,16 +135,12 @@ class Player2ViewController: UIViewController {
     labelNamePerson.text = "Marcos"
     labelGuests.text = "Toninho e Fulanhinho de tal"
     
-    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let color = ColorRealm(name: 3, red: components[0]-0.5, green: components[1]-0.5, blue: components[2]-0.5, alpha: 1)
+
+    buttonPlay.backgroundColor = UIColor.clearColor()
+
     
-    buttonPlay.backgroundColor = color.color
-    buttonPlay.layer.cornerRadius = buttonPlay.bounds.height / 2
-    buttonPlay.clipsToBounds = true
-    
-    buttonFav.backgroundColor = color.color
-    buttonFav.layer.cornerRadius = buttonFav.bounds.height / 2
-    buttonFav.clipsToBounds = true
+    buttonFav.backgroundColor = UIColor.clearColor()
+
   }
   
   @IBAction func segmentedChanged(sender: AnyObject) {
@@ -156,13 +166,13 @@ class Player2ViewController: UIViewController {
   @IBAction func buttonFavTapped(sender: AnyObject) {
     let manager = RequestManager()
     if StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
-      buttonFav.setImage(UIImage(named: "heart.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
       
       StreamingRadioManager.sharedInstance.actualRadio.updateIsFavorite(false)
       manager.deleteFavRadio(StreamingRadioManager.sharedInstance.actualRadio, completion: { (result) in
       })
     } else {
-      buttonFav.setImage(UIImage(named: "heartRed.png"), forState: .Normal)
+      buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
       StreamingRadioManager.sharedInstance.actualRadio.updateIsFavorite(true)
       manager.favRadio(StreamingRadioManager.sharedInstance.actualRadio, completion: { (resultFav) in
       })
@@ -175,10 +185,10 @@ class Player2ViewController: UIViewController {
       if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(StreamingRadioManager.sharedInstance.actualRadio)) {
         buttonPlay.setImage(UIImage(named: "pause.png"), forState: .Normal)
       } else {
-        buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+        buttonPlay.setImage(UIImage(named: "play1.png"), forState: .Normal)
       }
     } else {
-      buttonPlay.setImage(UIImage(named: "play.png"), forState: .Normal)
+      buttonPlay.setImage(UIImage(named: "play1.png"), forState: .Normal)
     }
   }
   

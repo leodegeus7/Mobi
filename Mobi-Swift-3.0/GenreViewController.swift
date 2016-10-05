@@ -7,6 +7,7 @@
 //  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
+import Kingfisher
 
 class GenreViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate {
   
@@ -86,6 +87,9 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
       cell.labelText.text = DataManager.sharedInstance.allMusicGenre[indexPath.item].name
     }
     cell.backgroundColor = UIColor.whiteColor()
+    cell.imageGenre.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
+    cell.imageGenre.alpha = 0.8
+    cell.labelText.textColor = UIColor.whiteColor()
     return cell
   }
   

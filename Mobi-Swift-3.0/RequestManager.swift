@@ -70,7 +70,7 @@ class RequestManager: NSObject {
     case .stationUnitsFavorites(let pageNumber, let pageSize):
       url = "stationunit/search/likes?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
     case .stationUnitsHistoric(let pageNumber, let pageSize):
-      url = "stationunit/search/history?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+      url = "app/user/stationhistory?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
     case .stationUnitsLocation(let pageNumber, let pageSize,let lat, let long):
       url = "stationunit/search/location?latitude=\(lat)&longitude=\(long)&pageNumber=\(pageNumber)&pageSize=\(pageSize)"
     case .stationUnitsUserFavorite(let pageNumber, let pageSize):
@@ -109,9 +109,10 @@ class RequestManager: NSObject {
         var radios = [RadioRealm]()
         for singleResult in array {
           let dic = singleResult as! NSDictionary
-          let date4 = NSTimeInterval(-3000)
-          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          let date = dic["date"] as! String
+          let dateFormatter = Util.convertStringToNSDate(date)
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "", long: "", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: dateFormatter, isFavorite: false, repository: true)
+          
           radios.append(radio)
         }
         DataManager.sharedInstance.recentsRadios = radios
@@ -446,7 +447,7 @@ class RequestManager: NSObject {
         for singleResult in array {
           let dic = singleResult as! NSDictionary
           let genre =
-            GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:"")
+            GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:dic["image"]!["identifier40"] as! String)
           DataManager.sharedInstance.allMusicGenre.append(genre)
         }
         

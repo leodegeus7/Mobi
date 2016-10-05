@@ -87,7 +87,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     tableViewFavorites.reloadData()
     if DataManager.sharedInstance.isLogged == true {
       buttonLogin.setTitle("Logout", forState: .Normal)
-      buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+      buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     } else {
       buttonLogin.setTitle("Login", forState: .Normal)
       buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -317,7 +317,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         try! FIRAuth.auth()?.signOut()
         DataManager.sharedInstance.isLogged = false
         buttonLogin.setTitle("Logout", forState: .Normal)
-        buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+        buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.dismissViewControllerAnimated(true, completion: {
         })
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

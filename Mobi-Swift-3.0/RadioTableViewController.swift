@@ -50,9 +50,7 @@ class RadioTableViewController: UITableViewController {
     //viewTop.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
     
     
-    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let color = UIColor(red: components[0]-0.20, green: components[1]-0.20, blue: components[2]-0.20, alpha: 1)
-    navigationController?.navigationBar.barTintColor = color
+    
     
     
     // Uncomment the following line to preserve selection between presentations
@@ -144,12 +142,14 @@ class RadioTableViewController: UITableViewController {
         cell.labelScore.text = "\(actualRadio.stars)"
         
         
-        let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-        let color = ColorRealm(name: 3, red: components[0]-0.05, green: components[1]-0.05, blue: components[2]-0.05, alpha: 1)
+        
+        
         
         cell.viewBack.alpha = 0
         //cell.viewBack.backgroundColor = color.color
-        cell.playButton.backgroundColor = color.color
+        let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+        let colorBlack =  ColorRealm(name: 45, red: components[0]-0.1, green: components[1]-0.1, blue: components[2]-0.1, alpha: 1).color
+        cell.playButton.backgroundColor = colorBlack
         cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
         cell.imageRadio.layer.borderWidth = 0
         cell.imageRadio.clipsToBounds = true

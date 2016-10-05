@@ -62,8 +62,8 @@ class DataManager: NSObject {
   
   var statusApp:StatusApp = .CorrectyStatus
   
-  let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
-  //let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api"
+  //let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
+  let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api/"
   var userToken:String!
   var myUser = UserRealm()
   var userLocation:CLLocation!
@@ -154,6 +154,8 @@ class DataManager: NSObject {
     vc?.actualRadio = radio
     navigation.pushViewController(vc!, animated: true)
   }
+  
+  
   
   
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função

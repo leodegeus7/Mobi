@@ -587,7 +587,7 @@ class RequestManager: NSObject {
   }
   
   func requestRadiosInGenre(genreId:String,pageNumber:Int,pageSize:Int,completion: (resultGenre: [RadioRealm]) -> Void) {
-    requestJson("app/musicgenre/\(genreId)/station?pageNumber=\(pageNumber)&pageSize\(pageSize)") { (result) in
+    requestJson("app/musicgenre/\(genreId)/station?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
       if let array = result["data"]!["records"] as? NSArray {
         var radios = [RadioRealm]()
         for singleResult in array {

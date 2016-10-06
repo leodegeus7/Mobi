@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RadioListTableViewController: UITableViewController {
+class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   
   var radios = [RadioRealm]()
@@ -27,7 +27,9 @@ class RadioListTableViewController: UITableViewController {
     }
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     
-    
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
   }
   
   override func didReceiveMemoryWarning() {
@@ -116,5 +118,35 @@ class RadioListTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
     return true
   }
+  
+  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    
+    str = "Sem registros"
+    
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    if superSegue == "detailGenre" {
+      str = "Não foi possivel localizar nenhuma rádio com este gênero"
+    } else  {
+      str = "Não foi possível localizar nenhuma rádio com este local"
+    }
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+  }
+  
+  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+    dismissViewControllerAnimated(true) {
+    }
+  }
+  
   
 }

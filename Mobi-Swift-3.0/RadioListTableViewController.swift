@@ -18,10 +18,12 @@ class RadioListTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.rowHeight = 120
-    if superSegue == "detailGenre" {
-      self.title = radios[0].genre
-    } else {
-      self.title = radios[0].address.city
+    if radios.count > 0 {
+      if superSegue == "detailGenre" {
+        self.title = radios[0].genre
+      } else {
+        self.title = radios[0].address.city
+      }
     }
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     

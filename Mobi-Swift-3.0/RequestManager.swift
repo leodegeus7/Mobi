@@ -32,6 +32,7 @@ public enum StationUnitRequest {
   case stationUnitsLocation(pageNumber:Int,pageSize:Int,lat:CGFloat,long:CGFloat)
   case stationUnitsHistoric(pageNumber:Int,pageSize:Int)
   case stationUnitsUserFavorite(pageNumber:Int,pageSize:Int)
+  case stationUnitsSimilar(pageNumber:Int,pageSize:Int,idRadio:Int)
 }
 
 public enum AuthProvider: Int {
@@ -42,12 +43,7 @@ public enum AuthProvider: Int {
 }
 
 
-
-
-
 class RequestManager: NSObject {
-  
-  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- VARIABLES TO CONTROL THE CLASS ---
@@ -75,12 +71,33 @@ class RequestManager: NSObject {
       url = "stationunit/search/location?latitude=\(lat)&longitude=\(long)&pageNumber=\(pageNumber)&pageSize=\(pageSize)"
     case .stationUnitsUserFavorite(let pageNumber, let pageSize):
       url = "stationunit/search/userfavorites?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
+    case .stationUnitsSimilar(let pageNumber,let pageSize,let idRadio):
+      url = "app/station/\(idRadio)/similar?pageNumber=\(pageNumber)&pageSize=\(pageSize)"
     }
     
     requestJson(url) { (result) in
       completion(resultRadios: result)
     }
     
+  }
+  
+  func requestSimilarRadios(pageNumber:Int,pageSize:Int,radioToCompare:RadioRealm,completion: (resultSimilar: [RadioRealm]) -> Void) {
+    requestStationUnits(.stationUnitsSimilar(pageNumber: pageNumber, pageSize: pageSize, idRadio: radioToCompare.id)) { (resultRadios) in
+      if let array = resultRadios["data"]!["records"] as? NSArray {
+        var radios = [RadioRealm]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          let date4 = NSTimeInterval(-3000)
+          let date41 = NSDate(timeInterval: date4, sinceDate: NSDate())
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: date41, isFavorite: dic["favorite"] as! Bool, repository: true)
+          radios.append(radio)
+        }
+        completion(resultSimilar: radios)
+      }
+      else {
+        completion(resultSimilar: [])
+      }
+    }
   }
   
   func requestTopLikesRadios(pageNumber:Int,pageSize:Int,completion: (resultTop: [RadioRealm]) -> Void) {
@@ -109,10 +126,9 @@ class RequestManager: NSObject {
         var radios = [RadioRealm]()
         for singleResult in array {
           let dic = singleResult as! NSDictionary
-          let date = dic["date"] as! String
+          let date = dic["historyDate"] as! String
           let dateFormatter = Util.convertStringToNSDate(date)
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "", long: "", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: dateFormatter, isFavorite: false, repository: true)
-          
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(dic["likes"] as! Int)", stars: 3, genre: "", lastAccessDate: dateFormatter, isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
         DataManager.sharedInstance.recentsRadios = radios
@@ -216,17 +232,42 @@ class RequestManager: NSObject {
     return "\(DataManager.sharedInstance.baseURL)image/download?identifier=\(identifier)"
   }
   
-  func searchWithWord(word:String,completion: (searchRequestResult: Dictionary<searchMode,[AnyObject]>) -> Void) {
-    self.requestJson("stationunit/search/keyword?word=\(word)") { (result) in
+  func searchWithWord(word:String,completion: (searchRequestResult: Dictionary<SearchMode,[AnyObject]>) -> Void) {
+    self.requestJson("app/smartsearch?keyword=\(word)") { (result) in
       
-      var radioResult = [RadioRealm]()
+      var radios = [RadioRealm]()
+      var states = [StateRealm]()
+      var cities = [CityRealm]()
+      var genres = [GenreRealm]()
       
-      let data = Data.response(result)
-      if let stateList = data["stateList"] as? NSArray {
-        
+      let dataDic = result["data"] as! NSDictionary
+      
+      if let stateList = dataDic["states"] as? NSArray {
+        for singleResult in stateList {
+          let dic = singleResult as! NSDictionary
+          let state = StateRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, acronym: dic["acronym"] as! String)
+          states.append(state)
+        }
       }
       
-      if let nameList = data["nameList"] as? NSArray {
+      if let cityList = dataDic["cities"] as? NSArray {
+        for singleResult in cityList {
+          let dic = singleResult as! NSDictionary
+          let city = CityRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String)
+          cities.append(city)
+        }
+      }
+      
+      if let genreList = dataDic["genres"] as? NSArray {
+        for singleResult in genreList {
+          let dic = singleResult as! NSDictionary
+          let genre =
+            GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:dic["image"]!["identifier40"] as! String)
+          genres.append(genre)
+        }
+      }
+      
+      if let nameList = dataDic["stations"] as? NSArray {
         for singleResult in nameList {
           let dic = singleResult as! NSDictionary
           var lat = Double()
@@ -244,18 +285,16 @@ class RequestManager: NSObject {
           let likes = dic["likes"] as! Int
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: dic["image"]!["identifier40"] as! String, likenumber: "\(likes)", stars: 3, genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
           
-          radioResult.append(radio)
+          radios.append(radio)
         }
       }
       
       
-      let cityList = data["cityList"]
-      let genreList = data["genreList"]
-      
-      var result = Dictionary<searchMode,[AnyObject]>()
-      result[.Radios] = radioResult
-      //      result[.Genre] = genreList
-      //      result[.Local] = cityList + stateList
+      var result = Dictionary<SearchMode,[AnyObject]>()
+      result[.Radios] = radios
+      result[.Genre] = genres
+      result[.Cities] = cities
+      result[.States] = states
       
       
       completion(searchRequestResult: result)
@@ -387,34 +426,40 @@ class RequestManager: NSObject {
   //  }
   
   func getAudioChannelsFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
-    requestJson("stationunit/\(radio.id)/streaming") { (result) in
+    requestJson("app/station/\(radio.id)/audiochannel") { (result) in
       let data = result["data"] as! NSArray
       var audioChannels = [AudioChannel]()
       for audioDic in data {
+        var linkRdsString = ""
+        let id = audioDic["id"] as? Int
+        if let audioLink = audioDic["linkRds"] as? String {
+          linkRdsString = audioLink
+        }
         if let descr = audioDic["description"] as? String {
-          var linkHighString = ""
-          var linkLowString = ""
-          var linkRdsString = ""
-          let id = audioDic["id"] as! Int
-          let linkType = audioDic["linkType"] as! Int
-          let active = audioDic["active"] as! Int
-          if let audioLink = audioDic["linkHigh"] as? String {
-            linkHighString = audioLink
+          let streamings = audioDic["streamings"] as! NSArray
+          var streamingsArray = [Streaming]()
+          let main = audioDic["main"] as! Bool
+          for streaming in streamings {
+            var linkHighString = ""
+            var linkLowString = ""
+
+            let idStreaming = streaming["id"] as! Int
+            if let audioLink = streaming["linkHigh"] as? String {
+              linkHighString = audioLink
+            }
+            if let audioLink = streaming["linkLow"] as? String {
+              linkLowString = audioLink
+            }
+            let stream = Streaming(id: idStreaming, linkHigh: linkHighString, linkLow: linkLowString)
+            streamingsArray.append(stream)
           }
-          if let audioLink = audioDic["linkRds"] as? String {
-            linkRdsString = audioLink
-          }
-          if let audioLink = audioDic["linkLow"] as? String {
-            linkLowString = audioLink
-          }
-          
-          let audioClass = AudioChannel(id: id, active: active, desc: descr, linkHigh: linkHighString, linkLow: linkLowString, linkRds: linkRdsString, linkType: linkType)
+          let audioClass = AudioChannel(id: id!, desc: descr, main: main, linkRds: linkRdsString, streamings: streamingsArray)
           audioChannels.append(audioClass)
         }
+
       }
       radio.updateAudioChannels(audioChannels)
       completion(result: true)
-      
     }
   }
   
@@ -541,9 +586,9 @@ class RequestManager: NSObject {
     }
   }
   
-  func requestRadiosInGenre(genreId:String,completion: (resultGenre: [RadioRealm]) -> Void) {
-    requestJson("stationunit/search/musicgenre?id=\(genreId)") { (result) in
-      if let array = result["data"] as? NSArray {
+  func requestRadiosInGenre(genreId:String,pageNumber:Int,pageSize:Int,completion: (resultGenre: [RadioRealm]) -> Void) {
+    requestJson("app/musicgenre/\(genreId)/station?pageNumber=\(pageNumber)&pageSize\(pageSize)") { (result) in
+      if let array = result["data"]!["records"] as? NSArray {
         var radios = [RadioRealm]()
         for singleResult in array {
           let dic = singleResult as! NSDictionary

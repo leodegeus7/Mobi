@@ -77,9 +77,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   override func viewDidAppear(animated: Bool) {
     buttonEdit.layer.cornerRadius = buttonEdit.frame.height/2
     buttonEdit.clipsToBounds = true
+    buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
     buttonLogin.layer.cornerRadius = buttonLogin.frame.height/2
     buttonLogin.clipsToBounds = true
     buttonReadMore.backgroundColor = UIColor.clearColor()
+    buttonLogin.titleLabel?.textColor = UIColor.whiteColor()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -90,17 +92,17 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     } else {
       buttonLogin.setTitle("Login", forState: .Normal)
-      buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
+      buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }
     FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
       if let _ = user {
         self.buttonLogin.setTitle("Logout", forState: .Normal)
         DataManager.sharedInstance.isLogged = true
-        self.buttonLogin.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
       } else {
         self.buttonLogin.setTitle("Login", forState: .Normal)
         DataManager.sharedInstance.isLogged = false
-        self.buttonLogin.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
       }
     })
     let store = Twitter.sharedInstance().sessionStore

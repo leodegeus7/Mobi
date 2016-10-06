@@ -77,17 +77,23 @@ class RadioRealm: Object {
     }
   }
   
-
+  func setRadioGenre(genre:String) {
+    try! DataManager.sharedInstance.realm.write {
+      self.genre = genre
+    }
+  }
   
   static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
     let distanceMeters = source.distanceFromLocation(destination)
     return Int(distanceMeters)
   }
   
+  
   func resetDistanceFromUser() -> Bool{
     if let userLocation = DataManager.sharedInstance.userLocation {
+      let distanceMeters = RadioRealm.distanceBetweenTwoLocationsMeters(userLocation, destination: CLLocation(latitude: Double(address.lat)!, longitude: Double(address.long)!))
       try! DataManager.sharedInstance.realm.write {
-        self.distanceFromUser = RadioRealm.distanceBetweenTwoLocationsMeters(userLocation, destination: CLLocation(latitude: Double(address.lat)!, longitude: Double(address.long)!))
+        self.distanceFromUser = distanceMeters
       }
       return true
     } else {

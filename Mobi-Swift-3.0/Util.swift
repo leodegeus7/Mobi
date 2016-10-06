@@ -130,6 +130,15 @@ class Util: NSObject {
     return "poucos segundos"
   }
   
+  static func getDistanceString(meters:Int) -> String {
+    if meters < 1000 {
+      return "\(meters) m"
+    } else {
+      let metersKm = round(CGFloat(meters) / 1000)
+      return "\(metersKm) km"
+    }
+  }
+  
   static func removeDuplicateStrings(array: [String]) -> [String] {
     var encountered = Set<String>()
     var result: [String] = []

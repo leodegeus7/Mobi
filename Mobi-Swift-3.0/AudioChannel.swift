@@ -10,66 +10,50 @@ import Foundation
 
 class AudioChannel: NSObject {
   dynamic var id = Int()
-  dynamic var active = false
+  dynamic var descr = ""
+  dynamic var main = false
   dynamic var desc = ""
-  dynamic var linkHigh  = Link()
-  dynamic var existHighLink = false
-  dynamic var linkLow = Link()
-  dynamic var existLowLink = false
   dynamic var linkRds = Link()
   dynamic var existRdsLink = false
-  dynamic var linkType = Int()
+  dynamic var streamings = [Streaming]()
   
-  convenience init(id:Int,active:Int,desc:String,linkHigh:String,linkLow:String,linkRds:String, linkType:Int) {
+  convenience init(id:Int,desc:String,main:Bool,linkRds:String,streamings:[Streaming]) {
     self.init()
     self.id = id
-    self.linkType = linkType
-    if active == 1 {
-      self.active = true
-    } else {
-      self.active = false
-    }
     self.desc = desc
-    if linkLow != ""{
-      self.linkLow = Link(link: linkLow, linkType: .Low)
-      self.existLowLink = true
-    }
-    if linkHigh != ""{
-      self.linkHigh = Link(link: linkHigh, linkType: .High)
-      self.existHighLink = true
-    }
     if linkRds != ""{
       self.linkRds = Link(link: linkRds, linkType: .Rds)
       self.existRdsLink = true
     }
+    self.streamings = streamings
   }
   
   func returnLink() -> String {
     
     switch  DataManager.sharedInstance.audioConfig.streamingQuality  {
     case .Low:
-      if existLowLink {
-        return self.linkLow.link
+      if streamings[0].existLowLink {
+        return streamings[0].linkLow.link
       } else {
-        return self.linkHigh.link
+        return streamings[0].linkHigh.link
       }
     case .High:
-      if existHighLink {
-        return self.linkHigh.link
-      } else if existLowLink {
-        return self.linkLow.link
+      if streamings[0].existHighLink {
+        return streamings[0].linkHigh.link
+      } else if streamings[0].existLowLink {
+        return streamings[0].linkLow.link
       }
     case .Automatic:
-      if existHighLink {
-        return self.linkHigh.link
-      } else if existLowLink {
-        return self.linkLow.link
+      if streamings[0].existHighLink {
+        return streamings[0].linkHigh.link
+      } else if streamings[0].existLowLink {
+        return streamings[0].linkLow.link
       }
     default:
-      if existHighLink {
-        return self.linkHigh.link
-      } else if existLowLink {
-        return self.linkLow.link
+      if streamings[0].existHighLink {
+        return streamings[0].linkHigh.link
+      } else if streamings[0].existLowLink {
+        return streamings[0].linkLow.link
       }
     }
     return ""

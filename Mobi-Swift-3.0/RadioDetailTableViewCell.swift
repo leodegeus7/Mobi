@@ -18,6 +18,8 @@ class RadioDetailTableViewCell: UITableViewCell {
   @IBOutlet weak var labelScore: UILabel!
   @IBOutlet weak var viewBack: UIView!
   @IBOutlet weak var playButton: UIButton!
+  @IBOutlet weak var labelLikesDescr: UILabel!
+  @IBOutlet weak var labelScoreDescr: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()

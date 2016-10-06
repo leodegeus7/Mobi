@@ -136,7 +136,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       }
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "marker.png")
-      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].distanceFromUser)" + " m"
+      if selectedRadioArray[indexPath.row].resetDistanceFromUser() {
+        cell.labelDescriptionOne.text = "\(Util.getDistanceString(selectedRadioArray[indexPath.row].distanceFromUser))"
+      }
       cell.widthTextOne.constant = 80
       cell.widthTextTwo.constant = 30
       if selectedRadioArray[indexPath.row].isFavorite {
@@ -196,6 +198,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       return "HISTÓRICO"
     }
     return ""
+  }
+  
+  static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
+    let distanceMeters = source.distanceFromLocation(destination)
+    return Int(distanceMeters)
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -57,6 +57,8 @@
 		B76841DA1DA58E5400ABBC78 /* play1.png in Resources */ = {isa = PBXBuildFile; fileRef = B76841D41DA58E5400ABBC78 /* play1.png */; };
 		B76841DB1DA58E5400ABBC78 /* love1.png in Resources */ = {isa = PBXBuildFile; fileRef = B76841D51DA58E5400ABBC78 /* love1.png */; };
 		B76841DC1DA58E5400ABBC78 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B76841D61DA58E5400ABBC78 /* pause.png */; };
+		B76841DE1DA6BE0B00ABBC78 /* LocalClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76841DD1DA6BE0B00ABBC78 /* LocalClass.swift */; };
+		B76841E01DA6D35500ABBC78 /* Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76841DF1DA6D35500ABBC78 /* Streaming.swift */; };
 		B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */; };
 		B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769B6291D664E21005A00B3 /* NewRealm.swift */; };
 		B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384A51D7F309A00701070 /* libicucore.tbd */; };
@@ -229,6 +231,8 @@
 		B76841D41DA58E5400ABBC78 /* play1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play1.png; sourceTree = "<group>"; };
 		B76841D51DA58E5400ABBC78 /* love1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = love1.png; sourceTree = "<group>"; };
 		B76841D61DA58E5400ABBC78 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		B76841DD1DA6BE0B00ABBC78 /* LocalClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalClass.swift; sourceTree = "<group>"; };
+		B76841DF1DA6D35500ABBC78 /* Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Streaming.swift; sourceTree = "<group>"; };
 		B769B6271D664ABA005A00B3 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B769B6291D664E21005A00B3 /* NewRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRealm.swift; sourceTree = "<group>"; };
 		B77384A51D7F309A00701070 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -391,6 +395,7 @@
 				B76198D91D89E15D00B83B6E /* CityRealm.swift */,
 				CD0B65021D904B9D002B88EA /* ColorRealm.swift */,
 				B7D584DF1D5D1674003D5A1F /* AudioConfig.swift */,
+				B76841DD1DA6BE0B00ABBC78 /* LocalClass.swift */,
 			);
 			name = RealmClass;
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				B74D652B1D8B1836007798F4 /* Comment.swift */,
 				B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */,
 				B7EE9D311D8893CE00AE27D1 /* Link.swift */,
+				B76841DF1DA6D35500ABBC78 /* Streaming.swift */,
 				CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */,
 				B75E33291D906C6700713783 /* AudioChannel.swift */,
 			);
@@ -910,6 +916,7 @@
 				B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */,
 				B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */,
 				B77C49A01D8C68D600AFF826 /* STKAutoRecoveringHTTPDataSource.m in Sources */,
+				B76841E01DA6D35500ABBC78 /* Streaming.swift in Sources */,
 				B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */,
 				B7E697341D59162D00EC276F /* LoadViewController.swift in Sources */,
 				B77C49A21D8C68D600AFF826 /* STKDataSource.m in Sources */,
@@ -958,6 +965,7 @@
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,
 				B7F9EBFE1D677A2C00E06D26 /* LocalCitiesViewController.swift in Sources */,
 				B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */,
+				B76841DE1DA6BE0B00ABBC78 /* LocalClass.swift in Sources */,
 				B77C49A11D8C68D600AFF826 /* STKCoreFoundationDataSource.m in Sources */,
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
 				B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */,

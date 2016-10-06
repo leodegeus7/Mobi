@@ -103,11 +103,14 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
       self.selectedGenre = searchResults[indexPath.row]
     }
     let manager = RequestManager()
-    manager.requestRadiosInGenre(selectedGenre.id) { (resultGenre) in
+    manager.requestRadiosInGenre(selectedGenre.id,pageNumber:0,pageSize:20) { (resultGenre) in
       self.selectedGenre.updateRadiosOfGenre(resultGenre)
       self.collectionView.allowsSelection = true
       self.activityIndicator.hidden = true
       self.activityIndicator.removeFromSuperview()
+      for radio in resultGenre {
+        radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
+      }
       self.performSegueWithIdentifier("detailGenre", sender: self)
     }
   }

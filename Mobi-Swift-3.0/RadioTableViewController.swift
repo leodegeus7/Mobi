@@ -33,12 +33,14 @@ class RadioTableViewController: UITableViewController {
   }
   var selectedMode:SelectedRadioMode = .DetailRadio
   
+  var colorBlack : UIColor!
+  var colorWhite : UIColor!
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     let button = UIButton(type: UIButtonType.InfoLight)
     buttonActionNav = UIBarButtonItem.init(customView: button)
-    similarRadios = DataManager.sharedInstance.favoriteRadios
     
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     let manager = RequestManager()
@@ -49,9 +51,16 @@ class RadioTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     //viewTop.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
     
+    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    colorBlack = DataManager.sharedInstance.interfaceColor.color
+    colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
     
     
-    
+    let similarRequest = RequestManager()
+    similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
+      self.similarRadios = resultSimilar
+      self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+    }
     
     // Uncomment the following line to preserve selection between presentations
     self.clearsSelectionOnViewWillAppear = true
@@ -89,7 +98,7 @@ class RadioTableViewController: UITableViewController {
         if similarRadios.count <= 3 {
           return similarRadios.count
         } else {
-          return similarRadios.count + 1
+          return 4
         }
       } else if section == 4 {
         return 3
@@ -132,31 +141,33 @@ class RadioTableViewController: UITableViewController {
         cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
         cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.imageRadio.layer.borderWidth = 1
-        let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
-        cell.backgroundColor = colorAlpha
-        cell.labelName.text = actualRadio.name
+        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
+        cell.labelName.text = actualRadio.name.uppercaseString
+        cell.labelName.textColor = UIColor.whiteColor()
         if let _ = actualRadio.address {
-          cell.labelLocal.text = actualRadio.address.formattedLocal
+          cell.labelLocal.text = actualRadio.address.formattedLocal.uppercaseString
+          cell.labelLocal.textColor = UIColor.whiteColor()
         }
         cell.labelLikes.text = "\(actualRadio.likenumber)"
+        cell.labelLikes.textColor = UIColor.whiteColor()
         cell.labelScore.text = "\(actualRadio.stars)"
-        
-        
+        cell.labelScore.textColor = UIColor.whiteColor()
+        cell.labelLikesDescr.textColor = UIColor.whiteColor()
+        cell.labelScoreDescr.textColor = UIColor.whiteColor()
         
         
         
         cell.viewBack.alpha = 0
         //cell.viewBack.backgroundColor = color.color
-        let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-        let colorBlack =  ColorRealm(name: 45, red: components[0]-0.1, green: components[1]-0.1, blue: components[2]-0.1, alpha: 1).color
-        cell.playButton.backgroundColor = colorBlack
+
+        cell.playButton.backgroundColor = UIColor.clearColor()
         cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
         cell.imageRadio.layer.borderWidth = 0
         cell.imageRadio.clipsToBounds = true
         if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
           cell.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
         } else {
-          cell.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
+          cell.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
         }
         
         
@@ -183,18 +194,18 @@ class RadioTableViewController: UITableViewController {
         cell.tag = 150
         return cell
       case 3:
-        if indexPath.row <= DataManager.sharedInstance.favoriteRadios.count-1 {
+        if indexPath.row <= similarRadios.count-1 {
           let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-          cell.labelName.text = DataManager.sharedInstance.favoriteRadios[indexPath.row].name
-          if let address = DataManager.sharedInstance.favoriteRadios[indexPath.row].address {
+          cell.labelName.text = similarRadios[indexPath.row].name
+          if let address = similarRadios[indexPath.row].address {
             cell.labelLocal.text = address.formattedLocal
           }
-          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.favoriteRadios[indexPath.row].thumbnail)))
-          cell.labelDescriptionOne.text = "\(DataManager.sharedInstance.favoriteRadios[indexPath.row].likenumber)"
+          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(similarRadios[indexPath.row].thumbnail)))
+          cell.labelDescriptionOne.text = "\(similarRadios[indexPath.row].likenumber)"
           cell.widthTextOne.constant = 30
           cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
           cell.labelDescriptionTwo.text = ""
-          if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
+          if similarRadios[indexPath.row].isFavorite {
             cell.imageSmallOne.image = UIImage(named: "heartRed.png")
           } else {
             cell.imageSmallOne.image = UIImage(named: "heart.png")
@@ -298,10 +309,10 @@ class RadioTableViewController: UITableViewController {
       if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
         cellFirst.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
       } else {
-        cellFirst.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
+        cellFirst.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
       }
     } else {
-      cellFirst.playButton.setImage(UIImage(named: "play.png"), forState: .Normal)
+      cellFirst.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
     }
   }
   

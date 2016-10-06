@@ -89,7 +89,12 @@ class MenuTableViewController: UITableViewController {
   override func viewDidAppear(animated: Bool) {
     updateSwitch()
     switchTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(MenuTableViewController.updateInterfaceTimer), userInfo: nil, repeats: true)
-    
+    for index in 0...tableView.visibleCells.count-1 {
+      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: index, inSection: 0))
+      if DataManager.sharedInstance.existInterfaceColor {
+        cell?.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+      }
+    }
   }
   
   func updateInterfaceTimer() {

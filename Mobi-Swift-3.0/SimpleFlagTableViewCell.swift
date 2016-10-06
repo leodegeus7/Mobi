@@ -11,6 +11,7 @@ import UIKit
 class SimpleFlagTableViewCell: UITableViewCell {
   
   @IBOutlet weak var labelTitle: UILabel!
+  @IBOutlet weak var flagIcon: UIButton!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -18,6 +19,7 @@ class SimpleFlagTableViewCell: UITableViewCell {
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
+    self.flagIcon.backgroundColor = UIColor.clearColor()
   }
   
   override func setSelected(selected: Bool, animated: Bool) {

@@ -20,11 +20,13 @@ enum NSComparisonResult : Int {
   case OrderedDescending
 }
 
-enum searchMode {
+enum SearchMode {
   case All
   case Radios
   case Genre
   case Local
+  case States
+  case Cities
 }
 
 enum PostType : Int {
@@ -152,6 +154,20 @@ class DataManager: NSObject {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewControllerWithIdentifier("radioTableDetail") as? RadioTableViewController
     vc?.actualRadio = radio
+    navigation.pushViewController(vc!, animated: true)
+  }
+  
+  func instantiateListOfRadios(navigation:UINavigationController,radios:[RadioRealm]) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("radioListView") as? RadioListTableViewController
+    vc?.radios = radios
+    navigation.pushViewController(vc!, animated: true)
+  }
+  
+  func instantiateCitiesInStateView(navigation:UINavigationController,state:StateRealm) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("citiesView") as? LocalCities2TableViewController
+    vc?.selectedState = state
     navigation.pushViewController(vc!, animated: true)
   }
   

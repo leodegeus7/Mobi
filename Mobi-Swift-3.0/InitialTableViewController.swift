@@ -82,6 +82,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
     segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
     segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
+    
+    selectedRadioArray = DataManager.sharedInstance.topRadios
   }
   
   

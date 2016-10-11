@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Kingfisher
 
-class RadioTableViewController: UITableViewController {
+class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   @IBOutlet weak var buttonActionNav: UIBarButtonItem!
   
@@ -64,6 +64,9 @@ class RadioTableViewController: UITableViewController {
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
     
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
     
     let similarRequest = RequestManager()
     similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
@@ -72,7 +75,7 @@ class RadioTableViewController: UITableViewController {
     }
     
     let scoreRequest = RequestManager()
-
+    
     scoreRequest.getRadioScore(actualRadio) { (resultScore) in
       let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
       if self.actualRadio.score == -1 {
@@ -95,7 +98,7 @@ class RadioTableViewController: UITableViewController {
   
   override func viewWillAppear(animated: Bool) {
     defineBarButton()
-
+    
   }
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -397,8 +400,39 @@ class RadioTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       }
     } else if selectedMode == .Wall {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "plus.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.createComment))
-
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "plus.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.createComment))
+      
+    }
+  }
+  
+  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    if selectedMode == .Wall {
+      str = "Nenhuma publicação realizada no mural"
+      
+    }
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    var str = ""
+    if selectedMode == .Wall {
+      str = "Clique aqui e seja o primeiro a criar uma publicação no mural de  \(actualRadio.name)"
+      
+    }
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+    return Util.imageResize(imageView.image!, sizeChange: CGSize(width: 100, height: 100))
+  }
+  
+  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+    dismissViewControllerAnimated(true) {
     }
   }
   

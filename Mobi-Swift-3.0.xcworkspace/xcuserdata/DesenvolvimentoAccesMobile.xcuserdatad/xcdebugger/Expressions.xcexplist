@@ -890,6 +890,14 @@
          contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [searchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
+         contextName = "ReviewTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ReviewTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualReviews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
       </ContextState>
       <ContextState

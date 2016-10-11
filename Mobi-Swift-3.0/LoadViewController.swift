@@ -102,6 +102,19 @@ class LoadViewController: UIViewController {
               let historicManager = RequestManager()
               historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
                 
+                let scoreRequest = RequestManager()
+                scoreRequest.getRadioScore(DataManager.sharedInstance.recentsRadios.first!) { (resultScore) in
+                  
+                  
+//                  let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
+//                  if self.actualRadio.score == -1 {
+//                    cell.labelScore.text = "-"
+//                  } else {
+//                    cell.labelScore.text = "\(self.actualRadio.score)"
+//                  }
+                }
+                
+                
                 self.dismissViewControllerAnimated(true, completion: {
                   
                 })

@@ -20,6 +20,7 @@ import FirebaseAuth
 import Fabric
 import TwitterKit
 import ChameleonFramework
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
@@ -34,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     print("Iniciou!")
     //DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     //DataManager.sharedInstance.userToken = "0143363d-c4f4-4b9b-9b51-7ec5d8680460"
-    DataManager.sharedInstance.userToken = "a4d35b2d-cae9-424b-a171-45f783f10312"
+    DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
     print(FileSupport.findDocsDirectory())
     //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
@@ -45,12 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
         loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
-          print("deu")
+
         })
+
       }
     } else {
       RealmWrapper.realmStart("default")
+      
     }
+    
+
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
@@ -74,46 +79,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     })
     
-//    if let img = UIImage(named: "play.png") {
-//      
-//
-//      let imageShackUrl = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/image/upload/"
-//      
-//      //Convert to jpeg & compress by 80%(0.2)
-//      let imgData = UIImageJPEGRepresentation(img, 0.2)!
-//      
-//      let keyJson = "json".dataUsingEncoding(NSUTF8StringEncoding)!
-//      
-//      Alamofire.upload(.POST, imageShackUrl, multipartFormData: { MultipartFormData in
-//        
-//        MultipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg")
-//        MultipartFormData.appendBodyPart(data: keyJson, name: "format")
-//        
-//        },encodingCompletion: { encodingResult in
-//          
-//          switch encodingResult {
-//            
-//          case .Success(let upload, _, _):
-//            
-//            upload.responseJSON { response in
-//              
-//              if let info = response.result.value as? Dictionary<String, AnyObject> {
-//                
-//                if let links = info["links"] as? Dictionary<String, AnyObject> {
-//                  
-//                  if let imgLink = links["image_link"] as? String {
-//                    print("LINK: \(imgLink)")
-//                  }
-//                }
-//              }
-//              
-//            } case .Failure(let error):
-//              print(error)
-//          }
-//      })
-//    }
+    var dicPara = Dictionary<String,AnyObject>()
+    dicPara["parameter"] = "name"
+    dicPara["value"] = "Leo"
+    var changesArray = [Dictionary<String,AnyObject>]()
+    changesArray.append(dicPara)
     
+
+    let requestTestUser = RequestManager()
+    requestTestUser.updateUserInfo(changesArray) { (result) in
+    }
     
+
+    //uploadProfilePicture(UIImage(named: "play.png")!)
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
   
@@ -173,6 +151,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     FIRAuth.auth()?.signInWithEmail(user.email, password: user.password, completion: { (user, error) in
       if error == nil {
+        user?.getTokenWithCompletion({ (token, erro) in
+          let loginManager = RequestManager()
+          loginManager.loginInServer(token!) { (result) in
+            DataManager.sharedInstance.userToken = result
+            DataManager.sharedInstance.configApp.userToken = result
+          }
+        })
         print(user?.email)
         print(user?.displayName)
         print(user)
@@ -180,6 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         completion(result: true)
       }
     })
+
+
     
   }
   
@@ -240,6 +227,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     let appConfigRealm = realm.objects(AppConfigRealm.self).filter("id == 1")
     if appConfigRealm.count > 0 {
       DataManager.sharedInstance.configApp = appConfigRealm.first!
+      if appConfigRealm.first!.userToken != "" {
+        DataManager.sharedInstance.userToken = appConfigRealm.first!.userToken
+      }
     }
 
     
@@ -279,6 +269,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     default:
       break
     }
+  }
+  
+  func uploadProfilePicture(photo: UIImage){
+
+
+    
+    Alamofire.upload(.POST, "http://feroxhome.mooo.com:8080/radiocontrole-web/api/image/upload", multipartFormData: { multipartFormData in
+      if let imageData = UIImageJPEGRepresentation(photo, 0.8) {
+        multipartFormData.appendBodyPart(data: imageData, name: "upload", fileName: "userphoto.jpg", mimeType: "image/jpeg")
+      }
+      
+      }, encodingCompletion: {
+        encodingResult in
+        
+        debugPrint(encodingResult)
+        
+    })
   }
   
   

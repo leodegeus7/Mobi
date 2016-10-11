@@ -17,14 +17,14 @@ class UserRealm: Object {
   dynamic var address:AddressRealm!
   var favoritesRadios:[RadioRealm]!
   dynamic var birthDate = NSDate()
-  dynamic var userImage = "profilePic.jpg"
+  dynamic var userImage = ""
   dynamic var following = -1
   dynamic var followers = -1
-  dynamic var userUImage:UIImage!
   dynamic var email =  ""
   dynamic var password = ""
+
   
-  convenience init(id:String, email:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String) {
+  convenience init(id:String, email:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String,userImage:ImageObject) {
     self.init()
     self.email = email
     self.id = id
@@ -35,21 +35,19 @@ class UserRealm: Object {
     self.followers = Int(followers)!
     self.following = Int(following)!
     self.password = ""
-    
-    if FileSupport.testIfFileExistInDocuments(self.userImage){
-      userUImage = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())\(userImage)")
-    }
+    self.userImage = userImage.getImageIdentifier()
+
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
     }
   }
   
-  convenience init(id:String,email:String,name:String,image:String) {
+  convenience init(id:String,email:String,name:String,image:ImageObject) {
     self.init()
     self.email = email
     self.name = name
     self.id = id
-    self.userImage = image
+    self.userImage = image.getImageIdentifier()
     
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
@@ -71,9 +69,9 @@ class UserRealm: Object {
     return self
   }
   
-  func updateImagePath(imagePath:String) {
+  func updateImageIdentifier(imageID:String) {
     try! DataManager.sharedInstance.realm.write {
-      self.userImage = imagePath
+      self.userImage = imageID
     }
   }
   

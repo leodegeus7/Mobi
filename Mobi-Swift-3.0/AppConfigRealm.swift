@@ -12,7 +12,7 @@ import RealmSwift
 class AppConfigRealm: Object {
   dynamic var id = 0
   dynamic var coordColorConfig = 00
-
+  dynamic var userToken = ""
   
   convenience init(id:String) {
     self.init()
@@ -25,6 +25,12 @@ class AppConfigRealm: Object {
   func updatecoordColorConfig(coord:Int) {
     try! DataManager.sharedInstance.realm.write {
       self.coordColorConfig = coord
+    }
+  }
+  
+  func updateUserToken(userToken:String) {
+    try! DataManager.sharedInstance.realm.write {
+      self.userToken = userToken
     }
   }
   

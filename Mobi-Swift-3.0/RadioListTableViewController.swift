@@ -21,7 +21,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     if radios.count > 0 {
       if superSegue == "detailGenre" {
         self.title = radios[0].genre
-      } else {
+      } else if superSegue == "detailCity" {
         self.title = radios[0].address.city
       }
     }
@@ -132,9 +132,10 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     var str = ""
     if superSegue == "detailGenre" {
       str = "Não foi possivel localizar nenhuma rádio com este gênero"
-    } else  {
+    } else if superSegue == "detailCity" {
       str = "Não foi possível localizar nenhuma rádio com este local"
     }
+    
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
     return NSAttributedString(string: str, attributes: attr)
   }

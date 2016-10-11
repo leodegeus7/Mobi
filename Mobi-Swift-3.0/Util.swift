@@ -177,9 +177,14 @@ class Util: NSObject {
         let date = dateFormatter.dateFromString(dateString)
         return date!
       }
-    } else {
+    } else if dateString.characters.count == 24 {
       let dateFormatter = NSDateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+      let date = dateFormatter.dateFromString(dateString)
+      return date!
+    } else {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000'Z"
       let date = dateFormatter.dateFromString(dateString)
       return date!
     }

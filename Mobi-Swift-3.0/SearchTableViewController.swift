@@ -296,44 +296,10 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
         }
-      case 3:
+      case 1:
         if indexPath.row == 3 {
           selectedMode = .Genre
           searchBar.selectedScopeButtonIndex = 2
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-        } else {
-          let state = searchStates[indexPath.row]
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-          DataManager.sharedInstance.instantiateCitiesInStateView(navigationController!, state: state)
-        }
-      case 1:
-        if indexPath.row == 3 {
-          selectedMode = .Local
-          searchBar.selectedScopeButtonIndex = 3
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-        } else {
-          let city = searchCities[indexPath.row]
-          let manager = RequestManager()
-          manager.requestRadiosInCity(city.id, completion: { (resultCity) in
-            city.updateRadiosOfCity(resultCity)
-            self.tableView.allowsSelection = true
-            self.activityIndicator.hidden = true
-            self.activityIndicator.removeFromSuperview()
-            DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios))
-          })
-        }
-      case 2:
-        if indexPath.row == 3 {
-          selectedMode = .Local
-          searchBar.selectedScopeButtonIndex = 4
           tableView.reloadData()
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
@@ -351,8 +317,45 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
             for radio in resultGenre {
               radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
             }
-            DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre)
+            DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
           }
+        }
+      case 2:
+        if indexPath.row == 3 {
+          selectedMode = .Local
+          searchBar.selectedScopeButtonIndex = 3
+          tableView.reloadData()
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          self.tableView.allowsSelection = true
+        } else {
+          let state = searchStates[indexPath.row]
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          self.tableView.allowsSelection = true
+          DataManager.sharedInstance.instantiateCitiesInStateView(navigationController!, state: state)
+        }
+      case 3:
+        if indexPath.row == 3 {
+          selectedMode = .Local
+          searchBar.selectedScopeButtonIndex = 3
+          tableView.reloadData()
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          self.tableView.allowsSelection = true
+        } else {
+          
+          let city = searchCities[indexPath.row]
+          let manager = RequestManager()
+          manager.requestRadiosInCity(city.id, completion: { (resultCity) in
+            city.updateRadiosOfCity(resultCity)
+            self.tableView.allowsSelection = true
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
+          })
+          
+
         }
       default:
         break
@@ -379,7 +382,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.tableView.allowsSelection = true
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
-          DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios))
+          DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
         })
       default:
         break
@@ -397,7 +400,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         for radio in resultGenre {
           radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
         }
-        DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre)
+        DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
       }
     default:
       self.activityIndicator.hidden = true

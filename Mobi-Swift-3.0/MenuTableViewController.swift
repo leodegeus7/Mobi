@@ -60,10 +60,9 @@ class MenuTableViewController: UITableViewController {
                 cell2.imageUser.image = UIImage(named: "avatar.png")
               } else {
                 if DataManager.sharedInstance.myUser.name != "" {
-                  if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
-                    cell2.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
-                  }
-                  cell2.nameUser.text = DataManager.sharedInstance.myUser.name
+                    cell2.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+
+                  cell2.nameUser.text = DataManager.sharedInstance.myUser.name.componentsSeparatedByString(" ").first!
                 } else {
                   cell2.nameUser.text = "Perfil"
                   cell2.imageUser.image = UIImage(named: "avatar.png")
@@ -95,6 +94,8 @@ class MenuTableViewController: UITableViewController {
         cell?.backgroundColor = DataManager.sharedInstance.interfaceColor.color
       }
     }
+
+    
   }
   
   func updateInterfaceTimer() {
@@ -159,10 +160,8 @@ class MenuTableViewController: UITableViewController {
         userCell.imageUser.image = UIImage(named: "avatar.png")
       } else {
         if DataManager.sharedInstance.myUser.name != "" {
-          if FileSupport.testIfFileExistInDocuments("profilePic.jpg") {
-            userCell.imageUser.image = UIImage(contentsOfFile: "\(FileSupport.findDocsDirectory())profilePic.jpg")
-          }
-          userCell.nameUser.text = DataManager.sharedInstance.myUser.name
+            userCell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+          userCell.nameUser.text = DataManager.sharedInstance.myUser.name.componentsSeparatedByString(" ").first!
         } else {
           userCell.nameUser.text = "Perfil"
           userCell.imageUser.image = UIImage(named: "avatar.png")
@@ -246,6 +245,10 @@ class MenuTableViewController: UITableViewController {
       func okAction() {
         try! FIRAuth.auth()?.signOut()
         DataManager.sharedInstance.isLogged = false
+        DataManager.sharedInstance.userToken = ""
+        let logoutManger = RequestManager()
+        logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
+        })
         tableView.reloadData()
         self.dismissViewControllerAnimated(true, completion: {
         })

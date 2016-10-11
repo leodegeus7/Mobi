@@ -23,20 +23,19 @@ class RadioRealm: Object {
   dynamic var lastAccessDate:NSDate!
   dynamic var lastAccessString = ""
   dynamic var address:AddressRealm!
-  dynamic var stars = -1
+  dynamic var score = -1
   dynamic var genre:String!
   dynamic var isFavorite = false
   dynamic var audioChannels = [AudioChannel]()
   
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:String,likenumber:String,stars:Int,genre:String,lastAccessDate:NSDate,isFavorite:Bool,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,lastAccessDate:NSDate,isFavorite:Bool,repository:Bool) {
     self.init()
     self.name = name
     self.id = Int(id)!
-    self.thumbnail = thumbnail
+    self.thumbnail = thumbnail.getImageIdentifier()
     self.lastAccessDate = lastAccessDate
     self.likenumber = Int(likenumber)!
-    self.stars = stars
     self.genre = genre
     self.isFavorite = isFavorite
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
@@ -137,6 +136,12 @@ class RadioRealm: Object {
   func removeOneLikesNumber() {
     try! DataManager.sharedInstance.realm.write {
       self.likenumber -= 1
+    }
+  }
+  
+  func updateScore(score:Int) {
+    try! DataManager.sharedInstance.realm.write {
+      self.score = score
     }
   }
   

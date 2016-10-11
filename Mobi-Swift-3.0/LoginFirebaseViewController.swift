@@ -40,7 +40,12 @@ class LoginFirebaseViewController: UIViewController,FIRAuthUIDelegate {
     if error != nil {
       //Problem signing in
     }else {
-      //User is in!
+      user?.getTokenWithCompletion({ (token, error) in
+        let requestManager = RequestManager()
+        requestManager.loginInServer(token!, completion: { (result) in
+          
+        })
+      })
     }
   }
   

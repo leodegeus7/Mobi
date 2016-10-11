@@ -1,32 +1,42 @@
 //
-//  ProgramsTableViewController.swift
+//  ReviewTableViewController.swift
 //  Mobi-Swift-3.0
 //
-//  Created by Desenvolvimento Access Mobile on 10/3/16.
+//  Created by Desenvolvimento Access Mobile on 10/11/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
 //
 
 import UIKit
+import Kingfisher
 
-class ProgramsTableViewController: UITableViewController {
+class ReviewTableViewController: UITableViewController {
 
-  @IBOutlet weak var leftButtonWeek: UIButton!
-  @IBOutlet weak var labelWeekend: UILabel!
-  @IBOutlet weak var rightButtonWeek: UIButton!
+
+    var actualRadio = RadioRealm()
+    var actualReviews = [Review]()
   
-  var actualRadio = RadioRealm()
-  
-  var weekDays = ["Domingo","Segunda-Feira","Terça-Feira","Quarta-Feira","Quinta-Feira","Sexta-Feira","Sábado"]
-  
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        let requestProgramas = RequestManager()
-        requestProgramas.requestProgramsOfRadio(actualRadio, pageNumber: 0, pageSize: 1000) { (resultPrograms) in
-          
-          
-          self.tableView.reloadData()
-        }
+
+      activityIndicator.center = view.center
+      activityIndicator.startAnimating()
+      activityIndicator.hidden = true
+      
+      tableView.estimatedRowHeight = 40
+      tableView.rowHeight = UITableViewAutomaticDimension
+      
+      let scoreRequest = RequestManager()
+      
+      scoreRequest.requestReviewsInRadio(actualRadio, pageSize: 50, pageNumber: 0) { (resultScore) in
+        self.actualReviews = resultScore
+        self.tableView.reloadData()
+      }
+      
+      self.clearsSelectionOnViewWillAppear = true
+    
+      
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,27 +52,36 @@ class ProgramsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+      
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return actualReviews.count
     }
 
-  @IBAction func leftButtonWeek(sender: AnyObject) {
-    
-  }
-  
-  @IBAction func rightButtonWeek(sender: AnyObject) {
-    
-  }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
+      cell.labelName.text = actualReviews[indexPath.row].user.name
       
-        // Configure the cell...
+      cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
+      cell.textViewReview.text = actualReviews[indexPath.row].text
+      if actualReviews[indexPath.row].user.userImage == "avatar.png" {
+        cell.imageUser.image = UIImage(named: "avatar.png")
+      } else {
+        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].user.userImage)))
+      }
+      
+      
+      if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
+        for index in 0...actualReviews[indexPath.row].score-1 {
+          cell.stars[index].image = UIImage(named: "star.png")
+          cell.stars[index].tintColor = UIColor.redColor()
+        }
+      }
 
         return cell
     }

@@ -17,8 +17,7 @@ class DataBaseTest: NSObject {
       
         
 //        
-//        DataManager.sharedInstance.topRadios = DataManager.sharedInstance.allRadios
-        DataManager.sharedInstance.recentsRadios = DataManager.sharedInstance.allRadios
+//        DataManager.sharedInstance.topRadios = 
         
 //        let myAddress = AddressRealm(id: "7", lat: "-25.228954", long: "-49.2671369", country: "Brasil", city: "Curitiba", state: "Paraná", street: "Rua Bela Vista", streetNumber: "1859", zip: "84145-000", repository: true)
 //        let myUser = UserRealm(id: "1", email:"leonardodegeus@gmail.com", name: "Leonardo de Geus", sex: "Masculino", address: myAddress, birthDate: "07/12/1996", following: "60", followers: "20")

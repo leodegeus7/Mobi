@@ -1,0 +1,26 @@
+//
+//  Review.swift
+//  Mobi-Swift-3.0
+//
+//  Created by Desenvolvimento Access Mobile on 10/11/16.
+//  Copyright © 2016 Access Mobile. All rights reserved.
+//
+
+import UIKit
+
+class Review: NSObject {
+  var id = -1
+  var score = -1
+  var date = NSDate()
+  var text = ""
+  var user = UserRealm()
+  
+  init(id:Int,date:NSDate,user:UserRealm,text:String,score:Int) {
+    super.init()
+    self.id = id
+    self.date = date
+    self.user = user
+    self.text = text
+    self.score = score
+  }
+}

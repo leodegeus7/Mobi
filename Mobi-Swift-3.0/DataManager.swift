@@ -58,6 +58,7 @@ enum StatusApp : Int {
   case ProblemWithInternet = 3
 }
 
+
 class DataManager: NSObject {
 
   var configApp = AppConfigRealm()
@@ -98,6 +99,15 @@ class DataManager: NSObject {
   
   var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
   
+  struct ProgramDays {
+    var isSunday:Bool
+    var isMonday:Bool
+    var isTuesday:Bool
+    var isWednesday:Bool
+    var isThursday:Bool
+    var isFriday:Bool
+    var isSaturday:Bool
+  }
   
   enum actualCondition {
     case Ok
@@ -157,10 +167,11 @@ class DataManager: NSObject {
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateListOfRadios(navigation:UINavigationController,radios:[RadioRealm]) {
+  func instantiateListOfRadios(navigation:UINavigationController,radios:[RadioRealm],title:String) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewControllerWithIdentifier("radioListView") as? RadioListTableViewController
     vc?.radios = radios
+    vc?.title = title
     navigation.pushViewController(vc!, animated: true)
   }
   

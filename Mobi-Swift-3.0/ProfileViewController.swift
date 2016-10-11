@@ -17,8 +17,9 @@ import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
 import ChameleonFramework
+import Kingfisher
 
-class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate {
+class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   //FBSDKLoginButtonDelegate
   @IBOutlet weak var imageUser: UIImageView!
   @IBOutlet weak var labelName: UILabel!
@@ -37,7 +38,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   // @IBOutlet weak var buttonFacebook: FBSDKLoginButton!
   @IBOutlet weak var buttonLogin: UIButton!
   @IBOutlet weak var buttonReadMore: UIButton!
+  @IBOutlet weak var buttonChangePhoto: UIButton!
   
+  
+  let imagePicker = UIImagePickerController()
   
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
@@ -66,7 +70,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     imageUser.clipsToBounds = true
     self.title = "Perfil"
     tableViewFavorites.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-    
+    imagePicker.delegate = self
+    buttonChangePhoto.backgroundColor = UIColor.clearColor()
   }
   
   
@@ -169,21 +174,29 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     labelName.text = myUser.name
     labelCity.text = myUser.address.city
     labelState.text = myUser.address.state
+    
     if myUser.sex == "M" {
       labelGender.text = "Masculino"
     } else if myUser.sex == "F" {
       labelGender.text = "Feminino"
+    } else {
+      labelGender.text = nil
     }
     labelCountry.text = myUser.address.country
-    labelDateBirth.text = Util.convertDateToShowString(myUser.birthDate)
+    if (myUser.birthDate != "") {
+      labelDateBirth.text = Util.convertDateToShowString(myUser.birthDate)
+    } else {
+      labelDateBirth.text = nil
+    }
     labelFollowers.text = "\(myUser.followers)"
     labelFollowing.text = "\(myUser.following)"
-    labelAddress.text = "\(myUser.address.street), \(myUser.address.streetNumber)"
-    if FileSupport.testIfFileExistInDocuments(myUser.userImage) {
-      let path = "\(FileSupport.findDocsDirectory())\(myUser.userImage)"
-      let image = UIImage(contentsOfFile: path)
-      imageUser.image = image
+    if myUser.address.street != "" {
+      labelAddress.text = "\(myUser.address.street), \(myUser.address.streetNumber)"
+    } else {
+      labelAddress.text = nil
     }
+    
+    imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
     self.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
     selectedRadioArray = self.myUser.favoritesRadios
     let manager = RequestManager()
@@ -253,8 +266,21 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
       //Problem signing in
     }else {
-      DataManager.sharedInstance.isLogged = true
-      DataManager.sharedInstance.needUpdateMenu = true
+      user?.getTokenWithCompletion({ (token, error) in
+        let requestManager = RequestManager()
+        requestManager.loginInServer(token!, completion: { (result) in
+          DataManager.sharedInstance.userToken = result
+          DataManager.sharedInstance.isLogged = true
+          DataManager.sharedInstance.needUpdateMenu = true
+          DataManager.sharedInstance.configApp.updateUserToken(result)
+          let requestManagerUser = RequestManager()
+          requestManagerUser.requestMyUserInfo { (result) in
+            self.myUser = DataManager.sharedInstance.myUser
+            self.completeProfileViewInfo()
+          }
+        })
+      })
+      
       //User is in! Here is where we code after signing in
       
     }
@@ -267,7 +293,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     let backgroudImage = UIImageView(frame: fir.view.frame)
     backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-
+    
     let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
     
     fir.view.backgroundColor = color
@@ -302,7 +328,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     authUI?.signInProviders = [facebookProvider!]
     let authViewController = authUI?.authViewController()
     authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-
+    
     
     UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
     self.presentViewController(authViewController!, animated: false, completion: nil)
@@ -317,9 +343,14 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     if DataManager.sharedInstance.isLogged {
       func okAction() {
         try! FIRAuth.auth()?.signOut()
+        let logoutManger = RequestManager()
+        DataManager.sharedInstance.userToken = ""
+        logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
+        })
         DataManager.sharedInstance.isLogged = false
-        buttonLogin.setTitle("Logout", forState: .Normal)
-        buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        DataManager.sharedInstance.needUpdateMenu = true
+        self.buttonLogin.setTitle("Logout", forState: .Normal)
+        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.dismissViewControllerAnimated(true, completion: {
         })
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -399,5 +430,60 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         }
       }
     }
+  }
+  
+  
+  @IBAction func uploadNewPhoto(sender: AnyObject) {
+    let optionMenu = UIAlertController(title: nil, message: "Trocar su foto de perfil", preferredStyle: .ActionSheet)
+    let cameraOption = UIAlertAction(title: "Tirar Foto", style: .Default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        imagePicker.allowsEditing = false
+        self.presentViewController(imagePicker, animated: true, completion: {
+          
+        })
+      } else {
+        Util.displayAlert(title: "Erro", message: "Não foi possível abrir a câmera", action: "Ok")
+      }
+    }
+    let photoGalleryOption = UIAlertAction(title: "Escolher Imagem", style: .Default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.allowsEditing = true
+        self.presentViewController(imagePicker, animated: true, completion: {
+          
+        })
+      } else {
+        Util.displayAlert(title: "Erro", message: "Não foi possível abrir a galeria", action: "Ok")
+      }
+    }
+    let cancelOption = UIAlertAction(title: "Cancelar", style: .Cancel) { (alert) in
+      self.dismissViewControllerAnimated(true, completion: {
+        
+      })
+    }
+    
+    optionMenu.addAction(cameraOption)
+    optionMenu.addAction(photoGalleryOption)
+    optionMenu.addAction(cancelOption)
+    self.presentViewController(optionMenu, animated: true) {
+    }
+  }
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    let requestImage = RequestManager()
+    requestImage.changeUserPhoto(image) { (result) in
+      self.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+    }
+    
+    self.dismissViewControllerAnimated(true) {
+    }
+    
+    Util.displayAlert(title: "Concluido", message: "Imagem editada com sucesso", action: "Ok")
+    
   }
 }

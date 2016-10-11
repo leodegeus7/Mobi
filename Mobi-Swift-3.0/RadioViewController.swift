@@ -42,7 +42,7 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
       labelLocal.text = actualRadio.address.formattedLocal
     }
     labelLikes.text = "\(actualRadio.likenumber)"
-    labelStars.text = "\(actualRadio.stars)"
+    labelStars.text = "\(actualRadio.score)"
     self.title = "Resumo"
     stars.append(starOne)
     stars.append(starTwo)
@@ -52,8 +52,8 @@ class RadioViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     for star in stars  {
       star.image = UIImage(named: "starOFF.png")
     }
-    if actualRadio.stars != 0 && actualRadio.stars != -1 {
-      for index in 0...actualRadio.stars-1 {
+    if actualRadio.score != 0 && actualRadio.score != -1 {
+      for index in 0...actualRadio.score-1 {
         stars[index].image = UIImage(named: "star.png")
       }
     }

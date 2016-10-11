@@ -109,7 +109,7 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
       labelLocal.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
     }
     labelLikes.text = "\(StreamingRadioManager.sharedInstance.actualRadio.likenumber)"
-    labelStars.text = "\(StreamingRadioManager.sharedInstance.actualRadio.stars)"
+    labelStars.text = "\(StreamingRadioManager.sharedInstance.actualRadio.score)"
     self.title = "Resumo"
     stars.append(starOne)
     stars.append(starTwo)
@@ -119,8 +119,8 @@ class PlayerViewController: UIViewController,UITableViewDelegate,UITableViewData
     for star in stars  {
       star.image = UIImage(named: "starOFF.png")
     }
-    if StreamingRadioManager.sharedInstance.actualRadio.stars != 0 && StreamingRadioManager.sharedInstance.actualRadio.stars != -1 {
-      for index in 0...StreamingRadioManager.sharedInstance.actualRadio.stars-1 {
+    if StreamingRadioManager.sharedInstance.actualRadio.score != 0 && StreamingRadioManager.sharedInstance.actualRadio.score != -1 {
+      for index in 0...StreamingRadioManager.sharedInstance.actualRadio.score-1 {
         stars[index].image = UIImage(named: "star.png")
       }
     }

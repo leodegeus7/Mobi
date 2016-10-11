@@ -18,8 +18,13 @@ class RadioTableViewController: UITableViewController {
   @IBOutlet weak var segmentedMenu: UISegmentedControl!
   @IBOutlet weak var viewTop: UIView!
   
+  
+  var selectedRadio = RadioRealm()
+  
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
+  
+  var actualComments = [Comment]()
   
   var similarRadios = [RadioRealm]()
   
@@ -28,17 +33,21 @@ class RadioTableViewController: UITableViewController {
   enum SelectedRadioMode {
     case DetailRadio
     case Wall
-    case Programs
-    case Contact
   }
   var selectedMode:SelectedRadioMode = .DetailRadio
   
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+    
     let button = UIButton(type: UIButtonType.InfoLight)
     buttonActionNav = UIBarButtonItem.init(customView: button)
     
@@ -50,7 +59,7 @@ class RadioTableViewController: UITableViewController {
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
     //viewTop.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
-    
+    selectedMode == .DetailRadio
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
@@ -62,6 +71,16 @@ class RadioTableViewController: UITableViewController {
       self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
     }
     
+    let scoreRequest = RequestManager()
+
+    scoreRequest.getRadioScore(actualRadio) { (resultScore) in
+      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
+      if self.actualRadio.score == -1 {
+        cell.labelScore.text = "-"
+      } else {
+        cell.labelScore.text = "\(self.actualRadio.score)"
+      }
+    }
     // Uncomment the following line to preserve selection between presentations
     self.clearsSelectionOnViewWillAppear = true
   }
@@ -75,17 +94,16 @@ class RadioTableViewController: UITableViewController {
   
   
   override func viewWillAppear(animated: Bool) {
-    if !actualRadio.isFavorite {
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
-    } else {
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
-    }
+    defineBarButton()
+
   }
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .DetailRadio:
       return 5
+    case .Wall:
+      return 1
     default:
       return 1
     }
@@ -105,6 +123,8 @@ class RadioTableViewController: UITableViewController {
       } else {
         return 1
       }
+    case .Wall:
+      return actualComments.count
     default:
       return 0
     }
@@ -117,13 +137,21 @@ class RadioTableViewController: UITableViewController {
       selectedMode = .DetailRadio
     case 1:
       selectedMode = .Wall
-    case 2:
-      selectedMode = .Programs
-    case 3:
-      selectedMode = .Contact
+      view.addSubview(activityIndicator)
+      activityIndicator.hidden = false
+      tableView.allowsSelection = false
+      let requestManager = RequestManager()
+      requestManager.requestWallOfRadio(actualRadio, pageNumber: 0, pageSize: 20, completion: { (resultWall) in
+        self.self.actualComments = resultWall
+        self.tableView.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.self.activityIndicator.removeFromSuperview()
+        self.tableView.reloadData()
+      })
     default:
       selectedMode = .DetailRadio
     }
+    defineBarButton()
     tableView.reloadData()
   }
   
@@ -150,7 +178,11 @@ class RadioTableViewController: UITableViewController {
         }
         cell.labelLikes.text = "\(actualRadio.likenumber)"
         cell.labelLikes.textColor = UIColor.whiteColor()
-        cell.labelScore.text = "\(actualRadio.stars)"
+        if actualRadio.score == -1 {
+          cell.labelScore.text = "-"
+        } else {
+          cell.labelScore.text = "\(actualRadio.score)"
+        }
         cell.labelScore.textColor = UIColor.whiteColor()
         cell.labelLikesDescr.textColor = UIColor.whiteColor()
         cell.labelScoreDescr.textColor = UIColor.whiteColor()
@@ -159,7 +191,7 @@ class RadioTableViewController: UITableViewController {
         
         cell.viewBack.alpha = 0
         //cell.viewBack.backgroundColor = color.color
-
+        
         cell.playButton.backgroundColor = UIColor.clearColor()
         cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
         cell.imageRadio.layer.borderWidth = 0
@@ -238,6 +270,17 @@ class RadioTableViewController: UITableViewController {
         let cell = UITableViewCell()
         return cell
       }
+    case .Wall :
+      let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+      cell.labelName.text = actualComments[indexPath.row].user.name
+      cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+      cell.textViewWall.text = actualComments[indexPath.row].text
+      if actualComments[indexPath.row].user.userImage == "avatar.png" {
+        cell.imageUser.image = UIImage(named: "avatar.png")
+      } else {
+        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+      }
+      return cell
     default:
       let cell = UITableViewCell()
       return cell
@@ -282,6 +325,17 @@ class RadioTableViewController: UITableViewController {
       performSegueWithIdentifier("programSegue", sender: self)
     default:
       break
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "programSegue" {
+      let programTV = (segue.destinationViewController as! ProgramsTableViewController)
+      programTV.actualRadio = actualRadio
+    }
+    if segue.identifier == "reviewSegue" {
+      let reviewVC = segue.destinationViewController as! ReviewTableViewController
+      reviewVC.actualRadio = actualRadio
     }
   }
   
@@ -330,6 +384,25 @@ class RadioTableViewController: UITableViewController {
       })
     }
   }
+  
+  func createComment() {
+    performSegueWithIdentifier("createCommentSegue", sender: self)
+  }
+  
+  func defineBarButton() {
+    if selectedMode == .DetailRadio {
+      if !actualRadio.isFavorite {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+      } else {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+      }
+    } else if selectedMode == .Wall {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "plus.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.createComment))
+
+    }
+  }
+  
+  
   
   
 }

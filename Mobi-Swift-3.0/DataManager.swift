@@ -115,7 +115,7 @@ class DataManager: NSObject {
   }
   
   var miniPlayerView = MiniPlayerViewController()
-  var playerClass:Player2ViewController!
+  var playerClass:PlayerViewController!
   
   var interfaceColor = ColorRealm()
   var existInterfaceColor = false

@@ -7,110 +7,198 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProgramsTableViewController: UITableViewController {
-
+  
   @IBOutlet weak var leftButtonWeek: UIButton!
   @IBOutlet weak var labelWeekend: UILabel!
   @IBOutlet weak var rightButtonWeek: UIButton!
   
   var actualRadio = RadioRealm()
-  
+  var schedule = Dictionary<String,[Program]>()
   var weekDays = ["Domingo","Segunda-Feira","Terça-Feira","Quarta-Feira","Quinta-Feira","Sexta-Feira","Sábado"]
+  var weekDaysActualInt = -1
+  var todayWeekDay = ""
+  var actualScheduleWeekday = ""
+  var actualSchedulePrograms = [Program]()
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let requestProgramas = RequestManager()
-        requestProgramas.requestProgramsOfRadio(actualRadio, pageNumber: 0, pageSize: 1000) { (resultPrograms) in
-          
-          
-          self.tableView.reloadData()
-        }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-  @IBAction func leftButtonWeek(sender: AnyObject) {
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+    organizeSchedule()
+    self.title = "Programação"
+    leftButtonWeek.backgroundColor = UIColor.clearColor()
+    rightButtonWeek.backgroundColor = UIColor.clearColor()
+    leftButtonWeek.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    rightButtonWeek.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    let dayOfWeekInt = Util.getDayOfWeek(NSDate())
+    todayWeekDay = weekDays[dayOfWeekInt-1]
+    weekDaysActualInt = dayOfWeekInt-1
+    labelWeekend.text = todayWeekDay
+    actualScheduleWeekday = todayWeekDay
   }
   
-  @IBAction func rightButtonWeek(sender: AnyObject) {
-    
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
   }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
+  
+  // MARK: - Table view data source
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return actualSchedulePrograms.count
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // #warning Incomplete implementation, return the number of rows
+    return 1
+  }
+  
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    if actualSchedulePrograms[indexPath.section].dynamicType == SpecialProgram.self {
+      let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
       
-        // Configure the cell...
-
-        return cell
+      cell.labelName.text = actualSchedulePrograms[indexPath.section].name
+      cell.labelSecondName.text = ""
+      let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
+      cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+      cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+      cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+      cell.imagePerson.layer.borderWidth = 0
+      cell.imagePerson.clipsToBounds = true
+      cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
+      cell.labelGuests.text = ""
+      
+      return cell
+    } else {
+      let cell = tableView.dequeueReusableCellWithIdentifier("normalProgram", forIndexPath: indexPath) as! NormalProgramTableViewCell
+      
+      cell.labelName.text = actualSchedulePrograms[indexPath.section].name
+      let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
+      cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+      cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+      cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+      cell.imagePerson.layer.borderWidth = 0
+      cell.imagePerson.clipsToBounds = true
+      cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
+      
+      return cell
     }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+  }
+  
+  func organizeSchedule() {
+    view.addSubview(activityIndicator)
+    activityIndicator.hidden = false
+    tableView.allowsSelection = false
+    let requestProgramas = RequestManager()
+    requestProgramas.requestProgramsOfRadio(actualRadio, pageNumber: 0, pageSize: 1000) { (resultPrograms) in
+      
+      let sunday = "Domingo"
+      let monday = "Segunda-Feira"
+      let tuesday = "Terça-Feira"
+      let wedsnesday = "Quarta-Feira"
+      let thursday = "Quinta-Feira"
+      let friday = "Sexta-Feira"
+      let saturday = "Sábado"
+      
+      var sundayProg = [Program]()
+      var mondayProg = [Program]()
+      var tuesdayProg = [Program]()
+      var wedsnesdayProg = [Program]()
+      var thursdayProg = [Program]()
+      var fridayProg = [Program]()
+      var saturdayProg = [Program]()
+      
+      for program in resultPrograms {
+        if program.days.isSunday {
+          sundayProg.append(program)
+        }
+        if program.days.isMonday {
+          mondayProg.append(program)
+        }
+        if program.days.isTuesday {
+          tuesdayProg.append(program)
+        }
+        if program.days.isWednesday {
+          wedsnesdayProg.append(program)
+        }
+        if program.days.isThursday {
+          thursdayProg.append(program)
+        }
+        if program.days.isFriday {
+          fridayProg.append(program)
+        }
+        if program.days.isSaturday {
+          saturdayProg.append(program)
+        }
+      }
+      sundayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      mondayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      tuesdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      wedsnesdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      thursdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      fridayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      saturdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
+      
+      self.schedule[sunday] = sundayProg
+      self.schedule[monday] = mondayProg
+      self.schedule[tuesday] = tuesdayProg
+      self.schedule[wedsnesday] = wedsnesdayProg
+      self.schedule[thursday] = thursdayProg
+      self.schedule[friday] = fridayProg
+      self.schedule[saturday] = saturdayProg
+      
+      self.tableView.allowsSelection = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      
+      self.updateInterface()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+  }
+  
+  @IBAction func leftMenuButtonClick(sender: AnyObject) {
+    if !(weekDaysActualInt-1 < 0) {
+      weekDaysActualInt -= 1
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    updateInterface()
+  }
+  
+  @IBAction func rightMenuButtonClick(sender: AnyObject) {
+    if !(weekDaysActualInt-1 > 6) {
+      weekDaysActualInt += 1
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    updateInterface()
+  }
+  
+  func updateInterface() {
+    if weekDaysActualInt == 0 {
+      leftButtonWeek.alpha = 0.5
+      leftButtonWeek.enabled = false
+    } else {
+      leftButtonWeek.alpha = 1
+      leftButtonWeek.enabled = true
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    if weekDaysActualInt == 6 {
+      rightButtonWeek.alpha = 0.5
+      rightButtonWeek.enabled = false
+    }else {
+      rightButtonWeek.alpha = 1
+      rightButtonWeek.enabled = true
     }
-    */
-
+    labelWeekend.text = weekDays[weekDaysActualInt]
+    actualScheduleWeekday = weekDays[weekDaysActualInt]
+    actualSchedulePrograms = schedule[weekDays[weekDaysActualInt]]!
+    self.tableView.reloadData()
+  }
+  
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return actualSchedulePrograms[section].timeStart
+  }
+  
 }

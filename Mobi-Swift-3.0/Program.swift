@@ -16,6 +16,7 @@ class Program: NSObject {
   var announcer = UserRealm()
   var active = false
   var days:DataManager.ProgramDays!
+
   
   convenience init(id:Int,name:String,announcer:UserRealm,timeStart:String,timeEnd:String,days:DataManager.ProgramDays,active:Bool) {
     self.init()
@@ -27,4 +28,5 @@ class Program: NSObject {
     self.days = days
     self.active = active
   }
+  
 }

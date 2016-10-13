@@ -19,6 +19,13 @@ class Util: NSObject {
     return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
   }
   
+  static func getDayOfWeek(date:NSDate) -> Int {
+    let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    let myComponents = myCalendar.components(.Weekday, fromDate: date)
+    let weekDay = myComponents.weekday
+    return weekDay
+  }
+  
   static func displayAlert(view:UIViewController,title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,

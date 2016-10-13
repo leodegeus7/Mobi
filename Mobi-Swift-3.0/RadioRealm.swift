@@ -20,7 +20,7 @@ class RadioRealm: Object {
 
   dynamic var streamingLink = ""
   dynamic var typeOfStreaming = ""
-  dynamic var lastAccessDate:NSDate!
+  dynamic var lastAccessDate = NSDate()
   dynamic var lastAccessString = ""
   dynamic var address:AddressRealm!
   dynamic var score = -1
@@ -40,18 +40,36 @@ class RadioRealm: Object {
     self.isFavorite = isFavorite
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
-    
     if(repository) {
       try! DataManager.sharedInstance.realm.write {
           DataManager.sharedInstance.realm.add(self, update: true)
       }
     }
-    
     try! DataManager.sharedInstance.realm.write {
       self.address = addressVar
     }
   }
   
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,isFavorite:Bool,repository:Bool) {
+    //WithoutDate
+    self.init()
+    self.name = name
+    self.id = Int(id)!
+    self.thumbnail = thumbnail.getImageIdentifier()
+    self.likenumber = Int(likenumber)!
+    self.genre = genre
+    self.isFavorite = isFavorite
+    let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
+    self.address = addressVar
+    if(repository) {
+      try! DataManager.sharedInstance.realm.write {
+        DataManager.sharedInstance.realm.add(self, update: true)
+      }
+    }
+    try! DataManager.sharedInstance.realm.write {
+      self.address = addressVar
+    }
+  }
   
   
   convenience init(id:String,name:String,thumbnail:String,repository:Bool) {
@@ -101,12 +119,12 @@ class RadioRealm: Object {
   }
   
   func updateOverdueInterval() {
-    if let last = lastAccessDate {
+    //if let last = lastAccessDate {
       try! DataManager.sharedInstance.realm.write {
-        self.lastAccessString = Util.getOverdueInterval(last)
+        self.lastAccessString = Util.getOverdueInterval(lastAccessDate)
       }
 
-    }
+    //}
   }
   
   func updateStremingLink(link:String) {

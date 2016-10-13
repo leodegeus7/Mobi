@@ -4,13 +4,16 @@
 //
 //  Created by Desenvolvimento Access Mobile on 10/11/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 import Kingfisher
 
 class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VARIABLE SET ---
+  ///////////////////////////////////////////////////////////
   
   var actualRadio = RadioRealm()
   var actualReviews = [Review]()
@@ -20,19 +23,28 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    ///////////////////////////////////////////////////////////
+    //MARK: --- VARIABLE SET ---
+    ///////////////////////////////////////////////////////////
+    
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
     view.addSubview(activityIndicator)
     activityIndicator.hidden = false
     tableView.allowsSelection = false
-    
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
-    
+    self.clearsSelectionOnViewWillAppear = true
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
     let scoreRequest = RequestManager()
     self.title = "Avaliações"
     
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL REQUEST ---
+    ///////////////////////////////////////////////////////////
     
     scoreRequest.requestReviewsInRadio(actualRadio, pageSize: 50, pageNumber: 0) { (resultScore) in
       self.tableView.allowsSelection = true
@@ -42,31 +54,17 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
       self.firstTimeShowed = false
       self.tableView.reloadData()
     }
-    
-    self.clearsSelectionOnViewWillAppear = true
-    
-    tableView.emptyDataSetSource = self
-    tableView.emptyDataSetDelegate = self
-    tableView.tableFooterView = UIView()
-    
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
-  // MARK: - Table view data source
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    
-    // #warning Incomplete implementation, return the number of sections
     return 1
   }
   
@@ -77,15 +75,12 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
     } else {
       return actualReviews.count
     }
-    
   }
-  
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if !firstTimeShowed {
       let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
       cell.labelName.text = actualReviews[indexPath.row].user.name
-      
       cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
       cell.textViewReview.text = actualReviews[indexPath.row].text
       if actualReviews[indexPath.row].user.userImage == "avatar.png" {
@@ -93,22 +88,22 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
       } else {
         cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].user.userImage)))
       }
-      
-      
       if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
         for index in 0...actualReviews[indexPath.row].score-1 {
           cell.stars[index].image = UIImage(named: "star.png")
           cell.stars[index].tintColor = UIColor.redColor()
         }
       }
-      
       return cell
     } else {
       let cell = UITableViewCell()
-
       return cell
     }
   }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- EMPTYDATA DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     let str = "Nenhum review realizado ainda"

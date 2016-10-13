@@ -34,10 +34,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewDidLoad() {
     
-    
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
+    
     if !DataManager.sharedInstance.isLoadScreenAppered {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
@@ -59,6 +59,22 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
+    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
+    segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
+    segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
+    segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
+    segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
+    selectedRadioArray = DataManager.sharedInstance.topRadios
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL REQUEST ---
+    ///////////////////////////////////////////////////////////
     
     let requestTest = RequestManager()
     requestTest.testServer { (result) in
@@ -66,26 +82,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         Util.displayAlert(self, title: "Atenção", message: "Tivemos um problema ao conectar aos nossos servidores", action: "Ok")
       }
     }
-    
-    tableView.emptyDataSetSource = self
-    tableView.emptyDataSetDelegate = self
-    tableView.tableFooterView = UIView()
-    
-    
-    
-    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
-    
-    segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
-    segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
-    segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
-    segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
-    
-    selectedRadioArray = DataManager.sharedInstance.topRadios
   }
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- DATA ---
+  ///////////////////////////////////////////////////////////
   
   func reloadData() {
     selectedMode = modes.Top
@@ -95,6 +96,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       self.refreshControl?.endRefreshing()
     }
   }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
@@ -157,8 +159,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       }
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
       cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
-      if let _ = DataManager.sharedInstance.recentsRadios[0].lastAccessDate {
+      if (NSDate().timeIntervalSinceDate(selectedRadioArray[indexPath.row].lastAccessDate) > 1) {
         cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
+      } else {
+        cell.labelDescriptionOne.text = ""
       }
       if selectedRadioArray[indexPath.row].isFavorite {
         cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
@@ -369,10 +373,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "detailRadio" {
-      let radioVC = (segue.destinationViewController as! RadioViewController)
-      radioVC.actualRadio = selectedRadio
-    }
+    //    if segue.identifier == "detailRadio" {
+    //      let radioVC = (segue.destinationViewController as! RadioViewController)
+    //      radioVC.actualRadio = selectedRadio
+    //    }
   }
   
   ///////////////////////////////////////////////////////////

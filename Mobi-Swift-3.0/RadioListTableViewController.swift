@@ -4,12 +4,15 @@
 //
 //  Created by Desenvolvimento Access Mobile on 8/19/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 
 class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VARIABLE SET ---
+  ///////////////////////////////////////////////////////////
   
   var radios = [RadioRealm]()
   var selectedRadio = RadioRealm()
@@ -17,6 +20,11 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- VARIABLE SET ---
+    ///////////////////////////////////////////////////////////
+    
     tableView.rowHeight = 120
     if radios.count > 0 {
       if superSegue == "detailGenre" {
@@ -26,7 +34,6 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       }
     }
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-    
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
@@ -34,25 +41,22 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
-  
-  // MARK: - Table view data source
+
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    // #warning Incomplete implementation, return the number of sections
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete implementation, return the number of rows
     return radios.count
   }
   
-  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-    
     cell.labelName.text = radios[indexPath.row].name
     cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
     cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
@@ -64,25 +68,12 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
     cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
     cell.labelDescriptionTwo.text = ""
-    
     return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let cell = tableView.cellForRowAtIndexPath(indexPath)
-    
     selectedRadio = radios[indexPath.row]
     performSegueWithIdentifier("detailRadio2", sender: self)
-  }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "detailRadio2" {
-      let radioVC = (segue.destinationViewController as! RadioTableViewController)
-      radioVC.actualRadio = selectedRadio
-    } else     if segue.identifier == "detailRadio" {
-      let radioVC = (segue.destinationViewController as! RadioViewController)
-      radioVC.actualRadio = selectedRadio
-    }
   }
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -119,11 +110,23 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     return true
   }
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- OTHER FUNCTIONS ---
+  ///////////////////////////////////////////////////////////
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "detailRadio2" {
+      let radioVC = (segue.destinationViewController as! RadioTableViewController)
+      radioVC.actualRadio = selectedRadio
+    }
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- EMPTYDATA DELEGATE ---
+  ///////////////////////////////////////////////////////////
+  
   func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
-    var str = ""
-    
-    str = "Sem registros"
-    
+    let str = "Sem registros"
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
     return NSAttributedString(string: str, attributes: attr)
   }
@@ -135,7 +138,6 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     } else if superSegue == "detailCity" {
       str = "Não foi possível localizar nenhuma rádio com este local"
     }
-    
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
     return NSAttributedString(string: str, attributes: attr)
   }

@@ -21,7 +21,7 @@ class MiniPlayerViewController: UIViewController {
   @IBOutlet weak var playButton: UIButton!
   
   private var animator : ARNTransitionAnimator!
-  private var modalVC : Player2ViewController!
+  private var modalVC : PlayerViewController!
   var notificationCenter = NSNotificationCenter.defaultCenter()
   
   override func viewDidLoad() {
@@ -33,7 +33,7 @@ class MiniPlayerViewController: UIViewController {
     
     DataManager.sharedInstance.miniPlayerView = self
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? Player2ViewController)
+    self.modalVC = (storyboard.instantiateViewControllerWithIdentifier("ModalViewController") as? PlayerViewController)
     self.modalVC.modalPresentationStyle = .OverFullScreen
     DataManager.sharedInstance.playerClass = modalVC
     let color = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.3)

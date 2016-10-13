@@ -4,7 +4,7 @@
 //
 //  Created by Desenvolvimento Access Mobile on 9/27/16.
 //  Copyright © 2016 Access Mobile. All rights reserved.
-//
+//  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
 import AVFoundation
@@ -12,61 +12,69 @@ import Kingfisher
 
 class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
-  @IBOutlet weak var buttonActionNav: UIBarButtonItem!
+  ///////////////////////////////////////////////////////////
+  //MARK: --- OUTLETS ---
+  ///////////////////////////////////////////////////////////
   
-  //@IBOutlet weak var segmentedMenu: UISegmentedControl!
+  @IBOutlet weak var buttonActionNav: UIBarButtonItem!
   @IBOutlet weak var segmentedMenu: UISegmentedControl!
   @IBOutlet weak var viewTop: UIView!
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VARIABLE SET ---
+  ///////////////////////////////////////////////////////////
   
+  var firstTimeShowed = true
   var selectedRadio = RadioRealm()
-  
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
-  
   var actualComments = [Comment]()
-  
   var similarRadios = [RadioRealm]()
-  
   let notificationCenter = NSNotificationCenter.defaultCenter()
+  var selectedMode:SelectedRadioMode = .DetailRadio
+  var colorBlack : UIColor!
+  var colorWhite : UIColor!
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   enum SelectedRadioMode {
     case DetailRadio
     case Wall
   }
-  var selectedMode:SelectedRadioMode = .DetailRadio
-  
-  var colorBlack : UIColor!
-  var colorWhite : UIColor!
-  
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    ///////////////////////////////////////////////////////////
+    //MARK: --- VARIABLE SET ---
+    ///////////////////////////////////////////////////////////
+    
+    let button = UIButton(type: UIButtonType.InfoLight)
+    buttonActionNav = UIBarButtonItem.init(customView: button)
+    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
     
-    let button = UIButton(type: UIButtonType.InfoLight)
-    buttonActionNav = UIBarButtonItem.init(customView: button)
-    
-    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
-    let manager = RequestManager()
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-    manager.getAudioChannelsFromRadio(actualRadio) { (result) in
-    }
+    
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
-    //viewTop.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
     selectedMode == .DetailRadio
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
-    
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
+    self.clearsSelectionOnViewWillAppear = true
+    
+    ///////////////////////////////////////////////////////////
+    //MARK: --- INITIAL REQUEST ---
+    ///////////////////////////////////////////////////////////
+    
+    let audioManager = RequestManager()
+    audioManager.getAudioChannelsFromRadio(actualRadio) { (result) in
+    }
     
     let similarRequest = RequestManager()
     similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
@@ -75,7 +83,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
     
     let scoreRequest = RequestManager()
-    
     scoreRequest.getRadioScore(actualRadio) { (resultScore) in
       let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
       if self.actualRadio.score == -1 {
@@ -84,8 +91,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.labelScore.text = "\(self.actualRadio.score)"
       }
     }
-    // Uncomment the following line to preserve selection between presentations
-    self.clearsSelectionOnViewWillAppear = true
+    
   }
   
   override func didReceiveMemoryWarning() {
@@ -93,21 +99,24 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     // Dispose of any resources that can be recreated.
   }
   
-  // MARK: - Table view data source
-  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- VIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
   
   override func viewWillAppear(animated: Bool) {
     defineBarButton()
-    
   }
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- TABLEVIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
+  
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .DetailRadio:
       return 5
     case .Wall:
-      return 1
-    default:
       return 1
     }
   }
@@ -127,38 +136,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         return 1
       }
     case .Wall:
-      return actualComments.count
-    default:
-      return 0
+      if firstTimeShowed {
+        return 1
+      } else {
+        return actualComments.count
+      }
     }
-    return 0
   }
-  
-  @IBAction func segmentedControlChanged(sender: UISegmentedControl) {
-    switch segmentedMenu.selectedSegmentIndex {
-    case 0:
-      selectedMode = .DetailRadio
-    case 1:
-      selectedMode = .Wall
-      view.addSubview(activityIndicator)
-      activityIndicator.hidden = false
-      tableView.allowsSelection = false
-      let requestManager = RequestManager()
-      requestManager.requestWallOfRadio(actualRadio, pageNumber: 0, pageSize: 20, completion: { (resultWall) in
-        self.self.actualComments = resultWall
-        self.tableView.allowsSelection = true
-        self.activityIndicator.hidden = true
-        self.self.activityIndicator.removeFromSuperview()
-        self.tableView.reloadData()
-      })
-    default:
-      selectedMode = .DetailRadio
-    }
-    defineBarButton()
-    tableView.reloadData()
-  }
-  
-  
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
@@ -189,12 +173,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.labelScore.textColor = UIColor.whiteColor()
         cell.labelLikesDescr.textColor = UIColor.whiteColor()
         cell.labelScoreDescr.textColor = UIColor.whiteColor()
-        
-        
-        
         cell.viewBack.alpha = 0
-        //cell.viewBack.backgroundColor = color.color
-        
         cell.playButton.backgroundColor = UIColor.clearColor()
         cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
         cell.imageRadio.layer.borderWidth = 0
@@ -204,8 +183,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         } else {
           cell.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
         }
-        
-        
         return cell
       case 1:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualMusic", forIndexPath: indexPath) as! MusicTableViewCell
@@ -274,22 +251,22 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         return cell
       }
     case .Wall :
-      let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-      cell.labelName.text = actualComments[indexPath.row].user.name
-      cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-      cell.textViewWall.text = actualComments[indexPath.row].text
-      if actualComments[indexPath.row].user.userImage == "avatar.png" {
-        cell.imageUser.image = UIImage(named: "avatar.png")
+      if !firstTimeShowed {
+        let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+        cell.labelName.text = actualComments[indexPath.row].user.name
+        cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+        cell.textViewWall.text = actualComments[indexPath.row].text
+        if actualComments[indexPath.row].user.userImage == "avatar.png" {
+          cell.imageUser.image = UIImage(named: "avatar.png")
+        } else {
+          cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+        }
+        return cell
       } else {
-        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+        let cell = UITableViewCell()
+        return cell
       }
-      return cell
-    default:
-      let cell = UITableViewCell()
-      return cell
     }
-    let cell = UITableViewCell()
-    return cell
   }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -331,6 +308,36 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
   }
   
+  
+  @IBAction func segmentedControlChanged(sender: UISegmentedControl) {
+    switch segmentedMenu.selectedSegmentIndex {
+    case 0:
+      selectedMode = .DetailRadio
+    case 1:
+      selectedMode = .Wall
+      view.addSubview(activityIndicator)
+      activityIndicator.hidden = false
+      tableView.allowsSelection = false
+      let requestManager = RequestManager()
+      requestManager.requestWallOfRadio(actualRadio, pageNumber: 0, pageSize: 20, completion: { (resultWall) in
+        self.actualComments = resultWall
+        self.firstTimeShowed = false
+        self.tableView.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.self.activityIndicator.removeFromSuperview()
+        self.tableView.reloadData()
+      })
+    default:
+      selectedMode = .DetailRadio
+    }
+    defineBarButton()
+    tableView.reloadData()
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- OTHER FUNCTIONS ---
+  ///////////////////////////////////////////////////////////
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "programSegue" {
       let programTV = (segue.destinationViewController as! ProgramsTableViewController)
@@ -356,7 +363,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
       DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
     }
-    
     StreamingRadioManager.sharedInstance.sendNotification()
   }
   
@@ -405,11 +411,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
   }
   
+  ///////////////////////////////////////////////////////////
+  //MARK: --- EMPTYDATA DELEGATE ---
+  ///////////////////////////////////////////////////////////
+  
   func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     if selectedMode == .Wall {
       str = "Nenhuma publicação realizada no mural"
-      
     }
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
     return NSAttributedString(string: str, attributes: attr)
@@ -419,7 +428,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     var str = ""
     if selectedMode == .Wall {
       str = "Clique aqui e seja o primeiro a criar uma publicação no mural de  \(actualRadio.name)"
-      
     }
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
     return NSAttributedString(string: str, attributes: attr)
@@ -435,8 +443,4 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     dismissViewControllerAnimated(true) {
     }
   }
-  
-  
-  
-  
 }

@@ -40,6 +40,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var buttonReadMore: UIButton!
   @IBOutlet weak var buttonChangePhoto: UIButton!
   
+  @IBOutlet weak var followerButton: UIButton!
+  @IBOutlet weak var followingButton: UIButton!
   
   let imagePicker = UIImagePickerController()
   
@@ -47,6 +49,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   var myUser = DataManager.sharedInstance.myUser
   var kFacebookAppID = "1673692689618704"
   var db = FIRDatabaseReference.init()
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   @IBOutlet weak var heightTableView: NSLayoutConstraint!
   
@@ -72,6 +75,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     tableViewFavorites.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     imagePicker.delegate = self
     buttonChangePhoto.backgroundColor = UIColor.clearColor()
+    followingButton.backgroundColor = UIColor.clearColor()
+    followerButton.backgroundColor = UIColor.clearColor()
+    
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
   }
   
   
@@ -125,6 +134,15 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     requestManager.requestMyUserInfo { (result) in
       self.myUser = DataManager.sharedInstance.myUser
       self.completeProfileViewInfo()
+    }
+    
+    let requestFollowers = RequestManager()
+    requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
+      self.labelFollowers.text = "\(resultNumberFollowers)"
+    }
+    let requestFollowing = RequestManager()
+    requestFollowing.requestNumberOfFollowing(myUser) { (resultNumberFollowing) in
+      self.labelFollowing.text = "\(resultNumberFollowing)"
     }
   }
   
@@ -485,5 +503,28 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     Util.displayAlert(title: "Concluido", message: "Imagem editada com sucesso", action: "Ok")
     
+  }
+  @IBAction func tapFollowersButton(sender: AnyObject) {
+    view.addSubview(activityIndicator)
+    view.userInteractionEnabled = false
+    activityIndicator.hidden = false
+    let requestManager = RequestManager()
+    requestManager.requestFollowers(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowers) in
+      self.view.userInteractionEnabled = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowers, title: "Seguidores")
+    }
+  }
+  @IBAction func tapFollowingButton(sender: AnyObject) {
+    view.addSubview(activityIndicator)
+    activityIndicator.hidden = false
+    let requestManager = RequestManager()
+    requestManager.requestFollowing(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowing) in
+      self.view.userInteractionEnabled = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowing, title: "Seguindo")
+    }
   }
 }

@@ -109,6 +109,7 @@ class RequestManager: NSObject {
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
+        radios = radios.sort {$0.likenumber > $1.likenumber}
         DataManager.sharedInstance.topRadios = radios
         completion(resultTop: radios)
       }
@@ -937,6 +938,44 @@ class RequestManager: NSObject {
     }
   }
   
+  func requestSpecialProgramsOfRadio(radio:RadioRealm, pageNumber:Int,pageSize:Int,completion: (resultSpecialPrograms: [SpecialProgram]) -> Void) {
+    requestJson("app/station/\(radio.id)/specialprogram?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      var programsArray = [SpecialProgram]()
+      if let programs = result["data"] as? NSArray {
+        for program in programs {
+          if let programDic = program as? NSDictionary {
+            let id = programDic["id"] as! Int
+            let name = programDic["name"] as! String
+            
+            let timeEnd = programDic["timeEnd"] as! String
+            let timeStart = programDic["timeStart"] as! String
+            
+            let dateString = programDic["date"] as! String
+            let date = Util.convertStringToNSDate(dateString)
+            let guests = programDic["guests"] as! String
+            let idReference = programDic["programId"] as! Int
+            
+            let idUser = programDic["announcer"]!["id"] as! Int
+            let emailUser = programDic["announcer"]!["email"] as! String
+            let nameUser = programDic["announcer"]!["name"] as! String
+            var user = UserRealm()
+            if let image = programDic["announcer"]?["image"] as? NSDictionary {
+              let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+              user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: imageIdentifier)
+            } else {
+              user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: ImageObject())
+            }
+            
+            
+            let programClass = SpecialProgram(id: id, name: name, date: date, referenceIdProgram: idReference, announcer: user, timeStart: timeStart, timeEnd: timeEnd, guests: guests, active: true)
+            programsArray.append(programClass)
+          }
+        }
+      }
+      completion(resultSpecialPrograms: programsArray)
+    }
+  }
+  
   func uploadImage(imageToUpload:UIImage,completion: (resultIdentifiers: ImageObject) -> Void) {
     let parameters = [
       "action": "upload"]
@@ -1030,4 +1069,212 @@ class RequestManager: NSObject {
     
   }
   
+  func requestFollowers(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultFollowers: [UserRealm]) -> Void) {
+    requestJson("app/user/\(user.id)/followers?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      if let array = result["data"]!["records"] as? NSArray {
+        var followers = [UserRealm]()
+        for dic in array {
+          var user = UserRealm()
+          let dicPerson = dic["person"] as! NSDictionary
+          if let resultDic = JSON(dicPerson).dictionary {
+            var id = -1
+            var email = ""
+            var name = ""
+            var genre = ""
+            var city = ""
+            var state = ""
+            var birthdate = "1900-01-01"
+            var streetName = ""
+            var zipCode = ""
+            var addressID = -1
+            var latitude:Double = -1
+            var longitude:Double = -1
+            var streetNumber = ""
+            var imageIdentifier:ImageObject!
+            
+            if let idAux = resultDic["id"]?.int {
+              id = idAux
+            }
+            if let imgAux = resultDic["image"]?.dictionaryObject {
+              imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
+            }
+            if let emailAux = resultDic["email"]?.string {
+              email = emailAux
+            }
+            if let nameAux = resultDic["name"]?.string {
+              name = nameAux
+            }
+            if let genreAux = resultDic["genre"]?.string {
+              genre = genreAux
+            }
+            if let birthdateAux = resultDic["birthdate"]?.string {
+              birthdate = birthdateAux
+            }
+            if let addressIDAux = resultDic["address"]?["id"].int {
+              addressID = addressIDAux
+            }
+            if let latitudeAux = resultDic["address"]?["latitude"].double {
+              latitude = latitudeAux
+            }
+            if let longitudeAux = resultDic["address"]?["longitude"].double {
+              longitude = longitudeAux
+            }
+            if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+              streetName = streetNameAux
+            }
+            if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+              zipCode = zipCodeAux
+            }
+            if let streetNumberAux = resultDic["address"]?["number"].string {
+              streetNumber = streetNumberAux
+            }
+            if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
+              city = cityAux
+            }
+            if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+              state = stateAux
+            }
+            
+            if id != -1 {
+              let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
+              user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+            }
+            followers.append(user)
+          }
+        }
+        completion(resultFollowers: followers)
+      }
+      //completion(resultFollowers: [UserRealm]())
+    }
+  }
+  
+  func requestFollowing(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultFollowing: [UserRealm]) -> Void) {
+    requestJson("app/user/\(user.id)/following?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      if let array = result["data"]!["records"] as? NSArray {
+        var followers = [UserRealm]()
+        for dic in array {
+          var user = UserRealm()
+          let dicPerson = dic["person"] as! NSDictionary
+          if let resultDic = JSON(dicPerson).dictionary {
+            var id = -1
+            var email = ""
+            var name = ""
+            var genre = ""
+            var city = ""
+            var state = ""
+            var birthdate = "1900-01-01"
+            var streetName = ""
+            var zipCode = ""
+            var addressID = -1
+            var latitude:Double = -1
+            var longitude:Double = -1
+            var streetNumber = ""
+            var imageIdentifier:ImageObject!
+            
+            if let idAux = resultDic["id"]?.int {
+              id = idAux
+            }
+            if let imgAux = resultDic["image"]?.dictionaryObject {
+              imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
+            }
+            if let emailAux = resultDic["email"]?.string {
+              email = emailAux
+            }
+            if let nameAux = resultDic["name"]?.string {
+              name = nameAux
+            }
+            if let genreAux = resultDic["genre"]?.string {
+              genre = genreAux
+            }
+            if let birthdateAux = resultDic["birthdate"]?.string {
+              birthdate = birthdateAux
+            }
+            if let addressIDAux = resultDic["address"]?["id"].int {
+              addressID = addressIDAux
+            }
+            if let latitudeAux = resultDic["address"]?["latitude"].double {
+              latitude = latitudeAux
+            }
+            if let longitudeAux = resultDic["address"]?["longitude"].double {
+              longitude = longitudeAux
+            }
+            if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+              streetName = streetNameAux
+            }
+            if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+              zipCode = zipCodeAux
+            }
+            if let streetNumberAux = resultDic["address"]?["number"].string {
+              streetNumber = streetNumberAux
+            }
+            if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
+              city = cityAux
+            }
+            if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+              state = stateAux
+            }
+            
+            if id != -1 {
+              let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
+              
+              if let _ = resultDic["image"]?.dictionaryObject {
+                
+                user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: ImageObject())
+              }
+              
+            }
+            followers.append(user)
+          }
+        }
+        completion(resultFollowing: followers)
+      }
+      //completion(resultFollowing: [UserRealm]())
+    }
+  }
+  
+  func requestNumberOfFollowers(user:UserRealm,completion: (resultNumberFollowers: Int) -> Void) {
+    requestJson("app/user/\(user.id)/followers?pageNumber=0&pageSize=1") { (result) in
+      if let array = result["data"] as? NSDictionary {
+        let number = array["totalRecords"] as! Int
+        completion(resultNumberFollowers: number)
+      }
+    }
+  }
+  
+  func requestNumberOfFollowing(user:UserRealm,completion: (resultNumberFollowing: Int) -> Void) {
+    requestJson("app/user/\(user.id)/following?pageNumber=0&pageSize=1") { (result) in
+      if let array = result["data"] as? NSDictionary {
+        let number = array["totalRecords"] as! Int
+        completion(resultNumberFollowing: number)
+      }
+    }
+  }
+  
+  func followUser(user:UserRealm,completion: (follow: Bool) -> Void) {
+    genericRequest(.PUT, parameters: [:], urlTerminationWithoutInitialCharacter: "app/user/\(user.id)/follow") { (result) in
+      if let resultRequest = result["requestResult"] as? RequestResult{
+        if resultRequest == .OK {
+          print("User \(user.name) seguido com sucesso")
+          completion(follow: true)
+        } else {
+          completion(follow: false)
+        }
+      }
+    }
+  }
+  
+  func unfollowUser(user:UserRealm,completion: (follow: Bool) -> Void) {
+    genericRequest(.DELETE, parameters: [:], urlTerminationWithoutInitialCharacter: "app/user/\(user.id)/follow") { (result) in
+      if let resultRequest = result["requestResult"] as? RequestResult{
+        if resultRequest == .OK {
+          print("User \(user.name) não seguido com sucesso")
+          completion(follow: true)
+        } else {
+          completion(follow: false)
+        }
+      }
+    }
+  }
 }

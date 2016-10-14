@@ -11,17 +11,19 @@ import UIKit
 class SpecialProgram: Program {
   var guests = ""
   var specialTitle = ""
+  var referenceIdProgram = -1
+  var date = NSDate()
   
-  convenience init(id:Int,name:String,specialTitle:String,announcer:UserRealm,timeStart:String,timeEnd:String,days:DataManager.ProgramDays,guests:String,active:Bool) {
+  convenience init(id:Int,name:String,date:NSDate,referenceIdProgram:Int,announcer:UserRealm,timeStart:String,timeEnd:String,guests:String,active:Bool) {
     self.init()
     self.id = id
     self.name = name
     self.announcer = announcer
     self.timeStart = timeStart
     self.timeEnd = timeEnd
-    self.days = days
     self.active = active
     self.guests = guests
-    self.specialTitle = specialTitle
+    self.referenceIdProgram = referenceIdProgram
+    self.date = date
   }
 }

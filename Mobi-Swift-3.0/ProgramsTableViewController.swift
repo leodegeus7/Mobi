@@ -41,6 +41,8 @@ class ProgramsTableViewController: UITableViewController {
     weekDaysActualInt = dayOfWeekInt-1
     labelWeekend.text = todayWeekDay
     actualScheduleWeekday = todayWeekDay
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 400
   }
   
   override func didReceiveMemoryWarning() {
@@ -63,6 +65,8 @@ class ProgramsTableViewController: UITableViewController {
     if actualSchedulePrograms[indexPath.section].dynamicType == SpecialProgram.self {
       let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
       
+      let programSpecial2 = actualSchedulePrograms[indexPath.section] as! SpecialProgram
+      
       cell.labelName.text = actualSchedulePrograms[indexPath.section].name
       cell.labelSecondName.text = ""
       let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
@@ -72,7 +76,7 @@ class ProgramsTableViewController: UITableViewController {
       cell.imagePerson.layer.borderWidth = 0
       cell.imagePerson.clipsToBounds = true
       cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
-      cell.labelGuests.text = ""
+      cell.labelGuests.text = programSpecial2.guests
       
       return cell
     } else {
@@ -89,7 +93,7 @@ class ProgramsTableViewController: UITableViewController {
       
       return cell
     }
-
+    
   }
   
   func organizeSchedule() {
@@ -138,13 +142,6 @@ class ProgramsTableViewController: UITableViewController {
           saturdayProg.append(program)
         }
       }
-      sundayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      mondayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      tuesdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      wedsnesdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      thursdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      fridayProg.sortInPlace({ $0.timeStart < $1.timeStart })
-      saturdayProg.sortInPlace({ $0.timeStart < $1.timeStart })
       
       self.schedule[sunday] = sundayProg
       self.schedule[monday] = mondayProg
@@ -154,11 +151,42 @@ class ProgramsTableViewController: UITableViewController {
       self.schedule[friday] = fridayProg
       self.schedule[saturday] = saturdayProg
       
-      self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
+      let requestSpecial = RequestManager()
+      requestSpecial.requestSpecialProgramsOfRadio(self.actualRadio, pageNumber: 0, pageSize: 30, completion: { (resultSpecialPrograms) in
+        for specialProgram in resultSpecialPrograms {
+          let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
+          self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgram)
+
+          let programIdToDelete = specialProgram.referenceIdProgram
+          var scheduleDay = (self.schedule[self.weekDays[dayOfWeekInt-1]])!
+          var programToDelete = Program()
+          for program in scheduleDay {
+            if program.id == programIdToDelete && !Util.areTheySiblings(program, class2: SpecialProgram()) {
+              programToDelete = program
+              break
+            }
+          }
+          scheduleDay.removeAtIndex(scheduleDay.indexOf(programToDelete)!)
+          self.schedule[self.weekDays[dayOfWeekInt-1]] = scheduleDay
+
+        }
+        
+        for programsArray in self.schedule {
+          var programs = programsArray.1
+          programs.sortInPlace({ $0.timeStart < $1.timeStart })
+          self.schedule[programsArray.0] = programs
+          
+        }
+        
+        self.tableView.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        
+        self.updateInterface()
+      })
       
-      self.updateInterface()
+      
+      
     }
   }
   

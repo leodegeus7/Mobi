@@ -182,6 +182,14 @@ class DataManager: NSObject {
     navigation.pushViewController(vc!, animated: true)
   }
   
+  func instantiateListOfUsers(navigation:UINavigationController,userList:[UserRealm],title:String) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("userView") as? UsersListTableViewController
+    vc?.actualUsers = userList
+    vc?.viewTitle = title
+    navigation.pushViewController(vc!, animated: true)
+  }
+  
   
   
   

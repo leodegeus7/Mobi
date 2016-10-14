@@ -146,6 +146,10 @@ class Util: NSObject {
     }
   }
   
+  static func areTheySiblings(class1: AnyObject!, class2: AnyObject) -> Bool {
+    return object_getClassName(class1) == object_getClassName(class2)
+  }
+  
   static func removeDuplicateStrings(array: [String]) -> [String] {
     var encountered = Set<String>()
     var result: [String] = []
@@ -174,10 +178,9 @@ class Util: NSObject {
   static func convertStringToNSDate(dateString:String) -> NSDate{
     if dateString.characters.count == 10 {
       if !dateString.containsString("/") {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.dateFromString(dateString)
-        return date!
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.dateFromString(dateString)!
       } else {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"

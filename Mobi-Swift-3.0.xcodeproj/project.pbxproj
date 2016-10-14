@@ -17,6 +17,8 @@
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
 		B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C92181D7A08CA008F24AF /* LoginViewController.swift */; };
 		B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */; };
+		B70DA8981DB1593900BFCB34 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */; };
+		B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */; };
 		B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */; };
 		B70DFA4B1D70C847000DDBD6 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4A1D70C847000DDBD6 /* play.png */; };
 		B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */ = {isa = PBXBuildFile; fileRef = B70DFA4C1D70C84C000DDBD6 /* pause2.png */; };
@@ -196,6 +198,8 @@
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		B70C92181D7A08CA008F24AF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSupport.swift; sourceTree = "<group>"; };
+		B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListTableViewController.swift; sourceTree = "<group>"; };
 		B70DFA471D70AC73000DDBD6 /* GenreRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreRealm.swift; sourceTree = "<group>"; };
 		B70DFA4A1D70C847000DDBD6 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		B70DFA4C1D70C84C000DDBD6 /* pause2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause2.png; sourceTree = "<group>"; };
@@ -584,6 +588,7 @@
 				B76841CF1DA568CA00ABBC78 /* EditInfoViewController.swift */,
 				B7F8C10B1D9EFCE200848351 /* LoginFirebaseViewController.swift */,
 				B784D2C11DAD787C0016A405 /* ReviewTableViewController.swift */,
+				B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -624,6 +629,7 @@
 				B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */,
 				B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */,
 				B784D2C31DAD798B0016A405 /* ReviewTableViewCell.swift */,
+				B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -959,6 +965,7 @@
 				CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */,
 				B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */,
 				B784D2C01DAD72F50016A405 /* Review.swift in Sources */,
+				B70DA8981DB1593900BFCB34 /* UserTableViewCell.swift in Sources */,
 				B77C499F1D8C68D600AFF826 /* STKAudioPlayer.m in Sources */,
 				B7F530EB1D6230D700831561 /* InitialTableViewCell.swift in Sources */,
 				B781A2781DAC18FE00FCBCD7 /* WallTableViewCell.swift in Sources */,
@@ -986,6 +993,7 @@
 				B784D2C21DAD787C0016A405 /* ReviewTableViewController.swift in Sources */,
 				B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
+				B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B702CF531DA2F0BC007FB335 /* ProgramsTableViewController.swift in Sources */,
 				B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */,

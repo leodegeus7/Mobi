@@ -22,6 +22,7 @@ class UserRealm: Object {
   dynamic var followers = -1
   dynamic var email =  ""
   dynamic var password = ""
+  
 
   
   convenience init(id:String, email:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String,userImage:ImageObject) {
@@ -81,6 +82,7 @@ class UserRealm: Object {
       self.following = Int(following)!
     }
   }
+  
   
   
   override static func ignoredProperties() -> [String] {

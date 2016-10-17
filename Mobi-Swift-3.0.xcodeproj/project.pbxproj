@@ -93,6 +93,11 @@
 		B77DEA6A1D774AAE00695546 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77DEA6C1D77567700695546 /* FileSupport.swift */; };
 		B781A2781DAC18FE00FCBCD7 /* WallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B781A2771DAC18FE00FCBCD7 /* WallTableViewCell.swift */; };
+		B7842AC81DB52AC5002550F3 /* GnSDKObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7842AC71DB52AC5002550F3 /* GnSDKObjC.framework */; };
+		B7842ACA1DB530E6002550F3 /* gnsdk_extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7842AC91DB530E6002550F3 /* gnsdk_extensions.swift */; };
+		B7842ACC1DB538F8002550F3 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = B7842ACB1DB538F8002550F3 /* license.txt */; };
+		B7842ACE1DB53C54002550F3 /* GracenoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7842ACD1DB53C54002550F3 /* GracenoteManager.swift */; };
+		B7842AD01DB54FA7002550F3 /* SendPublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7842ACF1DB54FA7002550F3 /* SendPublicationViewController.swift */; };
 		B784D2BA1DAC2D4B0016A405 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = B784D2B91DAC2D4B0016A405 /* plus.png */; };
 		B784D2BC1DAC337C0016A405 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784D2BB1DAC337C0016A405 /* Program.swift */; };
 		B784D2BE1DAD4D8C0016A405 /* ImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784D2BD1DAD4D8C0016A405 /* ImageObject.swift */; };
@@ -286,6 +291,11 @@
 		B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B77DEA6C1D77567700695546 /* FileSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSupport.swift; sourceTree = "<group>"; };
 		B781A2771DAC18FE00FCBCD7 /* WallTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallTableViewCell.swift; sourceTree = "<group>"; };
+		B7842AC71DB52AC5002550F3 /* GnSDKObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GnSDKObjC.framework; sourceTree = "<group>"; };
+		B7842AC91DB530E6002550F3 /* gnsdk_extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gnsdk_extensions.swift; sourceTree = "<group>"; };
+		B7842ACB1DB538F8002550F3 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
+		B7842ACD1DB53C54002550F3 /* GracenoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GracenoteManager.swift; sourceTree = "<group>"; };
+		B7842ACF1DB54FA7002550F3 /* SendPublicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendPublicationViewController.swift; sourceTree = "<group>"; };
 		B784D2B91DAC2D4B0016A405 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		B784D2BB1DAC337C0016A405 /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		B784D2BD1DAD4D8C0016A405 /* ImageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageObject.swift; sourceTree = "<group>"; };
@@ -381,6 +391,7 @@
 				B75E34161D90823500713783 /* libxml2.2.tbd in Frameworks */,
 				B75E34141D90822500713783 /* libxml2.tbd in Frameworks */,
 				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
+				B7842AC81DB52AC5002550F3 /* GnSDKObjC.framework in Frameworks */,
 				B77384B41D7F394E00701070 /* FirebaseAuth.framework in Frameworks */,
 				B77384A81D7F30A800701070 /* libc++.tbd in Frameworks */,
 				B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */,
@@ -589,6 +600,7 @@
 				B7F8C10B1D9EFCE200848351 /* LoginFirebaseViewController.swift */,
 				B784D2C11DAD787C0016A405 /* ReviewTableViewController.swift */,
 				B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */,
+				B7842ACF1DB54FA7002550F3 /* SendPublicationViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -613,6 +625,7 @@
 				B784D2BD1DAD4D8C0016A405 /* ImageObject.swift */,
 				B784D2BF1DAD72F50016A405 /* Review.swift */,
 				B784D2CD1DB021720016A405 /* SpecialProgram.swift */,
+				B7842ACD1DB53C54002550F3 /* GracenoteManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -658,10 +671,12 @@
 				B77892E31D91B346009D6105 /* StreamingRadioManager.swift */,
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7F530F91D6261D400831561 /* Simulation.gpx */,
+				B7842ACB1DB538F8002550F3 /* license.txt */,
 				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
 				B77384B51D7F559A00701070 /* GoogleService-Info.plist */,
 				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
 				B7BB84A31D9C47030033D823 /* View.xib */,
+				B7842AC91DB530E6002550F3 /* gnsdk_extensions.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -729,6 +744,7 @@
 			isa = PBXGroup;
 			children = (
 				B784D2CB1DB002010016A405 /* libstdc++.tbd */,
+				B7842AC71DB52AC5002550F3 /* GnSDKObjC.framework */,
 				B784D2C91DB001F20016A405 /* CoreMedia.framework */,
 				B784D2C71DB001DC0016A405 /* CoreData.framework */,
 				B784D2C51DB001D20016A405 /* MediaPlayer.framework */,
@@ -852,6 +868,7 @@
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
+				B7842ACC1DB538F8002550F3 /* license.txt in Resources */,
 				B7BB84AC1D9DA7B20033D823 /* like.png in Resources */,
 				B7F530F61D62486600831561 /* test-4.png in Resources */,
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
@@ -989,8 +1006,10 @@
 				B75E332A1D906C6700713783 /* AudioChannel.swift in Sources */,
 				B76841D01DA568CA00ABBC78 /* EditInfoViewController.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
+				B7842AD01DB54FA7002550F3 /* SendPublicationViewController.swift in Sources */,
 				B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */,
 				B784D2C21DAD787C0016A405 /* ReviewTableViewController.swift in Sources */,
+				B7842ACE1DB53C54002550F3 /* GracenoteManager.swift in Sources */,
 				B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */,
@@ -1026,6 +1045,7 @@
 				B7D584DE1D5D0484003D5A1F /* Util.swift in Sources */,
 				B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */,
 				B7880BAA1D5E5F46002B235A /* Radio.swift in Sources */,
+				B7842ACA1DB530E6002550F3 /* gnsdk_extensions.swift in Sources */,
 				B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */,
 				B73532EC1D9AD7E6008504BA /* RadioDetailTableViewCell.swift in Sources */,
 				B73532E91D9AD7B0008504BA /* RadioTableViewController.swift in Sources */,

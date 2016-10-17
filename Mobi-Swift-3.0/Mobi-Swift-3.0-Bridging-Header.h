@@ -8,3 +8,4 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "UIScrollView+EmptyDataSet.h"
 #import "STKAudioPlayer.h"
+#import "GnSDKObjC/Gn.h"

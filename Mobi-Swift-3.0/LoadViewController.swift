@@ -9,6 +9,7 @@
 import UIKit
 import ChameleonFramework
 
+
 class LoadViewController: UIViewController {
   var initialView = MiniPlayerViewController()
   var notificationCenter = NSNotificationCenter.defaultCenter()
@@ -17,8 +18,10 @@ class LoadViewController: UIViewController {
   
   var loadTimer = NSTimer()
   
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     if DataManager.sharedInstance.existInterfaceColor {
       let rect = view.frame
       
@@ -35,7 +38,7 @@ class LoadViewController: UIViewController {
     indicator.center = view.center
     self.view.addSubview(indicator)
     
-    
+
     
     
     if (requestInfo) {
@@ -61,8 +64,14 @@ class LoadViewController: UIViewController {
   }
   
   func requestInitialInformation() {
+    
+    let gracenote = GracenoteManager(bool: true)
+    gracenote.findMatch("Girl", trackTitle: "Happy", albumArtistName: "Pharell willians", trackArtistName: "", composerName: "")
+    
     let testManager = RequestManager()
     testManager.testServer { (result) in
+      
+
       
       if result {
         //        let manager = RequestManager()
@@ -105,16 +114,9 @@ class LoadViewController: UIViewController {
                 let scoreRequest = RequestManager()
                 scoreRequest.getRadioScore(DataManager.sharedInstance.recentsRadios.first!) { (resultScore) in
                   
-                  
-//                  let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
-//                  if self.actualRadio.score == -1 {
-//                    cell.labelScore.text = "-"
-//                  } else {
-//                    cell.labelScore.text = "\(self.actualRadio.score)"
-//                  }
+    
                 }
-                
-                
+
                 self.dismissViewControllerAnimated(true, completion: {
                   
                 })
@@ -138,6 +140,9 @@ class LoadViewController: UIViewController {
     }
   }
   
+
+  
+  
   func timerExplode() {
     
     func okAction() {
@@ -150,5 +155,6 @@ class LoadViewController: UIViewController {
     loadTimer.invalidate()
   }
 }
+
 
 

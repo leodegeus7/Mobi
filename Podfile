@@ -21,4 +21,5 @@ pod 'ChameleonFramework/Swift'
 pod 'FirebaseUI/Database'
 pod 'FirebaseUI/Auth'
 pod 'Eureka'
+pod ‘Cosmos’
 end

@@ -41,6 +41,8 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
     tableView.tableFooterView = UIView()
     let scoreRequest = RequestManager()
     self.title = "Avaliações"
+    let rigthButton = UIBarButtonItem(title: "Fazer Publicação", style: .Done, target: self, action: #selector(ReviewTableViewController.segueToCreatePublication))
+    navigationItem.rightBarButtonItem = rigthButton
     
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
@@ -98,6 +100,18 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
     } else {
       let cell = UITableViewCell()
       return cell
+    }
+  }
+  
+  func segueToCreatePublication() {
+    performSegueWithIdentifier("createPublicacionSegue", sender: self)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "createPublicacionSegue" {
+      let createVC = (segue.destinationViewController as! SendPublicationViewController)
+      createVC.actualMode = .Review
+      createVC.actualRadio = actualRadio
     }
   }
   

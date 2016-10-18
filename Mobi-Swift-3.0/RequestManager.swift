@@ -658,6 +658,51 @@ class RequestManager: NSObject {
     }
   }
   
+  func sendReviewPublication(radio:RadioRealm,text:String,score:Int,completion: (resultReview: Bool) -> Void) {
+    
+    let parameters = [
+      "text": text,
+      "score":score
+    ]
+    
+    genericRequest(.PUT, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "stationunit/\(radio.id)/review") { (result) in
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
+          print("Criado publicaçação de review de \(radio.name) com sucesso")
+        }
+        completion(resultReview: true)
+      }
+    }
+  }
+  
+  func sendWallPublication(radio:RadioRealm,text:String,postType:Int,attachmentIdentifier:String,completion: (resultWall: Bool) -> Void) {
+    var parameters = [:]
+    if attachmentIdentifier != ""{
+      parameters = [
+        "text": text,
+        "postType": postType,
+        "attachmentIdentifier": attachmentIdentifier
+      ]
+    } else {
+      parameters = [
+        "text": text,
+        "postType": 0
+      ]
+    }
+    
+    genericRequest(.PUT, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "stationunit/\(radio.id)/wall") { (result) in
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
+          print("Criado publicaçação no mural de \(radio.name) com sucesso")
+          completion(resultWall: true)
+        } else {
+          completion(resultWall: false)
+        }
+        
+      }
+    }
+  }
+  
   func authUserWithToken(token:String,provider:AuthProvider,completion: (result: ([String:AnyObject])) -> Void) {
     
     var url = ""

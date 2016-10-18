@@ -65,8 +65,8 @@ class DataManager: NSObject {
   
   var statusApp:StatusApp = .CorrectyStatus
   
-  //let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
-  let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api/"
+  let baseURL = "http://homolog.feroxsolutions.com.br:8080/radiocontrole-web/api/"
+  //let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api/"
   var userToken:String!
   var myUser = UserRealm()
   var userLocation:CLLocation!

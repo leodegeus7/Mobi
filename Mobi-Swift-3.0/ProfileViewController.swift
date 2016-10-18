@@ -500,10 +500,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     self.dismissViewControllerAnimated(true) {
     }
-    
     Util.displayAlert(title: "Concluido", message: "Imagem editada com sucesso", action: "Ok")
-    
   }
+  
   @IBAction func tapFollowersButton(sender: AnyObject) {
     view.addSubview(activityIndicator)
     view.userInteractionEnabled = false

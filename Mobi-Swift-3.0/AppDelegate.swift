@@ -231,9 +231,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       if appConfigRealm.first!.userToken != "" {
         DataManager.sharedInstance.userToken = appConfigRealm.first!.userToken
       }
-      if appConfigRealm.first!.coordColorConfig != 0 {
-        DataManager.sharedInstance.configApp.coordColorConfig = (appConfigRealm.first?.coordColorConfig)!
-      }
     }
 
     

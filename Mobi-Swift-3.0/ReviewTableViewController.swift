@@ -41,7 +41,7 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
     tableView.tableFooterView = UIView()
     let scoreRequest = RequestManager()
     self.title = "Avaliações"
-    let rigthButton = UIBarButtonItem(title: "Fazer Publicação", style: .Done, target: self, action: #selector(ReviewTableViewController.segueToCreatePublication))
+    let rigthButton = UIBarButtonItem(title: "Avaliar", style: .Done, target: self, action: #selector(ReviewTableViewController.segueToCreatePublication))
     navigationItem.rightBarButtonItem = rigthButton
     
     ///////////////////////////////////////////////////////////
@@ -138,8 +138,7 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) {
-    }
+    performSegueWithIdentifier("createPublicacionSegue", sender: self)
   }
   
   

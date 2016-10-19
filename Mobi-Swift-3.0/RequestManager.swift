@@ -636,7 +636,7 @@ class RequestManager: NSObject {
             comment.postType = .Text
           case 1:
             comment.postType = .Image
-            comment.addImageReference(dic["text"] as! String)
+            comment.addImageReference(dic["attachmentIdentifier"] as! String)
           case 2:
             comment.postType = .Audio
             comment.addImageReference(dic["attachmentIdentifier"] as! String)
@@ -662,15 +662,19 @@ class RequestManager: NSObject {
     
     let parameters = [
       "text": text,
-      "score":score
+      "score":score,
+      "dateTime": Util.convertActualDateToString()
     ]
     
     genericRequest(.PUT, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "stationunit/\(radio.id)/review") { (result) in
       if let resultRequest = result["requestResult"] as? String{
         if resultRequest == "OK" {
-          print("Criado publicaçação de review de \(radio.name) com sucesso")
+          print("Criado publicaçação de review de \(radio.name) com sucesso. Id: \(result["data"]!["id"] as! Int)")
+          completion(resultReview: true)
         }
-        completion(resultReview: true)
+        else {
+          completion(resultReview: false)
+        }
       }
     }
   }
@@ -681,19 +685,21 @@ class RequestManager: NSObject {
       parameters = [
         "text": text,
         "postType": postType,
-        "attachmentIdentifier": attachmentIdentifier
+        "attachmentIdentifier": attachmentIdentifier,
+        "dateTime": Util.convertActualDateToString()
       ]
     } else {
       parameters = [
         "text": text,
-        "postType": 0
+        "postType": 0,
+        "dateTime": Util.convertActualDateToString()
       ]
     }
     
     genericRequest(.PUT, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "stationunit/\(radio.id)/wall") { (result) in
       if let resultRequest = result["requestResult"] as? String{
         if resultRequest == "OK" {
-          print("Criado publicaçação no mural de \(radio.name) com sucesso")
+          print("Criado publicaçação no mural de \(radio.name) com sucesso. Id: \(result["data"]!["id"] as! Int)")
           completion(resultWall: true)
         } else {
           completion(resultWall: false)
@@ -835,14 +841,16 @@ class RequestManager: NSObject {
               let valueAlteration = uniqueAlteration["value"]!
               dataVar[parameterAlteration] = valueAlteration
             }
-            let birth = data["birthdate"] as! String
-            let birthDate = Util.convertStringToNSDate(birth)
-            
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-            
-            let birthString = dateFormatter.stringFromDate(birthDate)
-            dataVar["birthdate"] = birthString
+            if let birth = data["birthdate"] as? String {
+              
+              let birthDate = Util.convertStringToNSDate(birth)
+              
+              let dateFormatter = NSDateFormatter()
+              dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+              
+              let birthString = dateFormatter.stringFromDate(birthDate)
+              dataVar["birthdate"] = birthString
+            }
             Alamofire.request(.POST, "\(DataManager.sharedInstance.baseURL)app/user", parameters: dataVar, encoding: .JSON, headers: self.headers).responseJSON { (response) in
               switch response.result {
               case .Success:
@@ -982,6 +990,8 @@ class RequestManager: NSObject {
       completion(resultPrograms: programsArray)
     }
   }
+  
+  
   
   func requestSpecialProgramsOfRadio(radio:RadioRealm, pageNumber:Int,pageSize:Int,completion: (resultSpecialPrograms: [SpecialProgram]) -> Void) {
     requestJson("app/station/\(radio.id)/specialprogram?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in

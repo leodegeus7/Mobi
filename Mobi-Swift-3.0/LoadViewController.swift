@@ -38,7 +38,11 @@ class LoadViewController: UIViewController {
     indicator.center = view.center
     self.view.addSubview(indicator)
     
-
+    if let config = DataManager.sharedInstance.configApp {
+      print(config)
+    } else {
+      DataManager.sharedInstance.configApp = AppConfigRealm(id: "1")
+    }
     
     
     if (requestInfo) {

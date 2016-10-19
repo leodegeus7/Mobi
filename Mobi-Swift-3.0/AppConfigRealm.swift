@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class AppConfigRealm: Object {
-  dynamic var id = 0
+  dynamic var id = 1
   dynamic var coordColorConfig = 00
   dynamic var userToken = ""
   

@@ -13,7 +13,6 @@ import ChameleonFramework
 class ConfigViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet weak var menuButton: UIBarButtonItem!
-  
   @IBOutlet weak var tableViewAudio: UITableView!
   @IBOutlet weak var sliderGraves: UISlider!
   @IBOutlet weak var sliderMedios: UISlider!
@@ -98,17 +97,22 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     for button in colorButtons {
+      button.setImage(UIImage(), forState: .Normal)
+      button.setBackgroundImage(UIImage(), forState: .Normal)
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
         
-        let sender = button
-        imageCheckView.frame = (sender.frame)
-        if (sender.tag) > 20 {
-          imageCheckView.center.y = sender.center.y + (sender.frame).maxY - (sender.frame).minY
-        }
-        stackColors.addSubview(imageCheckView)
-        break
+        let image = UIImageView(frame: button.frame)
+        image.image = UIImage(named: "okImage.png")
+        image.frame = button.frame
+        
+        button.setBackgroundImage(image.image, forState: .Normal)
       }
     }
+    
+    
+    
+    
+    
     
     
     
@@ -187,13 +191,31 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.existInterfaceColor = true
     print(sender?.tag)
     
+    tableViewAudio.reloadData()
+    sliderAgudos.reloadInputViews()
+    sliderGraves.reloadInputViews()
+    sliderMedios.reloadInputViews()
+    
     DataManager.sharedInstance.configApp.updatecoordColorConfig((sender?.tag)!)
-    imageCheckView.frame = (sender?.frame)!
-    if (sender?.tag)! > 20 {
-      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
+//    imageCheckView.frame = (sender?.frame)!
+//    if (sender?.tag)! > 20 {
+//      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
+//    }
+    for button in colorButtons {
+      button.setImage(UIImage(), forState: .Normal)
+      button.setBackgroundImage(UIImage(), forState: .Normal)
+      if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
+        
+       // button.setImage(UIImage"okImage.png"), forState: .Normal)
+        let image = UIImageView(frame: button.frame)
+        image.image = UIImage(named: "okImage.png")
+        image.frame = button.frame
+        
+        button.setBackgroundImage(image.image, forState: .Normal)
+      }
     }
     
-    stackColors.addSubview(imageCheckView)
+    //stackColors.addSubview(imageCheckView)
     
   }
   

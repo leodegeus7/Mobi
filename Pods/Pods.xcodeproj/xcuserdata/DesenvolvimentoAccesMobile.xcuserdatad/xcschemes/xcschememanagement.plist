@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ImageViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1713EB237643B92D11EC46EE9FAACDB9</key>
+		<key>18D47F74747074D3D6F47D4B7A7973C2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>29B4FAE14374568E13E1C31A1FEC1897</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>396E5C4B3BB73161F2EE092D0E03D9C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,17 +122,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>42C363C07442171B3AA0940FBE68C208</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4332352E97A37C729DC7D9B3B8A4BB15</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B01C842C7BF0E3E90903887252218B6</key>
+		<key>46761B5CD03779340FC4DC00C29C2040</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,6 +152,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7F37BC6875EB846AE3FE6EE8F1011975</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>887A1F399C1C0E18F1B9EEA0FD58F115</key>
 		<dict>
 			<key>primary</key>
@@ -152,27 +167,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A7D2321CFDAC14A82F459CDA3FA8B5B0</key>
+		<key>AE76522658A41FB80868E0B710C58210</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE8D225F0BA96DAE35998BD05BF918A3</key>
+		<key>B6C39D09A0F539C42D6887E5BFF1E861</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2F1D172EA7B999480B0F8CE219F8812</key>
+		<key>B7C11E8FD69948B42F586C6497E9C38C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E96E13C4D3B5B5FC0651440734C2BF4D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FBA0C24BD24444D10C5FC92FD3ED6BF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

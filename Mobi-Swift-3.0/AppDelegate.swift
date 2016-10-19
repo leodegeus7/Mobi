@@ -220,6 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         colors.append(color2)
       }
       Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, withContentStyle: UIContentStyle.Contrast)
+      
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     }
@@ -229,6 +230,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.configApp = appConfigRealm.first!
       if appConfigRealm.first!.userToken != "" {
         DataManager.sharedInstance.userToken = appConfigRealm.first!.userToken
+      }
+      if appConfigRealm.first!.coordColorConfig != 0 {
+        DataManager.sharedInstance.configApp.coordColorConfig = (appConfigRealm.first?.coordColorConfig)!
       }
     }
 

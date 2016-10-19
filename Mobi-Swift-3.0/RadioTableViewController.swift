@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Kingfisher
+import ImageViewer
 
 class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
@@ -35,6 +36,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  
+  static var selectedImageButton:UIImage!
   
   enum SelectedRadioMode {
     case DetailRadio
@@ -111,7 +114,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-
+  
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .DetailRadio:
@@ -252,22 +255,48 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     case .Wall :
       if !firstTimeShowed {
-        let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-        cell.labelName.text = actualComments[indexPath.row].user.name
-        cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-        cell.textViewWall.text = actualComments[indexPath.row].text
-        if actualComments[indexPath.row].user.userImage == "avatar.png" {
-          cell.imageUser.image = UIImage(named: "avatar.png")
+        if actualComments[indexPath.row].postType == .Image {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+          cell.labelName.text = actualComments[indexPath.row].user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+          cell.textViewWall.text = actualComments[indexPath.row].text
+          if actualComments[indexPath.row].user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+          }
+          cell.buttonZoomImage.tag = indexPath.row
+          cell.imageAttachment.kf_showIndicatorWhenLoading = true
+          
+          
+          cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
+            
+            }, completionHandler: { (image, error, cacheType, imageURL) in
+              
+          })
+          
+          cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+          
+          return cell
         } else {
-          cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+          cell.labelName.text = actualComments[indexPath.row].user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+          cell.textViewWall.text = actualComments[indexPath.row].text
+          if actualComments[indexPath.row].user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+          }
+          return cell
         }
-        return cell
       } else {
         let cell = UITableViewCell()
         return cell
       }
     }
   }
+
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     switch selectedMode {
@@ -347,6 +376,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       let reviewVC = segue.destinationViewController as! ReviewTableViewController
       reviewVC.actualRadio = actualRadio
     }
+    if segue.identifier == "createPublicationSegue" {
+      let createVC = segue.destinationViewController as! SendPublicationViewController
+      createVC.actualRadio = actualRadio
+      createVC.actualMode = .Wall
+    }
   }
   
   @IBAction func buttonPlayTapped(sender: AnyObject) {
@@ -395,7 +429,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   func createComment() {
-    performSegueWithIdentifier("createCommentSegue", sender: self)
+    performSegueWithIdentifier("createPublicationSegue", sender: self)
   }
   
   func defineBarButton() {
@@ -440,7 +474,33 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) {
+    performSegueWithIdentifier("createPublicationSegue", sender: self)
+  }
+
+  
+  @IBAction func zoomImageButtonTap(sender: AnyObject) {
+    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: sender.tag, inSection: 0)) as! WallImageTableViewCell
+    
+    RadioTableViewController.selectedImageButton = cell.imageAttachment.image!
+    let imageProvider: ImageProvider = PoorManProvider()
+    let buttonAssets = CloseButtonAssets(normal: UIImage(named:"arrow")!, highlighted: UIImage(named: "happy"))
+    let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets)
+    let imageViewer = ImageViewerController(imageProvider: imageProvider, configuration: configuration, displacedView: sender as! UIView)
+    self.presentImageViewer(imageViewer)
+  }
+}
+
+class PoorManProvider:ImageProvider {
+  
+  var imageCount: Int = 0
+  func provideImage(completion: UIImage? -> Void) {
+    if let image = RadioTableViewController.selectedImageButton {
+      completion(image)
     }
+    
+  }
+  
+  func provideImage(atIndex index: Int, completion: UIImage? -> Void) {
+    completion(UIImage())
   }
 }

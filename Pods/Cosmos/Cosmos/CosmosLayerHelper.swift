@@ -13,18 +13,18 @@ class CosmosLayerHelper {
   - returns: New text layer.
   
   */
-  class func createTextLayer(_ text: String, font: UIFont, color: UIColor) -> CATextLayer {
-    let size = NSString(string: text).size(attributes: [NSFontAttributeName: font])
+  class func createTextLayer(text: String, font: UIFont, color: UIColor) -> CATextLayer {
+    let size = NSString(string: text).sizeWithAttributes([NSFontAttributeName: font])
     
     let layer = CATextLayer()
     layer.bounds = CGRect(origin: CGPoint(), size: size)
     layer.anchorPoint = CGPoint()
     
     layer.string = text
-    layer.font = CGFont(font.fontName)
+    layer.font = CGFontCreateWithFontName(font.fontName)
     layer.fontSize = font.pointSize
-    layer.foregroundColor = color.cgColor
-    layer.contentsScale = UIScreen.main().scale
+    layer.foregroundColor = color.CGColor
+    layer.contentsScale = UIScreen.mainScreen().scale
     
     return layer
   }

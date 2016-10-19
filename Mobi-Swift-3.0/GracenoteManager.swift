@@ -20,13 +20,9 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
   let APP_VERSION = "1.0.0.0"
   
   var gnManager:GnManager!
-  var gnMic:GnMic!
   var gnUser:GnUser!
   var gnUserStore:GnUserStore!
-  var gnStorageSqlite:GnStorageSqlite!
-  var gnLookupLocalStream:GnLookupLocalStream!
   var gnMusicIdStream:GnMusicIdStream!
-  var gnLocale:GnLocale!
   var queryBeginTimeInterval:NSTimeInterval!
   var queryEndTimeInterval:NSTimeInterval!
   var cancellableObjects:NSMutableArray!
@@ -56,26 +52,19 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     
     
     
-    gnLocale = try GnLocale(localeGroup:kLocaleGroupMusic, language:kLanguagePortuguese, region:kRegionGlobal, descriptor:kDescriptorDefault, user:gnUser, statusEventsDelegate:nil)
-    try! gnLocale.setGroupDefault()
-    
-    let session:AVAudioSession = AVAudioSession.sharedInstance()
-    try! session.setPreferredSampleRate(44100)
-    try! session.setInputGain(0.5)
-    try! session.setActive(true)
-    
+    musicId = try GnMusicId(user: gnUser, statusEventsDelegate: self)
     //    gnStorageSqlite = try! GnStorageSqlite.enable()
     //    let documentDirectoryURL =  try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
     //    try! gnStorageSqlite.storageLocation(documentDirectoryURL.path!)
     //    try! setupLocalLookup(documentDirectoryURL.path)
     //    try! downloadLatestBundle()
     
-    gnMusicIdStream = try GnMusicIdStream(user: gnUser, preset: kPresetRadio, locale: gnLocale, musicIdStreamEventsDelegate: self)
+    gnMusicIdStream = try! GnMusicIdStream(user: gnUser, preset: kPresetRadio, musicIdStreamEventsDelegate: self)
+    
     let gnMusicIdStreamOptions = gnMusicIdStream.options()
     try gnMusicIdStreamOptions.resultSingle(true)
-    try gnMusicIdStreamOptions.lookupData(kLookupDataSonicData, enable:true)
-    try gnMusicIdStreamOptions.lookupData(kLookupDataContent, enable: true)
     try gnMusicIdStreamOptions.preferResultCoverart(true)
+
     queryBeginTimeInterval = NSDate().timeIntervalSince1970
     
     //musicId.findAlbumsWithAlbumTitle("Girl", trackTitle: "Happy", albumArtistName: "Pharell", trackArtistName: "", composerName: "")
@@ -83,7 +72,8 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
   
   func findMatch(albumTitle:String,trackTitle:String,albumArtistName:String,trackArtistName:String,composerName:String) {
     do {
-      _ = try musicId.findMatches(albumTitle, trackTitle: trackTitle, albumArtistName: albumArtistName, trackArtistName: trackArtistName, composerName: composerName)
+      let info = try musicId.findMatches(albumTitle, trackTitle: trackTitle, albumArtistName: albumArtistName, trackArtistName: trackArtistName, composerName: composerName)
+      print(info.dataMatches())
     } catch let error {
       print(error)
     }
@@ -114,43 +104,6 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     if cancellableObjects.count == 0
     {
       
-    }
-  }
-  
-  
-  func setupLocalLookup( location:String? ) throws
-  {
-    //	Initialize the local lookup so we can do local lookup queries.
-    gnLookupLocalStream = try GnLookupLocalStream.enable()
-    try gnLookupLocalStream.storageLocation(location!)
-  }
-  
-  func downloadLatestBundle() throws
-  {
-    let BLOCK_SIZE = 1024
-    if let bundlePath = NSBundle.mainBundle().pathForResource("1557", ofType: "b")
-    {
-      try gnLookupLocalStream.storageClear()
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-                     {
-                      do
-                      {
-                        let lookupLocalStreamIngest:GnLookupLocalStreamIngest = try GnLookupLocalStreamIngest(eventsDelegate:self)
-                        let fileHandle:NSFileHandle! = NSFileHandle(forReadingAtPath:bundlePath)
-                        
-                        var fileData = fileHandle!.readDataOfLength(BLOCK_SIZE)
-                        while fileData.length != 0
-                        {
-                          try lookupLocalStreamIngest.write(fileData)
-                          fileData = fileHandle!.readDataOfLength(BLOCK_SIZE)
-                        }
-                        print("Loaded Bundle")
-                      }
-                      catch
-                      {
-                        print("\(error)")
-                      }
-      })
     }
   }
   

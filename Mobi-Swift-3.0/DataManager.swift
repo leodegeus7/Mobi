@@ -61,7 +61,7 @@ enum StatusApp : Int {
 
 class DataManager: NSObject {
 
-  var configApp = AppConfigRealm()
+  var configApp:AppConfigRealm!
   
   var statusApp:StatusApp = .CorrectyStatus
   

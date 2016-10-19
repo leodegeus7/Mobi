@@ -81,6 +81,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
+    buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
   }
   
   

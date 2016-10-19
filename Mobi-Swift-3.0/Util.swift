@@ -26,6 +26,11 @@ class Util: NSObject {
     return weekDay
   }
   
+  static func tintImageWithColor(color:UIColor,image:UIImage) {
+
+    
+  }
+  
   static func displayAlert(view:UIViewController,title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
@@ -63,6 +68,7 @@ class Util: NSObject {
     alert.addAction(noAction)
     view.presentViewController(alert, animated: true, completion: nil)
   }
+
   
   
   static func convertCoordinateToAddress(lat:CLLocationDegrees,long:CLLocationDegrees, completion: (result: [String:String]) -> Void){
@@ -198,7 +204,6 @@ class Util: NSObject {
       let date = dateFormatter.dateFromString(dateString)
       return date!
     }
-    
   }
   
   static func convertDateToShowString(date:NSDate) -> String {
@@ -208,8 +213,14 @@ class Util: NSObject {
     return dateString
   }
   
+  static func convertActualDateToString() -> String {
+    let dateFormatter = NSDateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    let now = dateFormatter.stringFromDate(NSDate())
+    return now
+  }
+  
   static func sleepNotification(seconds:Int) {
-    
     if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       let title:String = "SleepMode"
       let date = NSDate(timeIntervalSinceNow: Double(seconds))
@@ -232,7 +243,6 @@ class Util: NSObject {
             StreamingRadioManager.sharedInstance.stop()
         })
       })
-      
       
     } else {
       

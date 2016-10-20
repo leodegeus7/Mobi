@@ -267,12 +267,19 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           }
           cell.buttonZoomImage.tag = indexPath.row
           cell.imageAttachment.kf_showIndicatorWhenLoading = true
-          
-          
           cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
             
             }, completionHandler: { (image, error, cacheType, imageURL) in
-              
+              for cellUnique in tableView.visibleCells {
+                if Util.areTheySiblings(cellUnique, class2: WallImageTableViewCell()) {
+                  if let indexPathCell = tableView.indexPathForCell(cellUnique) {
+                    if cellUnique.tag != 3 {
+                      tableView.reloadRowsAtIndexPaths([indexPathCell], withRowAnimation: .Automatic)
+                      cellUnique.tag = 3
+                    }
+                  }
+                }
+              }
           })
           
           cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
@@ -296,7 +303,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     }
   }
-
+  
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     switch selectedMode {
@@ -319,6 +326,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       return ""
     }
   }
+  
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -476,7 +484,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
     performSegueWithIdentifier("createPublicationSegue", sender: self)
   }
-
+  
   
   @IBAction func zoomImageButtonTap(sender: AnyObject) {
     let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: sender.tag, inSection: 0)) as! WallImageTableViewCell

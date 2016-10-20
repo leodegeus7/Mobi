@@ -812,7 +812,7 @@ class RequestManager: NSObject {
               
               
               
-              let user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+              let user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
               DataManager.sharedInstance.myUser = user
               completion(result: true)
             }
@@ -824,8 +824,9 @@ class RequestManager: NSObject {
         }
       }
     }
-    
   }
+  
+
   
   func updateUserInfo(alterations:[Dictionary<String,AnyObject>], completion: (result: Bool) -> Void) {
     Alamofire.request(.GET, "\(DataManager.sharedInstance.baseURL)app/user", headers: headers).responseJSON { (response) in
@@ -920,7 +921,7 @@ class RequestManager: NSObject {
                       
                       if email != "" && name != "" && id != -1 {
                         let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
-                        let user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+                        let user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
                         DataManager.sharedInstance.myUser = user
                         completion(result: true)
                       }
@@ -954,6 +955,7 @@ class RequestManager: NSObject {
       }
     }
   }
+
   
   func requestProgramsOfRadio(radio:RadioRealm, pageNumber:Int,pageSize:Int,completion: (resultPrograms: [Program]) -> Void) {
     requestJson("app/station/\(radio.id)/program/?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
@@ -1031,14 +1033,17 @@ class RequestManager: NSObject {
     }
   }
   
-  func uploadImage(imageToUpload:UIImage,completion: (resultIdentifiers: ImageObject) -> Void) {
+  func uploadImage(progressView:UIProgressView,imageToUpload:UIImage,completion: (resultIdentifiers: ImageObject) -> Void) {
     let parameters = [
       "action": "upload"]
     let URL = "\(DataManager.sharedInstance.baseURL)image/upload"
-    let image = imageToUpload
+
+    progressView.progress = 0
+
+    
     Alamofire.upload(.POST, URL, multipartFormData: {
       multipartFormData in
-      if let imageData = UIImageJPEGRepresentation(image, 0.5) {
+      if let imageData = UIImageJPEGRepresentation(imageToUpload, 0.5) {
         multipartFormData.appendBodyPart(data: imageData, name: "attachment", fileName: "file.png", mimeType: "image/png")
       }
       for (key, value) in parameters {
@@ -1048,6 +1053,12 @@ class RequestManager: NSObject {
         encodingResult in
         switch encodingResult {
         case .Success(let upload, _, _):
+          upload.progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+
+            dispatch_async(dispatch_get_main_queue()) {
+            progressView.setProgress(CFloat(totalBytesRead/totalBytesExpectedToRead), animated: true)
+            }
+          }
           upload.responseJSON(completionHandler: { (response:Response<AnyObject, NSError>) in
             switch response.result {
             case .Success:
@@ -1065,7 +1076,7 @@ class RequestManager: NSObject {
   }
   
   func changeUserPhoto(imageToChange:UIImage,completion: (result: Bool) -> Void) {
-    uploadImage(imageToChange) { (resultIdentifiers) in
+    uploadImage(UIProgressView(),imageToUpload: imageToChange) { (resultIdentifiers) in
       var dicImag = Dictionary<String,AnyObject>()
       dicImag["id"] = resultIdentifiers.id
       var dicPara = Dictionary<String,AnyObject>()
@@ -1192,7 +1203,7 @@ class RequestManager: NSObject {
             
             if id != -1 {
               let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
-              user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+              user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
             }
             followers.append(user)
           }
@@ -1274,9 +1285,9 @@ class RequestManager: NSObject {
               
               if let _ = resultDic["image"]?.dictionaryObject {
                 
-                user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
               } else {
-                user = UserRealm(id: "\(id)", email: email, name: name, sex: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: ImageObject())
+                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: ImageObject())
               }
               
             }

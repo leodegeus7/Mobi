@@ -8,17 +8,24 @@ class EditInfoViewController: FormViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Atualizar", style: .Done, target: self, action: #selector(EditInfoViewController.okAction))
     
     form = Section("Informações básicas")
-      <<< SwitchRow("set_basic"){
-        $0.title = "Editar Informações Básicas?"
-      }
       <<< TextRow(){
         $0.tag = "name"
         $0.title = "Nome"
         $0.placeholder = "Digite texto aqui"
-        $0.hidden = .Function(["set_basic"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_basic")
-          return row.value ?? false == false
+        if DataManager.sharedInstance.myUser.name != "" {
+          $0.value = DataManager.sharedInstance.myUser.name
+        }
+        
+        let textBefore = DataManager.sharedInstance.myUser.name
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
         })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
+        })
+        
       }
       <<< DateRow(){
         $0.tag = "birth"
@@ -28,106 +35,137 @@ class EditInfoViewController: FormViewController {
         formatter.locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages().first!)
         formatter.dateStyle = .ShortStyle
         $0.dateFormatter = formatter
-        $0.hidden = .Function(["set_basic"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_basic")
-          return row.value ?? false == false
+        if let birth = DataManager.sharedInstance.myUser.birthDate {
+          $0.value = birth
+        }
+        
+        
+      }
+      
+      <<< EmailRow(){
+        $0.tag = "email"
+        $0.title = "E-mail"
+        $0.placeholder = "nome@provedor.com"
+        if DataManager.sharedInstance.myUser.email != "" {
+          $0.value = DataManager.sharedInstance.myUser.email
+        }
+        let textBefore = DataManager.sharedInstance.myUser.email
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
+        })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
         })
       }
+      
       <<< SegmentedRow<String>(){
         $0.tag = "gender"
         $0.title = "Sexo"
         $0.options = ["Masc","Fem"]
-        $0.hidden = .Function(["set_basic"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_basic")
-          return row.value ?? false == false
+        if DataManager.sharedInstance.myUser.gender != "" {
+          if DataManager.sharedInstance.myUser.gender == "M" {
+            $0.value = "Masc"
+          } else if DataManager.sharedInstance.myUser.gender == "F" {
+            $0.value = "Fem"
+          }
+        }
+        
+        let textBefore = DataManager.sharedInstance.myUser.gender
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
+        })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
         })
       }
       
       
       
       +++ Section("Endereço")
-      <<< SwitchRow("set_address"){
-        $0.title = "Editar Endereço?"
-      }
-      <<< TextRow(){
+      <<< PushRow<String>(){
         $0.tag = "state"
         $0.title = "Estado"
-        $0.placeholder = "Digite sua estado"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
+        $0.options = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]
+        if DataManager.sharedInstance.myUser.address.state != "" {
+          $0.value = DataManager.sharedInstance.myUser.address.state
+        }
+        
+        let textBefore = DataManager.sharedInstance.myUser.address.state
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
+        })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
         })
       }
       <<< TextRow(){
         $0.tag = "city"
         $0.title = "Cidade"
         $0.placeholder = "Digite sua cidade"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
+        if DataManager.sharedInstance.myUser.address.city != "" {
+          $0.value = DataManager.sharedInstance.myUser.address.city
+        }
+        
+        let textBefore = DataManager.sharedInstance.myUser.address.city
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
+        })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
         })
       }
       <<< TextRow(){
+        let textBefore = DataManager.sharedInstance.myUser.address.zip
         $0.tag = "zip"
         $0.title = "CEP"
         $0.placeholder = "Digite seu CEP"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
+        if textBefore != "" {
+          $0.value = textBefore
+        }
+        
+        $0.onCellHighlight({ (cell, row) in
+          row.value = ""
+        })
+        $0.onCellUnHighlight({ (cell, row) in
+          if row.value == "" {
+            row.value = textBefore
+          }
         })
       }
       <<< TextRow(){
         $0.tag = "street"
         $0.title = "Rua"
         $0.placeholder = "Digite sua rua"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
-        })
+        if DataManager.sharedInstance.myUser.address.state != "" {
+          $0.value = DataManager.sharedInstance.myUser.address.state
+        }
       }
-      <<< TextRow(){
+      <<< IntRow(){
         $0.tag = "number"
         $0.title = "Número"
         $0.placeholder = "Digite o número"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
-        })
+        if DataManager.sharedInstance.myUser.address.state != "" {
+          $0.value = Int(DataManager.sharedInstance.myUser.address.streetNumber)
+        }
       }
-      <<< TextRow(){
-        $0.tag = "complem"
-        $0.title = "Complemento"
-        $0.placeholder = "Digite o complemento"
-        $0.hidden = .Function(["set_address"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_address")
-          return row.value ?? false == false
-        })
-      }
+      //      <<< TextRow(){
+      //        $0.tag = "complem"
+      //        $0.title = "Complemento"
+      //        $0.placeholder = "Digite o complemento"
+      //        if DataManager.sharedInstance.myUser.address. != "" {
+      //          $0.value = Int(DataManager.sharedInstance.myUser.address.streetNumber)
+      //        }
+      //      }
       
-      +++ Section("Altere seu e-mail")
-      <<< SwitchRow("set_email"){
-        $0.title = "Editar E-mail?"
-      }
-      <<< EmailRow(){
-        $0.tag = "email"
-        $0.title = "E-mail"
-        $0.placeholder = "nome@provedor.com"
-        $0.hidden = .Function(["set_email"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_email")
-          return row.value ?? false == false
-        })
-        
-      }
-      <<< EmailRow(){
-        $0.tag = "reemail"
-        $0.title = "Confirme seu e-mail"
-        $0.placeholder = "nome@provedor.com"
-        $0.hidden = .Function(["set_email"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_email")
-          return row.value ?? false == false
-        })
-        
-      }
+      
       
       +++ Section("Altere sua foto de perfil")
       <<< SwitchRow("set_photo"){
@@ -166,20 +204,17 @@ class EditInfoViewController: FormViewController {
         })
     }
     
-
+    
     
     
   }
   
   func okAction() {
-    let switchInfo : SwitchRow = form.rowByTag("set_basic")!
-    let switchAddress : SwitchRow = form.rowByTag("set_address")!
-    let switchPhoto : SwitchRow = form.rowByTag("set_photo")!
-    let switchEmail : SwitchRow = form.rowByTag("set_email")!
-    let switchKey : SwitchRow = form.rowByTag("set_key")!
+    
+    
     
     let labelNameInfo : TextRow = form.rowByTag("name")!
-    let labelBirthInfo : TextRow = form.rowByTag("birth")!
+    let labelBirthInfo : DateRow = form.rowByTag("birth")!
     let labelGenderInfo : TextRow  = form.rowByTag("gender")!
     
     let labelCity : TextRow = form.rowByTag("city")!
@@ -189,27 +224,73 @@ class EditInfoViewController: FormViewController {
     let labelNumber : TextRow = form.rowByTag("number")!
     let labelComple : TextRow = form.rowByTag("complem")!
     
-    let labelPhoto : ImageRow = form.rowByTag("photo")!
     
     let labelEmail : EmailRow = form.rowByTag("email")!
-    let labelReEmail : EmailRow = form.rowByTag("reemail")!
-
+    
     let labelKey : PasswordRow = form.rowByTag("key")!
     let labelReKey : PasswordRow =  form.rowByTag("rekey")!
-    if switchInfo.value == true {
-      
+    
+    var changesArray = [Dictionary<String,AnyObject>]()
+    
+    
+    if labelNameInfo.value != "" {
+      var dicPara = Dictionary<String,AnyObject>()
+      dicPara["parameter"] = "name"
+      dicPara["value"] = labelNameInfo.value
+      changesArray.append(dicPara)
     }
-    if switchAddress.value == true {
-      
+    if labelEmail.value != "" {
+      var dicPara2 = Dictionary<String,AnyObject>()
+      dicPara2["parameter"] = "email"
+      dicPara2["value"] = labelEmail.value
+      changesArray.append(dicPara2)
     }
-    if switchPhoto.value == true {
-      
+    if labelGenderInfo.value != "" {
+      var dicPara3 = Dictionary<String,AnyObject>()
+      dicPara3["parameter"] = "genre"
+      if labelGenderInfo.value == "Masc" {
+        dicPara3["value"] = "M"
+      } else if labelGenderInfo.value == "Fem" {
+        dicPara3["value"] = "F"
+      }
+      changesArray.append(dicPara3)
     }
-    if switchEmail.value == true {
-      
-    }
-    if switchKey.value == true {
-      
+
+      var dicPara4 = Dictionary<String,AnyObject>()
+      dicPara4["parameter"] = "birthdate"
+      dicPara4["value"] = Util.convertDateToShowString(labelBirthInfo.value!)
+      changesArray.append(dicPara4)
+    
+    let editManager = RequestManager()
+    editManager.updateUserInfo(changesArray) { (result) in
+      self.displayAlertWithMessageAndDismiss("Atenção", message: "Alterações realizadas com sucesso", okTitle: "Ok")
     }
   }
+  
+  func displayAlertWithMessageAndDismiss(text:String,message:String,okTitle:String) {
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let yesAction: UIAlertAction = UIAlertAction(
+      title: okTitle,
+      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        self.dismissViewControllerAnimated(true, completion: {
+          
+        })
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    alert.addAction(yesAction)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
 }
+
+
+
+
+
+
+
+
+

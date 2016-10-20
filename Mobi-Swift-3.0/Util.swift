@@ -213,6 +213,13 @@ class Util: NSObject {
     return dateString
   }
   
+  static func convertDateToSerberBirthString(date:NSDate) -> String {
+    let calender = NSCalendar.currentCalendar()
+    let components = calender.components([.Day, .Month, . Year], fromDate: date)
+    let dateString = "\(components.year)-\(components.month)-\(components.day)"
+    return dateString
+  }
+  
   static func convertActualDateToString() -> String {
     let dateFormatter = NSDateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

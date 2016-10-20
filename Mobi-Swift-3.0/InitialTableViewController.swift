@@ -62,15 +62,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
-    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
-    segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
-    segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
-    segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
-    segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
+    defineSegments()
     selectedRadioArray = DataManager.sharedInstance.topRadios
+    
+    
+
     
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
@@ -100,6 +96,17 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
+  }
+  
+  func defineSegments() {
+    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
+    segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
+    segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
+    segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
+    segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
   }
   
   ///////////////////////////////////////////////////////////

@@ -49,11 +49,18 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   var numberOfStars = -1
   
   
+  @IBOutlet weak var viewProgress: UIView!
+  @IBOutlet weak var progressBar: UIProgressView!
+  @IBOutlet weak var labelProgress: UILabel!
   
   override func viewDidLoad() {
     
     
     super.viewDidLoad()
+    viewProgress.hidden = true
+    viewProgress.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
+    viewProgress.layer.cornerRadius = viewProgress.frame.height/4
+    viewProgress.clipsToBounds = true
     let sendButton = UIBarButtonItem(title: "Enviar", style: .Done, target: self, action: #selector(SendPublicationViewController.sendPublication))
     textViewPublication.delegate = self
     self.navigationItem.setRightBarButtonItem(sendButton, animated: false)
@@ -155,12 +162,13 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       case .Video:
         break
       case .Image:
+        viewProgress.hidden = false
         if let photo = photoToUpload {
           let imageRequest = RequestManager()
-          imageRequest.uploadImage(photo, completion: { (resultIdentifiers) in
+          imageRequest.uploadImage(progressBar,imageToUpload:photo, completion: { (resultIdentifiers) in
             
             requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: self.actualMode.hashValue, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
-              
+              self.viewProgress.hidden = true
               if resultWall {
                 self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
               } else {
@@ -265,12 +273,11 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
     viewUploadFile.hidden = false
     photoToUpload = image
-    textViewPublication.resignFirstResponder()
     textViewPublication.becomeFirstResponder()
     let imageResized = Util.imageResize(image, sizeChange: CGSize(width: 40, height: 40))
-    self.buttonAttachment.setImage(imageResized, forState: .Normal)
+    //self.buttonAttachment.setImage(imageResized, forState: .Normal)
     self.buttonAttachment.setBackgroundImage(imageResized, forState: .Normal)
-    self.buttonAttachment.imageView?.image = imageResized
+    //self.buttonAttachment.imageView?.image = imageResized
     actualWallType = .Image
     self.dismissViewControllerAnimated(true) {
     }
@@ -312,7 +319,6 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     if fileURL != nil {
       viewUploadFile.hidden = false
       audioToUploadPath = fileURL
-      textViewPublication.resignFirstResponder()
       textViewPublication.becomeFirstResponder()
       let imageResized = Util.imageResize(UIImage(named: "micImage.png")!, sizeChange: CGSize(width: 40, height: 40))
       self.buttonAttachment.setImage(imageResized, forState: .Normal)

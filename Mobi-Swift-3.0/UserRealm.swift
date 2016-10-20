@@ -13,10 +13,10 @@ import CoreLocation
 class UserRealm: Object {
   dynamic var id = ""
   dynamic var name = ""
-  dynamic var sex = ""
+  dynamic var gender = ""
   dynamic var address:AddressRealm!
   var favoritesRadios:[RadioRealm]!
-  dynamic var birthDate = NSDate()
+  dynamic var birthDate:NSDate!
   dynamic var userImage = ""
   dynamic var following = -1
   dynamic var followers = -1
@@ -25,12 +25,12 @@ class UserRealm: Object {
   
 
   
-  convenience init(id:String, email:String, name:String, sex: String, address:AddressRealm, birthDate:String, following:String, followers:String,userImage:ImageObject) {
+  convenience init(id:String, email:String, name:String, gender: String, address:AddressRealm, birthDate:String, following:String, followers:String,userImage:ImageObject) {
     self.init()
     self.email = email
     self.id = id
     self.name = name
-    self.sex = sex
+    self.gender = gender
     self.address = address
     self.birthDate = Util.convertStringToNSDate(birthDate)
     self.followers = Int(followers)!

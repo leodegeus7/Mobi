@@ -54,12 +54,16 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var heightTableView: NSLayoutConstraint!
   
   override func viewDidLoad() {
+    if !DataManager.sharedInstance.isLogged {
+      view.hidden = true
+    } else {
+      view.hidden = false
+    }
     super.viewDidLoad()
     
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
-    
     //configureFacebook()
     completeProfileViewInfo()
     navigationController?.title = "Perfil"
@@ -82,8 +86,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
     buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
+    buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
   }
-  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- VIEW FUNCTIONS ---
@@ -100,6 +105,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   override func viewWillAppear(animated: Bool) {
+    if !DataManager.sharedInstance.isLogged {
+      view.hidden = true
+      loginButtonTap(self)
+    } else {
+      view.hidden = false
+    }
     selectedRadioArray = myUser.favoritesRadios
     tableViewFavorites.reloadData()
     if DataManager.sharedInstance.isLogged == true {
@@ -127,9 +138,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonTwitter.setTitle("Login Twitter", forState: .Normal)
     }
     
-    if !DataManager.sharedInstance.isLogged {
-      loginButtonTap(self)
-    }
+
     
     let requestManager = RequestManager()
     requestManager.requestMyUserInfo { (result) in
@@ -194,9 +203,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     labelCity.text = myUser.address.city
     labelState.text = myUser.address.state
     
-    if myUser.sex == "M" {
+    if myUser.gender == "M" {
       labelGender.text = "Masculino"
-    } else if myUser.sex == "F" {
+    } else if myUser.gender == "F" {
       labelGender.text = "Feminino"
     } else {
       labelGender.text = nil
@@ -285,6 +294,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
       //Problem signing in
     }else {
+      view.hidden = false
       user?.getTokenWithCompletion({ (token, error) in
         let requestManager = RequestManager()
         requestManager.loginInServer(token!, completion: { (result) in

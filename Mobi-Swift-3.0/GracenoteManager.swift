@@ -53,12 +53,6 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     
     
     musicId = try GnMusicId(user: gnUser, statusEventsDelegate: self)
-    //    gnStorageSqlite = try! GnStorageSqlite.enable()
-    //    let documentDirectoryURL =  try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-    //    try! gnStorageSqlite.storageLocation(documentDirectoryURL.path!)
-    //    try! setupLocalLookup(documentDirectoryURL.path)
-    //    try! downloadLatestBundle()
-    
     gnMusicIdStream = try! GnMusicIdStream(user: gnUser, preset: kPresetRadio, musicIdStreamEventsDelegate: self)
     
     let gnMusicIdStreamOptions = gnMusicIdStream.options()
@@ -66,8 +60,7 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     try gnMusicIdStreamOptions.preferResultCoverart(true)
 
     queryBeginTimeInterval = NSDate().timeIntervalSince1970
-    
-    //musicId.findAlbumsWithAlbumTitle("Girl", trackTitle: "Happy", albumArtistName: "Pharell", trackArtistName: "", composerName: "")
+  
   }
   
   func findMatch(albumTitle:String,trackTitle:String,albumArtistName:String,trackArtistName:String,composerName:String) {
@@ -108,7 +101,6 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
   }
   
   func statusEvent(status: GnLookupLocalStreamIngestStatus, bundleId: String, cancellableDelegate canceller: GnCancellableDelegate) {
-    var statusString:String;
     
   }
   

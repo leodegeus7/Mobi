@@ -69,8 +69,7 @@ class LoadViewController: UIViewController {
   
   func requestInitialInformation() {
     
-    let gracenote = GracenoteManager(bool: true)
-    gracenote.findMatch("Girl", trackTitle: "Happy", albumArtistName: "Pharell willians", trackArtistName: "", composerName: "")
+
     
     let testManager = RequestManager()
     testManager.testServer { (result) in

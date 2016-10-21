@@ -101,6 +101,16 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     photoButton.tintColor = DataManager.sharedInstance.interfaceColor.color
     videoButton.tintColor = DataManager.sharedInstance.interfaceColor.color
     
+    let imageAudio = UIImage(named: "audio_64x64.png")
+    let imagePhoto = UIImage(named: "photo_64x64.png")
+    let imageVideo = UIImage(named: "video_64x64.png")
+    let imageAudioView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageAudio!)
+    let imagePhotoView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imagePhoto!)
+    let imageVideoView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageVideo!)
+    audioButton.setImage(imageAudioView.image, forState: .Normal)
+    photoButton.setImage(imagePhotoView.image, forState: .Normal)
+    videoButton.setImage(imageVideoView.image, forState: .Normal)
+    
     cosmosView.settings.fillMode = .Full
     cosmosView.didFinishTouchingCosmos = { rating in
       self.numberOfStars = Int(rating)

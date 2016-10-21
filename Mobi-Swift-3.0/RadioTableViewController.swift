@@ -30,12 +30,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
   var actualComments = [Comment]()
+  var actualMusic = Music()
   var similarRadios = [RadioRealm]()
   let notificationCenter = NSNotificationCenter.defaultCenter()
   var selectedMode:SelectedRadioMode = .DetailRadio
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  
   
   static var selectedImageButton:UIImage!
   
@@ -77,6 +79,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     
     let audioManager = RequestManager()
     audioManager.getAudioChannelsFromRadio(actualRadio) { (result) in
+      self.updateInterfaceWithGracenote()
     }
     
     let similarRequest = RequestManager()
@@ -192,8 +195,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.labelMusicName.text = "Happy"
         cell.labelArtist.text = "Pharell Willians"
         cell.buttonNLike.backgroundColor = UIColor.clearColor()
-        cell.butonLike.backgroundColor = UIColor.clearColor()
-        cell.imageMusic.image = UIImage(named: "happy.jpg")
+        cell.buttonLike.backgroundColor = UIColor.clearColor()
+        cell.loadInfo()
         return cell
       case 2:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
@@ -274,8 +277,10 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                 if Util.areTheySiblings(cellUnique, class2: WallImageTableViewCell()) {
                   if let indexPathCell = tableView.indexPathForCell(cellUnique) {
                     if cellUnique.tag != 3 {
-                      tableView.reloadRowsAtIndexPaths([indexPathCell], withRowAnimation: .Automatic)
-                      cellUnique.tag = 3
+                      if self.selectedMode == .Wall {
+                        tableView.reloadRowsAtIndexPaths([indexPathCell], withRowAnimation: .Automatic)
+                        cellUnique.tag = 3
+                      }
                     }
                   }
                 }
@@ -345,6 +350,28 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
   }
   
+  @IBAction func buttonNLike(sender: AnyObject) {
+    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+    cell!.buttonNLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
+    cell!.buttonLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+    let likeRequest = RequestManager()
+    likeRequest.unlikeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
+      if !resultUnlike {
+        Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+      }
+    }
+  }
+  @IBAction func buttonLike(sender: AnyObject) {
+    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+    cell!.buttonLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
+    cell!.buttonNLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+    let likeRequest = RequestManager()
+    likeRequest.likeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
+      if !resultLike {
+        Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+      }
+    }
+  }
   
   @IBAction func segmentedControlChanged(sender: UISegmentedControl) {
     switch segmentedMenu.selectedSegmentIndex {
@@ -374,6 +401,40 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   ///////////////////////////////////////////////////////////
   //MARK: --- OTHER FUNCTIONS ---
   ///////////////////////////////////////////////////////////
+  
+  func updateInterfaceWithGracenote() {
+    if let audioChannel = actualRadio.audioChannels.first {
+      if audioChannel.existRdsLink {
+        let rdsRequest = RequestManager()
+        rdsRequest.downloadRdsInfo((actualRadio.audioChannels.first?.linkRds.link)!) { (result) in
+          if let resultTest = result[true] {
+            if resultTest.existData {
+              let gracenote = GracenoteManager(bool: true)
+              gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
+                if self.selectedMode == .DetailRadio {
+                  let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+                  cell?.unlockContent()
+                  cell?.labelMusicName.text = resultGracenote.name
+                  cell?.labelArtist.text = resultGracenote.composer
+                  self.actualMusic = resultGracenote
+                }
+              })
+            } else {
+              let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+              cell?.lockContent()
+            }
+          } else {
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+            cell?.lockContent()
+          }
+        }
+      }
+      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+      cell?.lockContent()
+    }
+    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+    cell?.lockContent()
+  }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "programSegue" {

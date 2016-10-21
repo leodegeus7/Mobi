@@ -26,8 +26,11 @@ class Util: NSObject {
     return weekDay
   }
   
-  static func tintImageWithColor(color:UIColor,image:UIImage) {
-
+  static func tintImageWithColor(color:UIColor,image:UIImage) -> UIImageView {
+    let tintedImage = image.imageWithRenderingMode(.AlwaysTemplate)
+    let imageView = UIImageView(image: tintedImage)
+    imageView.tintColor = color
+    return imageView
     
   }
   
@@ -213,7 +216,7 @@ class Util: NSObject {
     return dateString
   }
   
-  static func convertDateToSerberBirthString(date:NSDate) -> String {
+  static func convertDateToServerBirthString(date:NSDate) -> String {
     let calender = NSCalendar.currentCalendar()
     let components = calender.components([.Day, .Month, . Year], fromDate: date)
     let dateString = "\(components.year)-\(components.month)-\(components.day)"

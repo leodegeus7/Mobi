@@ -1,19 +1,22 @@
--- BEGIN LICENSE v1.0 E8A060F7 --
+-- BEGIN LICENSE v1.0 8BE3E35D --
 licensee: Gracenote, Inc.
-name: Access Mobile GNSDK MID-S Global License File
+name: Access Mobile GNSDK MID-S Text Global License File
 
 client_id: 1043835155
+musicid_text: enabled
 musicid_stream: enabled
 audio_quality: 8
 
 client_id: 606386561
+musicid_text: enabled
 musicid_stream: enabled
 audio_quality: 8
 
 client_id: 148764300
+musicid_text: enabled
 musicid_stream: enabled
 audio_quality: 8
 
--- SIGNATURE E8A060F7 --
-lAADAgAepOVwH9qXc4MSjSyFQ6kC4CeB+dzQ9A2J77yUpHIOAB6FiLlHBKIpWlDa7K0+zpoAsI8dgSPvW01CYUF9TU0=
--- END LICENSE E8A060F7 --
+-- SIGNATURE 8BE3E35D --
+lAADAgAfAWEJOhumUyr0zB2NPu4dwylLh2/KCe30HZzug/kz4QAed8pMftF1pcffbQClb4NCb9kthmp4XkcYAg/fo6sT
+-- END LICENSE 8BE3E35D --

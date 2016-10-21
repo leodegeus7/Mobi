@@ -392,6 +392,49 @@ class RequestManager: NSObject {
     }
   }
   
+  func likeMusic(radio:RadioRealm,title:String,singer:String,completion: (resultLike: Bool) -> Void) {
+    let parameters = [
+      "titulo": title,
+      "interprete": singer
+    ]
+    genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "app/station/\(radio.id)/song/like") { (result) in
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
+          print("Musica \(radio.name) foi dado like com sucesso")
+          completion(resultLike: true)
+        }
+        else {
+          completion(resultLike: false)
+        }
+      }
+      else {
+        completion(resultLike: false)
+      }
+    }
+    
+  }
+  
+  func unlikeMusic(radio:RadioRealm,title:String,singer:String,completion: (resultUnlike: Bool) -> Void) {
+    let parameters = [
+      "titulo": title,
+      "interprete": singer
+    ]
+    genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "app/station/\(radio.id)/song/unlike") { (result) in
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
+          print("Musica \(radio.name) foi dado like com sucesso")
+          completion(resultUnlike: true)
+        }
+        else {
+          completion(resultUnlike: false)
+        }
+      }
+      else {
+        completion(resultUnlike: false)
+      }
+    }
+  }
+  
   func markRadioHistoric(radio:RadioRealm,completion: (resultFav: Dictionary<String,AnyObject>) -> Void) {
     let dicParameters = [
       "id" : radio.id
@@ -446,7 +489,7 @@ class RequestManager: NSObject {
       for audioDic in data {
         var linkRdsString = ""
         let id = audioDic["id"] as? Int
-        if let audioLink = audioDic["linkRds"] as? String {
+        if let audioLink = audioDic["rds"] as? String {
           linkRdsString = audioLink
         }
         if let descr = audioDic["description"] as? String {
@@ -826,7 +869,7 @@ class RequestManager: NSObject {
     }
   }
   
-
+  
   
   func updateUserInfo(alterations:[Dictionary<String,AnyObject>], completion: (result: Bool) -> Void) {
     Alamofire.request(.GET, "\(DataManager.sharedInstance.baseURL)app/user", headers: headers).responseJSON { (response) in
@@ -955,7 +998,7 @@ class RequestManager: NSObject {
       }
     }
   }
-
+  
   
   func requestProgramsOfRadio(radio:RadioRealm, pageNumber:Int,pageSize:Int,completion: (resultPrograms: [Program]) -> Void) {
     requestJson("app/station/\(radio.id)/program/?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
@@ -1037,9 +1080,9 @@ class RequestManager: NSObject {
     let parameters = [
       "action": "upload"]
     let URL = "\(DataManager.sharedInstance.baseURL)image/upload"
-
+    
     progressView.progress = 0
-
+    
     
     Alamofire.upload(.POST, URL, multipartFormData: {
       multipartFormData in
@@ -1054,9 +1097,9 @@ class RequestManager: NSObject {
         switch encodingResult {
         case .Success(let upload, _, _):
           upload.progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-
+            
             dispatch_async(dispatch_get_main_queue()) {
-            progressView.setProgress(CFloat(totalBytesRead/totalBytesExpectedToRead), animated: true)
+              progressView.setProgress(CFloat(totalBytesRead/totalBytesExpectedToRead), animated: true)
             }
           }
           upload.responseJSON(completionHandler: { (response:Response<AnyObject, NSError>) in
@@ -1342,5 +1385,60 @@ class RequestManager: NSObject {
         }
       }
     }
+  }
+  
+  func downloadRdsInfo(linkRds:String,completion: (result: Dictionary<Bool,InfoRds>) -> Void) {
+    resultCode = 0
+    existData = false
+    
+    Alamofire.request(.GET, "\(linkRds)", headers: headers).responseJSON { (response) in
+      
+      switch response.result {
+      case .Success:
+        if let value = response.result.value {
+          let json = JSON(value)
+          if let data = json.dictionaryObject {
+            var dic = Dictionary<Bool,InfoRds>()
+            do {
+              dic[true] = try self.convertDicToRdsInfo(data)
+              completion(result: dic)
+            } catch {
+              var dic = Dictionary<Bool,InfoRds>()
+              dic[false] = InfoRds()
+              completion(result: dic)
+            }
+            self.existData = true
+            completion(result: dic)
+          }
+          else {
+            var dic = Dictionary<Bool,InfoRds>()
+            dic[false] = InfoRds()
+            completion(result: dic)
+          }
+        } else {
+          var dic = Dictionary<Bool,InfoRds>()
+          dic[false] = InfoRds()
+          completion(result: dic)
+        }
+      case .Failure(_):
+        var dic = Dictionary<Bool,InfoRds>()
+        dic[false] = InfoRds()
+        completion(result: dic)
+      }
+    }
+  }
+  
+  
+  func convertDicToRdsInfo(dic:NSDictionary) throws -> InfoRds {
+    if let music = dic["musica_play"] as? NSDictionary {
+      if let musicName = music["titulo"] as? String {
+        if let musicComposer = music["interprete"] as? String {
+          if let musicStart = music["break"] as? String {
+            return InfoRds(title: musicName, artist: musicComposer, breakString: musicStart)
+          }
+        }
+      }
+    }
+    return InfoRds()
   }
 }

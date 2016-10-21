@@ -14,14 +14,47 @@ class MusicTableViewCell: UITableViewCell {
   @IBOutlet weak var labelMusicName: UILabel!
   @IBOutlet weak var labelArtist: UILabel!
   
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet weak var viewLoading: UIView!
+  @IBOutlet weak var viewWithMusic: UIView!
+  @IBOutlet weak var viewWithoutMusic: UIView!
   @IBOutlet weak var buttonNLike: UIButton!
-  @IBOutlet weak var butonLike: UIButton!
+  @IBOutlet weak var buttonLike: UIButton!
+  @IBOutlet weak var labelWithoutMusic: UILabel!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
+    lockContent()
+    imageMusic.backgroundColor = UIColor.clearColor()
+    
+    
+    
+    let imageLike = buttonLike.imageView?.image
+    //UIImage(named: "like.png")
+    var imageLikeView = UIImageView(frame: buttonLike.frame)
+    imageLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageLike!)
+    
+    let imageNLike = buttonNLike.imageView?.image
+      //UIImage(named: "dislike.png")
+    var imageNLikeView = UIImageView(frame: buttonNLike.frame)
+    imageNLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageNLike!)
+    buttonNLike.setImage(imageNLikeView.image, forState: .Normal)
+    buttonLike.setImage(imageLikeView.image, forState: .Normal)
+    activityIndicator.color = DataManager.sharedInstance.interfaceColor.color
+    
+    
+    
+    let imageCD = UIImage(named: "musicIcon.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    imageMusic.alpha = 0.85
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
@@ -30,12 +63,46 @@ class MusicTableViewCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-  @IBAction func buttonNLike(sender: AnyObject) {
-    buttonNLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
-    butonLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+
+  
+  func unlockContent() {
+    viewLoading.alpha = 0
+    viewWithoutMusic.alpha = 0
+    viewWithMusic.alpha = 1
+    imageMusic.alpha = 1
+    buttonNLike.alpha = 1
+    buttonLike.alpha = 1
+    labelWithoutMusic.text = ""
   }
-  @IBAction func buttonLike(sender: AnyObject) {
-    butonLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
-    buttonNLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+  
+  func lockContent() {
+    viewLoading.alpha = 0
+    viewWithoutMusic.alpha = 0.8
+    viewWithMusic.alpha = 0.6
+    imageMusic.image = UIImage()
+    imageMusic.backgroundColor = UIColor.clearColor()
+    imageMusic.alpha = 0.6
+    labelArtist.text = "Artista"
+    labelMusicName.text = "Musica"
+    buttonNLike.alpha = 0.6
+    buttonLike.alpha = 0.6
+    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
+    let imageCD = UIImage(named: "musicIcon.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+  }
+  
+  func loadInfo() {
+    lockContent()
+    viewWithoutMusic.alpha = 0
+    viewLoading.alpha = 0.8
+    let imageCD = UIImage(named: "musicIcon.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
 }

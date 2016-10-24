@@ -30,8 +30,11 @@ class PlayerViewController: UIViewController {
   @IBOutlet weak var segmentedControlProgram: UISegmentedControl!
   @IBOutlet weak var imageIndicatorDown: UIButton!
   
+  @IBOutlet weak var labelWithoutMusic: UILabel!
+  @IBOutlet weak var viewWithoutMusic: UIView!
   @IBOutlet weak var viewProgram: UIView!
   @IBOutlet weak var viewMusic: UIView!
+  
   enum TypeSegmented {
     case Music
     case Program
@@ -50,13 +53,13 @@ class PlayerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
       buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
     } else {
       buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
-
+    
     
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
@@ -67,15 +70,17 @@ class PlayerViewController: UIViewController {
     imageIndicatorDown.backgroundColor = UIColor.clearColor()
     
     
-
-    viewSeparator.backgroundColor = UIColor.whiteColor()
-    segmentedControlProgram.tintColor = UIColor.whiteColor()
+    
+    viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     updateInfoOfView()
     segmentedChanged(self)
   }
   
   override func viewWillAppear(animated: Bool) {
+    //updateInterfaceWithGracenote()
+    updateInfoOfView()
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
       buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
     } else {
@@ -120,11 +125,7 @@ class PlayerViewController: UIViewController {
       buttonPlay.setImage(UIImage(named: "play1.png"), forState: .Normal)
     }
     
-    labelMusicName.text = "Happy"
-    labelArtist.text = "Pharell Willians"
-    buttonNLike.backgroundColor = UIColor.clearColor()
-    butonLike.backgroundColor = UIColor.clearColor()
-    imageMusic.image = UIImage(named: "happy.jpg")
+    updateInterfaceWithGracenote()
     
     labelProgramName.text = "Programa da Manha"
     imagePerson.image = UIImage(named: "happy.jpg")
@@ -135,12 +136,12 @@ class PlayerViewController: UIViewController {
     labelNamePerson.text = "Marcos"
     labelGuests.text = "Toninho e Fulanhinho de tal"
     
-
+    
     buttonPlay.backgroundColor = UIColor.clearColor()
-
+    
     
     buttonFav.backgroundColor = UIColor.clearColor()
-
+    
   }
   
   @IBAction func segmentedChanged(sender: AnyObject) {
@@ -194,6 +195,90 @@ class PlayerViewController: UIViewController {
   
   @IBAction func hidePlayerAction(sender: AnyObject) {
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
+  }
+  
+  func updateInterfaceWithGracenote() {
+    if let _ = DataManager.sharedInstance.musicInExecution.name {
+      if DataManager.sharedInstance.musicInExecution.isMusicOld() {
+        requestGracenote({ (result) in
+          if result {
+            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+          } else {
+            self.lockMusicView()
+          }
+        })
+      } else {
+        updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+      }
+    } else {
+      requestGracenote({ (result) in
+        if result {
+          self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+        } else {
+          self.lockMusicView()
+        }
+      })
+    }
+  }
+  
+  func requestGracenote(completion: (result: Bool) -> Void) {
+    if let audioChannel = StreamingRadioManager.sharedInstance.actualRadio.audioChannels.first {
+      if audioChannel.existRdsLink {
+        let rdsRequest = RequestManager()
+        rdsRequest.downloadRdsInfo((StreamingRadioManager.sharedInstance.actualRadio.audioChannels.first?.linkRds.link)!) { (result) in
+          if let resultTest = result[true] {
+            if resultTest.existData {
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let gracenote = GracenoteManager(bool: true)
+                gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
+                  dispatch_async(dispatch_get_main_queue(), {
+                    DataManager.sharedInstance.musicInExecution = resultGracenote
+                    if self.actualSegmented == .Music {
+                      completion(result: true)
+                    }
+                  })
+                })
+              })
+              
+            } else {
+              completion(result: false)
+            }
+          } else {
+            completion(result: false)
+          }
+        }
+      } else {
+        completion(result: false)
+      }
+    } else {
+      completion(result: false)
+    }
+    
+  }
+  
+  func updateMusicViewWithMusic(music:Music) {
+    if let musicName = DataManager.sharedInstance.musicInExecution.name  {
+      viewWithoutMusic.hidden = true
+      viewWithoutMusic.alpha = 0
+      labelMusicName.text = musicName
+      labelArtist.text = DataManager.sharedInstance.musicInExecution.composer
+      buttonNLike.backgroundColor = UIColor.clearColor()
+      butonLike.backgroundColor = UIColor.clearColor()
+      imageMusic.image = UIImage(named: "happy.jpg")
+    } else {
+      labelMusicName.text = "Musica"
+      labelArtist.text = "Artista"
+      buttonNLike.backgroundColor = UIColor.clearColor()
+      butonLike.backgroundColor = UIColor.clearColor()
+      imageMusic.image = UIImage(named: "happy.jpg")
+    }
+  }
+  
+  func lockMusicView() {
+    viewWithoutMusic.hidden = false
+    viewWithoutMusic.alpha = 1
+    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
   }
   /*
    // MARK: - Navigation

@@ -49,11 +49,11 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     
     gnUserStore = GnUserStore()
     gnUser = try! GnUser(userStoreDelegate: gnUserStore, clientId: clientId, clientTag: clientTag, applicationVersion: applicationVersion)
-    
-    
+   
     
     musicId = try GnMusicId(user: gnUser, statusEventsDelegate: self)
-  
+    try! musicId.options().lookupData(kLookupDataContent, bEnable: true)
+    try! musicId.options().preferResultCoverart(true)
   }
   
   func findMatch(albumTitle:String,trackTitle:String,albumArtistName:String,trackArtistName:String,composerName:String,completion: (resultGracenote: Music) -> Void) {
@@ -87,7 +87,6 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
       print(error)
     }
 
-    
   }
   
   func musicIdStreamAlbumResult(result: GnResponseAlbums, cancellableDelegate canceller: GnCancellableDelegate)

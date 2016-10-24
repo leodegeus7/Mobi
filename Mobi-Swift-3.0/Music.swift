@@ -15,6 +15,7 @@ class Music: NSObject {
   var isPositive = false
   var isNegative = false
   var coverArt:UIImage!
+  var timeWasDiscovered:NSDate!
   
   convenience init(name:String,albumName:String,composer:String,coverArt:UIImage) {
     self.init()
@@ -22,5 +23,18 @@ class Music: NSObject {
     self.albumName = albumName
     self.composer = composer
     self.coverArt = coverArt
+    self.timeWasDiscovered = NSDate()
+  }
+  
+  func isMusicOld() -> Bool {
+    if let date = timeWasDiscovered {
+      if NSDate().timeIntervalSinceDate(date) >= 26 {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return true
+    }
   }
 }

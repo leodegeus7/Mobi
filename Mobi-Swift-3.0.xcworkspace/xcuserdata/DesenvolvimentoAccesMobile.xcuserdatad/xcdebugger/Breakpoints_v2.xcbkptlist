@@ -4,157 +4,17 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            symbolName = ""
-            moduleName = "">
-            <Locations>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/ConfigViewController.swift"
-            timestampString = "498676235.492259"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "buttonGridTapped(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
-            timestampString = "498770043.156488"
+            timestampString = "499025982.529472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
-            timestampString = "498770043.156488"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/GracenoteManager.swift"
-            timestampString = "498760388.343236"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "findMatch(_:trackTitle:albumArtistName:trackArtistName:composerName:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/GracenoteManager.swift"
-            timestampString = "498760999.024268"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "findMatch(_:trackTitle:albumArtistName:trackArtistName:composerName:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/GracenoteManager.swift"
-            timestampString = "498760999.024268"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "findMatch(_:trackTitle:albumArtistName:trackArtistName:composerName:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/GracenoteManager.swift"
-            timestampString = "498760999.024268"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "findMatch(_:trackTitle:albumArtistName:trackArtistName:composerName:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/GracenoteManager.swift"
-            timestampString = "498761008.233007"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "findMatch(_:trackTitle:albumArtistName:trackArtistName:composerName:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
-            timestampString = "498770043.156488"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "updateInterfaceWithGracenote()"
             landmarkType = "5">
          </BreakpointContent>
@@ -165,46 +25,125 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "498768940.744024"
+            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
+            timestampString = "499025982.529472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1390"
-            endingLineNumber = "1390"
-            landmarkName = "convertDicToRdsInfo(_:)"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
+            landmarkName = "updateInterfaceWithGracenote()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
+            timestampString = "499025982.529472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "updateInterfaceWithGracenote()"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Mobi_Swift_3_0.RequestManager.convertDicToRdsInfo (__ObjC.NSDictionary) throws -&gt; Mobi_Swift_3_0.InfoRds"
+                  symbolName = "Mobi_Swift_3_0.RadioTableViewController.updateInterfaceWithGracenote () -&gt; ()"
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RequestManager.swift"
-                  timestampString = "498768942.13698"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RadioTableViewController.swift"
+                  timestampString = "499024088.73351"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1390"
-                  endingLineNumber = "1390"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "418"
+                  endingLineNumber = "418"
+                  offsetFromSymbolStart = "608">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Mobi_Swift_3_0.RequestManager.convertDicToRdsInfo (__ObjC.NSDictionary) throws -&gt; Mobi_Swift_3_0.InfoRds"
+                  symbolName = "Mobi_Swift_3_0.RadioTableViewController.updateInterfaceWithGracenote () -&gt; ()"
                   moduleName = "Mobi-Swift-3.0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RequestManager.swift"
-                  timestampString = "498768942.137162"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RadioTableViewController.swift"
+                  timestampString = "499024088.733716"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1390"
-                  endingLineNumber = "1390"
-                  offsetFromSymbolStart = "355">
+                  startingLineNumber = "418"
+                  endingLineNumber = "418"
+                  offsetFromSymbolStart = "3576">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobi_Swift_3_0.RadioTableViewController.(updateInterfaceWithGracenote () -&gt; ()).(closure #1)"
+                  moduleName = "Mobi-Swift-3.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/DesenvolvimentoAccesMobile/Developer/iOS_Projects/Mobi-Swift-3/Mobi-Swift-3.0/RadioTableViewController.swift"
+                  timestampString = "499024088.73393"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "419"
+                  endingLineNumber = "419"
+                  offsetFromSymbolStart = "32">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
+            timestampString = "499025982.529472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "updateInterfaceWithGracenote()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
+            timestampString = "499032250.396441"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "updateInterfaceWithGracenote()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
+            timestampString = "499032333.833756"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "requestGracenote(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

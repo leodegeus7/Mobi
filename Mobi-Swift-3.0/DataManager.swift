@@ -87,6 +87,7 @@ class DataManager: NSObject {
   
   var isPlay = false
   var radioInExecution = RadioRealm()
+  var musicInExecution = Music()
   
   var allNews = [New]()
   var addressId = 0

@@ -26,6 +26,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   ///////////////////////////////////////////////////////////
   
   var firstTimeShowed = true
+  var cellMusicIsShowed = false
   var selectedRadio = RadioRealm()
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
@@ -37,7 +38,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-  
   
   static var selectedImageButton:UIImage!
   
@@ -82,7 +82,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       self.updateInterfaceWithGracenote()
     }
     
+    
     let similarRequest = RequestManager()
+    
     similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
       self.similarRadios = resultSimilar
       self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
@@ -192,11 +194,20 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         return cell
       case 1:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualMusic", forIndexPath: indexPath) as! MusicTableViewCell
-        cell.labelMusicName.text = "Happy"
-        cell.labelArtist.text = "Pharell Willians"
+        if let _ = actualMusic.name {
+          cell.labelMusicName.text = "Musica"
+          cell.labelArtist.text = "Artista"
+        }
+        else {
+          cell.labelMusicName.text = actualMusic.name
+          cell.labelArtist.text = actualMusic.composer
+        }
         cell.buttonNLike.backgroundColor = UIColor.clearColor()
         cell.buttonLike.backgroundColor = UIColor.clearColor()
-        cell.loadInfo()
+        if !cellMusicIsShowed {
+          cell.loadInfo()
+          cellMusicIsShowed = true
+        }
         return cell
       case 2:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
@@ -409,16 +420,21 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         rdsRequest.downloadRdsInfo((actualRadio.audioChannels.first?.linkRds.link)!) { (result) in
           if let resultTest = result[true] {
             if resultTest.existData {
-              let gracenote = GracenoteManager(bool: true)
-              gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
-                if self.selectedMode == .DetailRadio {
-                  let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-                  cell?.unlockContent()
-                  cell?.labelMusicName.text = resultGracenote.name
-                  cell?.labelArtist.text = resultGracenote.composer
-                  self.actualMusic = resultGracenote
-                }
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let gracenote = GracenoteManager(bool: true)
+                gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
+                  dispatch_async(dispatch_get_main_queue(), { 
+                    if self.selectedMode == .DetailRadio {
+                      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+                      cell?.unlockContent()
+                      cell?.labelMusicName.text = resultGracenote.name
+                      cell?.labelArtist.text = resultGracenote.composer
+                      self.actualMusic = resultGracenote
+                    }
+                  })
+                })
               })
+
             } else {
               let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
               cell?.lockContent()
@@ -428,12 +444,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             cell?.lockContent()
           }
         }
+      } else {
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+        cell?.lockContent()
       }
+    } else {
       let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
       cell?.lockContent()
     }
-    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-    cell?.lockContent()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

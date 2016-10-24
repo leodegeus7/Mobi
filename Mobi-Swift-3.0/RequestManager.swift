@@ -82,21 +82,26 @@ class RequestManager: NSObject {
   }
   
   func requestSimilarRadios(pageNumber:Int,pageSize:Int,radioToCompare:RadioRealm,completion: (resultSimilar: [RadioRealm]) -> Void) {
-    requestStationUnits(.stationUnitsSimilar(pageNumber: pageNumber, pageSize: pageSize, idRadio: radioToCompare.id)) { (resultRadios) in
-      if let array = resultRadios["data"]!["records"] as? NSArray {
-        var radios = [RadioRealm]()
-        for singleResult in array {
-          let dic = singleResult as! NSDictionary
-          let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
-          radios.append(radio)
-        }
-        completion(resultSimilar: radios)
+    let id = radioToCompare.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestStationUnits(.stationUnitsSimilar(pageNumber: pageNumber, pageSize: pageSize, idRadio: id)) { (resultRadios) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let array = resultRadios["data"]!["records"] as? NSArray {
+            var radios = [RadioRealm]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+              radios.append(radio)
+            }
+            completion(resultSimilar: radios)
+          }
+          else {
+            completion(resultSimilar: [])
+          }
+        })
       }
-      else {
-        completion(resultSimilar: [])
-      }
-    }
+    })
   }
   
   func requestTopLikesRadios(pageNumber:Int,pageSize:Int,completion: (resultTop: [RadioRealm]) -> Void) {
@@ -1135,19 +1140,24 @@ class RequestManager: NSObject {
   }
   
   func getRadioScore(radio:RadioRealm,completion: (resultScore: Bool) -> Void) {
-    requestJson("stationunit/\(radio.id)/review/avg") { (result) in
-      if let resultRequest = result["requestResult"] as?  String {
-        if resultRequest == "OK" {
-          if let score = result["data"] as?  Int {
-            radio.updateScore(score)
-            completion(resultScore: true)
-          } else {
-            completion(resultScore: false)
+    let id = radio.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestJson("stationunit/\(id)/review/avg") { (result) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let resultRequest = result["requestResult"] as?  String {
+            if resultRequest == "OK" {
+              if let score = result["data"] as?  Int {
+                radio.updateScore(score)
+                completion(resultScore: true)
+              } else {
+                completion(resultScore: false)
+              }
+              
+            }
           }
-          
-        }
+        })
       }
-    }
+    })
   }
   
   func requestReviewsInRadio(radio:RadioRealm,pageSize:Int,pageNumber:Int,completion: (resultScore: [Review]) -> Void) {
@@ -1407,8 +1417,6 @@ class RequestManager: NSObject {
               dic[false] = InfoRds()
               completion(result: dic)
             }
-            self.existData = true
-            completion(result: dic)
           }
           else {
             var dic = Dictionary<Bool,InfoRds>()

@@ -133,11 +133,11 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)"]
     MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
     
-    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
-      let albumArt = MPMediaItemArtwork(image: image!)
-      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
-      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
-    }
+//    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
+//      let albumArt = MPMediaItemArtwork(image: image!)
+//      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
+//      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+//    }
   }
 
 }

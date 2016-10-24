@@ -28,7 +28,6 @@ class MusicTableViewCell: UITableViewCell {
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
-    lockContent()
     imageMusic.backgroundColor = UIColor.clearColor()
     
     
@@ -39,22 +38,23 @@ class MusicTableViewCell: UITableViewCell {
     imageLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageLike!)
     
     let imageNLike = buttonNLike.imageView?.image
-      //UIImage(named: "dislike.png")
+    //UIImage(named: "dislike.png")
     var imageNLikeView = UIImageView(frame: buttonNLike.frame)
     imageNLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageNLike!)
     buttonNLike.setImage(imageNLikeView.image, forState: .Normal)
     buttonLike.setImage(imageLikeView.image, forState: .Normal)
-    activityIndicator.color = DataManager.sharedInstance.interfaceColor.color
     
     
     
-    let imageCD = UIImage(named: "musicIcon.png")
-    var imageCDView = UIImageView(frame: imageMusic.frame)
-    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
-    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
-    imageMusic.image = imageCDView.image
-    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
-    imageMusic.alpha = 0.85
+    if imageMusic.tintColor != DataManager.sharedInstance.interfaceColor.color {
+      activityIndicator.color = DataManager.sharedInstance.interfaceColor.color
+      let imageCD = UIImage(named: "musicIcon.png")
+      var imageCDView = UIImageView(frame: imageMusic.frame)
+      imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+      imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+      imageMusic.image = imageCDView.image
+      imageMusic.alpha = 0.85
+    }
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
@@ -63,7 +63,7 @@ class MusicTableViewCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-
+  
   
   func unlockContent() {
     viewLoading.alpha = 0
@@ -88,21 +88,18 @@ class MusicTableViewCell: UITableViewCell {
     buttonLike.alpha = 0.6
     labelWithoutMusic.text = "Não há informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
-    let imageCD = UIImage(named: "musicIcon.png")
-    var imageCDView = UIImageView(frame: imageMusic.frame)
-    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
-    imageMusic.image = imageCDView.image
-    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    //if imageMusic.tintColor != DataManager.sharedInstance.interfaceColor.color {
+      let imageCD = UIImage(named: "musicIcon.png")
+      var imageCDView = UIImageView(frame: imageMusic.frame)
+      imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+      imageMusic.image = imageCDView.image
+      imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    //}
   }
   
   func loadInfo() {
     lockContent()
     viewWithoutMusic.alpha = 0
     viewLoading.alpha = 0.8
-    let imageCD = UIImage(named: "musicIcon.png")
-    var imageCDView = UIImageView(frame: imageMusic.frame)
-    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
-    imageMusic.image = imageCDView.image
-    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
 }

@@ -17,7 +17,7 @@ class LoadViewController: UIViewController {
   var requestInfo = true
   
   var loadTimer = NSTimer()
-  
+  var viewInitial:InitialTableViewController!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -110,7 +110,7 @@ class LoadViewController: UIViewController {
             
             let likesManager = RequestManager()
             likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
-              
+              self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
               let historicManager = RequestManager()
               historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
                 

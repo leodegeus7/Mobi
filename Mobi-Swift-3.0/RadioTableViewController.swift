@@ -363,10 +363,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   @IBAction func buttonNLike(sender: AnyObject) {
     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-    cell!.buttonNLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
-    cell!.buttonLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+    cell?.buttonLike.alpha = 0.3
+    cell?.buttonNLike.alpha = 1
     let likeRequest = RequestManager()
     likeRequest.unlikeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
+      actualMusic.setNegative()
       if !resultUnlike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
       }
@@ -374,10 +375,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   @IBAction func buttonLike(sender: AnyObject) {
     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-    cell!.buttonLike.backgroundColor = UIColor(red: 228/255, green: 60/255, blue: 57/255, alpha: 0.7)
-    cell!.buttonNLike.backgroundColor = UIColor(red: 255/255, green: 1, blue: 1, alpha: 1)
+    cell?.buttonLike.alpha = 1
+    cell?.buttonNLike.alpha = 0.3
     let likeRequest = RequestManager()
     likeRequest.likeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
+      actualMusic.setPositive()
       if !resultLike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
       }
@@ -423,18 +425,34 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let gracenote = GracenoteManager(bool: true)
                 gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
-                  dispatch_async(dispatch_get_main_queue(), { 
-                    if self.selectedMode == .DetailRadio {
+                  dispatch_async(dispatch_get_main_queue(), {
+                    if resultGracenote.name != "" {
+                      if self.selectedMode == .DetailRadio {
+                        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+                        cell?.unlockContent()
+                        cell?.labelMusicName.text = resultGracenote.name
+                        cell?.labelArtist.text = resultGracenote.composer
+                        if resultGracenote.coverArt != ""{
+                          gracenote.downloadImageArt(resultGracenote.coverArt, completion: { (resultImg) in
+                            dispatch_async(dispatch_get_main_queue()) {
+                              if self.selectedMode == .DetailRadio {
+                                cell?.imageMusic.image = resultImg
+                              }
+                            }
+                            
+                          })
+                        }
+                        self.actualMusic = resultGracenote
+                      }
+                    } else {
                       let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-                      cell?.unlockContent()
-                      cell?.labelMusicName.text = resultGracenote.name
-                      cell?.labelArtist.text = resultGracenote.composer
-                      self.actualMusic = resultGracenote
+                      cell?.lockContent()
                     }
                   })
                 })
+                
               })
-
+              
             } else {
               let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
               cell?.lockContent()

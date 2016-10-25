@@ -27,12 +27,14 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
   var queryEndTimeInterval:NSTimeInterval!
   var cancellableObjects:NSMutableArray!
   var musicId:GnMusicId!
+  var boolVar = false
   
   convenience init(bool:Bool) {
     self.init()
     do
     {
       try initializeGnsdk( clientId:self.CLIENT_ID_Gnsdk, clientTag:self.CLIENT_TAG_Gnsdk, license:self.LICENSE_Gnsdk, applicationVersion:self.APP_VERSION )
+      boolVar = true
     }
     catch
     {
@@ -51,42 +53,50 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     gnUser = try! GnUser(userStoreDelegate: gnUserStore, clientId: clientId, clientTag: clientTag, applicationVersion: applicationVersion)
    
     
-    musicId = try GnMusicId(user: gnUser, statusEventsDelegate: self)
+    musicId = try! GnMusicId(user: gnUser, statusEventsDelegate: self)
     try! musicId.options().lookupData(kLookupDataContent, bEnable: true)
     try! musicId.options().preferResultCoverart(true)
+
   }
   
   func findMatch(albumTitle:String,trackTitle:String,albumArtistName:String,trackArtistName:String,composerName:String,completion: (resultGracenote: Music) -> Void) {
     do {
-      let info = try! musicId.findAlbumsWithAlbumTitle(albumTitle, trackTitle: trackTitle, albumArtistName: albumArtistName, trackArtistName: trackArtistName, composerName: composerName)
+      let info = try musicId.findAlbumsWithAlbumTitle(albumTitle, trackTitle: trackTitle, albumArtistName: albumArtistName, trackArtistName: trackArtistName, composerName: composerName)
       if let albumTeste = info.albums().allObjects().first {
         let albumTeste2:GnAlbum = albumTeste as! GnAlbum
-
         
+        var musicGracenote = Music()
+        let idMusic = try! albumTeste2.tracksMatched().allObjects().first?.identifier()
         if let image = albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url() {
-          print(image)
+          
+          musicGracenote = Music(id: idMusic!,name: (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!, albumName: (albumTeste2.title()?.display())!, composer: (albumTeste2.artist()?.name()?.display())!, coverArt: image)
+          
         } else {
-          print("nil")
-        }
-        if let image = albumTeste2.coverArt()?.asset(kImageSizeSmall)!.url() {
-          print(image)
-        } else {
-          print("nil")
-        }
-        if let image = albumTeste2.artist()?.contributor()?.image()?.asset(kImageSizeSmall)!.url() {
-          print(image)
-        } else {
-          print("nil")
+          musicGracenote = Music(id:idMusic!,name: (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!, albumName: (albumTeste2.title()?.display())!, composer: (albumTeste2.artist()?.name()?.display())!, coverArt: "")
         }
         
-        let musicGracenote = Music(name: (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!, albumName: (albumTeste2.title()?.display())!, composer: (albumTeste2.artist()?.name()?.display())!, coverArt: UIImage())
+
         completion(resultGracenote: musicGracenote)
       }
 
     } catch let error {
-      print(error)
+      completion(resultGracenote: Music())
     }
 
+  }
+  
+  func downloadImageArt(url:String,completion: (resultImg: UIImage) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { 
+      do {
+        let gnAssetFetch = try GnAssetFetch(user: self.gnUser, url: url, statusEventsDelegate: self)
+        let imgData = gnAssetFetch.data()
+        let img = UIImage(data: imgData)
+        completion(resultImg: img!)
+      }
+      catch _ {
+      
+      }
+    }
   }
   
   func musicIdStreamAlbumResult(result: GnResponseAlbums, cancellableDelegate canceller: GnCancellableDelegate)

@@ -714,6 +714,9 @@
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
             </PersistentString>
+            <PersistentString
+               value = "viewInitial">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -739,6 +742,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "GracenoteManager.(downloadImageArt(String, completion : (resultImg : UIImage) -&gt; ()) -&gt; ()).(closure #1):GracenoteManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #3):ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -748,6 +754,9 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestFollowing(UserRealm, pageSize : Int, pageNumber : Int, completion : (resultFollowing : [UserRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(updateInterfaceWithGracenote() -&gt; ()).(closure #1).(closure #1).(closure #1).(closure #1):RadioTableViewController.swift">
       </ContextState>
       <ContextState
          contextName = "LocalCitiesViewController.viewDidLoad() -&gt; ():LocalCitiesViewController.swift">
@@ -1040,6 +1049,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RequestManager.(downloadRdsInfo(String, completion : (result : [Bool : InfoRds]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
       </ContextState>
       <ContextState
@@ -1058,6 +1070,14 @@
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.updateInterfaceWithGracenote() -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio.audioChannels.first?.linkRds.link">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1099,6 +1119,17 @@
             </PersistentString>
             <PersistentString
                value = "searchRadios.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GracenoteManager.findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String, completion : (resultGracenote : Music) -&gt; ()) -&gt; ():GracenoteManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "musicId">
+            </PersistentString>
+            <PersistentString
+               value = "albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

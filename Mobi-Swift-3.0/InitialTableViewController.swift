@@ -24,7 +24,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   var selectedRadio = RadioRealm()
   var notificationCenter = NSNotificationCenter.defaultCenter()
   let locationManager = CLLocationManager()
-  var selectedRadioArray:[RadioRealm]!
+  var selectedRadioArray = [RadioRealm]()
   enum modes {
     case Top
     case Local
@@ -41,6 +41,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     if !DataManager.sharedInstance.isLoadScreenAppered {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewControllerWithIdentifier("loadView") as? LoadViewController
+      vc?.viewInitial = self
       let app = UIApplication.sharedApplication().delegate as! AppDelegate
       let windows = app.window
       windows?.rootViewController?.presentViewController(vc!, animated: false, completion: {
@@ -48,8 +49,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       DataManager.sharedInstance.isLoadScreenAppered = true
     }
     super.viewDidLoad()
+    //selectedRadioArray = DataManager.sharedInstance.topRadios
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
-    changeTableViewStatus()
+    //changeTableViewStatus()
     tableView.rowHeight = 120
     openMenu.target = self.revealViewController()
     openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -63,7 +65,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
     defineSegments()
-    selectedRadioArray = DataManager.sharedInstance.topRadios
+
     
     
 
@@ -379,12 +381,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.reloadData()
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //    if segue.identifier == "detailRadio" {
-    //      let radioVC = (segue.destinationViewController as! RadioViewController)
-    //      radioVC.actualRadio = selectedRadio
-    //    }
-  }
+
   
   ///////////////////////////////////////////////////////////
   //MARK: --- OTHERS FUNCTIONS ---

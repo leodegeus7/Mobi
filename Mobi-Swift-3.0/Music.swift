@@ -7,23 +7,33 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Music: NSObject {
+class Music: Object {
+  var id = ""
   var name:String!
   var albumName:String!
   var composer:String!
   var isPositive = false
   var isNegative = false
-  var coverArt:UIImage!
+  var coverArt:String!
   var timeWasDiscovered:NSDate!
   
-  convenience init(name:String,albumName:String,composer:String,coverArt:UIImage) {
+  convenience init(id:String,name:String,albumName:String,composer:String,coverArt:String) {
     self.init()
+    self.id = id
     self.name = name
     self.albumName = albumName
     self.composer = composer
     self.coverArt = coverArt
     self.timeWasDiscovered = NSDate()
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(self, update: true)
+    }
+  }
+  
+  override class func primaryKey() -> String? {
+    return "id"
   }
   
   func isMusicOld() -> Bool {
@@ -35,6 +45,20 @@ class Music: NSObject {
       }
     } else {
       return true
+    }
+  }
+  
+  func setPositive() {
+    try! DataManager.sharedInstance.realm.write {
+      self.isPositive = true
+      self.isNegative = false
+    }
+  }
+  
+  func setNegative() {
+    try! DataManager.sharedInstance.realm.write {
+      self.isPositive = false
+      self.isNegative = true
     }
   }
 }

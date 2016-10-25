@@ -121,7 +121,7 @@ class DataManager: NSObject {
   var interfaceColor = ColorRealm()
   var existInterfaceColor = false
   
-  var needUpdateMenu = false
+  var needUpdateMenu = true
   
   class var sharedInstance: DataManager {
     struct Static {

@@ -30,19 +30,18 @@ class MusicTableViewCell: UITableViewCell {
     self.selectedBackgroundView = viewSelected
     imageMusic.backgroundColor = UIColor.clearColor()
     
-    
-    
-    let imageLike = buttonLike.imageView?.image
-    //UIImage(named: "like.png")
-    var imageLikeView = UIImageView(frame: buttonLike.frame)
-    imageLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageLike!)
-    
-    let imageNLike = buttonNLike.imageView?.image
-    //UIImage(named: "dislike.png")
-    var imageNLikeView = UIImageView(frame: buttonNLike.frame)
-    imageNLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageNLike!)
-    buttonNLike.setImage(imageNLikeView.image, forState: .Normal)
-    buttonLike.setImage(imageLikeView.image, forState: .Normal)
+//    var imageLike = UIImage(named: "like1.png")
+//    imageLike = Util.imageResize(imageLike!, sizeChange: CGSize(width: 50, height: 50))
+//    let imageLikeView = UIImageView(frame: buttonLike.frame)
+//    buttonLike.setImage(imageLikeView.image, forState: .Normal)
+//    
+//    
+//    let imageNLike = buttonNLike.imageView?.image
+//    //UIImage(named: "dislike.png")
+//    var imageNLikeView = UIImageView(frame: buttonNLike.frame)
+//    imageNLikeView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageNLike!)
+//    buttonNLike.setImage(imageNLikeView.image, forState: .Normal)
+
     
     
     

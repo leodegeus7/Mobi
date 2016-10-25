@@ -48,6 +48,8 @@ class PlayerViewController: UIViewController {
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   
+  var gracenote:GracenoteManager!
+  
   @IBOutlet weak var viewFirst: UIView!
   @IBOutlet weak var viewSeparator: UIView!
   
@@ -201,19 +203,21 @@ class PlayerViewController: UIViewController {
     if let _ = DataManager.sharedInstance.musicInExecution.name {
       if DataManager.sharedInstance.musicInExecution.isMusicOld() {
         requestGracenote({ (result) in
-          if result {
-            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+          if result.boolVar {
+            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: result)
           } else {
             self.lockMusicView()
           }
         })
       } else {
-        updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+        if let gracenoteOptional = gracenote {
+          updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: gracenoteOptional)
+        }
       }
     } else {
       requestGracenote({ (result) in
-        if result {
-          self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution)
+        if result.boolVar {
+            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: result)
         } else {
           self.lockMusicView()
         }
@@ -221,7 +225,7 @@ class PlayerViewController: UIViewController {
     }
   }
   
-  func requestGracenote(completion: (result: Bool) -> Void) {
+  func requestGracenote(completion: (result: GracenoteManager) -> Void) {
     if let audioChannel = StreamingRadioManager.sharedInstance.actualRadio.audioChannels.first {
       if audioChannel.existRdsLink {
         let rdsRequest = RequestManager()
@@ -230,33 +234,34 @@ class PlayerViewController: UIViewController {
             if resultTest.existData {
               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let gracenote = GracenoteManager(bool: true)
+                self.gracenote = gracenote
                 gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
                   dispatch_async(dispatch_get_main_queue(), {
                     DataManager.sharedInstance.musicInExecution = resultGracenote
                     if self.actualSegmented == .Music {
-                      completion(result: true)
+                      completion(result: gracenote)
                     }
                   })
                 })
               })
               
             } else {
-              completion(result: false)
+              completion(result: GracenoteManager())
             }
           } else {
-            completion(result: false)
+            completion(result: GracenoteManager())
           }
         }
       } else {
-        completion(result: false)
+        completion(result: GracenoteManager())
       }
     } else {
-      completion(result: false)
+      completion(result: GracenoteManager())
     }
     
   }
   
-  func updateMusicViewWithMusic(music:Music) {
+  func updateMusicViewWithMusic(music:Music,gracenote:GracenoteManager) {
     if let musicName = DataManager.sharedInstance.musicInExecution.name  {
       viewWithoutMusic.hidden = true
       viewWithoutMusic.alpha = 0
@@ -264,7 +269,14 @@ class PlayerViewController: UIViewController {
       labelArtist.text = DataManager.sharedInstance.musicInExecution.composer
       buttonNLike.backgroundColor = UIColor.clearColor()
       butonLike.backgroundColor = UIColor.clearColor()
-      imageMusic.image = UIImage(named: "happy.jpg")
+      if music.coverArt != ""{
+        gracenote.downloadImageArt(music.coverArt, completion: { (resultImg) in
+          dispatch_async(dispatch_get_main_queue()) {
+            self.imageMusic.image = resultImg
+          }
+          
+        })
+      }
     } else {
       labelMusicName.text = "Musica"
       labelArtist.text = "Artista"

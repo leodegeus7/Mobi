@@ -427,7 +427,7 @@ class RequestManager: NSObject {
     genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "app/station/\(radio.id)/song/unlike") { (result) in
       if let resultRequest = result["requestResult"] as? String{
         if resultRequest == "OK" {
-          print("Musica \(radio.name) foi dado like com sucesso")
+          print("Musica \(radio.name) foi dado unlike com sucesso")
           completion(resultUnlike: true)
         }
         else {

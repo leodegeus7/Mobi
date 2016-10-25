@@ -443,6 +443,7 @@
 				B76198D91D89E15D00B83B6E /* CityRealm.swift */,
 				CD0B65021D904B9D002B88EA /* ColorRealm.swift */,
 				B7D584DF1D5D1674003D5A1F /* AudioConfig.swift */,
+				B764F50E1DBA88A20073D268 /* Music.swift */,
 			);
 			name = RealmClass;
 			sourceTree = "<group>";
@@ -649,7 +650,6 @@
 				B784D2CD1DB021720016A405 /* SpecialProgram.swift */,
 				B7842ACD1DB53C54002550F3 /* GracenoteManager.swift */,
 				B764F50C1DBA7F260073D268 /* InfoRds.swift */,
-				B764F50E1DBA88A20073D268 /* Music.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

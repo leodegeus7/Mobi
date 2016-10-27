@@ -16,6 +16,7 @@ class AudioChannel: NSObject {
   dynamic var linkRds = Link()
   dynamic var existRdsLink = false
   dynamic var streamings = [Streaming]()
+  var numberOfTries = 0
   
   convenience init(id:Int,desc:String,main:Bool,linkRds:String,streamings:[Streaming]) {
     self.init()
@@ -29,35 +30,61 @@ class AudioChannel: NSObject {
   }
   
   func returnLink() -> String {
-    
-    switch  DataManager.sharedInstance.audioConfig.streamingQuality  {
-    case .Low:
-      if streamings[0].existLowLink {
-        return streamings[0].linkLow.link
+    return returnLink(0)
+  }
+  
+  func returnLink(number:Int) -> String {
+    if number <= streamings.count-1 {
+      switch  DataManager.sharedInstance.audioConfig.streamingQuality  {
+      case .Low:
+        if streamings[number].existLowLink {
+          return streamings[number].linkLow.link
+        } else {
+          return streamings[number].linkHigh.link
+        }
+      case .High:
+        if streamings[number].existHighLink {
+          return streamings[number].linkHigh.link
+        } else if streamings[number].existLowLink {
+          return streamings[number].linkLow.link
+        }
+      case .Automatic:
+        if streamings[number].existHighLink {
+          return streamings[number].linkHigh.link
+        } else if streamings[number].existLowLink {
+          return streamings[number].linkLow.link
+        }
+      default:
+        if streamings[number].existHighLink {
+          return streamings[number].linkHigh.link
+        } else if streamings[number].existLowLink {
+          return streamings[number].linkLow.link
+        }
+      }
+      return ""
+    } else {
+      return ""
+    }
+  }
+  
+  func linkIsWrongReturnOther() -> String {
+    if numberOfTries == 0 {
+      if streamings.count > 1 {
+        numberOfTries = 1
+        return returnLink(1)
       } else {
-        return streamings[0].linkHigh.link
+        return ""
       }
-    case .High:
-      if streamings[0].existHighLink {
-        return streamings[0].linkHigh.link
-      } else if streamings[0].existLowLink {
-        return streamings[0].linkLow.link
-      }
-    case .Automatic:
-      if streamings[0].existHighLink {
-        return streamings[0].linkHigh.link
-      } else if streamings[0].existLowLink {
-        return streamings[0].linkLow.link
-      }
-    default:
-      if streamings[0].existHighLink {
-        return streamings[0].linkHigh.link
-      } else if streamings[0].existLowLink {
-        return streamings[0].linkLow.link
+    } else if numberOfTries == 1 {
+      if streamings.count > 2 {
+        numberOfTries = 2
+        return returnLink(2)
+      } else {
+        return ""
       }
     }
     return ""
   }
   
-
+  
 }

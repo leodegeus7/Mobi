@@ -76,19 +76,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         DataManager.sharedInstance.isLogged = true
       } else {
         DataManager.sharedInstance.isLogged = false
+        DataManager.sharedInstance.userToken = ""
+        DataManager.sharedInstance.configApp.updateUserToken("")
       }
     })
-    
-    var dicPara = Dictionary<String,AnyObject>()
-    dicPara["parameter"] = "name"
-    dicPara["value"] = "Leo"
-    var changesArray = [Dictionary<String,AnyObject>]()
-    changesArray.append(dicPara)
-    
-
-    let requestTestUser = RequestManager()
-    requestTestUser.updateUserInfo(changesArray) { (result) in
-    }
     
 
     //uploadProfilePicture(UIImage(named: "play.png")!)
@@ -233,6 +224,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.configApp = appConfigRealm.first!
       if appConfigRealm.first!.userToken != "" {
         DataManager.sharedInstance.userToken = appConfigRealm.first!.userToken
+        DataManager.sharedInstance.isLogged = true
+        //DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
       }
     }
 

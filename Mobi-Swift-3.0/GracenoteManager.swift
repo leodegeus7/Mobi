@@ -13,7 +13,7 @@ import MediaPlayer
 
 
 class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatusEventsDelegate,GnMusicIdStreamEventsDelegate,GnMusicIdFileEventsDelegate {
-
+  
   let CLIENT_ID_Gnsdk = "148764300"
   let CLIENT_TAG_Gnsdk = "78D9186EB2545D0EC03954099C72F4F2"
   let LICENSE_Gnsdk = "license.txt"
@@ -51,12 +51,12 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     
     gnUserStore = GnUserStore()
     gnUser = try! GnUser(userStoreDelegate: gnUserStore, clientId: clientId, clientTag: clientTag, applicationVersion: applicationVersion)
-   
+    
     
     musicId = try! GnMusicId(user: gnUser, statusEventsDelegate: self)
     try! musicId.options().lookupData(kLookupDataContent, bEnable: true)
     try! musicId.options().preferResultCoverart(true)
-
+    
   }
   
   func findMatch(albumTitle:String,trackTitle:String,albumArtistName:String,trackArtistName:String,composerName:String,completion: (resultGracenote: Music) -> Void) {
@@ -66,27 +66,46 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
         let albumTeste2:GnAlbum = albumTeste as! GnAlbum
         
         var musicGracenote = Music()
-        let idMusic = try! albumTeste2.tracksMatched().allObjects().first?.identifier()
-        if let image = albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url() {
+        let name = (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!
+        let composer = (albumTeste2.artist()?.name()?.display())!
+        let id = "\(name)\(composer)"
+        dispatch_async(dispatch_get_main_queue()) {
+          if let image = albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url() {
+            if let _ = DataManager.sharedInstance.realm.objectForPrimaryKey(Music.self, key: id) {
+              let musicRealmTest = DataManager.sharedInstance.realm.objectForPrimaryKey(Music.self, key: id)!
+              musicGracenote = musicRealmTest
+            } else {
+              musicGracenote = Music(id: "", name: name, albumName: (albumTeste2.title()?.display())!, composer: composer, coverArt: image)
+            }
+            
+          } else {
+            if let _ = DataManager.sharedInstance.realm.objectForPrimaryKey(Music.self, key: id) {
+              if let _ = musicGracenote.name {
+                musicGracenote = DataManager.sharedInstance.realm.objectForPrimaryKey(Music.self, key: id)!
+              } else {
+                musicGracenote = Music(id: "", name: name, albumName: (albumTeste2.title()?.display())!, composer: composer, coverArt: "")
+              }
+            } else {
+              musicGracenote = Music(id: "", name: name, albumName: (albumTeste2.title()?.display())!, composer: composer, coverArt: "")
+            }
+            
+          }
           
-          musicGracenote = Music(id: idMusic!,name: (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!, albumName: (albumTeste2.title()?.display())!, composer: (albumTeste2.artist()?.name()?.display())!, coverArt: image)
           
-        } else {
-          musicGracenote = Music(id:idMusic!,name: (albumTeste2.tracksMatched().allObjects().first?.title()?.display())!, albumName: (albumTeste2.title()?.display())!, composer: (albumTeste2.artist()?.name()?.display())!, coverArt: "")
+          completion(resultGracenote: musicGracenote)
         }
         
-
-        completion(resultGracenote: musicGracenote)
+        
       }
-
-    } catch let error {
+      
+    } catch let _ {
       completion(resultGracenote: Music())
     }
-
+    
   }
   
   func downloadImageArt(url:String,completion: (resultImg: UIImage) -> Void) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
       do {
         let gnAssetFetch = try GnAssetFetch(user: self.gnUser, url: url, statusEventsDelegate: self)
         let imgData = gnAssetFetch.data()
@@ -94,7 +113,7 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
         completion(resultImg: img!)
       }
       catch _ {
-      
+        
       }
     }
   }
@@ -120,7 +139,7 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
       break
     case kStatusProcessingAudioStarted:
       dispatch_async(dispatch_get_main_queue()) {
-
+        
       }
       break
     case   kStatusProcessingAudioEnded:
@@ -144,7 +163,7 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     default:
       break
     }
-
+    
   }
   func musicIdStreamIdentifyingStatusEvent(status: GnMusicIdStreamIdentifyingStatus, cancellableDelegate canceller: GnCancellableDelegate) {
     

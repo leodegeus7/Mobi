@@ -566,8 +566,8 @@ class RequestManager: NSObject {
   }
   
   func requestStates(completion: (resultState: Bool) -> Void) {
-    requestJson("address/state?pageNumber=0&pageSize=100") { (result) in
-      if let array = result["data"]!["records"] as? NSArray {
+    requestJson("address/state/containingstation") { (result) in
+      if let array = result["data"] as? NSArray {
         DataManager.sharedInstance.allStates = []
         for singleResult in array {
           let dic = singleResult as! NSDictionary
@@ -687,7 +687,7 @@ class RequestManager: NSObject {
             comment.addImageReference(dic["attachmentIdentifier"] as! String)
           case 2:
             comment.postType = .Audio
-            comment.addImageReference(dic["attachmentIdentifier"] as! String)
+            comment.addAudioReference(dic["attachmentIdentifier"] as! String)
           case 3:
             comment.postType = .Video
             comment.addVideoReference(dic["attachmentIdentifier"] as! String)
@@ -732,7 +732,7 @@ class RequestManager: NSObject {
     if attachmentIdentifier != ""{
       parameters = [
         "text": text,
-        "postType": postType,
+        "postType": Int(postType),
         "attachmentIdentifier": attachmentIdentifier,
         "dateTime": Util.convertActualDateToString()
       ]
@@ -984,6 +984,7 @@ class RequestManager: NSObject {
                 }
               case .Failure(let error):
                 print(error)
+                completion(result: false)
                 break
               }
             }
@@ -1122,6 +1123,59 @@ class RequestManager: NSObject {
         }
     })
   }
+  
+  func uploadFile(progressView:UIProgressView,fileToUpload:NSURL,completion: (resultIdentifier: String) -> Void) {
+    let parameters = [
+      "action": "upload"]
+    let URL = "\(DataManager.sharedInstance.baseURL)app/file/upload"
+    
+    progressView.progress = 0
+    
+    
+    Alamofire.upload(.POST, URL, multipartFormData: {
+      multipartFormData in
+      multipartFormData.appendBodyPart(fileURL: fileToUpload, name: "attachment", fileName: "audio.mp4", mimeType: "audio/mp4")
+
+      for (key, value) in parameters {
+        multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+      }
+      }, encodingCompletion: {
+        encodingResult in
+        switch encodingResult {
+        case .Success(let upload, _, _):
+          upload.progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+              progressView.setProgress(CFloat(totalBytesRead/totalBytesExpectedToRead), animated: true)
+            }
+          }
+          upload.responseJSON(completionHandler: { (response:Response<AnyObject, NSError>) in
+            switch response.result {
+            case .Success:
+              let identifier = (response.result.value)!["data"] as! String
+              completion(resultIdentifier: identifier)
+            case .Failure(let error):
+              print(error.description)
+            }
+          })
+        case .Failure(let encodingError):
+          print(encodingError)
+        }
+    })
+  }
+  
+  func downloadFileWithIdentifier(identifier:String,format:String,completion: (url: NSURL) -> Void) {
+    let URL = "\(DataManager.sharedInstance.baseURL)app/file/download?identifier=\(identifier)"
+    Alamofire.download(.GET, URL) { (temporaryURL, response) -> NSURL in
+      let string = "\(FileSupport.findDocsDirectory())\(identifier).\(format)"
+      return NSURL(fileURLWithPath: string)
+    }.response { (request, response, _, error) in
+      let string = "\(FileSupport.findDocsDirectory())\(identifier).\(format)"
+      let url = NSURL(fileURLWithPath: string)
+      completion(url: url)
+    }
+  }
+
   
   func changeUserPhoto(imageToChange:UIImage,completion: (result: Bool) -> Void) {
     uploadImage(UIProgressView(),imageToUpload: imageToChange) { (resultIdentifiers) in
@@ -1393,6 +1447,30 @@ class RequestManager: NSObject {
         } else {
           completion(follow: false)
         }
+      }
+    }
+  }
+  
+  func requestAdvertisement(completion: (resultAd: [Advertisement]) -> Void) {
+    requestJson("advertisement") { (result) in
+      if let array = result["data"] as? NSArray {
+        var ads = [Advertisement]()
+        for ad in array {
+          let id = ad["id"] as! Int
+          let datetimeEnd = ad["datetimeEnd"] as! String
+          let datetimeStart = ad["datetimeStart"] as! String
+          let description = ad["description"] as! String
+          let playerScreen = ad["playerScreen"] as! Bool
+          let profileScreen = ad["profileScreen"] as! Bool
+          let searchScreen = ad["searchScreen"] as! Bool
+          if let image = ad["image"] as? NSDictionary {
+            let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+            let adObject = Advertisement(id: id, image: imageIdentifier, datetimeStart: datetimeStart, datetimeEnd: datetimeEnd, description: description, playerScreen: playerScreen, profileScreen: profileScreen, searchScreen: searchScreen)
+            ads.append(adObject)
+            
+          }
+        }
+        completion(resultAd:ads)
       }
     }
   }

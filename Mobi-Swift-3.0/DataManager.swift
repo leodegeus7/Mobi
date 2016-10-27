@@ -100,6 +100,9 @@ class DataManager: NSObject {
   
   var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
   
+  var advertisement = [Advertisement]()
+  var isAdsRequested = false
+  
   struct ProgramDays {
     var isSunday:Bool
     var isMonday:Bool

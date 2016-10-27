@@ -215,20 +215,21 @@ class EditInfoViewController: FormViewController {
     
     let labelNameInfo : TextRow = form.rowByTag("name")!
     let labelBirthInfo : DateRow = form.rowByTag("birth")!
-    let labelGenderInfo : TextRow  = form.rowByTag("gender")!
+    let labelGenderInfo : SegmentedRow<String>  = form.rowByTag("gender")!
     
-    let labelCity : TextRow = form.rowByTag("city")!
-    let labelState : TextRow = form.rowByTag("state")!
-    let labelZip : TextRow = form.rowByTag("zip")!
-    let labelStreet : TextRow = form.rowByTag("street")!
-    let labelNumber : TextRow = form.rowByTag("number")!
-    let labelComple : TextRow = form.rowByTag("complem")!
+    
+//    let labelCity : TextRow = form.rowByTag("city")!
+//    let labelState : TextRow = form.rowByTag("state")!
+//    let labelZip : TextRow = form.rowByTag("zip")!
+//    let labelStreet : TextRow = form.rowByTag("street")!
+//    let labelNumber : TextRow = form.rowByTag("number")!
+//    let labelComple : TextRow = form.rowByTag("complem")!
     
     
     let labelEmail : EmailRow = form.rowByTag("email")!
-    
-    let labelKey : PasswordRow = form.rowByTag("key")!
-    let labelReKey : PasswordRow =  form.rowByTag("rekey")!
+//
+//    let labelKey : PasswordRow = form.rowByTag("key")!
+//    let labelReKey : PasswordRow =  form.rowByTag("rekey")!
     
     var changesArray = [Dictionary<String,AnyObject>]()
     
@@ -263,7 +264,11 @@ class EditInfoViewController: FormViewController {
     
     let editManager = RequestManager()
     editManager.updateUserInfo(changesArray) { (result) in
-      self.displayAlertWithMessageAndDismiss("Atenção", message: "Alterações realizadas com sucesso", okTitle: "Ok")
+      if result {
+        self.displayAlertWithMessageAndDismiss("Atenção", message: "Alterações realizadas com sucesso", okTitle: "Ok")
+      } else {
+        self.displayAlertWithMessageAndDismiss("Atenção", message: "Erro ao atualizar informações", okTitle: "Ok")
+      }
     }
   }
   

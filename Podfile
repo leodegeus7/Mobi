@@ -23,4 +23,5 @@ pod 'FirebaseUI/Auth'
 pod 'Eureka'
 pod 'Cosmos', '~> 1.2’
 pod 'ImageViewer’
+pod ’AudioKit’ 
 end

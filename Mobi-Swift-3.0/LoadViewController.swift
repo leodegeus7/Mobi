@@ -72,7 +72,7 @@ class LoadViewController: UIViewController {
 
     
     let testManager = RequestManager()
-    testManager.testServer { (result) in
+    testManager.testServer { (result) in //valida sem userToken
       
 
       
@@ -94,7 +94,7 @@ class LoadViewController: UIViewController {
         self.notificationCenter.postNotificationName("reloadData", object: nil)
         
         let genreManager = RequestManager()
-        genreManager.requestMusicGenre({ (resultGenre) in
+        genreManager.requestMusicGenre({ (resultGenre) in  //valida sem userToken
           
         })
         
@@ -102,31 +102,35 @@ class LoadViewController: UIViewController {
         localManager.requestStates({ (resultState) in
         })
         
-        let favManager = RequestManager()
-        favManager.requestUserFavorites({ (resultFav) in
-          
-          let profileManager = RequestManager()
-          profileManager.requestMyUserInfo({ (result) in
+        if DataManager.sharedInstance.isLogged {
+          let favManager = RequestManager()
+          favManager.requestUserFavorites({ (resultFav) in
             
-            let likesManager = RequestManager()
-            likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
-              self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
-              let historicManager = RequestManager()
-              historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
-                
-                let scoreRequest = RequestManager()
-                scoreRequest.getRadioScore(DataManager.sharedInstance.recentsRadios.first!) { (resultScore) in
+            let profileManager = RequestManager()
+            profileManager.requestMyUserInfo({ (result) in
+              
+              let likesManager = RequestManager()
+              likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+                self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
+                let historicManager = RequestManager()
+                historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
                   
-    
-                }
-
-                self.dismissViewControllerAnimated(true, completion: {
-                  
+                  self.dismissViewControllerAnimated(true, completion: {
+                    
+                  })
                 })
               })
             })
           })
-        })
+        } else {
+          let likesManager = RequestManager()
+          likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+            self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
+            self.dismissViewControllerAnimated(true, completion: {
+              
+            })
+          })
+        }
         
         if let local = DataManager.sharedInstance.userLocation {
           let localRadioManager = RequestManager()

@@ -65,7 +65,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
     //configureFacebook()
-    completeProfileViewInfo()
+    if DataManager.sharedInstance.isLogged {
+      completeProfileViewInfo()
+    }
     navigationController?.title = "Perfil"
     tableViewFavorites.rowHeight = 130
     backButton.target = self.revealViewController()
@@ -128,6 +130,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       } else {
         self.buttonLogin.setTitle("Login", forState: .Normal)
         DataManager.sharedInstance.isLogged = false
+        DataManager.sharedInstance.userToken = ""
+        DataManager.sharedInstance.configApp.updateUserToken("")
         self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
       }
     })
@@ -140,19 +144,21 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
 
     
-    let requestManager = RequestManager()
-    requestManager.requestMyUserInfo { (result) in
-      self.myUser = DataManager.sharedInstance.myUser
-      self.completeProfileViewInfo()
-    }
-    
-    let requestFollowers = RequestManager()
-    requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
-      self.labelFollowers.text = "\(resultNumberFollowers)"
-    }
-    let requestFollowing = RequestManager()
-    requestFollowing.requestNumberOfFollowing(myUser) { (resultNumberFollowing) in
-      self.labelFollowing.text = "\(resultNumberFollowing)"
+    if DataManager.sharedInstance.isLogged {
+      let requestManager = RequestManager()
+      requestManager.requestMyUserInfo { (result) in
+        self.myUser = DataManager.sharedInstance.myUser
+        self.completeProfileViewInfo()
+      }
+      
+      let requestFollowers = RequestManager()
+      requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
+        self.labelFollowers.text = "\(resultNumberFollowers)"
+      }
+      let requestFollowing = RequestManager()
+      requestFollowing.requestNumberOfFollowing(myUser) { (resultNumberFollowing) in
+        self.labelFollowing.text = "\(resultNumberFollowing)"
+      }
     }
   }
   
@@ -165,8 +171,13 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   ///////////////////////////////////////////////////////////
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    heightTableView.constant = 130*CGFloat(myUser.favoritesRadios.count)
-    return myUser.favoritesRadios.count
+    if DataManager.sharedInstance.isLogged {
+      heightTableView.constant = 130*CGFloat(myUser.favoritesRadios.count)
+      return myUser.favoritesRadios.count
+    }
+    else {
+      return 0
+    }
   }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -233,6 +244,22 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       self.selectedRadioArray = self.myUser.favoritesRadios
       self.tableViewFavorites.reloadData()
     }
+    if DataManager.sharedInstance.isLogged {
+      let requestManager = RequestManager()
+      requestManager.requestMyUserInfo { (result) in
+        self.myUser = DataManager.sharedInstance.myUser
+        self.completeProfileViewInfo()
+      }
+      
+      let requestFollowers = RequestManager()
+      requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
+        self.labelFollowers.text = "\(resultNumberFollowers)"
+      }
+      let requestFollowing = RequestManager()
+      requestFollowing.requestNumberOfFollowing(myUser) { (resultNumberFollowing) in
+        self.labelFollowing.text = "\(resultNumberFollowing)"
+      }
+    }
   }
   
   ///////////////////////////////////////////////////////////
@@ -294,7 +321,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
       //Problem signing in
     }else {
-      view.hidden = false
+      
       user?.getTokenWithCompletion({ (token, error) in
         let requestManager = RequestManager()
         requestManager.loginInServer(token!, completion: { (result) in
@@ -306,6 +333,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
           requestManagerUser.requestMyUserInfo { (result) in
             self.myUser = DataManager.sharedInstance.myUser
             self.completeProfileViewInfo()
+            self.view.hidden = false
           }
         })
       })

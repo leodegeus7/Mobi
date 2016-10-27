@@ -35,6 +35,8 @@ class PlayerViewController: UIViewController {
   @IBOutlet weak var viewProgram: UIView!
   @IBOutlet weak var viewMusic: UIView!
   
+  @IBOutlet weak var buttonAdvertisement: UIButton!
+  
   enum TypeSegmented {
     case Music
     case Program
@@ -44,6 +46,7 @@ class PlayerViewController: UIViewController {
   let notificationCenter = NSNotificationCenter.defaultCenter()
   var tapCloseButtonActionHandler : (Void -> Void)?
   
+  @IBOutlet weak var contraintsPropFirstView: NSLayoutConstraint!
   
   var colorBlack : UIColor!
   var colorWhite : UIColor!
@@ -55,6 +58,18 @@ class PlayerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let screenSize:CGRect = UIScreen.mainScreen().bounds
+    let screenHeigh = screenSize.height
+    
+//    if screenHeigh > 510 {
+    
+//      let newHeight = self.view.frame.size.height * 0.55
+//      contraintsPropFirstView.constant = newHeight
+//    } else {
+//      let newHeight = self.view.frame.size.height * 0.45
+//      contraintsPropFirstView.constant = newHeight
+//    }
     
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
       buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
@@ -78,16 +93,39 @@ class PlayerViewController: UIViewController {
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     updateInfoOfView()
     segmentedChanged(self)
+    
+    AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
+      dispatch_async(dispatch_get_main_queue()) {
+        if let imageAd = resultAd.image {
+          let imageView = UIImageView(frame: self.buttonAdvertisement.frame)
+          imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
+          self.buttonAdvertisement.setBackgroundImage(imageView.image, forState: .Normal)
+        }
+      }
+    })
   }
   
   override func viewWillAppear(animated: Bool) {
     //updateInterfaceWithGracenote()
+    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    colorBlack = DataManager.sharedInstance.interfaceColor.color
+    colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    view.backgroundColor = colorWhite
+    viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
+    
+    imageIndicatorDown.backgroundColor = UIColor.clearColor()
+    
+    viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
     updateInfoOfView()
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
       buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
     } else {
       buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
+    setButtonMusicType(DataManager.sharedInstance.musicInExecution)
+      
+    
   }
   
   override func didReceiveMemoryWarning() {
@@ -180,6 +218,8 @@ class PlayerViewController: UIViewController {
       manager.favRadio(StreamingRadioManager.sharedInstance.actualRadio, completion: { (resultFav) in
       })
     }
+    StreamingRadioManager.sharedInstance.sendNotification()
+    
     
   }
   
@@ -277,12 +317,23 @@ class PlayerViewController: UIViewController {
           
         })
       }
+      setButtonMusicType(DataManager.sharedInstance.musicInExecution)
     } else {
       labelMusicName.text = "Musica"
       labelArtist.text = "Artista"
       buttonNLike.backgroundColor = UIColor.clearColor()
       butonLike.backgroundColor = UIColor.clearColor()
-      imageMusic.image = UIImage(named: "happy.jpg")
+    }
+  }
+  
+  func setButtonMusicType(music:Music) {
+    if music.isPositive {
+      butonLike.alpha = 1
+      buttonNLike.alpha = 0.3
+    }
+    if music.isNegative {
+      butonLike.alpha = 0.3
+      buttonNLike.alpha = 1
     }
   }
   
@@ -291,6 +342,30 @@ class PlayerViewController: UIViewController {
     viewWithoutMusic.alpha = 1
     labelWithoutMusic.text = "Não há informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
+  }
+  @IBAction func buttonNLikeTap(sender: AnyObject) {
+    butonLike.alpha = 0.3
+    buttonNLike.alpha = 1
+    let likeRequest = RequestManager()
+    likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: DataManager.sharedInstance.musicInExecution.name, singer: DataManager.sharedInstance.musicInExecution.composer) { (resultUnlike) in
+      DataManager.sharedInstance.musicInExecution.setNegative()
+      if !resultUnlike {
+        Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+      }
+    }
+    StreamingRadioManager.sharedInstance.sendNotification()
+  }
+  @IBAction func buttonLikeTap(sender: AnyObject) {
+    butonLike.alpha = 1
+    buttonNLike.alpha = 0.3
+    let likeRequest = RequestManager()
+    likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: DataManager.sharedInstance.musicInExecution.name, singer: DataManager.sharedInstance.musicInExecution.composer) { (resultLike) in
+      DataManager.sharedInstance.musicInExecution.setPositive()
+      if !resultLike {
+        Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+      }
+    }
+    StreamingRadioManager.sharedInstance.sendNotification()
   }
   /*
    // MARK: - Navigation
@@ -301,5 +376,5 @@ class PlayerViewController: UIViewController {
    // Pass the selected object to the new view controller.
    }
    */
-  
+
 }

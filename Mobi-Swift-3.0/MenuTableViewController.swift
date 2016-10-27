@@ -25,6 +25,7 @@ class MenuTableViewController: UITableViewController {
     if DataManager.sharedInstance.existInterfaceColor {
       let color = DataManager.sharedInstance.interfaceColor.color
       viewTop.backgroundColor = color
+      self.tableView.backgroundColor = color
     }
     
     //    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
@@ -43,7 +44,7 @@ class MenuTableViewController: UITableViewController {
     } else {
       tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
       if DataManager.sharedInstance.existInterfaceColor {
-        super.tableView.backgroundColor = UIColor.whiteColor()
+//        super.tableView.backgroundColor = UIColor.whiteColor()
         let color = DataManager.sharedInstance.interfaceColor.color
         tableView.backgroundColor = color
         viewTop.backgroundColor = color
@@ -246,6 +247,8 @@ class MenuTableViewController: UITableViewController {
         try! FIRAuth.auth()?.signOut()
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
+        DataManager.sharedInstance.configApp.updateUserToken("")
+        
         let logoutManger = RequestManager()
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })

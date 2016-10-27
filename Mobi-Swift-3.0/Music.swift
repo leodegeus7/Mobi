@@ -10,18 +10,18 @@ import UIKit
 import RealmSwift
 
 class Music: Object {
-  var id = ""
-  var name:String!
-  var albumName:String!
-  var composer:String!
-  var isPositive = false
-  var isNegative = false
-  var coverArt:String!
-  var timeWasDiscovered:NSDate!
+  dynamic var id = ""
+  dynamic var name:String!
+  dynamic var albumName:String!
+  dynamic var composer:String!
+  dynamic var isPositive = false
+  dynamic var isNegative = false
+  dynamic var coverArt:String!
+  dynamic var timeWasDiscovered:NSDate!
   
   convenience init(id:String,name:String,albumName:String,composer:String,coverArt:String) {
     self.init()
-    self.id = id
+    self.id = "\(name)\(composer)"
     self.name = name
     self.albumName = albumName
     self.composer = composer

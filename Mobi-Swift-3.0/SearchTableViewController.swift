@@ -76,9 +76,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       switch section {
       case 0:
         if searchRadios.count <= 3 {
-          return searchRadios.count
+          return searchRadios.count+1
         } else {
-          return 4
+          return 4+1
         }
       case 1:
         if searchGenre.count <= 3 {
@@ -126,7 +126,21 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     case .All:
       switch indexPath.section {
       case 0:
-        if indexPath.row < 3 {
+        if indexPath.row == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
+          cell.adsButton.backgroundColor = UIColor.brownColor()
+          AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
+            dispatch_async(dispatch_get_main_queue()) {
+              if let imageAd = resultAd.image {
+                let imageView = UIImageView(frame: cell.adsButton.frame)
+                imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
+                cell.adsButton.setBackgroundImage(imageView.image, forState: .Normal)
+              }
+            }
+          })
+          return cell
+        }
+        if indexPath.row < 4 {
           let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
           cell.labelName.text = searchRadios[indexPath.row].name
           if let address = searchRadios[indexPath.row].address {
@@ -282,15 +296,20 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     case .All:
       switch indexPath.section {
       case 0:
-        if indexPath.row == 3 {
+        if indexPath.row == 0 {
+          
+        }
+        else if indexPath.row == 4 {
           selectedMode = .Radios
           searchBar.selectedScopeButtonIndex = 1
           tableView.reloadData()
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
-        } else {
-          selectedRadio = searchRadios[indexPath.row]
+        }
+
+        else if indexPath.row >= 1 && indexPath.row <= 3 {
+          selectedRadio = searchRadios[indexPath.row-1]
           DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()

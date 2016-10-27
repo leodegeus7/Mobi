@@ -48,6 +48,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       })
       DataManager.sharedInstance.isLoadScreenAppered = true
     }
+    
+
+    
     super.viewDidLoad()
     //selectedRadioArray = DataManager.sharedInstance.topRadios
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
@@ -66,7 +69,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.tableFooterView = UIView()
     defineSegments()
 
-    
+    if DataManager.sharedInstance.topRadios.count > 0 {
+      selectedRadioArray = DataManager.sharedInstance.topRadios
+    }
     
 
     
@@ -411,8 +416,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     var str = ""
     if selectedMode == .Favorite {
       str = "Sem Favoritos"
+      if DataManager.sharedInstance.isLogged {
+        str = "Porfavor logue em seu usuário ou crie algum"
+      }
     } else if selectedMode == .Recent {
       str = "Nenhuma rádio foi reproduzida"
+      if DataManager.sharedInstance.isLogged {
+        str = "Porfavor logue em seu usuário ou crie algum"
+      }
     } else {
       str = "Nenhuma radio para mostrar"
     }
@@ -424,8 +435,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     var str = ""
     if selectedMode == .Favorite {
       str = "Você não marcou nenhuma rádio como favorito, retorne a início e marque algumas!"
+      if DataManager.sharedInstance.isLogged {
+        str = "Logue com sua conta no menu ao lado para conseguir favoritar radios"
+      }
     } else if selectedMode == .Recent {
       str = "Selecione alguma rádio e as reproduza para que possamos gerar seu histórico"
+      if DataManager.sharedInstance.isLogged {
+        str = "Logue com sua conta no menu ao lado para conseguir ver suas radios recentes"
+      }
     } else {
       str = "Nenhuma radio para mostrar"
     }

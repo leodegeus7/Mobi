@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class FileSupport: NSObject {
   
@@ -30,6 +31,19 @@ class FileSupport: NSObject {
       return false
     }
   }
+  
+  static func playAudioFromDocs(name:String) {
+    var player:AVAudioPlayer?
+    try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+    try! AVAudioSession.sharedInstance().setActive(true)
+    print("url")
+    let urlAudio = NSURL(fileURLWithPath: "\(FileSupport.findDocsDirectory())\(name)")
+    player = try! AVAudioPlayer(contentsOfURL: urlAudio, fileTypeHint: AVFileTypeAppleM4A)
+    //guard let player = self.player else { print("Nao carregou o audio") }
+    player!.prepareToPlay()
+    player!.play()
+  }
+  
   
   
 

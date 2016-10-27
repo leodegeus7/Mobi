@@ -168,6 +168,23 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       
       switch actualWallType {
       case .Audio:
+        viewProgress.hidden = false
+        if let audio = audioToUploadPath {
+          let audioRequest = RequestManager()
+          audioRequest.uploadFile(progressBar,fileToUpload:audio, completion: { (resultIdentifiers) in
+            
+            requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 2, attachmentIdentifier: resultIdentifiers, completion: { (resultWall) in
+              self.viewProgress.hidden = true
+              if resultWall {
+                self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
+              } else {
+                Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
+              }
+              
+            })
+          })
+        }
+        
         break
       case .Video:
         break
@@ -177,7 +194,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
           let imageRequest = RequestManager()
           imageRequest.uploadImage(progressBar,imageToUpload:photo, completion: { (resultIdentifiers) in
             
-            requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: self.actualMode.hashValue, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
+            requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 2, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
               self.viewProgress.hidden = true
               if resultWall {
                 self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")

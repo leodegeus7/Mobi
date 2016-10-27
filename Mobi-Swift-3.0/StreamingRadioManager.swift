@@ -64,17 +64,32 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
-    
+    let stateMine:STKAudioPlayerState = state
+    if audioPlayer.state == .Error {
+      audioPlayer.stop()
+      let link = actualRadio.audioChannels.first!.linkIsWrongReturnOther()
+      playWithLink(actualRadio,link: link)
+      print("Nao conseguiu rodar")
+    }
+
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
-    
+  
   }
+  
   
   func audioPlayer(audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
     print("Erro ao reproduzir o  stremaing \(RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink())")
     Util.displayAlert(title: "Erro", message: "Não foi possível iniciar o streamign - ErroCode: \(errorCode)", action: "Ok")
   }
+  
+  func audioPlayer(audioPlayer: STKAudioPlayer, logInfo line: String) {
+    if line == "" {
+      
+    }
+  }
+  
   func stop() {
     audioPlayer.stop()
     isPlaying = false
@@ -89,6 +104,18 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
 
 
 
+    isPlaying = true
+    let historicManager = RequestManager()
+    historicManager.markRadioHistoric(radio) { (resultFav) in
+    }
+  }
+  
+  func playWithLink(radio:RadioRealm,link:String) {
+
+    
+    defineInfoCenter()
+    audioPlayer.play(link)
+    
     isPlaying = true
     let historicManager = RequestManager()
     historicManager.markRadioHistoric(radio) { (resultFav) in
@@ -133,11 +160,11 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)"]
     MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
     
-//    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
-//      let albumArt = MPMediaItemArtwork(image: image!)
-//      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
-//      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
-//    }
+    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
+      let albumArt = MPMediaItemArtwork(image: image!)
+      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
+      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+    }
   }
 
 }

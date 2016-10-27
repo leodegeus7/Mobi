@@ -39,6 +39,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var colorWhite : UIColor!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
+  var needToUpdateCell = false
+  var needToUpdateIcons = false
+  
   static var selectedImageButton:UIImage!
   
   enum SelectedRadioMode {
@@ -61,7 +64,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     activityIndicator.hidden = true
     
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-    
+
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
     selectedMode == .DetailRadio
@@ -87,16 +90,20 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     
     similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
       self.similarRadios = resultSimilar
-      self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+      if self.selectedMode == .DetailRadio {
+        self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+      }
     }
     
     let scoreRequest = RequestManager()
     scoreRequest.getRadioScore(actualRadio) { (resultScore) in
-      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
-      if self.actualRadio.score == -1 {
-        cell.labelScore.text = "-"
-      } else {
-        cell.labelScore.text = "\(self.actualRadio.score)"
+      if self.selectedMode == .DetailRadio {
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
+        if self.actualRadio.score == -1 {
+          cell.labelScore.text = "-"
+        } else {
+          cell.labelScore.text = "\(self.actualRadio.score)"
+        }
       }
     }
     
@@ -132,7 +139,10 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch selectedMode {
     case .DetailRadio:
-      if section == 3 {
+      if section == 2 {
+        return 2
+      }
+      else if section == 3 {
         if similarRadios.count <= 3 {
           return similarRadios.count
         } else {
@@ -195,12 +205,12 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       case 1:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualMusic", forIndexPath: indexPath) as! MusicTableViewCell
         if let _ = actualMusic.name {
-          cell.labelMusicName.text = "Musica"
-          cell.labelArtist.text = "Artista"
-        }
-        else {
           cell.labelMusicName.text = actualMusic.name
           cell.labelArtist.text = actualMusic.composer
+        }
+        else {
+          cell.labelMusicName.text = "Musica"
+          cell.labelArtist.text = "Artista"
         }
         cell.buttonNLike.backgroundColor = UIColor.clearColor()
         cell.buttonLike.backgroundColor = UIColor.clearColor()
@@ -210,18 +220,33 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
         return cell
       case 2:
-        let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
-        cell.labelName.text = "Programa da Manha"
-        cell.labelSecondName.text = "Programa Matutino"
-        cell.imagePerson.image = UIImage(named: "happy.jpg")
-        cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-        cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
-        cell.imagePerson.layer.borderWidth = 0
-        cell.imagePerson.clipsToBounds = true
-        cell.labelNamePerson.text = "Marcos"
-        cell.labelGuests.text = "Toninho e Fulanhinho de tal"
-        cell.tag = 150
-        return cell
+        if indexPath.row == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
+          cell.labelName.text = "Programa da Manha"
+          cell.labelSecondName.text = "Programa Matutino"
+          cell.imagePerson.image = UIImage(named: "happy.jpg")
+          cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+          cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+          cell.imagePerson.layer.borderWidth = 0
+          cell.imagePerson.clipsToBounds = true
+          cell.labelNamePerson.text = "Marcos"
+          cell.labelGuests.text = "Toninho e Fulanhinho de tal"
+          cell.tag = 150
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
+          cell.adsButton.backgroundColor = UIColor.brownColor()
+          AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
+            dispatch_async(dispatch_get_main_queue()) {
+              if let imageAd = resultAd.image {
+                let imageView = UIImageView(frame: cell.adsButton.frame)
+                imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
+                cell.adsButton.setBackgroundImage(imageView.image, forState: .Normal)
+              }
+            }
+          })
+          return cell
+        }
       case 3:
         if indexPath.row <= similarRadios.count-1 {
           let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
@@ -269,6 +294,20 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     case .Wall :
       if !firstTimeShowed {
+        if actualComments[indexPath.row].postType == .Audio {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
+          cell.labelName.text = actualComments[indexPath.row].user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+          cell.textViewWall.text = actualComments[indexPath.row].text
+          if actualComments[indexPath.row].user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+          }
+          cell.identifier = actualComments[indexPath.row].audio
+          return cell
+          
+        }
         if actualComments[indexPath.row].postType == .Image {
           let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
           cell.labelName.text = actualComments[indexPath.row].user.name
@@ -318,6 +357,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         return cell
       }
     }
+    let cell = UITableViewCell()
+    return cell
   }
   
   
@@ -367,7 +408,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     cell?.buttonNLike.alpha = 1
     let likeRequest = RequestManager()
     likeRequest.unlikeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
-      actualMusic.setNegative()
+      self.actualMusic.setNegative()
       if !resultUnlike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
       }
@@ -379,9 +420,23 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     cell?.buttonNLike.alpha = 0.3
     let likeRequest = RequestManager()
     likeRequest.likeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
-      actualMusic.setPositive()
+      self.actualMusic.setPositive()
       if !resultLike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+      }
+    }
+  }
+  
+  func setButtonMusicType(music:Music) {
+    if selectedMode == .DetailRadio {
+      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+      if music.isPositive {
+        cell?.buttonLike.alpha = 1
+        cell?.buttonNLike.alpha = 0.3
+      }
+      if music.isNegative {
+        cell?.buttonLike.alpha = 0.3
+        cell?.buttonNLike.alpha = 1
       }
     }
   }
@@ -432,6 +487,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                         cell?.unlockContent()
                         cell?.labelMusicName.text = resultGracenote.name
                         cell?.labelArtist.text = resultGracenote.composer
+                        self.setButtonMusicType(resultGracenote)
                         if resultGracenote.coverArt != ""{
                           gracenote.downloadImageArt(resultGracenote.coverArt, completion: { (resultImg) in
                             dispatch_async(dispatch_get_main_queue()) {
@@ -506,16 +562,22 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   func updateIcons() {
-    let cellFirst = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
-    if (StreamingRadioManager.sharedInstance.currentlyPlaying()) {
-      if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
-        cellFirst.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
+    if let cellFirst = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? RadioDetailTableViewCell {
+      
+      if (StreamingRadioManager.sharedInstance.currentlyPlaying()) {
+        if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
+          cellFirst.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
+        } else {
+          cellFirst.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
+        }
       } else {
         cellFirst.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
       }
     } else {
-      cellFirst.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
+      needToUpdateCell = true
     }
+    defineBarButton()
+    setButtonMusicType(DataManager.sharedInstance.musicInExecution)
   }
   
   func buttonFavTap() {
@@ -582,6 +644,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     performSegueWithIdentifier("createPublicationSegue", sender: self)
   }
   
+  @IBAction func adsButtonTap(sender: AnyObject) {
+    
+  }
   
   @IBAction func zoomImageButtonTap(sender: AnyObject) {
     let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: sender.tag, inSection: 0)) as! WallImageTableViewCell

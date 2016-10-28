@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     print("Iniciou!")
     //DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
     //DataManager.sharedInstance.userToken = "0143363d-c4f4-4b9b-9b51-7ec5d8680460"
-    DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
+    //DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
     print(FileSupport.findDocsDirectory())
     //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {

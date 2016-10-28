@@ -64,7 +64,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     activityIndicator.hidden = true
     
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
-
+    
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
     selectedMode == .DetailRadio
@@ -196,6 +196,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
         cell.imageRadio.layer.borderWidth = 0
         cell.imageRadio.clipsToBounds = true
+        cell.selectionStyle = .None
         if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
           cell.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
         } else {
@@ -214,6 +215,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
         cell.buttonNLike.backgroundColor = UIColor.clearColor()
         cell.buttonLike.backgroundColor = UIColor.clearColor()
+        cell.selectionStyle = .None
         if !cellMusicIsShowed {
           cell.loadInfo()
           cellMusicIsShowed = true
@@ -323,12 +325,17 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
             
             }, completionHandler: { (image, error, cacheType, imageURL) in
+              if let erro = error {
+                print(erro)
+              }
               for cellUnique in tableView.visibleCells {
                 if Util.areTheySiblings(cellUnique, class2: WallImageTableViewCell()) {
                   if let indexPathCell = tableView.indexPathForCell(cellUnique) {
                     if cellUnique.tag != 3 {
                       if self.selectedMode == .Wall {
-                        tableView.reloadRowsAtIndexPaths([indexPathCell], withRowAnimation: .Automatic)
+                        let indexPathRow = indexPathCell.row
+                        let indexPathTest = NSIndexPath(forRow: indexPathRow, inSection: 0)
+                        self.reloadCell(indexPathTest)
                         cellUnique.tag = 3
                       }
                     }
@@ -469,6 +476,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   ///////////////////////////////////////////////////////////
   //MARK: --- OTHER FUNCTIONS ---
   ///////////////////////////////////////////////////////////
+  
+  func reloadCell(indexPathTest:NSIndexPath) {
+    if selectedMode == .Wall {
+      
+      tableView.reloadRowsAtIndexPaths([indexPathTest], withRowAnimation: .None)
+      
+    }
+  }
   
   func updateInterfaceWithGracenote() {
     if let audioChannel = actualRadio.audioChannels.first {

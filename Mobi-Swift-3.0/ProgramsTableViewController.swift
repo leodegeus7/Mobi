@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class ProgramsTableViewController: UITableViewController {
+class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   @IBOutlet weak var leftButtonWeek: UIButton!
   @IBOutlet weak var labelWeekend: UILabel!
@@ -26,6 +26,10 @@ class ProgramsTableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    tableView.emptyDataSetSource = self
+    tableView.emptyDataSetDelegate = self
+    tableView.tableFooterView = UIView()
     
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
@@ -156,7 +160,7 @@ class ProgramsTableViewController: UITableViewController {
         for specialProgram in resultSpecialPrograms {
           let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
           self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgram)
-
+          
           let programIdToDelete = specialProgram.referenceIdProgram
           var scheduleDay = (self.schedule[self.weekDays[dayOfWeekInt-1]])!
           var programToDelete = Program()
@@ -168,7 +172,7 @@ class ProgramsTableViewController: UITableViewController {
           }
           scheduleDay.removeAtIndex(scheduleDay.indexOf(programToDelete)!)
           self.schedule[self.weekDays[dayOfWeekInt-1]] = scheduleDay
-
+          
         }
         
         for programsArray in self.schedule {
@@ -227,6 +231,33 @@ class ProgramsTableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return actualSchedulePrograms[section].timeStart
+  }
+  
+  ///////////////////////////////////////////////////////////
+  //MARK: --- EMPTY TABLE VIEW DELEGATE ---
+  ///////////////////////////////////////////////////////////
+  
+  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    let str = "Sem Programação"
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+    let str = "A rádio não disponibilizou nenhuma programação para o período"
+    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    return NSAttributedString(string: str, attributes: attr)
+  }
+  
+  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+    return Util.imageResize(imageView.image!, sizeChange: CGSize(width: 100, height: 100))
+  }
+  
+  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+    dismissViewControllerAnimated(true) {
+    }
   }
   
 }

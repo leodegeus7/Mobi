@@ -413,6 +413,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3):RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableview.visibleCells.count">
+            </PersistentString>
+            <PersistentString
+               value = "indexPathCell.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ConfigViewController.viewDidLoad() -&gt; ():ConfigViewController.swift">
          <PersistentStrings>
             <PersistentString

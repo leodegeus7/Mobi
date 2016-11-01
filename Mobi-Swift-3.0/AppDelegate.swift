@@ -52,7 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     } else {
       RealmWrapper.realmStart("default")
-      
+      Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
+      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (FlatPurpleDark()))
+      DataManager.sharedInstance.existInterfaceColor = true
+      defineInitialParameters()
     }
     
 
@@ -120,7 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   func defineInitialParameters() {
     let audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0,audioType: 0)
     DataManager.sharedInstance.audioConfig = audioConfig
-    
   }
   
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -385,10 +385,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
     //let options = FIRApp.defaultApp()?.options
     //let clientId = options?.clientID
-    let facebookProvider = FIRFacebookAuthUI(permissions: [kFacebookAppID])
     //FIRFacebookAuthUI(appID: kFacebookAppID)
     authUI?.delegate = self
-    authUI?.providers = [facebookProvider]
+    authUI?.providers = [FIRFacebookAuthUI()]
     //authUI?.signInProviders = [facebookProvider!]
     let authViewController = authUI?.authViewController()
     authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color

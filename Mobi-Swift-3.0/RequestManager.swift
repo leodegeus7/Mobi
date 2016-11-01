@@ -1527,4 +1527,22 @@ class RequestManager: NSObject {
     }
     return InfoRds()
   }
+  
+  func requestFeed(completion: (resultFeedLink: [LinkRSS]) -> Void) {
+    requestJson("abertrss") { (result) in
+      if let array = result["data"] as? NSArray {
+        var links = [LinkRSS]()
+        for link in array {
+          let id = link["id"] as! Int
+          let descr = link["description"] as! String
+          let link = link["link"] as! String
+          let linkRss = LinkRSS(id: id, desc: descr, link: link)
+          links.append(linkRss)
+        }
+        completion(resultFeedLink:links)
+      }
+    }
+  }
+  
+  
 }

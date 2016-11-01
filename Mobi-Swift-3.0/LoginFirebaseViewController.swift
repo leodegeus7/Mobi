@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabaseUI
 import FirebaseAuthUI
-import FirebaseGoogleAuthUI
+//import FirebaseGoogleAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -24,11 +24,11 @@ class LoginFirebaseViewController: UIViewController,FIRAuthUIDelegate {
     super.viewDidLoad()
     
     //FIRApp.configure()
-    let authUI = FIRAuthUI.authUI()
+    let authUI = FIRAuthUI.defaultAuthUI()
     
-    let facebookAuthUI = FIRFacebookAuthUI(appID: "")
+    let facebookAuthUI = FIRFacebookAuthUI(permissions: [])
     //let emailAuthUI = FIREmailPasswordAuthProvider
-    authUI?.signInProviders = [facebookAuthUI!]
+    authUI?.providers = [facebookAuthUI]
     
     // Present the auth view controller and then implement the sign in callback.
     let authViewController = authUI
@@ -51,7 +51,7 @@ class LoginFirebaseViewController: UIViewController,FIRAuthUIDelegate {
   
   func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
     let sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
-    return FIRAuthUI.authUI()!.handleOpenURL(url, sourceApplication: sourceApplication ?? "") ?? false
+    return FIRAuthUI.defaultAuthUI()!.handleOpenURL(url, sourceApplication: sourceApplication ?? "") ?? false
   }
     
 

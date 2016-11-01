@@ -17,9 +17,17 @@ class New {
   dynamic var type = ""
   dynamic var newDescription = ""
   dynamic var date = ""
+  dynamic var link = ""
   
 
-  
+  convenience init(title:String, descr:String,link:String) {
+    self.init()
+    self.newDescription = descr
+    self.type = "Simple"
+    self.title = title
+    self.link = link
+    
+  }
   
   convenience init(id:String,newTitle:String, newDescription: String, date:String) {
     self.init()

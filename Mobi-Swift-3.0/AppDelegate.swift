@@ -217,8 +217,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     } else {
       
       Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
+      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (FlatPurpleDark()))
+      DataManager.sharedInstance.existInterfaceColor = true
+      
+
     }
-    
+    DataManager.sharedInstance.needUpdateMenu = true
     let appConfigRealm = realm.objects(AppConfigRealm.self).filter("id == 1")
     if appConfigRealm.count > 0 {
       DataManager.sharedInstance.configApp = appConfigRealm.first!

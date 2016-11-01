@@ -12,7 +12,7 @@ import TwitterKit
 import Firebase
 import FirebaseAuthUI
 import FirebaseDatabaseUI
-import FirebaseGoogleAuthUI
+//import FirebaseGoogleAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -313,11 +313,14 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //  }
   
   func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
+    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withContentStyle: .Contrast)
     if error != nil {
       if !DataManager.sharedInstance.isLogged {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
         self.navigationController!.pushViewController(vc!, animated: false)
+      } else {
+        Util.displayAlert(title: "Problema", message: "Tivemos problemas ao logar em sua conta, tente novamente!", action: "Ok")
       }
       //Problem signing in
     }else {
@@ -344,6 +347,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
+//    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
+    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
     let fir = FIRAuthPickerViewController(authUI: authUI)
     fir.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
@@ -380,9 +385,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
     //let options = FIRApp.defaultApp()?.options
     //let clientId = options?.clientID
-    let facebookProvider = FIRFacebookAuthUI(appID: kFacebookAppID)
+    let facebookProvider = FIRFacebookAuthUI(permissions: [kFacebookAppID])
+    //FIRFacebookAuthUI(appID: kFacebookAppID)
     authUI?.delegate = self
-    authUI?.signInProviders = [facebookProvider!]
+    authUI?.providers = [facebookProvider]
+    //authUI?.signInProviders = [facebookProvider!]
     let authViewController = authUI?.authViewController()
     authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     
@@ -393,7 +400,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
     let sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
-    return (FIRAuthUI.authUI()?.handleOpenURL(url, sourceApplication: sourceApplication))!
+    
+    return (FIRAuthUI.defaultAuthUI()?.handleOpenURL(url, sourceApplication: sourceApplication))!
   }
   
   @IBAction func loginButtonTap(sender: AnyObject) {

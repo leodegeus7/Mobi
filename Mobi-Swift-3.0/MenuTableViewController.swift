@@ -10,6 +10,7 @@ import UIKit
 import SideMenu
 import Firebase
 import FirebaseAuthUI
+import ChameleonFramework
 
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
@@ -42,7 +43,7 @@ class MenuTableViewController: UITableViewController {
       tableView.reloadData()
       DataManager.sharedInstance.needUpdateMenu = false
     } else {
-      tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+      //tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
       if DataManager.sharedInstance.existInterfaceColor {
 //        super.tableView.backgroundColor = UIColor.whiteColor()
         let color = DataManager.sharedInstance.interfaceColor.color
@@ -84,6 +85,7 @@ class MenuTableViewController: UITableViewController {
         }
       }
     }
+    emergencyColor()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -310,6 +312,22 @@ class MenuTableViewController: UITableViewController {
       sleepAlert.addAction(cancelAction)
       
       presentViewController(sleepAlert, animated: true, completion:nil)
+    }
+  }
+  
+  func emergencyColor() {
+    if tableView.backgroundColor == UIColor.whiteColor() || tableView.backgroundColor == UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1) {
+      if DataManager.sharedInstance.interfaceColor.id != "" {
+        tableView.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+        DataManager.sharedInstance.needUpdateMenu = true
+        tableView.reloadData()
+        self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+      } else {
+        Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
+        DataManager.sharedInstance.interfaceColor.color = FlatPurpleDark()
+        self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+        
+      }
     }
   }
   

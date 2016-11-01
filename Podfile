@@ -8,7 +8,6 @@ pod 'SwiftyJSON'
 pod 'RealmSwift' 
 pod 'SideMenu'
 pod "ARNTransitionAnimator"
-pod 'Kingfisher', '~> 2.4'
 pod ‘Firebase/Core’
 pod ‘Firebase/Database’
 pod ‘Firebase/Auth’
@@ -18,10 +17,12 @@ pod 'TwitterCore'
 pod 'DZNEmptyDataSet'
 pod 'PullToRefresh'
 pod 'ChameleonFramework/Swift'
-pod 'FirebaseUI/Database'
+pod 'Kingfisher', '~> 2.5’
 pod 'FirebaseUI/Auth'
+pod 'FirebaseUI/Database’
+pod 'FirebaseUI/Facebook’
 pod 'Eureka'
 pod 'Cosmos', '~> 1.2’
-pod 'ImageViewer’
+pod 'ImageViewer’, '~> 2.0’
 pod ’AudioKit’ 
 end

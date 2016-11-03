@@ -24,5 +24,11 @@ pod 'FirebaseUI/Facebook’
 pod 'Eureka'
 pod 'Cosmos', '~> 1.2’
 pod 'ImageViewer’, '~> 2.0’
-pod ’AudioKit’ 
+end
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
 end

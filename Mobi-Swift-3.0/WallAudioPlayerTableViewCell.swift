@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import AudioKit
 
 class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
   

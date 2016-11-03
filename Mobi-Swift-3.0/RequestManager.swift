@@ -858,9 +858,13 @@ class RequestManager: NSObject {
             if email != "" && name != "" && id != -1 {
               let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
               
+              var user:UserRealm!
+              if let imageId = imageIdentifier {
+                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageId)
+              } else {
+                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: ImageObject())
+              }
               
-              
-              let user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
               DataManager.sharedInstance.myUser = user
               completion(result: true)
             }
@@ -1135,7 +1139,7 @@ class RequestManager: NSObject {
     Alamofire.upload(.POST, URL, multipartFormData: {
       multipartFormData in
       multipartFormData.appendBodyPart(fileURL: fileToUpload, name: "attachment", fileName: "audio.mp4", mimeType: "audio/mp4")
-
+      
       for (key, value) in parameters {
         multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
       }
@@ -1169,13 +1173,13 @@ class RequestManager: NSObject {
     Alamofire.download(.GET, URL) { (temporaryURL, response) -> NSURL in
       let string = "\(FileSupport.findDocsDirectory())\(identifier).\(format)"
       return NSURL(fileURLWithPath: string)
-    }.response { (request, response, _, error) in
-      let string = "\(FileSupport.findDocsDirectory())\(identifier).\(format)"
-      let url = NSURL(fileURLWithPath: string)
-      completion(url: url)
+      }.response { (request, response, _, error) in
+        let string = "\(FileSupport.findDocsDirectory())\(identifier).\(format)"
+        let url = NSURL(fileURLWithPath: string)
+        completion(url: url)
     }
   }
-
+  
   
   func changeUserPhoto(imageToChange:UIImage,completion: (result: Bool) -> Void) {
     uploadImage(UIProgressView(),imageToUpload: imageToChange) { (resultIdentifiers) in

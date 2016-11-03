@@ -42,6 +42,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   @IBOutlet weak var followerButton: UIButton!
   @IBOutlet weak var followingButton: UIButton!
+  @IBOutlet weak var labelTitleTableView: UILabel!
   
   let imagePicker = UIImagePickerController()
   
@@ -142,7 +143,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonTwitter.setTitle("Login Twitter", forState: .Normal)
     }
     
-
+    
     
     if DataManager.sharedInstance.isLogged {
       let requestManager = RequestManager()
@@ -173,6 +174,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if DataManager.sharedInstance.isLogged {
       heightTableView.constant = 130*CGFloat(myUser.favoritesRadios.count)
+      if myUser.favoritesRadios.count == 0 {
+        labelTitleTableView.text = "NÃO HÁ RADIOS FAVORITADAS"
+      } else {
+        labelTitleTableView.text = "RADIOS FAVORITAS"
+      }
       return myUser.favoritesRadios.count
     }
     else {
@@ -234,8 +240,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     } else {
       labelAddress.text = nil
     }
+    if DataManager.sharedInstance.myUser.userImage == "avatar.png" {
+      imageUser.image = UIImage(named: "avatar.png")
+    } else {
+      imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+    }
     
-    imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
     self.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
     selectedRadioArray = self.myUser.favoritesRadios
     let manager = RequestManager()
@@ -347,7 +357,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
-//    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
+    //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
     Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
     let fir = FIRAuthPickerViewController(authUI: authUI)
     fir.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color

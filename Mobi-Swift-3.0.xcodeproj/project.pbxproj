@@ -31,7 +31,6 @@
 		B73532EC1D9AD7E6008504BA /* RadioDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73532EB1D9AD7E6008504BA /* RadioDetailTableViewCell.swift */; };
 		B73681371D590BA300EC94A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73681361D590BA300EC94A9 /* AppDelegate.swift */; };
 		B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B736813A1D590BA300EC94A9 /* Main.storyboard */; };
-		B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B736813D1D590BA300EC94A9 /* Assets.xcassets */; };
 		B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B736813F1D590BA300EC94A9 /* LaunchScreen.storyboard */; };
 		B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74B0E5D1D6F6B4A00012D8E /* MusicTableViewCell.swift */; };
 		B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B74B0E611D6F6F1600012D8E /* happy.jpg */; };
@@ -83,7 +82,6 @@
 		B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384A91D7F32A700701070 /* CFNetwork.framework */; };
 		B77384AC1D7F32D300701070 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AB1D7F32D300701070 /* Security.framework */; };
 		B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */; };
-		B77384B41D7F394E00701070 /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384B31D7F394E00701070 /* FirebaseAuth.framework */; };
 		B77384B61D7F559A00701070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B77384B51D7F559A00701070 /* GoogleService-Info.plist */; };
 		B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77892E31D91B346009D6105 /* StreamingRadioManager.swift */; };
 		B77892E61D91D2CA009D6105 /* new1.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892E51D91D2CA009D6105 /* new1.png */; };
@@ -136,15 +134,13 @@
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
 		B7B1B94F1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B1B94E1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift */; };
 		B7B1B9511DC25D1A00F6ED7A /* play3.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B1B9501DC25D1A00F6ED7A /* play3.png */; };
-		B7B1E9701DC3DEB700AF6706 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1E96F1DC3DEB600AF6706 /* Bolts.framework */; };
-		B7B1E9721DC3DEBB00AF6706 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1E9711DC3DEBB00AF6706 /* FBSDKCoreKit.framework */; };
-		B7B1E9741DC3DEC200AF6706 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1E9731DC3DEC100AF6706 /* FBSDKLoginKit.framework */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
 		B7BB84A41D9C47030033D823 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A31D9C47030033D823 /* View.xib */; };
 		B7BB84A61D9D84FF0033D823 /* AppConfigRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */; };
 		B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A71D9D92F10033D823 /* heartRedFilled.png */; };
 		B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A91D9DA7AC0033D823 /* dislike.png */; };
 		B7BB84AC1D9DA7B20033D823 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84AB1D9DA7B20033D823 /* like.png */; };
+		B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7C52A501DC907B200282CA0 /* Assets.xcassets */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
 		B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */; };
 		B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */; };
@@ -213,7 +209,6 @@
 		B73681331D590BA300EC94A9 /* Mobi-Swift-3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobi-Swift-3.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B73681361D590BA300EC94A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B736813B1D590BA300EC94A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B736813D1D590BA300EC94A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B73681401D590BA300EC94A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B73681421D590BA300EC94A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B74B0E5D1D6F6B4A00012D8E /* MusicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
@@ -268,7 +263,6 @@
 		B77384A91D7F32A700701070 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B77384AB1D7F32D300701070 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B77384B31D7F394E00701070 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAuth.framework; sourceTree = "<group>"; };
 		B77384B51D7F559A00701070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B77892E31D91B346009D6105 /* StreamingRadioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRadioManager.swift; sourceTree = "<group>"; };
 		B77892E51D91D2CA009D6105 /* new1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new1.png; sourceTree = "<group>"; };
@@ -297,9 +291,6 @@
 		B77C499B1D8C68D600AFF826 /* STKQueueEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKQueueEntry.h; sourceTree = "<group>"; };
 		B77C499C1D8C68D600AFF826 /* STKQueueEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKQueueEntry.m; sourceTree = "<group>"; };
 		B77C499D1D8C68D600AFF826 /* StreamingKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StreamingKit-Prefix.pch"; sourceTree = "<group>"; };
-		B77DEA621D774A8200695546 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B77DEA6C1D77567700695546 /* FileSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSupport.swift; sourceTree = "<group>"; };
 		B781A2771DAC18FE00FCBCD7 /* WallTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallTableViewCell.swift; sourceTree = "<group>"; };
@@ -337,15 +328,13 @@
 		B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mobi-Swift-3.0-Bridging-Header.h"; path = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B7B1B94E1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallAudioPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		B7B1B9501DC25D1A00F6ED7A /* play3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play3.png; sourceTree = "<group>"; };
-		B7B1E96F1DC3DEB600AF6706 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Library/Developer/Xcode/DerivedData/Mobi-Swift-3.0-badsgpxekbdbirfhbdyseyfbwnii/Build/Products/Debug-iphoneos/Bolts/Bolts.framework"; sourceTree = "<group>"; };
-		B7B1E9711DC3DEBB00AF6706 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Mobi-Swift-3.0-badsgpxekbdbirfhbdyseyfbwnii/Build/Products/Debug-iphoneos/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		B7B1E9731DC3DEC100AF6706 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Mobi-Swift-3.0-badsgpxekbdbirfhbdyseyfbwnii/Build/Products/Debug-iphoneos/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7BB84A31D9C47030033D823 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigRealm.swift; sourceTree = "<group>"; };
 		B7BB84A71D9D92F10033D823 /* heartRedFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRedFilled.png; sourceTree = "<group>"; };
 		B7BB84A91D9DA7AC0033D823 /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike.png; sourceTree = "<group>"; };
 		B7BB84AB1D9DA7B20033D823 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
+		B7C52A501DC907B200282CA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigTableViewCell.swift; sourceTree = "<group>"; };
 		B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
@@ -393,9 +382,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7B1E9741DC3DEC200AF6706 /* FBSDKLoginKit.framework in Frameworks */,
-				B7B1E9721DC3DEBB00AF6706 /* FBSDKCoreKit.framework in Frameworks */,
-				B7B1E9701DC3DEB700AF6706 /* Bolts.framework in Frameworks */,
 				B784D2CC1DB002010016A405 /* libstdc++.tbd in Frameworks */,
 				B784D2CA1DB001F20016A405 /* CoreMedia.framework in Frameworks */,
 				B7880BA61D5E491F002B235A /* CoreLocation.framework in Frameworks */,
@@ -409,7 +395,6 @@
 				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
 				B7842AC81DB52AC5002550F3 /* GnSDKObjC.framework in Frameworks */,
 				B75404BC1DC8ECE900E8B694 /* GameKit.framework in Frameworks */,
-				B77384B41D7F394E00701070 /* FirebaseAuth.framework in Frameworks */,
 				B77384A81D7F30A800701070 /* libc++.tbd in Frameworks */,
 				B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */,
 				B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */,
@@ -685,8 +670,8 @@
 		B7D90E0D1D5A572500D15089 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7C52A501DC907B200282CA0 /* Assets.xcassets */,
 				B736813A1D590BA300EC94A9 /* Main.storyboard */,
-				B736813D1D590BA300EC94A9 /* Assets.xcassets */,
 				B736813F1D590BA300EC94A9 /* LaunchScreen.storyboard */,
 				B764CE161DB7F75700BFCE76 /* AudioRecorderViewController.xib */,
 				B74D65301D8B3E2B007798F4 /* CellDesign.xib */,
@@ -763,17 +748,11 @@
 			children = (
 				B75404BB1DC8ECE900E8B694 /* GameKit.framework */,
 				B75404B91DC8ECE400E8B694 /* StoreKit.framework */,
-				B7B1E9731DC3DEC100AF6706 /* FBSDKLoginKit.framework */,
-				B7B1E9711DC3DEBB00AF6706 /* FBSDKCoreKit.framework */,
-				B7B1E96F1DC3DEB600AF6706 /* Bolts.framework */,
 				B784D2CB1DB002010016A405 /* libstdc++.tbd */,
 				B7842AC71DB52AC5002550F3 /* GnSDKObjC.framework */,
 				B784D2C91DB001F20016A405 /* CoreMedia.framework */,
 				B784D2C71DB001DC0016A405 /* CoreData.framework */,
 				B784D2C51DB001D20016A405 /* MediaPlayer.framework */,
-				B77DEA681D774AAE00695546 /* FBSDKLoginKit.framework */,
-				B77DEA651D774A9F00695546 /* FBSDKCoreKit.framework */,
-				B77DEA621D774A8200695546 /* Bolts.framework */,
 				B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */,
 				B7F8C1031D9ED74100848351 /* QuartzCore.framework */,
 				B75E34151D90823500713783 /* libxml2.2.tbd */,
@@ -791,7 +770,6 @@
 				F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */,
 				B74D652D1D8B3704007798F4 /* UIScrollView+EmptyDataSet.h */,
 				B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */,
-				B77384B31D7F394E00701070 /* FirebaseAuth.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -816,8 +794,6 @@
 				B736812F1D590BA300EC94A9 /* Sources */,
 				B73681301D590BA300EC94A9 /* Frameworks */,
 				B73681311D590BA300EC94A9 /* Resources */,
-				42F82E71A5A4A9B1BD1D20CE /* [CP] Embed Pods Frameworks */,
-				9A100191B2244902248528F4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -888,7 +864,6 @@
 				B77892EB1D91D722009D6105 /* icone-historico.png in Resources */,
 				B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */,
 				B764CE171DB7F75700BFCE76 /* AudioRecorderViewController.xib in Resources */,
-				B736813E1D590BA300EC94A9 /* Assets.xcassets in Resources */,
 				B784D2BA1DAC2D4B0016A405 /* plus.png in Resources */,
 				B764F5111DBA9ED30073D268 /* musicIcon.png in Resources */,
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
@@ -901,6 +876,7 @@
 				B7BB84AC1D9DA7B20033D823 /* like.png in Resources */,
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
 				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
+				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
@@ -930,36 +906,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		42F82E71A5A4A9B1BD1D20CE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A100191B2244902248528F4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		EED24BDE957C24C5945ABC1D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1197,11 +1143,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1211,7 +1157,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.MobiSwift3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e27ffafe-74d3-401e-8894-d879df478dc4";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1221,11 +1167,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1235,7 +1181,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.MobiSwift3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e27ffafe-74d3-401e-8894-d879df478dc4";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
 			};
 			name = Release;

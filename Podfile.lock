@@ -1,7 +1,6 @@
 PODS:
   - Alamofire (3.4.2)
   - ARNTransitionAnimator (1.1.0)
-  - AudioKit (3.3)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -77,7 +76,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - ARNTransitionAnimator
-  - AudioKit
   - ChameleonFramework/Swift
   - Cosmos (~> 1.2)
   - DZNEmptyDataSet
@@ -101,7 +99,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
-  AudioKit: 6d937af5a8f9164e9f31c1f05acdba1b7b0c9fd8
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Cosmos: efddd01b729956ad6335bc58bc92e5735a1d12a3
@@ -131,6 +128,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: 3cf1c83709f1f4adffbbcec53d5dc441001a8604
+PODFILE CHECKSUM: 0b95a74250d69192e816632c0b2072d8be535486
 
 COCOAPODS: 1.0.1

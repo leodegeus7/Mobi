@@ -45,7 +45,7 @@ class MenuTableViewController: UITableViewController {
     } else {
       //tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
       if DataManager.sharedInstance.existInterfaceColor {
-//        super.tableView.backgroundColor = UIColor.whiteColor()
+        //        super.tableView.backgroundColor = UIColor.whiteColor()
         let color = DataManager.sharedInstance.interfaceColor.color
         tableView.backgroundColor = color
         viewTop.backgroundColor = color
@@ -62,8 +62,11 @@ class MenuTableViewController: UITableViewController {
                 cell2.imageUser.image = UIImage(named: "avatar.png")
               } else {
                 if DataManager.sharedInstance.myUser.name != "" {
+                  if DataManager.sharedInstance.myUser.userImage == "avatar.png" {
+                    cell2.imageUser.image = UIImage(named: "avatar.png")
+                  } else {
                     cell2.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
-
+                  }
                   cell2.nameUser.text = DataManager.sharedInstance.myUser.name.componentsSeparatedByString(" ").first!
                 } else {
                   cell2.nameUser.text = "Perfil"
@@ -97,7 +100,7 @@ class MenuTableViewController: UITableViewController {
         cell?.backgroundColor = DataManager.sharedInstance.interfaceColor.color
       }
     }
-
+    
     
   }
   
@@ -163,7 +166,11 @@ class MenuTableViewController: UITableViewController {
         userCell.imageUser.image = UIImage(named: "avatar.png")
       } else {
         if DataManager.sharedInstance.myUser.name != "" {
+          if DataManager.sharedInstance.myUser.userImage == "avatar.png" {
+            userCell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
             userCell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+          }
           userCell.nameUser.text = DataManager.sharedInstance.myUser.name.componentsSeparatedByString(" ").first!
         } else {
           userCell.nameUser.text = "Perfil"

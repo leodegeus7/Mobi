@@ -28,6 +28,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var firstTimeShowed = true
   var cellMusicIsShowed = false
   var selectedRadio = RadioRealm()
+  var selectedComment:Comment!
   var actualRadio = RadioRealm()
   var stars = [UIImageView]()
   var actualComments = [Comment]()
@@ -393,6 +394,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
     let cell = tableView.cellForRowAtIndexPath(indexPath)
     let cellTag = (cell?.tag)!
     switch cellTag {
@@ -406,6 +408,19 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       performSegueWithIdentifier("programSegue", sender: self)
     default:
       break
+    }
+    if selectedMode == .Wall {
+      if DataManager.sharedInstance.isLogged {
+        selectedComment = actualComments[indexPath.row]
+        performSegueWithIdentifier("showSubCommentsSegue", sender: self)
+      } else {
+        func okAction() {
+          DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+        }
+        func cancelAction() {
+        }
+        self.displayAlert(title: "Atenção", message: "É preciso estar logado para criar comentários", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+      }
     }
   }
   
@@ -557,6 +572,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       createVC.actualRadio = actualRadio
       createVC.actualMode = .Wall
     }
+    if segue.identifier == "showSubCommentsSegue" {
+      let createVC = segue.destinationViewController as! CommentsTableViewController
+      createVC.actualRadio = actualRadio
+      createVC.actualComment = selectedComment
+    }
   }
   
   @IBAction func buttonPlayTapped(sender: AnyObject) {
@@ -611,7 +631,16 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   func createComment() {
-    performSegueWithIdentifier("createPublicationSegue", sender: self)
+    if DataManager.sharedInstance.isLogged {
+      performSegueWithIdentifier("createPublicationSegue", sender: self)
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "É preciso estar logado para criar publicações", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+    }
   }
   
   func defineBarButton() {

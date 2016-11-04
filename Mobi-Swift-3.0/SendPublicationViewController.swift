@@ -28,6 +28,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   enum ModeType {
     case Review
     case Wall
+    case Comment
     case Undefined
   }
   
@@ -41,13 +42,13 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   var actualMode:ModeType = .Undefined
   var actualRadio:RadioRealm!
   var actualWallType:AttachmentType = .UndefinedYet
+  var actualComment:Comment!
   let imagePicker = UIImagePickerController()
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   var photoToUpload:UIImage!
   var audioToUploadPath:NSURL!
   var videoToUpload:NSURL!
   var numberOfStars = -1
-  
   
   @IBOutlet weak var viewProgress: UIView!
   @IBOutlet weak var progressBar: UIProgressView!
@@ -82,11 +83,18 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       self.title = "Criar publicação"
       cosmosView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
       cosmosView.hidden = true
-    } else {
+    } else if actualMode == .Review {
       self.title = "Criar review"
       viewIcons.hidden = true
       viewIcons.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
       viewUploadFile.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+    } else {
+      self.title = "Criar comentario"
+      viewIcons.hidden = true
+      viewIcons.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+      viewUploadFile.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+      cosmosView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+      cosmosView.hidden = true
     }
     imagePicker.delegate = self
     activityIndicator.center = view.center
@@ -163,6 +171,20 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
           Util.displayAlert(title: "Atenção", message: "Digite um texto para podermos enviar sua publicação no mural", action: "Ok")
         }
       }
+    case .Comment:
+      
+      if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
+        requestManager.sendComment(actualComment, text: textViewPublication.text, completion: { (resultComment) in
+          if resultComment {
+            self.displayAlertWithMessageAndDismiss("Concluido", message: "Seu comentário foi enviada", okTitle: "Ok")
+          } else {
+            Util.displayAlert(title: "Atenção", message: "Erro ao realizer o comentário", action: "Ok")
+          }
+        })
+      } else {
+        Util.displayAlert(title: "Atenção", message: "Digite um texto para podermos enviar sua publicação no mural", action: "Ok")
+      }
+      
       
     case .Wall:
       

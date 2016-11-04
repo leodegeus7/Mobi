@@ -109,6 +109,7 @@
 		B7842AD41DB685BB002550F3 /* audio_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = B7842AD11DB685BB002550F3 /* audio_64x64.png */; };
 		B7842AD51DB685BB002550F3 /* photo_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = B7842AD21DB685BB002550F3 /* photo_64x64.png */; };
 		B7842AD61DB685BB002550F3 /* video_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = B7842AD31DB685BB002550F3 /* video_64x64.png */; };
+		B784BDFB1DCBBCD7001671A2 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */; };
 		B784D2BA1DAC2D4B0016A405 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = B784D2B91DAC2D4B0016A405 /* plus.png */; };
 		B784D2BC1DAC337C0016A405 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784D2BB1DAC337C0016A405 /* Program.swift */; };
 		B784D2BE1DAD4D8C0016A405 /* ImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784D2BD1DAD4D8C0016A405 /* ImageObject.swift */; };
@@ -301,6 +302,7 @@
 		B7842AD11DB685BB002550F3 /* audio_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_64x64.png; sourceTree = "<group>"; };
 		B7842AD21DB685BB002550F3 /* photo_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_64x64.png; sourceTree = "<group>"; };
 		B7842AD31DB685BB002550F3 /* video_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_64x64.png; sourceTree = "<group>"; };
+		B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		B784D2B91DAC2D4B0016A405 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		B784D2BB1DAC337C0016A405 /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		B784D2BD1DAD4D8C0016A405 /* ImageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageObject.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 				B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */,
 				B7842ACF1DB54FA7002550F3 /* SendPublicationViewController.swift */,
 				B75404BD1DC8EE9800E8B694 /* ContactRadioTableViewController.swift */,
+				B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -794,6 +797,8 @@
 				B736812F1D590BA300EC94A9 /* Sources */,
 				B73681301D590BA300EC94A9 /* Frameworks */,
 				B73681311D590BA300EC94A9 /* Resources */,
+				AA7F945D245115C54D374922 /* [CP] Embed Pods Frameworks */,
+				271676F7B6E84722F4C5B8F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -822,6 +827,9 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -906,6 +914,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		271676F7B6E84722F4C5B8F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA7F945D245115C54D374922 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EED24BDE957C24C5945ABC1D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -995,6 +1033,7 @@
 				B7EE9D321D8893CE00AE27D1 /* Link.swift in Sources */,
 				B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */,
 				B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */,
+				B784BDFB1DCBBCD7001671A2 /* CommentsTableViewController.swift in Sources */,
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,
 				B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */,
 				B77C49A11D8C68D600AFF826 /* STKCoreFoundationDataSource.m in Sources */,
@@ -1145,8 +1184,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1157,7 +1197,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.MobiSwift3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e27ffafe-74d3-401e-8894-d879df478dc4";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1169,8 +1209,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1181,7 +1222,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.misfitrebels.MobiSwift3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e27ffafe-74d3-401e-8894-d879df478dc4";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobi-Swift-3.0/Mobi-Swift-3.0-Bridging-Header.h";
 			};
 			name = Release;

@@ -104,7 +104,16 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
   }
   
   func segueToCreatePublication() {
-    performSegueWithIdentifier("createPublicacionSegue", sender: self)
+    if DataManager.sharedInstance.isLogged {
+      performSegueWithIdentifier("createPublicacionSegue", sender: self)
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "É preciso estar logado para criar reviews", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+    }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

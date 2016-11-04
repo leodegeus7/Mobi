@@ -39,6 +39,12 @@ class MenuTableViewController: UITableViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
+    if self.navigationController?.navigationBar.backgroundColor != DataManager.sharedInstance.interfaceColor.color {
+      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    }
+    if tableView.visibleCells.count == 8 && !DataManager.sharedInstance.isLogged {
+          tableView.reloadData()
+    }
     if DataManager.sharedInstance.needUpdateMenu {
       tableView.reloadData()
       DataManager.sharedInstance.needUpdateMenu = false

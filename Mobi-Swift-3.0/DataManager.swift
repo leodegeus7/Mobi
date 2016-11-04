@@ -194,6 +194,12 @@ class DataManager: NSObject {
     navigation.pushViewController(vc!, animated: true)
   }
   
+  func instantiateProfile(navigation:UINavigationController) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("profileView") as? ProfileViewController
+    navigation.pushViewController(vc!, animated: true)
+  }
+
   
   
   

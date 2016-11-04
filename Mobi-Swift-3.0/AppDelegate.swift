@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+    
     UILabel.appearance().tintColor = FlatWhite()
     
     print("Iniciou!")
@@ -46,9 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
         loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
           DataManager.sharedInstance.isLogged = true
-
+          
         })
-
+        
       }
     } else {
       RealmWrapper.realmStart("default")
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       defineInitialParameters()
     }
     
-
+    
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
@@ -76,7 +76,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
       if let _ = user {
-        DataManager.sharedInstance.isLogged = true
+        dispatch_async(dispatch_get_main_queue()) {
+          user?.getTokenWithCompletion({ (token, erro) in
+            let loginManager = RequestManager()
+            loginManager.loginInServer(token!) { (result) in
+              DataManager.sharedInstance.userToken = result
+              DataManager.sharedInstance.configApp.updateUserToken(result)
+              DataManager.sharedInstance.isLogged = true
+              
+              let profileManager = RequestManager()
+              profileManager.requestMyUserInfo({ (result) in
+                
+              })
+              
+              
+            }
+          })
+        }
       } else {
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
@@ -84,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     })
     
-
+    
     //uploadProfilePicture(UIImage(named: "play.png")!)
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -158,8 +174,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         completion(result: true)
       }
     })
-
-
+    
+    
     
   }
   
@@ -222,7 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (FlatPurpleDark()))
       DataManager.sharedInstance.existInterfaceColor = true
       
-
+      
     }
     DataManager.sharedInstance.needUpdateMenu = true
     let appConfigRealm = realm.objects(AppConfigRealm.self).filter("id == 1")
@@ -234,7 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         //DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
       }
     }
-
+    
     
     DataBaseTest.infoWithoutRadios()
   }
@@ -275,8 +291,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func uploadProfilePicture(photo: UIImage){
-
-
+    
+    
     
     Alamofire.upload(.POST, "http://feroxhome.mooo.com:8080/radiocontrole-web/api/image/upload", multipartFormData: { multipartFormData in
       if let imageData = UIImageJPEGRepresentation(photo, 0.8) {

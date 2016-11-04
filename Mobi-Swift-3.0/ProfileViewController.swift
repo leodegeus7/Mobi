@@ -98,6 +98,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   ///////////////////////////////////////////////////////////
   
   override func viewDidAppear(animated: Bool) {
+    
     buttonEdit.layer.cornerRadius = buttonEdit.frame.height/2
     buttonEdit.clipsToBounds = true
     buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
@@ -108,6 +109,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   override func viewWillAppear(animated: Bool) {
+    if self.navigationController?.navigationBar.backgroundColor != DataManager.sharedInstance.interfaceColor.color {
+      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    }
     if !DataManager.sharedInstance.isLogged {
       view.hidden = true
       loginButtonTap(self)
@@ -172,14 +176,18 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   ///////////////////////////////////////////////////////////
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if DataManager.sharedInstance.isLogged {
-      heightTableView.constant = 130*CGFloat(myUser.favoritesRadios.count)
-      if myUser.favoritesRadios.count == 0 {
-        labelTitleTableView.text = "NÃO HÁ RADIOS FAVORITADAS"
+    if DataManager.sharedInstance.isLogged{
+      if let favorites = myUser.favoritesRadios {
+        heightTableView.constant = 130*CGFloat(favorites.count)
+        if myUser.favoritesRadios.count == 0 {
+          labelTitleTableView.text = "NÃO HÁ RADIOS FAVORITADAS"
+        } else {
+          labelTitleTableView.text = "RADIOS FAVORITAS"
+        }
+        return myUser.favoritesRadios.count
       } else {
-        labelTitleTableView.text = "RADIOS FAVORITAS"
+        return 0
       }
-      return myUser.favoritesRadios.count
     }
     else {
       return 0

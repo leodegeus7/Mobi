@@ -18,7 +18,7 @@ class LoadViewController: UIViewController {
   
   var loadTimer = NSTimer()
   var viewInitial:InitialTableViewController!
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -69,12 +69,12 @@ class LoadViewController: UIViewController {
   
   func requestInitialInformation() {
     
-
     
+    print("Inicando teste de servidor")
     let testManager = RequestManager()
     testManager.testServer { (result) in //valida sem userToken
       
-
+      
       
       if result {
         //        let manager = RequestManager()
@@ -89,32 +89,35 @@ class LoadViewController: UIViewController {
         //          DataManager.sharedInstance.allRadios.append(radio)
         //        }
         
-        
+        print("Servidor testado")
         DataBaseTest.infoWithoutRadios()
         self.notificationCenter.postNotificationName("reloadData", object: nil)
         
         let genreManager = RequestManager()
         genreManager.requestMusicGenre({ (resultGenre) in  //valida sem userToken
-          
+          print("Request de generos concluido")
         })
         
         let localManager = RequestManager()
         localManager.requestStates({ (resultState) in
+          print("Request de locais concluido")
         })
         
         if DataManager.sharedInstance.isLogged {
+          print("Usuario logado")
           let favManager = RequestManager()
           favManager.requestUserFavorites({ (resultFav) in
-            
+            print("Request de favoritos do usuario concluido")
             let profileManager = RequestManager()
             profileManager.requestMyUserInfo({ (result) in
-              
+              print("Request de info de users concluido")
               let likesManager = RequestManager()
               likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+                print("Request de radios top rated concluido")
                 self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
                 let historicManager = RequestManager()
                 historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
-                  
+                  print("Request de historico concluido")
                   self.dismissViewControllerAnimated(true, completion: {
                     
                   })
@@ -123,11 +126,13 @@ class LoadViewController: UIViewController {
             })
           })
         } else {
+          print("Usuario nao logado")
           let likesManager = RequestManager()
           likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+            print("Request de radios likes concluido")
             self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
             self.dismissViewControllerAnimated(true, completion: {
-              
+              print("Tudo pronto")
             })
           })
         }
@@ -147,7 +152,7 @@ class LoadViewController: UIViewController {
     }
   }
   
-
+  
   
   
   func timerExplode() {

@@ -706,6 +706,35 @@ class RequestManager: NSObject {
     }
   }
   
+  func requestComments(actualComment:Comment,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
+    requestJson("wall/\(actualComment.id)/comments?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      if let array = result["data"]?["records"] as? NSArray {
+        var comments = [Comment]()
+        for singleResult in array {
+          let dic = singleResult as! NSDictionary
+          var user = UserRealm()
+          
+          if let image = dic["author"]?["image"] as? NSDictionary {
+            let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+          } else {
+            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+          }
+          
+          let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String)
+          comment.postType = .Text
+          comments.append(comment)
+          
+        }
+        comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+        completion(resultWall: comments)
+      }
+      else {
+        completion(resultWall: [])
+      }
+    }
+  }
+  
   func sendReviewPublication(radio:RadioRealm,text:String,score:Int,completion: (resultReview: Bool) -> Void) {
     
     let parameters = [
@@ -726,6 +755,27 @@ class RequestManager: NSObject {
       }
     }
   }
+  
+  func sendComment(coment:Comment,text:String,completion: (resultComment: Bool) -> Void) {
+    
+    let parameters = [
+      "text": text,
+      "dateTime": Util.convertActualDateToString()
+    ]
+    
+    genericRequest(.PUT, parameters: parameters, urlTerminationWithoutInitialCharacter: "wall/\(coment.id)/comments") { (result) in
+      if let resultRequest = result["requestResult"] as? String{
+        if resultRequest == "OK" {
+          print("Criado comentário em \(coment.id) com sucesso. Id: \(result["data"]!["id"] as! Int)")
+          completion(resultComment: true)
+        }
+        else {
+          completion(resultComment: false)
+        }
+      }
+    }
+  }
+  
   
   func sendWallPublication(radio:RadioRealm,text:String,postType:Int,attachmentIdentifier:String,completion: (resultWall: Bool) -> Void) {
     var parameters = [:]
@@ -1413,18 +1463,26 @@ class RequestManager: NSObject {
   
   func requestNumberOfFollowers(user:UserRealm,completion: (resultNumberFollowers: Int) -> Void) {
     requestJson("app/user/\(user.id)/followers?pageNumber=0&pageSize=1") { (result) in
-      if let array = result["data"] as? NSDictionary {
-        let number = array["totalRecords"] as! Int
-        completion(resultNumberFollowers: number)
+      if result["requestResult"] as? String == "OK" {
+        if let array = result["data"] as? NSDictionary {
+          let number = array["totalRecords"] as! Int
+          completion(resultNumberFollowers: number)
+        }
+      } else {
+        print("Error ao requsitar requestNumberOfFollowing")
       }
     }
   }
   
   func requestNumberOfFollowing(user:UserRealm,completion: (resultNumberFollowing: Int) -> Void) {
     requestJson("app/user/\(user.id)/following?pageNumber=0&pageSize=1") { (result) in
-      if let array = result["data"] as? NSDictionary {
-        let number = array["totalRecords"] as! Int
-        completion(resultNumberFollowing: number)
+      if result["requestResult"] as? String == "OK" {
+        if let array = result["data"] as? NSDictionary {
+          let number = array["totalRecords"] as! Int
+          completion(resultNumberFollowing: number)
+        }
+      } else {
+        print("Error ao requsitar requestNumberOfFollowing")
       }
     }
   }

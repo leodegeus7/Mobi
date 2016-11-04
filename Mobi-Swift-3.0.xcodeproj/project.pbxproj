@@ -39,7 +39,6 @@
 		B74BB93B1D78ABF80076FE2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BB93A1D78ABF80076FE2D /* ViewController.swift */; };
 		B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */; };
 		B74D652C1D8B1836007798F4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D652B1D8B1836007798F4 /* Comment.swift */; };
-		B74D652F1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */; };
 		B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */ = {isa = PBXBuildFile; fileRef = B74D65301D8B3E2B007798F4 /* CellDesign.xib */; };
 		B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF161D5BA140001AFC32 /* GenreViewController.swift */; };
 		B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */; };
@@ -136,6 +135,8 @@
 		B7B1B94F1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B1B94E1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift */; };
 		B7B1B9511DC25D1A00F6ED7A /* play3.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B1B9501DC25D1A00F6ED7A /* play3.png */; };
 		B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */; };
+		B7B7234E1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B7234C1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.m */; };
+		B7B723501DCD1D2500DF2D12 /* NewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B7234F1DCD1D2500DF2D12 /* NewTableViewCell.swift */; };
 		B7BB84A41D9C47030033D823 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A31D9C47030033D823 /* View.xib */; };
 		B7BB84A61D9D84FF0033D823 /* AppConfigRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */; };
 		B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A71D9D92F10033D823 /* heartRedFilled.png */; };
@@ -220,8 +221,6 @@
 		B74BB93A1D78ABF80076FE2D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
 		B74D652B1D8B1836007798F4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		B74D652D1D8B3704007798F4 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
-		B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		B74D65301D8B3E2B007798F4 /* CellDesign.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellDesign.xib; sourceTree = "<group>"; };
 		B74ECF161D5BA140001AFC32 /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTableViewCell.swift; sourceTree = "<group>"; };
@@ -331,6 +330,9 @@
 		B7B1B94E1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallAudioPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		B7B1B9501DC25D1A00F6ED7A /* play3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play3.png; sourceTree = "<group>"; };
 		B7B4A9F51D5A746400297BF0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7B7234C1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		B7B7234D1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		B7B7234F1DCD1D2500DF2D12 /* NewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTableViewCell.swift; sourceTree = "<group>"; };
 		B7BB84A31D9C47030033D823 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B7BB84A51D9D84FE0033D823 /* AppConfigRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigRealm.swift; sourceTree = "<group>"; };
 		B7BB84A71D9D92F10033D823 /* heartRedFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRedFilled.png; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				B74ECF1C1D5BBC99001AFC32 /* FirstNewTableViewCell.swift */,
 				B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */,
 				B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */,
+				B7B7234F1DCD1D2500DF2D12 /* NewTableViewCell.swift */,
 			);
 			name = "News Cells";
 			sourceTree = "<group>";
@@ -749,6 +752,8 @@
 		D49D2FC35E851E08064CD55B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7B7234C1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.m */,
+				B7B7234D1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.h */,
 				B75404BB1DC8ECE900E8B694 /* GameKit.framework */,
 				B75404B91DC8ECE400E8B694 /* StoreKit.framework */,
 				B784D2CB1DB002010016A405 /* libstdc++.tbd */,
@@ -771,8 +776,6 @@
 				B7880BA71D5E493A002B235A /* MapKit.framework */,
 				B7880BA51D5E491F002B235A /* CoreLocation.framework */,
 				F9B8012B5039524A6EF09EA8 /* Pods_Mobi_Swift_3_0.framework */,
-				B74D652D1D8B3704007798F4 /* UIScrollView+EmptyDataSet.h */,
-				B74D652E1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -996,7 +999,6 @@
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
 				B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */,
-				B74D652F1D8B3704007798F4 /* UIScrollView+EmptyDataSet.m in Sources */,
 				B764F50D1DBA7F270073D268 /* InfoRds.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B764F50F1DBA88A20073D268 /* Music.swift in Sources */,
@@ -1005,6 +1007,7 @@
 				B77C49891D8C68A800AFF826 /* StreamingTestViewController.swift in Sources */,
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
 				B75404B81DC7BAA400E8B694 /* LinkRSS.swift in Sources */,
+				B7B7234E1DCD068000DF2D12 /* UIScrollView+EmptyDataSet.m in Sources */,
 				B75404BE1DC8EE9800E8B694 /* ContactRadioTableViewController.swift in Sources */,
 				B7E6973C1D591CD100EC276F /* FirstTypeMenuTableViewCell.swift in Sources */,
 				B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */,
@@ -1047,6 +1050,7 @@
 				B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */,
 				B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */,
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
+				B7B723501DCD1D2500DF2D12 /* NewTableViewCell.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
 				B77C49A51D8C68D600AFF826 /* STKLocalFileDataSource.m in Sources */,
@@ -1186,7 +1190,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1211,7 +1215,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

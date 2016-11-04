@@ -11,7 +11,6 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - Cosmos (1.2.3)
-  - DZNEmptyDataSet (1.8.1)
   - Eureka (1.7.0)
   - Fabric (1.6.8)
   - FBSDKCoreKit (4.17.0):
@@ -78,7 +77,6 @@ DEPENDENCIES:
   - ARNTransitionAnimator
   - ChameleonFramework/Swift
   - Cosmos (~> 1.2)
-  - DZNEmptyDataSet
   - Eureka
   - Fabric
   - Firebase/Auth
@@ -102,7 +100,6 @@ SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Cosmos: efddd01b729956ad6335bc58bc92e5735a1d12a3
-  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Eureka: 2020d9faeef7b7e9adeb9e3d8af779e5931c1897
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
@@ -128,6 +125,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: 0b95a74250d69192e816632c0b2072d8be535486
+PODFILE CHECKSUM: aaa35f8d843e4dc0dd7fa308e62b00ed77c861eb
 
 COCOAPODS: 1.0.1

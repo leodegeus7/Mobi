@@ -185,6 +185,11 @@ class Util: NSObject {
   }
   
   static func convertStringToNSDate(dateString:String) -> NSDate{
+    if dateString.characters.count > 20 {
+      let formatter = NSDateFormatter()
+      formatter.dateFormat = "EEE, dd MM yyyy HH:mm:ss zzz"
+      return formatter.dateFromString(dateString)!
+    }
     if dateString.characters.count == 10 {
       if !dateString.containsString("/") {
         let formatter = NSDateFormatter()
@@ -213,6 +218,13 @@ class Util: NSObject {
     let calender = NSCalendar.currentCalendar()
     let components = calender.components([.Day, .Month, . Year], fromDate: date)
     let dateString = "\(components.day)/\(components.month)/\(components.year)"
+    return dateString
+  }
+  
+  static func convertDateToShowStringWithHour(date:NSDate) -> String {
+    let calender = NSCalendar.currentCalendar()
+    let components = calender.components([.Day, .Month, . Year, .Hour, .Minute], fromDate: date)
+    let dateString = "\(components.hour):\(components.minute) \(components.day)/\(components.month)/\(components.year)"
     return dateString
   }
   

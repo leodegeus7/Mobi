@@ -112,7 +112,7 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
       }
       func cancelAction() {
       }
-      self.displayAlert(title: "Atenção", message: "É preciso estar logado para criar reviews", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+      self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     }
   }
   

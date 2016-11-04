@@ -17,11 +17,12 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   var entryTitle: String!
   var entryDescription: String!
   var entryLink: String!
+  var entryDate: String!
   var currentParsedElement:String! = String()
   var entryDictionary: [String:String]! = Dictionary()
   var entriesArray:[Dictionary<String, String>]! = Array()
-  
-  
+  var firstTimeShowed = true
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -40,8 +41,17 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
     
+    activityIndicator.center = view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+    
     DataManager.sharedInstance.allNews = []
-    requestRssLink()
+    requestRssLink { (result) in
+      self.tableView.allowsSelection = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      self.tableView.reloadData()
+    }
     
   }
   
@@ -59,35 +69,48 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return DataManager.sharedInstance.allNews.count
+    if firstTimeShowed {
+      return 1
+    } else {
+      return DataManager.sharedInstance.allNews.count
+    }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
-      let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-      cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-      cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-      cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
-      
-      cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-      return cell
-    } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
-      let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-      cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-      cell.textDescription.text = ""
-      let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-      cell.heightTextView.constant = heightTV
-      cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
-      cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
+    if firstTimeShowed {
+      let cell = UITableViewCell()
       return cell
     } else {
-      let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
-      cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
-      cell.heightView.constant = cell.imageDescription.frame.height
+      let cell = tableView.dequeueReusableCellWithIdentifier("newCellNew", forIndexPath: indexPath) as! NewTableViewCell
+      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+      cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
       return cell
+      
+      if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
+        let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
+        cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+        
+        cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        return cell
+      } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
+        let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        cell.textDescription.text = ""
+        let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        cell.heightTextView.constant = heightTV
+        cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
+        cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
+        return cell
+      } else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
+        cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+        cell.heightView.constant = cell.imageDescription.frame.height
+        return cell
+      }
     }
   }
   
@@ -130,18 +153,20 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     }
   }
   
-  func requestRssLink() {
+  func requestRssLink(completion: (result: Bool) -> Void) {
     let requestManager = RequestManager()
     requestManager.requestFeed { (resultFeedLink) in
       if resultFeedLink.count > 0 {
-        self.requestRSS((resultFeedLink.first?.link)!)
+        self.requestRSS((resultFeedLink.first?.link)!, completion: { (resultNew) in
+          completion(result: true)
+        })
       } else {
         Util.displayAlert(title: "Problemas", message: "Houve algum problema ao fazer o download das notícias, tente novamente mais tarde", action: "Ok")
       }
     }
   }
   
-  func requestRSS(url:String) {
+  func requestRSS(url:String,completion: (resultNew: Bool) -> Void) {
     let rssUrlRequest:NSURLRequest = NSURLRequest(URL:NSURL(string: url)!)
     let queue:NSOperationQueue = NSOperationQueue()
     NSURLConnection.sendAsynchronousRequest(rssUrlRequest, queue: queue) { (response, data, error) in
@@ -152,6 +177,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       self.xmlParser.shouldResolveExternalEntities = false
       self.xmlParser.shouldReportNamespacePrefixes = false
       self.xmlParser.parse()
+      completion(resultNew: true)
     }
   }
   
@@ -168,6 +194,10 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       entryLink = String()
       currentParsedElement = "link"
     }
+    if elementName == "pubDate" {
+      entryLink = String()
+      currentParsedElement = "date"
+    }
   }
   
   func parser(parser: NSXMLParser,
@@ -180,6 +210,9 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     }
     if currentParsedElement == "link"{
       entryLink = entryLink + string
+    }
+    if currentParsedElement == "pubDate" {
+      entryDate = entryLink  + string
     }
   }
   
@@ -194,10 +227,14 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     if elementName == "link"{
       entryDictionary["link"] = entryLink
     }
+    if elementName == "pubDate" {
+      entryDictionary["date"] = entryLink
+    }
     if elementName == "description"{
       entryDictionary["description"] = entryDescription
-      if entryTitle != nil && entryTitle != "" && entryLink != nil && entryLink != "" && entryDescription != nil && entryDescription != "" {
-        let new = New(title: entryTitle , descr: entryDescription,link:entryLink)
+      if entryTitle != nil && entryTitle != "" && entryLink != nil && entryLink != "" && entryDescription != nil && entryDescription != "" && entryDate != nil && entryDate != "" {
+        
+        let new = New(title: entryTitle, descr: entryDescription, link: entryLink, date: Util.convertStringToNSDate(entryDate))
         DataManager.sharedInstance.allNews.append(new)
       }
       entriesArray.append(entryDictionary)

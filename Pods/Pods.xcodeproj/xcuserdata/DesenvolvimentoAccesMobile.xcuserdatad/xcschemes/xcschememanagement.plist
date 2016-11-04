@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DZNEmptyDataSet.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Eureka.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,22 +92,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
+		<key>118DC39167A243FF1998A712C5882818</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>18D47F74747074D3D6F47D4B7A7973C2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>29B4FAE14374568E13E1C31A1FEC1897</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>396E5C4B3BB73161F2EE092D0E03D9C5</key>
+		<key>269C99FD8562F2C92A62198673B25217</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +107,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>46761B5CD03779340FC4DC00C29C2040</key>
+		<key>48B5DF02377FD1FF3F30A78737968E53</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4C124FF2A8BADF39962F36A6D8C04A63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6F5520A3A67EF4EF1786A7F4D7E94800</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B8FA2104F236C2A917F88DD938E8866</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,17 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE76522658A41FB80868E0B710C58210</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B6C39D09A0F539C42D6887E5BFF1E861</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B7C11E8FD69948B42F586C6497E9C38C</key>
+		<key>FF8A8B7DE195548914C22EF24B9658CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

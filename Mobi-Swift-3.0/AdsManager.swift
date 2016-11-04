@@ -15,7 +15,7 @@ class AdsManager: NSObject {
   var isAdsRequested = false
   var timeWasRequested:NSDate!
   
-  public enum ScreenName {
+  internal enum ScreenName {
     case PlayerScreen
     case ProfileScreen
     case SearchScreen

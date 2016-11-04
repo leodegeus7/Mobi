@@ -33,7 +33,7 @@ class MenuTableViewController: UITableViewController {
     //    imageView.contentMode = .ScaleAspectFit
     //    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
     //    tableView.backgroundView = imageView
-    tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.navigationItem.setHidesBackButton(true, animated: false)
     
   }

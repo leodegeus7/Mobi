@@ -1287,18 +1287,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="firstCell" rowHeight="310" id="EO5-sQ-OUY" customClass="FirstNewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="600" height="310"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="firstCell" rowHeight="275" id="EO5-sQ-OUY" customClass="FirstNewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="600" height="275"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EO5-sQ-OUY" id="MDP-0c-CJd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="309"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yrd-Bm-jvQ">
-                                            <rect key="frame" x="8" y="8" width="584" height="276"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="241"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gL6-Fm-qGv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gL6-Fm-qGv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1306,8 +1306,8 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="21"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7p-ne-CxM">
-                                                    <rect key="frame" x="0.0" y="21" width="584" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7p-ne-CxM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="7"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1316,7 +1316,7 @@
                                                     </variation>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="300" verticalCompressionResistancePriority="800" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-hH-aWN">
-                                                    <rect key="frame" x="0.0" y="42" width="584" height="103"/>
+                                                    <rect key="frame" x="0.0" y="7" width="584" height="103"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="103" id="yrQ-Ol-e1k"/>
@@ -1329,7 +1329,7 @@
                                                     </variation>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="254" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="26o-mm-DoV">
-                                                    <rect key="frame" x="0.0" y="145" width="584" height="131"/>
+                                                    <rect key="frame" x="0.0" y="110" width="584" height="131"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="131" id="QtN-2i-MtC"/>
                                                         <constraint firstAttribute="width" secondItem="26o-mm-DoV" secondAttribute="height" multiplier="584:131" id="y5z-pK-moM"/>
@@ -1369,15 +1369,15 @@
                                     <outlet property="textDescription" destination="7TK-hH-aWN" id="auS-OE-e9T"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="secondCell" rowHeight="213" id="Tl8-ZG-cQt" customClass="SecondNewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="382" width="600" height="213"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="secondCell" rowHeight="39" id="Tl8-ZG-cQt" customClass="SecondNewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="347" width="600" height="39"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tl8-ZG-cQt" id="QBO-OM-BYe">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="212"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="38"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="dMF-KH-G0c">
-                                            <rect key="frame" x="8" y="8" width="584" height="196"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="176"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYf-pd-9zp">
                                                     <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
@@ -1392,7 +1392,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FLc-E6-JZn">
-                                                    <rect key="frame" x="0.0" y="42" width="584" height="154"/>
+                                                    <rect key="frame" x="0.0" y="42" width="584" height="134"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="154" id="vQs-7q-UUC"/>
@@ -1425,6 +1425,52 @@
                                     <outlet property="labelDate" destination="uPc-9p-oUn" id="w39-6s-cjF"/>
                                     <outlet property="labelTitle" destination="NYf-pd-9zp" id="RC2-Oq-js5"/>
                                     <outlet property="textDescription" destination="FLc-E6-JZn" id="sri-mq-Fkh"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newCellNew" rowHeight="120" id="Q0X-cW-Pku" customClass="NewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="386" width="600" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q0X-cW-Pku" id="02m-Mr-eW0">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c03-6O-TPi">
+                                            <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="cd9-H0-jZ6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Kickstar project of the week: Pocket is a wallet and a " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bAO-Li-42a">
+                                            <rect key="frame" x="8" y="29" width="584" height="72"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="56" id="9Le-1D-bS9"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="9Le-1D-bS9"/>
+                                                </mask>
+                                            </variation>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="topMargin" secondItem="c03-6O-TPi" secondAttribute="top" id="1WL-Wk-uyz"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="c03-6O-TPi" secondAttribute="leading" id="Cw2-Lu-Udv"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="bAO-Li-42a" secondAttribute="leading" id="YK3-8j-y1l"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bAO-Li-42a" secondAttribute="bottom" constant="10" id="fOd-Z5-ltx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bAO-Li-42a" secondAttribute="trailing" id="ghn-rN-Br3"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="c03-6O-TPi" secondAttribute="trailing" id="hHy-OC-Tia"/>
+                                        <constraint firstItem="bAO-Li-42a" firstAttribute="top" secondItem="c03-6O-TPi" secondAttribute="bottom" id="ssh-pF-Hlh"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelDate" destination="c03-6O-TPi" id="wlw-XM-Ak2"/>
+                                    <outlet property="labelTitle" destination="bAO-Li-42a" id="1BV-MF-X7I"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

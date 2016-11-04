@@ -20,13 +20,13 @@ class New {
   dynamic var link = ""
   
 
-  convenience init(title:String, descr:String,link:String) {
+  convenience init(title:String, descr:String,link:String,date:NSDate) {
     self.init()
     self.newDescription = descr
     self.type = "Simple"
     self.title = title
     self.link = link
-    
+    self.date = Util.convertDateToShowStringWithHour(date)
   }
   
   convenience init(id:String,newTitle:String, newDescription: String, date:String) {

@@ -121,12 +121,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   override func viewWillAppear(animated: Bool) {
     defineBarButton()
+    
   }
   
   ///////////////////////////////////////////////////////////
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
-  
+
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
@@ -239,6 +240,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         } else {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
           cell.adsButton.backgroundColor = UIColor.brownColor()
+          cell.selectionStyle = .None
           AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
             dispatch_async(dispatch_get_main_queue()) {
               if let imageAd = resultAd.image {
@@ -410,17 +412,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       break
     }
     if selectedMode == .Wall {
-      if DataManager.sharedInstance.isLogged {
-        selectedComment = actualComments[indexPath.row]
-        performSegueWithIdentifier("showSubCommentsSegue", sender: self)
-      } else {
-        func okAction() {
-          DataManager.sharedInstance.instantiateProfile(self.navigationController!)
-        }
-        func cancelAction() {
-        }
-        self.displayAlert(title: "Atenção", message: "É preciso estar logado para criar comentários", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
-      }
+            performSegueWithIdentifier("showSubCommentsSegue", sender: self)
     }
   }
   

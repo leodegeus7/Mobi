@@ -332,6 +332,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
     Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withContentStyle: .Contrast)
+      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+
     if error != nil {
       if !DataManager.sharedInstance.isLogged {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

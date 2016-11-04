@@ -74,7 +74,16 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   func createComment() {
-    performSegueWithIdentifier("createPublicationSegue", sender: self)
+    if DataManager.sharedInstance.isLogged {
+      performSegueWithIdentifier("createPublicacionSegue", sender: self)
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+    }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

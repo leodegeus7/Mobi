@@ -1514,7 +1514,7 @@ class RequestManager: NSObject {
   }
   
   func requestAdvertisement(completion: (resultAd: [Advertisement]) -> Void) {
-    requestJson("advertisement") { (result) in
+    requestJson("app/ad?dateTimeRef=\(Util.convertActualDateToString())") { (result) in
       if let array = result["data"] as? NSArray {
         var ads = [Advertisement]()
         for ad in array {

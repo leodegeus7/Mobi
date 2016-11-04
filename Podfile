@@ -14,7 +14,6 @@ pod ‘Firebase/Auth’
 pod 'Fabric'
 pod 'TwitterKit'
 pod 'TwitterCore'
-pod 'DZNEmptyDataSet'
 pod 'PullToRefresh'
 pod 'ChameleonFramework/Swift'
 pod 'Kingfisher', '~> 2.5’

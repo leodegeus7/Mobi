@@ -338,7 +338,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
-    
+    self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
   }
   
   override func viewDidAppear(animated: Bool) {

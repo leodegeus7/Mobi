@@ -103,6 +103,8 @@ class DataManager: NSObject {
   var advertisement = [Advertisement]()
   var isAdsRequested = false
   
+  var navigationController = UINavigationController()
+  
   struct ProgramDays {
     var isSunday:Bool
     var isMonday:Bool

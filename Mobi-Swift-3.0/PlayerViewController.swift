@@ -32,8 +32,10 @@ class PlayerViewController: UIViewController {
   
   @IBOutlet weak var labelWithoutMusic: UILabel!
   @IBOutlet weak var viewWithoutMusic: UIView!
+  @IBOutlet weak var viewLoading: UIView!
   @IBOutlet weak var viewProgram: UIView!
   @IBOutlet weak var viewMusic: UIView!
+  @IBOutlet weak var buttonDetailRadio: UIButton!
   
   @IBOutlet weak var buttonAdvertisement: UIButton!
   
@@ -62,14 +64,14 @@ class PlayerViewController: UIViewController {
     let screenSize:CGRect = UIScreen.mainScreen().bounds
     let screenHeigh = screenSize.height
     
-//    if screenHeigh > 510 {
+    if screenHeigh > 510 {
     
-//      let newHeight = self.view.frame.size.height * 0.55
-//      contraintsPropFirstView.constant = newHeight
-//    } else {
-//      let newHeight = self.view.frame.size.height * 0.45
-//      contraintsPropFirstView.constant = newHeight
-//    }
+      let newHeight = self.view.frame.size.height * 0.65
+      contraintsPropFirstView.constant = newHeight
+    } else {
+      let newHeight = self.view.frame.size.height * 0.45
+      contraintsPropFirstView.constant = newHeight
+    }
     
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
       buttonFav.setImage(UIImage(named: "love1.png"), forState: .Normal)
@@ -77,20 +79,16 @@ class PlayerViewController: UIViewController {
       buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
     
-    
+    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
+
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
     view.backgroundColor = colorWhite
-    viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
     
-    imageIndicatorDown.backgroundColor = UIColor.clearColor()
-    
-    
-    
+    buttonDetailRadio.backgroundColor = UIColor.clearColor()
     viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
-    notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
     updateInfoOfView()
     segmentedChanged(self)
     
@@ -103,16 +101,32 @@ class PlayerViewController: UIViewController {
         }
       }
     })
+    
+    
+
+
+    imageIndicatorDown.backgroundColor = UIColor.clearColor()
+    
+    viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
+
+
+    
   }
   
-  override func viewWillAppear(animated: Bool) {
-    //updateInterfaceWithGracenote()
+  override func viewDidLayoutSubviews() {
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
-    view.backgroundColor = colorWhite
     viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
-    
+    view.backgroundColor = colorWhite
+  }
+  
+
+  
+  override func viewWillAppear(animated: Bool) {
+    view.backgroundColor = colorWhite
+  
     imageIndicatorDown.backgroundColor = UIColor.clearColor()
     
     viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
@@ -239,7 +253,10 @@ class PlayerViewController: UIViewController {
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
   }
   
+
+  
   func updateInterfaceWithGracenote() {
+    loadingMusicView()
     if let _ = DataManager.sharedInstance.musicInExecution.name {
       if DataManager.sharedInstance.musicInExecution.isMusicOld() {
         requestGracenote({ (result) in
@@ -318,11 +335,15 @@ class PlayerViewController: UIViewController {
         })
       }
       setButtonMusicType(DataManager.sharedInstance.musicInExecution)
+      viewLoading.alpha = 0
+      viewWithoutMusic.alpha = 0
+      viewMusic.alpha = 1
+      imageMusic.alpha = 1
+      buttonNLike.alpha = 1
+      butonLike.alpha = 1
+      labelWithoutMusic.text = ""
     } else {
-      labelMusicName.text = "Musica"
-      labelArtist.text = "Artista"
-      buttonNLike.backgroundColor = UIColor.clearColor()
-      butonLike.backgroundColor = UIColor.clearColor()
+      lockMusicView()
     }
   }
   
@@ -337,11 +358,48 @@ class PlayerViewController: UIViewController {
     }
   }
   
-  func lockMusicView() {
-    viewWithoutMusic.hidden = false
-    viewWithoutMusic.alpha = 1
+  func loadingMusicView() {
+    buttonNLike.backgroundColor = UIColor.clearColor()
+    butonLike.backgroundColor = UIColor.clearColor()
+    viewMusic.alpha = 0.8
+    imageMusic.image = UIImage()
+    imageMusic.backgroundColor = UIColor.clearColor()
+    imageMusic.alpha = 0.6
+    labelArtist.text = "Artista"
+    labelMusicName.text = "Musica"
+    buttonNLike.alpha = 0.6
+    butonLike.alpha = 0.6
     labelWithoutMusic.text = "Não há informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
+    let imageCD = UIImage(named: "musicIcon.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    viewWithoutMusic.alpha = 0
+    viewLoading.alpha = 0.8
+    setButtonMusicType(DataManager.sharedInstance.musicInExecution)
+  }
+  
+  func lockMusicView() {
+    viewWithoutMusic.hidden = false
+    viewLoading.alpha = 0
+    viewWithoutMusic.alpha = 0.8
+    viewMusic.alpha = 0.6
+    imageMusic.image = UIImage()
+    imageMusic.backgroundColor = UIColor.clearColor()
+    imageMusic.alpha = 0.6
+    labelArtist.text = "Artista"
+    labelMusicName.text = "Musica"
+    buttonNLike.alpha = 0.6
+    butonLike.alpha = 0.6
+    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
+    let imageCD = UIImage(named: "musicIcon.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
   @IBAction func buttonNLikeTap(sender: AnyObject) {
     butonLike.alpha = 0.3
@@ -367,14 +425,10 @@ class PlayerViewController: UIViewController {
     }
     StreamingRadioManager.sharedInstance.sendNotification()
   }
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+
+  @IBAction func openRadioDetail(sender: AnyObject) {
+    DataManager.sharedInstance.instantiateRadioDetailView(DataManager.sharedInstance.navigationController, radio: StreamingRadioManager.sharedInstance.actualRadio)
+    DataManager.sharedInstance.miniPlayerView.dismissPlayer()
+  }
 
 }

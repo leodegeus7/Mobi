@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>464130936707-i06ndhe52jutadnafjs8k7o5e1n4hpgh.apps.googleusercontent.com</string>
+	<string>464130936707-2pllfadg4os1quq7kil9rsk698qmoo9s.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.464130936707-i06ndhe52jutadnafjs8k7o5e1n4hpgh</string>
+	<string>com.googleusercontent.apps.464130936707-2pllfadg4os1quq7kil9rsk698qmoo9s</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB4bGcm7FDfuTBtqO8xwzqVUjvNLGpb6zg</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.misfitrebels.Mobi-Swift-3-0</string>
+	<string>com.misfitrebels.MobiSwift3-0</string>
 	<key>PROJECT_ID</key>
 	<string>mobi-140607</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:464130936707:ios:26819a4112ddf788</string>
+	<string>1:464130936707:ios:cf88dc421de74235</string>
 	<key>DATABASE_URL</key>
 	<string>https://mobi-140607.firebaseio.com</string>
 </dict>

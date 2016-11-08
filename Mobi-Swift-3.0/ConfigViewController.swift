@@ -36,10 +36,14 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
   
-  let colorArray:[UIColor] = [FlatRed(),FlatOrange(),FlatYellow(),FlatMint(),FlatPurple(),FlatRedDark(),FlatOrangeDark(),FlatYellowDark(),FlatMintDark(),FlatPurpleDark()]
+  let colorArray1:[UIColor] = [FlatTealDark(),FlatSkyBlueDark(),FlatNavyBlueDark(),FlatPlumDark(),FlatWatermelonDark(),FlatRedDark(),FlatOrangeDark(),FlatBrownDark(),FlatForestGreenDark(),FlatPurpleDark()]
+  let colorArray2:[UIColor] = [FlatTeal(),FlatSkyBlue(),FlatNavyBlue(),FlatPlum(),FlatWatermelon(),FlatRed(),FlatOrange(),FlatBrown(),FlatForestGreen(),FlatPurple()]
+  
+  var colorArray:[UIColor] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    colorArray = colorArray1
     self.view.userInteractionEnabled = true
     menuButton.target = self.revealViewController()
     menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -90,7 +94,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     sliderMedios.value = Float(DataManager.sharedInstance.audioConfig.medio)
     
     
-    let imageCheck = UIImage(named: "okImage.png")
+    let imageCheck = UIImage(named: "check.png")
     let imageCheckSized = Util.imageResize(imageCheck!, sizeChange: CGSize(width: 0.5*CGFloat(stackColors.frame.width/((CGFloat(colorButtons.count)/2.0)-1.0)), height: 0.5*(stackColors.frame.height/3)))
     imageCheckView = UIImageView(image: imageCheckSized)
     
@@ -102,7 +106,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
         
         let image = UIImageView(frame: button.frame)
-        image.image = UIImage(named: "okImage.png")
+        image.image = UIImage(named: "check.png")
         image.frame = button.frame
         
         button.setBackgroundImage(image.image, forState: .Normal)
@@ -143,6 +147,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       cell.labelAudio.text = "Automática"
     }
     cell.labelAudio.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let viewSelected = UIView()
+    viewSelected.backgroundColor = colorAlpha
+    cell.selectedBackgroundView = viewSelected
     return cell
   }
   
@@ -192,29 +200,43 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     print(sender?.tag)
     
     tableViewAudio.reloadData()
-    sliderAgudos.reloadInputViews()
-    sliderGraves.reloadInputViews()
-    sliderMedios.reloadInputViews()
+    sliderAgudos.thumbTintColor = DataManager.sharedInstance.interfaceColor.color
+    sliderGraves.thumbTintColor = DataManager.sharedInstance.interfaceColor.color
+    sliderMedios.thumbTintColor = DataManager.sharedInstance.interfaceColor.color
+    sliderAgudos.minimumTrackTintColor = DataManager.sharedInstance.interfaceColor.color
+    sliderGraves.minimumTrackTintColor = DataManager.sharedInstance.interfaceColor.color
+    sliderMedios.minimumTrackTintColor = DataManager.sharedInstance.interfaceColor.color
+    
     
     DataManager.sharedInstance.configApp.updatecoordColorConfig((sender?.tag)!)
-//    imageCheckView.frame = (sender?.frame)!
-//    if (sender?.tag)! > 20 {
-//      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
-//    }
+    //    imageCheckView.frame = (sender?.frame)!
+    //    if (sender?.tag)! > 20 {
+    //      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
+    //    }
     for button in colorButtons {
       button.setImage(UIImage(), forState: .Normal)
       button.setBackgroundImage(UIImage(), forState: .Normal)
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
         
-       // button.setImage(UIImage"okImage.png"), forState: .Normal)
+        // button.setImage(UIImage"check.png"), forState: .Normal)
         let image = UIImageView(frame: button.frame)
-        image.image = UIImage(named: "okImage.png")
+        image.image = UIImage(named: "check.png")
         image.frame = button.frame
         
         button.setBackgroundImage(image.image, forState: .Normal)
       }
     }
     
+    if (DataManager.sharedInstance.audioConfig.audioType == 1) {
+      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
+      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
+      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    }
     //stackColors.addSubview(imageCheckView)
     
   }
@@ -291,6 +313,79 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   @IBAction func searchButtonTap(sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
+  }
+  
+  override func canBecomeFirstResponder() -> Bool {
+    return true
+  }
+  
+  
+  
+  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      if colorArray == colorArray2 {
+        colorArray = colorArray1
+      } else if colorArray == colorArray1 {
+        colorArray = colorArray2
+      }
+      
+      var i = 0
+      for button in colorButtons {
+        
+        button.backgroundColor = colorArray[i]
+        i += 1
+      }
+    }
+    let randomColor = UIColor.init(randomColorInArray: colorArray)
+    Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, withContentStyle: UIContentStyle.Contrast)
+    
+    DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: randomColor!)
+    self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
+    DataManager.sharedInstance.existInterfaceColor = true
+    
+    tableViewAudio.reloadData()
+    
+    if (DataManager.sharedInstance.audioConfig.audioType == 1) {
+      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
+      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
+      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
+      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    }
+    
+    sliderAgudos.thumbTintColor = randomColor
+    sliderGraves.thumbTintColor = randomColor
+    sliderMedios.thumbTintColor = randomColor
+    sliderAgudos.minimumTrackTintColor = randomColor
+    sliderGraves.minimumTrackTintColor = randomColor
+    sliderMedios.minimumTrackTintColor = randomColor
+    
+    var tagButton = -1
+    for button in colorButtons {
+      if button.backgroundColor == randomColor {
+       tagButton = button.tag
+      }
+    }
+    
+    DataManager.sharedInstance.configApp.updatecoordColorConfig(tagButton)
+
+    
+    for button in colorButtons {
+      button.setImage(UIImage(), forState: .Normal)
+      button.setBackgroundImage(UIImage(), forState: .Normal)
+      if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
+        
+        // button.setImage(UIImage"check.png"), forState: .Normal)
+        let image = UIImageView(frame: button.frame)
+        image.image = UIImage(named: "check.png")
+        image.frame = button.frame
+        
+        button.setBackgroundImage(image.image, forState: .Normal)
+      }
+    }
   }
   
   

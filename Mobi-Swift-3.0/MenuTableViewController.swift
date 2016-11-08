@@ -43,7 +43,7 @@ class MenuTableViewController: UITableViewController {
       self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     }
     if tableView.visibleCells.count == 8 && !DataManager.sharedInstance.isLogged {
-          tableView.reloadData()
+      tableView.reloadData()
     }
     if DataManager.sharedInstance.needUpdateMenu {
       tableView.reloadData()
@@ -263,7 +263,8 @@ class MenuTableViewController: UITableViewController {
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
         DataManager.sharedInstance.configApp.updateUserToken("")
-        
+        RealmWrapper.deleteMyUserRealm()
+        DataManager.sharedInstance.myUser = UserRealm()
         let logoutManger = RequestManager()
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })

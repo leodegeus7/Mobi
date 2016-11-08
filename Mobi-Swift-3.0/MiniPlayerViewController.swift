@@ -64,6 +64,12 @@ class MiniPlayerViewController: UIViewController {
     
   }
   
+  func dismissPlayer() {
+    modalVC.dismissViewControllerAnimated(true) { 
+      
+    }
+  }
+  
   
   func setupAnimator() {
     self.animator = ARNTransitionAnimator(operationType: .Present, fromVC: self, toVC: self.modalVC)

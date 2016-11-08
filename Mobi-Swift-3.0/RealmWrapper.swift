@@ -46,6 +46,12 @@ class RealmWrapper: NSObject {
     return false
   }
   
+  static func deleteMyUserRealm() {
+    try! DataManager.sharedInstance.realm.write {
+      DataManager.sharedInstance.realm.add(DataManager.sharedInstance.myUser)
+    }
+  }
+  
   
   
   

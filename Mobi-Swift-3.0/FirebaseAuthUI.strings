@@ -1,0 +1,187 @@
+
+/*Please don't change the name of the application*/
+"app.name" = "TODO List";
+
+"AuthPickerTitle" = "Bem-Vindo";
+"SignInWithEmail" = "Logar com e-mail";
+"EnterYourEmail" = "Entre com o e-mal";
+"InvalidEmailError" = "Este e-mail esta incorreto";
+"CannotAuthenticateError" = "Este tipo de conta nao e suportado por este app";
+
+"ExistingAccountTitle" = "Voce ja tem uma conta";
+
+"ProviderUsedPreviouslyMessage" = "Voce ja usa %@. Log com %@ para continuar.";
+
+
+
+/* Title for sign in screen and sign in button. */
+
+"SignInTitle" = "Entrar";
+
+
+
+/* Password text field placeholder. */
+
+"EnterYourPassword" = "Entrar com senha";
+
+
+
+/* Error message displayed when user enters an empty passwrd. */
+
+"InvalidPasswordError" = "Senha nao pode ser nula.";
+
+
+
+/* Error message displayed when the email and password don't match. */
+
+"WrongPasswordError" = "O e-mail ou/e a senha nao estao corretos.";
+
+
+
+/* Error message displayed when there's no account matching the email address. */
+
+"UserNotFoundError" = "Este e-mail nao esta relacionado a nenhuma conta conhecida.";
+
+
+
+/* Error message displayed when the account is disabled. */
+
+"AccountDisabledError" = "Este e-mail esta relacionado com uma conta desativada";
+
+
+
+/* Error message displayed after user trying to sign in too many times. */
+
+"SignInTooManyTimesError" = "Voce digitou a senha incorreta muitas vezes. Tente novamente mais tarde";
+
+
+
+/* Title for password recovery screen. */
+
+"PasswordRecoveryTitle" = "Recuparar senha";
+
+
+
+/* Explanation on how the password of an account can be recovered. */
+
+"PasswordRecoveryMessage" = "Instrucoes foram mandadas para seu e-mail para recuperar a senha.";
+
+
+
+/* Title of a message displayed when the email for password recovery has been sent. */
+
+"PasswordRecoveryEmailSentTitle" = "Confira seu e-mail";
+
+
+
+/* Message displayed when the email for password recovery has been sent. */
+
+"PasswordRecoveryEmailSentMessage" = "Siga as instrucoes enviadas a %@ para resetar sua senha";
+
+
+
+/* Title for sign up screen. */
+
+"SignUpTitle" = "Criar conta";
+
+
+
+/* Name text field placeholder. */
+
+"FirstAndLastName" = "Primeiro e ultimo nome";
+
+
+
+/* Placeholder for the password text field in a sign up form. */
+
+"ChoosePassword" = "Senha";
+
+
+
+/* A notice displayed when the user is creating a new account. The first placeholder is a button label (ex. Next). The second placeholder is "Terms of Service". */
+
+"TermsOfServiceNotice" = "Ao clicarem %@, voce indica que concorda com %@.";
+
+
+
+/* Text linked to a web page with the Terms of Service content. */
+
+"TermsOfService" = "Termos de servico";
+
+
+
+/* Error message displayed when the email address is already in use. */
+
+"EmailAlreadyInUseError" = "O e-mail ja esta cadastrado em outra conta.";
+
+
+
+/* Error message displayed when the password is too weak. */
+
+"WeakPasswordError" = "Senhas fortes tem mais de 6 caracteres e um misto de letras e numeros.";
+
+
+
+/* Error message displayed when many accounts have been created from same IP address. */
+
+"SignUpTooManyTimesError" = "Muitas contas estao vindo do seu e-mail no momento. Tente mais tarde.";
+
+
+
+/* Message to explain to the user that password is needed for an account with this email address. */
+
+"PasswordVerificationMessage" = "Voce ja usou %@ para logar. Entre com sua senha para esta conta.";
+
+
+
+/* OK button title. */
+
+"OK" = "OK";
+
+
+
+/* Cancel button title. */
+
+"Cancel" = "Cancelar";
+
+
+
+/* Back button title. */
+
+"Back" = "Voltar";
+
+
+
+/* Next button title. */
+
+"Next" = "Proximo";
+
+
+
+/* Save button title. */
+
+"Save" = "Salvar";
+
+
+
+/* Save button title. */
+
+"Send" = "Mandar";
+
+
+
+/* Label next to a email text field. */
+
+"Email" = "E-mail";
+
+
+
+/* Label next to a password text field. */
+
+"Password" = "Senha";
+
+
+
+/* Label next to a name text field. */
+
+"Name" = "Nome";

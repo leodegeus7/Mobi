@@ -22,6 +22,7 @@ import TwitterKit
 import ChameleonFramework
 import SwiftyJSON
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
   var window: UIWindow?

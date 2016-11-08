@@ -54,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MWFeedParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Mobi-Swift-3.0.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,32 +97,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>118DC39167A243FF1998A712C5882818</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>269C99FD8562F2C92A62198673B25217</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4332352E97A37C729DC7D9B3B8A4BB15</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>48B5DF02377FD1FF3F30A78737968E53</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4C124FF2A8BADF39962F36A6D8C04A63</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A079D15327ED02FD8738393659D847C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,22 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>69CF40B48A006706E079F90FFE19C537</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6F5520A3A67EF4EF1786A7F4D7E94800</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7B8FA2104F236C2A917F88DD938E8866</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +157,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FF8A8B7DE195548914C22EF24B9658CB</key>
+		<key>A762FF2510AF4BE6D17AFD70889555CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BF31FAA3156C7EF320F20479ADDC128F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C02A024AA3039B9D481562B70396ABD9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C8DF847CF6AAF5D6D00344B27D7F7FE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3D4F9581A4C670C9EBB1DBD9DB73FB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE3A427FADB9F7B57726B8534391C21B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -13,6 +13,7 @@ import Firebase
 import FirebaseAuthUI
 import FirebaseDatabaseUI
 //import FirebaseGoogleAuthUI
+import FirebaseTwitterAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -361,12 +362,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         })
       })
       
-      //User is in! Here is where we code after signing in
       
     }
   }
   
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
+    authUI.customStringsBundle = NSBundle.mainBundle()
     //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
     Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
     let fir = FIRAuthPickerViewController(authUI: authUI)
@@ -431,6 +432,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         DataManager.sharedInstance.userToken = ""
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })
+        RealmWrapper.deleteMyUserRealm()
+        DataManager.sharedInstance.myUser = UserRealm()
+
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.needUpdateMenu = true
         self.buttonLogin.setTitle("Logout", forState: .Normal)
@@ -518,7 +522,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   
   @IBAction func uploadNewPhoto(sender: AnyObject) {
-    let optionMenu = UIAlertController(title: nil, message: "Trocar su foto de perfil", preferredStyle: .ActionSheet)
+    let optionMenu = UIAlertController(title: nil, message: "Trocar sua foto de perfil", preferredStyle: .ActionSheet)
     let cameraOption = UIAlertAction(title: "Tirar Foto", style: .Default) { (alert) in
       if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
         let imagePicker = UIImagePickerController()

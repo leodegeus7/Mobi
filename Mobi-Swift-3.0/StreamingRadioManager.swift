@@ -36,7 +36,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     ///////////////////////////////////////////////////////////
     //MARK: --- OPTIONS CONFIG ABOUT FREQUENCY ---
     ///////////////////////////////////////////////////////////
-
+    
     let equalizerFrequency:(Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32,Float32) = (60, 150, 400, 1000, 2400, 15000, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
     options.equalizerBandFrequencies = equalizerFrequency
     options.flushQueueOnSeek = true
@@ -47,7 +47,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     ///////////////////////////////////////////////////////////
     
     UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-
+    
     audioPlayer = STKAudioPlayer(options: options)
     audioPlayer.equalizerEnabled = true
     audioPlayer.meteringEnabled = true
@@ -71,11 +71,11 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
       playWithLink(actualRadio,link: link)
       print("Nao conseguiu rodar")
     }
-
+    
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
-  
+    
   }
   
   
@@ -101,9 +101,9 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     audioPlayer.play(actualRadio.audioChannels[0].returnLink())
     
     defineInfoCenter()
-
-
-
+    
+    
+    
     isPlaying = true
     let historicManager = RequestManager()
     historicManager.markRadioHistoric(radio) { (resultFav) in
@@ -111,7 +111,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   func playWithLink(radio:RadioRealm,link:String) {
-
+    
     
     defineInfoCenter()
     audioPlayer.play(link)
@@ -127,7 +127,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
       audioPlayer.play(actualRadio.audioChannels[0].returnLink())
       isPlaying = true
       let historicManager = RequestManager()
-        historicManager.markRadioHistoric(actualRadio) { (resultFav) in
+      historicManager.markRadioHistoric(actualRadio) { (resultFav) in
       }
       return true
     } else {
@@ -158,13 +158,18 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
   func defineInfoCenter() {
     let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)"]
+    let thumbnailRadio = self.actualRadio.thumbnail
+    let nameRadio = self.actualRadio.name
     MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
-    
-    ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
-      let albumArt = MPMediaItemArtwork(image: image!)
-      let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)", MPMediaItemPropertyArtwork: albumArt]
-      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(thumbnailRadio))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
+        if let imageAux = image {
+          let albumArt = MPMediaItemArtwork(image: imageAux)
+          let albumDict = [MPMediaItemPropertyTitle: "\(nameRadio)", MPMediaItemPropertyArtwork: albumArt]
+          MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
+        }
+      }
     }
   }
-
+  
 }

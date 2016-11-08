@@ -7,9 +7,9 @@
 //  Criado por Leonardo de Geus // linkedin.com/leodegeus
 
 import UIKit
+import MWFeedParser
 
-
-class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, NSXMLParserDelegate {
+class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, MWFeedParserDelegate {
   
   @IBOutlet weak var menuButton: UIBarButtonItem!
   
@@ -23,6 +23,8 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   var entriesArray:[Dictionary<String, String>]! = Array()
   var firstTimeShowed = true
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var feedParser = MWFeedParser()
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -43,14 +45,11 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
+    activityIndicator.hidden = false
+    view.addSubview(activityIndicator)
     
     DataManager.sharedInstance.allNews = []
     requestRssLink { (result) in
-      self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      self.tableView.reloadData()
     }
     
   }
@@ -84,6 +83,8 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       let cell = tableView.dequeueReusableCellWithIdentifier("newCellNew", forIndexPath: indexPath) as! NewTableViewCell
       cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
       cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+      cell.labelTitle.userInteractionEnabled = false
+      cell.selectionStyle = .None
       return cell
       
       if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
@@ -167,88 +168,50 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   }
   
   func requestRSS(url:String,completion: (resultNew: Bool) -> Void) {
-    let rssUrlRequest:NSURLRequest = NSURLRequest(URL:NSURL(string: url)!)
-    let queue:NSOperationQueue = NSOperationQueue()
-    NSURLConnection.sendAsynchronousRequest(rssUrlRequest, queue: queue) { (response, data, error) in
-      
-      self.xmlParser = NSXMLParser(data: data!)
-      self.xmlParser.delegate = self
-      self.xmlParser.shouldProcessNamespaces = false
-      self.xmlParser.shouldResolveExternalEntities = false
-      self.xmlParser.shouldReportNamespacePrefixes = false
-      self.xmlParser.parse()
-      completion(resultNew: true)
-    }
-  }
-  
-  func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-    if elementName == "title"{
-      entryTitle = String()
-      currentParsedElement = "title"
-    }
-    if elementName == "description"{
-      entryDescription = String()
-      currentParsedElement = "description"
-    }
-    if elementName == "link"{
-      entryLink = String()
-      currentParsedElement = "link"
-    }
-    if elementName == "pubDate" {
-      entryLink = String()
-      currentParsedElement = "date"
-    }
-  }
-  
-  func parser(parser: NSXMLParser,
-              foundCharacters string: String){
-    if currentParsedElement == "title"{
-      entryTitle = entryTitle + string
-    }
-    if currentParsedElement == "description"{
-      entryDescription = entryDescription + string
-    }
-    if currentParsedElement == "link"{
-      entryLink = entryLink + string
-    }
-    if currentParsedElement == "pubDate" {
-      entryDate = entryLink  + string
-    }
-  }
-  
-  func parser(parser: NSXMLParser,
-              didEndElement elementName: String,
-                            namespaceURI: String?,
-                            qualifiedName qName: String?){
+    feedParser = MWFeedParser(feedURL: NSURL(string: url))
+    feedParser.delegate = self
+    feedParser.feedParseType = ParseTypeFull
+    feedParser.connectionType = ConnectionTypeSynchronously
+    feedParser.parse()
     
-    if elementName == "title"{
-      entryDictionary["title"] = entryTitle
-    }
-    if elementName == "link"{
-      entryDictionary["link"] = entryLink
-    }
-    if elementName == "pubDate" {
-      entryDictionary["date"] = entryLink
-    }
-    if elementName == "description"{
-      entryDictionary["description"] = entryDescription
-      if entryTitle != nil && entryTitle != "" && entryLink != nil && entryLink != "" && entryDescription != nil && entryDescription != "" && entryDate != nil && entryDate != "" {
-        
-        let new = New(title: entryTitle, descr: entryDescription, link: entryLink, date: Util.convertStringToNSDate(entryDate))
+
+  }
+  
+  func feedParserDidStart(parser: MWFeedParser!) {
+    DataManager.sharedInstance.allNews = []
+  }
+  
+  func feedParserDidFinish(parser: MWFeedParser!) {
+    firstTimeShowed = false
+    self.tableView.allowsSelection = true
+    self.activityIndicator.hidden = true
+    self.activityIndicator.removeFromSuperview()
+    tableView.reloadData()
+  }
+  
+  func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
+    
+  }
+  
+  func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
+    
+  }
+  
+  func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
+    let entryDate = item.date
+    let entryTitle = item.title
+    let entryLink = item.link
+    let entryDescription = item.description
+    if entryTitle != "[No Title]" && entryLink != "[No Link]" && entryDescription != "[No Description]" && entryDate != "[No Date]"{
+      if entryDate.timeIntervalSinceNow < 0 {
+        let new = New(title: entryTitle, descr: entryDescription, link: entryLink, date: entryDate)
         DataManager.sharedInstance.allNews.append(new)
       }
-      entriesArray.append(entryDictionary)
     }
-    
   }
   
-  func parserDidEndDocument(parser: NSXMLParser){
-    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-      self.tableView.reloadData()
-    })
+  override func viewDidAppear(animated: Bool) {
+    self.clearsSelectionOnViewWillAppear = true
   }
-  
-  
-  
   
 }

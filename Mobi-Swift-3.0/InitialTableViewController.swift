@@ -73,7 +73,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       selectedRadioArray = DataManager.sharedInstance.topRadios
     }
     
-
+    DataManager.sharedInstance.navigationController = self.navigationController!
     
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---

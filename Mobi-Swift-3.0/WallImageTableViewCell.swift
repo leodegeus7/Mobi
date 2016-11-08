@@ -14,10 +14,12 @@ class WallImageTableViewCell: UITableViewCell {
   @IBOutlet weak var labelDate: UILabel!
   @IBOutlet weak var labelName: UILabel!
   @IBOutlet weak var imageUser: UIImageView!
-
+  
   
   @IBOutlet weak var buttonZoomImage: UIButton!
   @IBOutlet weak var imageAttachment: UIImageView!
+  
+  var isReloadCell = false
   
     override func awakeFromNib() {
         super.awakeFromNib()

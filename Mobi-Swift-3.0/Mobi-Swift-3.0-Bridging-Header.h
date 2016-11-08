@@ -9,3 +9,4 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "STKAudioPlayer.h"
 #import "GnSDKObjC/Gn.h"
+#import "MWFeedParser/MWFeedParser.h"

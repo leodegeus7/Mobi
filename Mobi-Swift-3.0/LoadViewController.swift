@@ -8,6 +8,7 @@
 
 import UIKit
 import ChameleonFramework
+import Kingfisher
 
 
 class LoadViewController: UIViewController {
@@ -31,7 +32,7 @@ class LoadViewController: UIViewController {
       view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: rect, andColors: [colorWhite,colorBlack])
       
     }
-    
+    LoadViewController.activateCacheLimit(30)
     loadTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
     let indicator = UIActivityIndicatorView()
     indicator.startAnimating()
@@ -166,6 +167,15 @@ class LoadViewController: UIViewController {
     self.displayAlert(title: "TimerOut", message: "Tempo de requisição de dados expirado", okTitle: "Tente Novamente", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     loadTimer.invalidate()
   }
+  
+  static func activateCacheLimit(mB:UInt) {
+    ImageCache.defaultCache.maxDiskCacheSize = mB * 1024 * 1024
+    ImageCache.defaultCache.calculateDiskCacheSizeWithCompletionHandler { (size) in
+      print("Foi utilizado \(Float(size)/(1024.0*1024)) Mb de cache em memoria do dispostivo")
+    }
+  }
+  
+  
 }
 
 

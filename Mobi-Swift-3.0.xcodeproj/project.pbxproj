@@ -15,6 +15,7 @@
 		B702CF591DA42740007FB335 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702CF581DA42740007FB335 /* PlayerViewController.swift */; };
 		B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
+		B70898331DD10102008DA1D9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = B70898321DD10102008DA1D9 /* check.png */; };
 		B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C92181D7A08CA008F24AF /* LoginViewController.swift */; };
 		B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */; };
 		B70DA8981DB1593900BFCB34 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */; };
@@ -56,6 +57,8 @@
 		B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198D71D89D9FD00B83B6E /* StateRealm.swift */; };
 		B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198D91D89E15D00B83B6E /* CityRealm.swift */; };
 		B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76198DB1D89EDF700B83B6E /* LocalCities2TableViewController.swift */; };
+		B761A5491DD1119100EB794A /* FirebaseAuthUI.strings in Resources */ = {isa = PBXBuildFile; fileRef = B761A5481DD1119100EB794A /* FirebaseAuthUI.strings */; };
+		B761A54D1DD1162200EB794A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B761A54C1DD1162200EB794A /* GoogleService-Info.plist */; };
 		B764CE111DB7D2D600BFCE76 /* WallImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764CE101DB7D2D600BFCE76 /* WallImageTableViewCell.swift */; };
 		B764CE131DB7F46D00BFCE76 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764CE121DB7F46D00BFCE76 /* AudioRecorderViewController.swift */; };
 		B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B764CE141DB7F5BF00BFCE76 /* micImage.png */; };
@@ -81,7 +84,6 @@
 		B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384A91D7F32A700701070 /* CFNetwork.framework */; };
 		B77384AC1D7F32D300701070 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AB1D7F32D300701070 /* Security.framework */; };
 		B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */; };
-		B77384B61D7F559A00701070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B77384B51D7F559A00701070 /* GoogleService-Info.plist */; };
 		B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77892E31D91B346009D6105 /* StreamingRadioManager.swift */; };
 		B77892E61D91D2CA009D6105 /* new1.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892E51D91D2CA009D6105 /* new1.png */; };
 		B77892E81D91D36D009D6105 /* new2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B77892E71D91D36D009D6105 /* new2.jpg */; };
@@ -194,6 +196,7 @@
 		B702CF581DA42740007FB335 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		B70898321DD10102008DA1D9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		B70C92181D7A08CA008F24AF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSupport.swift; sourceTree = "<group>"; };
 		B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 		B76198D71D89D9FD00B83B6E /* StateRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRealm.swift; sourceTree = "<group>"; };
 		B76198D91D89E15D00B83B6E /* CityRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityRealm.swift; sourceTree = "<group>"; };
 		B76198DB1D89EDF700B83B6E /* LocalCities2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCities2TableViewController.swift; sourceTree = "<group>"; };
+		B761A5481DD1119100EB794A /* FirebaseAuthUI.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = FirebaseAuthUI.strings; sourceTree = "<group>"; };
+		B761A54C1DD1162200EB794A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B764CE101DB7D2D600BFCE76 /* WallImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallImageTableViewCell.swift; sourceTree = "<group>"; };
 		B764CE121DB7F46D00BFCE76 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		B764CE141DB7F5BF00BFCE76 /* micImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = micImage.png; sourceTree = "<group>"; };
@@ -263,7 +268,6 @@
 		B77384A91D7F32A700701070 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B77384AB1D7F32D300701070 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B77384B51D7F559A00701070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B77892E31D91B346009D6105 /* StreamingRadioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRadioManager.swift; sourceTree = "<group>"; };
 		B77892E51D91D2CA009D6105 /* new1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new1.png; sourceTree = "<group>"; };
 		B77892E71D91D36D009D6105 /* new2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = new2.jpg; sourceTree = "<group>"; };
@@ -542,6 +546,7 @@
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
 				B7BB84AB1D9DA7B20033D823 /* like.png */,
+				B70898321DD10102008DA1D9 /* check.png */,
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 			);
 			name = Icons;
@@ -698,9 +703,10 @@
 				B764F50A1DBA69DA0073D268 /* license.txt */,
 				B73681421D590BA300EC94A9 /* Info.plist */,
 				B7F530F91D6261D400831561 /* Simulation.gpx */,
+				B761A54C1DD1162200EB794A /* GoogleService-Info.plist */,
 				B74BB9361D78AB5A0076FE2D /* Tests.playground */,
-				B77384B51D7F559A00701070 /* GoogleService-Info.plist */,
 				B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */,
+				B761A5481DD1119100EB794A /* FirebaseAuthUI.strings */,
 				B7BB84A31D9C47030033D823 /* View.xib */,
 				B7842AC91DB530E6002550F3 /* gnsdk_extensions.swift */,
 			);
@@ -885,6 +891,7 @@
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7842AD61DB685BB002550F3 /* video_64x64.png in Resources */,
 				B7BB84AC1D9DA7B20033D823 /* like.png in Resources */,
+				B761A5491DD1119100EB794A /* FirebaseAuthUI.strings in Resources */,
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
 				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
 				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
@@ -894,7 +901,6 @@
 				B7842AD51DB685BB002550F3 /* photo_64x64.png in Resources */,
 				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
 				B7842AD41DB685BB002550F3 /* audio_64x64.png in Resources */,
-				B77384B61D7F559A00701070 /* GoogleService-Info.plist in Resources */,
 				B7B1B9511DC25D1A00F6ED7A /* play3.png in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
 				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
@@ -911,6 +917,8 @@
 				B702CF551DA2F8BE007FB335 /* fundo-login-mobi.jpg in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
 				B76841D91DA58E5400ABBC78 /* love2.png in Resources */,
+				B761A54D1DD1162200EB794A /* GoogleService-Info.plist in Resources */,
+				B70898331DD10102008DA1D9 /* check.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

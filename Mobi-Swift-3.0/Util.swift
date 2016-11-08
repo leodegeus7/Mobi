@@ -185,7 +185,7 @@ class Util: NSObject {
   }
   
   static func convertStringToNSDate(dateString:String) -> NSDate{
-    if dateString.characters.count > 20 {
+    if dateString.characters.count == 31 {
       let formatter = NSDateFormatter()
       formatter.dateFormat = "EEE, dd MM yyyy HH:mm:ss zzz"
       return formatter.dateFromString(dateString)!

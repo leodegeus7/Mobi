@@ -47,6 +47,9 @@ PODS:
   - FirebaseUI/Facebook (0.6.2):
     - FBSDKLoginKit (~> 4.0)
     - FirebaseUI/Auth
+  - FirebaseUI/Twitter (0.6.2):
+    - FirebaseUI/Auth
+    - TwitterKit (~> 2.4)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleNetworkingUtilities (1.2.1):
@@ -59,6 +62,15 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - ImageViewer (2.1)
   - Kingfisher (2.6.1)
+  - MWFeedParser (1.0.1):
+    - MWFeedParser/FeedParser (= 1.0.1)
+    - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
+    - MWFeedParser/NSString+HTML (= 1.0.1)
+  - MWFeedParser/FeedParser (1.0.1):
+    - MWFeedParser/NSDate+InternetDateTime
+    - MWFeedParser/NSString+HTML
+  - MWFeedParser/NSDate+InternetDateTime (1.0.1)
+  - MWFeedParser/NSString+HTML (1.0.1)
   - PullToRefresh (0.0.1)
   - Realm (2.0.3):
     - Realm/Headers (= 2.0.3)
@@ -85,8 +97,10 @@ DEPENDENCIES:
   - FirebaseUI/Auth
   - FirebaseUI/Database
   - FirebaseUI/Facebook
+  - FirebaseUI/Twitter
   - ImageViewer (~> 2.0)
   - Kingfisher (~> 2.5)
+  - MWFeedParser
   - PullToRefresh
   - RealmSwift
   - SideMenu
@@ -117,6 +131,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   ImageViewer: c09d86c780c8dd45d00d2a95bcf11e1ca8c4935f
   Kingfisher: 7e5515bf6c4f2acad91f6400955d2257549cab7b
+  MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
   RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
@@ -125,6 +140,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: aaa35f8d843e4dc0dd7fa308e62b00ed77c861eb
+PODFILE CHECKSUM: bd9e1d5432ab7962565330a37ae7b5d59f1ee9e6
 
 COCOAPODS: 1.0.1

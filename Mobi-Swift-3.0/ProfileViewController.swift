@@ -44,6 +44,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var followerButton: UIButton!
   @IBOutlet weak var followingButton: UIButton!
   @IBOutlet weak var labelTitleTableView: UILabel!
+  @IBOutlet weak var labelTextAddress: UILabel!
+  @IBOutlet weak var labelTextCity: UILabel!
+  @IBOutlet weak var labelTextState: UILabel!
+  @IBOutlet weak var labelTextCountry: UILabel!
+  @IBOutlet weak var labelTextGender: UILabel!
+  @IBOutlet weak var labelTextBirth: UILabel!
   
   let imagePicker = UIImagePickerController()
   
@@ -224,31 +230,111 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- OTHERS CONFIG ---
   ///////////////////////////////////////////////////////////
   
+  @IBOutlet weak var slackAdrress: UIStackView!
+  @IBOutlet weak var slackCity: UIStackView!
+  @IBOutlet weak var slackTest: UIStackView!
+  @IBOutlet weak var slackState: UIStackView!
+  @IBOutlet weak var slackCountry: UIStackView!
+  @IBOutlet weak var slackGender: UIStackView!
+  @IBOutlet weak var slackBirth: UIStackView!
+  
   func completeProfileViewInfo() {
-    labelName.text = myUser.name
-    labelCity.text = myUser.address.city
-    labelState.text = myUser.address.state
     
+    labelName.text = myUser.name
+
+    if let address = myUser.address {
+      if address.street == "" {
+        if let address = slackAdrress {
+          address.removeFromSuperview()
+        }
+      } else {
+        if let label = labelAddress {
+          label.text = "\(myUser.address.street), \(myUser.address.streetNumber)"
+        }
+      }
+    } else {
+      if let address = slackAdrress {
+        address.removeFromSuperview()
+      }
+    }
+    if let address = myUser.address {
+      if address.city == "" {
+        if let city = slackCity {
+          city.removeFromSuperview()
+        }
+        
+      } else {
+        if let label = labelCity {
+          label.text = myUser.address.city
+        }
+      }
+    }
+    if let address = myUser.address {
+      if address.state == ""{
+        
+        
+        if let state = slackState {
+          state.removeFromSuperview()
+        }
+      } else {
+        if let label = labelState {
+          label.text = myUser.address.state
+        }
+      }
+    } else {
+      if let state = slackState {
+        state.removeFromSuperview()
+      }
+    }
+    if myUser.gender == ""{
+      
+      if let state = slackGender {
+        state.removeFromSuperview()
+      }
+    }
+    
+    if let address = myUser.address {
+      if address.country == "" {
+        
+        if let state = slackCountry {
+          state.removeFromSuperview()
+        }
+      } else {
+        if let label = labelCountry {
+          label.text = myUser.address.country
+        }
+      }
+    }
+    else {
+      if let state = slackCountry {
+        state.removeFromSuperview()
+      }
+    }
+    if (myUser.birthDate != "") {
+      if myUser.birthDate.timeIntervalSinceNow < 10000 || myUser.birthDate.timeIntervalSinceNow > 3144980000 {
+        if let state = slackBirth {
+          state.removeFromSuperview()
+        }
+      }else {
+        if let label = labelDateBirth {
+          label.text = Util.convertDateToShowString(myUser.birthDate)
+        }
+      }
+    } else {
+      if let label = labelDateBirth {
+        label.text = nil
+      }
+    }
     if myUser.gender == "M" {
       labelGender.text = "Masculino"
     } else if myUser.gender == "F" {
       labelGender.text = "Feminino"
-    } else {
-      labelGender.text = nil
     }
-    labelCountry.text = myUser.address.country
-    if (myUser.birthDate != "") {
-      labelDateBirth.text = Util.convertDateToShowString(myUser.birthDate)
-    } else {
-      labelDateBirth.text = nil
-    }
+    
+    
     labelFollowers.text = "\(myUser.followers)"
     labelFollowing.text = "\(myUser.following)"
-    if myUser.address.street != "" {
-      labelAddress.text = "\(myUser.address.street), \(myUser.address.streetNumber)"
-    } else {
-      labelAddress.text = nil
-    }
+    
     if DataManager.sharedInstance.myUser.userImage == "avatar.png" {
       imageUser.image = UIImage(named: "avatar.png")
     } else {
@@ -264,11 +350,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       self.tableViewFavorites.reloadData()
     }
     if DataManager.sharedInstance.isLogged {
-      let requestManager = RequestManager()
-      requestManager.requestMyUserInfo { (result) in
-        self.myUser = DataManager.sharedInstance.myUser
-        self.completeProfileViewInfo()
-      }
+      
       
       let requestFollowers = RequestManager()
       requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
@@ -279,6 +361,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.labelFollowing.text = "\(resultNumberFollowing)"
       }
     }
+    
   }
   
   ///////////////////////////////////////////////////////////
@@ -333,8 +416,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
     Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withContentStyle: .Contrast)
-      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-
+    self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    
     if error != nil {
       if !DataManager.sharedInstance.isLogged {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -434,7 +517,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         })
         RealmWrapper.deleteMyUserRealm()
         DataManager.sharedInstance.myUser = UserRealm()
-
+        
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.needUpdateMenu = true
         self.buttonLogin.setTitle("Logout", forState: .Normal)

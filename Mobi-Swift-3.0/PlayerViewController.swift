@@ -428,7 +428,7 @@ class PlayerViewController: UIViewController {
 
   @IBAction func openRadioDetail(sender: AnyObject) {
     DataManager.sharedInstance.instantiateRadioDetailView(DataManager.sharedInstance.navigationController, radio: StreamingRadioManager.sharedInstance.actualRadio)
-    DataManager.sharedInstance.miniPlayerView.dismissPlayer()
+    //DataManager.sharedInstance.miniPlayerView.dismissPlayer()
   }
 
 }

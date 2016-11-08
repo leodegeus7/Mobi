@@ -13,14 +13,29 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="gmI-gQ-N7m">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gmI-gQ-N7m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="6JI-8L-4sX"/>
+                            <constraint firstItem="gmI-gQ-N7m" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="Z8m-0y-piU"/>
+                            <constraint firstItem="gmI-gQ-N7m" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="e4U-VG-8tW"/>
+                            <constraint firstItem="gmI-gQ-N7m" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="gpf-E3-oKo"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splashScreen.png" width="540" height="960"/>
+    </resources>
 </document>

@@ -6,7 +6,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -18,10 +18,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -152,10 +152,10 @@
                value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
             <PersistentString
-               value = "cell.labelTitle.text">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "cell.labelTitle.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1038,10 +1038,10 @@
          contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
+               value = "DataManager.sharedInstance.myUser.userImage">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.userImage">
+               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
             </PersistentString>
             <PersistentString
                value = "myUser">
@@ -1054,6 +1054,9 @@
             </PersistentString>
             <PersistentString
                value = "myUser.userImage">
+            </PersistentString>
+            <PersistentString
+               value = "labelAddress">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.myUser">
@@ -1362,10 +1365,10 @@
          contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1).(closure #1):ProgramsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "!Util.areTheySiblings(program, class2: SpecialProgram()">
+               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
-               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "!Util.areTheySiblings(program, class2: SpecialProgram()">
             </PersistentString>
             <PersistentString
                value = "programToDelete">

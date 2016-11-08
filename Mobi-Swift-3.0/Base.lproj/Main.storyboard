@@ -116,19 +116,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Mid-Lw-hp4">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-mobi.png" translatesAutoresizingMaskIntoConstraints="NO" id="UDx-7h-pMz">
-                                    <rect key="frame" x="30" y="25" width="190" height="27"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu.png" translatesAutoresizingMaskIntoConstraints="NO" id="UDx-7h-pMz">
+                                    <rect key="frame" x="90" y="12" width="90" height="90"/>
                                     <constraints>
+                                        <constraint firstAttribute="width" secondItem="UDx-7h-pMz" secondAttribute="height" multiplier="1:1" id="GMF-2r-tAL"/>
                                         <constraint firstAttribute="height" constant="61" id="Kno-Aa-bub"/>
                                         <constraint firstAttribute="width" constant="190" id="XDo-5c-Gxt"/>
                                         <constraint firstAttribute="width" secondItem="UDx-7h-pMz" secondAttribute="height" multiplier="69:61" id="l6f-Zw-jbW"/>
+                                        <constraint firstAttribute="height" constant="90" id="wxO-6G-gBc"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="Kno-Aa-bub"/>
+                                            <exclude reference="XDo-5c-Gxt"/>
                                             <exclude reference="l6f-Zw-jbW"/>
                                         </mask>
                                     </variation>
@@ -136,14 +139,14 @@
                             </subviews>
                             <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="UDx-7h-pMz" secondAttribute="bottom" constant="25" id="C0A-jx-QrI"/>
-                                <constraint firstItem="UDx-7h-pMz" firstAttribute="leading" secondItem="Mid-Lw-hp4" secondAttribute="leading" constant="30" id="Lk5-F8-PEY"/>
-                                <constraint firstItem="UDx-7h-pMz" firstAttribute="top" secondItem="Mid-Lw-hp4" secondAttribute="top" constant="25" id="utw-pR-htE"/>
+                                <constraint firstAttribute="bottom" secondItem="UDx-7h-pMz" secondAttribute="bottom" constant="12" id="C0A-jx-QrI"/>
+                                <constraint firstItem="UDx-7h-pMz" firstAttribute="leading" secondItem="Mid-Lw-hp4" secondAttribute="leading" constant="90" id="Lk5-F8-PEY"/>
+                                <constraint firstItem="UDx-7h-pMz" firstAttribute="top" secondItem="Mid-Lw-hp4" secondAttribute="top" constant="12" id="utw-pR-htE"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopCell" rowHeight="100" id="sJW-KB-FeQ" customClass="TopMenuTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="105" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sJW-KB-FeQ" id="5Rv-1Q-qGD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
@@ -187,7 +190,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstCell" id="fQd-jP-gTt" customClass="FirstTypeMenuTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="205" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="238" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fQd-jP-gTt" id="QDW-ER-yKi">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
@@ -222,7 +225,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SecondCell" id="oAH-QT-8c3" customClass="SecondMenuTypeTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="249" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="282" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oAH-QT-8c3" id="Akj-Ue-dEH">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
@@ -1042,7 +1045,20 @@
                         <outlet property="labelGender" destination="C7E-GE-Sqt" id="6of-iW-reA"/>
                         <outlet property="labelName" destination="37s-rt-cEx" id="NFj-XZ-rKd"/>
                         <outlet property="labelState" destination="0Lc-0W-rfd" id="ynd-PL-92j"/>
+                        <outlet property="labelTextAddress" destination="VV7-OM-71F" id="F8C-Bj-GkW"/>
+                        <outlet property="labelTextBirth" destination="hry-rL-x02" id="Jvd-Of-x1P"/>
+                        <outlet property="labelTextCity" destination="T8x-g4-8Vm" id="rD3-PI-1hW"/>
+                        <outlet property="labelTextCountry" destination="Rsr-Bb-TmN" id="KA8-c6-OLF"/>
+                        <outlet property="labelTextGender" destination="WVw-l3-NHu" id="wnx-Mz-qiA"/>
+                        <outlet property="labelTextState" destination="eDf-SP-9Gi" id="gI7-Kx-sL1"/>
                         <outlet property="labelTitleTableView" destination="dWN-DX-R8z" id="5Io-35-hkK"/>
+                        <outlet property="slackAdrress" destination="1pJ-f3-GlV" id="7yE-5y-teN"/>
+                        <outlet property="slackBirth" destination="2X5-AG-cUL" id="iV4-8Z-0bH"/>
+                        <outlet property="slackCity" destination="EKb-wE-9V8" id="heV-bP-cSi"/>
+                        <outlet property="slackCountry" destination="PnW-XE-fnP" id="7hP-z8-5gY"/>
+                        <outlet property="slackGender" destination="6en-VU-tVh" id="tNC-f2-DAL"/>
+                        <outlet property="slackState" destination="VZL-lD-IFA" id="Omh-aN-5eU"/>
+                        <outlet property="slackTest" destination="GUJ-xD-Ngz" id="PqO-sr-jWH"/>
                         <outlet property="tableViewFavorites" destination="y0h-9W-XB3" id="PbU-f2-EpK"/>
                     </connections>
                 </viewController>
@@ -5253,7 +5269,7 @@
         <image name="icone-historico.png" width="256" height="256"/>
         <image name="icone-local.png" width="256" height="256"/>
         <image name="like1.png" width="22" height="21"/>
-        <image name="logo-mobi.png" width="1877" height="250"/>
+        <image name="menu.png" width="500" height="500"/>
         <image name="photo_64x64.png" width="64" height="64"/>
         <image name="play.png" width="237" height="236"/>
         <image name="starOFF.png" width="30" height="30"/>

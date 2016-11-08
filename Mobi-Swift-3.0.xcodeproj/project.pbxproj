@@ -27,6 +27,8 @@
 		B71FA3941DBFF0710001356F /* AdsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3931DBFF0710001356F /* AdsTableViewCell.swift */; };
 		B71FA3961DBFF2F60001356F /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3951DBFF2F60001356F /* Advertisement.swift */; };
 		B71FA3981DBFF3670001356F /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3971DBFF3670001356F /* AdsManager.swift */; };
+		B72282901DD24B96007979A3 /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B722828F1DD24B96007979A3 /* splashScreen.png */; };
+		B72282921DD24C3E007979A3 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B72282911DD24C3E007979A3 /* menu.png */; };
 		B73532E71D9AD744008504BA /* RadioDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B73532E61D9AD744008504BA /* RadioDetailView.xib */; };
 		B73532E91D9AD7B0008504BA /* RadioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73532E81D9AD7B0008504BA /* RadioTableViewController.swift */; };
 		B73532EC1D9AD7E6008504BA /* RadioDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73532EB1D9AD7E6008504BA /* RadioDetailTableViewCell.swift */; };
@@ -208,6 +210,8 @@
 		B71FA3931DBFF0710001356F /* AdsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsTableViewCell.swift; sourceTree = "<group>"; };
 		B71FA3951DBFF2F60001356F /* Advertisement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		B71FA3971DBFF3670001356F /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
+		B722828F1DD24B96007979A3 /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
+		B72282911DD24C3E007979A3 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		B73532E61D9AD744008504BA /* RadioDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDetailView.xib; sourceTree = "<group>"; };
 		B73532E81D9AD7B0008504BA /* RadioTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioTableViewController.swift; sourceTree = "<group>"; };
 		B73532EB1D9AD7E6008504BA /* RadioDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -546,7 +550,9 @@
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
 				B7BB84AB1D9DA7B20033D823 /* like.png */,
+				B722828F1DD24B96007979A3 /* splashScreen.png */,
 				B70898321DD10102008DA1D9 /* check.png */,
+				B72282911DD24C3E007979A3 /* menu.png */,
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 			);
 			name = Icons;
@@ -885,7 +891,9 @@
 				B764F5111DBA9ED30073D268 /* musicIcon.png in Resources */,
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
 				B702CF571DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png in Resources */,
+				B72282901DD24B96007979A3 /* splashScreen.png in Resources */,
 				B764CE1A1DB7F75D00BFCE76 /* PlayButton@2x.png in Resources */,
+				B72282921DD24C3E007979A3 /* menu.png in Resources */,
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,

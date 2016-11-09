@@ -120,6 +120,7 @@ class DataManager: NSObject {
     case Without
   }
   
+  var firMessagingToken = ""
   var miniPlayerView = MiniPlayerViewController()
   var playerClass:PlayerViewController!
   

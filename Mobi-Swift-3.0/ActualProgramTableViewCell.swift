@@ -17,6 +17,8 @@ class ActualProgramTableViewCell: UITableViewCell {
   @IBOutlet weak var labelGuests: UILabel!
   @IBOutlet weak var labelSecondName: UILabel!
   
+  @IBOutlet weak var viewLocked: UIView!
+  @IBOutlet weak var labelLocked: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -24,12 +26,34 @@ class ActualProgramTableViewCell: UITableViewCell {
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
+    self.selectionStyle = .None
+
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
     // Configure the view for the selected state
+  }
+  
+  func lockView() {
+    viewLocked.alpha = 0.8
+    viewLocked.hidden = false
+    labelLocked.text = "Não há informação de programação"
+    labelGuests.text = "Convidados"
+    labelName.text = "Programa"
+    imagePerson.image = UIImage(named: "avatar.png")
+    labelNamePerson.text = "Apresentador"
+    labelSecondName.text = ""
+    labelLocked.textColor = DataManager.sharedInstance.interfaceColor.color
+    imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
+    imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+    imagePerson.layer.borderWidth = 0
+  }
+  
+  func unlockView() {
+    viewLocked.alpha = 0
+    viewLocked.hidden = true
   }
   
 }

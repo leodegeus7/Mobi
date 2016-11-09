@@ -128,7 +128,11 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       case 0:
         if indexPath.row == 0 {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
-          cell.adsButton.backgroundColor = UIColor.brownColor()
+          let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+          cell.adsButton.backgroundColor = colorWhite
+          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
+          cell.selectionStyle = .None
           AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
             dispatch_async(dispatch_get_main_queue()) {
               if let imageAd = resultAd.image {
@@ -142,13 +146,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         }
         if indexPath.row < 4 {
           let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-          cell.labelName.text = searchRadios[indexPath.row].name
-          if let address = searchRadios[indexPath.row].address {
+          cell.labelName.text = searchRadios[indexPath.row-1].name
+          if let address = searchRadios[indexPath.row-1].address {
             cell.labelLocal.text = address.formattedLocal
           }
-          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
+          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row-1].thumbnail)))
           cell.imageSmallOne.image = UIImage(named: "heart.png")
-          cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
+          cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row-1].likenumber)"
           cell.widthTextOne.constant = 30
           cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
           cell.labelDescriptionTwo.text = ""

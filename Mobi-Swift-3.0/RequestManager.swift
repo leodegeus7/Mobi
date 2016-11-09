@@ -1068,8 +1068,10 @@ class RequestManager: NSObject {
           if let programDic = program as? NSDictionary {
             let id = programDic["id"] as! Int
             let name = programDic["name"] as! String
-            let timeEnd = programDic["timeEnd"] as! String
-            let timeStart = programDic["timeStart"] as! String
+            let timeEndDate = Util.convertStringToNSDate(programDic["timeEnd"] as! String)
+            let timeStartDate = Util.convertStringToNSDate(programDic["timeStart"] as! String)
+            let timeEnd = Util.convertDateToShowHour(timeEndDate)
+            let timeStart = Util.convertDateToShowHour(timeStartDate)
             var active = false
             if let _ = programDic["inactiveDatetime"] as? NSNull {
               active = true

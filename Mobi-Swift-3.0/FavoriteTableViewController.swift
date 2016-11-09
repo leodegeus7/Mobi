@@ -44,27 +44,32 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return DataManager.sharedInstance.favoriteRadios.count
+    return DataManager.sharedInstance.favoriteRadios.count + 1
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-    cell.labelName.text = DataManager.sharedInstance.favoriteRadios[indexPath.row].name
-    if let address = DataManager.sharedInstance.favoriteRadios[indexPath.row].address {
-      cell.labelLocal.text = address.formattedLocal
-    }
-    cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.favoriteRadios[indexPath.row].thumbnail)))
-    if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
-      cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+    if indexPath.row <= DataManager.sharedInstance.favoriteRadios.count-1 {
+      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+      cell.labelName.text = DataManager.sharedInstance.favoriteRadios[indexPath.row].name
+      if let address = DataManager.sharedInstance.favoriteRadios[indexPath.row].address {
+        cell.labelLocal.text = address.formattedLocal
+      }
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.favoriteRadios[indexPath.row].thumbnail)))
+      if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
+        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+      }
+      cell.labelDescriptionOne.text = "\(DataManager.sharedInstance.favoriteRadios[indexPath.row].likenumber)"
+      cell.widthTextOne.constant = 30
+      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+      cell.labelDescriptionTwo.text = ""
+      return cell
     } else {
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      return cell
     }
-    cell.labelDescriptionOne.text = "\(DataManager.sharedInstance.favoriteRadios[indexPath.row].likenumber)"
-    cell.widthTextOne.constant = 30
-    cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-    cell.labelDescriptionTwo.text = ""
-    return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -134,7 +139,7 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) { 
+    dismissViewControllerAnimated(true) {
     }
   }
   

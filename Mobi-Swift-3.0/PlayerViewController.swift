@@ -91,7 +91,9 @@ class PlayerViewController: UIViewController {
     segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
     updateInfoOfView()
     segmentedChanged(self)
-    
+    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+    self.buttonAdvertisement.backgroundColor = colorWhite2
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
     AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
       dispatch_async(dispatch_get_main_queue()) {
         if let imageAd = resultAd.image {

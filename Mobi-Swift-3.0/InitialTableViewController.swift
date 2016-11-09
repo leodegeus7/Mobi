@@ -125,10 +125,15 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return selectedRadioArray.count
+    if selectedRadioArray.count > 0 {
+      return selectedRadioArray.count + 1
+    } else {
+      return 0
+    }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    if indexPath.row <= selectedRadioArray.count-1 {
     let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
     switch selectedMode {
     case .Top:
@@ -204,7 +209,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       cell.labelDescriptionTwo.text = ""
       break
     }
-    return cell
+      return cell
+    } else {
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      return cell
+    }
   }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -450,9 +460,9 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
-  }
+//  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+//    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+//  }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
     dismissViewControllerAnimated(true) {

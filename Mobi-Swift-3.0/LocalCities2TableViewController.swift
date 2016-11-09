@@ -53,7 +53,7 @@ class LocalCities2TableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return citiesArray.count
+    return citiesArray.count + 1
     
   }
   
@@ -64,10 +64,15 @@ class LocalCities2TableViewController: UITableViewController {
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-    cell.textLabel?.text = citiesArray[indexPath.row].name
-    return cell
-    
+    if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+      let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+      cell.textLabel?.text = citiesArray[indexPath.row].name
+      return cell
+    } else {
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      return cell
+    }
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

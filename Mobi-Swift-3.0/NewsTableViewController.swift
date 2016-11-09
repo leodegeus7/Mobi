@@ -71,7 +71,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     if firstTimeShowed {
       return 1
     } else {
-      return DataManager.sharedInstance.allNews.count
+      return DataManager.sharedInstance.allNews.count + 1
     }
   }
   
@@ -80,36 +80,42 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       let cell = UITableViewCell()
       return cell
     } else {
-      let cell = tableView.dequeueReusableCellWithIdentifier("newCellNew", forIndexPath: indexPath) as! NewTableViewCell
-      cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-      cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-      cell.labelTitle.userInteractionEnabled = false
-      cell.selectionStyle = .None
-      return cell
-      
-      if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
-        let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+      if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+        let cell = tableView.dequeueReusableCellWithIdentifier("newCellNew", forIndexPath: indexPath) as! NewTableViewCell
         cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
         cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-        cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-        cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+        cell.labelTitle.userInteractionEnabled = false
+        cell.selectionStyle = .None
+        return cell
         
-        cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-        return cell
-      } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
-        let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-        cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-        cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-        cell.textDescription.text = ""
-        let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-        cell.heightTextView.constant = heightTV
-        cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
-        cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
-        return cell
+//        if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
+//          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+//          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+//          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+//          cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
+//          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+//          
+//          cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+//          return cell
+//        } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
+//          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+//          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+//          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+//          cell.textDescription.text = ""
+//          let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+//          cell.heightTextView.constant = heightTV
+//          cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
+//          cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
+//          return cell
+//        } else {
+//          let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
+//          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+//          cell.heightView.constant = cell.imageDescription.frame.height
+//          return cell
+//        }
       } else {
-        let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
-        cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
-        cell.heightView.constant = cell.imageDescription.frame.height
+        let cell = UITableViewCell()
+        cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
         return cell
       }
     }
@@ -174,7 +180,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     feedParser.connectionType = ConnectionTypeSynchronously
     feedParser.parse()
     
-
+    
   }
   
   func feedParserDidStart(parser: MWFeedParser!) {

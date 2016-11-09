@@ -9,8 +9,6 @@
 import UIKit
 
 class LocalTableViewController: UITableViewController,UISearchBarDelegate {
-  var isSearchOn = false
-  var searchResults = [StateRealm]()
   var data = Dictionary<String,[RadioRealm]>()
   var buttonLateralMenu = UIBarButtonItem()
   var objectArray = [StateRealm]()
@@ -33,7 +31,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     navigationController?.navigationBar.hidden = false
     self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.title = "Locais"
-
+    
     ///////////////////////////////////////////////////////////
     //MARK: --- REQUEST STATES ---
     ///////////////////////////////////////////////////////////
@@ -62,59 +60,35 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if isSearchOn == true && !searchResults.isEmpty {
-      return searchResults.count
-    } else {
-      return DataManager.sharedInstance.allStates.count
-    }
+    
+    return DataManager.sharedInstance.allStates.count + 1
+    
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
-    if isSearchOn == true && !searchResults.isEmpty {
-      cell.labelLocal.text = searchResults[indexPath.row].name
-    } else {
+    if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+      let cell = tableView.dequeueReusableCellWithIdentifier("localCell", forIndexPath: indexPath) as! LocalTableViewCell
       cell.labelLocal.text = DataManager.sharedInstance.allStates[indexPath.row].name
+      return cell
+    } else {
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      return cell
     }
-    return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if !isSearchOn {
-      self.selectedState = DataManager.sharedInstance.allStates[indexPath.row]
-    } else {
-      self.selectedState = searchResults[indexPath.row]
-    }
+    self.selectedState = DataManager.sharedInstance.allStates[indexPath.row]
     performSegueWithIdentifier("detailViewCities", sender: self)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "detailViewCities") {
-          let localCitiesVC = (segue.destinationViewController as! LocalCities2TableViewController)
-          localCitiesVC.selectedState = selectedState
-        }
-  }
-  
-  ///////////////////////////////////////////////////////////
-  //MARK: --- SEARCHBAR DELEGATE ---
-  ///////////////////////////////////////////////////////////
-  
-  func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-    searchBar.text = nil
-    searchBar.showsCancelButton = false
-    searchBar.resignFirstResponder()
-    isSearchOn = false
-    self.tableView.reloadData()
-  }
-  
-  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-    searchBar.showsCancelButton = true
-    if !searchText.isEmpty {
-      isSearchOn = true
-      self.filterContentForSearchText(searchText)
-      self.tableView.reloadData()
+    if (segue.identifier == "detailViewCities") {
+      let localCitiesVC = (segue.destinationViewController as! LocalCities2TableViewController)
+      localCitiesVC.selectedState = selectedState
     }
   }
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- OTHERS ---
@@ -124,19 +98,6 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   
-  func filterContentForSearchText(text: String) {
-    searchResults.removeAll(keepCapacity: false)
-    for state in objectArray {
-      let stringToLookFor = state.name as NSString
-      if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
-        searchResults.append(state)
-      }
-    }
-  }
-  
-  func collectionViewBackgroundTapped() {
-    searchBar.resignFirstResponder()
-  }
   
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
@@ -148,10 +109,4 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     UIApplication.sharedApplication().sendAction(buttonLateralMenu.action, to: buttonLateralMenu.target, from: self, forEvent: nil)
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
-    return true
-  }
-  
-
 }

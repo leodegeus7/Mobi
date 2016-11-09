@@ -27,7 +27,6 @@
 		B71FA3941DBFF0710001356F /* AdsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3931DBFF0710001356F /* AdsTableViewCell.swift */; };
 		B71FA3961DBFF2F60001356F /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3951DBFF2F60001356F /* Advertisement.swift */; };
 		B71FA3981DBFF3670001356F /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FA3971DBFF3670001356F /* AdsManager.swift */; };
-		B72282901DD24B96007979A3 /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B722828F1DD24B96007979A3 /* splashScreen.png */; };
 		B72282921DD24C3E007979A3 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B72282911DD24C3E007979A3 /* menu.png */; };
 		B73532E71D9AD744008504BA /* RadioDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B73532E61D9AD744008504BA /* RadioDetailView.xib */; };
 		B73532E91D9AD7B0008504BA /* RadioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73532E81D9AD7B0008504BA /* RadioTableViewController.swift */; };
@@ -133,6 +132,11 @@
 		B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */; };
 		B7880BB01D5E6EE6002B235A /* ViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */; };
 		B78BE4C51D7DFCAC008E1CA4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78BE4C41D7DFCAB008E1CA4 /* RegisterViewController.swift */; };
+		B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE40C1DD37DDE00D7551B /* pauseWhite.png */; };
+		B78FE40F1DD38F8500D7551B /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE40E1DD38F8500D7551B /* splashScreen.png */; };
+		B78FE4151DD3988A00D7551B /* arrowR.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4141DD3988A00D7551B /* arrowR.png */; };
+		B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4161DD3B29F00D7551B /* anuncio.png */; };
+		B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4181DD3B7BB00D7551B /* anuncio2.png */; };
 		B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */; };
 		B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
@@ -210,7 +214,6 @@
 		B71FA3931DBFF0710001356F /* AdsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsTableViewCell.swift; sourceTree = "<group>"; };
 		B71FA3951DBFF2F60001356F /* Advertisement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		B71FA3971DBFF3670001356F /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
-		B722828F1DD24B96007979A3 /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
 		B72282911DD24C3E007979A3 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		B73532E61D9AD744008504BA /* RadioDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDetailView.xib; sourceTree = "<group>"; };
 		B73532E81D9AD7B0008504BA /* RadioTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioTableViewController.swift; sourceTree = "<group>"; };
@@ -330,6 +333,11 @@
 		B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
 		B7880BAF1D5E6EE6002B235A /* ViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewViewController.swift; sourceTree = "<group>"; };
 		B78BE4C41D7DFCAB008E1CA4 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		B78FE40C1DD37DDE00D7551B /* pauseWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseWhite.png; sourceTree = "<group>"; };
+		B78FE40E1DD38F8500D7551B /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
+		B78FE4141DD3988A00D7551B /* arrowR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowR.png; sourceTree = "<group>"; };
+		B78FE4161DD3B29F00D7551B /* anuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio.png; sourceTree = "<group>"; };
+		B78FE4181DD3B7BB00D7551B /* anuncio2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio2.png; sourceTree = "<group>"; };
 		B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActualProgramTableViewCell.swift; sourceTree = "<group>"; };
 		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
@@ -547,11 +555,13 @@
 				B7EE9D2F1D886E2E00AE27D1 /* heartRed.png */,
 				B784D2B91DAC2D4B0016A405 /* plus.png */,
 				CDBB19771D74B29F00BF0405 /* arrow.png */,
+				B78FE4141DD3988A00D7551B /* arrowR.png */,
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
 				B7BB84AB1D9DA7B20033D823 /* like.png */,
-				B722828F1DD24B96007979A3 /* splashScreen.png */,
+				B78FE40E1DD38F8500D7551B /* splashScreen.png */,
 				B70898321DD10102008DA1D9 /* check.png */,
+				B78FE40C1DD37DDE00D7551B /* pauseWhite.png */,
 				B72282911DD24C3E007979A3 /* menu.png */,
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 			);
@@ -700,8 +710,8 @@
 		B7D90E0E1D5A573800D15089 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
 				B73681361D590BA300EC94A9 /* AppDelegate.swift */,
+				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
 				CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */,
 				B77DEA6C1D77567700695546 /* FileSupport.swift */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
@@ -737,6 +747,8 @@
 				B702CF501DA2CA2A007FB335 /* avatar.png */,
 				B7D584E11D5D2085003D5A1F /* okImage.png */,
 				B74B0E611D6F6F1600012D8E /* happy.jpg */,
+				B78FE4161DD3B29F00D7551B /* anuncio.png */,
+				B78FE4181DD3B7BB00D7551B /* anuncio2.png */,
 				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
 				B7BB84A71D9D92F10033D823 /* heartRedFilled.png */,
@@ -890,11 +902,13 @@
 				B784D2BA1DAC2D4B0016A405 /* plus.png in Resources */,
 				B764F5111DBA9ED30073D268 /* musicIcon.png in Resources */,
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
+				B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */,
 				B702CF571DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png in Resources */,
-				B72282901DD24B96007979A3 /* splashScreen.png in Resources */,
 				B764CE1A1DB7F75D00BFCE76 /* PlayButton@2x.png in Resources */,
+				B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */,
 				B72282921DD24C3E007979A3 /* menu.png in Resources */,
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
+				B78FE4151DD3988A00D7551B /* arrowR.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7842AD61DB685BB002550F3 /* video_64x64.png in Resources */,
@@ -903,6 +917,7 @@
 				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
 				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
 				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
+				B78FE40F1DD38F8500D7551B /* splashScreen.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
@@ -920,6 +935,7 @@
 				B7EE9D301D886E2E00AE27D1 /* heartRed.png in Resources */,
 				B76841D71DA58E5400ABBC78 /* like1.png in Resources */,
 				B77892EF1D91D72C009D6105 /* icone-local.png in Resources */,
+				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
 				B77892F31D91D773009D6105 /* icone-grafico.png in Resources */,
 				B76841DB1DA58E5400ABBC78 /* love1.png in Resources */,
 				B702CF551DA2F8BE007FB335 /* fundo-login-mobi.jpg in Resources */,

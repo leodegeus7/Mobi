@@ -22,4 +22,5 @@ class LineView: UIView {
     bottomLine.stroke()
   }
 
+
 }

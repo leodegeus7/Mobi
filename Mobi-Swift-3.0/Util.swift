@@ -222,9 +222,16 @@ class Util: NSObject {
   }
   
   static func convertDateToShowStringWithHour(date:NSDate) -> String {
-    let calender = NSCalendar.currentCalendar()
-    let components = calender.components([.Day, .Month, . Year, .Hour, .Minute], fromDate: date)
-    let dateString = "\(components.hour):\(components.minute) \(components.day)/\(components.month)/\(components.year)"
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "HH:mm dd/MM/yyyy"
+    let dateString = dateFormatter.stringFromDate(date)
+    return dateString
+  }
+  
+  static func convertDateToShowHour(date:NSDate) -> String {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "HH:mm:ss"
+    let dateString = dateFormatter.stringFromDate(date)
     return dateString
   }
   

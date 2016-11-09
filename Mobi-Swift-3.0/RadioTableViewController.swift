@@ -33,6 +33,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var stars = [UIImageView]()
   var actualComments = [Comment]()
   var actualMusic = Music()
+  var actualProgram = Program()
   var similarRadios = [RadioRealm]()
   let notificationCenter = NSNotificationCenter.defaultCenter()
   var selectedMode:SelectedRadioMode = .DetailRadio
@@ -175,7 +176,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.imageRadio.layer.cornerRadius = cell.imageRadio.bounds.height / 6
         cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
         cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
-        cell.imageRadio.layer.borderWidth = 1
+        cell.imageRadio.layer.borderWidth = 0
         cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
         cell.labelName.text = actualRadio.name.uppercaseString
         cell.labelName.textColor = UIColor.whiteColor()
@@ -226,21 +227,45 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       case 2:
         if indexPath.row == 0 {
           let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
-          cell.labelName.text = "Programa da Manha"
-          cell.labelSecondName.text = "Programa Matutino"
-          cell.imagePerson.image = UIImage(named: "happy.jpg")
-          cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-          cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
-          cell.imagePerson.layer.borderWidth = 0
-          cell.imagePerson.clipsToBounds = true
-          cell.labelNamePerson.text = "Marcos"
-          cell.labelGuests.text = "Toninho e Fulanhinho de tal"
           cell.tag = 150
-          return cell
+          if actualProgram.id == -1 {
+            cell.lockView()
+            return cell
+          } else {
+            if actualProgram.dynamicType == SpecialProgram.self {
+              let programSpecial2 = actualProgram as! SpecialProgram
+              cell.labelName.text = actualProgram.name
+              cell.labelSecondName.text = ""
+              let identifierImage = actualProgram.announcer.userImage
+              cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+              cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+              cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+              cell.imagePerson.layer.borderWidth = 0
+              cell.imagePerson.clipsToBounds = true
+              cell.labelNamePerson.text = actualProgram.announcer.name
+              cell.labelGuests.text = programSpecial2.guests
+              return cell
+            } else {
+              cell.labelName.text = actualProgram.name
+              cell.labelSecondName.text = ""
+              let identifierImage = actualProgram.announcer.userImage
+              cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+              cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+              cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+              cell.imagePerson.layer.borderWidth = 0
+              cell.imagePerson.clipsToBounds = true
+              cell.labelNamePerson.text = actualProgram.announcer.name
+            }
+          }
         } else {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
-          cell.adsButton.backgroundColor = UIColor.brownColor()
+          let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+          cell.adsButton.backgroundColor = colorWhite
+          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
           cell.selectionStyle = .None
+          
+          print("Tamanho do adbutton \(cell.adsButton.frame.size)")
           AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
             dispatch_async(dispatch_get_main_queue()) {
               if let imageAd = resultAd.image {

@@ -17,10 +17,13 @@ import FBSDKLoginKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseMessaging
+import FirebaseInstanceID
 import Fabric
 import TwitterKit
 import ChameleonFramework
 import SwiftyJSON
+
 
 
 @UIApplicationMain
@@ -59,6 +62,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       defineInitialParameters()
     }
     
+    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+    application.registerUserNotificationSettings(settings)
+    application.registerForRemoteNotifications()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+    let notf = FIRMessaging.messaging()
+    notf.connectWithCompletion { (error) in
+      if (error != nil) {
+        print(error)
+      } else {
+        print("conectado com o FCM")
+      }
+    }
     
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
@@ -192,6 +207,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         DataManager.sharedInstance.isSleepModeEnabled = false
       }
     }
+  }
+  
+  func tokenRefreshNotification(notification: NSNotification) {
+    if let refreshedToken = FIRInstanceID.instanceID().token() {
+      print("Token do firebase Messaging: \(refreshedToken)")
+      DataManager.sharedInstance.firMessagingToken = refreshedToken
+    }
+  }
+  
+  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    if let msgId = userInfo["gcm.message_id"] as? String {
+      print("Mensagem com id \(msgId) recebida remotamente. Possivelemente firebase")
+    }
+    print("Mensagem: \(userInfo)")
+    let notification = UILocalNotification()
+    notification.alertBody = "\(userInfo["body"])"
+    notification.alertAction = "Ok"
+    notification.fireDate = NSDate(timeIntervalSinceNow: 1)
+    UIApplication.sharedApplication().scheduleLocalNotification(notification)
   }
   
   static func realmUpdate(realm:Realm) {

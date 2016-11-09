@@ -27,6 +27,9 @@ PODS:
   - Firebase/Database (3.5.2):
     - Firebase/Analytics
     - FirebaseDatabase (= 3.0.2)
+  - Firebase/Messaging (3.5.2):
+    - Firebase/Analytics
+    - FirebaseMessaging (= 1.1.1)
   - FirebaseAnalytics (3.3.1):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
@@ -40,6 +43,12 @@ PODS:
   - FirebaseDatabase (3.0.2):
     - FirebaseAnalytics (~> 3.2)
   - FirebaseInstanceID (1.0.8)
+  - FirebaseMessaging (1.1.1):
+    - FirebaseAnalytics (~> 3.3)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleIPhoneUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
   - FirebaseUI/Auth (0.6.2):
     - Firebase/Auth
   - FirebaseUI/Database (0.6.2):
@@ -52,6 +61,9 @@ PODS:
     - TwitterKit (~> 2.4)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - GoogleIPhoneUtilities (1.2.1):
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.0)
   - GoogleNetworkingUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleParsingUtilities (1.1.1):
@@ -94,6 +106,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - Firebase/Messaging
   - FirebaseUI/Auth
   - FirebaseUI/Database
   - FirebaseUI/Facebook
@@ -123,8 +136,10 @@ SPEC CHECKSUMS:
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
   FirebaseDatabase: 59bea2e7dfd81b3b8b2f8e396caf1a52c2ced6f7
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseMessaging: 6bc7cd2ecb875c1a9c0f8b94956398aa3145bbb8
   FirebaseUI: c6579dbd268ff63e07e308626ff818708d7c6160
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
+  GoogleIPhoneUtilities: 63f25e93a3ddcb66884d182aab3a660d98f1479b
   GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
   GoogleParsingUtilities: 30b3896f9ee167dc78747f013d3de157ced1cadf
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
@@ -140,6 +155,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: bd9e1d5432ab7962565330a37ae7b5d59f1ee9e6
+PODFILE CHECKSUM: e2a2543d2c3de22d0827c7fe4821d7a09883615b
 
 COCOAPODS: 1.0.1

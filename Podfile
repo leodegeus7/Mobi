@@ -25,6 +25,7 @@ pod 'Cosmos', '~> 1.2’
 pod 'ImageViewer’, '~> 2.0’
 pod ‘MWFeedParser’
 pod ‘FirebaseUI/Twitter‘
+pod 'Firebase/Messaging'
 end
 post_install do |installer|
   installer.pods_project.targets.each do |target|

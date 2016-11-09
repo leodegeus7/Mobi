@@ -56,45 +56,50 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   // MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return actualSchedulePrograms.count
+    return actualSchedulePrograms.count + 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete implementation, return the number of rows
     return 1
   }
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if actualSchedulePrograms[indexPath.section].dynamicType == SpecialProgram.self {
-      let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
-      
-      let programSpecial2 = actualSchedulePrograms[indexPath.section] as! SpecialProgram
-      
-      cell.labelName.text = actualSchedulePrograms[indexPath.section].name
-      cell.labelSecondName.text = ""
-      let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
-      cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
-      cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-      cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
-      cell.imagePerson.layer.borderWidth = 0
-      cell.imagePerson.clipsToBounds = true
-      cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
-      cell.labelGuests.text = programSpecial2.guests
-      
-      return cell
+    if indexPath.section <= actualSchedulePrograms.count-1 {
+      if actualSchedulePrograms[indexPath.section].dynamicType == SpecialProgram.self {
+        let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
+        
+        let programSpecial2 = actualSchedulePrograms[indexPath.section] as! SpecialProgram
+        
+        cell.labelName.text = actualSchedulePrograms[indexPath.section].name
+        cell.labelSecondName.text = ""
+        let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
+        cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+        cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        cell.imagePerson.layer.borderWidth = 0
+        cell.imagePerson.clipsToBounds = true
+        cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
+        cell.labelGuests.text = programSpecial2.guests
+        cell.selectionStyle = .None
+        return cell
+      } else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("normalProgram", forIndexPath: indexPath) as! NormalProgramTableViewCell
+        
+        cell.labelName.text = actualSchedulePrograms[indexPath.section].name
+        let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
+        cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
+        cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        cell.imagePerson.layer.borderWidth = 0
+        cell.imagePerson.clipsToBounds = true
+        cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
+        cell.selectionStyle = .None
+        return cell
+      }
     } else {
-      let cell = tableView.dequeueReusableCellWithIdentifier("normalProgram", forIndexPath: indexPath) as! NormalProgramTableViewCell
-      
-      cell.labelName.text = actualSchedulePrograms[indexPath.section].name
-      let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
-      cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
-      cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-      cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
-      cell.imagePerson.layer.borderWidth = 0
-      cell.imagePerson.clipsToBounds = true
-      cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
-      
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
       return cell
     }
     
@@ -155,24 +160,30 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
       self.schedule[friday] = fridayProg
       self.schedule[saturday] = saturdayProg
       
+      let actualDayOfWeek = Util.getDayOfWeek(NSDate())
+      let fistDayOfWeek = NSDate().dateByAddingTimeInterval(-Double(((actualDayOfWeek)))*60*60*24)
+      let lastDayOfWeek = NSDate().dateByAddingTimeInterval(Double((7-(actualDayOfWeek-1)))*60*60*24)
+      
       let requestSpecial = RequestManager()
       requestSpecial.requestSpecialProgramsOfRadio(self.actualRadio, pageNumber: 0, pageSize: 30, completion: { (resultSpecialPrograms) in
         for specialProgram in resultSpecialPrograms {
-          let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
-          self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgram)
           
-          let programIdToDelete = specialProgram.referenceIdProgram
-          var scheduleDay = (self.schedule[self.weekDays[dayOfWeekInt-1]])!
-          var programToDelete = Program()
-          for program in scheduleDay {
-            if program.id == programIdToDelete && !Util.areTheySiblings(program, class2: SpecialProgram()) {
-              programToDelete = program
-              break
+          if specialProgram.date.timeIntervalSinceDate(fistDayOfWeek) > 0 && specialProgram.date.timeIntervalSinceDate(lastDayOfWeek) < 0 {
+            let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
+            self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgram)
+            
+            let programIdToDelete = specialProgram.referenceIdProgram
+            var scheduleDay = (self.schedule[self.weekDays[dayOfWeekInt-1]])!
+            var programToDelete = Program()
+            for program in scheduleDay {
+              if program.id == programIdToDelete && !Util.areTheySiblings(program, class2: SpecialProgram()) {
+                programToDelete = program
+                break
+              }
             }
+            scheduleDay.removeAtIndex(scheduleDay.indexOf(programToDelete)!)
+            self.schedule[self.weekDays[dayOfWeekInt-1]] = scheduleDay
           }
-          scheduleDay.removeAtIndex(scheduleDay.indexOf(programToDelete)!)
-          self.schedule[self.weekDays[dayOfWeekInt-1]] = scheduleDay
-          
         }
         
         for programsArray in self.schedule {
@@ -230,7 +241,11 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return actualSchedulePrograms[section].timeStart
+    if section <= actualSchedulePrograms.count-1 {
+      return actualSchedulePrograms[section].timeStart
+    } else {
+      return  ""
+    }
   }
   
   ///////////////////////////////////////////////////////////
@@ -247,12 +262,6 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     let str = "A rádio não disponibilizou nenhuma programação para o período"
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
     return NSAttributedString(string: str, attributes: attr)
-  }
-  
-  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
-    return Util.imageResize(imageView.image!, sizeChange: CGSize(width: 100, height: 100))
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {

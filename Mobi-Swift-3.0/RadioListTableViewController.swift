@@ -42,7 +42,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
-
+  
   ///////////////////////////////////////////////////////////
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
@@ -52,23 +52,29 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return radios.count
+    return radios.count + 1
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-    cell.labelName.text = radios[indexPath.row].name
-    cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
-    cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
-    if radios[indexPath.row].isFavorite {
-      cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+    if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+      cell.labelName.text = radios[indexPath.row].name
+      cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
+      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
+      if radios[indexPath.row].isFavorite {
+        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+      } else {
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+      }
+      cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
+      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+      cell.labelDescriptionTwo.text = ""
+      return cell
     } else {
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      return cell
     }
-    cell.labelDescriptionOne.text = "\(radios[indexPath.row].likenumber)"
-    cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-    cell.labelDescriptionTwo.text = ""
-    return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

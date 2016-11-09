@@ -19,6 +19,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import ChameleonFramework
 import Kingfisher
+import FirebaseMessaging
 
 class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   //FBSDKLoginButtonDelegate
@@ -679,4 +680,21 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowing, title: "Seguindo")
     }
   }
+  
+  override func canBecomeFirstResponder() -> Bool {
+    return true
+  }
+  
+  
+  
+  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      if DataManager.sharedInstance.firMessagingToken != "" {
+        self.displayAlert(title: "Token", message: DataManager.sharedInstance.firMessagingToken, action: "Recebido")
+      }
+    }
+  }
+  
+
+  
 }

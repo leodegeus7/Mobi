@@ -43,7 +43,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    colorArray = colorArray1
+    colorArray = colorArray2
     self.view.userInteractionEnabled = true
     menuButton.target = self.revealViewController()
     menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -207,7 +207,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     sliderGraves.minimumTrackTintColor = DataManager.sharedInstance.interfaceColor.color
     sliderMedios.minimumTrackTintColor = DataManager.sharedInstance.interfaceColor.color
     
-    
+    StreamingRadioManager.sharedInstance.sendNotification()
     DataManager.sharedInstance.configApp.updatecoordColorConfig((sender?.tag)!)
     //    imageCheckView.frame = (sender?.frame)!
     //    if (sender?.tag)! > 20 {
@@ -371,7 +371,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     DataManager.sharedInstance.configApp.updatecoordColorConfig(tagButton)
-
+    StreamingRadioManager.sharedInstance.sendNotification()
     
     for button in colorButtons {
       button.setImage(UIImage(), forState: .Normal)

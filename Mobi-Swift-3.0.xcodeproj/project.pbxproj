@@ -137,6 +137,7 @@
 		B78FE4151DD3988A00D7551B /* arrowR.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4141DD3988A00D7551B /* arrowR.png */; };
 		B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4161DD3B29F00D7551B /* anuncio.png */; };
 		B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4181DD3B7BB00D7551B /* anuncio2.png */; };
+		B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41A1DD3B92D00D7551B /* anuncio3.png */; };
 		B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */; };
 		B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
@@ -338,6 +339,7 @@
 		B78FE4141DD3988A00D7551B /* arrowR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowR.png; sourceTree = "<group>"; };
 		B78FE4161DD3B29F00D7551B /* anuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio.png; sourceTree = "<group>"; };
 		B78FE4181DD3B7BB00D7551B /* anuncio2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio2.png; sourceTree = "<group>"; };
+		B78FE41A1DD3B92D00D7551B /* anuncio3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio3.png; sourceTree = "<group>"; };
 		B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActualProgramTableViewCell.swift; sourceTree = "<group>"; };
 		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 				B74B0E611D6F6F1600012D8E /* happy.jpg */,
 				B78FE4161DD3B29F00D7551B /* anuncio.png */,
 				B78FE4181DD3B7BB00D7551B /* anuncio2.png */,
+				B78FE41A1DD3B92D00D7551B /* anuncio3.png */,
 				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7F530EC1D623F9000831561 /* heart.png */,
 				B7BB84A71D9D92F10033D823 /* heartRedFilled.png */,
@@ -909,6 +912,7 @@
 				B72282921DD24C3E007979A3 /* menu.png in Resources */,
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B78FE4151DD3988A00D7551B /* arrowR.png in Resources */,
+				B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7842AD61DB685BB002550F3 /* video_64x64.png in Resources */,

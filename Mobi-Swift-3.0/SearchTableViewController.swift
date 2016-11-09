@@ -129,9 +129,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         if indexPath.row == 0 {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
           let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
           cell.adsButton.backgroundColor = colorWhite
-          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
+          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
           cell.selectionStyle = .None
           AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
             dispatch_async(dispatch_get_main_queue()) {

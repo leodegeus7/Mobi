@@ -91,9 +91,9 @@ class PlayerViewController: UIViewController {
     segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
     updateInfoOfView()
     segmentedChanged(self)
-    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
     self.buttonAdvertisement.backgroundColor = colorWhite2
-    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
     AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
       dispatch_async(dispatch_get_main_queue()) {
         if let imageAd = resultAd.image {
@@ -122,6 +122,8 @@ class PlayerViewController: UIViewController {
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
     viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
     view.backgroundColor = colorWhite
+    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
+    self.buttonAdvertisement.backgroundColor = colorWhite2
   }
   
 
@@ -165,7 +167,7 @@ class PlayerViewController: UIViewController {
     imageLogo.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
     imageLogo.layer.backgroundColor = UIColor.whiteColor().CGColor
     imageLogo.layer.borderColor = colorBlack.CGColor
-    imageLogo.layer.borderWidth = 2
+    imageLogo.layer.borderWidth = 0
     imageLogo.clipsToBounds = true
     labelName.text = StreamingRadioManager.sharedInstance.actualRadio.name.uppercaseString
     labelName.textColor = UIColor.whiteColor()

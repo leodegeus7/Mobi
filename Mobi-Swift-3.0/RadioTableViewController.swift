@@ -160,7 +160,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       if firstTimeShowed {
         return 1
       } else {
-        return actualComments.count
+        return actualComments.count + 1
       }
     }
   }
@@ -260,9 +260,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         } else {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
           let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+          let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
           cell.adsButton.backgroundColor = colorWhite
-          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio2.png"), forState: .Normal)
+          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
           cell.selectionStyle = .None
           
           print("Tamanho do adbutton \(cell.adsButton.frame.size)")
@@ -324,110 +324,76 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     case .Wall :
       if !firstTimeShowed {
-        if actualComments[indexPath.row].postType == .Audio {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
-          cell.labelName.text = actualComments[indexPath.row].user.name
-          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-          cell.textViewWall.text = actualComments[indexPath.row].text
-          if actualComments[indexPath.row].user.userImage == "avatar.png" {
-            cell.imageUser.image = UIImage(named: "avatar.png")
-          } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+        if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+          if actualComments[indexPath.row].postType == .Audio {
+            let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
+            cell.labelName.text = actualComments[indexPath.row].user.name
+            cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+            cell.textViewWall.text = actualComments[indexPath.row].text
+            if actualComments[indexPath.row].user.userImage == "avatar.png" {
+              cell.imageUser.image = UIImage(named: "avatar.png")
+            } else {
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+            }
+            cell.identifier = actualComments[indexPath.row].audio
+            return cell
+            
           }
-          cell.identifier = actualComments[indexPath.row].audio
-          return cell
-          
-        }
-        if actualComments[indexPath.row].postType == .Image {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
-          cell.labelName.text = actualComments[indexPath.row].user.name
-          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-          cell.textViewWall.text = actualComments[indexPath.row].text
-          if actualComments[indexPath.row].user.userImage == "avatar.png" {
-            cell.imageUser.image = UIImage(named: "avatar.png")
-          } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
-          }
-          cell.buttonZoomImage.tag = indexPath.row
-          cell.tag = indexPath.row
-          cell.imageAttachment.kf_showIndicatorWhenLoading = true
-          if !cell.isReloadCell {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-              cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
-                
-                }, completionHandler: { (image, error, cacheType, imageURL) in
+          if actualComments[indexPath.row].postType == .Image {
+            let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+            cell.labelName.text = actualComments[indexPath.row].user.name
+            cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+            cell.textViewWall.text = actualComments[indexPath.row].text
+            if actualComments[indexPath.row].user.userImage == "avatar.png" {
+              cell.imageUser.image = UIImage(named: "avatar.png")
+            } else {
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+            }
+            cell.buttonZoomImage.tag = indexPath.row
+            cell.tag = indexPath.row
+            cell.imageAttachment.kf_showIndicatorWhenLoading = true
+            if !cell.isReloadCell {
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
                   
-                  dispatch_async(dispatch_get_main_queue(), {
-                    if self.selectedMode == .Wall {
-                      if let image2 = image {
-                        if cell.tag == indexPath.row && !cell.isReloadCell{
-                          let ratio = (image2.size.height)/(image2.size.width)
-                          cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-                          //cell.imageAttachment.image = image
-                          tableView.beginUpdates()
-                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                          tableView.endUpdates()
-                          cell.tag = 1000
-                          cell.isReloadCell = true
+                  }, completionHandler: { (image, error, cacheType, imageURL) in
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                      if self.selectedMode == .Wall {
+                        if let image2 = image {
+                          if cell.tag == indexPath.row && !cell.isReloadCell{
+                            let ratio = (image2.size.height)/(image2.size.width)
+                            cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+                            //cell.imageAttachment.image = image
+                            tableView.beginUpdates()
+                            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                            tableView.endUpdates()
+                            cell.tag = 1000
+                            cell.isReloadCell = true
+                          }
                         }
                       }
-                    }
-                  })
+                    })
+                })
               })
-            })
-          }
-          
-          
-          
-          
-          
-          
-          
-          
-          //          cell.imageAttachment.kf_showIndicatorWhenLoading = true
-          //          if cell.tag != 3 {
-          //            cell.imageAttachment.image = nil
-          //          }
-          //          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-          //            cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
-          //
-          //              }, completionHandler: { (image, error, cacheType, imageURL) in
-          //                if let erro = error {
-          //                  print(erro)
-          //                }
-          //                for cellUnique in tableView.visibleCells {
-          //                  if Util.areTheySiblings(cellUnique, class2: WallImageTableViewCell()) {
-          //                    if let indexPathCell = tableView.indexPathForCell(cellUnique) {
-          //                      if cellUnique.tag != 3 {
-          //                        if self.selectedMode == .Wall {
-          //                          let indexPathRow = indexPathCell.row
-          //                          let indexPathTest = NSIndexPath(forRow: indexPathRow, inSection: 0)
-          //                          dispatch_async(dispatch_get_main_queue(), {
-          //                            self.reloadCell(indexPathTest)
-          //                            cellUnique.tag = 3
-          //                          })
-          //                        }
-          //                      }
-          //                    }
-          //                  }
-          //                }
-          //            })
-          //          })
-          
-          
-          cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
-          
-          return cell
-        } else {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-          cell.labelName.text = actualComments[indexPath.row].user.name
-          cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-          cell.textViewWall.text = actualComments[indexPath.row].text
-          if actualComments[indexPath.row].user.userImage == "avatar.png" {
-            cell.imageUser.image = UIImage(named: "avatar.png")
+            }
+            cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+            return cell
           } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+            let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+            cell.labelName.text = actualComments[indexPath.row].user.name
+            cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+            cell.textViewWall.text = actualComments[indexPath.row].text
+            if actualComments[indexPath.row].user.userImage == "avatar.png" {
+              cell.imageUser.image = UIImage(named: "avatar.png")
+            } else {
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+            }
+            return cell
           }
+        } else {
+          let cell = UITableViewCell()
+          cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
           return cell
         }
       } else {

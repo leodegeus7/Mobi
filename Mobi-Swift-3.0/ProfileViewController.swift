@@ -135,11 +135,15 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       buttonLogin.setTitle("Login", forState: .Normal)
       buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }
-    FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-      if let _ = user {
-        self.buttonLogin.setTitle("Logout", forState: .Normal)
-        DataManager.sharedInstance.isLogged = true
-        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+    
+    let testManager = RequestManager()
+    testManager.testUserLogged { (result) in
+      if result {
+        dispatch_async(dispatch_get_main_queue()) {
+          self.buttonLogin.setTitle("Logout", forState: .Normal)
+          DataManager.sharedInstance.isLogged = true
+          self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        }
       } else {
         self.buttonLogin.setTitle("Login", forState: .Normal)
         DataManager.sharedInstance.isLogged = false
@@ -147,7 +151,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         DataManager.sharedInstance.configApp.updateUserToken("")
         self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
       }
-    })
+    }
+    
     let store = Twitter.sharedInstance().sessionStore
     if let _ = store.session()?.userID {
       buttonTwitter.setTitle("Logout Twitter", forState: .Normal)

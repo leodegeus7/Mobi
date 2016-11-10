@@ -8,8 +8,9 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
-class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
+class WallAudioPlayerTableViewCell: UITableViewCell {
   
   @IBOutlet weak var textViewWall: UITextView!
   @IBOutlet weak var labelDate: UILabel!
@@ -23,7 +24,7 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
   @IBOutlet weak var buttonPlay: UIButton!
   @IBOutlet weak var activityIndicatorAudio: UIActivityIndicatorView!
   
-
+  
   var audioToPlayUrl:NSURL!
   var identifier:String!
   
@@ -35,7 +36,7 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     self.selectedBackgroundView = viewSelected
     buttonPlay.backgroundColor = UIColor.clearColor()
     activityIndicatorAudio.hidden = true
-    buttonPlay.setImage(UIImage(named: "play3.png"), forState: .Normal)
+    buttonPlay.setBackgroundImage(UIImage(named: "play3.png"), forState: .Normal)
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
@@ -48,13 +49,24 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     
     activityIndicatorAudio.hidden = false
     buttonPlay.alpha = 0.4
+    
+    let link = returnLinkAudio(identifier)
+    self.buttonPlay.alpha = 1
+    
+//    let audioPlayer = AudioManager()
+//    audioPlayer.play(link, cell: self)
+//    var player = AVPlayer()
+//    player = AVPlayer(URL: NSURL(string: link.link)!)
+//    player.rate = 1
+//    player.play()
     let requestAudio = RequestManager()
     requestAudio.downloadFileWithIdentifier(identifier, format: "m4a") { (url) in
       self.activityIndicatorAudio.hidden = true
       self.buttonPlay.alpha = 1
       if FileSupport.testIfFileExistInDocuments("\(self.identifier).m4a") {
         dispatch_async(dispatch_get_main_queue()) {
-          FileSupport.playAudioFromDocs("\(self.identifier).m4a")
+          FileSupport.playAudioFromBundle("download")
+          //FileSupport.playAudioFromDocs("\(self.identifier).m4a")
           //          let file = try! AKAudioFile(forReading: NSURL(fileURLWithPath: "\(FileSupport.findDocsDirectory())\(self.identifier).m4a"))
           //
           //          let player = try! AKAudioPlayer(file: file)
@@ -65,7 +77,7 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
         //audioPlayer.play()
         //print(audioPlayer.duration)
         
-        self.buttonPlay.setImage(UIImage(named: "pause2.png"), forState: .Normal)
+        self.buttonPlay.setBackgroundImage(UIImage(named: "pause2.png"), forState: .Normal)
       } else {
         print("Arquivo não existe")
         
@@ -75,23 +87,10 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     }
   }
   
-  func audioPlayerEndInterruption(player: AVAudioPlayer) {
-    buttonPlay.setImage(UIImage(named: "play3.png"), forState: .Normal)
+  func returnLinkAudio(identifier:String) -> Link {
+    let URL = Link(link: "\(DataManager.sharedInstance.baseURL)app/file/download?identifier=\(identifier)", linkType: .Audio)
+    return URL
   }
-  func audioPlayerBeginInterruption(player: AVAudioPlayer) {
-    
-  }
-  func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-    
-  }
-  func audioPlayerEndInterruption(player: AVAudioPlayer, withFlags flags: Int) {
-    buttonPlay.setImage(UIImage(named: "play3.png"), forState: .Normal)
-  }
-  func audioPlayerEndInterruption(player: AVAudioPlayer, withOptions flags: Int) {
-    buttonPlay.setImage(UIImage(named: "play3.png"), forState: .Normal)
-  }
-  func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-    buttonPlay.setImage(UIImage(named: "play3.png"), forState: .Normal)
-  }
+  
   
 }

@@ -468,24 +468,7 @@ class RequestManager: NSObject {
       completion(resultFav: result)
     }
   }
-  
-  //  func getStreamingLinksFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
-  //    requestJson("stationunit/\(radio.id)/streaming") { (result) in
-  //      let data = result["data"] as! NSArray
-  //      var links = [Link]()
-  //      for linkDic in data {
-  //        if let _ = linkDic["description"] {
-  //          let descr = linkDic["description"] as! String
-  //          let link = linkDic["linkLow"] as! String
-  //          let linkType = linkDic["linkType"] as! Int
-  //          let linkClass = Link(type: descr, link: link,linkType: linkType)
-  //          links.append(linkClass)
-  //        }
-  //      }
-  //      radio.updateStremingLinks(links)
-  //      completion(result: true)
-  //    }
-  //  }
+
   
   func getAudioChannelsFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
     requestJson("app/station/\(radio.id)/audiochannel") { (result) in
@@ -834,6 +817,17 @@ class RequestManager: NSObject {
         completion(result: true)
       } else {
         DataManager.sharedInstance.statusApp = .ProblemWithInternet
+        completion(result: false)
+      }
+    }
+  }
+  
+  func testUserLogged(completion: (result: Bool) -> Void) {
+    requestJson("app/user") { (result) in
+      let requestResult = result["requestResult"] as! String
+      if requestResult == "OK" {
+        completion(result: true)
+      } else {
         completion(result: false)
       }
     }
@@ -1233,6 +1227,10 @@ class RequestManager: NSObject {
   }
   
   
+
+
+  
+  
   func changeUserPhoto(imageToChange:UIImage,completion: (result: Bool) -> Void) {
     uploadImage(UIProgressView(),imageToUpload: imageToChange) { (resultIdentifiers) in
       var dicImag = Dictionary<String,AnyObject>()
@@ -1604,6 +1602,23 @@ class RequestManager: NSObject {
           links.append(linkRss)
         }
         completion(resultFeedLink:links)
+      }
+    }
+  }
+  
+  func requestPhonesOfStation(radio:RadioRealm,completion: (resultPhones: [PhoneNumber]) -> Void) {
+    requestJson("stationunit/\(radio.id)/phone") { (result) in
+      if let array = result["data"] as? NSArray {
+        var phoneNumbers = [PhoneNumber]()
+        for phone in array {
+          let id = phone["id"] as! Int
+          let phoneTypeCustom = phone["phone"]!!["phoneTypeCustom"] as! String
+          let phoneNumber = phone["phone"]!!["phonenumber"] as! String
+          let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
+          let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
+          phoneNumbers.append(phoneNumberObject)
+        }
+        completion(resultPhones: phoneNumbers)
       }
     }
   }

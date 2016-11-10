@@ -42,6 +42,7 @@ enum StreamingLinkType : Int {
   case High = 1
   case Rds = 2
   case Undefined = -1
+  case Audio = 3
 }
 
 enum StremingQuality : Int {

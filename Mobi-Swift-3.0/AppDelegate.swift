@@ -90,31 +90,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
     
-    FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-      if let _ = user {
+    let testManager = RequestManager()
+    testManager.testUserLogged { (result) in
+      if result {
         dispatch_async(dispatch_get_main_queue()) {
-          user?.getTokenWithCompletion({ (token, erro) in
-            let loginManager = RequestManager()
-            loginManager.loginInServer(token!) { (result) in
-              DataManager.sharedInstance.userToken = result
-              DataManager.sharedInstance.configApp.updateUserToken(result)
-              DataManager.sharedInstance.isLogged = true
-              
-              let profileManager = RequestManager()
-              profileManager.requestMyUserInfo({ (result) in
-                
-              })
-              
-              
-            }
+          DataManager.sharedInstance.isLogged = true
+          let profileManager = RequestManager()
+          profileManager.requestMyUserInfo({ (result) in
+            
           })
+//          user?.getTokenWithCompletion({ (token, erro) in
+//            let loginManager = RequestManager()
+//            loginManager.loginInServer(token!) { (result) in
+//              DataManager.sharedInstance.userToken = result
+//              DataManager.sharedInstance.configApp.updateUserToken(result)
+//              DataManager.sharedInstance.isLogged = true
+//              
+//
+//              
+//              
+//            }
+//          })
         }
       } else {
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
         DataManager.sharedInstance.configApp.updateUserToken("")
       }
-    })
+    }
     
     
     //uploadProfilePicture(UIImage(named: "play.png")!)

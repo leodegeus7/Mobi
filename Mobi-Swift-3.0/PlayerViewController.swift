@@ -186,7 +186,7 @@ class PlayerViewController: UIViewController {
     updateInterfaceWithGracenote()
     
     labelProgramName.text = "Programa da Manha"
-    imagePerson.image = UIImage(named: "happy.jpg")
+    imagePerson.image = UIImage(named: "logo-pretaAbert.png")
     imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
     imagePerson.layer.borderColor = UIColor.blackColor().CGColor
     imagePerson.layer.borderWidth = 0

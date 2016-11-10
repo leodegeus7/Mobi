@@ -40,8 +40,8 @@ class AdsManager: NSObject {
   
   func requestAllAds(completion: (resultAd: [Advertisement]) -> Void) {
     if isAdsRequested {
-      if NSDate().timeIntervalSinceDate(timeWasRequested) > 120 {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      if NSDate().timeIntervalSinceDate(timeWasRequested) > 120 {    //tento manter um intervalo de 120 segundos em cada requisição de request
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { //trabalhando no threat de background
           let adsRequest = RequestManager()
           adsRequest.requestAdvertisement { (result) in
             self.advertisement = result
@@ -66,7 +66,7 @@ class AdsManager: NSObject {
   }
   
   func findCorrectAd(screenName:ScreenName) -> Advertisement {
-    let suffledArray = GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(advertisement) as! [Advertisement]
+    let suffledArray = GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(advertisement) as! [Advertisement] //em caso que existam ads que utilizem a mesma tela e estejam no mesmo período de tempo, faço um shuffle no array para sempre variar qual ad mostrar - SITUAÇÃO IMPOSSÍVEL
     switch screenName {
     case .PlayerScreen:
       for ad in suffledArray {

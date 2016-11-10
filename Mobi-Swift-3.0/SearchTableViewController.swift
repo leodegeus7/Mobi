@@ -76,7 +76,11 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       switch section {
       case 0:
         if searchRadios.count <= 3 {
-          return searchRadios.count+1
+          if searchRadios.count == 0 {
+            return 0
+          } else {
+            return searchRadios.count+1
+          }
         } else {
           return 4+1
         }
@@ -495,7 +499,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     if !isOneTimeSearched {
-      str = "Para algum conteúdo aparecer nesta pesquisa, digite seu texto no barra a cima"
+      str = ""
       let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
       return NSAttributedString(string: str, attributes: attr)
     } else {
@@ -517,7 +521,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   }
   
   func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+    return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
   }
   
 }

@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "loadingMusicView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "updateMusicViewWithMusic(_:gracenote:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "requestGracenote(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "updateInterfaceWithGracenote()"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "buttonPlayTapped(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/PlayerViewController.swift"
-            timestampString = "500414612.581495"
+            timestampString = "500415604.53081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "updateIcons()"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
-            timestampString = "500409314.06648"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "completeProfileViewInfo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
-            timestampString = "500409314.06648"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "completeProfileViewInfo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
-            timestampString = "500409314.06648"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "completeProfileViewInfo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
-            timestampString = "500409314.06648"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "completeProfileViewInfo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -438,15 +438,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/AppDelegate.swift"
-            timestampString = "500412515.712336"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "500411096.688202"
+            timestampString = "500488024.512488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
             landmarkName = "getAudioChannelsFromRadio(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "500411196.273857"
+            timestampString = "500488024.512488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "getAudioChannelsFromRadio(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "500411201.126395"
+            timestampString = "500488024.512488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "getAudioChannelsFromRadio(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -538,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "500411268.465682"
+            timestampString = "500488024.512488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
             landmarkName = "getAudioChannelsFromRadio(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -614,15 +614,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
-            timestampString = "500412646.600237"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "691"
-            endingLineNumber = "691"
+            startingLineNumber = "696"
+            endingLineNumber = "696"
             landmarkName = "motionEnded(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -630,15 +630,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/AppDelegate.swift"
-            timestampString = "500412782.523155"
+            timestampString = "500495121.086635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "tokenRefreshNotification(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -752,6 +752,38 @@
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/AudioManager.swift"
+            timestampString = "500499598.233738"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "play(_:cell:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/RadioTableViewController.swift"
+            timestampString = "500500053.163609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "604"
+            endingLineNumber = "604"
+            landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

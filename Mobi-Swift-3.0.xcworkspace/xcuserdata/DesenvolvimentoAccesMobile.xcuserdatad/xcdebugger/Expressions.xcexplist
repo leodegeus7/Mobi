@@ -224,6 +224,17 @@
          contextName = "static Util.removeDuplicateStrings([String]) -&gt; [String]:Util.swift">
       </ContextState>
       <ContextState
+         contextName = "AudioManager.play(Link, cell : WallAudioPlayerTableViewCell) -&gt; ():AudioManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommentsTableViewController.viewDidLoad() -&gt; ():CommentsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualComment">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MiniPlayerViewController.viewDidLoad() -&gt; ():MiniPlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -282,6 +293,20 @@
             </PersistentString>
             <PersistentString
                value = "imageLogo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static FileSupport.playAudioFromBundle(String) -&gt; ():FileSupport.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "NSBundle.mainBundle().pathForResource(&quot;\(name)&quot;, ofType: &quot;.m4a&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "NSBundle.mainBundle().URLForResource(&quot;\(name)&quot;, withExtension: &quot;.m4a&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "NSBundle.mainBundle().URLForResource(&quot;download&quot;, withExtension: &quot;.m4a&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -567,6 +592,9 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.tokenRefreshNotification(NSNotification) -&gt; ():AppDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -1036,6 +1064,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RequestManager.(requestPhonesOfStation(RadioRealm, completion : (resultPhones : [PhoneNumber]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "phone[&quot;phonenumber&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phone&quot;][&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phone&quot;]!![&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -1206,6 +1251,17 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(updateUserInfo([[String : AnyObject]], completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MiniPlayerViewController.updatePlayerIcons() -&gt; ():MiniPlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "StreamingRadioManager.sharedInstance.actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "imageRadio">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "AddressRealm.init(lat : String, long : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, repository : Bool) -&gt; AddressRealm:AddressRealm.swift">

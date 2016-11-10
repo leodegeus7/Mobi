@@ -177,7 +177,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
         cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.imageRadio.layer.borderWidth = 0
-        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
+        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorBlack,colorWhite])
         cell.labelName.text = actualRadio.name.uppercaseString
         cell.labelName.textColor = UIColor.whiteColor()
         if let _ = actualRadio.address {
@@ -324,7 +324,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     case .Wall :
       if !firstTimeShowed {
-        if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+        if indexPath.row <= actualComments.count-1 {
           if actualComments[indexPath.row].postType == .Audio {
             let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
             cell.labelName.text = actualComments[indexPath.row].user.name
@@ -446,6 +446,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       break
     }
     if selectedMode == .Wall {
+      selectedComment = actualComments[indexPath.row]
       performSegueWithIdentifier("showSubCommentsSegue", sender: self)
     }
   }
@@ -603,6 +604,10 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       createVC.actualRadio = actualRadio
       createVC.actualComment = selectedComment
     }
+    if segue.identifier == "contactSegue" {
+      let contactVC = segue.destinationViewController as! ContactRadioTableViewController
+      contactVC.actualRadio = actualRadio
+    }
   }
   
   @IBAction func buttonPlayTapped(sender: AnyObject) {
@@ -723,8 +728,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     
     RadioTableViewController.selectedImageButton = cell.imageAttachment.image!
     let imageProvider: ImageProvider = PoorManProvider()
-    let buttonAssets = CloseButtonAssets(normal: UIImage(named:"arrow")!, highlighted: UIImage(named: "happy"))
-    let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets)
+    let buttonAssets = CloseButtonAssets(normal: UIImage(named:"arrowWhite")!, highlighted: UIImage(named: "arrowWhite"))
+    
+    let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets, backgroundColor: UIColor.blackColor())
     let imageViewer = ImageViewerController(imageProvider: imageProvider, configuration: configuration, displacedView: sender as! UIView)
     self.presentImageViewer(imageViewer)
   }

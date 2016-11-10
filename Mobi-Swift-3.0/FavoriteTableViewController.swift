@@ -135,7 +135,7 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+    return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {

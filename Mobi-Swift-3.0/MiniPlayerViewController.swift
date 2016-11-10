@@ -71,7 +71,7 @@ class MiniPlayerViewController: UIViewController {
   }
   
   override func viewWillLayoutSubviews() {
-        miniPlayerView.alpha = 0.94
+    miniPlayerView.alpha = 0.94
   }
   
   func setupAnimator() {
@@ -215,27 +215,29 @@ class MiniPlayerViewController: UIViewController {
   }
   
   func updatePlayerIcons() {
-    miniPlayerView.alpha = 0.94
-    labelFirst.text = StreamingRadioManager.sharedInstance.actualRadio.name
-    if let _ = StreamingRadioManager.sharedInstance.actualRadio.address {
-      labelSecond.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
+    if StreamingRadioManager.sharedInstance.actualRadio.id != -1 {
+      miniPlayerView.alpha = 0.94
+      labelFirst.text = StreamingRadioManager.sharedInstance.actualRadio.name
+      if let _ = StreamingRadioManager.sharedInstance.actualRadio.address {
+        labelSecond.text = StreamingRadioManager.sharedInstance.actualRadio.address.formattedLocal
+      }
+      imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(StreamingRadioManager.sharedInstance.actualRadio.thumbnail)))
+      
+      imageRadio.layer.cornerRadius = imageRadio.bounds.height / 6
+      imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
+      imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
+      imageRadio.layer.borderWidth = 1
+      labelFirst.textColor = UIColor.whiteColor()
+      labelSecond.textColor = UIColor.whiteColor()
+      if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+        playButton.setImage(UIImage(named: "StopButton@2x.png"), forState: .Normal)
+      } else {
+        playButton.setImage(UIImage(named: "PlayButton@2x.png"), forState: .Normal)
+      }
+      let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+      let colorWhite =  ColorRealm(name: 45, red: components[0]+0.05, green: components[1]+0.05, blue: components[2]+0.05, alpha: 1).color
+      miniPlayerView.backgroundColor = colorWhite
     }
-    imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(StreamingRadioManager.sharedInstance.actualRadio.thumbnail)))
-    
-    imageRadio.layer.cornerRadius = imageRadio.bounds.height / 6
-    imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
-    imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
-    imageRadio.layer.borderWidth = 1
-    labelFirst.textColor = UIColor.whiteColor()
-    labelSecond.textColor = UIColor.whiteColor()
-    if StreamingRadioManager.sharedInstance.currentlyPlaying() {
-      playButton.setImage(UIImage(named: "StopButton@2x.png"), forState: .Normal)
-    } else {
-      playButton.setImage(UIImage(named: "PlayButton@2x.png"), forState: .Normal)
-    }
-    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.05, green: components[1]+0.05, blue: components[2]+0.05, alpha: 1).color
-    miniPlayerView.backgroundColor = colorWhite
   }
   
   ///////////////////////////////////////////////////////////

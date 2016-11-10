@@ -86,8 +86,6 @@
 		B77384AC1D7F32D300701070 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AB1D7F32D300701070 /* Security.framework */; };
 		B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */; };
 		B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77892E31D91B346009D6105 /* StreamingRadioManager.swift */; };
-		B77892E61D91D2CA009D6105 /* new1.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892E51D91D2CA009D6105 /* new1.png */; };
-		B77892E81D91D36D009D6105 /* new2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B77892E71D91D36D009D6105 /* new2.jpg */; };
 		B77892EB1D91D722009D6105 /* icone-historico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EA1D91D722009D6105 /* icone-historico.png */; };
 		B77892ED1D91D727009D6105 /* icone-coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EC1D91D727009D6105 /* icone-coracao.png */; };
 		B77892EF1D91D72C009D6105 /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B77892EE1D91D72C009D6105 /* icone-local.png */; };
@@ -138,6 +136,15 @@
 		B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4161DD3B29F00D7551B /* anuncio.png */; };
 		B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4181DD3B7BB00D7551B /* anuncio2.png */; };
 		B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41A1DD3B92D00D7551B /* anuncio3.png */; };
+		B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */; };
+		B78FE41F1DD4CD8300D7551B /* logo-brancaAbert.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */; };
+		B78FE4211DD4CFBB00D7551B /* arrowWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4201DD4CFBB00D7551B /* arrowWhite.png */; };
+		B78FE4231DD4DC2B00D7551B /* HeaderViewContact.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4221DD4DC2B00D7551B /* HeaderViewContact.xib */; };
+		B78FE4251DD4EAB000D7551B /* ContactRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78FE4241DD4EAB000D7551B /* ContactRadio.swift */; };
+		B78FE4271DD4EB0B00D7551B /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78FE4261DD4EB0B00D7551B /* PhoneNumber.swift */; };
+		B78FE4291DD4FA4600D7551B /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78FE4281DD4FA4600D7551B /* AudioManager.swift */; };
+		B78FE42B1DD4FF9700D7551B /* pause4.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE42A1DD4FF9700D7551B /* pause4.png */; };
+		B78FE42F1DD50AB200D7551B /* download.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B78FE42E1DD50AB200D7551B /* download.m4a */; };
 		B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */; };
 		B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */; };
 		B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */; };
@@ -277,8 +284,6 @@
 		B77384AB1D7F32D300701070 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B77892E31D91B346009D6105 /* StreamingRadioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRadioManager.swift; sourceTree = "<group>"; };
-		B77892E51D91D2CA009D6105 /* new1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new1.png; sourceTree = "<group>"; };
-		B77892E71D91D36D009D6105 /* new2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = new2.jpg; sourceTree = "<group>"; };
 		B77892EA1D91D722009D6105 /* icone-historico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-historico.png"; sourceTree = "<group>"; };
 		B77892EC1D91D727009D6105 /* icone-coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-coracao.png"; sourceTree = "<group>"; };
 		B77892EE1D91D72C009D6105 /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
@@ -340,6 +345,15 @@
 		B78FE4161DD3B29F00D7551B /* anuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio.png; sourceTree = "<group>"; };
 		B78FE4181DD3B7BB00D7551B /* anuncio2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio2.png; sourceTree = "<group>"; };
 		B78FE41A1DD3B92D00D7551B /* anuncio3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio3.png; sourceTree = "<group>"; };
+		B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-pretaAbert.png"; sourceTree = "<group>"; };
+		B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-brancaAbert.png"; sourceTree = "<group>"; };
+		B78FE4201DD4CFBB00D7551B /* arrowWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowWhite.png; sourceTree = "<group>"; };
+		B78FE4221DD4DC2B00D7551B /* HeaderViewContact.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderViewContact.xib; sourceTree = "<group>"; };
+		B78FE4241DD4EAB000D7551B /* ContactRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRadio.swift; sourceTree = "<group>"; };
+		B78FE4261DD4EB0B00D7551B /* PhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		B78FE4281DD4FA4600D7551B /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		B78FE42A1DD4FF9700D7551B /* pause4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause4.png; sourceTree = "<group>"; };
+		B78FE42E1DD50AB200D7551B /* download.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = download.m4a; sourceTree = "<group>"; };
 		B7932B501D871F9600D3EA80 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		B797D7931D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActualProgramTableViewCell.swift; sourceTree = "<group>"; };
 		B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "Mobi-Swift-3.0/SWRevealViewController.h"; sourceTree = "<group>"; };
@@ -557,6 +571,7 @@
 				B7EE9D2F1D886E2E00AE27D1 /* heartRed.png */,
 				B784D2B91DAC2D4B0016A405 /* plus.png */,
 				CDBB19771D74B29F00BF0405 /* arrow.png */,
+				B78FE4201DD4CFBB00D7551B /* arrowWhite.png */,
 				B78FE4141DD3988A00D7551B /* arrowR.png */,
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
@@ -574,8 +589,6 @@
 			isa = PBXGroup;
 			children = (
 				B77C49881D8C68A800AFF826 /* StreamingTestViewController.swift */,
-				B77892E51D91D2CA009D6105 /* new1.png */,
-				B77892E71D91D36D009D6105 /* new2.jpg */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -674,6 +687,9 @@
 				B71FA3971DBFF3670001356F /* AdsManager.swift */,
 				B77892E31D91B346009D6105 /* StreamingRadioManager.swift */,
 				B75404B71DC7BAA400E8B694 /* LinkRSS.swift */,
+				B78FE4241DD4EAB000D7551B /* ContactRadio.swift */,
+				B78FE4261DD4EB0B00D7551B /* PhoneNumber.swift */,
+				B78FE4281DD4FA4600D7551B /* AudioManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -705,6 +721,7 @@
 				B764CE161DB7F75700BFCE76 /* AudioRecorderViewController.xib */,
 				B74D65301D8B3E2B007798F4 /* CellDesign.xib */,
 				B73532E61D9AD744008504BA /* RadioDetailView.xib */,
+				B78FE4221DD4DC2B00D7551B /* HeaderViewContact.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -715,6 +732,7 @@
 				B73681361D590BA300EC94A9 /* AppDelegate.swift */,
 				B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */,
 				CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */,
+				B78FE42E1DD50AB200D7551B /* download.m4a */,
 				B77DEA6C1D77567700695546 /* FileSupport.swift */,
 				B7D584DD1D5D0484003D5A1F /* Util.swift */,
 				B74BB93A1D78ABF80076FE2D /* ViewController.swift */,
@@ -744,6 +762,8 @@
 		B7D90E101D5A579300D15089 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */,
+				B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */,
 				B702CF561DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png */,
 				B702CF541DA2F8BE007FB335 /* fundo-login-mobi.jpg */,
 				B702CF501DA2CA2A007FB335 /* avatar.png */,
@@ -761,6 +781,7 @@
 				B70DFA4C1D70C84C000DDBD6 /* pause2.png */,
 				B71E2AA61D76123E00451DED /* hamburgerIcon.png */,
 				B7F530F71D6258F100831561 /* marker.png */,
+				B78FE42A1DD4FF9700D7551B /* pause4.png */,
 				B764F5101DBA9ED30073D268 /* musicIcon.png */,
 				B764CE181DB7F75D00BFCE76 /* PlayButton@2x.png */,
 				B764CE191DB7F75D00BFCE76 /* StopButton@2x.png */,
@@ -891,6 +912,7 @@
 			files = (
 				B73532E71D9AD744008504BA /* RadioDetailView.xib in Resources */,
 				B759C0221D6E10540005515F /* clock-icon.png in Resources */,
+				B78FE42F1DD50AB200D7551B /* download.m4a in Resources */,
 				B70DFA4B1D70C847000DDBD6 /* play.png in Resources */,
 				B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */,
 				B74B0E681D6F762400012D8E /* starOFF.png in Resources */,
@@ -912,24 +934,27 @@
 				B72282921DD24C3E007979A3 /* menu.png in Resources */,
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B78FE4151DD3988A00D7551B /* arrowR.png in Resources */,
+				B78FE41F1DD4CD8300D7551B /* logo-brancaAbert.png in Resources */,
 				B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
+				B78FE4231DD4DC2B00D7551B /* HeaderViewContact.xib in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
 				B7842AD61DB685BB002550F3 /* video_64x64.png in Resources */,
 				B7BB84AC1D9DA7B20033D823 /* like.png in Resources */,
 				B761A5491DD1119100EB794A /* FirebaseAuthUI.strings in Resources */,
-				B77892E81D91D36D009D6105 /* new2.jpg in Resources */,
-				B77892E61D91D2CA009D6105 /* new1.png in Resources */,
+				B78FE4211DD4CFBB00D7551B /* arrowWhite.png in Resources */,
 				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
 				B78FE40F1DD38F8500D7551B /* splashScreen.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
+				B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */,
 				B7842AD51DB685BB002550F3 /* photo_64x64.png in Resources */,
 				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
 				B7842AD41DB685BB002550F3 /* audio_64x64.png in Resources */,
 				B7B1B9511DC25D1A00F6ED7A /* play3.png in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
+				B78FE42B1DD4FF9700D7551B /* pause4.png in Resources */,
 				CDBB19781D74B29F00BF0405 /* arrow.png in Resources */,
 				B76841DC1DA58E5400ABBC78 /* pause.png in Resources */,
 				B764F50B1DBA69DA0073D268 /* license.txt in Resources */,
@@ -1037,6 +1062,7 @@
 				B70C92191D7A08CA008F24AF /* LoginViewController.swift in Sources */,
 				B764F50D1DBA7F270073D268 /* InfoRds.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
+				B78FE4271DD4EB0B00D7551B /* PhoneNumber.swift in Sources */,
 				B764F50F1DBA88A20073D268 /* Music.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
 				B74D652C1D8B1836007798F4 /* Comment.swift in Sources */,
@@ -1071,6 +1097,7 @@
 				B71FA3961DBFF2F60001356F /* Advertisement.swift in Sources */,
 				B7EE9D321D8893CE00AE27D1 /* Link.swift in Sources */,
 				B7932B511D871F9600D3EA80 /* SearchTableViewController.swift in Sources */,
+				B78FE4251DD4EAB000D7551B /* ContactRadio.swift in Sources */,
 				B7F65DFB1D64F34D000EE185 /* Data.swift in Sources */,
 				B784BDFB1DCBBCD7001671A2 /* CommentsTableViewController.swift in Sources */,
 				B7E6973E1D591CDE00EC276F /* SecondMenuTypeTableViewCell.swift in Sources */,
@@ -1081,6 +1108,7 @@
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
 				B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */,
 				B77C49A31D8C68D600AFF826 /* STKDataSourceWrapper.m in Sources */,
+				B78FE4291DD4FA4600D7551B /* AudioManager.swift in Sources */,
 				B764CE111DB7D2D600BFCE76 /* WallImageTableViewCell.swift in Sources */,
 				B77C49A41D8C68D600AFF826 /* STKHTTPDataSource.m in Sources */,
 				B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */,
@@ -1222,7 +1250,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47C4BDE71D3D5CFF9686E2B5 /* Pods-Mobi-Swift-3.0.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1247,7 +1275,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38563E0E378B5BD621C1647B /* Pods-Mobi-Swift-3.0.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

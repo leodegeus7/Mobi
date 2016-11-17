@@ -257,7 +257,7 @@ class RequestManager: NSObject {
       var states = [StateRealm]()
       var cities = [CityRealm]()
       var genres = [GenreRealm]()
-      
+      var usersArray = [UserRealm]()
       let dataDic = result["data"] as! NSDictionary
       
       if let stateList = dataDic["states"] as? NSArray {
@@ -308,15 +308,32 @@ class RequestManager: NSObject {
         }
       }
       
+      if let userList = dataDic["friends"] as? NSArray {
+        for singleResult in userList {
+          let dic = singleResult as! NSDictionary
+          var imageIdentifier = ImageObject()
+          if let image = singleResult["image"] as? NSDictionary {
+            imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: dic["image"]!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+          }
+          var user = UserRealm()
+          if let address = singleResult["shortAddress"] as? String {
+            user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: address)
+          } else {
+            user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
+          }
+          usersArray.append(user)
+        }
+      }
       
-      var result = Dictionary<SearchMode,[AnyObject]>()
-      result[.Radios] = radios
-      result[.Genre] = genres
-      result[.Cities] = cities
-      result[.States] = states
       
+      var results = Dictionary<SearchMode,[AnyObject]>()
+      results[.Radios] = radios
+      results[.Genre] = genres
+      results[.Cities] = cities
+      results[.States] = states
+      results[.Users] = usersArray
       
-      completion(searchRequestResult: result)
+      completion(searchRequestResult: results)
     }
     
   }
@@ -468,7 +485,7 @@ class RequestManager: NSObject {
       completion(resultFav: result)
     }
   }
-
+  
   
   func getAudioChannelsFromRadio(radio:RadioRealm,completion: (result: Bool) -> Void) {
     requestJson("app/station/\(radio.id)/audiochannel") { (result) in
@@ -646,74 +663,136 @@ class RequestManager: NSObject {
   }
   
   func requestWallOfRadio(radio:RadioRealm,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
-    requestJson("stationunit/\(radio.id)/wall/search/approved?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
-      if let array = result["data"] as? NSArray {
-        var comments = [Comment]()
-        for singleResult in array {
-          let dic = singleResult as! NSDictionary
-          var user = UserRealm()
-          
-          if let image = dic["author"]?["image"] as? NSDictionary {
-            let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
-          } else {
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+    let id = radio.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("stationunit/\(id)/wall/search/approved?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue()) {
+          if let array = result["data"] as? NSArray {
+            var comments = [Comment]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              var user = UserRealm()
+              
+              if let image = dic["author"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+              }
+              
+              let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String,radio:radio)
+              
+              switch dic["postType"] as! Int {
+              case 0:
+                comment.postType = .Text
+              case 1:
+                comment.postType = .Image
+                comment.addImageReference(dic["attachmentIdentifier"] as! String)
+              case 2:
+                comment.postType = .Audio
+                comment.addAudioReference(dic["attachmentIdentifier"] as! String)
+              case 3:
+                comment.postType = .Video
+                comment.addVideoReference(dic["attachmentIdentifier"] as! String)
+              default:
+                comment.postType = .Undefined
+              }
+              comments.append(comment)
+              
+            }
+            comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            completion(resultWall: comments)
           }
-          
-          let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String)
-          
-          switch dic["postType"] as! Int {
-          case 0:
-            comment.postType = .Text
-          case 1:
-            comment.postType = .Image
-            comment.addImageReference(dic["attachmentIdentifier"] as! String)
-          case 2:
-            comment.postType = .Audio
-            comment.addAudioReference(dic["attachmentIdentifier"] as! String)
-          case 3:
-            comment.postType = .Video
-            comment.addVideoReference(dic["attachmentIdentifier"] as! String)
-          default:
-            comment.postType = .Undefined
+          else {
+            completion(resultWall: [])
           }
-          comments.append(comment)
-          
         }
-        comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
-        completion(resultWall: comments)
       }
-      else {
-        completion(resultWall: [])
+    }
+  }
+  
+  func requestWallOfUser(user:UserRealm,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
+    let id = user.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("app/user/\(id)/posts?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue()) {
+          if let array = result["data"]?["records"] as? NSArray {
+            var comments = [Comment]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              var user = UserRealm()
+              
+              if let image = dic["author"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+              }
+              
+              let stationUnit = dic["stationUnit"] as? NSDictionary
+              let imageIdentifier = ImageObject(id:stationUnit!["image"]!["id"] as! Int,identifier100: stationUnit!["image"]!["identifier100"] as! String, identifier80: stationUnit!["image"]!["identifier80"] as! String, identifier60: stationUnit!["image"]!["identifier60"] as! String, identifier40: stationUnit!["image"]!["identifier40"] as! String, identifier20: stationUnit!["image"]!["identifier20"] as! String)
+              let radio = RadioRealm(id: "\((stationUnit!["id"] as! Int))", name: stationUnit!["name"] as! String, thumbnailObject: imageIdentifier, repository: false)
+              
+              let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String,radio:radio)
+              
+              switch dic["postType"] as! Int {
+              case 0:
+                comment.postType = .Text
+              case 1:
+                comment.postType = .Image
+                comment.addImageReference(dic["attachmentIdentifier"] as! String)
+              case 2:
+                comment.postType = .Audio
+                comment.addAudioReference(dic["attachmentIdentifier"] as! String)
+              case 3:
+                comment.postType = .Video
+                comment.addVideoReference(dic["attachmentIdentifier"] as! String)
+              default:
+                comment.postType = .Undefined
+              }
+              comments.append(comment)
+              
+            }
+            comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            completion(resultWall: comments)
+          }
+          else {
+            completion(resultWall: [])
+          }
+        }
       }
     }
   }
   
   func requestComments(actualComment:Comment,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
-    requestJson("wall/\(actualComment.id)/comments?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
-      if let array = result["data"]?["records"] as? NSArray {
-        var comments = [Comment]()
-        for singleResult in array {
-          let dic = singleResult as! NSDictionary
-          var user = UserRealm()
-          
-          if let image = dic["author"]?["image"] as? NSDictionary {
-            let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
-          } else {
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("wall/\(actualComment.id)/comments?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue()) {
+          if let array = result["data"]?["records"] as? NSArray {
+            var comments = [Comment]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              var user = UserRealm()
+              
+              if let image = dic["author"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+              }
+              
+              let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String,radio:RadioRealm())
+              comment.postType = .Text
+              comments.append(comment)
+              
+            }
+            comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            completion(resultWall: comments)
           }
-          
-          let comment = Comment(id: "\(dic["id"] as! Int)", date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String)
-          comment.postType = .Text
-          comments.append(comment)
-          
+          else {
+            completion(resultWall: [])
+          }
         }
-        comments.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
-        completion(resultWall: comments)
-      }
-      else {
-        completion(resultWall: [])
       }
     }
   }
@@ -872,6 +951,8 @@ class RequestManager: NSObject {
             }
             if let birthdateAux = resultDic["birthdate"]?.string {
               birthdate = birthdateAux
+            } else {
+              birthdate = ""
             }
             if let addressIDAux = resultDic["address"]?["id"].int {
               addressID = addressIDAux
@@ -911,6 +992,8 @@ class RequestManager: NSObject {
               
               DataManager.sharedInstance.myUser = user
               completion(result: true)
+              
+              
             }
             else {
               completion(result: false)
@@ -938,7 +1021,7 @@ class RequestManager: NSObject {
               let valueAlteration = uniqueAlteration["value"]!
               dataVar[parameterAlteration] = valueAlteration
             }
-            if let birth = data["birthdate"] as? String {
+            if let birth = dataVar["birthdate"] as? String {
               
               let birthDate = Util.convertStringToNSDate(birth)
               
@@ -988,6 +1071,8 @@ class RequestManager: NSObject {
                       }
                       if let birthdateAux = resultDic["birthdate"]?.string {
                         birthdate = birthdateAux
+                      } else {
+                        birthdate = ""
                       }
                       if let addressIDAux = resultDic["address"]?["id"].int {
                         addressID = addressIDAux
@@ -1227,8 +1312,8 @@ class RequestManager: NSObject {
   }
   
   
-
-
+  
+  
   
   
   func changeUserPhoto(imageToChange:UIImage,completion: (result: Bool) -> Void) {
@@ -1269,195 +1354,253 @@ class RequestManager: NSObject {
   }
   
   func requestReviewsInRadio(radio:RadioRealm,pageSize:Int,pageNumber:Int,completion: (resultScore: [Review]) -> Void) {
-    requestJson("stationunit/\(radio.id)/review") { (result) in
-      if let array = result["data"] as? NSArray {
-        var reviews = [Review]()
-        for singleResult in array {
-          let dic = singleResult as! NSDictionary
-          var user = UserRealm()
-          if let image = dic["author"]?["image"] as? NSDictionary {
-            let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
-          } else {
-            user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+    let id = radio.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("stationunit/\(id)/review") { (result) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let array = result["data"] as? NSArray {
+            var reviews = [Review]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              var user = UserRealm()
+              if let image = dic["author"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+              }
+              let review = Review(id: dic["id"] as! Int, date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String, score: dic["score"] as! Int,radio:radio)
+              
+              reviews.append(review)
+              
+            }
+            reviews.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            completion(resultScore: reviews)
           }
-          let review = Review(id: dic["id"] as! Int, date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String, score: dic["score"] as! Int)
-          
-          reviews.append(review)
-          
-        }
-        reviews.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
-        completion(resultScore: reviews)
-      }
-      else {
-        completion(resultScore: [])
+          else {
+            completion(resultScore: [])
+          }
+        })
       }
     }
     
   }
   
-  func requestFollowers(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultFollowers: [UserRealm]) -> Void) {
-    requestJson("app/user/\(user.id)/followers?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
-      if let array = result["data"]!["records"] as? NSArray {
-        var followers = [UserRealm]()
-        for dic in array {
-          var user = UserRealm()
-          let dicPerson = dic["person"] as! NSDictionary
-          if let resultDic = JSON(dicPerson).dictionary {
-            var id = -1
-            var email = ""
-            var name = ""
-            var genre = ""
-            var city = ""
-            var state = ""
-            var birthdate = "1900-01-01"
-            var streetName = ""
-            var zipCode = ""
-            var addressID = -1
-            var latitude:Double = -1
-            var longitude:Double = -1
-            var streetNumber = ""
-            var imageIdentifier:ImageObject!
-            
-            if let idAux = resultDic["id"]?.int {
-              id = idAux
+  func requestReviewsOfUser(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultReview: [Review]) -> Void) {
+    let id = user.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("app/user/\(id)/reviews?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let array = result["data"]?["records"] as? NSArray {
+            var reviews = [Review]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              var user = UserRealm()
+              if let image = dic["author"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(dic["author"]!["id"])", email: dic["author"]!["email"] as! String, name: dic["author"]!["name"] as! String, image: ImageObject())
+              }
+              
+              let stationUnit = dic["stationUnit"] as? NSDictionary
+              let imageIdentifier = ImageObject(id:stationUnit!["image"]!["id"] as! Int,identifier100: stationUnit!["image"]!["identifier100"] as! String, identifier80: stationUnit!["image"]!["identifier80"] as! String, identifier60: stationUnit!["image"]!["identifier60"] as! String, identifier40: stationUnit!["image"]!["identifier40"] as! String, identifier20: stationUnit!["image"]!["identifier20"] as! String)
+              let radio = RadioRealm(id: "\((stationUnit!["id"] as! Int))", name: stationUnit!["name"] as! String, thumbnailObject: imageIdentifier, repository: false)
+              
+              let review = Review(id: dic["id"] as! Int, date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String, score: dic["score"] as! Int,radio:radio)
+              
+              reviews.append(review)
+              
             }
-            if let imgAux = resultDic["image"]?.dictionaryObject {
-              imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
-            }
-            if let emailAux = resultDic["email"]?.string {
-              email = emailAux
-            }
-            if let nameAux = resultDic["name"]?.string {
-              name = nameAux
-            }
-            if let genreAux = resultDic["genre"]?.string {
-              genre = genreAux
-            }
-            if let birthdateAux = resultDic["birthdate"]?.string {
-              birthdate = birthdateAux
-            }
-            if let addressIDAux = resultDic["address"]?["id"].int {
-              addressID = addressIDAux
-            }
-            if let latitudeAux = resultDic["address"]?["latitude"].double {
-              latitude = latitudeAux
-            }
-            if let longitudeAux = resultDic["address"]?["longitude"].double {
-              longitude = longitudeAux
-            }
-            if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-              streetName = streetNameAux
-            }
-            if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-              zipCode = zipCodeAux
-            }
-            if let streetNumberAux = resultDic["address"]?["number"].string {
-              streetNumber = streetNumberAux
-            }
-            if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
-              city = cityAux
-            }
-            if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
-              state = stateAux
-            }
-            
-            if id != -1 {
-              let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
-              user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
-            }
-            followers.append(user)
+            reviews.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            completion(resultReview: reviews)
           }
-        }
-        completion(resultFollowers: followers)
+          else {
+            completion(resultReview: [])
+          }
+        })
       }
-      //completion(resultFollowers: [UserRealm]())
+    }
+  }
+  
+  func requestFollowers(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultFollowers: [UserRealm]) -> Void) {
+    let id = user.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("app/user/\(id)/followers?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let array = result["data"]!["records"] as? NSArray {
+            var followers = [UserRealm]()
+            for dic in array {
+              var user = UserRealm()
+              let dicPerson = dic["person"] as! NSDictionary
+              if let resultDic = JSON(dicPerson).dictionary {
+                var id = -1
+                var email = ""
+                var name = ""
+                var genre = ""
+                var city = ""
+                var state = ""
+                var birthdate = "1900-01-01"
+                var streetName = ""
+                var zipCode = ""
+                var addressID = -1
+                var latitude:Double = -1
+                var longitude:Double = -1
+                var streetNumber = ""
+                var imageIdentifier = ImageObject()
+                var shortAddress = ""
+                
+                if let idAux = resultDic["id"]?.int {
+                  id = idAux
+                }
+                if let imgAux = resultDic["image"]?.dictionaryObject {
+                  imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
+                }
+                if let emailAux = resultDic["email"]?.string {
+                  email = emailAux
+                }
+                if let nameAux = resultDic["name"]?.string {
+                  name = nameAux
+                }
+                if let genreAux = resultDic["genre"]?.string {
+                  genre = genreAux
+                }
+                if let birthdateAux = resultDic["birthdate"]?.string {
+                  birthdate = birthdateAux
+                } else {
+                  birthdate = ""
+                }
+                if let addressIDAux = resultDic["address"]?["id"].int {
+                  addressID = addressIDAux
+                  
+                }
+                if let latitudeAux = resultDic["address"]?["latitude"].double {
+                  latitude = latitudeAux
+                }
+                if let longitudeAux = resultDic["address"]?["longitude"].double {
+                  longitude = longitudeAux
+                }
+                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+                  streetName = streetNameAux
+                }
+                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+                  zipCode = zipCodeAux
+                }
+                if let streetNumberAux = resultDic["address"]?["number"].string {
+                  streetNumber = streetNumberAux
+                }
+                if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
+                  city = cityAux
+                  
+                }
+                if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+                  state = stateAux
+                  shortAddress = city + " - " + state
+                }
+                
+                if id != -1 {
+//                  user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+                  user = UserRealm(id: "\(id)", name: name, image: imageIdentifier, following: false, shortAddress: shortAddress)
+                }
+                followers.append(user)
+              }
+            }
+            completion(resultFollowers: followers)
+          }
+        })
+        //completion(resultFollowers: [UserRealm]())
+      }
     }
   }
   
   func requestFollowing(user:UserRealm,pageSize:Int,pageNumber:Int,completion: (resultFollowing: [UserRealm]) -> Void) {
-    requestJson("app/user/\(user.id)/following?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
-      if let array = result["data"]!["records"] as? NSArray {
-        var followers = [UserRealm]()
-        for dic in array {
-          var user = UserRealm()
-          let dicPerson = dic["person"] as! NSDictionary
-          if let resultDic = JSON(dicPerson).dictionary {
-            var id = -1
-            var email = ""
-            var name = ""
-            var genre = ""
-            var city = ""
-            var state = ""
-            var birthdate = "1900-01-01"
-            var streetName = ""
-            var zipCode = ""
-            var addressID = -1
-            var latitude:Double = -1
-            var longitude:Double = -1
-            var streetNumber = ""
-            var imageIdentifier:ImageObject!
-            
-            if let idAux = resultDic["id"]?.int {
-              id = idAux
-            }
-            if let imgAux = resultDic["image"]?.dictionaryObject {
-              imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
-            }
-            if let emailAux = resultDic["email"]?.string {
-              email = emailAux
-            }
-            if let nameAux = resultDic["name"]?.string {
-              name = nameAux
-            }
-            if let genreAux = resultDic["genre"]?.string {
-              genre = genreAux
-            }
-            if let birthdateAux = resultDic["birthdate"]?.string {
-              birthdate = birthdateAux
-            }
-            if let addressIDAux = resultDic["address"]?["id"].int {
-              addressID = addressIDAux
-            }
-            if let latitudeAux = resultDic["address"]?["latitude"].double {
-              latitude = latitudeAux
-            }
-            if let longitudeAux = resultDic["address"]?["longitude"].double {
-              longitude = longitudeAux
-            }
-            if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-              streetName = streetNameAux
-            }
-            if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-              zipCode = zipCodeAux
-            }
-            if let streetNumberAux = resultDic["address"]?["number"].string {
-              streetNumber = streetNumberAux
-            }
-            if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
-              city = cityAux
-            }
-            if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
-              state = stateAux
-            }
-            
-            if id != -1 {
-              let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
-              
-              if let _ = resultDic["image"]?.dictionaryObject {
+    let id = user.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("app/user/\(id)/following?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue(), {
+          if let array = result["data"]!["records"] as? NSArray {
+            var followers = [UserRealm]()
+            for dic in array {
+              var user = UserRealm()
+              let dicPerson = dic["person"] as! NSDictionary
+              if let resultDic = JSON(dicPerson).dictionary {
+                var id = -1
+                var email = ""
+                var name = ""
+                var genre = ""
+                var city = ""
+                var state = ""
+                var birthdate = "1900-01-01"
+                var streetName = ""
+                var zipCode = ""
+                var addressID = -1
+                var latitude:Double = -1
+                var longitude:Double = -1
+                var streetNumber = ""
+                var imageIdentifier = ImageObject()
+                var shortAddress = ""
                 
-                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
-              } else {
-                user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: ImageObject())
+                if let idAux = resultDic["id"]?.int {
+                  id = idAux
+                }
+                if let imgAux = resultDic["image"]?.dictionaryObject {
+                  imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
+                }
+                if let emailAux = resultDic["email"]?.string {
+                  email = emailAux
+                }
+                if let nameAux = resultDic["name"]?.string {
+                  name = nameAux
+                }
+                if let genreAux = resultDic["genre"]?.string {
+                  genre = genreAux
+                }
+                if let birthdateAux = resultDic["birthdate"]?.string {
+                  birthdate = birthdateAux
+                } else {
+                  birthdate = ""
+                }
+                if let addressIDAux = resultDic["address"]?["id"].int {
+                  addressID = addressIDAux
+                  
+                }
+                if let latitudeAux = resultDic["address"]?["latitude"].double {
+                  latitude = latitudeAux
+                }
+                if let longitudeAux = resultDic["address"]?["longitude"].double {
+                  longitude = longitudeAux
+                }
+                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+                  streetName = streetNameAux
+                }
+                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+                  zipCode = zipCodeAux
+                }
+                if let streetNumberAux = resultDic["address"]?["number"].string {
+                  streetNumber = streetNumberAux
+                }
+                if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
+                  city = cityAux
+                  
+                }
+                if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+                  state = stateAux
+                  shortAddress = city + " - " + state
+                }
+                
+                if id != -1 {
+                  //                  user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+                  user = UserRealm(id: "\(id)", name: name, image: imageIdentifier, following: false, shortAddress: shortAddress)
+                  
+                }
+                followers.append(user)
               }
-              
             }
-            followers.append(user)
+            completion(resultFollowing: followers)
           }
-        }
-        completion(resultFollowing: followers)
+        })
+        //completion(resultFollowing: [UserRealm]())
       }
-      //completion(resultFollowing: [UserRealm]())
     }
   }
   
@@ -1619,9 +1762,75 @@ class RequestManager: NSObject {
           phoneNumbers.append(phoneNumberObject)
         }
         completion(resultPhones: phoneNumbers)
+      } else {
+        completion(resultPhones: [])
       }
     }
   }
   
+  func requestSocialNewtworkOfStation(radio:RadioRealm,completion: (resultSocial: [SocialNetwork]) -> Void) {
+    requestJson("stationunit/socialnetwork/search?station=\(radio.id)") { (result) in
+      if let array = result["data"] as? NSArray {
+        var socialNetworks = [SocialNetwork]()
+        for social in array {
+          let id = social["id"] as! Int
+          let type = social["socialNetwork"]!!["value"] as! String
+          if let value = social["value"] as? String {
+            let socialNet = SocialNetwork(id: id, type: type, text: value)
+            socialNetworks.append(socialNet)
+          }
+        }
+        completion(resultSocial: socialNetworks)
+      } else {
+        completion(resultSocial: [])
+      }
+    }
+  }
   
+  func createAddress(state:String,city:String,completion: (resultAddress: AddressRealm) -> Void) {
+    
+  }
+  
+  func requestActualProgramOfRadio(radioId:Int,completion: (resultProgram: Program) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestJson("app/station/\(radioId)/program/current") { (result) in
+        if let programDic = result["data"] as? NSDictionary {
+          if result["requestResult"] as! String == "OK" {
+            let id = programDic["id"] as! Int
+            let name = programDic["name"] as! String
+            let timeEndDate = Util.convertStringToNSDate(programDic["timeEnd"] as! String)
+            let timeStartDate = Util.convertStringToNSDate(programDic["timeStart"] as! String)
+            let timeEnd = Util.convertDateToShowHour(timeEndDate)
+            let timeStart = Util.convertDateToShowHour(timeStartDate)
+            var active = false
+            if let _ = programDic["inactiveDatetime"] as? NSNull {
+              active = true
+            }
+            let week = DataManager.ProgramDays(isSunday: programDic["day0"] as! Bool, isMonday: programDic["day1"] as! Bool, isTuesday: programDic["day2"] as! Bool, isWednesday: programDic["day3"] as! Bool, isThursday: programDic["day4"] as! Bool, isFriday: programDic["day5"] as! Bool, isSaturday: programDic["day6"] as! Bool)
+            let idUser = programDic["announcer"]!["id"] as! Int
+            let emailUser = programDic["announcer"]!["email"] as! String
+            let nameUser = programDic["announcer"]!["name"] as! String
+            dispatch_async(dispatch_get_main_queue(), {
+              var user = UserRealm()
+              if let image = programDic["announcer"]?["image"] as? NSDictionary {
+                let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: imageIdentifier)
+              } else {
+                user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: ImageObject())
+              }
+              let programClass = Program(id: id, name: name, announcer: user, timeStart: timeStart, timeEnd: timeEnd, days: week, active: active)
+              completion(resultProgram: programClass)
+            })
+            
+          } else {
+            completion(resultProgram: Program())
+          }
+        } else {
+          completion(resultProgram: Program())
+        }
+      }
+    })
+  }
+  
+
 }

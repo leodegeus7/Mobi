@@ -18,6 +18,8 @@ class WallImageTableViewCell: UITableViewCell {
   
   @IBOutlet weak var buttonZoomImage: UIButton!
   @IBOutlet weak var imageAttachment: UIImageView!
+  @IBOutlet weak var heightImage: NSLayoutConstraint!
+  @IBOutlet weak var widthImage: NSLayoutConstraint!
   
   var isReloadCell = false
   

@@ -25,17 +25,21 @@ class PlayerViewController: UIViewController {
   @IBOutlet weak var labelArtist: UILabel!
   
   @IBOutlet weak var buttonNLike: UIButton!
-  @IBOutlet weak var butonLike: UIButton!
+  @IBOutlet weak var buttonLike: UIButton!
   
   @IBOutlet weak var segmentedControlProgram: UISegmentedControl!
   @IBOutlet weak var imageIndicatorDown: UIButton!
   
+  @IBOutlet weak var viewWithoutProgram: UIView!
   @IBOutlet weak var labelWithoutMusic: UILabel!
+  @IBOutlet weak var labelWithoutProgram: UILabel!
   @IBOutlet weak var viewWithoutMusic: UIView!
   @IBOutlet weak var viewLoading: UIView!
+  @IBOutlet weak var viewLoadingProgram: UIView!
   @IBOutlet weak var viewProgram: UIView!
   @IBOutlet weak var viewMusic: UIView!
   @IBOutlet weak var buttonDetailRadio: UIButton!
+  @IBOutlet weak var labelIndicatorGuests: UILabel!
   
   @IBOutlet weak var buttonAdvertisement: UIButton!
   
@@ -54,7 +58,11 @@ class PlayerViewController: UIViewController {
   var colorWhite : UIColor!
   
   var gracenote:GracenoteManager!
-  
+
+  var actualProgram = Program()
+  var actualMusic = Music()
+  var timeWasRequestedProgram:NSDate!
+  var actualProgramRadio = RadioRealm()
   @IBOutlet weak var viewFirst: UIView!
   @IBOutlet weak var viewSeparator: UIView!
   
@@ -65,7 +73,7 @@ class PlayerViewController: UIViewController {
     let screenHeigh = screenSize.height
     
     if screenHeigh > 510 {
-    
+      
       let newHeight = self.view.frame.size.height * 0.65
       contraintsPropFirstView.constant = newHeight
     } else {
@@ -80,7 +88,7 @@ class PlayerViewController: UIViewController {
     }
     
     notificationCenter.addObserver(self, selector: #selector(PlayerViewController.updateIcons), name: "updateIcons", object: nil)
-
+    
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
@@ -91,9 +99,13 @@ class PlayerViewController: UIViewController {
     segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
     updateInfoOfView()
     segmentedChanged(self)
-    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
-    self.buttonAdvertisement.backgroundColor = colorWhite2
+    
     self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+    
+    let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
+    self.buttonAdvertisement.backgroundColor = colorWhite2
+    
     AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
       dispatch_async(dispatch_get_main_queue()) {
         if let imageAd = resultAd.image {
@@ -105,14 +117,16 @@ class PlayerViewController: UIViewController {
     })
     
     
-
-
+    
+    
     imageIndicatorDown.backgroundColor = UIColor.clearColor()
     
     viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     segmentedControlProgram.tintColor = DataManager.sharedInstance.interfaceColor.color
-
-
+    viewLoadingProgram.hidden = false
+    viewWithoutProgram.hidden = true
+    
+    
     
   }
   
@@ -122,15 +136,17 @@ class PlayerViewController: UIViewController {
     colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
     viewFirst.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewFirst.frame, andColors: [colorWhite,colorBlack])
     view.backgroundColor = colorWhite
-    let colorWhite2 =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
+    
+    let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
     self.buttonAdvertisement.backgroundColor = colorWhite2
   }
   
-
+  
   
   override func viewWillAppear(animated: Bool) {
     view.backgroundColor = colorWhite
-  
+    
     imageIndicatorDown.backgroundColor = UIColor.clearColor()
     
     viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color
@@ -141,9 +157,18 @@ class PlayerViewController: UIViewController {
     } else {
       buttonFav.setImage(UIImage(named: "love2.png"), forState: .Normal)
     }
-    setButtonMusicType(DataManager.sharedInstance.musicInExecution)
-      
+    setButtonMusicType(actualMusic)
     
+    if actualSegmented == .Program {
+      viewMusic.hidden = true
+      viewProgram.hidden = false
+      viewLoadingProgram.hidden = false
+      viewWithoutProgram.hidden = true
+      actualSegmented = .Program
+      updateProgramOfRadio()
+    } else {
+      updateInterfaceWithGracenote()
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -183,10 +208,16 @@ class PlayerViewController: UIViewController {
       buttonPlay.setImage(UIImage(named: "play1.png"), forState: .Normal)
     }
     
-    updateInterfaceWithGracenote()
     
     labelProgramName.text = "Programa da Manha"
     imagePerson.image = UIImage(named: "logo-pretaAbert.png")
+    let imageCD = UIImage(named: "logo-brancaAbert.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imagePerson.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
+    viewWithoutMusic.alpha = 0
+    viewLoading.alpha = 0.8
     imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
     imagePerson.layer.borderColor = UIColor.blackColor().CGColor
     imagePerson.layer.borderWidth = 0
@@ -208,13 +239,99 @@ class PlayerViewController: UIViewController {
       viewMusic.hidden = false
       viewProgram.hidden = true
       actualSegmented = .Music
+      updateInterfaceWithGracenote()
     case 1:
       viewMusic.hidden = true
       viewProgram.hidden = false
+      viewLoadingProgram.hidden = false
+      viewWithoutProgram.hidden = true
       actualSegmented = .Program
+      updateProgramOfRadio()
     default:
       break
     }
+  }
+  
+  func updateProgramOfRadio() {
+    let programRequest = RequestManager()
+    if let date = self.timeWasRequestedProgram {
+      if date.timeIntervalSinceNow > 20 {
+        let idRadio = StreamingRadioManager.sharedInstance.actualRadio.id
+        programRequest.requestActualProgramOfRadio(idRadio) { (resultProgram) in
+          self.actualProgram = resultProgram
+          
+          self.timeWasRequestedProgram = NSDate()
+          if self.actualSegmented == .Program {
+            dispatch_async(dispatch_get_main_queue(), {
+              self.actualProgramRadio = StreamingRadioManager.sharedInstance.actualRadio
+              self.updateProgramView()
+            })
+          }
+        }
+      } else {
+        updateProgramView()
+      }
+    } else {
+      let idRadio = StreamingRadioManager.sharedInstance.actualRadio.id
+      programRequest.requestActualProgramOfRadio(idRadio) { (resultProgram) in
+        self.actualProgram = resultProgram
+        self.timeWasRequestedProgram = NSDate()
+        if self.actualSegmented == .Program {
+          dispatch_async(dispatch_get_main_queue(), {
+            self.actualProgramRadio = StreamingRadioManager.sharedInstance.actualRadio
+            self.updateProgramView()
+          })
+        }
+      }
+    }
+  }
+  
+  func updateProgramView() {
+    if actualProgram.id == -1 {
+      viewLoadingProgram.hidden = true
+      viewWithoutProgram.hidden = false
+      viewWithoutProgram.alpha = 0.8
+      labelWithoutProgram.text = "Não há informação de programação"
+      labelGuests.text = "Convidados"
+      labelProgramName.text = "Programa"
+      imagePerson.image = UIImage(named: "logo-brancaAbert.png")
+      labelNamePerson.text = "Apresentador"
+      labelWithoutProgram.textColor = DataManager.sharedInstance.interfaceColor.color
+      imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
+      imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+      imagePerson.layer.borderWidth = 0
+    } else {
+      viewLoadingProgram.hidden = true
+      viewWithoutProgram.hidden = true
+      if actualProgram.dynamicType == SpecialProgram.self {
+        let programSpecial2 = actualProgram as! SpecialProgram
+        labelProgramName.text = actualProgram.name
+        let identifierImage = actualProgram.announcer.userImage
+        imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
+        imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        imagePerson.layer.borderWidth = 0
+        imagePerson.clipsToBounds = true
+        labelNamePerson.text = actualProgram.announcer.name
+        labelGuests.text = programSpecial2.guests
+      } else {
+        labelProgramName.text = actualProgram.name
+        let identifierImage = actualProgram.announcer.userImage
+        imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
+        imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        imagePerson.layer.borderWidth = 0
+        imagePerson.clipsToBounds = true
+        labelNamePerson.text = actualProgram.announcer.name
+        if let label = labelGuests {
+          label.removeFromSuperview()
+        }
+        if let label = labelIndicatorGuests {
+          label.removeFromSuperview()
+        }
+      }
+    }
+    
   }
   
   @IBAction func buttonPlayTapped(sender: AnyObject) {
@@ -257,28 +374,69 @@ class PlayerViewController: UIViewController {
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
   }
   
-
+  
   
   func updateInterfaceWithGracenote() {
     loadingMusicView()
-    if let _ = DataManager.sharedInstance.musicInExecution.name {
-      if DataManager.sharedInstance.musicInExecution.isMusicOld() {
+    if let _ = actualMusic.respectiveRadio {
+      if actualMusic.respectiveRadio == StreamingRadioManager.sharedInstance.actualRadio {
+        if let _ = actualMusic.timeWasDiscovered {
+          if actualMusic.isMusicOld() {
+            if let _ = actualMusic.name {
+              if actualMusic.isMusicOld() {
+                requestGracenote({ (result) in
+                  if result.boolVar {
+                    self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+                    self.actualMusic.updateDate()
+                  } else {
+                    self.lockMusicView()
+                  }
+                })
+              } else {
+                if let gracenoteOptional = gracenote {
+                  updateMusicViewWithMusic(actualMusic, gracenote: gracenoteOptional)
+                  self.actualMusic.updateDate()
+                }
+              }
+            } else {
+              requestGracenote({ (result) in
+                if result.boolVar {
+                  self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+                  self.actualMusic.updateDate()
+                  
+                } else {
+                  self.lockMusicView()
+                }
+              })
+            }
+          } else {
+            self.updateMusicViewWithMusic(actualMusic)
+          }
+        } else {
+          requestGracenote({ (result) in
+            if result.boolVar {
+              self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+              self.actualMusic.updateDate()
+            } else {
+              self.lockMusicView()
+            }
+          })
+        }
+      } else {
         requestGracenote({ (result) in
           if result.boolVar {
-            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: result)
+            self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+            self.actualMusic.updateDate()
           } else {
             self.lockMusicView()
           }
         })
-      } else {
-        if let gracenoteOptional = gracenote {
-          updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: gracenoteOptional)
-        }
       }
     } else {
       requestGracenote({ (result) in
         if result.boolVar {
-            self.updateMusicViewWithMusic(DataManager.sharedInstance.musicInExecution, gracenote: result)
+          self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+          self.actualMusic.updateDate()
         } else {
           self.lockMusicView()
         }
@@ -298,7 +456,8 @@ class PlayerViewController: UIViewController {
                 self.gracenote = gracenote
                 gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
                   dispatch_async(dispatch_get_main_queue(), {
-                    DataManager.sharedInstance.musicInExecution = resultGracenote
+                    self.actualMusic = resultGracenote
+                    self.actualMusic.updateRadio(StreamingRadioManager.sharedInstance.actualRadio)
                     if self.actualSegmented == .Music {
                       completion(result: gracenote)
                     }
@@ -323,28 +482,53 @@ class PlayerViewController: UIViewController {
   }
   
   func updateMusicViewWithMusic(music:Music,gracenote:GracenoteManager) {
-    if let musicName = DataManager.sharedInstance.musicInExecution.name  {
+    if actualMusic.id != ""  {
       viewWithoutMusic.hidden = true
       viewWithoutMusic.alpha = 0
-      labelMusicName.text = musicName
-      labelArtist.text = DataManager.sharedInstance.musicInExecution.composer
+      labelMusicName.text = actualMusic.name
+      labelArtist.text = actualMusic.composer
       buttonNLike.backgroundColor = UIColor.clearColor()
-      butonLike.backgroundColor = UIColor.clearColor()
+      buttonLike.backgroundColor = UIColor.clearColor()
       if music.coverArt != ""{
         gracenote.downloadImageArt(music.coverArt, completion: { (resultImg) in
           dispatch_async(dispatch_get_main_queue()) {
             self.imageMusic.image = resultImg
+            self.actualMusic.updateImage(resultImg)
           }
           
         })
       }
-      setButtonMusicType(DataManager.sharedInstance.musicInExecution)
+      setButtonMusicType(actualMusic)
       viewLoading.alpha = 0
       viewWithoutMusic.alpha = 0
       viewMusic.alpha = 1
       imageMusic.alpha = 1
       buttonNLike.alpha = 1
-      butonLike.alpha = 1
+      buttonLike.alpha = 1
+      labelWithoutMusic.text = ""
+    } else {
+      lockMusicView()
+    }
+  }
+  
+  func updateMusicViewWithMusic(music:Music) {
+    if actualMusic.id != ""  {
+      viewWithoutMusic.hidden = true
+      viewWithoutMusic.alpha = 0
+      labelMusicName.text = actualMusic.name
+      labelArtist.text = actualMusic.composer
+      buttonNLike.backgroundColor = UIColor.clearColor()
+      buttonLike.backgroundColor = UIColor.clearColor()
+      if let image = actualMusic.imageCover {
+        self.imageMusic.image = image
+      }
+      setButtonMusicType(actualMusic)
+      viewLoading.alpha = 0
+      viewWithoutMusic.alpha = 0
+      viewMusic.alpha = 1
+      imageMusic.alpha = 1
+      buttonNLike.alpha = 1
+      buttonLike.alpha = 1
       labelWithoutMusic.text = ""
     } else {
       lockMusicView()
@@ -353,18 +537,18 @@ class PlayerViewController: UIViewController {
   
   func setButtonMusicType(music:Music) {
     if music.isPositive {
-      butonLike.alpha = 1
+      buttonLike.alpha = 1
       buttonNLike.alpha = 0.3
     }
     if music.isNegative {
-      butonLike.alpha = 0.3
+      buttonLike.alpha = 0.3
       buttonNLike.alpha = 1
     }
   }
   
   func loadingMusicView() {
     buttonNLike.backgroundColor = UIColor.clearColor()
-    butonLike.backgroundColor = UIColor.clearColor()
+    buttonLike.backgroundColor = UIColor.clearColor()
     viewMusic.alpha = 0.8
     imageMusic.image = UIImage()
     imageMusic.backgroundColor = UIColor.clearColor()
@@ -372,17 +556,17 @@ class PlayerViewController: UIViewController {
     labelArtist.text = "Artista"
     labelMusicName.text = "Musica"
     buttonNLike.alpha = 0.6
-    butonLike.alpha = 0.6
+    buttonLike.alpha = 0.6
     labelWithoutMusic.text = "Não há informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
-    let imageCD = UIImage(named: "musicIcon.png")
+    let imageCD = UIImage(named: "logo-brancaAbert.png")
     var imageCDView = UIImageView(frame: imageMusic.frame)
     imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
     imageMusic.image = imageCDView.image
     imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
     viewWithoutMusic.alpha = 0
     viewLoading.alpha = 0.8
-    setButtonMusicType(DataManager.sharedInstance.musicInExecution)
+    setButtonMusicType(actualMusic)
   }
   
   func lockMusicView() {
@@ -396,7 +580,7 @@ class PlayerViewController: UIViewController {
     labelArtist.text = "Artista"
     labelMusicName.text = "Musica"
     buttonNLike.alpha = 0.6
-    butonLike.alpha = 0.6
+    buttonLike.alpha = 0.6
     labelWithoutMusic.text = "Não há informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
     let imageCD = UIImage(named: "musicIcon.png")
@@ -406,11 +590,11 @@ class PlayerViewController: UIViewController {
     imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
   @IBAction func buttonNLikeTap(sender: AnyObject) {
-    butonLike.alpha = 0.3
+    buttonLike.alpha = 0.3
     buttonNLike.alpha = 1
     let likeRequest = RequestManager()
-    likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: DataManager.sharedInstance.musicInExecution.name, singer: DataManager.sharedInstance.musicInExecution.composer) { (resultUnlike) in
-      DataManager.sharedInstance.musicInExecution.setNegative()
+    likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
+      self.actualMusic.setNegative()
       if !resultUnlike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
       }
@@ -418,21 +602,21 @@ class PlayerViewController: UIViewController {
     StreamingRadioManager.sharedInstance.sendNotification()
   }
   @IBAction func buttonLikeTap(sender: AnyObject) {
-    butonLike.alpha = 1
+    buttonLike.alpha = 1
     buttonNLike.alpha = 0.3
     let likeRequest = RequestManager()
-    likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: DataManager.sharedInstance.musicInExecution.name, singer: DataManager.sharedInstance.musicInExecution.composer) { (resultLike) in
-      DataManager.sharedInstance.musicInExecution.setPositive()
+    likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
+      self.actualMusic.setPositive()
       if !resultLike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
       }
     }
     StreamingRadioManager.sharedInstance.sendNotification()
   }
-
+  
   @IBAction func openRadioDetail(sender: AnyObject) {
     DataManager.sharedInstance.instantiateRadioDetailView(DataManager.sharedInstance.navigationController, radio: StreamingRadioManager.sharedInstance.actualRadio)
     //DataManager.sharedInstance.miniPlayerView.dismissPlayer()
   }
-
+  
 }

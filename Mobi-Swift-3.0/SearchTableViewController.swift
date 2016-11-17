@@ -18,6 +18,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   var searchCities = [CityRealm]()
   var searchGenre = [GenreRealm]()
   var searchRadios = [RadioRealm]()
+  var searchUsers = [UserRealm]()
   var searchAll = Dictionary<SearchMode,[AnyObject]>()
   
   var isOneTimeSearched = false
@@ -32,6 +33,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     searchAll[.Genre] = [GenreRealm]()
     searchAll[.Cities] = [CityRealm]()
     searchAll[.States] = [StateRealm]()
+    searchAll[.Users] = [UserRealm]()
     self.title = "Pesquisar"
     tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     
@@ -62,7 +64,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .All:
-      return 4
+      return 5
     case .Local:
       return 2
     default:
@@ -102,6 +104,12 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         } else {
           return 4
         }
+      case 4:
+        if searchUsers.count <= 3 {
+          return searchUsers.count
+        } else {
+          return 4
+        }
       default:
         return 0
       }
@@ -118,6 +126,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       default:
         return 0
       }
+    case .Users:
+      return searchUsers.count
     default:
       return 0
     }
@@ -192,6 +202,21 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
           return cell
         }
+      case 4:
+        if indexPath.row < 3 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
+          cell.nameUser.text = searchUsers[indexPath.row].name
+          cell.localUser.text = searchUsers[indexPath.row].shortAddress
+          if searchUsers[indexPath.row].userImage  == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
+          }
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+          return cell
+        }
       default:
         break
       }
@@ -226,6 +251,16 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
       cell.labelDescriptionTwo.text = ""
       return cell
+    case .Users:
+      let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
+      cell.nameUser.text = searchUsers[indexPath.row].name
+      cell.localUser.text = searchUsers[indexPath.row].shortAddress
+      if searchUsers[indexPath.row].userImage == "avatar.png" {
+        cell.imageUser.image = UIImage(named: "avatar.png")
+      } else {
+        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
+      }
+      return cell
     default:
       break
     }
@@ -259,11 +294,12 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       let genres =  self.searchAll[.Genre]
       let cities =  self.searchAll[.Cities]
       let states =  self.searchAll[.States]
+      let users = self.searchAll[.Users]
       self.searchRadios = radios as! [RadioRealm]
       self.searchGenre = genres as! [GenreRealm]
       self.searchCities = cities as! [CityRealm]
       self.searchStates = states as! [StateRealm]
-      
+      self.searchUsers = users as! [UserRealm]
       self.tableView.reloadData()
     }
     isOneTimeSearched = true
@@ -288,6 +324,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       break
     case 3:
       selectedMode = .Local
+      break
+    case 4:
+      selectedMode = .Users
       break
     default:
       break
@@ -315,7 +354,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
         }
-
+          
         else if indexPath.row >= 1 && indexPath.row <= 3 {
           selectedRadio = searchRadios[indexPath.row-1]
           DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
@@ -382,7 +421,22 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
             DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
           })
           
-
+          
+        }
+      case 4:
+        if indexPath.row == 3 {
+          selectedMode = .Users
+          searchBar.selectedScopeButtonIndex = 4
+          tableView.reloadData()
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          self.tableView.allowsSelection = true
+        } else {
+          let user = searchUsers[indexPath.row]
+          self.tableView.allowsSelection = true
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
         }
       default:
         break
@@ -429,9 +483,16 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         }
         DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
       }
+    case .Users:
+      let user = searchUsers[indexPath.row]
+      self.tableView.allowsSelection = true
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
     default:
       self.activityIndicator.hidden = true
       self.activityIndicator.removeFromSuperview()
+      self.tableView.allowsSelection = true
       break
     }
   }
@@ -450,7 +511,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         }
       }
     case .All:
-      if searchRadios.count + searchCities.count + searchStates.count + searchGenre.count + searchCities.count > 0 {
+      if searchRadios.count + searchCities.count + searchStates.count + searchGenre.count + searchCities.count + searchUsers.count > 0 {
         switch section {
         case 0:
           return "Radios"
@@ -460,6 +521,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return "Estados"
         case 3:
           return "Cidades"
+        case 4:
+          return "Usuários"
         default:
           return ""
         }
@@ -488,6 +551,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         str = "Nenhum local foi encontrado"
       } else if selectedMode == .Radios {
         str = "Nenhuma rádio foi reproduzida"
+      } else if selectedMode == .Users {
+        str = "Nenhum usuário foi encontrado"
       } else {
         str = "Nenhuma radio para mostrar"
       }
@@ -512,6 +577,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         str = "Nenhum local foi encontrado com o texto digitado, tente digitar outro termo"
       } else if selectedMode == .Radios {
         str = "Nenhuma râdio foi encontrada com o texto digitado, tente digitar outro termo"
+      } else if selectedMode == .Users {
+        str = "Nenhum usário foi encontrado com o texto digitado, tente digitar outro termo"
       } else {
         str = ""
       }

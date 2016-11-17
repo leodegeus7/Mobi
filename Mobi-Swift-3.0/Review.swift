@@ -14,13 +14,14 @@ class Review: NSObject {
   var date = NSDate()
   var text = ""
   var user = UserRealm()
-  
-  init(id:Int,date:NSDate,user:UserRealm,text:String,score:Int) {
+  var radio = RadioRealm()
+  init(id:Int,date:NSDate,user:UserRealm,text:String,score:Int,radio:RadioRealm) {
     super.init()
     self.id = id
     self.date = date
     self.user = user
     self.text = text
     self.score = score
+    self.radio = radio
   }
 }

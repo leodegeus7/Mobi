@@ -44,6 +44,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var needToUpdateCell = false
   var needToUpdateIcons = false
   
+  var avAudioPlayer:AVAudioPlayer!
+  
   static var selectedImageButton:UIImage!
   
   enum SelectedRadioMode {
@@ -107,6 +109,18 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           cell.labelScore.text = "\(self.actualRadio.score)"
         }
       }
+    }
+    
+    let programRequest = RequestManager()
+    let idRadio = actualRadio.id
+    programRequest.requestActualProgramOfRadio(idRadio) { (resultProgram) in
+      self.actualProgram = resultProgram
+      if self.selectedMode == .DetailRadio {
+        dispatch_async(dispatch_get_main_queue(), {
+          self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation: .None)
+        })
+      }
+      
     }
     
   }
@@ -177,7 +191,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
         cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.imageRadio.layer.borderWidth = 0
-        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorBlack,colorWhite])
+        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
         cell.labelName.text = actualRadio.name.uppercaseString
         cell.labelName.textColor = UIColor.whiteColor()
         if let _ = actualRadio.address {
@@ -244,6 +258,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               cell.imagePerson.clipsToBounds = true
               cell.labelNamePerson.text = actualProgram.announcer.name
               cell.labelGuests.text = programSpecial2.guests
+              cell.unlockView()
               return cell
             } else {
               cell.labelName.text = actualProgram.name
@@ -255,6 +270,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               cell.imagePerson.layer.borderWidth = 0
               cell.imagePerson.clipsToBounds = true
               cell.labelNamePerson.text = actualProgram.announcer.name
+              if let label = cell.labelGuests {
+                label.removeFromSuperview()
+              }
+              if let label = cell.labelIndicatorGuests {
+                label.removeFromSuperview()
+              }
+              cell.unlockView()
+              return cell
             }
           }
         } else {
@@ -360,16 +383,21 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                     
                     dispatch_async(dispatch_get_main_queue(), {
                       if self.selectedMode == .Wall {
-                        if let image2 = image {
-                          if cell.tag == indexPath.row && !cell.isReloadCell{
-                            let ratio = (image2.size.height)/(image2.size.width)
-                            cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-                            //cell.imageAttachment.image = image
-                            tableView.beginUpdates()
-                            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                            tableView.endUpdates()
-                            cell.tag = 1000
-                            cell.isReloadCell = true
+                        if let image3 = image {
+                          if let image2 = image3 as? UIImage {
+                            if cell.tag == indexPath.row && !cell.isReloadCell{
+                              let ratio = (image2.size.height)/(image2.size.width)
+                              
+                              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+                              cell.heightImage.constant = ratio*cell.frame.width
+                              cell.widthImage.constant = cell.frame.width
+                              //cell.imageAttachment.image = image
+                              tableView.beginUpdates()
+                              tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                              tableView.endUpdates()
+                              cell.tag = 1000
+                              cell.isReloadCell = true
+                            }
                           }
                         }
                       }
@@ -384,6 +412,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             cell.labelName.text = actualComments[indexPath.row].user.name
             cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
             cell.textViewWall.text = actualComments[indexPath.row].text
+            
+            let contentSize = cell.textViewWall.sizeThatFits(cell.textViewWall.bounds.size)
+            var frame = cell.textViewWall.frame
+            frame.size.height = contentSize.height
+            cell.heightText.constant = contentSize.height
             if actualComments[indexPath.row].user.userImage == "avatar.png" {
               cell.imageUser.image = UIImage(named: "avatar.png")
             } else {
@@ -432,12 +465,15 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
     let cell = tableView.cellForRowAtIndexPath(indexPath)
+    if let cell2 = cell as? WallImageTableViewCell {
+      print(cell2.imageAttachment.frame)
+    }
     let cellTag = (cell?.tag)!
     switch cellTag {
     case 110:
       performSegueWithIdentifier("reviewSegue", sender: self)
     case 120:
-      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: DataManager.sharedInstance.favoriteRadios[indexPath.row])
+      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: similarRadios[indexPath.row])
     case 130:
       performSegueWithIdentifier("contactSegue", sender: self)
     case 150:

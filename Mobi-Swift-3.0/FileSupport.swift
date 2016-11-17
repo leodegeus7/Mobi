@@ -44,18 +44,7 @@ class FileSupport: NSObject {
     player!.play()
   }
   
-  static func playAudioFromBundle(name:String) {
-    var player:AVAudioPlayer?
-    try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-    try! AVAudioSession.sharedInstance().setActive(true)
-    print("url")
-    
-    let urlAudio = NSBundle.mainBundle().pathForResource("\(name)", ofType: "m4a")
-    player = try! AVAudioPlayer(contentsOfURL: urlAudio!, fileTypeHint: AVFileTypeAppleM4A)
-    //guard let player = self.player else { print("Nao carregou o audio") }
-    player!.prepareToPlay()
-    player!.play()
-  }
+
   
   
 

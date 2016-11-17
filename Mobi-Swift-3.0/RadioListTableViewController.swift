@@ -37,6 +37,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
+    
   }
   
   override func didReceiveMemoryWarning() {

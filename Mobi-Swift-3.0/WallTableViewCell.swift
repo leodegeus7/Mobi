@@ -15,6 +15,7 @@ class WallTableViewCell: UITableViewCell {
   @IBOutlet weak var labelName: UILabel!
   @IBOutlet weak var imageUser: UIImageView!
   
+  @IBOutlet weak var heightText: NSLayoutConstraint!
   
   override func awakeFromNib() {
     super.awakeFromNib()

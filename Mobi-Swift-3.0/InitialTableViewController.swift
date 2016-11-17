@@ -11,6 +11,7 @@ import CoreLocation
 import SideMenu
 import Kingfisher
 import Firebase
+import AVFoundation
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
@@ -83,6 +84,24 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     requestTest.testServer { (result) in
       if !result {
         Util.displayAlert(self, title: "Atenção", message: "Tivemos um problema ao conectar aos nossos servidores", action: "Ok")
+      } else {
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+          self.locationManager.delegate = self
+          self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+          self.locationManager.startUpdatingLocation()
+          DataManager.sharedInstance.updateRadioDistance()
+          if let local = DataManager.sharedInstance.userLocation {
+            print(local)
+          } else {
+            
+          }
+        }
+        else {
+          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
+        }
+        
+      
       }
     }
   }
@@ -313,19 +332,18 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       } else {
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
-          locationManager.delegate = self
-          locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-          locationManager.startUpdatingLocation()
-          selectedMode = .Local
+          self.locationManager.delegate = self
+          self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+          self.locationManager.startUpdatingLocation()
+          self.selectedMode = .Local
           DataManager.sharedInstance.updateRadioDistance()
           if let local = DataManager.sharedInstance.userLocation {
             print(local)
+            selectedMode = .Local
+            DataManager.sharedInstance.updateRadioDistance()
+            tableView.reloadData()
           } else {
-            Util.displayAlert(self, title: "Ops...", message: "Não conseguimos obter sua localização", action: "Ok")
           }
-        }
-        else {
-          Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
         }
       }
       break
@@ -349,6 +367,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
     self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -426,12 +445,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     var str = ""
     if selectedMode == .Favorite {
       str = "Sem Favoritos"
-      if DataManager.sharedInstance.isLogged {
+      if !DataManager.sharedInstance.isLogged {
         str = "Porfavor logue em seu usuário ou crie algum"
       }
     } else if selectedMode == .Recent {
       str = "Nenhuma rádio foi reproduzida"
-      if DataManager.sharedInstance.isLogged {
+      if !DataManager.sharedInstance.isLogged {
         str = "Porfavor logue em seu usuário ou crie algum"
       }
     } else {
@@ -443,14 +462,21 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
-    if selectedMode == .Favorite {
+    if selectedMode == .Local {
+      if let _ = DataManager.sharedInstance.userLocation {
+        str = "Não conseguimos obter radios próximas a sua localização"
+      } else {
+        str = "Não conseguimos obter sua localização, ative ela nos ajustes!"
+      }
+    }
+    else if selectedMode == .Favorite {
       str = "Você não marcou nenhuma rádio como favorito, retorne a início e marque algumas!"
-      if DataManager.sharedInstance.isLogged {
+      if !DataManager.sharedInstance.isLogged {
         str = "Logue com sua conta no menu ao lado para conseguir favoritar radios"
       }
     } else if selectedMode == .Recent {
       str = "Selecione alguma rádio e as reproduza para que possamos gerar seu histórico"
-      if DataManager.sharedInstance.isLogged {
+      if !DataManager.sharedInstance.isLogged {
         str = "Logue com sua conta no menu ao lado para conseguir ver suas radios recentes"
       }
     } else {

@@ -70,7 +70,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
-    return 1
+    return 2
   }
   
   func createComment() {
@@ -99,8 +99,13 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     if firstTimeToShow {
       return 1
     } else {
-      return actualSubComments.count
+      if section == 0 {
+        return 1
+      } else if section == 1 {
+        return actualSubComments.count
+      }
     }
+    return 0
   }
   
   
@@ -111,16 +116,110 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
       return cell
     }
     else {
-      let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-      cell.labelName.text = actualSubComments[indexPath.row].user.name
-      cell.labelDate.text = Util.getOverdueInterval(actualSubComments[indexPath.row].date)
-      cell.textViewWall.text = actualSubComments[indexPath.row].text
-      if actualSubComments[indexPath.row].user.userImage == "avatar.png" {
-        cell.imageUser.image = UIImage(named: "avatar.png")
-      } else {
-        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualSubComments[indexPath.row].user.userImage)))
+      if indexPath.section == 0 {
+        if actualComment.postType == .Audio {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
+          cell.labelName.text = actualComment.user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
+          cell.textViewWall.text = actualComment.text
+          if actualComment.user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+          }
+          cell.identifier = actualComment.audio
+          return cell
+          
+        }
+        if actualComment.postType == .Image {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+          cell.labelName.text = actualComment.user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
+          cell.textViewWall.text = actualComment.text
+          if actualComment.user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+          }
+          cell.buttonZoomImage.tag = indexPath.row
+          cell.tag = indexPath.row
+          cell.imageAttachment.kf_showIndicatorWhenLoading = true
+          if !cell.isReloadCell {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+              cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComment.image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
+                
+                }, completionHandler: { (image, error, cacheType, imageURL) in
+                  
+                  dispatch_async(dispatch_get_main_queue(), {
+                    
+                    if let image3 = image {
+                      if let image2 = image3 as? UIImage {
+                        if cell.tag == indexPath.row && !cell.isReloadCell{
+                          let ratio = (image2.size.height)/(image2.size.width)
+                          
+                          cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+                          cell.heightImage.constant = ratio*cell.frame.width
+                          cell.widthImage.constant = cell.frame.width
+                          //cell.imageAttachment.image = image
+                          tableView.beginUpdates()
+                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                          tableView.endUpdates()
+                          cell.tag = 1000
+                          cell.isReloadCell = true
+                        }
+                      }
+                    }
+                    
+                  })
+              })
+            })
+          }
+          cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+          cell.labelName.text = actualComment.user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
+          cell.textViewWall.text = actualComment.text
+          
+          let contentSize = cell.textViewWall.sizeThatFits(cell.textViewWall.bounds.size)
+          var frame = cell.textViewWall.frame
+          frame.size.height = contentSize.height
+          cell.heightText.constant = contentSize.height
+          if actualComment.user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+          }
+          return cell
+        }
+      } else if indexPath.section == 1 {
+        if let _ = actualSubComments  {
+          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+          cell.labelName.text = actualSubComments[indexPath.row].user.name
+          cell.labelDate.text = Util.getOverdueInterval(actualSubComments[indexPath.row].date)
+          cell.textViewWall.text = actualSubComments[indexPath.row].text
+          if actualSubComments[indexPath.row].user.userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualSubComments[indexPath.row].user.userImage)))
+          }
+          return cell
+        } else {
+          let cell = UITableViewCell()
+          return cell
+        }
       }
-      return cell
+    }
+    let cell = UITableViewCell()
+    return cell
+  }
+  
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if section == 0 {
+      return "Postagem atual"
+    } else {
+      return "Comentários sobre a postagem"
     }
   }
   

@@ -43,17 +43,18 @@ class UsersListTableViewController: UITableViewController {
     } else {
       cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualUsers[indexPath.row].userImage)))
     }
-    cell.imageUser.layer.cornerRadius = cell.imageUser.bounds.height / 2
-    cell.imageUser.layer.borderColor = UIColor.blackColor().CGColor
-    cell.imageUser.layer.borderWidth = 1.0
-    cell.imageUser.clipsToBounds = true
     cell.nameUser.text = actualUsers[indexPath.row].name
-    if actualUsers[indexPath.row].address.formattedLocal != ""{
-      cell.localUser.text = actualUsers[indexPath.row].address.formattedLocal
-    } else {
-      cell.localUser.text = ""
-    }
+    cell.localUser.text = actualUsers[indexPath.row].shortAddress
+//    if actualUsers[indexPath.row].address.formattedLocal != ""{
+//      cell.localUser.text = actualUsers[indexPath.row].address.formattedLocal
+//    } else {
+//      cell.localUser.text = ""
+//    }
     return cell
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: actualUsers[indexPath.row])
   }
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

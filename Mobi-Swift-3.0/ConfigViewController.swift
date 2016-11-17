@@ -35,9 +35,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
-  
-  let colorArray1:[UIColor] = [FlatTealDark(),FlatSkyBlueDark(),FlatNavyBlueDark(),FlatPlumDark(),FlatWatermelonDark(),FlatRedDark(),FlatOrangeDark(),FlatBrownDark(),FlatForestGreenDark(),FlatPurpleDark()]
-  let colorArray2:[UIColor] = [FlatTeal(),FlatSkyBlue(),FlatNavyBlue(),FlatPlum(),FlatWatermelon(),FlatRed(),FlatOrange(),FlatBrown(),FlatForestGreen(),FlatPurple()]
+  let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
+  let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
+  let colorArray1:[UIColor] = [FlatWatermelonDark(),FlatTealDark(),FlatSkyBlueDark(),FlatNavyBlueDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand()]
+  let colorArray2:[UIColor] = [ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color,FlatTeal(),FlatSkyBlue(),FlatNavyBlue(),FlatPlum(),FlatRed(),FlatOrange(),FlatBrown(),FlatForestGreen(),FlatPurple()]
   
   var colorArray:[UIColor] = []
   
@@ -68,6 +69,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       button.frame.size.height = colorView.bounds.height/2
       button.titleLabel?.text = ""
       button.backgroundColor = colorArray[i]
+      let colorBlueColor = colorBlue.color
+      if button.backgroundColor == colorBlueColor {
+        button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
+      }
       button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
       i += 1
     }
@@ -167,10 +172,17 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   //MARK: --- Button Color Click Function ---
   
   func buttonGridTapped(sender: UIButton?) { //to know the selected color
+    DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (sender?.backgroundColor)!)
     
     switch (sender?.tag)! {
     case 11:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
+      if colorArray2 == colorArray {
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+        DataManager.sharedInstance.interfaceColor = colorBlue
+      }
+      else {
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
+      }
     case 12:
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], withContentStyle: UIContentStyle.Contrast)
     case 13:
@@ -193,7 +205,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  withContentStyle: UIContentStyle.Contrast)
     }
     
-    DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (sender?.backgroundColor)!)
+
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
@@ -332,60 +344,67 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       var i = 0
       for button in colorButtons {
         
-        button.backgroundColor = colorArray[i]
+
+        if button.backgroundColor == colorBlue.color {
+          button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
+        } else {
+          button.backgroundColor = colorArray[i]
+        }
         i += 1
       }
-    }
-    let randomColor = UIColor.init(randomColorInArray: colorArray)
-    Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, withContentStyle: UIContentStyle.Contrast)
-    
-    DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: randomColor!)
-    self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
-    DataManager.sharedInstance.existInterfaceColor = true
-    
-    tableViewAudio.reloadData()
-    
-    if (DataManager.sharedInstance.audioConfig.audioType == 1) {
-      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-    } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
-      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-    } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
-      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
-    }
-    
-    sliderAgudos.thumbTintColor = randomColor
-    sliderGraves.thumbTintColor = randomColor
-    sliderMedios.thumbTintColor = randomColor
-    sliderAgudos.minimumTrackTintColor = randomColor
-    sliderGraves.minimumTrackTintColor = randomColor
-    sliderMedios.minimumTrackTintColor = randomColor
-    
-    var tagButton = -1
-    for button in colorButtons {
-      if button.backgroundColor == randomColor {
-       tagButton = button.tag
+      
+      let randomColor = UIColor.init(randomColorInArray: colorArray)
+      Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, withContentStyle: UIContentStyle.Contrast)
+      
+      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: randomColor!)
+      self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
+      DataManager.sharedInstance.existInterfaceColor = true
+      
+      tableViewAudio.reloadData()
+      
+      if (DataManager.sharedInstance.audioConfig.audioType == 1) {
+        let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
+        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
+        let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
+        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
+        let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
+        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      }
+      
+      sliderAgudos.thumbTintColor = randomColor
+      sliderGraves.thumbTintColor = randomColor
+      sliderMedios.thumbTintColor = randomColor
+      sliderAgudos.minimumTrackTintColor = randomColor
+      sliderGraves.minimumTrackTintColor = randomColor
+      sliderMedios.minimumTrackTintColor = randomColor
+      
+      var tagButton = -1
+      for button in colorButtons {
+        if button.backgroundColor == randomColor {
+          tagButton = button.tag
+        }
+      }
+      
+      DataManager.sharedInstance.configApp.updatecoordColorConfig(tagButton)
+      StreamingRadioManager.sharedInstance.sendNotification()
+      
+      for button in colorButtons {
+        button.setImage(UIImage(), forState: .Normal)
+        button.setBackgroundImage(UIImage(), forState: .Normal)
+        if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
+          
+          // button.setImage(UIImage"check.png"), forState: .Normal)
+          let image = UIImageView(frame: button.frame)
+          image.image = UIImage(named: "check.png")
+          image.frame = button.frame
+          
+          button.setBackgroundImage(image.image, forState: .Normal)
+        }
       }
     }
-    
-    DataManager.sharedInstance.configApp.updatecoordColorConfig(tagButton)
-    StreamingRadioManager.sharedInstance.sendNotification()
-    
-    for button in colorButtons {
-      button.setImage(UIImage(), forState: .Normal)
-      button.setBackgroundImage(UIImage(), forState: .Normal)
-      if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
-        
-        // button.setImage(UIImage"check.png"), forState: .Normal)
-        let image = UIImageView(frame: button.frame)
-        image.image = UIImage(named: "check.png")
-        image.frame = button.frame
-        
-        button.setBackgroundImage(image.image, forState: .Normal)
-      }
-    }
+
   }
   
   

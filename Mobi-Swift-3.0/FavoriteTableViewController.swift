@@ -44,7 +44,12 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return DataManager.sharedInstance.favoriteRadios.count + 1
+    if DataManager.sharedInstance.favoriteRadios.count > 0 {
+      return DataManager.sharedInstance.favoriteRadios.count + 1
+    } else {
+      return 0
+    }
+
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

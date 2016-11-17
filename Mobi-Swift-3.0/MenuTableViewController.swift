@@ -15,6 +15,9 @@ import ChameleonFramework
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
   var switchTimer = NSTimer()
+  
+  
+  
   @IBOutlet weak var viewTop: UIView!
   
   override func viewDidLoad() {
@@ -23,11 +26,7 @@ class MenuTableViewController: UITableViewController {
     guard tableView.backgroundView == nil else {
       return
     }
-    if DataManager.sharedInstance.existInterfaceColor {
-      let color = DataManager.sharedInstance.interfaceColor.color
-      viewTop.backgroundColor = color
-      self.tableView.backgroundColor = color
-    }
+    
     
     //    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
     //    imageView.contentMode = .ScaleAspectFit
@@ -39,9 +38,8 @@ class MenuTableViewController: UITableViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
-    if self.navigationController?.navigationBar.backgroundColor != DataManager.sharedInstance.interfaceColor.color {
-      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    }
+
+    
     if tableView.visibleCells.count == 8 && !DataManager.sharedInstance.isLogged {
       tableView.reloadData()
     }
@@ -49,15 +47,9 @@ class MenuTableViewController: UITableViewController {
       tableView.reloadData()
       DataManager.sharedInstance.needUpdateMenu = false
     } else {
-      //tableView.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
-      if DataManager.sharedInstance.existInterfaceColor {
-        //        super.tableView.backgroundColor = UIColor.whiteColor()
-        let color = DataManager.sharedInstance.interfaceColor.color
-        tableView.backgroundColor = color
-        viewTop.backgroundColor = color
-      }
+
       if tableView.visibleCells.count > 0 {
-        if DataManager.sharedInstance.existInterfaceColor {
+          defineColors()
           for index in 0...6 {
             let indexPath = NSIndexPath(forItem: index, inSection: 0)
             let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -84,30 +76,15 @@ class MenuTableViewController: UITableViewController {
               cell2.imageUser.layer.borderWidth = 0
               cell2.imageUser.clipsToBounds = true
             }
-            var color = DataManager.sharedInstance.interfaceColor.color
-            color = color.colorWithAlphaComponent(1)
-            if (indexPath.row == 0) {
-              color = color.colorWithAlphaComponent(0.8)
-            }
-            cell!.backgroundColor = color
           }
-        }
       }
     }
-    emergencyColor()
   }
   
   override func viewDidAppear(animated: Bool) {
     updateSwitch()
     switchTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(MenuTableViewController.updateInterfaceTimer), userInfo: nil, repeats: true)
-    for index in 0...tableView.visibleCells.count-1 {
-      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: index, inSection: 0))
-      if DataManager.sharedInstance.existInterfaceColor {
-        cell?.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-      }
-    }
-    
-    
+    defineColors()
   }
   
   func updateInterfaceTimer() {
@@ -189,14 +166,6 @@ class MenuTableViewController: UITableViewController {
       userCell.imageUser.layer.borderWidth = 0
       userCell.imageUser.clipsToBounds = true
       userCell.selectionStyle = UITableViewCellSelectionStyle.None
-      //let imageUserVar = UIImage()
-      //cell.imageUser.image =
-      //userCell.backgroundColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
-      if DataManager.sharedInstance.existInterfaceColor {
-        var color = DataManager.sharedInstance.interfaceColor.color
-        color = color.colorWithAlphaComponent(0.8)
-        userCell.backgroundColor = color
-      }
       return userCell
       
     } else if (indexPath.row == 7) {
@@ -204,20 +173,11 @@ class MenuTableViewController: UITableViewController {
       firstTypeCell.labelText.text = "Logout"
       firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
       firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-      if DataManager.sharedInstance.existInterfaceColor {
-        let color = DataManager.sharedInstance.interfaceColor.color
-        firstTypeCell.backgroundColor = color
-      }
       return firstTypeCell
     } else if(indexPath.row != 5) {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
-      firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
       firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-      if DataManager.sharedInstance.existInterfaceColor {
-        let color = DataManager.sharedInstance.interfaceColor.color
-        firstTypeCell.backgroundColor = color
-      }
       return firstTypeCell
     }
     
@@ -226,10 +186,6 @@ class MenuTableViewController: UITableViewController {
     secondTypeCell.labelText.text = menuArray[4]
     secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
     secondTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-    if DataManager.sharedInstance.existInterfaceColor {
-      let color = DataManager.sharedInstance.interfaceColor.color
-      secondTypeCell.backgroundColor = color
-    }
     return secondTypeCell
     
     
@@ -269,6 +225,7 @@ class MenuTableViewController: UITableViewController {
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })
         tableView.reloadData()
+        defineColors()
         self.dismissViewControllerAnimated(true, completion: {
         })
         
@@ -281,9 +238,6 @@ class MenuTableViewController: UITableViewController {
   }
   
   @IBAction func sleepFunction(sender: AnyObject) {
-    let indexPath = NSIndexPath(forItem: 5, inSection: 0)
-    //let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
-    
     if DataManager.sharedInstance.isSleepModeEnabled {
       for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as [UILocalNotification] {
         if notification.alertTitle == "SleepMode" {
@@ -329,21 +283,58 @@ class MenuTableViewController: UITableViewController {
     }
   }
   
-  func emergencyColor() {
-    if tableView.backgroundColor == UIColor.whiteColor() || tableView.backgroundColor == UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1) {
-      if DataManager.sharedInstance.interfaceColor.id != "" {
-        tableView.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-        DataManager.sharedInstance.needUpdateMenu = true
-        tableView.reloadData()
-        self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+  func defineColors() {
+    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    let colorBlack = DataManager.sharedInstance.interfaceColor.color
+    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    
+    if DataManager.sharedInstance.interfaceColor.color == colorBlue {
+
+      self.tableView.backgroundColor = colorBlue
+      viewTop.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewTop.frame, andColors: [colorRose,colorBlue])
+    } else {
+      self.tableView.backgroundColor = UIColor.whiteColor()
+      viewTop.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewTop.frame, andColors: [colorWhite,colorBlack])
+    }
+    
+    for cell in  tableView.visibleCells {
+      if tableView.indexPathForCell(cell)?.row == 0 {
+        if DataManager.sharedInstance.interfaceColor.color == colorBlue {
+          cell.backgroundColor = colorBlue
+          
+        } else {
+          cell.backgroundColor = colorBlack
+        }
       } else {
-        Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
-        DataManager.sharedInstance.interfaceColor.color = FlatPurpleDark()
-        self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-        
+        if DataManager.sharedInstance.interfaceColor.color == colorBlue {
+          cell.backgroundColor = colorBlue
+          
+          if let cellAux = cell as? FirstTypeMenuTableViewCell {
+            cellAux.labelText.textColor = UIColor.whiteColor()
+          }
+          if let cellAux = cell as? SecondMenuTypeTableViewCell {
+            cellAux.labelText.textColor = UIColor.whiteColor()
+          }
+        } else {
+          cell.backgroundColor = UIColor.whiteColor()
+          if let cellAux = cell as? FirstTypeMenuTableViewCell {
+            cellAux.labelText.textColor = UIColor.blackColor()
+          }
+          if let cellAux = cell as? SecondMenuTypeTableViewCell {
+            cellAux.labelText.textColor = UIColor.blackColor()
+          }
+        }
       }
     }
+    
+    if self.navigationController?.navigationBar.backgroundColor != DataManager.sharedInstance.interfaceColor.color {
+      self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    }
+
   }
+  
   
   
 }

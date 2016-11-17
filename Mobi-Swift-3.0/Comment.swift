@@ -17,14 +17,16 @@ class Comment: NSObject {
   var video = ""
   var audio = ""
   var user = UserRealm()
+  var radio:RadioRealm!
   
-  init(id:String,date:NSDate,user:UserRealm,text:String) {
+  init(id:String,date:NSDate,user:UserRealm,text:String,radio:RadioRealm) {
     super.init()
     self.id = id
     self.date = date
     self.user = user
     self.text = text
     self.postType = .Text
+    self.radio = radio
   }
   
   func updateText(text:String) {

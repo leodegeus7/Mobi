@@ -22,8 +22,10 @@ class UserRealm: Object {
   dynamic var followers = -1
   dynamic var email =  ""
   dynamic var password = ""
+  dynamic var isFollowing = false
+  dynamic var shortAddress = ""
   
-
+  dynamic var isMineProfile = false
   
   convenience init(id:String, email:String, name:String, gender: String, address:AddressRealm, birthDate:String, following:String, followers:String,userImage:ImageObject) {
     self.init()
@@ -32,27 +34,40 @@ class UserRealm: Object {
     self.name = name
     self.gender = gender
     self.address = address
-    self.birthDate = Util.convertStringToNSDate(birthDate)
+    self.isMineProfile = true
+    if birthDate == "" {
+      self.birthDate = nil
+    } else {
+      self.birthDate = Util.convertStringToNSDate(birthDate)
+    }
+    
     self.followers = Int(followers)!
     self.following = Int(following)!
     self.password = ""
     self.userImage = userImage.getImageIdentifier()
-
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
     }
   }
   
-  convenience init(id:String,email:String,name:String,image:ImageObject) {
+  convenience init(id:String,email:String,name:String, image:ImageObject) {
     self.init()
     self.email = email
     self.name = name
     self.id = id
     self.userImage = image.getImageIdentifier()
-    
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
     }
+  }
+  
+  convenience init(id:String,name:String,image:ImageObject,following:Bool,shortAddress:String) {
+    self.init()
+    self.id = id
+    self.name = name
+    self.userImage = image.getImageIdentifier()
+    self.isFollowing = following
+    self.shortAddress = shortAddress
   }
   
   override static func primaryKey() -> String? {

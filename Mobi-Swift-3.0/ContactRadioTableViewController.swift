@@ -19,15 +19,38 @@ class ContactRadioTableViewController: FormViewController {
       activityIndicator.center = self.view.center
       activityIndicator.startAnimating()
       activityIndicator.hidden = true
+      tableView?.separatorStyle = .None
       self.view.addSubview(activityIndicator)
       self.title = "Contato"
       let requestContact = RequestManager()
       requestContact.requestPhonesOfStation(actualRadio) { (resultPhones) in
-        self.activityIndicator.hidden = true
-        self.activityIndicator.removeFromSuperview()
-        let contact = ContactRadio(email: "", facebook: "", twitter: "", phoneNumbers: resultPhones)
-        self.contactRadio = contact
-        self.fillTableView()
+        let requestSocial = RequestManager()
+        requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
+          self.activityIndicator.hidden = true
+          self.activityIndicator.removeFromSuperview()
+          var face = ""
+          var twitter = ""
+          var instagram = ""
+          var email = ""
+          for social in resultSocial {
+            if social.type == "Facebook" {
+              face = social.text
+            }
+            else if social.type == "Instagram" {
+              instagram = social.text
+            }
+            else if social.type == "Twitter" {
+              twitter = social.text
+            }
+            else if social.type == "E-mail" {
+              email = social.text
+            }
+          }
+          let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: resultPhones)
+          self.contactRadio = contact
+          self.fillTableView()
+        })
+
       }
     }
 
@@ -102,6 +125,14 @@ class ContactRadioTableViewController: FormViewController {
           <<< LabelRow(){ row in
             row.title = "Twitter"
             row.value = contactRadio.twitter
+        }
+      }
+      if contactRadio.instagram != "" {
+        let section = form.last!
+        section
+          <<< LabelRow(){ row in
+            row.title = "Instagram"
+            row.value = contactRadio.instagram
         }
       }
       if contactRadio.email != "" {

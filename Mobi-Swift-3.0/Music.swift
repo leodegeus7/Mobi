@@ -14,10 +14,12 @@ class Music: Object {
   dynamic var name:String!
   dynamic var albumName:String!
   dynamic var composer:String!
+  dynamic var respectiveRadio:RadioRealm!
   dynamic var isPositive = false
   dynamic var isNegative = false
   dynamic var coverArt:String!
   dynamic var timeWasDiscovered:NSDate!
+  dynamic var imageCover:UIImage!
   
   convenience init(id:String,name:String,albumName:String,composer:String,coverArt:String) {
     self.init()
@@ -32,19 +34,41 @@ class Music: Object {
     }
   }
   
+  override static func ignoredProperties() -> [String] {
+    return ["imageCover"]
+  }
+  
   override class func primaryKey() -> String? {
     return "id"
   }
   
   func isMusicOld() -> Bool {
-    if let date = timeWasDiscovered {
-      if NSDate().timeIntervalSinceDate(date) >= 26 {
+    if let _ = timeWasDiscovered {
+      if timeWasDiscovered.timeIntervalSinceNow > 20 {
         return true
       } else {
         return false
       }
     } else {
       return true
+    }
+  }
+  
+  func updateDate() {
+    try! DataManager.sharedInstance.realm.write {
+      self.timeWasDiscovered = NSDate()
+    }
+  }
+  
+  func updateImage(image:UIImage) {
+    try! DataManager.sharedInstance.realm.write {
+      self.imageCover = image
+    }
+  }
+  
+  func updateRadio(radio:RadioRealm) {
+    try! DataManager.sharedInstance.realm.write {
+      self.respectiveRadio = radio
     }
   }
   

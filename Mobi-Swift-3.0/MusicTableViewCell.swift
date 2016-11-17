@@ -47,7 +47,7 @@ class MusicTableViewCell: UITableViewCell {
     
     if imageMusic.tintColor != DataManager.sharedInstance.interfaceColor.color {
       activityIndicator.color = DataManager.sharedInstance.interfaceColor.color
-      let imageCD = UIImage(named: "musicIcon.png")
+      let imageCD = UIImage(named: "logo-brancaAbert.png")
       var imageCDView = UIImageView(frame: imageMusic.frame)
       imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
       imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
@@ -89,7 +89,7 @@ class MusicTableViewCell: UITableViewCell {
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
     //if imageMusic.tintColor != DataManager.sharedInstance.interfaceColor.color {
       //let imageCD = UIImage(named: "musicIcon.png")
-    let imageCD = UIImage(named: "musicIcon.png")
+    let imageCD = UIImage(named: "logo-brancaAbert.png")
       var imageCDView = UIImageView(frame: imageMusic.frame)
       imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
       imageMusic.image = imageCDView.image

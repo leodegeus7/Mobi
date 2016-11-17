@@ -56,8 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     } else {
       RealmWrapper.realmStart("default")
-      Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
-      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (FlatPurpleDark()))
+      let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
+      let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+      DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
       defineInitialParameters()
     }
@@ -220,12 +222,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    if let msgId = userInfo["gcm.message_id"] as? String {
-      print("Mensagem com id \(msgId) recebida remotamente. Possivelemente firebase")
+    if let msgId = userInfo["from"] as? String {
+      print("Mensagem de id \(msgId) recebida remotamente. Possivelemente firebase")
     }
-    print("Mensagem: \(userInfo)")
     let notification = UILocalNotification()
-    notification.alertBody = "\(userInfo["body"])"
+    if let mensagem = userInfo["mensagem"] as? String {
+      notification.alertBody = mensagem
+    }
+    if let notificationDic = userInfo["notification"] as? NSDictionary {
+      if let title = notificationDic["body"] as? String {
+        notification.alertTitle = title
+      }
+    }
     notification.alertAction = "Ok"
     notification.fireDate = NSDate(timeIntervalSinceNow: 1)
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
@@ -271,12 +279,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
-      
-      Chameleon.setGlobalThemeUsingPrimaryColor(FlatPurpleDark(), withContentStyle: UIContentStyle.Contrast)
-      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (FlatPurpleDark()))
+      let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+      DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
-      
-      
     }
     DataManager.sharedInstance.needUpdateMenu = true
     let appConfigRealm = realm.objects(AppConfigRealm.self).filter("id == 1")

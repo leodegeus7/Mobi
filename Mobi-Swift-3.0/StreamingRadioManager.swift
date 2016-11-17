@@ -101,9 +101,6 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     audioPlayer.play(actualRadio.audioChannels[0].returnLink())
     
     defineInfoCenter()
-    
-    
-    
     isPlaying = true
     let historicManager = RequestManager()
     historicManager.markRadioHistoric(radio) { (resultFav) in

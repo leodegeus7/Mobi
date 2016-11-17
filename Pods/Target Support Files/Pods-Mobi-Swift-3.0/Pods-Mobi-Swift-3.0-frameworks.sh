@@ -1,4 +1,3 @@
-#!/bin/sh
 set -e
 
 echo "mkdir -p ${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"

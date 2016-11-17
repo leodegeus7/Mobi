@@ -11,6 +11,7 @@ import CoreLocation
 import Alamofire
 import RealmSwift
 import Firebase
+import AVFoundation
 
 
 
@@ -27,6 +28,7 @@ enum SearchMode {
   case Local
   case States
   case Cities
+  case Users
 }
 
 enum PostType : Int {
@@ -105,6 +107,8 @@ class DataManager: NSObject {
   var isAdsRequested = false
   
   var navigationController = UINavigationController()
+  
+  var avPlayer: AVAudioPlayer!
   
   struct ProgramDays {
     var isSunday:Bool
@@ -204,8 +208,21 @@ class DataManager: NSObject {
     navigation.pushViewController(vc!, animated: true)
   }
 
+  func instantiateUserDetail(navigation:UINavigationController, user:UserRealm) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("userDetailView") as? UserDetailTableViewController
+    vc!.actualUser = user
+    vc!.viewTitle = user.name
+    navigation.pushViewController(vc!, animated: true)
+  }
   
-  
+  func instantiateSubCommentView(navigation:UINavigationController, comment:Comment) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("commentsView") as? CommentsTableViewController
+    vc!.actualComment = comment
+    vc!.actualRadio = comment.radio
+    navigation.pushViewController(vc!, animated: true)
+  }
   
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
   //    if radios.count < index {

@@ -217,14 +217,14 @@ class EditInfoViewController: FormViewController {
     let labelBirthInfo : DateRow = form.rowByTag("birth")!
     let labelGenderInfo : SegmentedRow<String>  = form.rowByTag("gender")!
     
-    
+//    
 //    let labelCity : TextRow = form.rowByTag("city")!
 //    let labelState : TextRow = form.rowByTag("state")!
 //    let labelZip : TextRow = form.rowByTag("zip")!
 //    let labelStreet : TextRow = form.rowByTag("street")!
 //    let labelNumber : TextRow = form.rowByTag("number")!
 //    let labelComple : TextRow = form.rowByTag("complem")!
-    
+//    
     
     let labelEmail : EmailRow = form.rowByTag("email")!
 //
@@ -256,6 +256,12 @@ class EditInfoViewController: FormViewController {
       }
       changesArray.append(dicPara3)
     }
+    if labelBirthInfo.value == NSDate() {
+      print("Aqui")
+    } else {
+      print("AquiN")
+    }
+
 
       var dicPara4 = Dictionary<String,AnyObject>()
       dicPara4["parameter"] = "birthdate"

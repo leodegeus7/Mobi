@@ -52,7 +52,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var labelTextGender: UILabel!
   @IBOutlet weak var labelTextBirth: UILabel!
   
+  var viewControllerNew = UIViewController()
+  
   let imagePicker = UIImagePickerController()
+  
+  var existFollowers = false
+  var existFollowing = false
   
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
@@ -69,8 +74,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       view.hidden = false
     }
     super.viewDidLoad()
-    
-    ///////////////////////////////////////////////////////////
+    //viewControllerNew = self.copy() as! ProfileViewController
+    /////////////////////////////////////   //////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
     //configureFacebook()
@@ -171,10 +176,18 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       
       let requestFollowers = RequestManager()
       requestFollowers.requestNumberOfFollowers(myUser) { (resultNumberFollowers) in
+        if resultNumberFollowers > 0 {
+          self.existFollowers = true
+        }
+        
         self.labelFollowers.text = "\(resultNumberFollowers)"
       }
       let requestFollowing = RequestManager()
       requestFollowing.requestNumberOfFollowing(myUser) { (resultNumberFollowing) in
+        if resultNumberFollowing > 0 {
+          self.existFollowing = true
+        }
+        
         self.labelFollowing.text = "\(resultNumberFollowing)"
       }
     }
@@ -245,9 +258,24 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var slackBirth: UIStackView!
   
   func completeProfileViewInfo() {
+    //    self.view = viewControllerNew.view
+    //    slackAdrress.reloadInputViews()
+    //    slackCity.reloadInputViews()
+    //    slackTest.reloadInputViews()
+    //    slackState.reloadInputViews()
+    //    slackCountry.reloadInputViews()
+    //    slackGender.reloadInputViews()
+    //    slackBirth.reloadInputViews()
+    //    labelDateBirth.reloadInputViews()
+    //    labelTextBirth.reloadInputViews()
+    //    labelState.reloadInputViews()
+    //    labelCity.reloadInputViews()
+    //    labelName.reloadInputViews()
+    //    labelGender.reloadInputViews()
+    //    labelAddress.reloadInputViews()
     
     labelName.text = myUser.name
-
+    
     if let address = myUser.address {
       if address.street == "" {
         if let address = slackAdrress {
@@ -316,10 +344,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         state.removeFromSuperview()
       }
     }
-    if (myUser.birthDate != "") {
+    if (myUser.birthDate != nil) {
       if myUser.birthDate.timeIntervalSinceNow < 10000 || myUser.birthDate.timeIntervalSinceNow > 3144980000 {
-        if let state = slackBirth {
-          state.removeFromSuperview()
+        if let birthLabel = slackBirth {
+          birthLabel.removeFromSuperview()
         }
       }else {
         if let label = labelDateBirth {
@@ -327,8 +355,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         }
       }
     } else {
-      if let label = labelDateBirth {
-        label.text = nil
+      if let birthLabel = slackBirth {
+        birthLabel.removeFromSuperview()
       }
     }
     if myUser.gender == "M" {
@@ -663,26 +691,30 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
   
   @IBAction func tapFollowersButton(sender: AnyObject) {
-    view.addSubview(activityIndicator)
-    view.userInteractionEnabled = false
-    activityIndicator.hidden = false
-    let requestManager = RequestManager()
-    requestManager.requestFollowers(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowers) in
-      self.view.userInteractionEnabled = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowers, title: "Seguidores")
+    if existFollowers {
+      view.addSubview(activityIndicator)
+      view.userInteractionEnabled = false
+      activityIndicator.hidden = false
+      let requestManager = RequestManager()
+      requestManager.requestFollowers(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowers) in
+        self.view.userInteractionEnabled = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowers, title: "Seguidores")
+      }
     }
   }
   @IBAction func tapFollowingButton(sender: AnyObject) {
-    view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
-    let requestManager = RequestManager()
-    requestManager.requestFollowing(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowing) in
-      self.view.userInteractionEnabled = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowing, title: "Seguindo")
+    if existFollowing {
+      view.addSubview(activityIndicator)
+      activityIndicator.hidden = false
+      let requestManager = RequestManager()
+      requestManager.requestFollowing(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowing) in
+        self.view.userInteractionEnabled = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowing, title: "Seguindo")
+      }
     }
   }
   
@@ -700,6 +732,6 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
   }
   
-
+  
   
 }

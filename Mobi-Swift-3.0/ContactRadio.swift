@@ -12,16 +12,18 @@ class ContactRadio: NSObject {
   var email = ""
   var facebook = ""
   var twitter = ""
+  var instagram = ""
   var phoneNumbers = [PhoneNumber]()
   var existSocialNew = false
-  convenience init(email:String,facebook:String,twitter:String,phoneNumbers:[PhoneNumber]) {
+  convenience init(email:String,facebook:String,twitter:String,instagram:String,phoneNumbers:[PhoneNumber]) {
     self.init()
     self.email = email
     self.facebook = facebook
+    self.instagram = instagram
     self.twitter = twitter
     self.phoneNumbers = phoneNumbers
     
-    if self.email != "" || self.facebook != "" || self.twitter != ""  {
+    if self.email != "" || self.facebook != "" || self.twitter != "" || self.instagram != ""  {
       existSocialNew = true
     }
   }

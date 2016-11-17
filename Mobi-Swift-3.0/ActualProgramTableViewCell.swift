@@ -42,7 +42,7 @@ class ActualProgramTableViewCell: UITableViewCell {
     labelLocked.text = "Não há informação de programação"
     labelGuests.text = "Convidados"
     labelName.text = "Programa"
-    imagePerson.image = UIImage(named: "avatar.png")
+    imagePerson.image = UIImage(named: "logo-brancaAbert.png")
     labelNamePerson.text = "Apresentador"
     labelSecondName.text = ""
     labelLocked.textColor = DataManager.sharedInstance.interfaceColor.color
@@ -54,6 +54,7 @@ class ActualProgramTableViewCell: UITableViewCell {
   func unlockView() {
     viewLocked.alpha = 0
     viewLocked.hidden = true
+    
   }
   
 }

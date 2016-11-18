@@ -70,8 +70,15 @@ class UserRealm: Object {
     self.shortAddress = shortAddress
   }
   
+  
   override static func primaryKey() -> String? {
     return "id"
+  }
+  
+  func updateFollowing(bool:Bool) {
+    try! DataManager.sharedInstance.realm.write {
+      self.isFollowing = bool
+    }
   }
   
   func updateFavorites(favorites:[RadioRealm]) {

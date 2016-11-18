@@ -185,7 +185,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           let contentSize = cell.textViewWall.sizeThatFits(cell.textViewWall.bounds.size)
           var frame = cell.textViewWall.frame
           frame.size.height = contentSize.height
-          cell.heightText.constant = contentSize.height
+          //cell.heightText.constant = contentSize.height
           if actualComment.user.userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {

@@ -48,6 +48,8 @@ class UserDetailTableViewController: UITableViewController {
     let requestFollowing = RequestManager()
     let requestReviews = RequestManager()
     
+    defineBarButton()
+    
     requestFollowers.requestNumberOfFollowers(actualUser) { (resultNumberFollowers) in
       requestFollowing.requestNumberOfFollowing(self.actualUser, completion: { (resultNumberFollowing) in
         let detailCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! DetailUserTableViewCell
@@ -167,7 +169,7 @@ class UserDetailTableViewController: UITableViewController {
       }
     case 1:
       if selectedMode == .Posts {
-        if indexPath.section <= actualPosts.count-1 {
+        if indexPath.row <= actualPosts.count-1 {
           if actualPosts[indexPath.row].postType == .Audio {
             let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
             cell.labelName.text = actualPosts[indexPath.row].user.name
@@ -251,7 +253,7 @@ class UserDetailTableViewController: UITableViewController {
           return cell
         }
       } else if selectedMode == .Reviews {
-        if indexPath.section <= actualReviews.count-1 {
+        if indexPath.row <= actualReviews.count-1 {
           let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
           cell.labelName.text = actualReviews[indexPath.row].user.name
           cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
@@ -324,4 +326,36 @@ class UserDetailTableViewController: UITableViewController {
       }
     }
   }
+  
+  func defineBarButton() {
+      if !actualUser.isFollowing {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-add.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+      } else {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-remove.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+      }
+  }
+  
+  func buttonFollowTap() {
+    let manager = RequestManager()
+    if !actualUser.isFollowing {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-remove.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+      actualUser.updateFollowing(true)
+      manager.followUser(actualUser, completion: { (follow) in
+        if !follow {
+          Util.displayAlert(title: "Atenção", message: "Não foi possivel seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
+        }
+      })
+    } else {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-add.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+      actualUser.updateFollowing(false)
+      manager.unfollowUser(actualUser, completion: { (follow) in
+        if !follow {
+          Util.displayAlert(title: "Atenção", message: "Não foi possivel parar de seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
+        }
+      })
+    }
+
+  }
+  
+
 }

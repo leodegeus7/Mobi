@@ -20,12 +20,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobi-Swift-3.0/UserDetailTableViewController.swift"
-            timestampString = "501104706.266773"
+            timestampString = "501181468.831208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/UserDetailTableViewController.swift"
+            timestampString = "501181468.831208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/ProfileViewController.swift"
+            timestampString = "501187320.925258"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
+            landmarkName = "authUI(_:didSignInWithUser:error:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/MenuTableViewController.swift"
+            timestampString = "501190273.301462"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "defineColors()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobi-Swift-3.0/MenuTableViewController.swift"
+            timestampString = "501190274.094787"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "defineColors()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

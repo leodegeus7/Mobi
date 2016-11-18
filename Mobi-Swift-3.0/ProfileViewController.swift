@@ -12,6 +12,7 @@ import TwitterKit
 import Firebase
 import FirebaseAuthUI
 import FirebaseDatabaseUI
+import ChameleonFramework
 //import FirebaseGoogleAuthUI
 import FirebaseTwitterAuthUI
 import FirebaseFacebookAuthUI
@@ -51,6 +52,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var labelTextCountry: UILabel!
   @IBOutlet weak var labelTextGender: UILabel!
   @IBOutlet weak var labelTextBirth: UILabel!
+  @IBOutlet weak var buttonAdvertisement: UIButton!
   
   var viewControllerNew = UIViewController()
   
@@ -82,6 +84,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     if DataManager.sharedInstance.isLogged {
       completeProfileViewInfo()
     }
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+    let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
+    self.buttonAdvertisement.backgroundColor = colorWhite2
     navigationController?.title = "Perfil"
     tableViewFavorites.rowHeight = 130
     backButton.target = self.revealViewController()
@@ -104,6 +110,16 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+    
+    AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
+      dispatch_async(dispatch_get_main_queue()) {
+        if let imageAd = resultAd.image {
+          let imageView = UIImageView(frame: self.buttonAdvertisement.frame)
+          imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
+          self.buttonAdvertisement.setBackgroundImage(imageView.image, forState: .Normal)
+        }
+      }
+    })
   }
   
   ///////////////////////////////////////////////////////////
@@ -486,35 +502,49 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
     authUI.customStringsBundle = NSBundle.mainBundle()
     //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
-    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
+//    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
+    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
+//    let fir = FIRAuthPickerViewController(authUI: authUI)
+//    
+//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+//    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+//    
+//    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+//    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+//    
+//    let backgroudImage = UIImageView(frame: fir.view.frame)
+//    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
+//    
+//    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+//    
+//    fir.view.backgroundColor = color
+//    
+//    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
+//    image2.image = UIImage(named: "fundo-login-mobi.jpg")
+//    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
+//    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+//    image.alpha = 0.2
+//    image2.addSubview(image)
+//    
+//    
+//    fir.view.insertSubview(image2, atIndex: 0)
+//    
+//    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
+//    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
+//    logoImage.center = image2.center
+//    logoImage.frame.origin.y = -30
+//    fir.view.addSubview(logoImage)
+    
+    
     let fir = FIRAuthPickerViewController(authUI: authUI)
-    fir.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
     
-    let backgroudImage = UIImageView(frame: fir.view.frame)
-    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-    
-    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-    
-    fir.view.backgroundColor = color
-    
-    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
-    image2.image = UIImage(named: "fundo-login-mobi.jpg")
-    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
-    image.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    image.alpha = 0.2
-    image2.addSubview(image)
+    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
+    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
+
     
     
-    fir.view.insertSubview(image2, atIndex: 0)
-    
-    
-    
-    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
-    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
-    logoImage.center = image2.center
-    logoImage.frame.origin.y = -30
-    fir.view.addSubview(logoImage)
     return fir
   }
   
@@ -531,7 +561,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     
     
-    UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
+    //UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
     self.presentViewController(authViewController!, animated: false, completion: nil)
   }
   

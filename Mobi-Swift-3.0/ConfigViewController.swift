@@ -69,9 +69,14 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       button.frame.size.height = colorView.bounds.height/2
       button.titleLabel?.text = ""
       button.backgroundColor = colorArray[i]
+      
+      let components = CGColorGetComponents(colorArray[i].CGColor)
+      let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
       let colorBlueColor = colorBlue.color
       if button.backgroundColor == colorBlueColor {
         button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
+      } else {
+        button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorWhite,colorArray[i]])
       }
       button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
       i += 1
@@ -344,12 +349,17 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       var i = 0
       for button in colorButtons {
         
-
-        if button.backgroundColor == colorBlue.color {
+        
+        let components = CGColorGetComponents(colorArray[i].CGColor)
+        let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+        let colorBlueColor = colorBlue.color
+        if button.backgroundColor == colorBlueColor {
           button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
         } else {
-          button.backgroundColor = colorArray[i]
+          button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorWhite,colorArray[i]])
         }
+        
+
         i += 1
       }
       

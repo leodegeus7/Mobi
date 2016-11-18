@@ -350,6 +350,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           selectedMode = .Radios
           searchBar.selectedScopeButtonIndex = 1
           tableView.reloadData()
+          
+          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
@@ -370,6 +372,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
+          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         } else {
           let genre = searchGenre[indexPath.row]
           self.activityIndicator.hidden = true
@@ -394,6 +397,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
+          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         } else {
           let state = searchStates[indexPath.row]
           self.activityIndicator.hidden = true
@@ -409,6 +413,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
+          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         } else {
           
           let city = searchCities[indexPath.row]
@@ -431,6 +436,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
+          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         } else {
           let user = searchUsers[indexPath.row]
           self.tableView.allowsSelection = true

@@ -13,7 +13,7 @@ import FirebaseAuthUI
 import ChameleonFramework
 
 class MenuTableViewController: UITableViewController {
-  var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações"]
+  var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações","Sobre"]
   var switchTimer = NSTimer()
   
   
@@ -50,7 +50,7 @@ class MenuTableViewController: UITableViewController {
 
       if tableView.visibleCells.count > 0 {
           defineColors()
-          for index in 0...6 {
+          for index in 0...7 {
             let indexPath = NSIndexPath(forItem: index, inSection: 0)
             let cell = tableView.cellForRowAtIndexPath(indexPath)
             if index == 0 {
@@ -134,9 +134,9 @@ class MenuTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
     if DataManager.sharedInstance.isLogged {
-      return 8
+      return 9
     } else {
-      return 7
+      return 8
     }
   }
   
@@ -168,7 +168,7 @@ class MenuTableViewController: UITableViewController {
       userCell.selectionStyle = UITableViewCellSelectionStyle.None
       return userCell
       
-    } else if (indexPath.row == 7) {
+    } else if (indexPath.row == 8) {
       let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
       firstTypeCell.labelText.text = "Logout"
       firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -214,6 +214,8 @@ class MenuTableViewController: UITableViewController {
     } else if (indexPath.row == 6) {
       self.performSegueWithIdentifier("configScreen", sender: self)
     } else if (indexPath.row == 7) {
+      self.performSegueWithIdentifier("aboutScreen", sender: self)
+    } else if (indexPath.row == 8) {
       func okAction() {
         try! FIRAuth.auth()?.signOut()
         DataManager.sharedInstance.isLogged = false

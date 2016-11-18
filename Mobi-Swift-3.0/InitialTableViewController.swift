@@ -12,7 +12,7 @@ import SideMenu
 import Kingfisher
 import Firebase
 import AVFoundation
-
+import ChameleonFramework
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   
@@ -366,14 +366,23 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
-    self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+
 
   }
+  
+
   
   override func viewDidAppear(animated: Bool) {
     if DataManager.sharedInstance.recentsRadios.count > 0 {
       DataManager.sharedInstance.updateAllOverdueInterval()
     }
+    
+    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withContentStyle: .Contrast)
+    self.setStatusBarStyle(.LightContent)
+    navigationController?.navigationBar.shadowImage = nil
+    navigationController?.navigationBar.translucent = false
+    navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+    self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
   }
   
   ///////////////////////////////////////////////////////////

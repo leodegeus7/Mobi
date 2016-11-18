@@ -310,6 +310,7 @@
                         <segue destination="1AE-Tg-lTM" kind="custom" identifier="localScreen" customClass="SWRevealViewControllerSeguePushController" id="b8s-sB-uXO"/>
                         <segue destination="911-Ia-pLA" kind="custom" identifier="genreScreen" customClass="SWRevealViewControllerSeguePushController" id="aQV-7c-5T7"/>
                         <segue destination="IOP-3x-5Kg" kind="custom" identifier="initialScreen" customClass="SWRevealViewControllerSeguePushController" id="18K-qB-l9h"/>
+                        <segue destination="SWh-wF-Zbq" kind="custom" identifier="aboutScreen" customClass="SWRevealViewControllerSeguePushController" id="mop-vG-cl3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLV-fd-otA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -493,7 +494,7 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="956"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDY-Io-lG7">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="845"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="925"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="GUJ-xD-Ngz">
                                                 <rect key="frame" x="13" y="167" width="294" height="281"/>
@@ -769,7 +770,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lEX-gi-xnH">
-                                                <rect key="frame" x="13" y="599" width="294" height="246"/>
+                                                <rect key="frame" x="13" y="679" width="294" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lwv-EV-4Ye">
                                                         <rect key="frame" x="0.0" y="0.0" width="294" height="28"/>
@@ -933,12 +934,49 @@
                                                     <action selector="tapFollowersButton:" destination="zg7-Af-AaC" eventType="touchUpInside" id="L3W-UE-6Be"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TyR-G1-v4u">
+                                                <rect key="frame" x="0.0" y="593" width="320" height="70"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbT-Fc-ma8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="70" id="BUq-jj-db4"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="BUq-jj-db4"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="height" secondItem="TyR-G1-v4u" secondAttribute="height" id="02h-i8-q1a"/>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="height" secondItem="TyR-G1-v4u" secondAttribute="height" id="2ul-FQ-Rkv"/>
+                                                    <constraint firstAttribute="height" constant="70" id="4wO-47-C0G"/>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="centerY" secondItem="TyR-G1-v4u" secondAttribute="centerY" id="5zS-ge-NSO"/>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="width" secondItem="TyR-G1-v4u" secondAttribute="width" constant="10" id="EvA-3B-cjl"/>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="width" secondItem="TyR-G1-v4u" secondAttribute="width" id="dyI-0G-rb0"/>
+                                                    <constraint firstItem="jbT-Fc-ma8" firstAttribute="centerX" secondItem="TyR-G1-v4u" secondAttribute="centerX" id="kFz-jt-Tyg"/>
+                                                    <constraint firstAttribute="height" constant="70" id="msB-7J-ibf"/>
+                                                    <constraint firstAttribute="height" constant="57" id="sXo-hs-NqU"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="msB-7J-ibf"/>
+                                                        <exclude reference="sXo-hs-NqU"/>
+                                                        <exclude reference="02h-i8-q1a"/>
+                                                        <exclude reference="EvA-3B-cjl"/>
+                                                    </mask>
+                                                </variation>
+                                            </view>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="dWN-DX-R8z" firstAttribute="top" secondItem="TyR-G1-v4u" secondAttribute="bottom" constant="5" id="0JE-C1-Gga"/>
                                             <constraint firstItem="fUN-Qu-KOb" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" constant="13" id="0fy-Sv-240"/>
                                             <constraint firstItem="kwv-Xh-PL1" firstAttribute="top" secondItem="0Ey-Hw-ajb" secondAttribute="top" id="1YO-bn-9o9"/>
                                             <constraint firstItem="Tym-AN-f0q" firstAttribute="leading" secondItem="Fad-Bh-fbC" secondAttribute="trailing" constant="16" id="5jD-Og-UsT"/>
                                             <constraint firstItem="bub-hp-do3" firstAttribute="top" secondItem="fUN-Qu-KOb" secondAttribute="bottom" constant="13" id="6IO-iG-37b"/>
+                                            <constraint firstItem="dWN-DX-R8z" firstAttribute="top" secondItem="TyR-G1-v4u" secondAttribute="bottom" constant="16" id="6ho-bd-RlL"/>
                                             <constraint firstItem="Tym-AN-f0q" firstAttribute="bottom" secondItem="Fad-Bh-fbC" secondAttribute="bottom" id="9ss-ee-WXL"/>
                                             <constraint firstItem="9YC-Yp-luw" firstAttribute="width" secondItem="qaf-ok-r1q" secondAttribute="width" id="BHf-zL-8fY"/>
                                             <constraint firstAttribute="trailing" secondItem="GUJ-xD-Ngz" secondAttribute="trailing" constant="13" id="CRf-Sz-GZo"/>
@@ -950,16 +988,21 @@
                                             <constraint firstItem="GUJ-xD-Ngz" firstAttribute="top" secondItem="qaf-ok-r1q" secondAttribute="bottom" constant="24" id="KGd-D4-tzh"/>
                                             <constraint firstAttribute="trailing" secondItem="Pxv-CJ-cCn" secondAttribute="trailing" id="KKK-6Q-qki"/>
                                             <constraint firstItem="GUJ-xD-Ngz" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" constant="13" id="Kc7-Lf-lN8"/>
+                                            <constraint firstItem="TyR-G1-v4u" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" id="Kq2-xB-9aq"/>
+                                            <constraint firstItem="TyR-G1-v4u" firstAttribute="centerX" secondItem="ZDY-Io-lG7" secondAttribute="centerX" id="LAI-Mr-aA6"/>
                                             <constraint firstItem="9YC-Yp-luw" firstAttribute="centerX" secondItem="qaf-ok-r1q" secondAttribute="centerX" id="Ph1-9E-EM0"/>
                                             <constraint firstItem="Pxv-CJ-cCn" firstAttribute="leading" secondItem="ZDY-Io-lG7" secondAttribute="leading" id="QOR-e9-9CW"/>
                                             <constraint firstAttribute="bottom" secondItem="y0h-9W-XB3" secondAttribute="bottom" id="RCZ-mx-wuX"/>
                                             <constraint firstItem="Z2q-8w-yMP" firstAttribute="centerY" secondItem="KDC-WY-7Gf" secondAttribute="centerY" id="SLh-Gi-lOP"/>
+                                            <constraint firstItem="TyR-G1-v4u" firstAttribute="top" secondItem="kwv-Xh-PL1" secondAttribute="bottom" constant="16" id="Xsd-WV-M7n"/>
                                             <constraint firstItem="Z2q-8w-yMP" firstAttribute="height" secondItem="KDC-WY-7Gf" secondAttribute="height" id="Xta-lV-006"/>
+                                            <constraint firstAttribute="trailing" secondItem="TyR-G1-v4u" secondAttribute="trailing" id="Z8l-7s-G7W"/>
                                             <constraint firstItem="Pxv-CJ-cCn" firstAttribute="top" secondItem="fUN-Qu-KOb" secondAttribute="bottom" constant="55" id="aJi-5H-P2O"/>
-                                            <constraint firstItem="lEX-gi-xnH" firstAttribute="top" secondItem="0Ey-Hw-ajb" secondAttribute="bottom" constant="22" id="cBG-qm-Txm"/>
+                                            <constraint firstItem="lEX-gi-xnH" firstAttribute="top" secondItem="0Ey-Hw-ajb" secondAttribute="bottom" constant="102" id="cBG-qm-Txm"/>
                                             <constraint firstItem="Fad-Bh-fbC" firstAttribute="centerX" secondItem="ZDY-Io-lG7" secondAttribute="centerX" id="dpg-dR-W2Z"/>
                                             <constraint firstItem="Z2q-8w-yMP" firstAttribute="centerX" secondItem="KDC-WY-7Gf" secondAttribute="centerX" id="gND-Qd-Ev2"/>
                                             <constraint firstItem="9YC-Yp-luw" firstAttribute="centerY" secondItem="qaf-ok-r1q" secondAttribute="centerY" id="jYu-Nh-sjJ"/>
+                                            <constraint firstItem="TyR-G1-v4u" firstAttribute="top" secondItem="kwv-Xh-PL1" secondAttribute="bottom" constant="19" id="ki2-ig-iwa"/>
                                             <constraint firstItem="Z2q-8w-yMP" firstAttribute="width" secondItem="KDC-WY-7Gf" secondAttribute="width" id="laI-XD-FZP"/>
                                             <constraint firstItem="9YC-Yp-luw" firstAttribute="height" secondItem="qaf-ok-r1q" secondAttribute="height" id="lt3-Y5-51h"/>
                                             <constraint firstAttribute="height" constant="1000" id="mCd-Ua-F1y"/>
@@ -980,6 +1023,8 @@
                                                 <exclude reference="mCd-Ua-F1y"/>
                                                 <exclude reference="1YO-bn-9o9"/>
                                                 <exclude reference="oZ0-et-5Sq"/>
+                                                <exclude reference="ki2-ig-iwa"/>
+                                                <exclude reference="0JE-C1-Gga"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -1027,6 +1072,7 @@
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="backButton" destination="nid-2v-mWu" id="rmc-bD-QjQ"/>
+                        <outlet property="buttonAdvertisement" destination="jbT-Fc-ma8" id="uv8-Ey-J0b"/>
                         <outlet property="buttonChangePhoto" destination="9YC-Yp-luw" id="XqP-mc-7bl"/>
                         <outlet property="buttonEdit" destination="fUN-Qu-KOb" id="o9q-su-wOu"/>
                         <outlet property="buttonLogin" destination="bub-hp-do3" id="oeB-OQ-CO4"/>
@@ -1064,7 +1110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Yx-PA-8tv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5127" y="3369"/>
+            <point key="canvasLocation" x="5127" y="3367"/>
         </scene>
         <!--Edit Info View Controller-->
         <scene sceneID="jRa-he-RBZ">
@@ -1129,11 +1175,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailUser" rowHeight="300" id="wsH-5P-7gV" customClass="DetailUserTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="300"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailUser" rowHeight="291" id="wsH-5P-7gV" customClass="DetailUserTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="291"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wsH-5P-7gV" id="Yr3-kc-ZFW">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="299"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-mz-AfB">
@@ -1149,7 +1195,7 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-EV-dtP">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Local" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-EV-dtP">
                                             <rect key="frame" x="92" y="179" width="230" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="371" id="gkb-6B-Ja2"/>
@@ -1164,7 +1210,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTu-m3-beD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTu-m3-beD">
                                             <rect key="frame" x="92" y="152" width="231" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="372" id="1im-bg-99K"/>
@@ -1179,7 +1225,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yQ0-om-hQs">
+                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yQ0-om-hQs">
                                             <rect key="frame" x="3" y="223" width="408" height="44"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AXz-Ke-6Ql">
@@ -1230,13 +1276,13 @@
                                                 </stackView>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfX-Qx-0xU">
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfX-Qx-0xU">
                                             <rect key="frame" x="3" y="223" width="204" height="44"/>
                                             <connections>
                                                 <action selector="buttonFollowersTap:" destination="AYi-bi-7PP" eventType="touchUpInside" id="zqZ-tq-c7f"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRW-eE-cx5">
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRW-eE-cx5">
                                             <rect key="frame" x="207" y="223" width="204" height="44"/>
                                             <connections>
                                                 <action selector="buttonFollowingTap:" destination="AYi-bi-7PP" eventType="touchUpInside" id="qd5-J7-BdR"/>
@@ -1290,7 +1336,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="segmentedCell" rowHeight="49" id="eOE-yx-v9W" customClass="SegmentedTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="328" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="319" width="414" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eOE-yx-v9W" id="dLy-Id-4SZ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
@@ -1336,7 +1382,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wallCell" rowHeight="142" id="0XM-GV-nTt" customClass="WallTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="377" width="414" height="142"/>
+                                <rect key="frame" x="0.0" y="368" width="414" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0XM-GV-nTt" id="LgJ-7y-dwF">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="141"/>
@@ -1407,7 +1453,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wallAudioCell" rowHeight="128" id="Mic-n9-SLq" customClass="WallAudioPlayerTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="519" width="414" height="128"/>
+                                <rect key="frame" x="0.0" y="510" width="414" height="128"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Mic-n9-SLq" id="ZYW-7B-pik">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="127"/>
@@ -1548,7 +1594,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wallImageCell" rowHeight="202" id="Y0B-a8-wte" customClass="WallImageTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="647" width="414" height="202"/>
+                                <rect key="frame" x="0.0" y="638" width="414" height="202"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y0B-a8-wte" id="DoI-LZ-MoO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="201"/>
@@ -1674,11 +1720,11 @@
                                     <outlet property="widthImage" destination="cFk-5b-qry" id="Dds-tQ-Xhd"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="234" id="gQW-gL-Vda" customClass="ReviewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="849" width="414" height="234"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="237" id="gQW-gL-Vda" customClass="ReviewTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="840" width="414" height="237"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQW-gL-Vda" id="b5H-Sz-BvC">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KUy-LM-Mae">
@@ -1701,10 +1747,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZjT-Kb-X8o">
-                                            <rect key="frame" x="8" y="71" width="398" height="149"/>
+                                            <rect key="frame" x="8" y="71" width="398" height="152"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IHN-mV-saH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="149"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="152"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2693,6 +2739,109 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKa-Ct-WaB" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3143.5" y="-701.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="llG-Uj-IHv">
+            <objects>
+                <navigationController id="SWh-wF-Zbq" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GJB-0r-8xs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="uoQ-pF-ljb" kind="relationship" relationship="rootViewController" id="VR3-5G-kgn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4k7-iD-fah" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="2383"/>
+        </scene>
+        <!--About View Controller-->
+        <scene sceneID="Spr-XF-Y7N">
+            <objects>
+                <viewController id="uoQ-pF-ljb" customClass="AboutViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xge-Gg-sGF"/>
+                        <viewControllerLayoutGuide type="bottom" id="jGp-OT-p2h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="47E-N7-N4w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-mobi.png" translatesAutoresizingMaskIntoConstraints="NO" id="032-AP-vdK">
+                                <rect key="frame" x="60" y="56" width="294" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="60I-fN-NX2"/>
+                                    <constraint firstAttribute="width" secondItem="032-AP-vdK" secondAttribute="height" multiplier="1877:250" id="ULx-WT-zip"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="60I-fN-NX2"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
+                                <rect key="frame" x="20" y="119" width="374" height="587"/>
+                                <mutableString key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
+
+    É composto por três pilares:
+
+        • o integrador MOBI ABERT, um aplicativo que reúne cerca de 2 mil emissoras brasileiras e oferece possibilidades de interação entre ouvinte e radiodifusor
+
+        • os apps exclusivos para as rádios
+
+        •o portal MOBI PLAY
+
+    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</mutableString>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSn-yW-kRB">
+                                <rect key="frame" x="30" y="286" width="354" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="QTq-Wr-cRy"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="textTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="5KR-4b-iHO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="Wfb-gh-pJy" secondAttribute="bottom" constant="30" id="0Va-Hx-NIN"/>
+                            <constraint firstItem="032-AP-vdK" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="1L9-RP-Gxs"/>
+                            <constraint firstItem="032-AP-vdK" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="40" id="CXF-x7-76o"/>
+                            <constraint firstItem="Wfb-gh-pJy" firstAttribute="height" secondItem="47E-N7-N4w" secondAttribute="height" multiplier="0.7" id="NEC-BA-gpC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wfb-gh-pJy" secondAttribute="trailing" id="Njq-Fi-Fwc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="032-AP-vdK" secondAttribute="trailing" constant="40" id="V11-43-fMw"/>
+                            <constraint firstItem="Wfb-gh-pJy" firstAttribute="top" secondItem="032-AP-vdK" secondAttribute="bottom" constant="24" id="aDH-vo-mOZ"/>
+                            <constraint firstItem="032-AP-vdK" firstAttribute="top" secondItem="xge-Gg-sGF" secondAttribute="bottom" constant="12" id="asr-av-Z62"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GSn-yW-kRB" secondAttribute="trailing" constant="10" id="ege-s5-FfA"/>
+                            <constraint firstItem="GSn-yW-kRB" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="10" id="h8E-v4-vnf"/>
+                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="GSn-yW-kRB" secondAttribute="bottom" constant="100" id="mLy-PO-Tu9"/>
+                            <constraint firstItem="GSn-yW-kRB" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="sws-R2-Um8"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Wfb-gh-pJy" secondAttribute="leading" id="v59-hG-NG7"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="NEC-BA-gpC"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="u5g-AW-CRo">
+                        <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="qsN-EB-ImY"/>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="buttonLink" destination="GSn-yW-kRB" id="zDh-GT-i8L"/>
+                        <outlet property="openMenu" destination="qsN-EB-ImY" id="Bik-29-DUp"/>
+                        <outlet property="textViewAbout" destination="Wfb-gh-pJy" id="zW5-10-z0D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LEp-7X-O1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="3149"/>
         </scene>
         <!--Navigation Controller Model-->
         <scene sceneID="OrU-Ac-5Nc">
@@ -6412,6 +6561,7 @@
         <image name="icone-local.png" width="256" height="256"/>
         <image name="like1.png" width="22" height="21"/>
         <image name="logo-brancaAbert.png" width="200" height="200"/>
+        <image name="logo-mobi.png" width="1877" height="250"/>
         <image name="photo_64x64.png" width="64" height="64"/>
         <image name="play.png" width="237" height="236"/>
         <image name="starOFF.png" width="30" height="30"/>
@@ -6420,7 +6570,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="v0E-OW-DaC"/>
-        <segue reference="LMO-xc-EaP"/>
+        <segue reference="18K-qB-l9h"/>
         <segue reference="10k-dh-e21"/>
     </inferredMetricsTieBreakers>
 </document>

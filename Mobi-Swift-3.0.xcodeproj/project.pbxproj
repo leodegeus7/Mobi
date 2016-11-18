@@ -190,6 +190,9 @@
 		B7F65DFD1D64F97E000EE185 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */; };
 		B7F86D941DDE059700191F2B /* SegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86D931DDE059700191F2B /* SegmentedTableViewCell.swift */; };
 		B7F86D961DDE05AC00191F2B /* DetailUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86D951DDE05AB00191F2B /* DetailUserTableViewCell.swift */; };
+		B7F86D981DDF58D700191F2B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86D971DDF58D700191F2B /* AboutViewController.swift */; };
+		B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F86D991DDF699D00191F2B /* user-add.png */; };
+		B7F86D9C1DDF699D00191F2B /* user-remove.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F86D9A1DDF699D00191F2B /* user-remove.png */; };
 		B7F8C0C61D9DAE6300848351 /* SimpleFlagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */; };
 		B7F8C0C81D9DB21400848351 /* ReadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */; };
 		B7F8C1041D9ED74100848351 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8C1031D9ED74100848351 /* QuartzCore.framework */; };
@@ -407,6 +410,9 @@
 		B7F65DFC1D64F97E000EE185 /* RealmWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
 		B7F86D931DDE059700191F2B /* SegmentedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		B7F86D951DDE05AB00191F2B /* DetailUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserTableViewCell.swift; sourceTree = "<group>"; };
+		B7F86D971DDF58D700191F2B /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		B7F86D991DDF699D00191F2B /* user-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-add.png"; sourceTree = "<group>"; };
+		B7F86D9A1DDF699D00191F2B /* user-remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-remove.png"; sourceTree = "<group>"; };
 		B7F8C0C51D9DAE6300848351 /* SimpleFlagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleFlagTableViewCell.swift; sourceTree = "<group>"; };
 		B7F8C0C71D9DB21400848351 /* ReadMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMoreTableViewCell.swift; sourceTree = "<group>"; };
 		B7F8C1031D9ED74100848351 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -588,6 +594,8 @@
 				B70898321DD10102008DA1D9 /* check.png */,
 				B78FE40C1DD37DDE00D7551B /* pauseWhite.png */,
 				B72282911DD24C3E007979A3 /* menu.png */,
+				B7F86D991DDF699D00191F2B /* user-add.png */,
+				B7F86D9A1DDF699D00191F2B /* user-remove.png */,
 				B74B0E671D6F762400012D8E /* starOFF.png */,
 			);
 			name = Icons;
@@ -666,6 +674,7 @@
 				B75404BD1DC8EE9800E8B694 /* ContactRadioTableViewController.swift */,
 				B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */,
 				B7EFB40B1DDCEC8300F0158F /* UserDetailTableViewController.swift */,
+				B7F86D971DDF58D700191F2B /* AboutViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -985,10 +994,12 @@
 				B76841D71DA58E5400ABBC78 /* like1.png in Resources */,
 				B77892EF1D91D72C009D6105 /* icone-local.png in Resources */,
 				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
+				B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */,
 				B77892F31D91D773009D6105 /* icone-grafico.png in Resources */,
 				B76841DB1DA58E5400ABBC78 /* love1.png in Resources */,
 				B702CF551DA2F8BE007FB335 /* fundo-login-mobi.jpg in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
+				B7F86D9C1DDF699D00191F2B /* user-remove.png in Resources */,
 				B76841D91DA58E5400ABBC78 /* love2.png in Resources */,
 				B761A54D1DD1162200EB794A /* GoogleService-Info.plist in Resources */,
 				B70898331DD10102008DA1D9 /* check.png in Resources */,
@@ -1068,6 +1079,7 @@
 				B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */,
 				B7D90DFD1D5A500500D15089 /* InitialTableViewController.swift in Sources */,
 				B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */,
+				B7F86D981DDF58D700191F2B /* AboutViewController.swift in Sources */,
 				CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */,
 				B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */,
 				B784D2C01DAD72F50016A405 /* Review.swift in Sources */,

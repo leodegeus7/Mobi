@@ -1538,7 +1538,16 @@
          contextName = "CommentsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:CommentsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "actualComment.text&#10;">
+            </PersistentString>
+            <PersistentString
                value = "actualSubComments">
+            </PersistentString>
+            <PersistentString
+               value = "contentSize">
+            </PersistentString>
+            <PersistentString
+               value = "cell.heightText">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

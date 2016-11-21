@@ -89,9 +89,17 @@ class UserDetailTableViewController: UITableViewController {
       return 2
     } else {
       if selectedMode == .Reviews {
-        return actualReviews.count + 1
+        if actualReviews.count != 0 {
+          return actualReviews.count + 1
+        } else {
+          return 1
+        }
       } else {
-        return actualPosts.count + 1
+        if actualPosts.count != 0 {
+          return actualPosts.count + 1
+        } else {
+          return 1
+        }
       }
     }
   }
@@ -169,129 +177,150 @@ class UserDetailTableViewController: UITableViewController {
       }
     case 1:
       if selectedMode == .Posts {
-        if indexPath.row <= actualPosts.count-1 {
-          if actualPosts[indexPath.row].postType == .Audio {
-            let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
-            cell.labelName.text = actualPosts[indexPath.row].user.name
-            cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
-            cell.textViewWall.text = actualPosts[indexPath.row].text
-            if actualPosts[indexPath.row].user.userImage == "avatar.png" {
-              cell.imageUser.image = UIImage(named: "avatar.png")
-            } else {
+        if actualPosts.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
+          cell.labelTitle.text = "Nenhuma publicação realizada"
+          cell.textViewDescription.text = "\(actualUser.name) não realizou nenhuma publicação até o momento"
+          cell.selectionStyle = .None
+          return cell
+        } else {
+          if indexPath.row <= actualPosts.count-1 {
+            if actualPosts[indexPath.row].postType == .Audio {
+              let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
+              cell.labelName.text = actualPosts[indexPath.row].user.name
+              cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
+              cell.textViewWall.text = actualPosts[indexPath.row].text
+              if actualPosts[indexPath.row].user.userImage == "avatar.png" {
+                cell.imageUser.image = UIImage(named: "avatar.png")
+              } else {
+                
+                cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
+              }
+              cell.identifier = actualPosts[indexPath.row].audio
+              return cell
               
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
             }
-            cell.identifier = actualPosts[indexPath.row].audio
-            return cell
-            
-          }
-          if actualPosts[indexPath.row].postType == .Image {
-            let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
-            cell.labelName.text = actualPosts[indexPath.row].user.name
-            cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
-            cell.textViewWall.text = actualPosts[indexPath.row].text
-            if actualPosts[indexPath.row].user.userImage == "avatar.png" {
-              cell.imageUser.image = UIImage(named: "avatar.png")
-            } else {
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
-            }
-            cell.buttonZoomImage.tag = indexPath.row
-            cell.tag = indexPath.row
-            cell.imageAttachment.kf_showIndicatorWhenLoading = true
-            if !cell.isReloadCell {
-              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualPosts[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
-                  
-                  }, completionHandler: { (image, error, cacheType, imageURL) in
+            if actualPosts[indexPath.row].postType == .Image {
+              let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+              cell.labelName.text = actualPosts[indexPath.row].user.name
+              cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
+              cell.textViewWall.text = actualPosts[indexPath.row].text
+              if actualPosts[indexPath.row].user.userImage == "avatar.png" {
+                cell.imageUser.image = UIImage(named: "avatar.png")
+              } else {
+                cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
+              }
+              cell.buttonZoomImage.tag = indexPath.row
+              cell.tag = indexPath.row
+              cell.imageAttachment.kf_showIndicatorWhenLoading = true
+              if !cell.isReloadCell {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                  cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualPosts[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                      if self.selectedMode == .Posts {
-                        if let image3 = image {
-                          if let image2 = image3 as? UIImage {
-                            if cell.tag == indexPath.row && !cell.isReloadCell{
-                              let ratio = (image2.size.height)/(image2.size.width)
-                              
-                              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-                              cell.heightImage.constant = ratio*cell.frame.width
-                              cell.widthImage.constant = cell.frame.width
-                              //cell.imageAttachment.image = image
-                              tableView.beginUpdates()
-                              tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                              tableView.endUpdates()
-                              cell.tag = 1000
-                              cell.isReloadCell = true
+                    }, completionHandler: { (image, error, cacheType, imageURL) in
+                      
+                      dispatch_async(dispatch_get_main_queue(), {
+                        if self.selectedMode == .Posts {
+                          if let image3 = image {
+                            if let image2 = image3 as? UIImage {
+                              if cell.tag == indexPath.row && !cell.isReloadCell{
+                                let ratio = (image2.size.height)/(image2.size.width)
+                                
+                                cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+                                cell.heightImage.constant = ratio*cell.frame.width
+                                cell.widthImage.constant = cell.frame.width
+                                //cell.imageAttachment.image = image
+                                tableView.beginUpdates()
+                                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                                tableView.endUpdates()
+                                cell.tag = 1000
+                                cell.isReloadCell = true
+                              }
                             }
                           }
                         }
-                      }
-                    })
+                      })
+                  })
                 })
-              })
-            }
-            cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
-            return cell
-          } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-            cell.labelName.text = actualPosts[indexPath.row].user.name
-            cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
-            cell.textViewWall.text = actualPosts[indexPath.row].text
-            
-            let contentSize = cell.textViewWall.sizeThatFits(cell.textViewWall.bounds.size)
-            var frame = cell.textViewWall.frame
-            frame.size.height = contentSize.height
-            cell.heightText.constant = contentSize.height
-            if actualPosts[indexPath.row].user.userImage == "avatar.png" {
-              cell.imageUser.image = UIImage(named: "avatar.png")
+              }
+              cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+              return cell
             } else {
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
+              let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+              cell.labelName.text = actualPosts[indexPath.row].user.name
+              cell.labelDate.text = Util.getOverdueInterval(actualPosts[indexPath.row].date)
+              cell.textViewWall.text = actualPosts[indexPath.row].text
+              
+              let contentSize = cell.textViewWall.sizeThatFits(cell.textViewWall.bounds.size)
+              var frame = cell.textViewWall.frame
+              frame.size.height = contentSize.height
+              cell.heightText.constant = contentSize.height
+              if actualPosts[indexPath.row].user.userImage == "avatar.png" {
+                cell.imageUser.image = UIImage(named: "avatar.png")
+              } else {
+                cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualPosts[indexPath.row].radio.thumbnail)))
+              }
+              return cell
             }
+          } else {
+            let cell = UITableViewCell()
+            cell.tag = 1000
+            cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
             return cell
           }
-        } else {
-          let cell = UITableViewCell()
-          cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
-          return cell
         }
       } else if selectedMode == .Reviews {
-        if indexPath.row <= actualReviews.count-1 {
-          let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
-          cell.labelName.text = actualReviews[indexPath.row].user.name
-          cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
-          cell.textViewReview.text = actualReviews[indexPath.row].text
-          if actualReviews[indexPath.row].user.userImage == "avatar.png" {
-            cell.imageUser.image = UIImage(named: "avatar.png")
-          } else {
-            
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].radio.thumbnail)))
-          }
-          if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
-            for index in 0...actualReviews[indexPath.row].score-1 {
-              cell.stars[index].image = UIImage(named: "star.png")
-              cell.stars[index].tintColor = UIColor.redColor()
-            }
-          }
+        if actualReviews.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
+          cell.labelTitle.text = "Nenhuma avaliação realizada"
+          cell.textViewDescription.text = "\(actualUser.name) não realizou nenhuma avaliação até o momento"
+          cell.selectionStyle = .None
           return cell
         } else {
-          let cell = UITableViewCell()
-          cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
-          return cell
+          if indexPath.row <= actualReviews.count-1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
+            cell.labelName.text = actualReviews[indexPath.row].user.name
+            cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
+            cell.textViewReview.text = actualReviews[indexPath.row].text
+            if actualReviews[indexPath.row].user.userImage == "avatar.png" {
+              cell.imageUser.image = UIImage(named: "avatar.png")
+            } else {
+              
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].radio.thumbnail)))
+            }
+            if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
+              for index in 0...actualReviews[indexPath.row].score-1 {
+                cell.stars[index].image = UIImage(named: "star.png")
+                cell.stars[index].tintColor = UIColor.redColor()
+              }
+            }
+            return cell
+          } else {
+            let cell = UITableViewCell()
+            cell.tag = 1000
+            cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+            return cell
+          }
         }
-        
       }
     default:
       let cell = UITableViewCell()
+      cell.tag = 1000
       return cell
     }
     let cell = UITableViewCell()
+    cell.tag = 1000
     return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if indexPath.section == 1 {
-      if selectedMode == .Posts {
-        DataManager.sharedInstance.instantiateSubCommentView(self.navigationController!, comment: actualPosts[indexPath.row])
-      } else {
-        DataManager.sharedInstance.instantiateRadioDetailView(self.navigationController!, radio: actualReviews[indexPath.row].radio)
+    if tableView.cellForRowAtIndexPath(indexPath)?.tag != 1000 {
+      if indexPath.section == 1 {
+        if selectedMode == .Posts {
+          DataManager.sharedInstance.instantiateSubCommentView(self.navigationController!, comment: actualPosts[indexPath.row])
+        } else {
+          DataManager.sharedInstance.instantiateRadioDetailView(self.navigationController!, radio: actualReviews[indexPath.row].radio)
+        }
       }
     }
   }
@@ -328,34 +357,46 @@ class UserDetailTableViewController: UITableViewController {
   }
   
   func defineBarButton() {
-      if !actualUser.isFollowing {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-add.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
-      } else {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-remove.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
-      }
+    if !actualUser.isFollowing {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-add.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+    } else {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-remove.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
+    }
   }
   
   func buttonFollowTap() {
-    let manager = RequestManager()
-    if !actualUser.isFollowing {
+    if DataManager.sharedInstance.isLogged {
+      let manager = RequestManager()
+      if !actualUser.isFollowing {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-remove.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
-      actualUser.updateFollowing(true)
-      manager.followUser(actualUser, completion: { (follow) in
-        if !follow {
-          Util.displayAlert(title: "Atenção", message: "Não foi possivel seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
-        }
-      })
-    } else {
+        actualUser.updateFollowing(true)
+        manager.followUser(actualUser, completion: { (follow) in
+          if !follow {
+            Util.displayAlert(title: "Atenção", message: "Não foi possivel seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
+          } else {
+            Util.displayAlert(title: "Atenção", message: "Você esta seguindo \(self.actualUser.name) agora" , action: "Ok")
+          }
+        })
+      } else {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "user-add.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(UserDetailTableViewController.buttonFollowTap))
-      actualUser.updateFollowing(false)
-      manager.unfollowUser(actualUser, completion: { (follow) in
-        if !follow {
-          Util.displayAlert(title: "Atenção", message: "Não foi possivel parar de seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
-        }
-      })
+        actualUser.updateFollowing(false)
+        manager.unfollowUser(actualUser, completion: { (follow) in
+          if !follow {
+            Util.displayAlert(title: "Atenção", message: "Não foi possivel parar de seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
+          } else {
+            Util.displayAlert(title: "Atenção", message: "Você não esta mais seguindo \(self.actualUser.name)" , action: "Ok")
+          }
+        })
+      }
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     }
-
   }
   
-
+  
 }

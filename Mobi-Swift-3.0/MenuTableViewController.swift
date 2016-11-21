@@ -31,7 +31,9 @@ class MenuTableViewController: UITableViewController {
     //    let imageView = UIImageView(image: UIImage(named: "backgroungMenu.jpg"))
     //    imageView.contentMode = .ScaleAspectFit
     //    imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
-    //    tableView.backgroundView = imageView
+    //    tableView.backgroundView = imageView    
+    tableView.estimatedRowHeight = 40
+    tableView.rowHeight = UITableViewAutomaticDimension
     tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.navigationItem.setHidesBackButton(true, animated: false)
     
@@ -52,7 +54,7 @@ class MenuTableViewController: UITableViewController {
           defineColors()
           for index in 0...7 {
             let indexPath = NSIndexPath(forItem: index, inSection: 0)
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            //let cell = tableView.cellForRowAtIndexPath(indexPath)
             if index == 0 {
               let cell2 = tableView.cellForRowAtIndexPath(indexPath) as! TopMenuTableViewCell
               if !DataManager.sharedInstance.isLogged {
@@ -195,7 +197,7 @@ class MenuTableViewController: UITableViewController {
     if (indexPath.row == 0) {
       return 70
     }
-    return 40
+    return 50
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -288,16 +290,16 @@ class MenuTableViewController: UITableViewController {
   func defineColors() {
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
     let colorBlack = DataManager.sharedInstance.interfaceColor.color
-    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
     
     if DataManager.sharedInstance.interfaceColor.color == colorBlue {
 
       self.tableView.backgroundColor = colorBlue
       viewTop.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewTop.frame, andColors: [colorRose,colorBlue])
     } else {
-      self.tableView.backgroundColor = UIColor.whiteColor()
+      self.tableView.backgroundColor = colorBlack
       viewTop.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewTop.frame, andColors: [colorWhite,colorBlack])
     }
     
@@ -310,6 +312,7 @@ class MenuTableViewController: UITableViewController {
           cell.backgroundColor = colorBlack
         }
       } else {
+        
         if DataManager.sharedInstance.interfaceColor.color == colorBlue {
           cell.backgroundColor = colorBlue
           
@@ -320,12 +323,12 @@ class MenuTableViewController: UITableViewController {
             cellAux.labelText.textColor = UIColor.whiteColor()
           }
         } else {
-          cell.backgroundColor = UIColor.whiteColor()
+          cell.backgroundColor = colorBlack
           if let cellAux = cell as? FirstTypeMenuTableViewCell {
-            cellAux.labelText.textColor = UIColor.blackColor()
+            cellAux.labelText.textColor = UIColor.whiteColor()
           }
           if let cellAux = cell as? SecondMenuTypeTableViewCell {
-            cellAux.labelText.textColor = UIColor.blackColor()
+            cellAux.labelText.textColor = UIColor.whiteColor()
           }
         }
       }

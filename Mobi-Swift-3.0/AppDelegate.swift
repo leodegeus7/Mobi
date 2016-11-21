@@ -37,15 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     UILabel.appearance().tintColor = FlatWhite()
     
     print("Iniciou!")
-    //DataManager.sharedInstance.userToken = "cae34df9-2545-4821-9bc2-d94a018bf32f"
-    //DataManager.sharedInstance.userToken = "0143363d-c4f4-4b9b-9b51-7ec5d8680460"
-    //DataManager.sharedInstance.userToken = "3d4a41c8-2bea-4dd3-9570-42af08bda582"
     print(FileSupport.findDocsDirectory())
-    //RealmWrapper.eraseRealmFile("default")
     if FileSupport.testIfFileExistInDocuments("default.realm") {
       
       startRealm(0)
-      // defineInitialParameters()
       
       if DataManager.sharedInstance.myUser.password != "" && DataManager.sharedInstance.myUser.email != ""  {
         loginWithUserRealm(DataManager.sharedInstance.myUser, completion: { (result) in
@@ -56,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     } else {
       RealmWrapper.realmStart("default")
-      let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
-      let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
+      //let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
+      let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
       Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
@@ -68,14 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     application.registerUserNotificationSettings(settings)
     application.registerForRemoteNotifications()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
-    let notf = FIRMessaging.messaging()
-    notf.connectWithCompletion { (error) in
-      if (error != nil) {
-        print(error)
-      } else {
-        print("conectado com o FCM")
-      }
-    }
+
     
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
@@ -85,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
     }
+    connectToFCM()
     
     if (UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:)))) {
       UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert, categories: nil))
@@ -195,11 +184,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         completion(result: true)
       }
     })
-    
-    
-    
   }
   
+  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
+  }
   
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
     if notification.alertTitle == "SleepMode" {
@@ -218,25 +207,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     if let refreshedToken = FIRInstanceID.instanceID().token() {
       print("Token do firebase Messaging: \(refreshedToken)")
       DataManager.sharedInstance.firMessagingToken = refreshedToken
+    } else {
+      print("Não foi possível adquirir o token to fcm")
+    }
+    connectToFCM()
+  }
+  
+  func connectToFCM() {
+    let notf = FIRMessaging.messaging()
+    notf.connectWithCompletion { (error) in
+      if (error != nil) {
+        print(error)
+      } else {
+        print("conectado com o FCM")
+      }
     }
   }
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
     if let msgId = userInfo["from"] as? String {
       print("Mensagem de id \(msgId) recebida remotamente. Possivelemente firebase")
-    }
-    let notification = UILocalNotification()
-    if let mensagem = userInfo["mensagem"] as? String {
-      notification.alertBody = mensagem
-    }
-    if let notificationDic = userInfo["notification"] as? NSDictionary {
-      if let title = notificationDic["body"] as? String {
-        notification.alertTitle = title
+      
+      let notification = UILocalNotification()
+      if let mensagem = userInfo["mensagem"] as? String {
+        notification.alertBody = mensagem
       }
+      if let notificationDic = userInfo["notification"] as? NSDictionary {
+        if let title = notificationDic["body"] as? String {
+          notification.alertTitle = title
+        }
+      }
+      notification.alertAction = "Ok"
+      notification.fireDate = NSDate(timeIntervalSinceNow: 1)
+      UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    } else {
+      print("Mensagem remota recebida = \(userInfo)")
     }
-    notification.alertAction = "Ok"
-    notification.fireDate = NSDate(timeIntervalSinceNow: 1)
-    UIApplication.sharedApplication().scheduleLocalNotification(notification)
+
   }
   
   static func realmUpdate(realm:Realm) {
@@ -279,7 +286,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
-      let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
+      let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
       Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true

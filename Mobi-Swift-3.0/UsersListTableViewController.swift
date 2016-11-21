@@ -31,30 +31,39 @@ class UsersListTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return actualUsers.count
+    return actualUsers.count + 1
   }
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
-    
-    if actualUsers[indexPath.row].userImage == "avatar.png" {
-      cell.imageUser.image = UIImage(named: "avatar.png")
+    if indexPath.row <= actualUsers.count-1 {
+      let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
+      
+      if actualUsers[indexPath.row].userImage == "avatar.png" {
+        cell.imageUser.image = UIImage(named: "avatar.png")
+      } else {
+        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualUsers[indexPath.row].userImage)))
+      }
+      cell.nameUser.text = actualUsers[indexPath.row].name
+      cell.localUser.text = actualUsers[indexPath.row].shortAddress
+      //    if actualUsers[indexPath.row].address.formattedLocal != ""{
+      //      cell.localUser.text = actualUsers[indexPath.row].address.formattedLocal
+      //    } else {
+      //      cell.localUser.text = ""
+      //    }
+      return cell
     } else {
-      cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualUsers[indexPath.row].userImage)))
+      let cell = UITableViewCell()
+      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      cell.selectionStyle = .None
+      return cell
     }
-    cell.nameUser.text = actualUsers[indexPath.row].name
-    cell.localUser.text = actualUsers[indexPath.row].shortAddress
-//    if actualUsers[indexPath.row].address.formattedLocal != ""{
-//      cell.localUser.text = actualUsers[indexPath.row].address.formattedLocal
-//    } else {
-//      cell.localUser.text = ""
-//    }
-    return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: actualUsers[indexPath.row])
+    if indexPath.row <= actualUsers.count-1 {
+      DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: actualUsers[indexPath.row])
+    }
   }
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

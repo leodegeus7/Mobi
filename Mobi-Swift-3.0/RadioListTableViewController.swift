@@ -57,7 +57,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+    if indexPath.row <= radios.count-1 {
       let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
       cell.labelName.text = radios[indexPath.row].name
       cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
@@ -74,13 +74,16 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     } else {
       let cell = UITableViewCell()
       cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      cell.selectionStyle = .None
       return cell
     }
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row <= radios.count-1 {
     selectedRadio = radios[indexPath.row]
-    performSegueWithIdentifier("detailRadio2", sender: self)
+          performSegueWithIdentifier("detailRadio2", sender: self)
+    }
   }
   
   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

@@ -75,28 +75,36 @@ class ReviewTableViewController: UITableViewController,DZNEmptyDataSetSource,DZN
     if firstTimeShowed {
       return 1
     } else {
-      return actualReviews.count
+      return actualReviews.count + 1
     }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if !firstTimeShowed {
-      let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
-      cell.labelName.text = actualReviews[indexPath.row].user.name
-      cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
-      cell.textViewReview.text = actualReviews[indexPath.row].text
-      if actualReviews[indexPath.row].user.userImage == "avatar.png" {
-        cell.imageUser.image = UIImage(named: "avatar.png")
-      } else {
-        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].user.userImage)))
-      }
-      if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
-        for index in 0...actualReviews[indexPath.row].score-1 {
-          cell.stars[index].image = UIImage(named: "star.png")
-          cell.stars[index].tintColor = UIColor.redColor()
+      if indexPath.row <= actualReviews.count-1 {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! ReviewTableViewCell
+        cell.labelName.text = actualReviews[indexPath.row].user.name
+        cell.labelDate.text = Util.getOverdueInterval(actualReviews[indexPath.row].date)
+        cell.textViewReview.text = actualReviews[indexPath.row].text
+        if actualReviews[indexPath.row].user.userImage == "avatar.png" {
+          cell.imageUser.image = UIImage(named: "avatar.png")
+        } else {
+          cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualReviews[indexPath.row].user.userImage)))
         }
+        if actualReviews[indexPath.row].score != 0 && actualReviews[indexPath.row].score != -1 {
+          for index in 0...actualReviews[indexPath.row].score-1 {
+            cell.stars[index].image = UIImage(named: "star.png")
+            cell.stars[index].tintColor = UIColor.redColor()
+          }
+        }
+        cell.selectionStyle = .None
+        return cell
+      } else {
+        let cell = UITableViewCell()
+        cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+        cell.selectionStyle = .None
+        return cell
       }
-      return cell
     } else {
       let cell = UITableViewCell()
       return cell

@@ -73,23 +73,26 @@ class LocalCities2TableViewController: UITableViewController {
     } else {
       let cell = UITableViewCell()
       cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      cell.selectionStyle = .None
       return cell
     }
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
-    tableView.allowsSelection = false
-    let manager = RequestManager()
-    selectedCity = citiesArray[indexPath.row]
-    manager.requestRadiosInCity(selectedCity.id, completion: { (resultCity) in
-      self.selectedCity.updateRadiosOfCity(resultCity)
-      self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      self.performSegueWithIdentifier("detailCity", sender: self)
-    })
+    if indexPath.row <= citiesArray.count-1 {
+      view.addSubview(activityIndicator)
+      activityIndicator.hidden = false
+      tableView.allowsSelection = false
+      let manager = RequestManager()
+      selectedCity = citiesArray[indexPath.row]
+      manager.requestRadiosInCity(selectedCity.id, completion: { (resultCity) in
+        self.selectedCity.updateRadiosOfCity(resultCity)
+        self.tableView.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        self.performSegueWithIdentifier("detailCity", sender: self)
+      })
+    }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

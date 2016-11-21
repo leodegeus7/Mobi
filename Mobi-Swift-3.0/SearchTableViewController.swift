@@ -79,7 +79,11 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       case 0:
         if searchRadios.count <= 3 {
           if searchRadios.count == 0 {
-            return 0
+            if !isOneTimeSearched {
+              return 0
+            } else {
+              return 1
+            }
           } else {
             return searchRadios.count+1
           }
@@ -88,24 +92,52 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         }
       case 1:
         if searchGenre.count <= 3 {
+          if searchGenre.count == 0 {
+            if !isOneTimeSearched {
+              return 0
+            } else {
+              return 1
+            }
+          }
           return searchGenre.count
         } else {
           return 4
         }
       case 2:
         if searchStates.count <= 3 {
+          if searchGenre.count == 0 {
+            if !isOneTimeSearched {
+              return 0
+            } else {
+              return 1
+            }
+          }
           return searchStates.count
         } else {
           return 4
         }
       case 3:
         if searchCities.count <= 3 {
+          if searchCities.count == 0 {
+            if !isOneTimeSearched {
+              return 0
+            } else {
+              return 1
+            }
+          }
           return searchCities.count
         } else {
           return 4
         }
       case 4:
         if searchUsers.count <= 3 {
+          if searchUsers.count == 0 {
+            if !isOneTimeSearched {
+              return 0
+            } else {
+              return 1
+            }
+          }
           return searchUsers.count
         } else {
           return 4
@@ -140,6 +172,14 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     case .All:
       switch indexPath.section {
       case 0:
+        if searchRadios.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
+          cell.labelDescr.text = "Não há radios para mostrar com o termo pesquisado"
+          cell.tag = 1000
+          cell.selectionStyle = .None
+          return cell
+        }
+        
         if indexPath.row == 0 {
           let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as! AdsTableViewCell
           let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
@@ -176,6 +216,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return cell
         }
       case 1:
+        if searchGenre.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
+          cell.labelDescr.text = "Não há gêneros para mostrar com o termo pesquisado"
+          cell.tag = 1000
+          cell.selectionStyle = .None
+          return cell
+        }
         if indexPath.row < 3 {
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
           cell.labelTitle.text = searchGenre[indexPath.row].name
@@ -185,6 +232,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return cell
         }
       case 2:
+        if searchStates.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
+          cell.labelDescr.text = "Não há estados para mostrar com o termo pesquisado"
+          cell.tag = 1000
+          cell.selectionStyle = .None
+          return cell
+        }
         if indexPath.row < 3 {
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
           cell.labelTitle.text = searchStates[indexPath.row].name
@@ -194,6 +248,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return cell
         }
       case 3:
+        if searchCities.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
+          cell.labelDescr.text = "Não há cidades para mostrar com o termo pesquisado"
+          cell.tag = 1000
+          cell.selectionStyle = .None
+          return cell
+        }
         if indexPath.row < 3 {
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
           cell.labelTitle.text = searchCities[indexPath.row].name
@@ -203,6 +264,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return cell
         }
       case 4:
+        if searchUsers.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
+          cell.labelDescr.text = "Não há usuários para mostrar com o termo pesquisado"
+          cell.tag = 1000
+          cell.selectionStyle = .None
+          return cell
+        }
         if indexPath.row < 3 {
           let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
           cell.nameUser.text = searchUsers[indexPath.row].name
@@ -336,86 +404,133 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
-    self.tableView.allowsSelection = false
-    switch selectedMode {
-    case .All:
-      switch indexPath.section {
-      case 0:
-        if indexPath.row == 0 {
-          
-        }
-        else if indexPath.row == 4 {
-          selectedMode = .Radios
-          searchBar.selectedScopeButtonIndex = 1
-          tableView.reloadData()
-          
-          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-        }
-          
-        else if indexPath.row >= 1 && indexPath.row <= 3 {
-          selectedRadio = searchRadios[indexPath.row-1]
-          DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-        }
-      case 1:
-        if indexPath.row == 3 {
-          selectedMode = .Genre
-          searchBar.selectedScopeButtonIndex = 2
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-        } else {
-          let genre = searchGenre[indexPath.row]
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          let manager = RequestManager()
-          manager.requestRadiosInGenre(genre.id,pageNumber: 0,pageSize: 20) { (resultGenre) in
-            genre.updateRadiosOfGenre(resultGenre)
+    if tableView.cellForRowAtIndexPath(indexPath)?.tag != 1000 {
+      view.addSubview(activityIndicator)
+      activityIndicator.hidden = false
+      self.tableView.allowsSelection = false
+      switch selectedMode {
+      case .All:
+        switch indexPath.section {
+        case 0:
+          if indexPath.row == 0 {
+            
+          }
+          else if indexPath.row == 4 {
+            selectedMode = .Radios
+            searchBar.selectedScopeButtonIndex = 1
+            tableView.reloadData()
+            
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+          }
+            
+          else if indexPath.row >= 1 && indexPath.row <= 3 {
+            selectedRadio = searchRadios[indexPath.row-1]
+            DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+          }
+        case 1:
+          if indexPath.row == 3 {
+            selectedMode = .Genre
+            searchBar.selectedScopeButtonIndex = 2
+            tableView.reloadData()
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+          } else {
+            let genre = searchGenre[indexPath.row]
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            let manager = RequestManager()
+            manager.requestRadiosInGenre(genre.id,pageNumber: 0,pageSize: 20) { (resultGenre) in
+              genre.updateRadiosOfGenre(resultGenre)
+              self.tableView.allowsSelection = true
+              self.activityIndicator.hidden = true
+              self.activityIndicator.removeFromSuperview()
+              for radio in resultGenre {
+                radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
+              }
+              DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
+            }
+          }
+        case 2:
+          if indexPath.row == 3 {
+            selectedMode = .Local
+            searchBar.selectedScopeButtonIndex = 3
+            tableView.reloadData()
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+          } else {
+            let state = searchStates[indexPath.row]
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+            DataManager.sharedInstance.instantiateCitiesInStateView(navigationController!, state: state)
+          }
+        case 3:
+          if indexPath.row == 3 {
+            selectedMode = .Local
+            searchBar.selectedScopeButtonIndex = 3
+            tableView.reloadData()
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+          } else {
+            
+            let city = searchCities[indexPath.row]
+            let manager = RequestManager()
+            manager.requestRadiosInCity(city.id, completion: { (resultCity) in
+              city.updateRadiosOfCity(resultCity)
+              self.tableView.allowsSelection = true
+              self.activityIndicator.hidden = true
+              self.activityIndicator.removeFromSuperview()
+              DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
+            })
+            
+            
+          }
+        case 4:
+          if indexPath.row == 3 {
+            selectedMode = .Users
+            searchBar.selectedScopeButtonIndex = 4
+            tableView.reloadData()
+            self.activityIndicator.hidden = true
+            self.activityIndicator.removeFromSuperview()
+            self.tableView.allowsSelection = true
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+          } else {
+            let user = searchUsers[indexPath.row]
             self.tableView.allowsSelection = true
             self.activityIndicator.hidden = true
             self.activityIndicator.removeFromSuperview()
-            for radio in resultGenre {
-              radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
-            }
-            DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
+            DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
           }
+        default:
+          break
         }
-      case 2:
-        if indexPath.row == 3 {
-          selectedMode = .Local
-          searchBar.selectedScopeButtonIndex = 3
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-        } else {
+      case .Radios:
+        selectedRadio = searchRadios[indexPath.row]
+        DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        self.tableView.allowsSelection = true
+      case .Local:
+        switch indexPath.section {
+        case 0:
           let state = searchStates[indexPath.row]
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
           self.tableView.allowsSelection = true
           DataManager.sharedInstance.instantiateCitiesInStateView(navigationController!, state: state)
-        }
-      case 3:
-        if indexPath.row == 3 {
-          selectedMode = .Local
-          searchBar.selectedScopeButtonIndex = 3
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-        } else {
-          
+        case 1:
           let city = searchCities[indexPath.row]
           let manager = RequestManager()
           manager.requestRadiosInCity(city.id, completion: { (resultCity) in
@@ -425,81 +540,36 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
             self.activityIndicator.removeFromSuperview()
             DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
           })
-          
-          
+        default:
+          break
         }
-      case 4:
-        if indexPath.row == 3 {
-          selectedMode = .Users
-          searchBar.selectedScopeButtonIndex = 4
-          tableView.reloadData()
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          self.tableView.allowsSelection = true
-          tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-        } else {
-          let user = searchUsers[indexPath.row]
-          self.tableView.allowsSelection = true
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
-        }
-      default:
-        break
-      }
-    case .Radios:
-      selectedRadio = searchRadios[indexPath.row]
-      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      self.tableView.allowsSelection = true
-    case .Local:
-      switch indexPath.section {
-      case 0:
-        let state = searchStates[indexPath.row]
+      case .Genre:
+        let genre = searchGenre[indexPath.row]
         self.activityIndicator.hidden = true
         self.activityIndicator.removeFromSuperview()
-        self.tableView.allowsSelection = true
-        DataManager.sharedInstance.instantiateCitiesInStateView(navigationController!, state: state)
-      case 1:
-        let city = searchCities[indexPath.row]
         let manager = RequestManager()
-        manager.requestRadiosInCity(city.id, completion: { (resultCity) in
-          city.updateRadiosOfCity(resultCity)
+        manager.requestRadiosInGenre(genre.id,pageNumber: 0,pageSize: 20) { (resultGenre) in
+          genre.updateRadiosOfGenre(resultGenre)
           self.tableView.allowsSelection = true
           self.activityIndicator.hidden = true
           self.activityIndicator.removeFromSuperview()
-          DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: Array(city.radios),title:city.name)
-        })
-      default:
-        break
-      }
-    case .Genre:
-      let genre = searchGenre[indexPath.row]
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      let manager = RequestManager()
-      manager.requestRadiosInGenre(genre.id,pageNumber: 0,pageSize: 20) { (resultGenre) in
-        genre.updateRadiosOfGenre(resultGenre)
+          for radio in resultGenre {
+            radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
+          }
+          DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
+        }
+      case .Users:
+        let user = searchUsers[indexPath.row]
         self.tableView.allowsSelection = true
         self.activityIndicator.hidden = true
         self.activityIndicator.removeFromSuperview()
-        for radio in resultGenre {
-          radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
-        }
-        DataManager.sharedInstance.instantiateListOfRadios(self.navigationController!, radios: resultGenre,title:genre.name)
+        DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
+      default:
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        self.tableView.allowsSelection = true
+        break
       }
-    case .Users:
-      let user = searchUsers[indexPath.row]
-      self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      DataManager.sharedInstance.instantiateUserDetail(navigationController!, user: user)
-    default:
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      self.tableView.allowsSelection = true
-      break
     }
   }
   

@@ -36,10 +36,9 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
   let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
-  let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1)
-  let colorArray1:[UIColor] = [FlatWatermelonDark(),FlatTealDark(),FlatSkyBlueDark(),FlatNavyBlueDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand()]
-  let colorArray2:[UIColor] = [ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color,FlatTeal(),FlatSkyBlue(),FlatNavyBlue(),FlatPlum(),FlatRed(),FlatOrange(),FlatBrown(),FlatForestGreen(),FlatPurple()]
-  
+  let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
+  let colorArray1:[UIColor] = [FlatLimeDark(),FlatOrangeDark(),FlatBlackDark(),FlatPinkDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand()]
+  let colorArray2:[UIColor] = [ColorRealm(name: 2, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color,FlatWatermelonDark(),FlatPinkDark(),FlatRed(),FlatPurple(),FlatPlumDark(),FlatNavyBlue(),FlatTealDark(),FlatSkyBlueDark(),FlatBlackDark()]
   var colorArray:[UIColor] = []
   
   override func viewDidLoad() {
@@ -70,14 +69,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       button.titleLabel?.text = ""
       button.backgroundColor = colorArray[i]
       
-      let components = CGColorGetComponents(colorArray[i].CGColor)
-      let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
-      let colorBlueColor = colorBlue.color
-      if button.backgroundColor == colorBlueColor {
-        button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
-      } else {
-        button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorWhite,colorArray[i]])
-      }
+      
+      button.backgroundColor = colorArray[i]
       button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
       i += 1
     }
@@ -184,6 +177,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       if colorArray2 == colorArray {
         Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
         DataManager.sharedInstance.interfaceColor = colorBlue
+        self.setStatusBarStyle(.LightContent)
       }
       else {
         Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
@@ -210,11 +204,13 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  withContentStyle: UIContentStyle.Contrast)
     }
     
-
+    
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
     print(sender?.tag)
+    
+    
     
     tableViewAudio.reloadData()
     sliderAgudos.thumbTintColor = DataManager.sharedInstance.interfaceColor.color
@@ -255,7 +251,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
     }
     //stackColors.addSubview(imageCheckView)
-    
+    self.setStatusBarStyle(.LightContent)
   }
   
   
@@ -350,23 +346,18 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       for button in colorButtons {
         
         
-        let components = CGColorGetComponents(colorArray[i].CGColor)
-        let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
-        let colorBlueColor = colorBlue.color
-        if button.backgroundColor == colorBlueColor {
-          button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorRose.color,colorBlue.color])
-        } else {
-          button.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: button.frame, andColors: [colorWhite,colorArray[i]])
-        }
         
-
+        button.backgroundColor = colorArray[i]
+        
+        
+        
         i += 1
       }
       
       let randomColor = UIColor.init(randomColorInArray: colorArray)
       Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, withContentStyle: UIContentStyle.Contrast)
       
-      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: randomColor!)
+      DataManager.sharedInstance.interfaceColor = ColorRealm(name: 2, color: randomColor!)
       self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
       DataManager.sharedInstance.existInterfaceColor = true
       
@@ -414,7 +405,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         }
       }
     }
-
+    
   }
   
   

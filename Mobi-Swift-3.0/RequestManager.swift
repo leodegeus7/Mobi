@@ -222,7 +222,7 @@ class RequestManager: NSObject {
           dic["data"] = emptyDic
           completion(result: dic)
         }
-      case .Failure(let error):
+      case .Failure( _):
         self.resultText = .ErrorInAccessToURL
         var dic = Dictionary<String,AnyObject>()
         dic["requestResult"] = "\(self.resultText)"
@@ -916,7 +916,7 @@ class RequestManager: NSObject {
     requestJson("app/user") { (result) in
       if let resultRequest = result["requestResult"] as?  String {
         if resultRequest == "OK" {
-          let json = JSON(result["data"]!).dictionary
+          _ = JSON(result["data"]!).dictionary
           if let resultDic = JSON(result["data"]!).dictionary {
             var id = -1
             var email = ""
@@ -925,7 +925,7 @@ class RequestManager: NSObject {
             var city = ""
             var state = ""
             var birthdate = "1900-01-01"
-            var inactiveDate = ""
+            //var inactiveDate = ""
             var streetName = ""
             var zipCode = ""
             var addressID = -1
@@ -1045,7 +1045,7 @@ class RequestManager: NSObject {
                       var city = ""
                       var state = ""
                       var birthdate = "1900-01-01"
-                      var inactiveDate = ""
+                      //var inactiveDate = ""
                       var streetName = ""
                       var zipCode = ""
                       var addressID = -1
@@ -1435,18 +1435,18 @@ class RequestManager: NSObject {
               let dicPerson = dic["person"] as! NSDictionary
               if let resultDic = JSON(dicPerson).dictionary {
                 var id = -1
-                var email = ""
+                //var email = ""
                 var name = ""
-                var genre = ""
+                //var genre = ""
                 var city = ""
                 var state = ""
-                var birthdate = "1900-01-01"
-                var streetName = ""
-                var zipCode = ""
-                var addressID = -1
-                var latitude:Double = -1
-                var longitude:Double = -1
-                var streetNumber = ""
+//                var birthdate = "1900-01-01"
+//                var streetName = ""
+//                var zipCode = ""
+//                var addressID = -1
+//                var latitude:Double = -1
+//                var longitude:Double = -1
+//                var streetNumber = ""
                 var imageIdentifier = ImageObject()
                 var shortAddress = ""
                 
@@ -1456,39 +1456,39 @@ class RequestManager: NSObject {
                 if let imgAux = resultDic["image"]?.dictionaryObject {
                   imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
                 }
-                if let emailAux = resultDic["email"]?.string {
-                  email = emailAux
-                }
+//                if let emailAux = resultDic["email"]?.string {
+//                  email = emailAux
+//                }
                 if let nameAux = resultDic["name"]?.string {
                   name = nameAux
                 }
-                if let genreAux = resultDic["genre"]?.string {
-                  genre = genreAux
-                }
-                if let birthdateAux = resultDic["birthdate"]?.string {
-                  birthdate = birthdateAux
-                } else {
-                  birthdate = ""
-                }
-                if let addressIDAux = resultDic["address"]?["id"].int {
-                  addressID = addressIDAux
-                  
-                }
-                if let latitudeAux = resultDic["address"]?["latitude"].double {
-                  latitude = latitudeAux
-                }
-                if let longitudeAux = resultDic["address"]?["longitude"].double {
-                  longitude = longitudeAux
-                }
-                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-                  streetName = streetNameAux
-                }
-                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-                  zipCode = zipCodeAux
-                }
-                if let streetNumberAux = resultDic["address"]?["number"].string {
-                  streetNumber = streetNumberAux
-                }
+//                if let genreAux = resultDic["genre"]?.string {
+//                  genre = genreAux
+//                }
+//                if let birthdateAux = resultDic["birthdate"]?.string {
+//                  birthdate = birthdateAux
+//                } else {
+//                  birthdate = ""
+//                }
+//                if let addressIDAux = resultDic["address"]?["id"].int {
+//                  addressID = addressIDAux
+//                  
+//                }
+//                if let latitudeAux = resultDic["address"]?["latitude"].double {
+//                  latitude = latitudeAux
+//                }
+//                if let longitudeAux = resultDic["address"]?["longitude"].double {
+//                  longitude = longitudeAux
+//                }
+//                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+//                  streetName = streetNameAux
+//                }
+//                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+//                  zipCode = zipCodeAux
+//                }
+//                if let streetNumberAux = resultDic["address"]?["number"].string {
+//                  streetNumber = streetNumberAux
+//                }
                 if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
                   city = cityAux
                   
@@ -1525,18 +1525,18 @@ class RequestManager: NSObject {
               let dicPerson = dic["person"] as! NSDictionary
               if let resultDic = JSON(dicPerson).dictionary {
                 var id = -1
-                var email = ""
+                //var email = ""
                 var name = ""
-                var genre = ""
+                //var genre = ""
                 var city = ""
                 var state = ""
-                var birthdate = "1900-01-01"
-                var streetName = ""
-                var zipCode = ""
-                var addressID = -1
-                var latitude:Double = -1
-                var longitude:Double = -1
-                var streetNumber = ""
+//                var birthdate = "1900-01-01"
+//                var streetName = ""
+//                var zipCode = ""
+//                var addressID = -1
+//                var latitude:Double = -1
+//                var longitude:Double = -1
+//                var streetNumber = ""
                 var imageIdentifier = ImageObject()
                 var shortAddress = ""
                 
@@ -1546,39 +1546,39 @@ class RequestManager: NSObject {
                 if let imgAux = resultDic["image"]?.dictionaryObject {
                   imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
                 }
-                if let emailAux = resultDic["email"]?.string {
-                  email = emailAux
-                }
+//                if let emailAux = resultDic["email"]?.string {
+//                  email = emailAux
+//                }
                 if let nameAux = resultDic["name"]?.string {
                   name = nameAux
                 }
-                if let genreAux = resultDic["genre"]?.string {
-                  genre = genreAux
-                }
-                if let birthdateAux = resultDic["birthdate"]?.string {
-                  birthdate = birthdateAux
-                } else {
-                  birthdate = ""
-                }
-                if let addressIDAux = resultDic["address"]?["id"].int {
-                  addressID = addressIDAux
-                  
-                }
-                if let latitudeAux = resultDic["address"]?["latitude"].double {
-                  latitude = latitudeAux
-                }
-                if let longitudeAux = resultDic["address"]?["longitude"].double {
-                  longitude = longitudeAux
-                }
-                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-                  streetName = streetNameAux
-                }
-                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-                  zipCode = zipCodeAux
-                }
-                if let streetNumberAux = resultDic["address"]?["number"].string {
-                  streetNumber = streetNumberAux
-                }
+//                if let genreAux = resultDic["genre"]?.string {
+//                  genre = genreAux
+//                }
+//                if let birthdateAux = resultDic["birthdate"]?.string {
+//                  birthdate = birthdateAux
+//                } else {
+//                  birthdate = ""
+//                }
+//                if let addressIDAux = resultDic["address"]?["id"].int {
+//                  addressID = addressIDAux
+//                  
+//                }
+//                if let latitudeAux = resultDic["address"]?["latitude"].double {
+//                  latitude = latitudeAux
+//                }
+//                if let longitudeAux = resultDic["address"]?["longitude"].double {
+//                  longitude = longitudeAux
+//                }
+//                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+//                  streetName = streetNameAux
+//                }
+//                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+//                  zipCode = zipCodeAux
+//                }
+//                if let streetNumberAux = resultDic["address"]?["number"].string {
+//                  streetNumber = streetNumberAux
+//                }
                 if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
                   city = cityAux
                   
@@ -1632,8 +1632,8 @@ class RequestManager: NSObject {
   
   func followUser(user:UserRealm,completion: (follow: Bool) -> Void) {
     genericRequest(.PUT, parameters: [:], urlTerminationWithoutInitialCharacter: "app/user/\(user.id)/follow") { (result) in
-      if let resultRequest = result["requestResult"] as? RequestResult{
-        if resultRequest == .OK {
+      if let resultRequest = result["requestResult"] as? String {
+        if resultRequest == "OK" {
           print("User \(user.name) seguido com sucesso")
           completion(follow: true)
         } else {
@@ -1645,8 +1645,8 @@ class RequestManager: NSObject {
   
   func unfollowUser(user:UserRealm,completion: (follow: Bool) -> Void) {
     genericRequest(.DELETE, parameters: [:], urlTerminationWithoutInitialCharacter: "app/user/\(user.id)/follow") { (result) in
-      if let resultRequest = result["requestResult"] as? RequestResult{
-        if resultRequest == .OK {
+      if let resultRequest = result["requestResult"] as? String {
+        if resultRequest == "OK" {
           print("User \(user.name) não seguido com sucesso")
           completion(follow: true)
         } else {

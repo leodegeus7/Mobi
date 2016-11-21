@@ -98,7 +98,7 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
         
       }
       
-    } catch let _ {
+    } catch _ {
       completion(resultGracenote: Music())
     }
     
@@ -207,10 +207,12 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
     {
     case kStatusUnknown:
       statusString = "Status Unknown"
+      print("Status de streaming: \(statusString)")
       break
       
     case  kStatusBegin:
       statusString = "Status Begin"
+      print("Status de streaming: \(statusString)")
       break
       
     case kStatusProgress:
@@ -218,38 +220,47 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
       
     case  kStatusComplete:
       statusString = "Status Complete"
+      print("Status de streaming: \(statusString)")
       break
       
     case kStatusErrorInfo:
       statusString = "No Match";
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusConnecting:
       statusString = "Status Connecting"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusSending:
       statusString = "Status Sending"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusReceiving:
       statusString = "Status Receiving"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusDisconnected:
       statusString = "Status Disconnected"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusReading:
       statusString = "Status Reading"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusWriting:
       statusString = "Status Writing"
+      print("Status de streaming: \(statusString)")
       break;
       
     case kStatusCancelled:
       statusString = "Status Cancelled"
+      print("Status de streaming: \(statusString)")
       break;
       
     default:

@@ -64,7 +64,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
-    let stateMine:STKAudioPlayerState = state
+    //let stateMine:STKAudioPlayerState = state
     if audioPlayer.state == .Error {
       audioPlayer.stop()
       let link = actualRadio.audioChannels.first!.linkIsWrongReturnOther()

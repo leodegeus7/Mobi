@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     
-    AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
+    AdsManager.sharedInstance.setAdvertisement(.ProfileScreen, completion: { (resultAd) in
       dispatch_async(dispatch_get_main_queue()) {
         if let imageAd = resultAd.image {
           let imageView = UIImageView(frame: self.buttonAdvertisement.frame)
@@ -538,7 +538,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     let fir = FIRAuthPickerViewController(authUI: authUI)
     let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
     
     let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
     fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])

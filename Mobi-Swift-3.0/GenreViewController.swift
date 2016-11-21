@@ -19,7 +19,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   var searchResults = [GenreRealm]()
   var selectedGenre = GenreRealm()
   private let reuseIdentifier = "GenreCell"
-  private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+  private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
   var buttonLateralMenu = UIBarButtonItem()
   
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -80,17 +80,18 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GenreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
-    if isSearchOn == true && !searchResults.isEmpty {
-      cell.labelText.text = searchResults[indexPath.item].name
-    } else {
-      cell.labelText.text = DataManager.sharedInstance.allMusicGenre[indexPath.item].name
-    }
-    cell.backgroundColor = UIColor.whiteColor()
-    cell.imageGenre.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
-    cell.imageGenre.alpha = 0.8
-    cell.labelText.textColor = UIColor.whiteColor()
-    return cell
+      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GenreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
+      if isSearchOn == true && !searchResults.isEmpty {
+        cell.labelText.text = searchResults[indexPath.item].name
+      } else {
+        cell.labelText.text = DataManager.sharedInstance.allMusicGenre[indexPath.item].name
+      }
+      cell.backgroundColor = UIColor.whiteColor()
+      cell.imageGenre.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
+      cell.imageGenre.alpha = 0.8
+      cell.labelText.textColor = UIColor.whiteColor()
+      return cell
+    
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

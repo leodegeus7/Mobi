@@ -434,8 +434,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         return cell
       }
     }
-    let cell = UITableViewCell()
-    return cell
   }
   
   

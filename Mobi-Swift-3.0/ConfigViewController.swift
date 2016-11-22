@@ -176,14 +176,28 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     case 11:
       if colorArray2 == colorArray {
         Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+
         DataManager.sharedInstance.interfaceColor = colorBlue
         self.setStatusBarStyle(.LightContent)
+        
+        let color2 = ContrastColorOf(colorBlue.color, returnFlat: true)
+        
+        if ContrastColorOf(colorBlue.color, returnFlat: true) == FlatWhite() {
+          print("branco")
+        } else {
+        print("nao")
+        }
       }
       else {
         Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
       }
     case 12:
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], withContentStyle: UIContentStyle.Contrast)
+      if ContrastColorOf(colorBlue.color, returnFlat: true) == FlatWhite() {
+        print("branco")
+      } else {
+        print("nao")
+      }
     case 13:
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], withContentStyle: UIContentStyle.Contrast)
     case 14:

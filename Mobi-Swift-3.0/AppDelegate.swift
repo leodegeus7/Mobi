@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       RealmWrapper.realmStart("default")
       //let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
       let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
       defineInitialParameters()
@@ -287,7 +287,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
       let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
     }

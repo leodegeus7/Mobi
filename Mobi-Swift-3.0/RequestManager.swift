@@ -690,7 +690,11 @@ class RequestManager: NSObject {
                 comment.addImageReference(dic["attachmentIdentifier"] as! String)
               case 2:
                 comment.postType = .Audio
-                comment.addAudioReference(dic["attachmentIdentifier"] as! String)
+                if let _ = dic["attachmentIdentifier"] as? String {
+                  comment.addAudioReference(dic["attachmentIdentifier"] as! String)
+                } else {
+                  comment.postType = .Text
+                }
               case 3:
                 comment.postType = .Video
                 comment.addVideoReference(dic["attachmentIdentifier"] as! String)

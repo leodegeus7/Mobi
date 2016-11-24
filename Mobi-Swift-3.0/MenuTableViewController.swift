@@ -228,6 +228,7 @@ class MenuTableViewController: UITableViewController {
         let logoutManger = RequestManager()
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })
+        DataManager.sharedInstance.favoriteRadios = []
         tableView.reloadData()
         defineColors()
         self.dismissViewControllerAnimated(true, completion: {
@@ -293,9 +294,11 @@ class MenuTableViewController: UITableViewController {
     let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
     let colorBlack = DataManager.sharedInstance.interfaceColor.color
     let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
+
+    
+    
     
     if DataManager.sharedInstance.interfaceColor.color == colorBlue {
-
       self.tableView.backgroundColor = colorBlue
       viewTop.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: viewTop.frame, andColors: [colorRose,colorBlue])
     } else {

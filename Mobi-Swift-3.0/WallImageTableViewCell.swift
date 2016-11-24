@@ -21,7 +21,20 @@ class WallImageTableViewCell: UITableViewCell {
   @IBOutlet weak var heightImage: NSLayoutConstraint!
   @IBOutlet weak var widthImage: NSLayoutConstraint!
   
+  var imageObject:ImageManager!
   var isReloadCell = false
+  var stateImage:ImageCondition = .NoImage
+  
+  var imageInCell = UIImage()
+  var sizeImage:CGSize!
+  
+  
+  enum ImageCondition {
+    case NoImage
+    case Retrieving
+    case ImageOk
+  }
+  
   
     override func awakeFromNib() {
         super.awakeFromNib()

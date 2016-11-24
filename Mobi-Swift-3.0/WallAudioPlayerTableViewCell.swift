@@ -32,6 +32,8 @@ class WallAudioPlayerTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
   var timer = NSTimer()
   var actionDuration = 0.0
   
+  
+  
   var audioIsReproducing = false
   
   override func awakeFromNib() {

@@ -24,6 +24,9 @@ PODS:
     - FirebaseAuth (= 3.0.4)
   - Firebase/Core (3.5.2):
     - Firebase/Analytics
+  - Firebase/Crash (3.5.2):
+    - Firebase/Analytics
+    - FirebaseCrash (= 1.0.7)
   - Firebase/Database (3.5.2):
     - Firebase/Analytics
     - FirebaseDatabase (= 3.0.2)
@@ -39,6 +42,12 @@ PODS:
     - FirebaseAnalytics (~> 3.2)
     - GoogleNetworkingUtilities (~> 1.2)
     - GoogleParsingUtilities (~> 1.1)
+    - GoogleUtilities (~> 1.2)
+  - FirebaseCrash (1.0.7):
+    - FirebaseAnalytics (~> 3.2)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
     - GoogleUtilities (~> 1.2)
   - FirebaseDatabase (3.0.2):
     - FirebaseAnalytics (~> 3.2)
@@ -105,6 +114,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Crash
   - Firebase/Database
   - Firebase/Messaging
   - FirebaseUI/Auth
@@ -134,6 +144,7 @@ SPEC CHECKSUMS:
   Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
   FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
+  FirebaseCrash: 2efeb3715b76ac843b841529ce413efb67e5fd4d
   FirebaseDatabase: 59bea2e7dfd81b3b8b2f8e396caf1a52c2ced6f7
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   FirebaseMessaging: 6bc7cd2ecb875c1a9c0f8b94956398aa3145bbb8
@@ -155,6 +166,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: e2a2543d2c3de22d0827c7fe4821d7a09883615b
+PODFILE CHECKSUM: 293476af417d8e00ea50816831d7008debccdb99
 
 COCOAPODS: 1.0.1

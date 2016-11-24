@@ -48,6 +48,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   static var selectedImageButton:UIImage!
   
+  
   enum SelectedRadioMode {
     case DetailRadio
     case Wall
@@ -115,11 +116,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     let idRadio = actualRadio.id
     programRequest.requestActualProgramOfRadio(idRadio) { (resultProgram) in
       self.actualProgram = resultProgram
-      if self.selectedMode == .DetailRadio {
-        dispatch_async(dispatch_get_main_queue(), {
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        if self.selectedMode == .DetailRadio {
           self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation: .None)
-        })
-      }
+        }
+      })
+      
       
     }
     
@@ -174,9 +177,31 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       if firstTimeShowed {
         return 1
       } else {
-        return actualComments.count + 1
+        if actualComments.count == 0 {
+          return 0
+        } else {
+          return actualComments.count + 1
+        }
       }
     }
+  }
+  
+  override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    cell.imageView?.kf_cancelDownloadTask()
+    
+  }
+  
+  override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    self.clearsSelectionOnViewWillAppear = true
+    if let _ = tableView.indexPathForSelectedRow {
+      let index = self.tableView.indexPathForSelectedRow
+      self.tableView.deselectRowAtIndexPath(index!, animated: true)
+    }
+    
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -374,37 +399,159 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             }
             cell.buttonZoomImage.tag = indexPath.row
             cell.tag = indexPath.row
-            cell.imageAttachment.kf_showIndicatorWhenLoading = true
-            if !cell.isReloadCell {
-              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
-                  
-                  }, completionHandler: { (image, error, cacheType, imageURL) in
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                      if self.selectedMode == .Wall {
-                        if let image3 = image {
-                          if let image2 = image3 as? UIImage {
-                            if cell.tag == indexPath.row && !cell.isReloadCell{
-                              let ratio = (image2.size.height)/(image2.size.width)
-                              
-                              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-                              cell.heightImage.constant = ratio*cell.frame.width
-                              cell.widthImage.constant = cell.frame.width
-                              //cell.imageAttachment.image = image
-                              tableView.beginUpdates()
-                              tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                              tableView.endUpdates()
-                              cell.tag = 1000
-                              cell.isReloadCell = true
-                            }
-                          }
-                        }
-                      }
-                    })
-                })
+            cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: CGSize(width: cell.frame.width, height: 200))
+            //                        cell.heightImage.constant = 200
+            //                        cell.widthImage.constant = cell.frame.width
+            
+            
+            cell.imageAttachment.image = cell.imageInCell
+            if cell.imageInCell.size.height > 5 {
+              cell.imageAttachment.image = cell.imageInCell
+              let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
+              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+              cell.heightImage.constant = ratio*cell.frame.width
+            } else {
+              cell.imageAttachment.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: nil, optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
+                
+                }, completionHandler: { (image, error, cacheType, imageURL) in
+                  if let _ = error {
+                    print("Error to reload image in cell \(indexPath.row)")
+                  } else {
+                    if cell.tag == indexPath.row {
+                      let ratio = (image!.size.height)/(image!.size.width)
+                      let newHeight = ratio*cell.frame.width
+                      cell.heightImage.constant = newHeight
+                      cell.setNeedsLayout()
+                      dispatch_async(dispatch_get_main_queue(), {
+                        cell.heightImage.constant = ratio*cell.frame.width
+                        cell.imageAttachment.layoutIfNeeded()
+                      })
+                    }
+                  }
               })
+              
             }
+            
+            
+            
+            
+            
+            //cell.imageAttachment.image = nil
+            //            if let _ = cell.imageInCell {
+            //              if let _ = cell.sizeImage {
+            //                let updateCell = tableView.cellForRowAtIndexPath(indexPath)
+            //                if updateCell != nil {
+            //                  let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
+            //                  cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: cell.sizeImage)
+            //                  cell.imageAttachment.image = cell.imageInCell
+            //                  cell.heightImage.constant = ratio*cell.frame.width
+            //                  cell.widthImage.constant = cell.frame.width
+            //                  cell.layoutIfNeeded()
+            //                  cell.layoutSubviews()
+            //                }
+            //              }
+            //            }
+            //            else {
+            //              if let _ = cell.imageObject {
+            //
+            //                for imageObj in DataManager.sharedInstance.images {
+            //                  if imageObj.urlImage == RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image) {
+            //                    cell.imageObject = imageObj
+            //
+            //                    break
+            //                  }
+            //                }
+            //
+            //
+            //                if let _ = cell.imageObject.imageFile {
+            //                  let updateCell = tableView.cellForRowAtIndexPath(indexPath)
+            //                  if updateCell != nil {
+            //                    cell.stateImage = .ImageOk
+            //                    let ratio = (cell.imageObject.imageFile.size.height)/(cell.imageObject.imageFile.size.width)
+            //                    cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: CGSize(width: cell.frame.width, height: ratio*cell.frame.width))
+            //                    cell.imageAttachment.image = cell.imageObject.imageFile
+            //                    cell.heightImage.constant = ratio*cell.frame.width
+            //                    cell.widthImage.constant = cell.frame.width
+            //                    cell.layoutIfNeeded()
+            //                    cell.layoutSubviews()
+            //                  }
+            //                }
+            //              } else {
+            //                cell.imageObject = ImageManager()
+            //                cell.imageObject.setImageInWallCell(self.tableView,indexPath: indexPath, cell: cell, imageCacheName: "WallImage-\(self.actualComments[indexPath.row].image)", urlImage: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image), completion: { (imageReturn) in
+            //                  let updateCell = tableView.cellForRowAtIndexPath(indexPath)
+            //                  if updateCell != nil {
+            //                    cell.stateImage = .ImageOk
+            //                    cell.layoutIfNeeded()
+            //                    cell.layoutSubviews()
+            //                    print("imagem de \(indexPath.row) certa")
+            //                  }
+            //                })
+            //              }
+            //            }
+            
+            
+            
+            
+            
+            
+            //            cell.imageAttachment.kf_showIndicatorWhenLoading = true
+            //            cell.imageAttachment.image = nil
+            //
+            //                        if let _ = cell.imageInCell {
+            //                          if let _ = cell.sizeImage {
+            //                            let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
+            //                            cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: cell.sizeImage)
+            //                            cell.imageAttachment.image = cell.imageInCell
+            //                            cell.heightImage.constant = ratio*cell.frame.width
+            //                            cell.widthImage.constant = cell.frame.width
+            //                          }
+            //                        }
+            //                        else {
+            //                          if let _ = cell.imageObject {
+            //                            if let _ = cell.imageObject.imageFile {
+            //                              cell.imageAttachment.image = cell.imageObject.imageFile
+            //                              cell.stateImage = .ImageOk
+            //                            }
+            //                          } else {
+            //                            cell.imageObject = ImageManager()
+            //                            cell.imageObject.setImageInWallCell(self.tableView,indexPath: indexPath, cell: cell, imageCacheName: "WallImage-\(indexPath.row)", urlImage: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image), completion: { (imageReturn) in
+            //                              cell.stateImage = .ImageOk
+            //                              print("imagem de \(indexPath.row) certa")
+            //                            })
+            //                          }
+            //                        }
+            //                        if !cell.isReloadCell {
+            //                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            //
+            //                            cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2)), .ForceRefresh], progressBlock: { (receivedSize, totalSize) in
+            //
+            //                              }, completionHandler: { (image, error, cacheType, imageURL) in
+            //
+            //                                dispatch_async(dispatch_get_main_queue(), {
+            //                                  if self.selectedMode == .Wall {
+            //                                    if let image3 = image {
+            //                                      if let image2 = image3 as? UIImage {
+            //                                        if cell.tag == indexPath.row && !cell.isReloadCell{
+            //                                          let ratio = (image2.size.height)/(image2.size.width)
+            //
+            //                                          cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+            //                                          cell.heightImage.constant = ratio*cell.frame.width
+            //                                          cell.widthImage.constant = cell.frame.width
+            //                                          //cell.imageAttachment.image = image
+            //                                          tableView.beginUpdates()
+            //                                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            //                                          tableView.endUpdates()
+            //                                          cell.tag = 1000
+            //                                          cell.isReloadCell = true
+            //                                        }
+            //                                      }
+            //                                    }
+            //                                  }
+            //                                })
+            //                            })
+            //                          })
+            //                        }
             cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
             return cell
           } else {
@@ -435,6 +582,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     }
   }
+  
+  
   
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -561,6 +710,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
   }
   
+  
   func updateInterfaceWithGracenote() {
     if let audioChannel = actualRadio.audioChannels.first {
       if audioChannel.existRdsLink {
@@ -579,18 +729,27 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                         cell?.labelMusicName.text = resultGracenote.name
                         cell?.labelArtist.text = resultGracenote.composer
                         self.setButtonMusicType(resultGracenote)
+
+                        self.actualMusic = resultGracenote
+                        var musicRadio = MusicRadio()
+                        musicRadio.music = resultGracenote
+                        musicRadio.radio = self.actualRadio
+                        DataManager.sharedInstance.lastMusicRadio = musicRadio
                         if resultGracenote.coverArt != ""{
                           gracenote.downloadImageArt(resultGracenote.coverArt, completion: { (resultImg) in
                             dispatch_async(dispatch_get_main_queue()) {
                               if self.selectedMode == .DetailRadio {
                                 cell?.imageMusic.image = resultImg
+                                self.actualMusic.updateImage(resultImg)
+                                DataManager.sharedInstance.lastMusicRadio.music.updateImage(resultImg)
+                                
                               }
                             }
                             
                           })
                         }
-                        self.actualMusic = resultGracenote
                       }
+                      
                     } else {
                       let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
                       cell?.lockContent()

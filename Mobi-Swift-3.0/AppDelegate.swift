@@ -195,6 +195,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       if DataManager.sharedInstance.isSleepModeEnabled {
         if StreamingRadioManager.sharedInstance.currentlyPlaying() {
           StreamingRadioManager.sharedInstance.stop()
+          
+          
+          let notification = UILocalNotification()
+            notification.alertBody = "Durma bem"
+              notification.alertTitle = "Sua rádio foi pausada!"
+            
+          
+          notification.alertAction = "Ok"
+          notification.fireDate = NSDate(timeIntervalSinceNow: 1)
+          UIApplication.sharedApplication().scheduleLocalNotification(notification)
+          
+          
+          
+          
           Util.displayAlert(Util.findTopView(), title: "Sleep Mode", message: "Modo dormir desligado", action: "Ok")
           StreamingRadioManager.sharedInstance.sendNotification()
         }
@@ -236,6 +250,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         if let title = notificationDic["body"] as? String {
           notification.alertTitle = title
         }
+      }
+      
+      if let _ = userInfo["assert"] as? String {
+        assert(false)
       }
       notification.alertAction = "Ok"
       notification.fireDate = NSDate(timeIntervalSinceNow: 1)
@@ -342,7 +360,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func uploadProfilePicture(photo: UIImage){
-    
     
     
     Alamofire.upload(.POST, "http://feroxhome.mooo.com:8080/radiocontrole-web/api/image/upload", multipartFormData: { multipartFormData in

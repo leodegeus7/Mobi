@@ -102,7 +102,11 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
       if section == 0 {
         return 1
       } else if section == 1 {
-        return actualSubComments.count
+        if actualSubComments.count == 0 {
+          return 1
+        } else {
+          return actualSubComments.count
+        }
       }
     }
     return 0
@@ -120,6 +124,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         if actualComment.postType == .Audio {
           let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
           cell.labelName.text = actualComment.user.name
+          cell.selectionStyle = .None
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
           if actualComment.user.userImage == "avatar.png" {
@@ -133,6 +138,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         }
         if actualComment.postType == .Image {
           let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+          cell.selectionStyle = .None
           cell.labelName.text = actualComment.user.name
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
@@ -178,6 +184,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           return cell
         } else {
           let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+          cell.selectionStyle = .None
           cell.labelName.text = actualComment.user.name
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
@@ -194,6 +201,15 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           return cell
         }
       } else if indexPath.section == 1 {
+        if let _ = actualSubComments {
+          if actualSubComments.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
+            cell.labelTitle.text = "Nenhum comentário realizada"
+            cell.textViewDescription.text = "Não há nenhum comentário nesta publicação, clique no + a cima para fazer"
+            cell.selectionStyle = .None
+            return cell
+          }
+        }
         if let _ = actualSubComments  {
           let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
           cell.labelName.text = actualSubComments[indexPath.row].user.name

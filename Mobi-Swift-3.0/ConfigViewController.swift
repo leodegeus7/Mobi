@@ -172,6 +172,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   func buttonGridTapped(sender: UIButton?) { //to know the selected color
     DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (sender?.backgroundColor)!)
     
+    
     switch (sender?.tag)! {
     case 11:
       if colorArray2 == colorArray {

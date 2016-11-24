@@ -18,7 +18,6 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   @IBOutlet weak var viewUploadFile: UIView!
   @IBOutlet weak var audioButton: UIButton!
   @IBOutlet weak var photoButton: UIButton!
-  @IBOutlet weak var videoButton: UIButton!
   @IBOutlet weak var labelDescriptionUpload: UILabel!
   @IBOutlet weak var buttonAttachment: UIButton!
   @IBOutlet weak var buttonCancelAttachement: UIButton!
@@ -103,21 +102,21 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     
     audioButton.backgroundColor = UIColor.clearColor()
     photoButton.backgroundColor = UIColor.clearColor()
-    videoButton.backgroundColor = UIColor.clearColor()
+
     
     audioButton.tintColor = DataManager.sharedInstance.interfaceColor.color
     photoButton.tintColor = DataManager.sharedInstance.interfaceColor.color
-    videoButton.tintColor = DataManager.sharedInstance.interfaceColor.color
+
     
     let imageAudio = UIImage(named: "audio_64x64.png")
     let imagePhoto = UIImage(named: "photo_64x64.png")
-    let imageVideo = UIImage(named: "video_64x64.png")
+
     let imageAudioView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageAudio!)
     let imagePhotoView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imagePhoto!)
-    let imageVideoView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageVideo!)
+
     audioButton.setImage(imageAudioView.image, forState: .Normal)
     photoButton.setImage(imagePhotoView.image, forState: .Normal)
-    videoButton.setImage(imageVideoView.image, forState: .Normal)
+
     
     cosmosView.settings.fillMode = .Full
     cosmosView.didFinishTouchingCosmos = { rating in
@@ -216,7 +215,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
           let imageRequest = RequestManager()
           imageRequest.uploadImage(progressBar,imageToUpload:photo, completion: { (resultIdentifiers) in
             
-            requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 2, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
+            requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 1, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
               self.viewProgress.hidden = true
               if resultWall {
                 self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
@@ -316,7 +315,27 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       self.navigationController?.popViewControllerAnimated(true)
     }
     
-    Util.displayAlert(self, title: "Atenção", message: "Você deseja cancelar sua publicação? Assim, você irá perder tudo o que escreveu", okTitle: "Voltar a publicação", cancelTitle: "Cancelar edição", okAction: okAction, cancelAction: cancelAction)
+    let alert: UIAlertController = UIAlertController(
+      title: title,
+      message: "Você deseja cancelar sua publicação? Assim, você irá perder tudo o que escreveu",
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
+    let yesAction: UIAlertAction = UIAlertAction(
+      title: "Voltar a publicação",
+      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        okAction()
+    }
+    let noAction: UIAlertAction = UIAlertAction(
+      title: "Cancelar edição",
+      style: UIAlertActionStyle.Destructive,
+      handler: { (action: UIAlertAction!) -> Void in
+        cancelAction()
+      }
+    )
+    alert.addAction(yesAction)
+    alert.addAction(noAction)
+    self.presentViewController(alert, animated: true, completion: nil)
+    
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {

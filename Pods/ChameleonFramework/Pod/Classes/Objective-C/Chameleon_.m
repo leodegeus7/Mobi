@@ -23,8 +23,10 @@
         
         if ([ContrastColor(primaryColor, YES) isEqual:FlatWhite]) {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          contentStyle = UIContentStyleLight;
         } else {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          contentStyle = UIContentStyleLight;
         }
         
     } else if (contentStyle == UIContentStyleLight) {
@@ -33,12 +35,20 @@
         
     } else {
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
-    
+
+  if ([primaryColor isEqual:UIColor.whiteColor]) {
+    contentStyle = UIContentStyleDark;
+        //[UIColor colorWithRed:240.0f/255.0f green:204.0f/255.0f blue:239.0f/255.0f alpha:1.0f]
+        [[self class] customizeNavigationBarWithPrimaryColor: FlatWhite withContentStyle:contentStyle];
+  } else {
+    contentStyle = UIContentStyleLight;
+        [[self class] customizeNavigationBarWithPrimaryColor:primaryColor withContentStyle:contentStyle];
+  }
+
     [[self class] customizeBarButtonItemWithPrimaryColor:primaryColor contentStyle:contentStyle];
     [[self class] customizeButtonWithPrimaryColor:primaryColor withContentStyle:contentStyle];
-    [[self class] customizeNavigationBarWithPrimaryColor:primaryColor withContentStyle:contentStyle];
     [[self class] customizePageControlWithPrimaryColor:primaryColor withContentStyle:contentStyle];
     [[self class] customizeProgressViewWithPrimaryColor:primaryColor withContentStyle:contentStyle];
     [[self class] customizeSearchBarWithPrimaryColor:primaryColor withContentStyle:contentStyle];
@@ -61,7 +71,7 @@
         if ([ContrastColor(primaryColor, YES) isEqual:FlatWhite]) {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         } else {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }
         
     } else if (contentStyle == UIContentStyleLight) {
@@ -70,7 +80,7 @@
         
     } else {
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     
     [[self class] customizeBarButtonItemWithPrimaryColor:primaryColor contentStyle:contentStyle];
@@ -98,7 +108,7 @@
         if ([ContrastColor(primaryColor, YES) isEqual:FlatWhite]) {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         } else {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }
         
     } else if (contentStyle == UIContentStyleLight) {
@@ -107,7 +117,7 @@
         
     } else {
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     
     [[UILabel appearance] setSubstituteFontName:fontName];
@@ -134,7 +144,7 @@
      if ([ContrastColor(primaryColor, YES) isEqual:FlatWhite]) {
      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
      } else {
-     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
      }
      
      } else if (contentStyle == UIContentStyleLight) {
@@ -143,7 +153,7 @@
      
      } else {
      
-     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
      }
      
      [[self class] customizeBarButtonItemWithPrimaryColor:primaryColor fontName:fontName fontSize:18 contentStyle:contentStyle];

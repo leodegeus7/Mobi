@@ -58,7 +58,7 @@ class PlayerViewController: UIViewController {
   var colorWhite : UIColor!
   
   var gracenote:GracenoteManager!
-
+  
   var actualProgram = Program()
   var actualMusic = Music()
   var timeWasRequestedProgram:NSDate!
@@ -374,43 +374,72 @@ class PlayerViewController: UIViewController {
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
   }
   
-  
+  func findMusicLastAndCompare() -> Bool {
+    if let _ = DataManager.sharedInstance.lastMusicRadio {
+      if DataManager.sharedInstance.lastMusicRadio.radio == StreamingRadioManager.sharedInstance.actualRadio {
+        if !DataManager.sharedInstance.lastMusicRadio.music.isMusicOld() {
+          self.updateMusicViewWithMusic(DataManager.sharedInstance.lastMusicRadio.music)
+          actualMusic = DataManager.sharedInstance.lastMusicRadio.music
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
   
   func updateInterfaceWithGracenote() {
     loadingMusicView()
-    if let _ = actualMusic.respectiveRadio {
-      if actualMusic.respectiveRadio == StreamingRadioManager.sharedInstance.actualRadio {
-        if let _ = actualMusic.timeWasDiscovered {
-          if actualMusic.isMusicOld() {
-            if let _ = actualMusic.name {
-              if actualMusic.isMusicOld() {
+    
+    
+    if !findMusicLastAndCompare() {
+      if let _ = actualMusic.respectiveRadio {
+        if actualMusic.respectiveRadio == StreamingRadioManager.sharedInstance.actualRadio {
+          if let _ = actualMusic.timeWasDiscovered {
+            if actualMusic.isMusicOld() {
+              if let _ = actualMusic.name {
+                if actualMusic.isMusicOld() {
+                  requestGracenote({ (result) in
+                    if result.boolVar {
+                      self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+                      self.actualMusic.updateDate()
+                    } else {
+                      self.lockMusicView()
+                    }
+                  })
+                } else {
+                  if let gracenoteOptional = gracenote {
+                    updateMusicViewWithMusic(actualMusic, gracenote: gracenoteOptional)
+                    self.actualMusic.updateDate()
+                  }
+                }
+              } else {
                 requestGracenote({ (result) in
                   if result.boolVar {
                     self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
                     self.actualMusic.updateDate()
+                    
                   } else {
                     self.lockMusicView()
                   }
                 })
-              } else {
-                if let gracenoteOptional = gracenote {
-                  updateMusicViewWithMusic(actualMusic, gracenote: gracenoteOptional)
-                  self.actualMusic.updateDate()
-                }
               }
             } else {
-              requestGracenote({ (result) in
-                if result.boolVar {
-                  self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
-                  self.actualMusic.updateDate()
-                  
-                } else {
-                  self.lockMusicView()
-                }
-              })
+              self.updateMusicViewWithMusic(actualMusic)
             }
           } else {
-            self.updateMusicViewWithMusic(actualMusic)
+            requestGracenote({ (result) in
+              if result.boolVar {
+                self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
+                self.actualMusic.updateDate()
+              } else {
+                self.lockMusicView()
+              }
+            })
           }
         } else {
           requestGracenote({ (result) in
@@ -432,16 +461,10 @@ class PlayerViewController: UIViewController {
           }
         })
       }
-    } else {
-      requestGracenote({ (result) in
-        if result.boolVar {
-          self.updateMusicViewWithMusic(self.actualMusic, gracenote: result)
-          self.actualMusic.updateDate()
-        } else {
-          self.lockMusicView()
-        }
-      })
+      
+      
     }
+    
   }
   
   func requestGracenote(completion: (result: GracenoteManager) -> Void) {
@@ -494,6 +517,7 @@ class PlayerViewController: UIViewController {
           dispatch_async(dispatch_get_main_queue()) {
             self.imageMusic.image = resultImg
             self.actualMusic.updateImage(resultImg)
+            DataManager.sharedInstance.lastMusicRadio.music.updateImage(resultImg)
           }
           
         })
@@ -522,13 +546,14 @@ class PlayerViewController: UIViewController {
       if let image = actualMusic.imageCover {
         self.imageMusic.image = image
       }
-      setButtonMusicType(actualMusic)
+      
       viewLoading.alpha = 0
       viewWithoutMusic.alpha = 0
       viewMusic.alpha = 1
       imageMusic.alpha = 1
       buttonNLike.alpha = 1
       buttonLike.alpha = 1
+      setButtonMusicType(actualMusic)
       labelWithoutMusic.text = ""
     } else {
       lockMusicView()
@@ -592,9 +617,11 @@ class PlayerViewController: UIViewController {
   @IBAction func buttonNLikeTap(sender: AnyObject) {
     buttonLike.alpha = 0.3
     buttonNLike.alpha = 1
+    self.actualMusic.setNegative()
+    DataManager.sharedInstance.musicInExecution = actualMusic
     let likeRequest = RequestManager()
     likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
-      self.actualMusic.setNegative()
+      
       if !resultUnlike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
       }
@@ -604,9 +631,11 @@ class PlayerViewController: UIViewController {
   @IBAction func buttonLikeTap(sender: AnyObject) {
     buttonLike.alpha = 1
     buttonNLike.alpha = 0.3
+    self.actualMusic.setPositive()
+    DataManager.sharedInstance.musicInExecution = actualMusic
     let likeRequest = RequestManager()
     likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
-      self.actualMusic.setPositive()
+      
       if !resultLike {
         Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
       }

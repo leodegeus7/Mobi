@@ -172,6 +172,11 @@ class LoadViewController: UIViewController {
     ImageCache.defaultCache.maxDiskCacheSize = mB * 1024 * 1024
     ImageCache.defaultCache.calculateDiskCacheSizeWithCompletionHandler { (size) in
       print("Foi utilizado \(Float(size)/(1024.0*1024)) Mb de cache em memoria do dispostivo")
+      if Float(size)/(1024.0*1024) > 20 {
+        ImageCache.defaultCache.clearDiskCache()
+        ImageCache.defaultCache.clearMemoryCache()
+        ImageCache.defaultCache.cleanExpiredDiskCache()
+      }
     }
   }
   

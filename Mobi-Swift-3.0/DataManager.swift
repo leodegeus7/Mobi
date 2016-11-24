@@ -61,6 +61,11 @@ enum StatusApp : Int {
   case ProblemWithInternet = 3
 }
 
+struct MusicRadio {
+  var radio:RadioRealm!
+  var music:Music!
+}
+
 
 class DataManager: NSObject {
 
@@ -92,6 +97,8 @@ class DataManager: NSObject {
   var radioInExecution = RadioRealm()
   var musicInExecution = Music()
   
+  var lastMusicRadio:MusicRadio!
+  
   var allNews = [New]()
   var addressId = 0
   
@@ -109,6 +116,9 @@ class DataManager: NSObject {
   var navigationController = UINavigationController()
   
   var avPlayer: AVAudioPlayer!
+  
+  var images = [ImageManager]()
+  
   
   struct ProgramDays {
     var isSunday:Bool

@@ -53,6 +53,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var labelTextGender: UILabel!
   @IBOutlet weak var labelTextBirth: UILabel!
   @IBOutlet weak var buttonAdvertisement: UIButton!
+  @IBOutlet weak var searchButton: UIBarButtonItem!
   
   var viewControllerNew = UIViewController()
   
@@ -135,6 +136,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     buttonLogin.clipsToBounds = true
     buttonReadMore.backgroundColor = UIColor.clearColor()
     buttonLogin.titleLabel?.textColor = UIColor.whiteColor()
+    buttonLogin.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    buttonEdit.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    backButton.tintColor = UIColor.whiteColor()
+    searchButton.tintColor = UIColor.whiteColor()
+    
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -499,41 +505,46 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
   }
   
+  
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
     authUI.customStringsBundle = NSBundle.mainBundle()
     //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
-//    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
-    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
-//    let fir = FIRAuthPickerViewController(authUI: authUI)
-//    
-//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-//    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
-//    
-//    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-//    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-//    
-//    let backgroudImage = UIImageView(frame: fir.view.frame)
-//    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-//    
-//    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-//    
-//    fir.view.backgroundColor = color
-//    
-//    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
-//    image2.image = UIImage(named: "fundo-login-mobi.jpg")
-//    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
-//    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-//    image.alpha = 0.2
-//    image2.addSubview(image)
-//    
-//    
-//    fir.view.insertSubview(image2, atIndex: 0)
-//    
-//    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
-//    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
-//    logoImage.center = image2.center
-//    logoImage.frame.origin.y = -30
-//    fir.view.addSubview(logoImage)
+    //    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
+//    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
+    
+    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.Contrast)
+
+    
+    //    let fir = FIRAuthPickerViewController(authUI: authUI)
+    //
+    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+    //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    //
+    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    //
+    //    let backgroudImage = UIImageView(frame: fir.view.frame)
+    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
+    //
+    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    //
+    //    fir.view.backgroundColor = color
+    //
+    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
+    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
+    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
+    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+    //    image.alpha = 0.2
+    //    image2.addSubview(image)
+    //
+    //
+    //    fir.view.insertSubview(image2, atIndex: 0)
+    //
+    //    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
+    //    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
+    //    logoImage.center = image2.center
+    //    logoImage.frame.origin.y = -30
+    //    fir.view.addSubview(logoImage)
     
     
     let fir = FIRAuthPickerViewController(authUI: authUI)
@@ -542,7 +553,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
     fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
-
+    
     
     
     return fir
@@ -588,6 +599,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.dismissViewControllerAnimated(true, completion: {
         })
+        DataManager.sharedInstance.favoriteRadios = []
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
         self.navigationController!.pushViewController(vc!, animated: true)

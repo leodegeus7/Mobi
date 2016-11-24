@@ -6,7 +6,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -18,10 +18,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -165,13 +165,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+            </PersistentString>
+            <PersistentString
                value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
                value = "cell.textDescription.text">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -268,28 +268,49 @@
          contextName = "RadioTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "cell.adsButton.frame">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row].user.userImage">
-            </PersistentString>
-            <PersistentString
                value = "actualProgram">
             </PersistentString>
             <PersistentString
-               value = "cell.adsButton">
+               value = "cell.imageAttachment">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageObject ">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.images">
+            </PersistentString>
+            <PersistentString
+               value = "actualComments[indexPath.row].text">
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row].image">
             </PersistentString>
             <PersistentString
-               value = "cell.adsButton.state">
+               value = "cell.textViewWall.text">
+            </PersistentString>
+            <PersistentString
+               value = "actualComments[indexPath.row].user.userImage">
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row]">
             </PersistentString>
             <PersistentString
-               value = "actualComments[indexPath.row].text">
+               value = "cell.adsButton.state">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageAttachment.image">
+            </PersistentString>
+            <PersistentString
+               value = "cell.adsButton.frame">
+            </PersistentString>
+            <PersistentString
+               value = "cell.adsButton">
+            </PersistentString>
+            <PersistentString
+               value = "cell.labelName.text">
+            </PersistentString>
+            <PersistentString
+               value = "cell.sizeImage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -367,6 +388,17 @@
       </ContextState>
       <ContextState
          contextName = "AppDelegate.application(UIApplication, didReceiveRemoteNotification : [NSObject : AnyObject], fetchCompletionHandler : (UIBackgroundFetchResult) -&gt; ()) -&gt; ():AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #2):ImageManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.updateIcons() -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.musicInExecution">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestMyUserInfo((result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -453,10 +485,10 @@
          contextName = "MenuTableViewController.viewWillAppear(Bool) -&gt; ():MenuTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "tableView">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
+               value = "tableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -503,10 +535,10 @@
          contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2):RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!.row">
+               value = "tableView.indexPathForCell(cellUnique)!">
             </PersistentString>
             <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!">
+               value = "tableView.indexPathForCell(cellUnique)!.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -553,6 +585,9 @@
       </ContextState>
       <ContextState
          contextName = "EditInfoViewController.(okAction() -&gt; ()).(closure #1):EditInfoViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RadioTableViewController.defineBarButton() -&gt; ():RadioTableViewController.swift">
@@ -630,7 +665,7 @@
          contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dic[&quot;approvedDatetime&quot;] as! String">
+               value = "dic[&quot;id&quot;] as! Int">
             </PersistentString>
             <PersistentString
                value = "dic[&quot;postType&quot;] as! Int">
@@ -639,9 +674,12 @@
                value = "dic[&quot;text&quot;] as! String">
             </PersistentString>
             <PersistentString
-               value = "dic[&quot;id&quot;] as! Int">
+               value = "dic[&quot;approvedDatetime&quot;] as! String">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.setButtonMusicType(Music) -&gt; ():PlayerViewController.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.sendWallPublication(RadioRealm, text : String, postType : Int, attachmentIdentifier : String, completion : (resultWall : Bool) -&gt; ()) -&gt; ():RequestManager.swift">
@@ -657,6 +695,20 @@
          <PersistentStrings>
             <PersistentString
                value = "Util.convertActualDateToString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3).(closure #1):RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.imageAttachment.frame">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageInCell.size.height">
+            </PersistentString>
+            <PersistentString
+               value = "image!.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -711,7 +763,7 @@
                value = "myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.email">
+               value = "user">
             </PersistentString>
             <PersistentString
                value = "realm.objects(RadioRealm)">
@@ -726,7 +778,7 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "user">
+               value = "DataManager.sharedInstance.myUser.email">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -764,10 +816,10 @@
                value = "object_getClassName(class1) == object_getClassName(class2)">
             </PersistentString>
             <PersistentString
-               value = "object_getClassName(class1)">
+               value = "object_getClassName(class2)">
             </PersistentString>
             <PersistentString
-               value = "object_getClassName(class2)">
+               value = "object_getClassName(class1)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -804,10 +856,10 @@
          contextName = "PlayerViewController.toggle() -&gt; ():PlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
+               value = "newRadioToPlay">
             </PersistentString>
             <PersistentString
-               value = "newRadioToPlay">
+               value = "DataManager.sharedInstance.radioInExecution">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -821,6 +873,14 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [searchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, didEndDisplayingCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.frame.size">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestNumberOfFollowing(UserRealm, completion : (resultNumberFollowing : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -969,6 +1029,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PlayerViewController.updateInterfaceWithGracenote() -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualMusic">
+            </PersistentString>
+            <PersistentString
+               value = "actualMusic.timeWasDiscovered">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MiniPlayerViewController.(setupAnimator() -&gt; ()).(closure #1):MiniPlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -979,14 +1050,6 @@
             </PersistentString>
             <PersistentString
                value = "self.modalVC">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.updateInterfaceWithGracenote() -&gt; ():PlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualMusic.timeWasDiscovered">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1030,13 +1093,13 @@
          contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #2):EditInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.tag">
+               value = "DataManager.sharedInstance.myUser.birthDate">
             </PersistentString>
             <PersistentString
                value = "$0.value">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.birthDate">
+               value = "$0.tag">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1091,6 +1154,9 @@
                value = "accessToken">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImageInWallCell(UITableView, indexPath : NSIndexPath, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1):ImageManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(twitterButtonTap(AnyObject) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
@@ -1168,13 +1234,13 @@
          contextName = "ProfileViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "myUser">
+               value = "DataManager.Shar">
             </PersistentString>
             <PersistentString
                value = "heightTableView">
             </PersistentString>
             <PersistentString
-               value = "DataManager.Shar">
+               value = "myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1268,6 +1334,14 @@
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.updateMusicViewWithMusic(Music) -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualMusic">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1398,6 +1472,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SendPublicationViewController.sendPublication() -&gt; ():SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualWallType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "RadioViewController.init(coder : NSCoder) -&gt; RadioViewController?:RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -1456,6 +1538,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1):ImageManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "RequestManager.(downloadRdsInfo(String, completion : (result : [Bool : InfoRds]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
@@ -1501,6 +1586,14 @@
          <PersistentStrings>
             <PersistentString
                value = "&quot;app/user/\(id)/reviews?pageNumber=\(pageNumber)&amp;pageSize=\(pageSize)&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImageInWallCell(UITableView, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.labelName.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1608,6 +1701,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, willDisplayCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "RadioPlayer.resetPlayer() -&gt; ():RadioPlayer.swift">
          <PersistentStrings>
             <PersistentString
@@ -1649,10 +1745,18 @@
          contextName = "RequestManager.(favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
+               value = "json[&quot;error&quot;]">
             </PersistentString>
             <PersistentString
-               value = "json[&quot;error&quot;]">
+               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImageInWallCell(UITableView, indexPath : NSIndexPath, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.labelName.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

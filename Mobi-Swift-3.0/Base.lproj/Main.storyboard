@@ -39,11 +39,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ytb-6u-Bdz">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CARREGANDO..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-iz-Mvb">
-                                <rect key="frame" x="243" y="321" width="114" height="18"/>
+                                <rect key="frame" x="150" y="576" width="114" height="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,11 +55,24 @@
                         </subviews>
                         <color key="backgroundColor" red="0.15140289068222046" green="0.37005352973937988" blue="0.83617323637008667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Ytb-6u-Bdz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Fp-xU-JRK"/>
+                            <constraint firstItem="Waj-iz-Mvb" firstAttribute="centerY" secondItem="Ytb-6u-Bdz" secondAttribute="centerY" id="BP7-N4-zlC"/>
+                            <constraint firstItem="Ytb-6u-Bdz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="CK6-Cf-4FO"/>
+                            <constraint firstItem="Waj-iz-Mvb" firstAttribute="top" secondItem="Ytb-6u-Bdz" secondAttribute="bottom" constant="-160" id="Ppt-Yq-zb0"/>
+                            <constraint firstItem="Ytb-6u-Bdz" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="W5p-tN-1Ad"/>
+                            <constraint firstItem="Ytb-6u-Bdz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Y3z-Zv-ybY"/>
                             <constraint firstItem="Waj-iz-Mvb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="30" id="jFT-ZC-XkP"/>
                             <constraint firstItem="Waj-iz-Mvb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="leu-UE-rGY"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BP7-N4-zlC"/>
+                                <exclude reference="jFT-ZC-XkP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="zKc-6e-HA7"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -2761,7 +2777,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
                                 <rect key="frame" x="20" y="119" width="374" height="587"/>
-                                <string key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
+                                <mutableString key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
 
     É composto por três pilares:
 
@@ -2769,9 +2785,9 @@
 
         • os apps exclusivos para as rádios
 
-        •o portal MOBI PLAY
+        • o portal MOBI PLAY
 
-    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
+    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</mutableString>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -6458,7 +6474,7 @@
         <image name="audio_64x64.png" width="64" height="64"/>
         <image name="background" width="512" height="512"/>
         <image name="hamburgerIcon.png" width="20" height="20"/>
-        <image name="heart.png" width="29" height="29"/>
+        <image name="heart.png" width="20" height="20"/>
         <image name="icone-coracao.png" width="256" height="256"/>
         <image name="icone-grafico.png" width="256" height="256"/>
         <image name="icone-historico.png" width="256" height="256"/>
@@ -6468,6 +6484,7 @@
         <image name="logo-mobi.png" width="1877" height="250"/>
         <image name="photo_64x64.png" width="64" height="64"/>
         <image name="play.png" width="237" height="236"/>
+        <image name="splashScreen.png" width="540" height="960"/>
         <image name="starOFF.png" width="30" height="30"/>
         <image name="unlike1.png" width="22" height="21"/>
     </resources>

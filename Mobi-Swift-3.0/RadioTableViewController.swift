@@ -48,6 +48,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   static var selectedImageButton:UIImage!
   
+  var existAudioChannel = false
   
   enum SelectedRadioMode {
     case DetailRadio
@@ -88,6 +89,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     let audioManager = RequestManager()
     audioManager.getAudioChannelsFromRadio(actualRadio) { (result) in
       self.updateInterfaceWithGracenote()
+      self.existAudioChannel = true
     }
     
     
@@ -729,7 +731,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                         cell?.labelMusicName.text = resultGracenote.name
                         cell?.labelArtist.text = resultGracenote.composer
                         self.setButtonMusicType(resultGracenote)
-
+                        
                         self.actualMusic = resultGracenote
                         var musicRadio = MusicRadio()
                         musicRadio.music = resultGracenote
@@ -804,20 +806,22 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   @IBAction func buttonPlayTapped(sender: AnyObject) {
-    if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
-      if StreamingRadioManager.sharedInstance.currentlyPlaying() {
-        StreamingRadioManager.sharedInstance.stop()
+    if existAudioChannel {
+      if (StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio)) {
+        if StreamingRadioManager.sharedInstance.currentlyPlaying() {
+          StreamingRadioManager.sharedInstance.stop()
+        } else {
+          StreamingRadioManager.sharedInstance.play(actualRadio)
+          DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
+          DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+        }
       } else {
         StreamingRadioManager.sharedInstance.play(actualRadio)
         DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
         DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
       }
-    } else {
-      StreamingRadioManager.sharedInstance.play(actualRadio)
-      DataManager.sharedInstance.miniPlayerView.miniPlayerView.hidden = false
-      DataManager.sharedInstance.miniPlayerView.tapMiniPlayerButton(DataManager.sharedInstance.miniPlayerView)
+      StreamingRadioManager.sharedInstance.sendNotification()
     }
-    StreamingRadioManager.sharedInstance.sendNotification()
   }
   
   func updateIcons() {
@@ -842,7 +846,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   func buttonFavTap() {
     let manager = RequestManager()
     if actualRadio.isFavorite {
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartNoFill.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       actualRadio.updateIsFavorite(false)
       manager.deleteFavRadio(actualRadio, completion: { (result) in
       })
@@ -870,7 +874,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   func defineBarButton() {
     if selectedMode == .DetailRadio {
       if !actualRadio.isFavorite {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heart.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartNoFill.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       } else {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       }

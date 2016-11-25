@@ -72,6 +72,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="heart.png" width="29" height="29"/>
+        <image name="heart.png" width="20" height="20"/>
     </resources>
 </document>

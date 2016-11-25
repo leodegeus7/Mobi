@@ -146,7 +146,7 @@ class PlayerViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     view.backgroundColor = colorWhite
-    
+    actualProgram = Program()
     imageIndicatorDown.backgroundColor = UIColor.clearColor()
     
     viewSeparator.backgroundColor = DataManager.sharedInstance.interfaceColor.color

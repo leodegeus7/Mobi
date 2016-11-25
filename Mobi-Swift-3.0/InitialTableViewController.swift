@@ -455,12 +455,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     if selectedMode == .Favorite {
       str = "Sem Favoritos"
       if !DataManager.sharedInstance.isLogged {
-        str = "Porfavor logue em seu usuário ou crie algum"
+        str = "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?"
       }
     } else if selectedMode == .Recent {
       str = "Nenhuma rádio foi reproduzida"
       if !DataManager.sharedInstance.isLogged {
-        str = "Porfavor logue em seu usuário ou crie algum"
+        str = "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?"
       }
     } else {
       str = "Nenhuma radio para mostrar"
@@ -475,11 +475,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let _ = DataManager.sharedInstance.userLocation {
         str = "Não conseguimos obter radios próximas a sua localização"
       } else {
-        str = "Não conseguimos obter sua localização, ative ela nos ajustes!"
+        str = "Não conseguimos obter sua localização, ative-a nos ajustes!"
       }
     }
     else if selectedMode == .Favorite {
-      str = "Você não marcou nenhuma rádio como favorito, retorne a início e marque algumas!"
+      str = "Você não marcou nenhuma rádio como favorita, retorne ao início e marque alguma!"
       if !DataManager.sharedInstance.isLogged {
         str = "Logue com sua conta no menu ao lado para conseguir favoritar radios"
       }

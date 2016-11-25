@@ -72,7 +72,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
       return cell
     } else {
       let cell = UITableViewCell()
-      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      //cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
       return cell
     }
   }

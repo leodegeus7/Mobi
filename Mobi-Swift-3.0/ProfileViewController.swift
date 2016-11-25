@@ -514,49 +514,66 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.Contrast)
 
-    
-    //    let fir = FIRAuthPickerViewController(authUI: authUI)
-    //
-    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
-    //
-    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-    //
-    //    let backgroudImage = UIImageView(frame: fir.view.frame)
-    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-    //
-    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-    //
-    //    fir.view.backgroundColor = color
-    //
-    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
-    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
-    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
-    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-    //    image.alpha = 0.2
-    //    image2.addSubview(image)
-    //
-    //
-    //    fir.view.insertSubview(image2, atIndex: 0)
-    //
-    //    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
-    //    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
-    //    logoImage.center = image2.center
-    //    logoImage.frame.origin.y = -30
-    //    fir.view.addSubview(logoImage)
-    
-    
-    let fir = FIRAuthPickerViewController(authUI: authUI)
-    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
-    
-    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
-    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
+//    
+//    //    let fir = FIRAuthPickerViewController(authUI: authUI)
+//    //
+
+//    //
+//    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+//    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+//    //
+//    //    let backgroudImage = UIImageView(frame: fir.view.frame)
+//    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
+//    //
+//    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+//    //
+//    //    fir.view.backgroundColor = color
+//    //
+//    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
+//    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
+//    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
+//    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+//    //    image.alpha = 0.2
+//    //    image2.addSubview(image)
+//    //
+//    //
+//    //    fir.view.insertSubview(image2, atIndex: 0)
+//    //
+
+//
+    let fir2 = FIRAuthPickerViewController(authUI: authUI)
+//    //let fir = FIRAuthPickerViewController(authUI: authUI)
+//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+//    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
+//    
     
     
+//    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
+//    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
+//    logoImage.center = fir2.view.center
+//    logoImage.frame.origin.y = -30
+//    logoImage.frame.origin.x = -30
+//    fir2.view.addSubview(logoImage)
+//    fir2.
     
-    return fir
+    
+    
+//    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
+//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+//    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    
+    UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
+    UIImage(named: "loginScreen.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
+    let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    fir2.view.backgroundColor = UIColor(patternImage: image2)
+      //UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
+    
+    
+    
+
+    return fir2
   }
   
   
@@ -774,6 +791,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
   }
   
+
+  
   
   
 }
+

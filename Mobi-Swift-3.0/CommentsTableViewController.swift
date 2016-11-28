@@ -205,7 +205,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           if actualSubComments.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
             cell.labelTitle.text = "Nenhum comentário realizada"
-            cell.textViewDescription.text = "Não há nenhum comentário nesta publicação, clique no + a cima para fazer"
+            cell.textViewDescription.text = "Não há nenhum comentário nesta publicação, clique no + a cima para criar"
             cell.selectionStyle = .None
             return cell
           }

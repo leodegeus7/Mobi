@@ -102,11 +102,20 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       return [favorite]
     } else {
       let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
-        self.radios[indexPath.row].updateIsFavorite(true)
-        self.radios[indexPath.row].addOneLikesNumber()
-        manager.favRadio(self.radios[indexPath.row], completion: { (result) in
-          self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        })
+        if DataManager.sharedInstance.isLogged {
+          self.radios[indexPath.row].updateIsFavorite(true)
+          self.radios[indexPath.row].addOneLikesNumber()
+          manager.favRadio(self.radios[indexPath.row], completion: { (result) in
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+          })
+        } else {
+          func okAction() {
+            DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+          }
+          func cancelAction() {
+          }
+          self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+        }
       }
       favorite.backgroundColor = UIColor.orangeColor()
       return [favorite]

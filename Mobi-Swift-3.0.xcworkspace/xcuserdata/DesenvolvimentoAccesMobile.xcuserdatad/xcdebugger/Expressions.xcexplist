@@ -268,10 +268,10 @@
          contextName = "RadioTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualProgram">
+               value = "contactRadio.arraySocial">
             </PersistentString>
             <PersistentString
-               value = "cell.imageAttachment">
+               value = "actualProgram">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.images">
@@ -281,6 +281,9 @@
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row].text">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageSocial.image">
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row].image">
@@ -293,6 +296,9 @@
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "UIImage(named: &quot;\(type)Icon.png&quot;)">
             </PersistentString>
             <PersistentString
                value = "cell.adsButton.state">
@@ -978,6 +984,9 @@
                value = "modalVC">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactRadio.init(email : String, facebook : String, twitter : String, instagram : String, phoneNumbers : [PhoneNumber]) -&gt; ContactRadio:ContactRadio.swift">
       </ContextState>
       <ContextState
          contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #4):EditInfoViewController.swift">

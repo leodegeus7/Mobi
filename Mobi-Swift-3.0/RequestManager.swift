@@ -1754,7 +1754,9 @@ class RequestManager: NSObject {
   }
   
   func requestPhonesOfStation(radio:RadioRealm,completion: (resultPhones: [PhoneNumber]) -> Void) {
-    requestJson("stationunit/\(radio.id)/phone") { (result) in
+    let id = radio.id
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+    self.requestJson("stationunit/\(id)/phone") { (result) in
       if let array = result["data"] as? NSArray {
         var phoneNumbers = [PhoneNumber]()
         for phone in array {
@@ -1765,15 +1767,20 @@ class RequestManager: NSObject {
           let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
           phoneNumbers.append(phoneNumberObject)
         }
-        completion(resultPhones: phoneNumbers)
+        dispatch_async(dispatch_get_main_queue(), {
+          completion(resultPhones: phoneNumbers)
+        })
       } else {
         completion(resultPhones: [])
       }
     }
+    })
   }
   
   func requestSocialNewtworkOfStation(radio:RadioRealm,completion: (resultSocial: [SocialNetwork]) -> Void) {
-    requestJson("stationunit/socialnetwork/search?station=\(radio.id)") { (result) in
+    let id = radio.id
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+    self.requestJson("stationunit/socialnetwork/search?station=\(id)") { (result) in
       if let array = result["data"] as? NSArray {
         var socialNetworks = [SocialNetwork]()
         for social in array {
@@ -1784,11 +1791,14 @@ class RequestManager: NSObject {
             socialNetworks.append(socialNet)
           }
         }
-        completion(resultSocial: socialNetworks)
+        dispatch_async(dispatch_get_main_queue(), {
+          completion(resultSocial: socialNetworks)
+        })
       } else {
         completion(resultSocial: [])
       }
     }
+    })
   }
   
   func createAddress(state:String,city:String,completion: (resultAddress: AddressRealm) -> Void) {

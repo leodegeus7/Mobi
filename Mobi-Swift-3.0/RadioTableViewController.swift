@@ -40,7 +40,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   var colorBlack : UIColor!
   var colorWhite : UIColor!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-  
+  var contactRadio = ContactRadio()
   var needToUpdateCell = false
   var needToUpdateIcons = false
   
@@ -76,7 +76,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     selectedMode == .DetailRadio
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     colorBlack = DataManager.sharedInstance.interfaceColor.color
-    colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    colorWhite =  ColorRealm(name: 45, red: components[0]+0.15, green: components[1]+0.15, blue: components[2]+0.15, alpha: 1).color
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
@@ -113,6 +113,36 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
       }
     }
+    
+    
+    let requestSocial = RequestManager()
+    requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
+      self.activityIndicator.hidden = true
+      self.activityIndicator.removeFromSuperview()
+      var face = ""
+      var twitter = ""
+      var instagram = ""
+      var email = ""
+      for social in resultSocial {
+        if social.type == "Facebook" {
+          face = social.text
+        }
+        else if social.type == "Instagram" {
+          instagram = social.text
+        }
+        else if social.type == "Twitter" {
+          twitter = social.text
+        }
+        else if social.type == "E-mail" {
+          email = social.text
+        }
+      }
+      let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: [PhoneNumber()])
+      self.contactRadio = contact
+      self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+    })
+    
+    
     
     let programRequest = RequestManager()
     let idRadio = actualRadio.id
@@ -161,6 +191,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch selectedMode {
     case .DetailRadio:
+      if section == 0 {
+        if !contactRadio.existSocialNew {
+          return 1
+        } else {
+          return 2
+        }
+      }
       if section == 2 {
         return 2
       }
@@ -206,47 +243,93 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     
   }
   
+  override func viewDidLayoutSubviews() {
+    if selectedMode == .DetailRadio {
+      if let cellDetail = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
+        cellDetail.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cellDetail.frame, andColors: [colorWhite,colorBlack])
+      }
+    }
+  }
+  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     switch selectedMode {
     case .DetailRadio:
       switch indexPath.section {
       case 0:
-        let cell = tableView.dequeueReusableCellWithIdentifier("detailRadio", forIndexPath: indexPath) as! RadioDetailTableViewCell
-        cell.imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
-        cell.imageRadio.layer.cornerRadius = cell.imageRadio.bounds.height / 6
-        cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
-        cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
-        cell.imageRadio.layer.borderWidth = 0
-        cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
-        cell.labelName.text = actualRadio.name.uppercaseString
-        cell.labelName.textColor = UIColor.whiteColor()
-        if let _ = actualRadio.address {
-          cell.labelLocal.text = actualRadio.address.formattedLocal.uppercaseString
-          cell.labelLocal.textColor = UIColor.whiteColor()
-        }
-        cell.labelLikes.text = "\(actualRadio.likenumber)"
-        cell.labelLikes.textColor = UIColor.whiteColor()
-        if actualRadio.score == -1 {
-          cell.labelScore.text = "-"
+        if indexPath.row == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("detailRadio", forIndexPath: indexPath) as! RadioDetailTableViewCell
+          cell.imageRadio.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+          cell.imageRadio.layer.cornerRadius = cell.imageRadio.bounds.height / 6
+          cell.imageRadio.layer.borderColor = DataManager.sharedInstance.interfaceColor.color.CGColor
+          cell.imageRadio.layer.backgroundColor = UIColor.whiteColor().CGColor
+          cell.imageRadio.layer.borderWidth = 0
+          cell.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: cell.frame, andColors: [colorWhite,colorBlack])
+          cell.labelName.text = actualRadio.name.uppercaseString
+          cell.labelName.textColor = UIColor.whiteColor()
+          if let _ = actualRadio.address {
+            cell.labelLocal.text = actualRadio.address.formattedLocal.uppercaseString
+            cell.labelLocal.textColor = UIColor.whiteColor()
+          }
+          cell.labelLikes.text = "\(actualRadio.likenumber)"
+          cell.labelLikes.textColor = UIColor.whiteColor()
+          if actualRadio.score == -1 {
+            cell.labelScore.text = "-"
+          } else {
+            cell.labelScore.text = "\(actualRadio.score)"
+          }
+          cell.labelScore.textColor = UIColor.whiteColor()
+          cell.labelLikesDescr.textColor = UIColor.whiteColor()
+          cell.labelScoreDescr.textColor = UIColor.whiteColor()
+          cell.viewBack.alpha = 0
+          cell.playButton.backgroundColor = UIColor.clearColor()
+          cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
+          cell.imageRadio.layer.borderWidth = 0
+          cell.imageRadio.clipsToBounds = true
+          cell.selectionStyle = .None
+          cell.separatorInset = UIEdgeInsetsMake(0, 10000, 0, 0)
+          if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
+            cell.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
+          } else {
+            cell.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
+          }
+          return cell
         } else {
-          cell.labelScore.text = "\(actualRadio.score)"
+          let cell = tableView.dequeueReusableCellWithIdentifier("socialNetCell", forIndexPath: indexPath) as! SocialNetworkTableViewCell
+          cell.separatorInset = UIEdgeInsetsMake(0, 10000, 0, 0)
+          cell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+          let socialNewtorks = ["Facebook","Instagram","Twitter"]
+          for socialNetworkTitle in socialNewtorks {
+            var hasSocial = false
+            for social in contactRadio.arraySocial {
+              let type = (social["Type"])!
+              //              let value = social["Value"]
+              if type == socialNetworkTitle {
+                hasSocial = true
+                break
+              }
+            }
+            if !hasSocial {
+              if let _ = cell.buttonFace {
+                if socialNetworkTitle == "Facebook" {
+                  cell.buttonFace.removeFromSuperview()
+                }
+              }
+              if let _ = cell.buttonInsta {
+                if socialNetworkTitle == "Instagram" {
+                  cell.buttonInsta.removeFromSuperview()
+                }
+              }
+              if let _ = cell.buttonTwitter {
+                if socialNetworkTitle == "Twitter" {
+                  cell.buttonTwitter.removeFromSuperview()
+                }
+              }
+            }
+          }
+          
+          return cell
         }
-        cell.labelScore.textColor = UIColor.whiteColor()
-        cell.labelLikesDescr.textColor = UIColor.whiteColor()
-        cell.labelScoreDescr.textColor = UIColor.whiteColor()
-        cell.viewBack.alpha = 0
-        cell.playButton.backgroundColor = UIColor.clearColor()
-        cell.playButton.layer.cornerRadius = cell.playButton.bounds.height / 2
-        cell.imageRadio.layer.borderWidth = 0
-        cell.imageRadio.clipsToBounds = true
-        cell.selectionStyle = .None
-        if StreamingRadioManager.sharedInstance.currentlyPlaying() && StreamingRadioManager.sharedInstance.isRadioInViewCurrentyPlaying(actualRadio) {
-          cell.playButton.setImage(UIImage(named: "pause.png"), forState: .Normal)
-        } else {
-          cell.playButton.setImage(UIImage(named: "play1.png"), forState: .Normal)
-        }
-        return cell
       case 1:
         let cell = tableView.dequeueReusableCellWithIdentifier("actualMusic", forIndexPath: indexPath) as! MusicTableViewCell
         if let _ = actualMusic.name {
@@ -633,6 +716,30 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     if selectedMode == .Wall {
       selectedComment = actualComments[indexPath.row]
       performSegueWithIdentifier("showSubCommentsSegue", sender: self)
+    }
+  }
+  
+  @IBAction func facebookButtonTap(sender: AnyObject) {
+    if let url = NSURL(string: contactRadio.facebook) {
+      UIApplication.sharedApplication().openURL(url)
+    } else {
+      self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(contactRadio.facebook)!", action: "Ok")
+    }
+  }
+  
+  @IBAction func instagramButtonTap(sender: AnyObject) {
+    if let url = NSURL(string: contactRadio.instagram) {
+      UIApplication.sharedApplication().openURL(url)
+    } else {
+      self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(contactRadio.instagram)!", action: "Ok")
+    }
+  }
+  
+  @IBAction func TwitterButtonTap(sender: AnyObject) {
+    if let url = NSURL(string: contactRadio.twitter) {
+      UIApplication.sharedApplication().openURL(url)
+    } else {
+      self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(contactRadio.twitter)!", action: "Ok")
     }
   }
   

@@ -67,8 +67,8 @@ class LocalCities2TableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if indexPath.row <= citiesArray.count-1 {
-      let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-      cell.textLabel?.text = citiesArray[indexPath.row].name
+      let cell = tableView.dequeueReusableCellWithIdentifier("localCityCell", forIndexPath: indexPath) as! LocalCitiesTableViewCell
+      cell.labelLocal.text = citiesArray[indexPath.row].name
       return cell
     } else {
       let cell = UITableViewCell()

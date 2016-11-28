@@ -30,15 +30,20 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   @IBOutlet weak var button2x3: UIButton!
   @IBOutlet weak var button2x4: UIButton!
   @IBOutlet weak var button2x5: UIButton!
+  @IBOutlet weak var button3x1: UIButton!
+  @IBOutlet weak var button3x2: UIButton!
+  @IBOutlet weak var button3x3: UIButton!
+  @IBOutlet weak var button3x4: UIButton!
+  @IBOutlet weak var button3x5: UIButton!
   
   @IBOutlet weak var stackColors: UIStackView!
   
   var imageCheckView = UIImageView()
   var colorButtons = [UIButton]()
-  let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
-  let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
-  let colorArray1:[UIColor] = [FlatLimeDark(),FlatOrangeDark(),FlatBlackDark(),FlatPinkDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand()]
-  let colorArray2:[UIColor] = [ColorRealm(name: 2, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color,FlatWatermelonDark(),FlatPinkDark(),FlatRed(),FlatPurple(),FlatPlumDark(),FlatNavyBlue(),FlatTealDark(),FlatSkyBlueDark(),FlatBlackDark()]
+  let colorRose = DataManager.sharedInstance.pinkColor
+  let colorBlue = DataManager.sharedInstance.blueColor
+  let colorArray1:[UIColor] = [FlatLimeDark(),FlatOrangeDark(),FlatBlackDark(),FlatPinkDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand(),FlatMint(),FlatGreen(),FlatYellow(),FlatOrange(),FlatGray()]
+  let colorArray2:[UIColor] = [DataManager.sharedInstance.blueColor.color,FlatWatermelonDark(),FlatPinkDark(),FlatRed(),FlatPurple(),FlatPlumDark(),FlatNavyBlue(),FlatTealDark(),FlatSkyBlueDark(),FlatBlackDark(),FlatMint(),FlatGreen(),FlatYellowDark(),FlatOrange(),FlatGray()]
   var colorArray:[UIColor] = []
   
   override func viewDidLoad() {
@@ -61,7 +66,11 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     colorButtons.append(button2x3)
     colorButtons.append(button2x4)
     colorButtons.append(button2x5)
-    
+    colorButtons.append(button3x1)
+    colorButtons.append(button3x2)
+    colorButtons.append(button3x3)
+    colorButtons.append(button3x4)
+    colorButtons.append(button3x5)
     var i = 0
     for button in colorButtons {
       button.frame.size.width = colorView.bounds.width/4
@@ -181,8 +190,6 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         DataManager.sharedInstance.interfaceColor = colorBlue
         self.setStatusBarStyle(.LightContent)
         
-        let color2 = ContrastColorOf(colorBlue.color, returnFlat: true)
-        
         if ContrastColorOf(colorBlue.color, returnFlat: true) == FlatWhite() {
           print("branco")
         } else {
@@ -215,6 +222,16 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], withContentStyle: UIContentStyle.Contrast)
     case 25:
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  withContentStyle: UIContentStyle.Contrast)
+    case 31:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[10],  withContentStyle: UIContentStyle.Contrast)
+    case 32:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[11],  withContentStyle: UIContentStyle.Contrast)
+    case 33:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[12],  withContentStyle: UIContentStyle.Contrast)
+    case 34:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[13],  withContentStyle: UIContentStyle.Contrast)
+    case 35:
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[14],  withContentStyle: UIContentStyle.Contrast)
     default:
       Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  withContentStyle: UIContentStyle.Contrast)
     }

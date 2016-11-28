@@ -50,7 +50,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       DataManager.sharedInstance.isLoadScreenAppered = true
     }
     
-
+    
     
     super.viewDidLoad()
     //selectedRadioArray = DataManager.sharedInstance.topRadios
@@ -69,7 +69,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
     defineSegments()
-
+    
     if DataManager.sharedInstance.topRadios.count > 0 {
       selectedRadioArray = DataManager.sharedInstance.topRadios
     }
@@ -101,7 +101,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
           Util.displayAlert(self, title: "Ops...", message: "Não conseguimos identificar locais próximos, tente ligar sua localização nos ajustes", action: "Ok")
         }
         
-      
+        
       }
     }
   }
@@ -153,81 +153,81 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if indexPath.row <= selectedRadioArray.count-1 {
-    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-    switch selectedMode {
-    case .Top:
-      cell.labelName.text = selectedRadioArray[indexPath.row].name
-      if let address = selectedRadioArray[indexPath.row].address {
-        cell.labelLocal.text = address.formattedLocal
+      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+      switch selectedMode {
+      case .Top:
+        cell.labelName.text = selectedRadioArray[indexPath.row].name
+        if let address = selectedRadioArray[indexPath.row].address {
+          cell.labelLocal.text = address.formattedLocal
+        }
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
+        cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+        cell.widthTextOne.constant = 30
+        cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+        cell.labelDescriptionTwo.text = ""
+        if selectedRadioArray[indexPath.row].isFavorite {
+          cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+        } else {
+          cell.imageSmallOne.image = UIImage(named: "heart.png")
+        }
+        break
+      case .Local:
+        cell.labelName.text = selectedRadioArray[indexPath.row].name
+        if let address = selectedRadioArray[indexPath.row].address {
+          cell.labelLocal.text = address.formattedLocal
+        }
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
+        cell.imageSmallOne.image = UIImage(named: "marker.png")
+        if selectedRadioArray[indexPath.row].resetDistanceFromUser() {
+          cell.labelDescriptionOne.text = "\(Util.getDistanceString(selectedRadioArray[indexPath.row].distanceFromUser))"
+        }
+        cell.widthTextOne.constant = 80
+        cell.widthTextTwo.constant = 30
+        if selectedRadioArray[indexPath.row].isFavorite {
+          cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
+        } else {
+          cell.imageSmallTwo.image = UIImage(named: "heart.png")
+        }
+        cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+        break
+      case .Recent:
+        cell.labelName.text = selectedRadioArray[indexPath.row].name
+        if let address = selectedRadioArray[indexPath.row].address {
+          cell.labelLocal.text = address.formattedLocal
+        }
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
+        cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
+        if (NSDate().timeIntervalSinceDate(selectedRadioArray[indexPath.row].lastAccessDate) > 1) {
+          cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
+        } else {
+          cell.labelDescriptionOne.text = ""
+        }
+        if selectedRadioArray[indexPath.row].isFavorite {
+          cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
+        } else {
+          cell.imageSmallTwo.image = UIImage(named: "heart.png")
+        }
+        cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+        cell.widthTextOne.constant = 110
+        cell.widthTextTwo.constant = 30
+        break
+      case .Favorite:
+        cell.labelName.text = selectedRadioArray[indexPath.row].name
+        if let address = selectedRadioArray[indexPath.row].address {
+          cell.labelLocal.text = address.formattedLocal
+        }
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
+        if selectedRadioArray[indexPath.row].isFavorite {
+          cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+        } else {
+          cell.imageSmallOne.image = UIImage(named: "heart.png")
+        }
+        cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
+        cell.widthTextOne.constant = 30
+        cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+        cell.labelDescriptionTwo.text = ""
+        break
       }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-      cell.widthTextOne.constant = 30
-      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-      cell.labelDescriptionTwo.text = ""
-      if selectedRadioArray[indexPath.row].isFavorite {
-        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
-      } else {
-        cell.imageSmallOne.image = UIImage(named: "heart.png")
-      }
-      break
-    case .Local:
-      cell.labelName.text = selectedRadioArray[indexPath.row].name
-      if let address = selectedRadioArray[indexPath.row].address {
-        cell.labelLocal.text = address.formattedLocal
-      }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "marker.png")
-      if selectedRadioArray[indexPath.row].resetDistanceFromUser() {
-        cell.labelDescriptionOne.text = "\(Util.getDistanceString(selectedRadioArray[indexPath.row].distanceFromUser))"
-      }
-      cell.widthTextOne.constant = 80
-      cell.widthTextTwo.constant = 30
-      if selectedRadioArray[indexPath.row].isFavorite {
-        cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
-      } else {
-        cell.imageSmallTwo.image = UIImage(named: "heart.png")
-      }
-      cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-      break
-    case .Recent:
-      cell.labelName.text = selectedRadioArray[indexPath.row].name
-      if let address = selectedRadioArray[indexPath.row].address {
-        cell.labelLocal.text = address.formattedLocal
-      }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
-      if (NSDate().timeIntervalSinceDate(selectedRadioArray[indexPath.row].lastAccessDate) > 1) {
-        cell.labelDescriptionOne.text = Util.getOverdueInterval(selectedRadioArray[indexPath.row].lastAccessDate)
-      } else {
-        cell.labelDescriptionOne.text = ""
-      }
-      if selectedRadioArray[indexPath.row].isFavorite {
-        cell.imageSmallTwo.image = UIImage(named: "heartRed.png")
-      } else {
-        cell.imageSmallTwo.image = UIImage(named: "heart.png")
-      }
-      cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-      cell.widthTextOne.constant = 110
-      cell.widthTextTwo.constant = 30
-      break
-    case .Favorite:
-      cell.labelName.text = selectedRadioArray[indexPath.row].name
-      if let address = selectedRadioArray[indexPath.row].address {
-        cell.labelLocal.text = address.formattedLocal
-      }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
-      if selectedRadioArray[indexPath.row].isFavorite {
-        cell.imageSmallOne.image = UIImage(named: "heartRed.png")
-      } else {
-        cell.imageSmallOne.image = UIImage(named: "heart.png")
-      }
-      cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
-      cell.widthTextOne.constant = 30
-      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-      cell.labelDescriptionTwo.text = ""
-      break
-    }
       return cell
     } else {
       let cell = UITableViewCell()
@@ -238,13 +238,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if (selectedMode == .Top) {
-      return "EM ALTA"
+      return "Em alta"
     } else if (selectedMode == .Local) {
-      return "AO REDOR"
+      return "Ao redor"
     } else if (selectedMode == .Favorite) {
-      return "FAVORITAS"
+      return "Favoritas"
     } else if (selectedMode == .Recent) {
-      return "HISTÓRICO"
+      return "Histórico"
     }
     return ""
   }
@@ -298,13 +298,21 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       return [favorite]
     } else {
       let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
-        self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
-        self.selectedRadioArray[indexPath.row].addOneLikesNumber()
-        manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
-          self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-          
-        })
-        
+        if DataManager.sharedInstance.isLogged {
+          self.selectedRadioArray[indexPath.row].updateIsFavorite(true)
+          self.selectedRadioArray[indexPath.row].addOneLikesNumber()
+          manager.favRadio(self.selectedRadioArray[indexPath.row], completion: { (result) in
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
+          })
+        } else {
+          func okAction() {
+            DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+          }
+          func cancelAction() {
+          }
+          self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+        }
       }
       
       favorite.backgroundColor = UIColor.orangeColor()
@@ -366,11 +374,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
-
-
+    
+    
   }
   
-
+  
   
   override func viewDidAppear(animated: Bool) {
     if DataManager.sharedInstance.recentsRadios.count > 0 {
@@ -424,7 +432,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     tableView.reloadData()
   }
   
-
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- OTHERS FUNCTIONS ---
@@ -455,12 +463,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     if selectedMode == .Favorite {
       str = "Sem Favoritos"
       if !DataManager.sharedInstance.isLogged {
-        str = "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?"
+        str = "Para utilizar este recurso é necessário efetuar login"
       }
     } else if selectedMode == .Recent {
       str = "Nenhuma rádio foi reproduzida"
       if !DataManager.sharedInstance.isLogged {
-        str = "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?"
+        str = "Para utilizar este recurso é necessário efetuar login"
       }
     } else {
       str = "Nenhuma radio para mostrar"
@@ -495,12 +503,14 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     return NSAttributedString(string: str, attributes: attr)
   }
   
-//  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-//    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
-//  }
+  //  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+  //    return Util.imageResize(UIImage(named: "happy.jpg")!, sizeChange: CGSize(width: 100, height: 100))
+  //  }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+    print("Clicou aqui")
     dismissViewControllerAnimated(true) {
     }
   }
+  
 }

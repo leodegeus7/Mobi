@@ -52,19 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     } else {
       RealmWrapper.realmStart("default")
       //let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
-      let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), withContentStyle: UIContentStyle.Contrast)
-      DataManager.sharedInstance.interfaceColor = colorBlue
+      DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
+      DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 248/255, green: 196/255, blue: 211/255, alpha: 1)
+      Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.blueColor.color.flatten(), withContentStyle: UIContentStyle.Contrast)
+      DataManager.sharedInstance.interfaceColor = DataManager.sharedInstance.blueColor
       DataManager.sharedInstance.existInterfaceColor = true
       defineInitialParameters()
     }
-    
-    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-    application.registerUserNotificationSettings(settings)
-    application.registerForRemoteNotifications()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+    DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
+    DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
 
-    
+//    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+//    application.registerUserNotificationSettings(settings)
+//    application.registerForRemoteNotifications()
+//    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
@@ -186,8 +188,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     })
   }
   
+  func registerForPushNotifications(application: UIApplication) {
+    let notificationSettings = UIUserNotificationSettings(
+      forTypes: [.Badge, .Sound, .Alert], categories: nil)
+    application.registerUserNotificationSettings(notificationSettings)
+  }
+  
+  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    if notificationSettings.types != .None {
+      application.registerForRemoteNotifications()
+    }
+  }
+  
   func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
+    let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+    var tokenString = ""
+    
+    for i in 0..<deviceToken.length {
+      tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+    }
+    
+    
+    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Unknown)
+    print("Device Token:", tokenString)
   }
   
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {

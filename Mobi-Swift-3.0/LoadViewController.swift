@@ -20,6 +20,8 @@ class LoadViewController: UIViewController {
   var loadTimer = NSTimer()
   var viewInitial:InitialTableViewController!
   
+  @IBOutlet weak var progressView: UIProgressView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -32,6 +34,8 @@ class LoadViewController: UIViewController {
       view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: rect, andColors: [colorWhite,colorBlack])
       
     }
+    progressView.tintColor = UIColor.blackColor()
+    progressView.progress = 0
     LoadViewController.activateCacheLimit(30)
     loadTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
     let indicator = UIActivityIndicatorView()
@@ -89,7 +93,7 @@ class LoadViewController: UIViewController {
         //          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, thumbnail: dic["image"]!["identifier40"] as! String, repository: false)
         //          DataManager.sharedInstance.allRadios.append(radio)
         //        }
-        
+        self.progressView.progress = 0.2
         print("Servidor testado")
         DataBaseTest.infoWithoutRadios()
         self.notificationCenter.postNotificationName("reloadData", object: nil)
@@ -106,22 +110,32 @@ class LoadViewController: UIViewController {
         
         if DataManager.sharedInstance.isLogged {
           print("Usuario logado")
+          self.progressView.progress = 0.3
           let favManager = RequestManager()
           favManager.requestUserFavorites({ (resultFav) in
             print("Request de favoritos do usuario concluido")
+            self.progressView.progress = 0.4
             let profileManager = RequestManager()
             profileManager.requestMyUserInfo({ (result) in
               print("Request de info de users concluido")
+              self.progressView.progress = 0.6
               let likesManager = RequestManager()
               likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+                self.progressView.progress = 0.8
                 print("Request de radios top rated concluido")
                 self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
                 let historicManager = RequestManager()
                 historicManager.requestHistoricRadios(0, pageSize: 20, completion: { (resultHistoric) in
+                  self.progressView.progress = 1
                   print("Request de historico concluido")
-                  self.dismissViewControllerAnimated(true, completion: {
+                  
+                  
+                  
+                  
+                  
+                  self.dismissedViewWithAnimation()
                     
-                  })
+                 
                 })
               })
             })
@@ -130,11 +144,11 @@ class LoadViewController: UIViewController {
           print("Usuario nao logado")
           let likesManager = RequestManager()
           likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+            self.progressView.progress = 0.4
             print("Request de radios likes concluido")
             self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
-            self.dismissViewControllerAnimated(true, completion: {
-              print("Tudo pronto")
-            })
+            self.progressView.progress = 1
+            self.dismissedViewWithAnimation()
           })
         }
         
@@ -154,7 +168,17 @@ class LoadViewController: UIViewController {
   }
   
   
-  
+  func dismissedViewWithAnimation() {
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFromBottom
+    transition.subtype = kCATransitionFromRight
+    self.view.window?.layer.addAnimation(transition, forKey: nil)
+    self.dismissViewControllerAnimated(false) { 
+      
+    }
+  }
   
   func timerExplode() {
     

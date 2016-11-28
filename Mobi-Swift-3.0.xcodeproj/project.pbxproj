@@ -15,8 +15,6 @@
 		B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
 		B70898331DD10102008DA1D9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = B70898321DD10102008DA1D9 /* check.png */; };
-		B70B5A991DE899700026B187 /* LoginFirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70B5A971DE899700026B187 /* LoginFirebaseViewController.swift */; };
-		B70B5A9A1DE899700026B187 /* LoginFirebaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B70B5A981DE899700026B187 /* LoginFirebaseViewController.xib */; };
 		B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */; };
 		B70DA8981DB1593900BFCB34 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */; };
 		B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */; };
@@ -37,7 +35,6 @@
 		B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B736813F1D590BA300EC94A9 /* LaunchScreen.storyboard */; };
 		B74285DF1DE34DFC00734AFA /* NoPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74285DE1DE34DFC00734AFA /* NoPostsTableViewCell.swift */; };
 		B74285E11DE3669500734AFA /* ShortDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74285E01DE3669500734AFA /* ShortDescriptionTableViewCell.swift */; };
-		B74285E31DE3796D00734AFA /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B74285E21DE3796D00734AFA /* splashScreen.png */; };
 		B7467F001DE4D6B800FDE9A2 /* mobi-2971b028fe11.json in Resources */ = {isa = PBXBuildFile; fileRef = B7467EFF1DE4D6B800FDE9A2 /* mobi-2971b028fe11.json */; };
 		B7467F021DE5E5F700FDE9A2 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7467F011DE5E5F700FDE9A2 /* ImageManager.swift */; };
 		B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74B0E5D1D6F6B4A00012D8E /* MusicTableViewCell.swift */; };
@@ -105,10 +102,18 @@
 		B77D31471DE8C2AB0034CB2B /* icone-coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31441DE8C2AB0034CB2B /* icone-coracao.png */; };
 		B77D31481DE8C2AB0034CB2B /* icone-grafico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31451DE8C2AB0034CB2B /* icone-grafico.png */; };
 		B77D31491DE8C2AB0034CB2B /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31461DE8C2AB0034CB2B /* icone-local.png */; };
-		B77D314F1DE8C7110034CB2B /* loginScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D314E1DE8C7110034CB2B /* loginScreen.png */; };
 		B77D31511DE8C8770034CB2B /* heartRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31501DE8C8770034CB2B /* heartRed.png */; };
 		B77D31531DE8CB400034CB2B /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31521DE8CB400034CB2B /* heart.png */; };
 		B77D31551DE8CBDF0034CB2B /* heartNoFill.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31541DE8CBDF0034CB2B /* heartNoFill.png */; };
+		B77D31571DEC973E0034CB2B /* LocalCitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D31561DEC973E0034CB2B /* LocalCitiesTableViewCell.swift */; };
+		B77D31591DECA01C0034CB2B /* SocialNetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D31581DECA01B0034CB2B /* SocialNetworkTableViewCell.swift */; };
+		B77D31631DECAA930034CB2B /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31621DECAA930034CB2B /* splashScreen.png */; };
+		B77D31651DECAAA90034CB2B /* loginScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31641DECAAA90034CB2B /* loginScreen.png */; };
+		B77D31671DECB6470034CB2B /* TwiterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31661DECB6470034CB2B /* TwiterIcon.png */; };
+		B77D31691DECB6540034CB2B /* InstagramIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31681DECB6540034CB2B /* InstagramIcon.png */; };
+		B77D316B1DECB6590034CB2B /* FacebookIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D316A1DECB6590034CB2B /* FacebookIcon.png */; };
+		B77D316D1DECB6EE0034CB2B /* Mobiabert.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D316C1DECB6EE0034CB2B /* Mobiabert.png */; };
+		B77D31711DECBADB0034CB2B /* anuncio3.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31701DECBADB0034CB2B /* anuncio3.png */; };
 		B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77DEA6C1D77567700695546 /* FileSupport.swift */; };
 		B781A2781DAC18FE00FCBCD7 /* WallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B781A2771DAC18FE00FCBCD7 /* WallTableViewCell.swift */; };
 		B7842AC81DB52AC5002550F3 /* GnSDKObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7842AC71DB52AC5002550F3 /* GnSDKObjC.framework */; };
@@ -141,7 +146,6 @@
 		B78FE4151DD3988A00D7551B /* arrowR.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4141DD3988A00D7551B /* arrowR.png */; };
 		B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4161DD3B29F00D7551B /* anuncio.png */; };
 		B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4181DD3B7BB00D7551B /* anuncio2.png */; };
-		B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41A1DD3B92D00D7551B /* anuncio3.png */; };
 		B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */; };
 		B78FE41F1DD4CD8300D7551B /* logo-brancaAbert.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */; };
 		B78FE4211DD4CFBB00D7551B /* arrowWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4201DD4CFBB00D7551B /* arrowWhite.png */; };
@@ -218,8 +222,6 @@
 		B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		B70898321DD10102008DA1D9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
-		B70B5A971DE899700026B187 /* LoginFirebaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFirebaseViewController.swift; sourceTree = "<group>"; };
-		B70B5A981DE899700026B187 /* LoginFirebaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginFirebaseViewController.xib; sourceTree = "<group>"; };
 		B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSupport.swift; sourceTree = "<group>"; };
 		B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListTableViewController.swift; sourceTree = "<group>"; };
@@ -242,7 +244,6 @@
 		B73681421D590BA300EC94A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B74285DE1DE34DFC00734AFA /* NoPostsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPostsTableViewCell.swift; sourceTree = "<group>"; };
 		B74285E01DE3669500734AFA /* ShortDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortDescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		B74285E21DE3796D00734AFA /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
 		B7467EFF1DE4D6B800FDE9A2 /* mobi-2971b028fe11.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "mobi-2971b028fe11.json"; sourceTree = "<group>"; };
 		B7467F011DE5E5F700FDE9A2 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		B74B0E5D1D6F6B4A00012D8E /* MusicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
@@ -321,10 +322,18 @@
 		B77D31441DE8C2AB0034CB2B /* icone-coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-coracao.png"; sourceTree = "<group>"; };
 		B77D31451DE8C2AB0034CB2B /* icone-grafico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-grafico.png"; sourceTree = "<group>"; };
 		B77D31461DE8C2AB0034CB2B /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
-		B77D314E1DE8C7110034CB2B /* loginScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginScreen.png; sourceTree = "<group>"; };
 		B77D31501DE8C8770034CB2B /* heartRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRed.png; sourceTree = "<group>"; };
 		B77D31521DE8CB400034CB2B /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		B77D31541DE8CBDF0034CB2B /* heartNoFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartNoFill.png; sourceTree = "<group>"; };
+		B77D31561DEC973E0034CB2B /* LocalCitiesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCitiesTableViewCell.swift; sourceTree = "<group>"; };
+		B77D31581DECA01B0034CB2B /* SocialNetworkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNetworkTableViewCell.swift; sourceTree = "<group>"; };
+		B77D31621DECAA930034CB2B /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
+		B77D31641DECAAA90034CB2B /* loginScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginScreen.png; sourceTree = "<group>"; };
+		B77D31661DECB6470034CB2B /* TwiterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwiterIcon.png; sourceTree = "<group>"; };
+		B77D31681DECB6540034CB2B /* InstagramIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstagramIcon.png; sourceTree = "<group>"; };
+		B77D316A1DECB6590034CB2B /* FacebookIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookIcon.png; sourceTree = "<group>"; };
+		B77D316C1DECB6EE0034CB2B /* Mobiabert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mobiabert.png; sourceTree = "<group>"; };
+		B77D31701DECBADB0034CB2B /* anuncio3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio3.png; sourceTree = "<group>"; };
 		B77DEA6B1D774AEF00695546 /* Mobi-Swift-3.0-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobi-Swift-3.0-Bridging-Header.h"; sourceTree = "<group>"; };
 		B77DEA6C1D77567700695546 /* FileSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSupport.swift; sourceTree = "<group>"; };
 		B781A2771DAC18FE00FCBCD7 /* WallTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallTableViewCell.swift; sourceTree = "<group>"; };
@@ -358,7 +367,6 @@
 		B78FE4141DD3988A00D7551B /* arrowR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowR.png; sourceTree = "<group>"; };
 		B78FE4161DD3B29F00D7551B /* anuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio.png; sourceTree = "<group>"; };
 		B78FE4181DD3B7BB00D7551B /* anuncio2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio2.png; sourceTree = "<group>"; };
-		B78FE41A1DD3B92D00D7551B /* anuncio3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio3.png; sourceTree = "<group>"; };
 		B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-pretaAbert.png"; sourceTree = "<group>"; };
 		B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-brancaAbert.png"; sourceTree = "<group>"; };
 		B78FE4201DD4CFBB00D7551B /* arrowWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowWhite.png; sourceTree = "<group>"; };
@@ -501,6 +509,7 @@
 				B7B1B94E1DC1238C00F6ED7A /* WallAudioPlayerTableViewCell.swift */,
 				B784D2CF1DB024140016A405 /* NormalProgramTableViewCell.swift */,
 				B764CE101DB7D2D600BFCE76 /* WallImageTableViewCell.swift */,
+				B77D31581DECA01B0034CB2B /* SocialNetworkTableViewCell.swift */,
 			);
 			name = "Radio Cells";
 			sourceTree = "<group>";
@@ -590,7 +599,6 @@
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
 				B7BB84AB1D9DA7B20033D823 /* like.png */,
-				B74285E21DE3796D00734AFA /* splashScreen.png */,
 				B77D31521DE8CB400034CB2B /* heart.png */,
 				B70898321DD10102008DA1D9 /* check.png */,
 				B78FE40C1DD37DDE00D7551B /* pauseWhite.png */,
@@ -600,6 +608,9 @@
 				B7F86D991DDF699D00191F2B /* user-add.png */,
 				B7F86D9A1DDF699D00191F2B /* user-remove.png */,
 				B74B0E671D6F762400012D8E /* starOFF.png */,
+				B77D31661DECB6470034CB2B /* TwiterIcon.png */,
+				B77D316A1DECB6590034CB2B /* FacebookIcon.png */,
+				B77D31681DECB6540034CB2B /* InstagramIcon.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -667,8 +678,6 @@
 				B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */,
 				B7EFB40B1DDCEC8300F0158F /* UserDetailTableViewController.swift */,
 				B7F86D971DDF58D700191F2B /* AboutViewController.swift */,
-				B70B5A971DE899700026B187 /* LoginFirebaseViewController.swift */,
-				B70B5A981DE899700026B187 /* LoginFirebaseViewController.xib */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -724,6 +733,7 @@
 				B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */,
 				B71FA3931DBFF0710001356F /* AdsTableViewCell.swift */,
 				B74285E01DE3669500734AFA /* ShortDescriptionTableViewCell.swift */,
+				B77D31561DEC973E0034CB2B /* LocalCitiesTableViewCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -777,16 +787,18 @@
 		B7D90E101D5A579300D15089 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B77D316C1DECB6EE0034CB2B /* Mobiabert.png */,
 				B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */,
 				B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */,
+				B77D31621DECAA930034CB2B /* splashScreen.png */,
 				B702CF561DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png */,
-				B77D314E1DE8C7110034CB2B /* loginScreen.png */,
+				B77D31641DECAAA90034CB2B /* loginScreen.png */,
 				B702CF501DA2CA2A007FB335 /* avatar.png */,
 				B7D584E11D5D2085003D5A1F /* okImage.png */,
 				B74B0E611D6F6F1600012D8E /* happy.jpg */,
 				B78FE4161DD3B29F00D7551B /* anuncio.png */,
 				B78FE4181DD3B7BB00D7551B /* anuncio2.png */,
-				B78FE41A1DD3B92D00D7551B /* anuncio3.png */,
+				B77D31701DECBADB0034CB2B /* anuncio3.png */,
 				B759C0211D6E10540005515F /* clock-icon.png */,
 				B7BB84A71D9D92F10033D823 /* heartRedFilled.png */,
 				B764CE141DB7F5BF00BFCE76 /* micImage.png */,
@@ -941,9 +953,11 @@
 				B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */,
 				B74B0E681D6F762400012D8E /* starOFF.png in Resources */,
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
+				B77D316B1DECB6590034CB2B /* FacebookIcon.png in Resources */,
 				B76841DA1DA58E5400ABBC78 /* play1.png in Resources */,
 				B77D31531DE8CB400034CB2B /* heart.png in Resources */,
 				B77D31511DE8C8770034CB2B /* heartRed.png in Resources */,
+				B77D31631DECAA930034CB2B /* splashScreen.png in Resources */,
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
 				B77D31491DE8C2AB0034CB2B /* icone-local.png in Resources */,
 				B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */,
@@ -958,14 +972,13 @@
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
 				B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */,
 				B702CF571DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png in Resources */,
-				B74285E31DE3796D00734AFA /* splashScreen.png in Resources */,
+				B77D31711DECBADB0034CB2B /* anuncio3.png in Resources */,
 				B764CE1A1DB7F75D00BFCE76 /* PlayButton@2x.png in Resources */,
 				B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */,
 				B72282921DD24C3E007979A3 /* menu.png in Resources */,
 				B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */,
 				B78FE4151DD3988A00D7551B /* arrowR.png in Resources */,
 				B78FE41F1DD4CD8300D7551B /* logo-brancaAbert.png in Resources */,
-				B78FE41B1DD3B92D00D7551B /* anuncio3.png in Resources */,
 				B70DFA4D1D70C84C000DDBD6 /* pause2.png in Resources */,
 				B78FE4231DD4DC2B00D7551B /* HeaderViewContact.xib in Resources */,
 				B7F530F81D6258F200831561 /* marker.png in Resources */,
@@ -974,14 +987,12 @@
 				B761A5491DD1119100EB794A /* FirebaseAuthUI.strings in Resources */,
 				B78FE4211DD4CFBB00D7551B /* arrowWhite.png in Resources */,
 				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
-				B77D314F1DE8C7110034CB2B /* loginScreen.png in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
 				B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */,
 				B7842AD51DB685BB002550F3 /* photo_64x64.png in Resources */,
 				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
-				B70B5A9A1DE899700026B187 /* LoginFirebaseViewController.xib in Resources */,
 				B7842AD41DB685BB002550F3 /* audio_64x64.png in Resources */,
 				B7B1B9511DC25D1A00F6ED7A /* play3.png in Resources */,
 				B71E2AA71D76123E00451DED /* hamburgerIcon.png in Resources */,
@@ -992,7 +1003,9 @@
 				B76841D81DA58E5400ABBC78 /* unlike1.png in Resources */,
 				B764CE1B1DB7F75D00BFCE76 /* StopButton@2x.png in Resources */,
 				B76841D71DA58E5400ABBC78 /* like1.png in Resources */,
+				B77D31671DECB6470034CB2B /* TwiterIcon.png in Resources */,
 				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
+				B77D31691DECB6540034CB2B /* InstagramIcon.png in Resources */,
 				B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */,
 				B76841DB1DA58E5400ABBC78 /* love1.png in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
@@ -1000,7 +1013,9 @@
 				B7F86D9C1DDF699D00191F2B /* user-remove.png in Resources */,
 				B76841D91DA58E5400ABBC78 /* love2.png in Resources */,
 				B761A54D1DD1162200EB794A /* GoogleService-Info.plist in Resources */,
+				B77D31651DECAAA90034CB2B /* loginScreen.png in Resources */,
 				B70898331DD10102008DA1D9 /* check.png in Resources */,
+				B77D316D1DECB6EE0034CB2B /* Mobiabert.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,6 +1087,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B77D31571DEC973E0034CB2B /* LocalCitiesTableViewCell.swift in Sources */,
 				B71FA3941DBFF0710001356F /* AdsTableViewCell.swift in Sources */,
 				B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */,
 				B71FA3981DBFF3670001356F /* AdsManager.swift in Sources */,
@@ -1087,7 +1103,6 @@
 				B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */,
 				B7E697341D59162D00EC276F /* LoadViewController.swift in Sources */,
 				B77C49A21D8C68D600AFF826 /* STKDataSource.m in Sources */,
-				B70B5A991DE899700026B187 /* LoginFirebaseViewController.swift in Sources */,
 				B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */,
 				B7D90DFD1D5A500500D15089 /* InitialTableViewController.swift in Sources */,
 				B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */,
@@ -1102,6 +1117,7 @@
 				B781A2781DAC18FE00FCBCD7 /* WallTableViewCell.swift in Sources */,
 				B74BB93B1D78ABF80076FE2D /* ViewController.swift in Sources */,
 				B77C49A61D8C68D600AFF826 /* STKQueueEntry.m in Sources */,
+				B77D31591DECA01C0034CB2B /* SocialNetworkTableViewCell.swift in Sources */,
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
 				B764F50D1DBA7F270073D268 /* InfoRds.swift in Sources */,

@@ -13,7 +13,7 @@ import FirebaseAuthUI
 import ChameleonFramework
 
 class MenuTableViewController: UITableViewController {
-  var menuArray = ["Início","Gêneros","Locais","Notícias","Dormir","Configurações","Sobre"]
+  var menuArray = ["Início","Gêneros","Estados","Notícias","Dormir","Configurações","Sobre"]
   var switchTimer = NSTimer()
   
   
@@ -290,8 +290,8 @@ class MenuTableViewController: UITableViewController {
   
   func defineColors() {
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
+    let colorRose = DataManager.sharedInstance.pinkColor.color
+    let colorBlue = DataManager.sharedInstance.blueColor.color
     let colorBlack = DataManager.sharedInstance.interfaceColor.color
     let colorWhite =  ColorRealm(name: 45, red: components[0]+0.2, green: components[1]+0.2, blue: components[2]+0.2, alpha: 1).color
 

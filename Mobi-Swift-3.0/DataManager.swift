@@ -119,6 +119,8 @@ class DataManager: NSObject {
   
   var images = [ImageManager]()
   
+  var blueColor:ColorRealm!
+  var pinkColor:ColorRealm!
   
   struct ProgramDays {
     var isSunday:Bool

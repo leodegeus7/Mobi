@@ -291,9 +291,9 @@ class PlayerViewController: UIViewController {
       viewLoadingProgram.hidden = true
       viewWithoutProgram.hidden = false
       viewWithoutProgram.alpha = 0.8
-      labelWithoutProgram.text = "Não há informação de programação"
+      labelWithoutProgram.text = ""
       labelGuests.text = "Convidados"
-      labelProgramName.text = "Programa"
+      labelProgramName.text = "Sem informação de programação"
       imagePerson.image = UIImage(named: "logo-brancaAbert.png")
       labelNamePerson.text = "Apresentador"
       labelWithoutProgram.textColor = DataManager.sharedInstance.interfaceColor.color
@@ -582,7 +582,7 @@ class PlayerViewController: UIViewController {
     labelMusicName.text = "Musica"
     buttonNLike.alpha = 0.6
     buttonLike.alpha = 0.6
-    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.text = "Sem informação da música"
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
     let imageCD = UIImage(named: "logo-brancaAbert.png")
     var imageCDView = UIImageView(frame: imageMusic.frame)
@@ -603,10 +603,10 @@ class PlayerViewController: UIViewController {
     imageMusic.backgroundColor = UIColor.clearColor()
     imageMusic.alpha = 0.6
     labelArtist.text = "Artista"
-    labelMusicName.text = "Musica"
+    labelMusicName.text = "Sem informação da música"
     buttonNLike.alpha = 0.6
     buttonLike.alpha = 0.6
-    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.text = ""
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
     let imageCD = UIImage(named: "musicIcon.png")
     var imageCDView = UIImageView(frame: imageMusic.frame)

@@ -39,9 +39,9 @@ class ActualProgramTableViewCell: UITableViewCell {
   func lockView() {
     viewLocked.alpha = 0.8
     viewLocked.hidden = false
-    labelLocked.text = "Não há informação de programação"
+    labelLocked.text = ""
     labelGuests.text = "Convidados"
-    labelName.text = "Programa"
+    labelName.text = "Sem informação de programação"
     imagePerson.image = UIImage(named: "logo-brancaAbert.png")
     labelNamePerson.text = "Apresentador"
     labelSecondName.text = ""

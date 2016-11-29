@@ -151,6 +151,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     }
   }
   
+  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+
+  }
+  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if indexPath.row <= selectedRadioArray.count-1 {
       let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
@@ -489,12 +493,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     else if selectedMode == .Favorite {
       str = "Você não marcou nenhuma rádio como favorita, retorne ao início e marque alguma!"
       if !DataManager.sharedInstance.isLogged {
-        str = "Logue com sua conta no menu ao lado para conseguir favoritar radios"
+        str = "Logue com sua conta no menu ao lado"
       }
     } else if selectedMode == .Recent {
       str = "Selecione alguma rádio e as reproduza para que possamos gerar seu histórico"
       if !DataManager.sharedInstance.isLogged {
-        str = "Logue com sua conta no menu ao lado para conseguir ver suas radios recentes"
+        str = "Logue com sua conta no menu ao lado"
       }
     } else {
       str = "Nenhuma radio para mostrar"

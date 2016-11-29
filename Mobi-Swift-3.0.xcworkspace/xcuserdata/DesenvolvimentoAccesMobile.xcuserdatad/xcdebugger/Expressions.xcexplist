@@ -1668,10 +1668,28 @@
          contextName = "SearchTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:SearchTableViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "!isOneTimeSearched">
+            </PersistentString>
+            <PersistentString
                value = "searchCities.count">
             </PersistentString>
             <PersistentString
+               value = "searchGenre.count">
+            </PersistentString>
+            <PersistentString
                value = "searchRadios.count">
+            </PersistentString>
+            <PersistentString
+               value = "searchCities.count == 0">
+            </PersistentString>
+            <PersistentString
+               value = "!isOneTimeSearched &amp;&amp; searchRadios.count == 0 &amp;&amp; searchGenre.count == 0 &amp;&amp; searchStates.count == 0 &amp;&amp; searchCities.count == 0 &amp;&amp; searchUsers.count == 0">
+            </PersistentString>
+            <PersistentString
+               value = "searchUsers.count == 0">
+            </PersistentString>
+            <PersistentString
+               value = "searchStates.count == 0">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -420,6 +420,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         }
       }
       
+      
+
+        
+        
       DataManager.sharedInstance.configApp.updatecoordColorConfig(tagButton)
       StreamingRadioManager.sharedInstance.sendNotification()
       

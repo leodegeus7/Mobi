@@ -82,10 +82,10 @@ class MusicTableViewCell: UITableViewCell {
     imageMusic.backgroundColor = UIColor.clearColor()
     imageMusic.alpha = 0.6
     labelArtist.text = "Artista"
-    labelMusicName.text = "Musica"
+    labelMusicName.text = "Não há informação da música"
     buttonNLike.alpha = 0.6
     buttonLike.alpha = 0.6
-    labelWithoutMusic.text = "Não há informação da música"
+    labelWithoutMusic.text = ""
     labelWithoutMusic.textColor = DataManager.sharedInstance.interfaceColor.color
     //if imageMusic.tintColor != DataManager.sharedInstance.interfaceColor.color {
       //let imageCD = UIImage(named: "musicIcon.png")

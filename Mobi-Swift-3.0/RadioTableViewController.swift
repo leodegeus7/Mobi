@@ -98,7 +98,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     similarRequest.requestSimilarRadios(0, pageSize: 20, radioToCompare: actualRadio) { (resultSimilar) in
       self.similarRadios = resultSimilar
       if self.selectedMode == .DetailRadio {
-        self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+        self.tableView.reloadSections(NSIndexSet(index: 4), withRowAnimation: .Automatic)
       }
     }
     
@@ -201,14 +201,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       if section == 2 {
         return 2
       }
-      else if section == 3 {
+      else if section == 4 {
         if similarRadios.count <= 3 {
-          return similarRadios.count
+          return similarRadios.count + 1
         } else {
-          return 4
+          return 4 + 1
         }
-      } else if section == 4 {
-        return 3
+      } else if section == 3 {
+        return 2
       } else {
         return 1
       }
@@ -410,32 +410,62 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           })
           return cell
         }
-      case 3:
-        if indexPath.row <= similarRadios.count-1 {
-          let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-          cell.labelName.text = similarRadios[indexPath.row].name
-          if let address = similarRadios[indexPath.row].address {
-            cell.labelLocal.text = address.formattedLocal
-          }
-          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(similarRadios[indexPath.row].thumbnail)))
-          cell.labelDescriptionOne.text = "\(similarRadios[indexPath.row].likenumber)"
-          cell.widthTextOne.constant = 30
-          cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-          cell.labelDescriptionTwo.text = ""
-          if similarRadios[indexPath.row].isFavorite {
-            cell.imageSmallOne.image = UIImage(named: "heartRed.png")
-          } else {
-            cell.imageSmallOne.image = UIImage(named: "heart.png")
-          }
-          cell.tag = 120
-          return cell
-        } else {
-          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
-          cell.labelReadMore.text = "Ver Mais"
-          cell.tag = 140
-          return cell
-        }
       case 4:
+        if similarRadios.count >= 4 {
+          if indexPath.row == 4 {
+            let cell = UITableViewCell()
+            return cell
+          }
+          else if indexPath.row <= similarRadios.count-1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+            cell.labelName.text = similarRadios[indexPath.row].name
+            if let address = similarRadios[indexPath.row].address {
+              cell.labelLocal.text = address.formattedLocal
+            }
+            cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(similarRadios[indexPath.row].thumbnail)))
+            cell.labelDescriptionOne.text = "\(similarRadios[indexPath.row].likenumber)"
+            cell.widthTextOne.constant = 30
+            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+            cell.labelDescriptionTwo.text = ""
+            if similarRadios[indexPath.row].isFavorite {
+              cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+            } else {
+              cell.imageSmallOne.image = UIImage(named: "heart.png")
+            }
+            cell.tag = 120
+            return cell
+          } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+            cell.labelReadMore.text = "Ver Mais"
+            cell.tag = 140
+            return cell
+          }
+        } else {
+          if indexPath.row <= similarRadios.count-1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+            cell.labelName.text = similarRadios[indexPath.row].name
+            if let address = similarRadios[indexPath.row].address {
+              cell.labelLocal.text = address.formattedLocal
+            }
+            cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(similarRadios[indexPath.row].thumbnail)))
+            cell.labelDescriptionOne.text = "\(similarRadios[indexPath.row].likenumber)"
+            cell.widthTextOne.constant = 30
+            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+            cell.labelDescriptionTwo.text = ""
+            if similarRadios[indexPath.row].isFavorite {
+              cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+            } else {
+              cell.imageSmallOne.image = UIImage(named: "heart.png")
+            }
+            cell.tag = 120
+            return cell
+          } else {
+            let cell = UITableViewCell()
+            cell.selectionStyle = .None
+            return cell
+          }
+        }
+      case 3:
         switch indexPath.row {
         case 0:
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
@@ -678,13 +708,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       case 0:
         return ""
       case 1:
-        return "AO VIVO"
+        return "Ao vivo"
       case 2:
-        return "PROGRAMA ATUAL"
+        return "Programa atual"
       case 3:
-        return "RADIOS SEMELHANTES"
+        return "Outros"
       case 4:
-        return "OUTROS"
+        return "Rádios semelhantes"
       default:
         return ""
       }

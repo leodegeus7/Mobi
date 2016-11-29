@@ -75,6 +75,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch selectedMode {
     case .All:
+      if isOneTimeSearched && searchRadios.count == 0 && searchGenre.count == 0 && searchStates.count == 0 && searchCities.count == 0 && searchUsers.count == 0 {
+        return 0
+      }
       switch section {
       case 0:
         if searchRadios.count <= 3 {

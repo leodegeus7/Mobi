@@ -233,7 +233,9 @@ class MenuTableViewController: UITableViewController {
         defineColors()
         self.dismissViewControllerAnimated(true, completion: {
         })
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+        DataManager.sharedInstance.navigationController.pushViewController(vc!, animated: true)
       }
       func cancelAction() {
         self.dismissViewControllerAnimated(true, completion: nil)

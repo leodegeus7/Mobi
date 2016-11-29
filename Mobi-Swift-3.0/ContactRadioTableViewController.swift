@@ -14,50 +14,50 @@ class ContactRadioTableViewController: FormViewController {
   var contactRadio:ContactRadio!
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      activityIndicator.center = self.view.center
-      activityIndicator.startAnimating()
-      activityIndicator.hidden = true
-      tableView?.separatorStyle = .None
-      self.view.addSubview(activityIndicator)
-      self.title = "Contato"
-      let requestContact = RequestManager()
-      requestContact.requestPhonesOfStation(actualRadio) { (resultPhones) in
-        let requestSocial = RequestManager()
-        requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
-          self.activityIndicator.hidden = true
-          self.activityIndicator.removeFromSuperview()
-          var face = ""
-          var twitter = ""
-          var instagram = ""
-          var email = ""
-          for social in resultSocial {
-            if social.type == "Facebook" {
-              face = social.text
-            }
-            else if social.type == "Instagram" {
-              instagram = social.text
-            }
-            else if social.type == "Twitter" {
-              twitter = social.text
-            }
-            else if social.type == "E-mail" {
-              email = social.text
-            }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    activityIndicator.center = self.view.center
+    activityIndicator.startAnimating()
+    activityIndicator.hidden = true
+    tableView?.separatorStyle = .None
+    self.view.addSubview(activityIndicator)
+    self.title = "Contato"
+    let requestContact = RequestManager()
+    requestContact.requestPhonesOfStation(actualRadio) { (resultPhones) in
+      let requestSocial = RequestManager()
+      requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        var face = ""
+        var twitter = ""
+        var instagram = ""
+        var email = ""
+        for social in resultSocial {
+          if social.type == "Facebook" {
+            face = social.text
           }
-          let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: resultPhones)
-          self.contactRadio = contact
-          self.fillTableView()
-        })
-
-      }
+          else if social.type == "Instagram" {
+            instagram = social.text
+          }
+          else if social.type == "Twitter" {
+            twitter = social.text
+          }
+          else if social.type == "E-mail" {
+            email = social.text
+          }
+        }
+        let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: resultPhones)
+        self.contactRadio = contact
+        self.fillTableView()
+      })
+      
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    
+  }
   func fillTableView() {
     form +++
       Section() {row in
@@ -110,13 +110,34 @@ class ContactRadioTableViewController: FormViewController {
     }
     
     if contactRadio.existSocialNew {
-      form +++ LabelRow("Redes Sociais")
+      form +++ Section("Redes Sociais")
       if contactRadio.facebook != "" {
         let section = form.last!
         section
           <<< LabelRow(){ row in
             row.title = "Facebook"
-            row.value = contactRadio.facebook
+            let arrayOfSubString = contactRadio.facebook.componentsSeparatedByString("/")
+            if arrayOfSubString.count > 0 {
+              if (arrayOfSubString.last)!.characters.count > 0 {
+                row.value = "@\((arrayOfSubString.last)!)"
+              } else {
+                if (arrayOfSubString[arrayOfSubString.count-2]).characters.count > 0 {
+                  row.value = "@\((arrayOfSubString[arrayOfSubString.count-2]))"
+                } else {
+                  row.value = contactRadio.facebook
+                }
+              }
+            }
+            else {
+              row.value = contactRadio.facebook
+            }
+            row.onCellSelection({ (cell, row) in
+              if let url = NSURL(string: self.contactRadio.facebook) {
+                UIApplication.sharedApplication().openURL(url)
+              } else {
+                self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.facebook)!", action: "Ok")
+              }
+            })
         }
       }
       if contactRadio.twitter != "" {
@@ -124,34 +145,76 @@ class ContactRadioTableViewController: FormViewController {
         section
           <<< LabelRow(){ row in
             row.title = "Twitter"
-            row.value = contactRadio.twitter
+            let arrayOfSubString = contactRadio.twitter.componentsSeparatedByString("/")
+            if arrayOfSubString.count > 0 {
+              if (arrayOfSubString.last)!.characters.count > 0 {
+                row.value = "@\((arrayOfSubString.last)!)"
+              } else {
+                if (arrayOfSubString[arrayOfSubString.count-2]).characters.count > 0 {
+                  row.value = "@\((arrayOfSubString[arrayOfSubString.count-2]))"
+                } else {
+                  row.value = contactRadio.twitter
+                }
+              }
+            }
+            else {
+                row.value = contactRadio.twitter
+            }
+              row.onCellSelection({ (cell, row) in
+                if let url = NSURL(string: self.contactRadio.twitter) {
+                  UIApplication.sharedApplication().openURL(url)
+                } else {
+                  self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.twitter)!", action: "Ok")
+                }
+              })
+            }
         }
-      }
-      if contactRadio.instagram != "" {
-        let section = form.last!
-        section
-          <<< LabelRow(){ row in
-            row.title = "Instagram"
-            row.value = contactRadio.instagram
+        if contactRadio.instagram != "" {
+          let section = form.last!
+          section
+            <<< LabelRow(){ row in
+              row.title = "Instagram"
+              let arrayOfSubString = contactRadio.instagram.componentsSeparatedByString("/")
+              if arrayOfSubString.count > 0 {
+                if (arrayOfSubString.last)!.characters.count > 0 {
+                  row.value = "@\((arrayOfSubString.last)!)"
+                } else {
+                  if (arrayOfSubString[arrayOfSubString.count-2]).characters.count > 0 {
+                    row.value = "@\((arrayOfSubString[arrayOfSubString.count-2]))"
+                  } else {
+                    row.value = contactRadio.instagram
+                  }
+                }
+                
+              } else {
+                row.value = contactRadio.instagram
+              }
+              row.onCellSelection({ (cell, row) in
+                if let url = NSURL(string: self.contactRadio.instagram) {
+                  UIApplication.sharedApplication().openURL(url)
+                } else {
+                  self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.instagram)!", action: "Ok")
+                }
+              })
+          }
         }
-      }
-      if contactRadio.email != "" {
-        let section = form.last!
-        section
-          <<< LabelRow(){ row in
-            row.title = "E-mail"
-            row.value = contactRadio.email
+        if contactRadio.email != "" {
+          let section = form.last!
+          section
+            <<< LabelRow(){ row in
+              row.title = "E-mail"
+              row.value = contactRadio.email
+          }
         }
       }
     }
   }
-}
-
-class EurekaCustomViewHeader: UIView {
   
-  @IBOutlet weak var imageLogo: UIImageView!
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
+  class EurekaCustomViewHeader: UIView {
+    
+    @IBOutlet weak var imageLogo: UIImageView!
+    
+    required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
+    }
 }

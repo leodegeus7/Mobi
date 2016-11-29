@@ -367,6 +367,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   
   override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    //if motion == .MotionShake {
     if motion == .MotionShake {
       if colorArray == colorArray2 {
         colorArray = colorArray1

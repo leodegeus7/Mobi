@@ -103,6 +103,10 @@ class LocalCities2TableViewController: UITableViewController {
       radioListVC.superSegue = "detailCity"
       
     }
+    
+    let backButton = UIBarButtonItem()
+    backButton.title = "Back"
+    navigationItem.backBarButtonItem = backButton
   }
   
   

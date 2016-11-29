@@ -886,7 +886,6 @@
 				B73681311D590BA300EC94A9 /* Resources */,
 				AA7F945D245115C54D374922 /* [CP] Embed Pods Frameworks */,
 				271676F7B6E84722F4C5B8F7 /* [CP] Copy Pods Resources */,
-				B78976791DE4CF7A00F049C3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1051,19 +1050,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobi-Swift-3.0/Pods-Mobi-Swift-3.0-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		B78976791DE4CF7A00F049C3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:464130936707:ios:cf88dc421de74235\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym ${SRCROOT}/Mobi-Swift-3.0/mobi-2971b028fe11.json";
 		};
 		EED24BDE957C24C5945ABC1D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -2818,7 +2818,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
                                 <rect key="frame" x="20" y="119" width="374" height="587"/>
-                                <mutableString key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
+                                <string key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
 
     É composto por três pilares:
 
@@ -2828,7 +2828,7 @@
 
         • o portal MOBI PLAY
 
-    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</mutableString>
+    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -6632,8 +6632,8 @@
         <image name="unlike1.png" width="22" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="18K-qB-l9h"/>
         <segue reference="bzi-4U-0gJ"/>
-        <segue reference="OrG-jc-k0m"/>
+        <segue reference="18K-qB-l9h"/>
+        <segue reference="10k-dh-e21"/>
     </inferredMetricsTieBreakers>
 </document>

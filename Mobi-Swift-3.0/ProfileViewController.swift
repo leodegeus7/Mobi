@@ -324,6 +324,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
           label.text = myUser.address.city
         }
       }
+    } else {
+      if let city = slackCity {
+        city.removeFromSuperview()
+      }
     }
     if let address = myUser.address {
       if address.state == ""{
@@ -495,8 +499,59 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
           let requestManagerUser = RequestManager()
           requestManagerUser.requestMyUserInfo { (result) in
             self.myUser = DataManager.sharedInstance.myUser
-            self.completeProfileViewInfo()
-            self.view.hidden = false
+            if self.myUser.name == "" {
+              var changesArray = [Dictionary<String,AnyObject>]()
+              var dicPara = Dictionary<String,AnyObject>()
+              dicPara["parameter"] = "name"
+              dicPara["value"] = user?.displayName
+              changesArray.append(dicPara)
+              let editManager = RequestManager()
+              editManager.updateUserInfo(changesArray) { (result) in
+                requestManagerUser.requestMyUserInfo { (result) in
+                  self.myUser = DataManager.sharedInstance.myUser
+                  self.completeProfileViewInfo()
+                  self.buttonLogin.setTitle("Logout", forState: .Normal)
+                  self.view.hidden = false
+                  
+                  let requestFollowers = RequestManager()
+                  requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                    if resultNumberFollowers >= 0 {
+                      self.existFollowers = true
+                    }
+                    self.labelFollowers.text = "\(resultNumberFollowers)"
+                  }
+                  let requestFollowing = RequestManager()
+                  requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                    if resultNumberFollowing >= 0 {
+                      self.existFollowing = true
+                    }
+                    
+                    self.labelFollowing.text = "\(resultNumberFollowing)"
+                  }
+
+                }
+              }
+            } else {
+              self.completeProfileViewInfo()
+              self.buttonLogin.setTitle("Logout", forState: .Normal)
+              self.view.hidden = false
+              
+              let requestFollowers = RequestManager()
+              requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                if resultNumberFollowers > 0 {
+                  self.existFollowers = true
+                }
+                
+                self.labelFollowers.text = "\(resultNumberFollowers)"
+              }
+              let requestFollowing = RequestManager()
+              requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                if resultNumberFollowing > 0 {
+                  self.existFollowing = true
+                }
+                self.labelFollowing.text = "\(resultNumberFollowing)"
+              }
+            }
           }
         })
       })
@@ -510,57 +565,57 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     authUI.customStringsBundle = NSBundle.mainBundle()
     //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
     //    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
-//    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
+    //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
     
     Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.Contrast)
-
-//    
-//    //    let fir = FIRAuthPickerViewController(authUI: authUI)
-//    //
-
-//    //
-//    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-//    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-//    //
-//    //    let backgroudImage = UIImageView(frame: fir.view.frame)
-//    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-//    //
-//    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-//    //
-//    //    fir.view.backgroundColor = color
-//    //
-//    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
-//    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
-//    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
-//    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-//    //    image.alpha = 0.2
-//    //    image2.addSubview(image)
-//    //
-//    //
-//    //    fir.view.insertSubview(image2, atIndex: 0)
-//    //
-
-//
+    
+    //
+    //    //    let fir = FIRAuthPickerViewController(authUI: authUI)
+    //    //
+    
+    //    //
+    //    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+    //    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    //    //
+    //    //    let backgroudImage = UIImageView(frame: fir.view.frame)
+    //    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
+    //    //
+    //    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
+    //    //
+    //    //    fir.view.backgroundColor = color
+    //    //
+    //    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
+    //    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
+    //    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
+    //    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
+    //    //    image.alpha = 0.2
+    //    //    image2.addSubview(image)
+    //    //
+    //    //
+    //    //    fir.view.insertSubview(image2, atIndex: 0)
+    //    //
+    
+    //
     let fir2 = FIRAuthPickerViewController(authUI: authUI)
-//    //let fir = FIRAuthPickerViewController(authUI: authUI)
-//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-//    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
-//    
+    //    //let fir = FIRAuthPickerViewController(authUI: authUI)
+    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+    //    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
+    //
     
     
-//    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
-//    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
-//    logoImage.center = fir2.view.center
-//    logoImage.frame.origin.y = -30
-//    logoImage.frame.origin.x = -30
-//    fir2.view.addSubview(logoImage)
-//    fir2.
+    //    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
+    //    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
+    //    logoImage.center = fir2.view.center
+    //    logoImage.frame.origin.y = -30
+    //    logoImage.frame.origin.x = -30
+    //    fir2.view.addSubview(logoImage)
+    //    fir2.
     
     
     
-//    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
-//    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-//    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
+    //    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
+    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
+    //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
     
     UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
     UIImage(named: "loginScreen.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
@@ -568,11 +623,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     UIGraphicsEndImageContext()
     
     fir2.view.backgroundColor = UIColor(patternImage: image2)
-      //UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
+    //UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
     
     
     
-
+    
     return fir2
   }
   
@@ -791,7 +846,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
   }
   
-
+  
   
   
   

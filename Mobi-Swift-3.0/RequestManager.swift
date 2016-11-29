@@ -984,7 +984,7 @@ class RequestManager: NSObject {
             }
             
             
-            if email != "" && name != "" && id != -1 {
+            if email != "" && id != -1 {
               let address = AddressRealm(id: "\(addressID)", lat: "\(latitude)", long: "\(longitude)", country: "Brasil", city: city, state: state, street: streetName, streetNumber: streetNumber, zip: zipCode, repository: true)
               
               var user:UserRealm!
@@ -1056,7 +1056,7 @@ class RequestManager: NSObject {
                       var latitude:Double = -1
                       var longitude:Double = -1
                       var streetNumber = ""
-                      var imageIdentifier:ImageObject!
+                      var imageIdentifier = ImageObject()
                       
                       if let idAux = resultDic["id"]?.int {
                         id = idAux

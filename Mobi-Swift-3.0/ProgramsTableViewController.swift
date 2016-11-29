@@ -47,6 +47,13 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     actualScheduleWeekday = todayWeekDay
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 400
+    
+    let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+    swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+    self.view.addGestureRecognizer(swipeRight)
+    let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+    swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+    self.view.addGestureRecognizer(swipeLeft)
   }
   
   override func didReceiveMemoryWarning() {
@@ -63,6 +70,29 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     return 1
   }
   
+  func respondToSwipeGesture(gesture:UIGestureRecognizer) {
+    
+    if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+      switch swipeGesture.direction {
+      case UISwipeGestureRecognizerDirection.Right:
+        if weekDaysActualInt >= 0 {
+          if !(weekDaysActualInt-1 < 0) {
+            weekDaysActualInt -= 1
+          }
+          updateInterface()
+        }
+      case UISwipeGestureRecognizerDirection.Left:
+        if weekDaysActualInt < 6 {
+          if !(weekDaysActualInt-1 > 6) {
+            weekDaysActualInt += 1
+          }
+          updateInterface()
+        }
+      default:
+        break
+      }
+    }
+  }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if indexPath.section <= actualSchedulePrograms.count-1 {

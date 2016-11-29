@@ -68,7 +68,6 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     self.navigationItem.setLeftBarButtonItem(cancelButton, animated: false)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
-    textViewPublication.resignFirstResponder()
     textViewPublication.becomeFirstResponder()
     textViewPublication.autocorrectionType = UITextAutocorrectionType.No
     textViewPublication.selectedTextRange = textViewPublication.textRangeFromPosition(textViewPublication.beginningOfDocument, toPosition: textViewPublication.beginningOfDocument)
@@ -142,7 +141,13 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     return true
   }
   
+  func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    return true
+  }
   
+  override func viewDidAppear(animated: Bool) {
+        textViewPublication.becomeFirstResponder()
+  }
   
   @IBOutlet weak var bottomConstrain: NSLayoutConstraint!
   override func didReceiveMemoryWarning() {
@@ -159,7 +164,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
         if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
           requestManager.sendReviewPublication(actualRadio, text: textViewPublication.text, score: numberOfStars, completion: { (resultReview) in
             if resultReview {
-              self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua avaliação sobre a rádio \(self.actualRadio) foi enviada", okTitle: "Ok")
+              self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua avaliação sobre a rádio \(self.actualRadio.name) foi enviada", okTitle: "Ok")
             } else {
               Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
             }

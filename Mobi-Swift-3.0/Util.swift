@@ -190,6 +190,22 @@ class Util: NSObject {
       formatter.dateFormat = "EEE, dd MM yyyy HH:mm:ss zzz"
       return formatter.dateFromString(dateString)!
     }
+    if dateString.characters.count <= 9 {
+      if dateString.containsString("/") {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/M/yyyy"
+        let date = dateFormatter.dateFromString(dateString)
+        if let dateAux = date {
+         return dateAux
+        }
+        let dateFormatter2 = NSDateFormatter()
+        dateFormatter2.dateFormat = "d/MM/yyyy"
+        let date2 = dateFormatter.dateFromString(dateString)
+        if let dateAux = date2 {
+          return dateAux
+        }
+      }
+    }
     if dateString.characters.count == 10 {
       if !dateString.containsString("/") {
         let formatter = NSDateFormatter()

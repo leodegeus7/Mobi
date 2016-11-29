@@ -87,7 +87,8 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "createPublicationSegue" {
+    let ident = (segue.identifier)!
+    if ident == "createPublicacionSegue" {
       let createVC = (segue.destinationViewController as! SendPublicationViewController)
       createVC.actualMode = .Comment
       createVC.actualComment = actualComment

@@ -105,11 +105,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     let scoreRequest = RequestManager()
     scoreRequest.getRadioScore(actualRadio) { (resultScore) in
       if self.selectedMode == .DetailRadio {
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RadioDetailTableViewCell
-        if self.actualRadio.score == -1 {
-          cell.labelScore.text = "-"
-        } else {
-          cell.labelScore.text = "\(self.actualRadio.score)"
+        if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? RadioDetailTableViewCell {
+          
+          if self.actualRadio.score == -1 {
+            cell.labelScore.text = "-"
+          } else {
+            cell.labelScore.text = "\(self.actualRadio.score)"
+          }
         }
       }
     }
@@ -139,7 +141,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
       let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: [PhoneNumber()])
       self.contactRadio = contact
-      self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+      if self.selectedMode == .DetailRadio {
+        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+      }
     })
     
     

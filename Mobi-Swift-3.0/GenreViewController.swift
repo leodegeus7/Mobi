@@ -23,7 +23,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   var buttonLateralMenu = UIBarButtonItem()
   
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-  
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,7 +31,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
-    
+    notificationCenter.addObserver(self, selector: #selector(GenreViewController.freezeView), name: "freezeViews", object: nil)
     collectionView.backgroundView?.backgroundColor = UIColor.clearColor()
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     buttonLateralMenu.target = self.revealViewController()
@@ -63,6 +63,16 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     // Dispose of any resources that can be recreated.
   }
   
+  func freezeView() {
+    
+    if DataManager.sharedInstance.menuIsOpen {
+      self.collectionView.allowsSelection = false
+      self.collectionView.scrollEnabled = false
+    } else {
+      self.collectionView.allowsSelection = true
+      self.collectionView.scrollEnabled = true
+    }
+  }
   ///////////////////////////////////////////////////////////
   //MARK: --- COLECTIONVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////

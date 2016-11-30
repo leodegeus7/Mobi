@@ -55,6 +55,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     super.viewDidLoad()
     //selectedRadioArray = DataManager.sharedInstance.topRadios
     notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.reloadData), name: "reloadData", object: nil)
+    notificationCenter.addObserver(self, selector: #selector(InitialTableViewController.freezeView), name: "freezeViews", object: nil)
     //changeTableViewStatus()
     tableView.rowHeight = 120
     openMenu.target = self.revealViewController()
@@ -122,6 +123,17 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
+  }
+  
+  func freezeView() {
+    
+    if DataManager.sharedInstance.menuIsOpen {
+      tableView.allowsSelection = false
+      tableView.scrollEnabled = false
+    } else {
+      tableView.allowsSelection = true
+      tableView.scrollEnabled = true
+    }
   }
   
   func defineSegments() {
@@ -329,7 +341,11 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
+    if DataManager.sharedInstance.menuIsOpen {
+      return false
+    } else {
+      return true
+    }
   }
   
   @IBAction func segmentedAction(sender: UISegmentedControl) {

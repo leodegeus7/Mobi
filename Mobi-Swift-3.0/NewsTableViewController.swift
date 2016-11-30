@@ -24,7 +24,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   var firstTimeShowed = true
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   var feedParser = MWFeedParser()
-  
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,6 +33,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
     
+    notificationCenter.addObserver(self, selector: #selector(NewsTableViewController.freezeView), name: "freezeViews", object: nil)
     menuButton.target = self.revealViewController()
     menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -56,6 +57,17 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  func freezeView() {
+    
+    if DataManager.sharedInstance.menuIsOpen {
+      self.tableView.allowsSelection = false
+      self.tableView.scrollEnabled = false
+    } else {
+      self.tableView.allowsSelection = true
+      self.tableView.scrollEnabled = true
+    }
   }
   
   ///////////////////////////////////////////////////////////

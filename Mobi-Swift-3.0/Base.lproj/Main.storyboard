@@ -6595,6 +6595,7 @@
                         <outlet property="button3x5" destination="q84-ze-26a" id="LQq-ji-7Fz"/>
                         <outlet property="colorView" destination="BkB-4F-oxg" id="vev-B1-LlU"/>
                         <outlet property="menuButton" destination="oTt-GH-Lqr" id="9IG-2B-Nw8"/>
+                        <outlet property="scrollView" destination="Zlm-hT-JPv" id="gNW-tL-ZTX"/>
                         <outlet property="sliderAgudos" destination="5jZ-xQ-Cey" id="brG-1w-SE0"/>
                         <outlet property="sliderGraves" destination="qRB-vx-dhZ" id="lO7-V4-r1L"/>
                         <outlet property="sliderMedios" destination="dDh-f7-ve3" id="jW8-0p-f1I"/>

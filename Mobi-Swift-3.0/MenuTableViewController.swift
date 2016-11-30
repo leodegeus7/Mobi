@@ -15,7 +15,7 @@ import ChameleonFramework
 class MenuTableViewController: UITableViewController {
   var menuArray = ["Início","Gêneros","Estados","Notícias","Dormir","Configurações","Sobre"]
   var switchTimer = NSTimer()
-  
+  let notificationCenter = NSNotificationCenter.defaultCenter()
   
   
   @IBOutlet weak var viewTop: UIView!
@@ -84,6 +84,10 @@ class MenuTableViewController: UITableViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
+    DataManager.sharedInstance.menuIsOpen = true
+    notificationCenter.postNotificationName("freezeViews", object: nil)
+    
+    
     updateSwitch()
     switchTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(MenuTableViewController.updateInterfaceTimer), userInfo: nil, repeats: true)
     defineColors()
@@ -95,6 +99,8 @@ class MenuTableViewController: UITableViewController {
   
   override func viewDidDisappear(animated: Bool) {
     switchTimer.invalidate()
+    DataManager.sharedInstance.menuIsOpen = false
+    notificationCenter.postNotificationName("freezeViews", object: nil)
     
   }
   
@@ -228,14 +234,13 @@ class MenuTableViewController: UITableViewController {
         let logoutManger = RequestManager()
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in
         })
+        notificationCenter.postNotificationName("backToInital", object: nil)
         DataManager.sharedInstance.favoriteRadios = []
         tableView.reloadData()
         defineColors()
         self.dismissViewControllerAnimated(true, completion: {
         })
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
-        DataManager.sharedInstance.navigationController.pushViewController(vc!, animated: true)
+        
       }
       func cancelAction() {
         self.dismissViewControllerAnimated(true, completion: nil)

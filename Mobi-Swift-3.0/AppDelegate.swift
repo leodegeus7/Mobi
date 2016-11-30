@@ -262,28 +262,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    if let msgId = userInfo["from"] as? String {
-      print("Mensagem de id \(msgId) recebida remotamente. Possivelemente firebase")
-      
-      let notification = UILocalNotification()
-      if let mensagem = userInfo["mensagem"] as? String {
-        notification.alertBody = mensagem
-      }
-      if let notificationDic = userInfo["notification"] as? NSDictionary {
-        if let title = notificationDic["body"] as? String {
-          notification.alertTitle = title
+    if let _ = userInfo["sendOk"] as? String {
+      if let msgId = userInfo["from"] as? String {
+        print("Mensagem de id \(msgId) recebida remotamente. Possivelemente firebase")
+        
+        let notification = UILocalNotification()
+        if let mensagem = userInfo["mensagem"] as? String {
+          notification.alertBody = mensagem
         }
+        if let notificationDic = userInfo["notification"] as? NSDictionary {
+          if let title = notificationDic["body"] as? String {
+            notification.alertTitle = title
+          }
+        }
+        
+        if let _ = userInfo["assert"] as? String {
+          assert(false)
+        }
+        notification.alertAction = "Ok"
+        notification.fireDate = NSDate(timeIntervalSinceNow: 1)
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+      } else {
+        print("Mensagem remota recebida = \(userInfo)")
       }
-      
-      if let _ = userInfo["assert"] as? String {
-        assert(false)
-      }
-      notification.alertAction = "Ok"
-      notification.fireDate = NSDate(timeIntervalSinceNow: 1)
-      UIApplication.sharedApplication().scheduleLocalNotification(notification)
-    } else {
-      print("Mensagem remota recebida = \(userInfo)")
     }
+
 
   }
   

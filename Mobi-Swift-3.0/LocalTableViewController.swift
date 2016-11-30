@@ -13,7 +13,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   var buttonLateralMenu = UIBarButtonItem()
   var objectArray = [StateRealm]()
   var selectedState = StateRealm()
-  
+  var notificationCenter = NSNotificationCenter.defaultCenter()
   
   @IBOutlet weak var menuButton: UIBarButtonItem!
   @IBOutlet weak var searchBar: UISearchBar!
@@ -23,7 +23,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL CONFIG ---
     ///////////////////////////////////////////////////////////
-    
+    notificationCenter.addObserver(self, selector: #selector(LocalTableViewController.freezeView), name: "freezeViews", object: nil)
     super.viewDidLoad()
     buttonLateralMenu.target = self.revealViewController()
     buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -43,6 +43,17 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
       }
     }
     
+  }
+  
+  func freezeView() {
+    
+    if DataManager.sharedInstance.menuIsOpen {
+      self.tableView.allowsSelection = false
+      self.tableView.scrollEnabled = false
+    } else {
+      self.tableView.allowsSelection = true
+      self.tableView.scrollEnabled = true
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -78,8 +89,10 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    self.selectedState = DataManager.sharedInstance.allStates[indexPath.row]
-    performSegueWithIdentifier("detailViewCities", sender: self)
+    if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+      self.selectedState = DataManager.sharedInstance.allStates[indexPath.row]
+      performSegueWithIdentifier("detailViewCities", sender: self)
+    }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

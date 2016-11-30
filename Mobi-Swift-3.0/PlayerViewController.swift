@@ -51,18 +51,16 @@ class PlayerViewController: UIViewController {
   var actualSegmented:TypeSegmented = .Music
   let notificationCenter = NSNotificationCenter.defaultCenter()
   var tapCloseButtonActionHandler : (Void -> Void)?
-  
-  @IBOutlet weak var contraintsPropFirstView: NSLayoutConstraint!
-  
   var colorBlack : UIColor!
   var colorWhite : UIColor!
-  
   var gracenote:GracenoteManager!
-  
   var actualProgram = Program()
   var actualMusic = Music()
   var timeWasRequestedProgram:NSDate!
   var actualProgramRadio = RadioRealm()
+  
+  
+  @IBOutlet weak var contraintsPropFirstView: NSLayoutConstraint!
   @IBOutlet weak var viewFirst: UIView!
   @IBOutlet weak var viewSeparator: UIView!
   
@@ -71,9 +69,7 @@ class PlayerViewController: UIViewController {
     
     let screenSize:CGRect = UIScreen.mainScreen().bounds
     let screenHeigh = screenSize.height
-    
     if screenHeigh > 510 {
-      
       let newHeight = self.view.frame.size.height * 0.65
       contraintsPropFirstView.constant = newHeight
     } else {

@@ -56,7 +56,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var searchButton: UIBarButtonItem!
   
   var viewControllerNew = UIViewController()
-  
+  let notificationCenter = NSNotificationCenter.defaultCenter()
   let imagePicker = UIImagePickerController()
   
   var existFollowers = false
@@ -85,6 +85,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     if DataManager.sharedInstance.isLogged {
       completeProfileViewInfo()
     }
+    
+    
     self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
     let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
@@ -112,6 +114,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     
+    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
+    buttonAdvertisement.backgroundColor = colorWhite
+    
     AdsManager.sharedInstance.setAdvertisement(.ProfileScreen, completion: { (resultAd) in
       dispatch_async(dispatch_get_main_queue()) {
         if let imageAd = resultAd.image {
@@ -123,12 +129,13 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     })
   }
   
+  
   ///////////////////////////////////////////////////////////
   //MARK: --- VIEW FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
   override func viewDidAppear(animated: Bool) {
-    
+    notificationCenter.addObserver(self, selector: #selector(ProfileViewController.backToInital), name: "backToInital", object: nil)
     buttonEdit.layer.cornerRadius = buttonEdit.frame.height/2
     buttonEdit.clipsToBounds = true
     buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
@@ -141,6 +148,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     backButton.tintColor = UIColor.whiteColor()
     searchButton.tintColor = UIColor.whiteColor()
     
+  }
+  
+  override func viewDidDisappear(animated: Bool) {
+    notificationCenter.removeObserver(self, name: "backToInital", object: nil)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -424,6 +435,11 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     
   }
   
+  func backToInital() {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+    self.navigationController!.pushViewController(vc!, animated: true)
+  }
   ///////////////////////////////////////////////////////////
   //MARK: --- LOGIN FUNCTIONS ---
   ///////////////////////////////////////////////////////////
@@ -528,7 +544,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
                     
                     self.labelFollowing.text = "\(resultNumberFollowing)"
                   }
-
+                  
                 }
               }
             } else {

@@ -244,7 +244,7 @@ class EditInfoViewController: FormViewController {
       }
     }
     
-    if labelEmail.value != "" {
+    if labelEmail.value != "" && labelEmail.value != DataManager.sharedInstance.myUser.email {
       var dicPara2 = Dictionary<String,AnyObject>()
       dicPara2["parameter"] = "email"
       dicPara2["value"] = labelEmail.value

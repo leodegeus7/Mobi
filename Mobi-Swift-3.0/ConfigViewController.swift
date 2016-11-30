@@ -45,6 +45,10 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   let colorArray1:[UIColor] = [FlatLimeDark(),FlatOrangeDark(),FlatBlackDark(),FlatPinkDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand(),FlatMint(),FlatGreen(),FlatYellow(),FlatOrange(),FlatGray()]
   let colorArray2:[UIColor] = [DataManager.sharedInstance.blueColor.color,FlatWatermelonDark(),FlatPinkDark(),FlatRed(),FlatPurple(),FlatPlumDark(),FlatNavyBlue(),FlatTealDark(),FlatSkyBlueDark(),FlatBlackDark(),FlatMint(),FlatGreen(),FlatYellowDark(),FlatOrange(),FlatGray()]
   var colorArray:[UIColor] = []
+  var notificationCenter = NSNotificationCenter.defaultCenter()
+  
+  @IBOutlet weak var scrollView: UIScrollView!
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -55,6 +59,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     //define color buttons in bottom of view
+    
+    notificationCenter.addObserver(self, selector: #selector(ConfigViewController.freezeView), name: "freezeViews", object: nil)
     
     colorButtons.append(button1X1)
     colorButtons.append(button1x2)
@@ -137,6 +143,17 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  func freezeView() {
+    
+    if DataManager.sharedInstance.menuIsOpen {
+      scrollView.scrollEnabled = false
+      scrollView.userInteractionEnabled = false
+    } else {
+      scrollView.scrollEnabled = true
+      scrollView.userInteractionEnabled = true
+    }
   }
   
   //MARK: --- Table View DataSource and Table View Delegate Function ---

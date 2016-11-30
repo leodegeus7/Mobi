@@ -122,6 +122,8 @@ class DataManager: NSObject {
   var blueColor:ColorRealm!
   var pinkColor:ColorRealm!
   
+  var menuIsOpen = false
+  
   struct ProgramDays {
     var isSunday:Bool
     var isMonday:Bool

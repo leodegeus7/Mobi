@@ -21,7 +21,7 @@ class LocalCities2TableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = selectedState.name
+    self.title = "Cidades"
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = true

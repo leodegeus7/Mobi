@@ -617,7 +617,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     if !isOneTimeSearched {
-      str = "Realize uma pesquisa a cima"
+      str = "Realize uma pesquisa acima"
       let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
       return NSAttributedString(string: str, attributes: attr)
     } else {

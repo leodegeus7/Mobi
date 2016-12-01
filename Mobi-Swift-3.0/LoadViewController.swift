@@ -170,7 +170,7 @@ class LoadViewController: UIViewController {
   
   func dismissedViewWithAnimation() {
     let transition = CATransition()
-    transition.duration = 0.5
+    transition.duration = 1
     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
     transition.type = kCATransitionFromBottom
     transition.subtype = kCATransitionFromRight

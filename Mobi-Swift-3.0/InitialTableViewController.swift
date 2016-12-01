@@ -327,7 +327,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
           }
           func cancelAction() {
           }
-          self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
+          self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário fazer login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
         }
       }
       
@@ -483,12 +483,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     if selectedMode == .Favorite {
       str = "Sem Favoritos"
       if !DataManager.sharedInstance.isLogged {
-        str = "Para utilizar este recurso é necessário efetuar login"
+        str = "Para utilizar este recurso é necessário fazer login"
       }
     } else if selectedMode == .Recent {
       str = "Nenhuma rádio foi reproduzida"
       if !DataManager.sharedInstance.isLogged {
-        str = "Para utilizar este recurso é necessário efetuar login"
+        str = "Para utilizar este recurso é necessário fazer login"
       }
     } else {
       str = "Nenhuma radio para mostrar"

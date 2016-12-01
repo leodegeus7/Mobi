@@ -634,7 +634,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
     
     UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
-    UIImage(named: "loginScreen.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
+    UIImage(named: "splashScreen.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
     let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     

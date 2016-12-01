@@ -1041,7 +1041,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     if selectedMode == .Wall {
-      str = "Clique aqui e seja o primeiro a criar uma publicação no mural de  \(actualRadio.name)"
+      str = "Clique em \"+\" e seja o primeiro a criar uma publicação no mural de  \(actualRadio.name)"
     }
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
     return NSAttributedString(string: str, attributes: attr)

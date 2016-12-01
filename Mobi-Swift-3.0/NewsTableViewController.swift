@@ -11,7 +11,7 @@ import MWFeedParser
 
 class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, MWFeedParserDelegate {
   
-  @IBOutlet weak var menuButton: UIBarButtonItem!
+  
   
   var xmlParser: NSXMLParser!
   var entryTitle: String!
@@ -24,7 +24,8 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   var firstTimeShowed = true
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   var feedParser = MWFeedParser()
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  
+  var rss = RSS()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,10 +34,8 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
     
-    notificationCenter.addObserver(self, selector: #selector(NewsTableViewController.freezeView), name: "freezeViews", object: nil)
-    menuButton.target = self.revealViewController()
-    menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-    self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    
+    
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 400
     self.title = "Notícias"
@@ -59,16 +58,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     super.didReceiveMemoryWarning()
   }
   
-  func freezeView() {
-    
-    if DataManager.sharedInstance.menuIsOpen {
-      self.tableView.allowsSelection = false
-      self.tableView.scrollEnabled = false
-    } else {
-      self.tableView.allowsSelection = true
-      self.tableView.scrollEnabled = true
-    }
-  }
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- TABLE VIEW DELEGATE ---
@@ -100,31 +90,31 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
         cell.selectionStyle = .None
         return cell
         
-//        if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
-//          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-//          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-//          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-//          cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
-//          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
-//          
-//          cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-//          return cell
-//        } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
-//          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
-//          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
-//          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
-//          cell.textDescription.text = ""
-//          let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
-//          cell.heightTextView.constant = heightTV
-//          cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
-//          cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
-//          return cell
-//        } else {
-//          let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
-//          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
-//          cell.heightView.constant = cell.imageDescription.frame.height
-//          return cell
-//        }
+        //        if DataManager.sharedInstance.allNews[indexPath.row].type == "Complex" {
+        //          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+        //          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        //          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        //          cell.textDescription.text = DataManager.sharedInstance.allNews[indexPath.row].newDescription
+        //          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+        //
+        //          cell.heightTextView.constant = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        //          return cell
+        //        } else if DataManager.sharedInstance.allNews[indexPath.row].type == "Simple" {
+        //          let cell = tableView.dequeueReusableCellWithIdentifier("firstCell", forIndexPath: indexPath) as! FirstNewTableViewCell
+        //          cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
+        //          cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
+        //          cell.textDescription.text = ""
+        //          let heightTV = cell.textDescription.sizeThatFits(cell.textDescription.bounds.size).height as CGFloat
+        //          cell.heightTextView.constant = heightTV
+        //          cell.imageDescription.frame = CGRectMake(0, 0, 0, 0)
+        //          cell.imageDescription.viewWithTag(0)?.removeFromSuperview()
+        //          return cell
+        //        } else {
+        //          let cell = tableView.dequeueReusableCellWithIdentifier("thirdCell", forIndexPath: indexPath) as! ThirdNewTableViewCell
+        //          cell.imageDescription.image = UIImage(named: DataManager.sharedInstance.allNews[indexPath.row].img)
+        //          cell.heightView.constant = cell.imageDescription.frame.height
+        //          return cell
+        //        }
       } else {
         let cell = UITableViewCell()
         cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
@@ -143,9 +133,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   //MARK: --- IBACTIONS ---
   ///////////////////////////////////////////////////////////
   
-  @IBAction func searchButtonTap(sender: AnyObject) {
-    DataManager.sharedInstance.instantiateSearch(self.navigationController!)
-  }
+  
   
   ///////////////////////////////////////////////////////////
   //MARK: --- EMPTY TABLE VIEW DELEGATE ---
@@ -173,16 +161,17 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   }
   
   func requestRssLink(completion: (result: Bool) -> Void) {
-    let requestManager = RequestManager()
-    requestManager.requestFeed { (resultFeedLink) in
-      if resultFeedLink.count > 0 {
-        self.requestRSS((resultFeedLink.first?.link)!, completion: { (resultNew) in
-          completion(result: true)
-        })
-      } else {
-        Util.displayAlert(title: "Problemas", message: "Houve algum problema ao fazer o download das notícias, tente novamente mais tarde", action: "Ok")
-      }
-    }
+    self.requestRSS((rss.link), completion: { (resultNew) in
+      completion(result: true)
+    })
+    //    let requestManager = RequestManager()
+    //    requestManager.requestFeed { (resultFeedLink) in
+    //      if resultFeedLink.count > 0 {
+    //
+    //      } else {
+    //        Util.displayAlert(title: "Problemas", message: "Houve algum problema ao fazer o download das notícias, tente novamente mais tarde", action: "Ok")
+    //      }
+    //    }
   }
   
   func requestRSS(url:String,completion: (resultNew: Bool) -> Void) {

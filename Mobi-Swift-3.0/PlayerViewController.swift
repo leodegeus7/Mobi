@@ -367,6 +367,8 @@ class PlayerViewController: UIViewController {
   }
   
   @IBAction func hidePlayerAction(sender: AnyObject) {
+    self.tapCloseButtonActionHandler?()
+    self.dismissViewControllerAnimated(true, completion: nil)
     DataManager.sharedInstance.miniPlayerView.hidePlayer()
   }
   
@@ -599,7 +601,7 @@ class PlayerViewController: UIViewController {
     imageMusic.backgroundColor = UIColor.clearColor()
     imageMusic.alpha = 0.6
     labelArtist.text = "Artista"
-    labelMusicName.text = "Sem informação da música"
+    labelMusicName.text = "Sem informação"
     buttonNLike.alpha = 0.6
     buttonLike.alpha = 0.6
     labelWithoutMusic.text = ""

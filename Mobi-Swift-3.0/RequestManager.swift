@@ -1846,5 +1846,22 @@ class RequestManager: NSObject {
     })
   }
   
+  func requestRSS(completion: (resultRSS: [RSS]) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestJson("abertrss") { (result) in
+        if let rssArray = result["data"] as? NSArray {
+          var rssObjects = [RSS]()
+          for rss in rssArray {
+            let id = rss["id"] as! Int
+            let desc = rss["description"] as! String
+            let link = rss["link"] as! String
+            let rssObject = RSS(id: id, desc: desc, link: link)
+            rssObjects.append(rssObject)
+          }
+          completion(resultRSS: rssObjects)
+        }
+      }
+    })
+  }
 
 }

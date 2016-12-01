@@ -15,6 +15,9 @@
 		B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */; };
 		B7084B721D6B6FDB0013DAFC /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7084B711D6B6FDB0013DAFC /* LineView.swift */; };
 		B70898331DD10102008DA1D9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = B70898321DD10102008DA1D9 /* check.png */; };
+		B70AFE5E1DF08E2700460089 /* DINRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B70AFE5D1DF08E2700460089 /* DINRegular.ttf */; };
+		B70AFE601DF0A26400460089 /* RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70AFE5F1DF0A26300460089 /* RSS.swift */; };
+		B70AFE621DF0A40100460089 /* RssTypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70AFE611DF0A40100460089 /* RssTypesTableViewController.swift */; };
 		B70C921B1D7A0DEA008F24AF /* AnimationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */; };
 		B70DA8981DB1593900BFCB34 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */; };
 		B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */; };
@@ -222,6 +225,9 @@
 		B7084B6D1D6B6F740013DAFC /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		B7084B711D6B6FDB0013DAFC /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		B70898321DD10102008DA1D9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		B70AFE5D1DF08E2700460089 /* DINRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DINRegular.ttf; sourceTree = "<group>"; };
+		B70AFE5F1DF0A26300460089 /* RSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSS.swift; sourceTree = "<group>"; };
+		B70AFE611DF0A40100460089 /* RssTypesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssTypesTableViewController.swift; sourceTree = "<group>"; };
 		B70C921A1D7A0DEA008F24AF /* AnimationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSupport.swift; sourceTree = "<group>"; };
 		B70DA8971DB1593900BFCB34 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		B70DA8991DB159BE00BFCB34 /* UsersListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListTableViewController.swift; sourceTree = "<group>"; };
@@ -517,6 +523,7 @@
 		B736812A1D590BA200EC94A9 = {
 			isa = PBXGroup;
 			children = (
+				B70AFE5D1DF08E2700460089 /* DINRegular.ttf */,
 				B73681351D590BA300EC94A9 /* Mobi-Swift-3.0 */,
 				B73681341D590BA300EC94A9 /* Products */,
 				D96CE5A3C70A4107CD2E4F90 /* Pods */,
@@ -678,6 +685,7 @@
 				B784BDFA1DCBBCD7001671A2 /* CommentsTableViewController.swift */,
 				B7EFB40B1DDCEC8300F0158F /* UserDetailTableViewController.swift */,
 				B7F86D971DDF58D700191F2B /* AboutViewController.swift */,
+				B70AFE611DF0A40100460089 /* RssTypesTableViewController.swift */,
 			);
 			name = Controler;
 			sourceTree = "<group>";
@@ -708,6 +716,7 @@
 				B71FA3971DBFF3670001356F /* AdsManager.swift */,
 				B77892E31D91B346009D6105 /* StreamingRadioManager.swift */,
 				B75404B71DC7BAA400E8B694 /* LinkRSS.swift */,
+				B70AFE5F1DF0A26300460089 /* RSS.swift */,
 				B78FE4241DD4EAB000D7551B /* ContactRadio.swift */,
 				B78FE4261DD4EB0B00D7551B /* PhoneNumber.swift */,
 				B78FE4281DD4FA4600D7551B /* AudioManager.swift */,
@@ -946,6 +955,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70AFE5E1DF08E2700460089 /* DINRegular.ttf in Resources */,
 				B73532E71D9AD744008504BA /* RadioDetailView.xib in Resources */,
 				B759C0221D6E10540005515F /* clock-icon.png in Resources */,
 				B70DFA4B1D70C847000DDBD6 /* play.png in Resources */,
@@ -1164,6 +1174,7 @@
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
 				B7B723501DCD1D2500DF2D12 /* NewTableViewCell.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
+				B70AFE621DF0A40100460089 /* RssTypesTableViewController.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
 				B77C49A51D8C68D600AFF826 /* STKLocalFileDataSource.m in Sources */,
 				B7EFB40C1DDCEC8400F0158F /* UserDetailTableViewController.swift in Sources */,
@@ -1183,6 +1194,7 @@
 				B784D2CE1DB021720016A405 /* SpecialProgram.swift in Sources */,
 				B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */,
 				B702CF591DA42740007FB335 /* PlayerViewController.swift in Sources */,
+				B70AFE601DF0A26400460089 /* RSS.swift in Sources */,
 				B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */,
 				B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */,
 				B7084B6E1D6B6F740013DAFC /* MiniPlayerViewController.swift in Sources */,

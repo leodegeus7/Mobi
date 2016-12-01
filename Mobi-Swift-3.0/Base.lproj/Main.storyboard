@@ -2030,6 +2030,56 @@
             </objects>
             <point key="canvasLocation" x="5632" y="5382"/>
         </scene>
+        <!--Rss Types Table View Controller-->
+        <scene sceneID="pFx-7o-ybq">
+            <objects>
+                <tableViewController id="Xlx-la-7rg" customClass="RssTypesTableViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0RI-OX-996">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="CZX-xq-E8k" style="IBUITableViewCellStyleDefault" id="DzN-Y5-Hne">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DzN-Y5-Hne" id="HZ9-wm-w9b">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CZX-xq-E8k">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Xlx-la-7rg" id="UP6-ne-VhR"/>
+                            <outlet property="delegate" destination="Xlx-la-7rg" id="5T8-3p-xH6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="irc-TV-a9a">
+                        <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="qs8-Vz-CSn"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="8xb-wk-PR5">
+                            <connections>
+                                <action selector="searchButtonTap:" destination="Xlx-la-7rg" id="Lcm-Hg-ZNP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="qs8-Vz-CSn" id="2yd-qY-mSr"/>
+                        <outlet property="searchButton" destination="8xb-wk-PR5" id="OUz-Mm-8vn"/>
+                        <segue destination="p1F-rG-gvq" kind="show" identifier="segueRSS" id="oRH-Gr-X1T"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zAl-Ai-xEZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2668" y="3130"/>
+        </scene>
         <!--News Table View Controller-->
         <scene sceneID="x0e-O1-2sP">
             <objects>
@@ -2232,21 +2282,14 @@
                             <outlet property="delegate" destination="p1F-rG-gvq" id="AVh-uf-ZbB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="j3T-QK-xjl">
-                        <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="qs8-Vz-CSn"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="8xb-wk-PR5">
-                            <connections>
-                                <action selector="searchButtonTap:" destination="p1F-rG-gvq" id="3M9-Jv-ES0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="j3T-QK-xjl"/>
                     <connections>
                         <outlet property="menuButton" destination="qs8-Vz-CSn" id="UTV-2l-TTo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35F-27-ZYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2668" y="3149"/>
+            <point key="canvasLocation" x="2670" y="3905"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="zuz-fZ-raK">
@@ -2926,7 +2969,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="p1F-rG-gvq" kind="relationship" relationship="rootViewController" id="j3j-ww-YP7"/>
+                        <segue destination="Xlx-la-7rg" kind="relationship" relationship="rootViewController" id="iF3-We-cXs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNL-py-0CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3169,14 +3212,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5TE-if-Tb6">
-                                            <rect key="frame" x="28" y="8" width="358" height="50"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5TE-if-Tb6">
+                                            <rect key="frame" x="28" y="8" width="358" height="45"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejB-mO-Xlg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="NVj-FM-DLH"/>
-                                                        <constraint firstAttribute="height" constant="50" id="eOr-cH-FW5"/>
+                                                        <constraint firstAttribute="width" constant="45" id="NVj-FM-DLH"/>
+                                                        <constraint firstAttribute="height" constant="45" id="eOr-cH-FW5"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="FacebookIcon.png"/>
                                                     <connections>
@@ -3184,10 +3227,10 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndI-Hc-kdu">
-                                                    <rect key="frame" x="154" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="157" y="0.0" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="YAy-5B-q3z"/>
-                                                        <constraint firstAttribute="height" constant="50" id="ubc-AK-s2R"/>
+                                                        <constraint firstAttribute="width" constant="45" id="YAy-5B-q3z"/>
+                                                        <constraint firstAttribute="height" constant="45" id="ubc-AK-s2R"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="InstagramIcon.png"/>
                                                     <connections>
@@ -3195,10 +3238,10 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A8s-zz-EE1">
-                                                    <rect key="frame" x="308" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="313" y="0.0" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="7eJ-c0-fBF"/>
-                                                        <constraint firstAttribute="height" constant="50" id="cia-H8-9WB"/>
+                                                        <constraint firstAttribute="width" constant="45" id="7eJ-c0-fBF"/>
+                                                        <constraint firstAttribute="height" constant="45" id="cia-H8-9WB"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="TwiterIcon.png"/>
                                                     <connections>
@@ -4015,7 +4058,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Txb-7W-XUM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3782" y="6384"/>
+            <point key="canvasLocation" x="3765" y="6391"/>
         </scene>
         <!--Contact Radio Table View Controller-->
         <scene sceneID="ZiF-bx-buG">
@@ -6633,8 +6676,8 @@
         <image name="unlike1.png" width="22" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="LMO-xc-EaP"/>
         <segue reference="bzi-4U-0gJ"/>
-        <segue reference="18K-qB-l9h"/>
-        <segue reference="10k-dh-e21"/>
+        <segue reference="OrG-jc-k0m"/>
     </inferredMetricsTieBreakers>
 </document>

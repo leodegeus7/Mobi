@@ -101,10 +101,6 @@
 		B77C49A41D8C68D600AFF826 /* STKHTTPDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C49981D8C68D600AFF826 /* STKHTTPDataSource.m */; };
 		B77C49A51D8C68D600AFF826 /* STKLocalFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C499A1D8C68D600AFF826 /* STKLocalFileDataSource.m */; };
 		B77C49A61D8C68D600AFF826 /* STKQueueEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C499C1D8C68D600AFF826 /* STKQueueEntry.m */; };
-		B77D31421DE8BB560034CB2B /* icone-historico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D313E1DE8BB560034CB2B /* icone-historico.png */; };
-		B77D31471DE8C2AB0034CB2B /* icone-coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31441DE8C2AB0034CB2B /* icone-coracao.png */; };
-		B77D31481DE8C2AB0034CB2B /* icone-grafico.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31451DE8C2AB0034CB2B /* icone-grafico.png */; };
-		B77D31491DE8C2AB0034CB2B /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31461DE8C2AB0034CB2B /* icone-local.png */; };
 		B77D31511DE8C8770034CB2B /* heartRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31501DE8C8770034CB2B /* heartRed.png */; };
 		B77D31531DE8CB400034CB2B /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31521DE8CB400034CB2B /* heart.png */; };
 		B77D31551DE8CBDF0034CB2B /* heartNoFill.png in Resources */ = {isa = PBXBuildFile; fileRef = B77D31541DE8CBDF0034CB2B /* heartNoFill.png */; };
@@ -171,6 +167,11 @@
 		B7BB84AA1D9DA7AC0033D823 /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84A91D9DA7AC0033D823 /* dislike.png */; };
 		B7BB84AC1D9DA7B20033D823 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = B7BB84AB1D9DA7B20033D823 /* like.png */; };
 		B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7C52A501DC907B200282CA0 /* Assets.xcassets */; };
+		B7D3713B1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713A1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png */; };
+		B7D371401DF2036300F60F2A /* icone-coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713C1DF2036300F60F2A /* icone-coracao.png */; };
+		B7D371411DF2036300F60F2A /* icone-grafico.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713D1DF2036300F60F2A /* icone-grafico.png */; };
+		B7D371421DF2036300F60F2A /* icone-historico.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713E1DF2036300F60F2A /* icone-historico.png */; };
+		B7D371431DF2036300F60F2A /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713F1DF2036300F60F2A /* icone-local.png */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
 		B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */; };
 		B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */; };
@@ -324,10 +325,6 @@
 		B77C499B1D8C68D600AFF826 /* STKQueueEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKQueueEntry.h; sourceTree = "<group>"; };
 		B77C499C1D8C68D600AFF826 /* STKQueueEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKQueueEntry.m; sourceTree = "<group>"; };
 		B77C499D1D8C68D600AFF826 /* StreamingKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StreamingKit-Prefix.pch"; sourceTree = "<group>"; };
-		B77D313E1DE8BB560034CB2B /* icone-historico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-historico.png"; sourceTree = "<group>"; };
-		B77D31441DE8C2AB0034CB2B /* icone-coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-coracao.png"; sourceTree = "<group>"; };
-		B77D31451DE8C2AB0034CB2B /* icone-grafico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-grafico.png"; sourceTree = "<group>"; };
-		B77D31461DE8C2AB0034CB2B /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
 		B77D31501DE8C8770034CB2B /* heartRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartRed.png; sourceTree = "<group>"; };
 		B77D31521DE8CB400034CB2B /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		B77D31541DE8CBDF0034CB2B /* heartNoFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartNoFill.png; sourceTree = "<group>"; };
@@ -398,6 +395,11 @@
 		B7BB84A91D9DA7AC0033D823 /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike.png; sourceTree = "<group>"; };
 		B7BB84AB1D9DA7B20033D823 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		B7C52A501DC907B200282CA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B7D3713A1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-cinzaAbert-1.png"; sourceTree = "<group>"; };
+		B7D3713C1DF2036300F60F2A /* icone-coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-coracao.png"; sourceTree = "<group>"; };
+		B7D3713D1DF2036300F60F2A /* icone-grafico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-grafico.png"; sourceTree = "<group>"; };
+		B7D3713E1DF2036300F60F2A /* icone-historico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-historico.png"; sourceTree = "<group>"; };
+		B7D3713F1DF2036300F60F2A /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigTableViewCell.swift; sourceTree = "<group>"; };
 		B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
@@ -591,18 +593,18 @@
 				B76841D31DA58E5400ABBC78 /* love2.png */,
 				B76841D41DA58E5400ABBC78 /* play1.png */,
 				B76841D51DA58E5400ABBC78 /* love1.png */,
-				B77D313E1DE8BB560034CB2B /* icone-historico.png */,
 				B76841D61DA58E5400ABBC78 /* pause.png */,
+				B7D3713C1DF2036300F60F2A /* icone-coracao.png */,
+				B7D3713D1DF2036300F60F2A /* icone-grafico.png */,
+				B7D3713E1DF2036300F60F2A /* icone-historico.png */,
+				B7D3713F1DF2036300F60F2A /* icone-local.png */,
 				B7842AD11DB685BB002550F3 /* audio_64x64.png */,
 				B7842AD21DB685BB002550F3 /* photo_64x64.png */,
-				B77D31441DE8C2AB0034CB2B /* icone-coracao.png */,
-				B77D31451DE8C2AB0034CB2B /* icone-grafico.png */,
-				B77D31461DE8C2AB0034CB2B /* icone-local.png */,
 				B7842AD31DB685BB002550F3 /* video_64x64.png */,
 				B784D2B91DAC2D4B0016A405 /* plus.png */,
 				CDBB19771D74B29F00BF0405 /* arrow.png */,
-				B78FE4201DD4CFBB00D7551B /* arrowWhite.png */,
 				B78FE4141DD3988A00D7551B /* arrowR.png */,
+				B78FE4201DD4CFBB00D7551B /* arrowWhite.png */,
 				B74B0E631D6F751700012D8E /* star.png */,
 				B7BB84A91D9DA7AC0033D823 /* dislike.png */,
 				B7BB84AB1D9DA7B20033D823 /* like.png */,
@@ -799,6 +801,7 @@
 				B77D316C1DECB6EE0034CB2B /* Mobiabert.png */,
 				B78FE41E1DD4CD8300D7551B /* logo-brancaAbert.png */,
 				B78FE41C1DD4CD7D00D7551B /* logo-pretaAbert.png */,
+				B7D3713A1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png */,
 				B77D31621DECAA930034CB2B /* splashScreen.png */,
 				B702CF561DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png */,
 				B77D31641DECAAA90034CB2B /* loginScreen.png */,
@@ -964,20 +967,20 @@
 				B73681411D590BA300EC94A9 /* LaunchScreen.storyboard in Resources */,
 				B77D316B1DECB6590034CB2B /* FacebookIcon.png in Resources */,
 				B76841DA1DA58E5400ABBC78 /* play1.png in Resources */,
+				B7D371421DF2036300F60F2A /* icone-historico.png in Resources */,
 				B77D31531DE8CB400034CB2B /* heart.png in Resources */,
 				B77D31511DE8C8770034CB2B /* heartRed.png in Resources */,
 				B77D31631DECAA930034CB2B /* splashScreen.png in Resources */,
+				B7D371431DF2036300F60F2A /* icone-local.png in Resources */,
 				B7D584E21D5D2085003D5A1F /* okImage.png in Resources */,
-				B77D31491DE8C2AB0034CB2B /* icone-local.png in Resources */,
 				B7BB84A81D9D92F10033D823 /* heartRedFilled.png in Resources */,
-				B77D31421DE8BB560034CB2B /* icone-historico.png in Resources */,
 				B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */,
 				B764CE171DB7F75700BFCE76 /* AudioRecorderViewController.xib in Resources */,
 				B784D2BA1DAC2D4B0016A405 /* plus.png in Resources */,
 				B7467F001DE4D6B800FDE9A2 /* mobi-2971b028fe11.json in Resources */,
 				B764F5111DBA9ED30073D268 /* musicIcon.png in Resources */,
 				B77D31551DE8CBDF0034CB2B /* heartNoFill.png in Resources */,
-				B77D31471DE8C2AB0034CB2B /* icone-coracao.png in Resources */,
+				B7D3713B1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png in Resources */,
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
 				B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */,
 				B702CF571DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png in Resources */,
@@ -997,6 +1000,7 @@
 				B78FE4211DD4CFBB00D7551B /* arrowWhite.png in Resources */,
 				B7C52A511DC907B200282CA0 /* Assets.xcassets in Resources */,
 				B74B0E641D6F751700012D8E /* star.png in Resources */,
+				B7D371411DF2036300F60F2A /* icone-grafico.png in Resources */,
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
 				B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */,
@@ -1016,9 +1020,9 @@
 				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
 				B77D31691DECB6540034CB2B /* InstagramIcon.png in Resources */,
 				B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */,
+				B7D371401DF2036300F60F2A /* icone-coracao.png in Resources */,
 				B76841DB1DA58E5400ABBC78 /* love1.png in Resources */,
 				B736813C1D590BA300EC94A9 /* Main.storyboard in Resources */,
-				B77D31481DE8C2AB0034CB2B /* icone-grafico.png in Resources */,
 				B7F86D9C1DDF699D00191F2B /* user-remove.png in Resources */,
 				B76841D91DA58E5400ABBC78 /* love2.png in Resources */,
 				B761A54D1DD1162200EB794A /* GoogleService-Info.plist in Resources */,

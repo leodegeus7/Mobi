@@ -52,6 +52,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
+
+    
     
   }
   
@@ -59,6 +61,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     super.didReceiveMemoryWarning()
   }
   
+  func popToRoot(sender:UIBarButtonItem){
+    self.navigationController!.popToRootViewControllerAnimated(true)
+  }
   // MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -667,7 +672,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   }
   
   func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
-    return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
+    return Util.imageResize(UIImage(named: "logo-cinzaAbert-1.png")!, sizeChange: CGSize(width: 100, height: 100))
   }
   
 }

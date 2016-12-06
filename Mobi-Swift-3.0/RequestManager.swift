@@ -251,90 +251,97 @@ class RequestManager: NSObject {
   }
   
   func searchWithWord(word:String,completion: (searchRequestResult: Dictionary<SearchMode,[AnyObject]>) -> Void) {
-    self.requestJson("app/smartsearch?keyword=\(word)") { (result) in
-      
-      var radios = [RadioRealm]()
-      var states = [StateRealm]()
-      var cities = [CityRealm]()
-      var genres = [GenreRealm]()
-      var usersArray = [UserRealm]()
-      let dataDic = result["data"] as! NSDictionary
-      
-      if let stateList = dataDic["states"] as? NSArray {
-        for singleResult in stateList {
-          let dic = singleResult as! NSDictionary
-          let state = StateRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, acronym: dic["acronym"] as! String)
-          states.append(state)
-        }
-      }
-      
-      if let cityList = dataDic["cities"] as? NSArray {
-        for singleResult in cityList {
-          let dic = singleResult as! NSDictionary
-          let city = CityRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String)
-          cities.append(city)
-        }
-      }
-      
-      if let genreList = dataDic["genres"] as? NSArray {
-        for singleResult in genreList {
-          let dic = singleResult as! NSDictionary
-          let genre =
-            GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:dic["image"]!["identifier40"] as! String)
-          genres.append(genre)
-        }
-      }
-      
-      if let nameList = dataDic["stations"] as? NSArray {
-        for singleResult in nameList {
-          let dic = singleResult as! NSDictionary
-          var lat = Double()
-          if let latAux = dic["latitude"] as? Double {
-            lat = latAux
-          } else {
-            lat = 0
+    
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch?keyword=\(wordEncoded)") { (result) in
+        
+        var radios = [RadioRealm]()
+        var states = [StateRealm]()
+        var cities = [CityRealm]()
+        var genres = [GenreRealm]()
+        var usersArray = [UserRealm]()
+        let dataDic = result["data"] as! NSDictionary
+        
+        if let stateList = dataDic["states"] as? NSArray {
+          for singleResult in stateList {
+            let dic = singleResult as! NSDictionary
+            let state = StateRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, acronym: dic["acronym"] as! String)
+            states.append(state)
           }
-          var long = Double()
-          if let longAux = dic["longitude"] as? Double {
-            long = longAux
-          } else {
-            long = 0
-          }
-          let likes = dic["likes"] as! Int
-          let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
-          
-          radios.append(radio)
         }
-      }
-      
-      if let userList = dataDic["friends"] as? NSArray {
-        for singleResult in userList {
-          let dic = singleResult as! NSDictionary
-          var imageIdentifier = ImageObject()
-          if let image = singleResult["image"] as? NSDictionary {
-            imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: dic["image"]!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+        
+        if let cityList = dataDic["cities"] as? NSArray {
+          for singleResult in cityList {
+            let dic = singleResult as! NSDictionary
+            let city = CityRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String)
+            cities.append(city)
           }
-          var user = UserRealm()
-          if let address = singleResult["shortAddress"] as? String {
-            user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: address)
-          } else {
-            user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
-          }
-          usersArray.append(user)
         }
+        
+        if let genreList = dataDic["genres"] as? NSArray {
+          for singleResult in genreList {
+            let dic = singleResult as! NSDictionary
+            let genre =
+              GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:dic["image"]!["identifier40"] as! String)
+            genres.append(genre)
+          }
+        }
+        
+        if let nameList = dataDic["stations"] as? NSArray {
+          for singleResult in nameList {
+            let dic = singleResult as! NSDictionary
+            var lat = Double()
+            if let latAux = dic["latitude"] as? Double {
+              lat = latAux
+            } else {
+              lat = 0
+            }
+            var long = Double()
+            if let longAux = dic["longitude"] as? Double {
+              long = longAux
+            } else {
+              long = 0
+            }
+            let likes = dic["likes"] as! Int
+            let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+            
+            radios.append(radio)
+          }
+        }
+        
+        if let userList = dataDic["friends"] as? NSArray {
+          for singleResult in userList {
+            let dic = singleResult as! NSDictionary
+            var imageIdentifier = ImageObject()
+            if let image = singleResult["image"] as? NSDictionary {
+              imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: dic["image"]!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+            }
+            var user = UserRealm()
+            if let address = singleResult["shortAddress"] as? String {
+              user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: address)
+            } else {
+              user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
+            }
+            usersArray.append(user)
+          }
+        }
+        
+        
+        var results = Dictionary<SearchMode,[AnyObject]>()
+        results[.Radios] = radios
+        results[.Genre] = genres
+        results[.Cities] = cities
+        results[.States] = states
+        results[.Users] = usersArray
+        
+        completion(searchRequestResult: results)
       }
-      
-      
-      var results = Dictionary<SearchMode,[AnyObject]>()
-      results[.Radios] = radios
-      results[.Genre] = genres
-      results[.Cities] = cities
-      results[.States] = states
-      results[.Users] = usersArray
-      
-      completion(searchRequestResult: results)
+
     }
+    
     
   }
   

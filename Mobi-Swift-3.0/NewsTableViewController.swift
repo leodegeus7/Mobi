@@ -49,8 +49,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     view.addSubview(activityIndicator)
     
     DataManager.sharedInstance.allNews = []
-    requestRssLink { (result) in
-    }
+
     
   }
   
@@ -69,6 +68,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   }
   
   
+  
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if firstTimeShowed {
       return 1
@@ -82,7 +82,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
       let cell = UITableViewCell()
       return cell
     } else {
-      if indexPath.row <= DataManager.sharedInstance.allStates.count-1 {
+      if indexPath.row <= DataManager.sharedInstance.allNews.count-1 {
         let cell = tableView.dequeueReusableCellWithIdentifier("newCellNew", forIndexPath: indexPath) as! NewTableViewCell
         cell.labelDate.text = DataManager.sharedInstance.allNews[indexPath.row].date
         cell.labelTitle.text = DataManager.sharedInstance.allNews[indexPath.row].title
@@ -117,7 +117,6 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
         //        }
       } else {
         let cell = UITableViewCell()
-        cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
         return cell
       }
     }
@@ -209,7 +208,7 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     let entryTitle = item.title
     let entryLink = item.link
     let entryDescription = item.description
-    if entryTitle != "[No Title]" && entryLink != "[No Link]" && entryDescription != "[No Description]" && entryDate != "[No Date]"{
+    if entryTitle != "[No Title]" && entryLink != "[No Link]" && entryDescription != "[No Description]" && entryDate != "[No Date]" && entryTitle != "" && entryLink != "" {
       if entryDate.timeIntervalSinceNow < 0 {
         let new = New(title: entryTitle, descr: entryDescription, link: entryLink, date: entryDate)
         DataManager.sharedInstance.allNews.append(new)
@@ -219,6 +218,8 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   
   override func viewDidAppear(animated: Bool) {
     self.clearsSelectionOnViewWillAppear = true
+    requestRssLink { (result) in
+    }
   }
   
 }

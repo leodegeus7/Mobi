@@ -82,7 +82,10 @@ class RssTypesTableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-    
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let viewSelected = UIView()
+    viewSelected.backgroundColor = colorAlpha
+    cell.selectedBackgroundView = viewSelected
     cell.textLabel?.text = newsType[indexPath.row].desc
     
     return cell

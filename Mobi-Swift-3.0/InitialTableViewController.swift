@@ -469,6 +469,12 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     
   }
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    let backButton = UIBarButtonItem()
+    backButton.title = "Voltar"
+    navigationItem.backBarButtonItem = backButton
+  }
+  
   ///////////////////////////////////////////////////////////
   //MARK: --- IBACTIONS ---
   ///////////////////////////////////////////////////////////

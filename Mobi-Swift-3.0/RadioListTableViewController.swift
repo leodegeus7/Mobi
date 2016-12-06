@@ -139,7 +139,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       radioVC.actualRadio = selectedRadio
     }
     let backButton = UIBarButtonItem()
-    backButton.title = "Back"
+    backButton.title = "Voltar"
     navigationItem.backBarButtonItem = backButton
   }
   

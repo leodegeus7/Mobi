@@ -63,7 +63,11 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   // MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return actualSchedulePrograms.count + 1
+    if actualSchedulePrograms.count == 0 {
+      return 0
+    } else {
+      return actualSchedulePrograms.count + 1
+    }
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -26,6 +26,8 @@ class LocalCities2TableViewController: UITableViewController {
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
     
+    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Voltar", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
     ///////////////////////////////////////////////////////////
@@ -105,7 +107,7 @@ class LocalCities2TableViewController: UITableViewController {
     }
     
     let backButton = UIBarButtonItem()
-    backButton.title = "Back"
+    backButton.title = "Voltar"
     navigationItem.backBarButtonItem = backButton
   }
   

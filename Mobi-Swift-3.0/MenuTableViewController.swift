@@ -142,9 +142,9 @@ class MenuTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
     if DataManager.sharedInstance.isLogged {
-      return 9
+      return 10
     } else {
-      return 8
+      return 9
     }
   }
   
@@ -176,25 +176,48 @@ class MenuTableViewController: UITableViewController {
       userCell.selectionStyle = UITableViewCellSelectionStyle.None
       return userCell
       
-    } else if (indexPath.row == 8) {
-      let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
-      firstTypeCell.labelText.text = "Logout"
-      firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-      firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-      return firstTypeCell
-    } else if(indexPath.row != 5) {
-      let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
-      firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
-      firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-      return firstTypeCell
+    } else if indexPath.row == 5 {
+      let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
+      secondTypeCell.tag = 102
+      secondTypeCell.labelText.text = menuArray[4]
+      secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+      secondTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
+      return secondTypeCell
     }
     
-    let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
-    secondTypeCell.tag = 102
-    secondTypeCell.labelText.text = menuArray[4]
-    secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-    secondTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
-    return secondTypeCell
+    if DataManager.sharedInstance.isLogged {
+      if (indexPath.row == 8) {
+        let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
+        firstTypeCell.labelText.text = "Logout"
+        firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
+        return firstTypeCell
+      }
+      if(indexPath.row != 5 && indexPath.row != 9) {
+        let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
+        firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
+        firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
+        return firstTypeCell
+      } else {
+        let cell = UITableViewCell()
+        cell.selectionStyle = .None
+        return cell
+      }
+    } else {
+      if(indexPath.row != 5 && indexPath.row != 8) {
+        let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
+        firstTypeCell.labelText.text = menuArray[indexPath.row - 1]
+        firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
+        return firstTypeCell
+      } else {
+        let cell = UITableViewCell()
+        cell.selectionStyle = .None
+        return cell
+      }
+    }
+
+    
+
     
     
   }

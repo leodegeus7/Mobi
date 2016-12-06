@@ -82,6 +82,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     tableView.tableFooterView = UIView()
     self.clearsSelectionOnViewWillAppear = true
     
+    let backButton = UIBarButtonItem.init(title: "Voltar", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    self.navigationItem.backBarButtonItem = backButton
+    
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
     ///////////////////////////////////////////////////////////

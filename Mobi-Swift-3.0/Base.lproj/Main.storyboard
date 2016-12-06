@@ -137,11 +137,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Mid-Lw-hp4">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="136"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="156"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-brancaAbert.png" translatesAutoresizingMaskIntoConstraints="NO" id="UDx-7h-pMz">
-                                    <rect key="frame" x="90" y="20" width="100" height="100"/>
+                                    <rect key="frame" x="90" y="30" width="100" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="UDx-7h-pMz" secondAttribute="height" multiplier="1:1" id="GMF-2r-tAL"/>
                                         <constraint firstAttribute="height" constant="61" id="Kno-Aa-bub"/>
@@ -160,14 +160,14 @@
                             </subviews>
                             <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="UDx-7h-pMz" secondAttribute="bottom" constant="16" id="C0A-jx-QrI"/>
+                                <constraint firstAttribute="bottom" secondItem="UDx-7h-pMz" secondAttribute="bottom" constant="26" id="C0A-jx-QrI"/>
                                 <constraint firstItem="UDx-7h-pMz" firstAttribute="leading" secondItem="Mid-Lw-hp4" secondAttribute="leading" constant="90" id="Lk5-F8-PEY"/>
-                                <constraint firstItem="UDx-7h-pMz" firstAttribute="top" secondItem="Mid-Lw-hp4" secondAttribute="top" constant="20" id="utw-pR-htE"/>
+                                <constraint firstItem="UDx-7h-pMz" firstAttribute="top" secondItem="Mid-Lw-hp4" secondAttribute="top" constant="30" id="utw-pR-htE"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopCell" rowHeight="100" id="sJW-KB-FeQ" customClass="TopMenuTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="164" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="184" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sJW-KB-FeQ" id="5Rv-1Q-qGD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
@@ -211,14 +211,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstCell" id="fQd-jP-gTt" customClass="FirstTypeMenuTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="264" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="284" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fQd-jP-gTt" id="QDW-ER-yKi">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho8-C0-b91">
-                                            <rect key="frame" x="18" y="18" width="169" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho8-C0-b91">
+                                            <rect key="frame" x="19" y="18" width="169" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="169" id="4ad-yR-Gfu"/>
                                                 <constraint firstAttribute="width" secondItem="Ho8-C0-b91" secondAttribute="height" multiplier="2:1" id="WD6-4o-RQR"/>
@@ -253,7 +253,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SecondCell" rowHeight="67" id="oAH-QT-8c3" customClass="SecondMenuTypeTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="308" width="414" height="67"/>
+                                <rect key="frame" x="0.0" y="328" width="414" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oAH-QT-8c3" id="Akj-Ue-dEH">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
@@ -509,6 +509,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Lio-T5-raw">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="zxM-Sj-7eY"/>
                         <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="Zs6-6p-pvd">
                             <connections>
                                 <action selector="menuTap:" destination="1K0-LP-QWF" id="XM0-bC-UnZ"/>
@@ -529,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XzH-cb-mXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4320" y="3878"/>
+            <point key="canvasLocation" x="4320" y="4003"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="mqe-ZX-vXG">
@@ -1114,6 +1115,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="2Ee-Cq-ouv">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="XP4-4q-oT9"/>
                         <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="nid-2v-mWu"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="zpD-rO-7gC">
                             <connections>
@@ -2063,6 +2065,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="irc-TV-a9a">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="7oh-2n-XY9"/>
                         <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="qs8-Vz-CSn"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="8xb-wk-PR5">
                             <connections>
@@ -2282,7 +2285,9 @@
                             <outlet property="delegate" destination="p1F-rG-gvq" id="AVh-uf-ZbB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="j3T-QK-xjl"/>
+                    <navigationItem key="navigationItem" id="j3T-QK-xjl">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="HKk-Ea-mBd"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="qs8-Vz-CSn" id="UTV-2l-TTo"/>
                     </connections>
@@ -2561,6 +2566,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ubR-9k-HWh">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="FPE-pM-KAK"/>
                         <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" style="done" id="N8n-5w-AEc">
                             <connections>
                                 <action selector="menuTap:" destination="APm-ai-Ku7" id="G0D-AA-IdN"/>
@@ -2600,7 +2606,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqK-2q-Ltl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3765" y="5382"/>
+            <point key="canvasLocation" x="3765" y="5374"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="kGF-lj-WKb">
@@ -2848,7 +2854,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-mobi.png" translatesAutoresizingMaskIntoConstraints="NO" id="032-AP-vdK">
-                                <rect key="frame" x="60" y="56" width="294" height="39"/>
+                                <rect key="frame" x="60" y="68" width="294" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="60I-fN-NX2"/>
                                     <constraint firstAttribute="width" secondItem="032-AP-vdK" secondAttribute="height" multiplier="1877:250" id="ULx-WT-zip"/>
@@ -2860,7 +2866,7 @@
                                 </variation>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
-                                <rect key="frame" x="20" y="119" width="374" height="587"/>
+                                <rect key="frame" x="20" y="131" width="374" height="575"/>
                                 <string key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
 
     É composto por três pilares:
@@ -2895,7 +2901,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Wfb-gh-pJy" secondAttribute="trailing" id="Njq-Fi-Fwc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="032-AP-vdK" secondAttribute="trailing" constant="40" id="V11-43-fMw"/>
                             <constraint firstItem="Wfb-gh-pJy" firstAttribute="top" secondItem="032-AP-vdK" secondAttribute="bottom" constant="24" id="aDH-vo-mOZ"/>
-                            <constraint firstItem="032-AP-vdK" firstAttribute="top" secondItem="xge-Gg-sGF" secondAttribute="bottom" constant="12" id="asr-av-Z62"/>
+                            <constraint firstItem="032-AP-vdK" firstAttribute="top" secondItem="xge-Gg-sGF" secondAttribute="bottom" constant="24" id="asr-av-Z62"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GSn-yW-kRB" secondAttribute="trailing" constant="10" id="ege-s5-FfA"/>
                             <constraint firstItem="GSn-yW-kRB" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="10" id="h8E-v4-vnf"/>
                             <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="GSn-yW-kRB" secondAttribute="bottom" constant="100" id="mLy-PO-Tu9"/>
@@ -4030,6 +4036,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Bi5-42-M7m">
                         <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="4HC-HK-JzX"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="70d-Sn-NSe">
                             <rect key="frame" x="125" y="7" width="165" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -6611,6 +6618,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="l13-RQ-QCM">
+                        <barButtonItem key="backBarButtonItem" title="Voltar" id="mc4-aa-N3h"/>
                         <barButtonItem key="leftBarButtonItem" image="hamburgerIcon.png" id="oTt-GH-Lqr"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="GKm-ov-OD1">
                             <connections>
@@ -6663,10 +6671,10 @@
         <image name="background" width="512" height="512"/>
         <image name="hamburgerIcon.png" width="20" height="20"/>
         <image name="heart.png" width="20" height="20"/>
-        <image name="icone-coracao.png" width="256" height="256"/>
-        <image name="icone-grafico.png" width="256" height="256"/>
-        <image name="icone-historico.png" width="256" height="256"/>
-        <image name="icone-local.png" width="256" height="256"/>
+        <image name="icone-coracao.png" width="24" height="24"/>
+        <image name="icone-grafico.png" width="24" height="24"/>
+        <image name="icone-historico.png" width="24" height="24"/>
+        <image name="icone-local.png" width="24" height="24"/>
         <image name="like1.png" width="22" height="21"/>
         <image name="logo-brancaAbert.png" width="200" height="200"/>
         <image name="logo-mobi.png" width="1877" height="250"/>
@@ -6676,7 +6684,7 @@
         <image name="unlike1.png" width="22" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LMO-xc-EaP"/>
+        <segue reference="18K-qB-l9h"/>
         <segue reference="bzi-4U-0gJ"/>
         <segue reference="OrG-jc-k0m"/>
     </inferredMetricsTieBreakers>

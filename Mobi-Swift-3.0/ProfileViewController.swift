@@ -18,7 +18,6 @@ import FirebaseTwitterAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
-import ChameleonFramework
 import Kingfisher
 import FirebaseMessaging
 
@@ -55,6 +54,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var buttonAdvertisement: UIButton!
   @IBOutlet weak var searchButton: UIBarButtonItem!
   
+  @IBOutlet weak var viewLoading: UIView!
+  
   var viewControllerNew = UIViewController()
   let notificationCenter = NSNotificationCenter.defaultCenter()
   let imagePicker = UIImagePickerController()
@@ -68,13 +69,15 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   var db = FIRDatabaseReference.init()
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
+  
+  
   @IBOutlet weak var heightTableView: NSLayoutConstraint!
   
   override func viewDidLoad() {
     if !DataManager.sharedInstance.isLogged {
-      view.hidden = true
+      viewLoading.hidden = false
     } else {
-      view.hidden = false
+      viewLoading.hidden = true
     }
     super.viewDidLoad()
     //viewControllerNew = self.copy() as! ProfileViewController
@@ -87,7 +90,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     
-    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "logoAnuncio.png"), forState: .Normal)
     let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
     self.buttonAdvertisement.backgroundColor = colorWhite2
@@ -127,6 +130,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         }
       }
     })
+    
+    viewLoading.hidden = true
   }
   
   
@@ -159,10 +164,10 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     }
     if !DataManager.sharedInstance.isLogged {
-      view.hidden = true
+      viewLoading.hidden = false
       loginButtonTap(self)
     } else {
-      view.hidden = false
+      viewLoading.hidden = true
     }
     selectedRadioArray = myUser.favoritesRadios
     tableViewFavorites.reloadData()
@@ -527,7 +532,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
                   self.myUser = DataManager.sharedInstance.myUser
                   self.completeProfileViewInfo()
                   self.buttonLogin.setTitle("Logout", forState: .Normal)
-                  self.view.hidden = false
+                  self.viewLoading.hidden = true
                   
                   let requestFollowers = RequestManager()
                   requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
@@ -550,7 +555,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
             } else {
               self.completeProfileViewInfo()
               self.buttonLogin.setTitle("Logout", forState: .Normal)
-              self.view.hidden = false
+              self.viewLoading.hidden = true
               
               let requestFollowers = RequestManager()
               requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
@@ -634,7 +639,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
     
     UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
-    UIImage(named: "splashScreen.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
+    UIImage(named: "login-1.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
     let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     

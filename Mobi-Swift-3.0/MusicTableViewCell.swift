@@ -72,6 +72,11 @@ class MusicTableViewCell: UITableViewCell {
     buttonNLike.alpha = 1
     buttonLike.alpha = 1
     labelWithoutMusic.text = ""
+    let imageCD = UIImage(named: "logo-brancaAbert.png")
+    var imageCDView = UIImageView(frame: imageMusic.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imageMusic.image = imageCDView.image
+    imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
   
   func lockContent() {
@@ -82,7 +87,7 @@ class MusicTableViewCell: UITableViewCell {
     imageMusic.backgroundColor = UIColor.clearColor()
     imageMusic.alpha = 0.6
     labelArtist.text = "Artista"
-    labelMusicName.text = "Não há informação da música"
+    labelMusicName.text = "Sem informações da rádio"
     buttonNLike.alpha = 0.6
     buttonLike.alpha = 0.6
     labelWithoutMusic.text = ""

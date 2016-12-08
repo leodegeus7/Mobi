@@ -156,6 +156,9 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   
   func sendPublication() {
     let requestManager = RequestManager()
+    if self.textViewPublication.text == "Digite uma publicação" {
+      self.textViewPublication.text = ""
+    }
     switch actualMode {
     case .Review:
       if numberOfStars == -1 {

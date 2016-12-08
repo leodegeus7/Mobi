@@ -53,7 +53,13 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
 
-    
+    self.navigationController? .setNavigationBarHidden(false, animated:true)
+    let backButton = UIButton(type: UIButtonType.Custom)
+    backButton.addTarget(self, action: #selector(SearchTableViewController.backFunction), forControlEvents: UIControlEvents.TouchUpInside)
+    backButton.setTitle("< Voltar", forState: UIControlState.Normal)
+    backButton.sizeToFit()
+    let backButtonItem = UIBarButtonItem(customView: backButton)
+    self.navigationItem.leftBarButtonItem = backButtonItem
     
   }
   
@@ -61,8 +67,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     super.didReceiveMemoryWarning()
   }
   
-  func popToRoot(sender:UIBarButtonItem){
-    self.navigationController!.popToRootViewControllerAnimated(true)
+  func backFunction() {
+    self.navigationController?.popViewControllerAnimated(true)
   }
   // MARK: - Table view data source
   
@@ -193,7 +199,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
           let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
           cell.adsButton.backgroundColor = colorWhite
-          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+          cell.adsButton.setBackgroundImage(UIImage(named: "logoAnuncio.png"), forState: .Normal)
           cell.selectionStyle = .None
           AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in
             dispatch_async(dispatch_get_main_queue()) {
@@ -598,7 +604,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       if searchRadios.count + searchCities.count + searchStates.count + searchGenre.count + searchCities.count + searchUsers.count > 0 {
         switch section {
         case 0:
-          return "Radios"
+          return "Rádios"
         case 1:
           return "Gêneros"
         case 2:

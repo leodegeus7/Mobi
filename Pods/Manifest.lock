@@ -92,6 +92,7 @@ PODS:
     - MWFeedParser/NSString+HTML
   - MWFeedParser/NSDate+InternetDateTime (1.0.1)
   - MWFeedParser/NSString+HTML (1.0.1)
+  - PocketSVG (2.0.0)
   - PullToRefresh (0.0.1)
   - Realm (2.0.3):
     - Realm/Headers (= 2.0.3)
@@ -124,6 +125,7 @@ DEPENDENCIES:
   - ImageViewer (~> 2.0)
   - Kingfisher (~> 2.5)
   - MWFeedParser
+  - PocketSVG
   - PullToRefresh
   - RealmSwift
   - SideMenu
@@ -158,6 +160,7 @@ SPEC CHECKSUMS:
   ImageViewer: c09d86c780c8dd45d00d2a95bcf11e1ca8c4935f
   Kingfisher: 7e5515bf6c4f2acad91f6400955d2257549cab7b
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
+  PocketSVG: 5924c20ec9220fe1717087e56c3d5da27ca76863
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
   RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
@@ -166,6 +169,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: 293476af417d8e00ea50816831d7008debccdb99
+PODFILE CHECKSUM: 36c1e7d1b60ca5a721ff990ce0a47bc024cc6eb4
 
 COCOAPODS: 1.0.1

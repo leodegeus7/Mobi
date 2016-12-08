@@ -1098,15 +1098,37 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgK-BP-Jbf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IB4-g3-IBo">
+                                        <rect key="frame" x="110" y="450" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="LOY-rx-V2V"/>
+                                            <constraint firstAttribute="height" constant="100" id="r26-nf-h8T"/>
+                                        </constraints>
+                                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="IB4-g3-IBo" firstAttribute="centerY" secondItem="LgK-BP-Jbf" secondAttribute="centerY" id="eYh-v3-3sD"/>
+                                    <constraint firstItem="IB4-g3-IBo" firstAttribute="centerX" secondItem="LgK-BP-Jbf" secondAttribute="centerX" id="w3w-sX-0v8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="s9t-0e-b7S" secondAttribute="trailing" constant="-16" id="05T-ya-kFa"/>
                             <constraint firstItem="ZDY-Io-lG7" firstAttribute="width" secondItem="ghj-d8-NPy" secondAttribute="width" id="7xQ-LA-cqj"/>
+                            <constraint firstItem="LgK-BP-Jbf" firstAttribute="centerX" secondItem="ghj-d8-NPy" secondAttribute="centerX" id="B29-cS-Bde"/>
+                            <constraint firstItem="LgK-BP-Jbf" firstAttribute="centerY" secondItem="ghj-d8-NPy" secondAttribute="centerY" id="HK7-UP-d5F"/>
+                            <constraint firstItem="LgK-BP-Jbf" firstAttribute="width" secondItem="ghj-d8-NPy" secondAttribute="width" id="WCq-em-Q5D"/>
                             <constraint firstItem="s9t-0e-b7S" firstAttribute="top" secondItem="lkT-Vc-n85" secondAttribute="bottom" id="fo7-Ke-58L"/>
                             <constraint firstItem="s9t-0e-b7S" firstAttribute="leading" secondItem="ghj-d8-NPy" secondAttribute="leadingMargin" constant="-16" id="pIi-dp-kox"/>
                             <constraint firstItem="GvD-bF-09c" firstAttribute="top" secondItem="s9t-0e-b7S" secondAttribute="bottom" id="pmO-bl-4jb"/>
                             <constraint firstItem="s9t-0e-b7S" firstAttribute="top" secondItem="lkT-Vc-n85" secondAttribute="bottom" id="vPh-VH-SMg"/>
+                            <constraint firstItem="LgK-BP-Jbf" firstAttribute="height" secondItem="ghj-d8-NPy" secondAttribute="height" id="xub-BV-5QD"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1162,6 +1184,7 @@
                         <outlet property="slackState" destination="VZL-lD-IFA" id="Omh-aN-5eU"/>
                         <outlet property="slackTest" destination="GUJ-xD-Ngz" id="PqO-sr-jWH"/>
                         <outlet property="tableViewFavorites" destination="y0h-9W-XB3" id="PbU-f2-EpK"/>
+                        <outlet property="viewLoading" destination="LgK-BP-Jbf" id="Epo-RH-mMG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Yx-PA-8tv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2052,7 +2075,7 @@
                                             <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

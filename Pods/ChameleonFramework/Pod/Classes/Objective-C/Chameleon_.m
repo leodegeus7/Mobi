@@ -69,20 +69,24 @@
     if (contentStyle == UIContentStyleContrast) {
         
         if ([ContrastColor(primaryColor, YES) isEqual:FlatWhite]) {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          contentStyle = UIContentStyleLight;
         } else {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+          contentStyle = UIContentStyleLight;
         }
         
     } else if (contentStyle == UIContentStyleLight) {
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        
+      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+      contentStyle = UIContentStyleLight;
+      
     } else {
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+      contentStyle = UIContentStyleLight;
     }
-    
+  
     [[self class] customizeBarButtonItemWithPrimaryColor:primaryColor contentStyle:contentStyle];
     [[self class] customizeButtonWithPrimaryColor:primaryColor secondaryColor:secondaryColor withContentStyle:contentStyle];
     [[self class] customizeNavigationBarWithPrimaryColor:primaryColor withContentStyle:contentStyle];

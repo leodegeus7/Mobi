@@ -82,8 +82,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     tableView.tableFooterView = UIView()
     self.clearsSelectionOnViewWillAppear = true
     
-    let backButton = UIBarButtonItem.init(title: "Voltar", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-    self.navigationItem.backBarButtonItem = backButton
+    self.navigationController? .setNavigationBarHidden(false, animated:true)
+    let backButton = UIButton(type: UIButtonType.Custom)
+    backButton.addTarget(self, action: #selector(RadioTableViewController.backFunction), forControlEvents: UIControlEvents.TouchUpInside)
+    backButton.setTitle("< Voltar", forState: UIControlState.Normal)
+    backButton.sizeToFit()
+    let backButtonItem = UIBarButtonItem(customView: backButton)
+    self.navigationItem.leftBarButtonItem = backButtonItem
     
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
@@ -179,6 +184,10 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   override func viewWillAppear(animated: Bool) {
     defineBarButton()
     
+  }
+  
+  func backFunction() {
+    self.navigationController?.popViewControllerAnimated(true)
   }
   
   ///////////////////////////////////////////////////////////
@@ -402,7 +411,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
           let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
           cell.adsButton.backgroundColor = colorWhite
-          cell.adsButton.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+          cell.adsButton.setBackgroundImage(UIImage(named: "logoAnuncio.png"), forState: .Normal)
           cell.selectionStyle = .None
           
           print("Tamanho do adbutton \(cell.adsButton.frame.size)")

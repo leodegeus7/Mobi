@@ -13,6 +13,9 @@ import Kingfisher
 import Firebase
 import AVFoundation
 import ChameleonFramework
+import PocketSVG
+
+
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   
@@ -137,14 +140,19 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   func defineSegments() {
-    let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image2 = Util.imageResize(UIImage(named: "icone-local.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image3 = Util.imageResize(UIImage(named: "icone-historico.png")!, sizeChange: CGSize(width: 20, height: 20))
-    let image4 = Util.imageResize(UIImage(named: "icone-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))
+    
+    //    viewWithSVG.addSubview(svgCoracao)
+    //    let image22 = Util.viewToImage(viewWithSVG)
+    //let image1 = Util.imageResize(UIImage(named: "icone-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))
+    let image1 = Util.imageResize(UIImage(named: "icones_branco-grafico.png")!, sizeChange: CGSize(width: 20, height: 20))//UIImage(named: "icone-grafico.png")!
+    let image2 = Util.imageResize(UIImage(named: "icones_branco-ponteiro.png")!, sizeChange: CGSize(width: 20, height: 20))//UIImage(named: "icone-local.png")!
+    let image3 = Util.imageResize(UIImage(named: "icones_branco-relogio.png")!, sizeChange: CGSize(width: 20, height: 20))//UIImage(named: "icone-historico.png")!
+    let image4 = Util.imageResize(UIImage(named: "icones_branco-coracao.png")!, sizeChange: CGSize(width: 20, height: 20))//UIImage(named: "icone-coracao.png")!
     segmentedControlMenu.setImage(image1, forSegmentAtIndex: 0)
     segmentedControlMenu.setImage(image2, forSegmentAtIndex: 1)
     segmentedControlMenu.setImage(image3, forSegmentAtIndex: 2)
     segmentedControlMenu.setImage(image4, forSegmentAtIndex: 3)
+    
   }
   
   ///////////////////////////////////////////////////////////
@@ -164,7 +172,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-
+    
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -248,6 +256,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     } else {
       let cell = UITableViewCell()
       cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
+      cell.selectionStyle = .None
       return cell
     }
   }
@@ -271,18 +280,19 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    switch selectedMode {
-    case .Favorite:
-      selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
-    case .Local:
-      selectedRadio = DataManager.sharedInstance.localRadios[indexPath.row]
-    case .Recent:
-      selectedRadio = DataManager.sharedInstance.recentsRadios[indexPath.row]
-    case .Top:
-      selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
+    if indexPath.row <= selectedRadioArray.count-1 {
+      switch selectedMode {
+      case .Favorite:
+        selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
+      case .Local:
+        selectedRadio = DataManager.sharedInstance.localRadios[indexPath.row]
+      case .Recent:
+        selectedRadio = DataManager.sharedInstance.recentsRadios[indexPath.row]
+      case .Top:
+        selectedRadio = DataManager.sharedInstance.topRadios[indexPath.row]
+      }
+      DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
     }
-    DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
-    
     
   }
   
@@ -394,7 +404,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   
   override func viewWillAppear(animated: Bool) {
     tableView.reloadData()
-    
+    openMenu.tintColor = UIColor.whiteColor()
     
   }
   

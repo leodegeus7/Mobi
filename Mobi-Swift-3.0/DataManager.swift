@@ -190,6 +190,11 @@ class DataManager: NSObject {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewControllerWithIdentifier("radioTableDetail") as? RadioTableViewController
     vc?.actualRadio = radio
+    
+    let backButton = UIBarButtonItem()
+    backButton.title = "Voltar"
+    navigation.navigationItem.backBarButtonItem = backButton
+    
     navigation.pushViewController(vc!, animated: true)
   }
   

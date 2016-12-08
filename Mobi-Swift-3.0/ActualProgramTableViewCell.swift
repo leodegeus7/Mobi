@@ -41,14 +41,18 @@ class ActualProgramTableViewCell: UITableViewCell {
     viewLocked.hidden = false
     labelLocked.text = ""
     labelGuests.text = "Convidados"
-    labelName.text = "Sem informação de programação"
-    imagePerson.image = UIImage(named: "logo-brancaAbert.png")
+    labelName.text = "Sem programação da rádio"
     labelNamePerson.text = "Apresentador"
     labelSecondName.text = ""
     labelLocked.textColor = DataManager.sharedInstance.interfaceColor.color
     imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
     imagePerson.layer.borderColor = UIColor.blackColor().CGColor
     imagePerson.layer.borderWidth = 0
+    let imageCD = UIImage(named: "logo-brancaAbert.png")
+    var imageCDView = UIImageView(frame: imagePerson.frame)
+    imageCDView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageCD!)
+    imagePerson.image = imageCDView.image
+    imagePerson.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
   
   func unlockView() {

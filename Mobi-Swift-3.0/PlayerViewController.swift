@@ -96,10 +96,10 @@ class PlayerViewController: UIViewController {
     updateInfoOfView()
     segmentedChanged(self)
     
-    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "anuncio3.png"), forState: .Normal)
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "logoAnuncio.png"), forState: .Normal)
     
     let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
+    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 0.2).color
     self.buttonAdvertisement.backgroundColor = colorWhite2
     
     AdsManager.sharedInstance.setAdvertisement(.PlayerScreen, completion: { (resultAd) in

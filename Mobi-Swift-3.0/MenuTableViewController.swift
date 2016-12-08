@@ -201,6 +201,7 @@ class MenuTableViewController: UITableViewController {
       } else {
         let cell = UITableViewCell()
         cell.selectionStyle = .None
+          cell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
         return cell
       }
     } else {
@@ -212,6 +213,7 @@ class MenuTableViewController: UITableViewController {
       } else {
         let cell = UITableViewCell()
         cell.selectionStyle = .None
+        cell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
         return cell
       }
     }

@@ -204,7 +204,14 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           
           if specialProgram.date.timeIntervalSinceDate(fistDayOfWeek) > 0 && specialProgram.date.timeIntervalSinceDate(lastDayOfWeek) < 0 {
             let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
-            self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgram)
+            let specialProgramAux = specialProgram
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.timeStyle = .ShortStyle
+            dateFormatter.dateStyle = .NoStyle
+            dateFormatter.timeZone = NSTimeZone.localTimeZone()
+            print(dateFormatter.stringFromDate(specialProgramAux.date))
+            specialProgramAux.timeStart = dateFormatter.stringFromDate(specialProgramAux.date)
+            self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgramAux)
             
             let programIdToDelete = specialProgram.referenceIdProgram
             var scheduleDay = (self.schedule[self.weekDays[dayOfWeekInt-1]])!
@@ -222,7 +229,7 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         
         for programsArray in self.schedule {
           var programs = programsArray.1
-          programs.sortInPlace({ $0.timeStart < $1.timeStart })
+          programs.sortInPlace({ $0.sortVar < $1.sortVar })
           self.schedule[programsArray.0] = programs
           
         }
@@ -276,7 +283,8 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if section <= actualSchedulePrograms.count-1 {
-      return actualSchedulePrograms[section].timeStart
+        return actualSchedulePrograms[section].timeStart
+      
     } else {
       return  ""
     }

@@ -13,7 +13,6 @@ import Kingfisher
 import Firebase
 import AVFoundation
 import ChameleonFramework
-import PocketSVG
 
 
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {

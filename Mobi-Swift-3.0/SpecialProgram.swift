@@ -25,5 +25,11 @@ class SpecialProgram: Program {
     self.guests = guests
     self.referenceIdProgram = referenceIdProgram
     self.date = date
+    
+    let compo = NSCalendar.currentCalendar().components([.Hour,.Minute], fromDate: date)
+    let hour = compo.hour
+    let minut:Float = Float(compo.minute)/60.0
+    sortVar = Float(hour) + minut
   }
+  
 }

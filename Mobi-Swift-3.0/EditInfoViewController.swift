@@ -213,11 +213,16 @@ class EditInfoViewController: FormViewController {
     //    let labelNumber : TextRow = form.rowByTag("number")!
     //    let labelComple : TextRow = form.rowByTag("complem")!
     //
+
     
     let labelEmail : EmailRow = form.rowByTag("email")!
     //
     let labelKey : PasswordRow = form.rowByTag("key")!
     let labelReKey : PasswordRow =  form.rowByTag("rekey")!
+    
+    
+    
+    
     
     var changesArray = [Dictionary<String,AnyObject>]()
     
@@ -225,6 +230,8 @@ class EditInfoViewController: FormViewController {
       if labelReKey.value != "" {
         if labelReKey.value?.characters.count > 6 {
           if labelKey.value == labelReKey.value {
+            
+            
             let user = FIRAuth.auth()?.currentUser
             user?.updatePassword(labelKey.value!, completion: { (error) in
               if error != nil {
@@ -247,7 +254,7 @@ class EditInfoViewController: FormViewController {
     if labelEmail.value != "" && labelEmail.value != DataManager.sharedInstance.myUser.email {
       var dicPara2 = Dictionary<String,AnyObject>()
       dicPara2["parameter"] = "email"
-      dicPara2["value"] = labelEmail.value
+      dicPara2["value"] = labelEmail.value!
       changesArray.append(dicPara2)
       let user = FIRAuth.auth()?.currentUser
       user?.updateEmail(labelEmail.value!, completion: { (error) in
@@ -267,27 +274,33 @@ class EditInfoViewController: FormViewController {
   }
   
   func profileUpdateSecondPart(changesArrayAux:[Dictionary<String,AnyObject>],updateMail:Bool) {
+    
     var changesArray = changesArrayAux
     let labelNameInfo : TextRow = form.rowByTag("name")!
     let labelBirthInfo : DateRow = form.rowByTag("birth")!
     let labelGenderInfo : SegmentedRow<String>  = form.rowByTag("gender")!
     
+    
+
+    
     if labelNameInfo.value != "" {
       var dicPara = Dictionary<String,AnyObject>()
       dicPara["parameter"] = "name"
-      dicPara["value"] = labelNameInfo.value
+      dicPara["value"] = labelNameInfo.value!
       changesArray.append(dicPara)
     }
     
-    if labelGenderInfo.value != "" {
-      var dicPara3 = Dictionary<String,AnyObject>()
-      dicPara3["parameter"] = "genre"
-      if labelGenderInfo.value == "Masc" {
-        dicPara3["value"] = "M"
-      } else if labelGenderInfo.value == "Fem" {
-        dicPara3["value"] = "F"
+    if let _ = labelGenderInfo.value {
+      if labelGenderInfo.value != "" {
+        var dicPara3 = Dictionary<String,AnyObject>()
+        dicPara3["parameter"] = "genre"
+        if labelGenderInfo.value == "Masc" {
+          dicPara3["value"] = "M"
+        } else if labelGenderInfo.value == "Fem" {
+          dicPara3["value"] = "F"
+        }
+        changesArray.append(dicPara3)
       }
-      changesArray.append(dicPara3)
     }
     if labelBirthInfo.value == NSDate() {
       print("Aqui")

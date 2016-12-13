@@ -109,9 +109,9 @@ class MenuTableViewController: UITableViewController {
     let cell = tableView.cellForRowAtIndexPath(indexPath) as! SecondMenuTypeTableViewCell
     if DataManager.sharedInstance.isSleepModeEnabled {
       let interval = Double(NSDate().timeIntervalSinceDate(DataManager.sharedInstance.dateSleep))*(-1)
-      if interval < 60 {
+      if interval < 60 && interval >= 0 {
         cell.labelText.text = "Dormir em \(Int(interval)) seg"
-      } else {
+      } else if interval >= 60 {
         cell.labelText.text = "Dormir em \(Int(interval/60)) min"
       }
       cell.switchStatus.enabled = true
@@ -283,7 +283,7 @@ class MenuTableViewController: UITableViewController {
       }
       DataManager.sharedInstance.isSleepModeEnabled = false
     } else {
-      let sleepAlert = UIAlertController(title: "Função dormir", message: "Escolha um período e iremos parar a radio para você", preferredStyle: UIAlertControllerStyle.ActionSheet)
+      let sleepAlert = UIAlertController(title: "Função dormir", message: "Escolha um período de tempo e iremos parar a radio para você", preferredStyle: UIAlertControllerStyle.ActionSheet)
       
       var sheets = [UIAlertAction]()
       let values = ["15 min","30 min","45 min","60 min","90 min"]

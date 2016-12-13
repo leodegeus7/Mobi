@@ -16,6 +16,7 @@ class Program: NSObject {
   var announcer = UserRealm()
   var active = false
   var days:DataManager.ProgramDays!
+  var sortVar:Float = 0
 
   
   convenience init(id:Int,name:String,announcer:UserRealm,timeStart:String,timeEnd:String,days:DataManager.ProgramDays,active:Bool) {
@@ -23,7 +24,19 @@ class Program: NSObject {
     self.id = id
     self.name = name
     self.announcer = announcer
-    self.timeStart = timeStart
+    
+    
+    let timeStartDate = Util.convertStringToNSDate(timeStart)
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .NoStyle
+    formatter.timeStyle = .ShortStyle
+    
+    let compo = NSCalendar.currentCalendar().components([.Hour,.Minute], fromDate: timeStartDate)
+    let hour = compo.hour
+    let minut:Float = Float(compo.minute)/60.0
+    sortVar = Float(hour) + minut
+    
+    self.timeStart = formatter.stringFromDate(timeStartDate)
     self.timeEnd = timeEnd
     self.days = days
     self.active = active

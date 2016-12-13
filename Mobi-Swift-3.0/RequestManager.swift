@@ -1203,7 +1203,24 @@ class RequestManager: NSObject {
             let timeStart = programDic["timeStart"] as! String
             
             let dateString = programDic["date"] as! String
-            let date = Util.convertStringToNSDate(dateString)
+            
+            let timeStartDate = Util.convertStringToNSDate(timeStart)
+            let components = NSCalendar.currentCalendar().components([.Hour,.Minute,.TimeZone], fromDate: timeStartDate)
+            
+            let hour = components.hour
+            let minute = components.minute
+            let timeZone = components.timeZone?.abbreviation
+            
+            let date2 = Util.convertStringToNSDate(dateString)
+            let components2 = NSCalendar.currentCalendar().components([.Day,.Month,.Year], fromDate: date2)
+            let day = components2.day
+            let month = components2.month
+            let year = components2.year
+            
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd-HH:mm Z"
+            let date = formatter.dateFromString("\(year)-\(month)-\(day)-\(hour):\(minute) \(timeZone!)")
+            
             let guests = programDic["guests"] as! String
             let idReference = programDic["programId"] as! Int
             
@@ -1219,7 +1236,7 @@ class RequestManager: NSObject {
             }
             
             
-            let programClass = SpecialProgram(id: id, name: name, date: date, referenceIdProgram: idReference, announcer: user, timeStart: timeStart, timeEnd: timeEnd, guests: guests, active: true)
+            let programClass = SpecialProgram(id: id, name: name, date: date!, referenceIdProgram: idReference, announcer: user, timeStart: timeStart, timeEnd: timeEnd, guests: guests, active: true)
             programsArray.append(programClass)
           }
         }

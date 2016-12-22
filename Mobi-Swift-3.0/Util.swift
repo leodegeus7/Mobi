@@ -305,14 +305,14 @@ class Util: NSObject {
   
   static func sleepNotification(seconds:Int) {
     if StreamingRadioManager.sharedInstance.currentlyPlaying() {
-      let title:String = "SleepMode"
+      let title:String = "Modo Dormir"
       let date = NSDate(timeIntervalSinceNow: Double(seconds))
       let notification = UILocalNotification()
       let dict:NSDictionary = ["ID" : "your ID goes here"]
       notification.userInfo = dict as! [String : String]
-      notification.alertBody = "\(title)"
-      notification.alertAction = "Open"
-      notification.alertTitle = "SleepMode"
+      notification.alertBody = "Modo dormir ativado. Suas rádios foram desligadas!"
+      notification.alertAction = "Abrir"
+      notification.alertTitle = "Modo Dormir"
       notification.timeZone = NSTimeZone.defaultTimeZone()
       notification.fireDate = date
       notification.soundName = UILocalNotificationDefaultSoundName

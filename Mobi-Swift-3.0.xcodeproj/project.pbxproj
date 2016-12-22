@@ -144,6 +144,7 @@
 		B7880BAA1D5E5F46002B235A /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BA91D5E5F46002B235A /* Radio.swift */; };
 		B7880BAC1D5E6B84002B235A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7880BAB1D5E6B84002B235A /* AVFoundation.framework */; };
 		B7880BAE1D5E6E39002B235A /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */; };
+		B78EFF6F1E042C0F0062086F /* icone-branc-whats.png in Resources */ = {isa = PBXBuildFile; fileRef = B78EFF6E1E042C0F0062086F /* icone-branc-whats.png */; };
 		B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE40C1DD37DDE00D7551B /* pauseWhite.png */; };
 		B78FE4151DD3988A00D7551B /* arrowR.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4141DD3988A00D7551B /* arrowR.png */; };
 		B78FE4171DD3B29F00D7551B /* anuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B78FE4161DD3B29F00D7551B /* anuncio.png */; };
@@ -288,7 +289,7 @@
 		B76198D71D89D9FD00B83B6E /* StateRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRealm.swift; sourceTree = "<group>"; };
 		B76198D91D89E15D00B83B6E /* CityRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityRealm.swift; sourceTree = "<group>"; };
 		B76198DB1D89EDF700B83B6E /* LocalCities2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCities2TableViewController.swift; sourceTree = "<group>"; };
-		B761A5481DD1119100EB794A /* FirebaseAuthUI.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = FirebaseAuthUI.strings; sourceTree = "<group>"; };
+		B761A5481DD1119100EB794A /* FirebaseAuthUI.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = FirebaseAuthUI.strings; sourceTree = "<group>"; };
 		B761A54C1DD1162200EB794A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B764CE101DB7D2D600BFCE76 /* WallImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallImageTableViewCell.swift; sourceTree = "<group>"; };
 		B764CE121DB7F46D00BFCE76 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
@@ -374,6 +375,7 @@
 		B7880BA91D5E5F46002B235A /* Radio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		B7880BAB1D5E6B84002B235A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B7880BAD1D5E6E39002B235A /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
+		B78EFF6E1E042C0F0062086F /* icone-branc-whats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-branc-whats.png"; sourceTree = "<group>"; };
 		B78FE40C1DD37DDE00D7551B /* pauseWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseWhite.png; sourceTree = "<group>"; };
 		B78FE4141DD3988A00D7551B /* arrowR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowR.png; sourceTree = "<group>"; };
 		B78FE4161DD3B29F00D7551B /* anuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anuncio.png; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 		B77892E91D91D71A009D6105 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				B78EFF6E1E042C0F0062086F /* icone-branc-whats.png */,
 				B7F8C1091D9EF16C00848351 /* logo-mobi.png */,
 				B76841D11DA58E5400ABBC78 /* like1.png */,
 				B76841D21DA58E5400ABBC78 /* unlike1.png */,
@@ -975,6 +978,7 @@
 			files = (
 				B70AFE5E1DF08E2700460089 /* DINRegular.ttf in Resources */,
 				B73532E71D9AD744008504BA /* RadioDetailView.xib in Resources */,
+				B78EFF6F1E042C0F0062086F /* icone-branc-whats.png in Resources */,
 				B759C0221D6E10540005515F /* clock-icon.png in Resources */,
 				B70DFA4B1D70C847000DDBD6 /* play.png in Resources */,
 				B74B0E621D6F6F1600012D8E /* happy.jpg in Resources */,

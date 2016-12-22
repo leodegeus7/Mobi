@@ -613,32 +613,40 @@ class PlayerViewController: UIViewController {
     imageMusic.tintColor = DataManager.sharedInstance.interfaceColor.color
   }
   @IBAction func buttonNLikeTap(sender: AnyObject) {
-    buttonLike.alpha = 0.3
-    buttonNLike.alpha = 1
-    self.actualMusic.setNegative()
-    DataManager.sharedInstance.musicInExecution = actualMusic
-    let likeRequest = RequestManager()
-    likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
-      
-      if !resultUnlike {
-        Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+    if DataManager.sharedInstance.isLogged {
+      buttonLike.alpha = 0.3
+      buttonNLike.alpha = 1
+      self.actualMusic.setNegative()
+      DataManager.sharedInstance.musicInExecution = actualMusic
+      let likeRequest = RequestManager()
+      likeRequest.unlikeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
+        
+        if !resultUnlike {
+          Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+        }
       }
+      StreamingRadioManager.sharedInstance.sendNotification()
+    } else {
+      Util.displayAlert(self, title: "Atenção", message: "Para utilizar este recurso é preciso estar logado, logue no Menu", action: "Ok")
     }
-    StreamingRadioManager.sharedInstance.sendNotification()
   }
   @IBAction func buttonLikeTap(sender: AnyObject) {
-    buttonLike.alpha = 1
-    buttonNLike.alpha = 0.3
-    self.actualMusic.setPositive()
-    DataManager.sharedInstance.musicInExecution = actualMusic
-    let likeRequest = RequestManager()
-    likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
-      
-      if !resultLike {
-        Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+    if DataManager.sharedInstance.isLogged {
+      buttonLike.alpha = 1
+      buttonNLike.alpha = 0.3
+      self.actualMusic.setPositive()
+      DataManager.sharedInstance.musicInExecution = actualMusic
+      let likeRequest = RequestManager()
+      likeRequest.likeMusic(StreamingRadioManager.sharedInstance.actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
+        
+        if !resultLike {
+          Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+        }
       }
+      StreamingRadioManager.sharedInstance.sendNotification()
+    } else {
+      Util.displayAlert(self, title: "Atenção", message: "Para utilizar este recurso é preciso estar logado, logue no Menu", action: "Ok")
     }
-    StreamingRadioManager.sharedInstance.sendNotification()
   }
   
   @IBAction func openRadioDetail(sender: AnyObject) {

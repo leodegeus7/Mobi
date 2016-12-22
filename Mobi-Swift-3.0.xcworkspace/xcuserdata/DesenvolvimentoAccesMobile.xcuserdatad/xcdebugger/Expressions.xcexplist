@@ -6,7 +6,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -18,10 +18,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -77,6 +77,14 @@
             </PersistentString>
             <PersistentString
                value = "backgroudImage.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.sendWhats(String) -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contactStore.unifiedContactWithIdentifier(&quot;\(newPhone)&quot;, keysToFetch: toFetch)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -299,6 +307,9 @@
             </PersistentString>
             <PersistentString
                value = "actualComments[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "contactRadio.phoneNumbers">
             </PersistentString>
             <PersistentString
                value = "cell.adsButton.state">
@@ -889,6 +900,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProgramsTableViewController.tableView(UITableView, titleForHeaderInSection : Int) -&gt; String?:ProgramsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualSchedulePrograms[section].timeStart">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LoadViewController.viewDidLoad() -&gt; ():LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -900,14 +919,6 @@
          contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [searchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, didEndDisplayingCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.frame.size">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "RequestManager.(requestNumberOfFollowing(UserRealm, completion : (resultNumberFollowing : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -916,10 +927,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProgramsTableViewController.tableView(UITableView, titleForHeaderInSection : Int) -&gt; String?:ProgramsTableViewController.swift">
+         contextName = "RadioTableViewController.tableView(UITableView, didEndDisplayingCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualSchedulePrograms[section].timeStart">
+               value = "cell.frame.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1317,31 +1328,13 @@
          contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "&quot;\(FileSupport.findDocsDirectory())\(myUser.userImage)&quot;">
+               value = "624615893/3144980000.0">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.userImage">
+               value = "myUser.birthDate.timeIntervalSinceNow">
             </PersistentString>
             <PersistentString
-               value = "myUser">
-            </PersistentString>
-            <PersistentString
-               value = "labelAddress">
-            </PersistentString>
-            <PersistentString
-               value = "FileSupport.findDocsDirectory()">
-            </PersistentString>
-            <PersistentString
-               value = "imageUser">
-            </PersistentString>
-            <PersistentString
-               value = "myUser.userImage">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "UIImage(contentsOfFile: path)!">
+               value = "myUser.birthDate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1383,6 +1376,14 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestUserFavorites((resultFav : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.requestCitiesInState(String, completion : (resultCities : [CityRealm]) -&gt; ()) -&gt; ():RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "address/city/containingstation?stateId=\(stateId)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2).(closure #1):RequestManager.swift">
@@ -1760,6 +1761,9 @@
                value = "searchUsers.count == 0">
             </PersistentString>
             <PersistentString
+               value = "searchUsers">
+            </PersistentString>
+            <PersistentString
                value = "searchStates.count == 0">
             </PersistentString>
          </PersistentStrings>
@@ -1944,6 +1948,9 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestRadiosWithSearch(String, pageNumber : Int, pageSize : Int, completion : ([RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestRadiosInGenre(String, completion : (resultGenre : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">

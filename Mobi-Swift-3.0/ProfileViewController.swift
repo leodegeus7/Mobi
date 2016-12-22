@@ -387,7 +387,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
     }
     if (myUser.birthDate != nil) {
-      if myUser.birthDate.timeIntervalSinceNow < 10000 || myUser.birthDate.timeIntervalSinceNow > 3144980000 {
+      if myUser.birthDate.timeIntervalSinceNow < -3144980000 || myUser.birthDate.timeIntervalSinceNow > -10000{
         if let birthLabel = slackBirth {
           birthLabel.removeFromSuperview()
         }
@@ -513,6 +513,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       user?.getTokenWithCompletion({ (token, error) in
         let requestManager = RequestManager()
         requestManager.loginInServer(token!, completion: { (result) in
+          if token == "nil" {
+            Util.displayAlert(self, title: "Atenção", message: "Não foi possivel logar em sua conta", action: "Ok")
+          } else {
           DataManager.sharedInstance.userToken = result
           DataManager.sharedInstance.isLogged = true
           DataManager.sharedInstance.needUpdateMenu = true
@@ -573,6 +576,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
                 self.labelFollowing.text = "\(resultNumberFollowing)"
               }
             }
+            }
           }
         })
       })
@@ -580,64 +584,13 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       
     }
   }
-  
+
   
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
     authUI.customStringsBundle = NSBundle.mainBundle()
-    //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Contrast)
-    //    Chameleon.setGlobalThemeUsingPrimaryColor(nil, withSecondaryColor: nil, andContentStyle: UIContentStyle.Dark)
-    //    Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.whiteColor(), withContentStyle: UIContentStyle.Dark)
     
     Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.Contrast)
-    
-    //
-    //    //    let fir = FIRAuthPickerViewController(authUI: authUI)
-    //    //
-    
-    //    //
-    //    //    fir.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-    //    //    //let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-    //    //
-    //    //    let backgroudImage = UIImageView(frame: fir.view.frame)
-    //    //    backgroudImage.image = UIImage(named: "fundo-login-mobi.jpg")
-    //    //
-    //    //    let color = UIColor(patternImage: UIImage(named: "fundo-login-mobi.jpg")!)
-    //    //
-    //    //    fir.view.backgroundColor = color
-    //    //
-    //    //    let image2 = UIImageView(frame: UIScreen.mainScreen().bounds)
-    //    //    image2.image = UIImage(named: "fundo-login-mobi.jpg")
-    //    //    let image = UIImageView(frame: UIScreen.mainScreen().bounds)
-    //    //    image.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: fir.view.frame, andColors: [colorRose,colorBlue])
-    //    //    image.alpha = 0.2
-    //    //    image2.addSubview(image)
-    //    //
-    //    //
-    //    //    fir.view.insertSubview(image2, atIndex: 0)
-    //    //
-    
-    //
     let fir2 = FIRAuthPickerViewController(authUI: authUI)
-    //    //let fir = FIRAuthPickerViewController(authUI: authUI)
-    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    //    let colorBlue = ColorRealm(name: 3, red: 144/255, green: 189/255, blue: 220/255, alpha: 1).color
-    //
-    
-    
-    //    let logoImage = UIImageView(image: UIImage(named: "logo-mobi.png"))
-    //    logoImage.frame = CGRect(x: 0, y: 0, width: 130, height: 20)
-    //    logoImage.center = fir2.view.center
-    //    logoImage.frame.origin.y = -30
-    //    logoImage.frame.origin.x = -30
-    //    fir2.view.addSubview(logoImage)
-    //    fir2.
-    
-    
-    
-    //    let iphoneFrame = (UIApplication.sharedApplication().windows.first?.frame)!
-    //    let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1).color
-    //    let colorBlue = ColorRealm(name: 1, red: 62/255, green: 169/255, blue: 248/255, alpha: 1).color
-    
     UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
     UIImage(named: "login-1.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
     let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -839,6 +792,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
     }
   }
+  
+  
+  
   @IBAction func tapFollowingButton(sender: AnyObject) {
     if existFollowing {
       view.addSubview(activityIndicator)
@@ -866,10 +822,4 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       }
     }
   }
-  
-  
-  
-  
-  
 }
-

@@ -13,6 +13,7 @@ class SocialNetworkTableViewCell: UITableViewCell {
   @IBOutlet weak var buttonFace: UIButton!
   @IBOutlet weak var buttonInsta: UIButton!
   @IBOutlet weak var buttonTwitter: UIButton!
+  @IBOutlet weak var buttonWhats: UIButton!
   
     override func awakeFromNib() {
         super.awakeFromNib()

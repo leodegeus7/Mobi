@@ -236,6 +236,8 @@ class RequestManager: NSObject {
     self.requestJson("app/user/authorize?token=\(token)") { (result) in
       if let token = result["data"] as? String {
         completion(result: token)
+      } else {
+        completion(result: "nil")
       }
     }
   }
@@ -339,10 +341,123 @@ class RequestManager: NSObject {
         
         completion(searchRequestResult: results)
       }
-
     }
-    
-    
+  }
+  
+  func requestRadiosWithSearch(word:String,pageNumber:Int,pageSize:Int,completion: ([RadioRealm]) -> Void) {
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch/station?name=\(wordEncoded)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        var radios = [RadioRealm]()
+        if let array = result["data"]?["records"] as? NSArray {
+          for singleResult in array {
+            let dic = singleResult as! NSDictionary
+            var lat = Double()
+            if let latAux = dic["latitude"] as? Double {
+              lat = latAux
+            } else {
+              lat = 0
+            }
+            var long = Double()
+            if let longAux = dic["longitude"] as? Double {
+              long = longAux
+            } else {
+              long = 0
+            }
+            let likes = dic["likes"] as! Int
+            let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+            
+            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+            
+            radios.append(radio)
+          }
+        }
+        completion(radios)
+      }
+    }
+  }
+  
+  func requestGenreWithSearch(word:String,pageNumber:Int,pageSize:Int,completion: ([GenreRealm]) -> Void) {
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch/genre?name=\(wordEncoded)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        var genres = [GenreRealm]()
+        if let array = result["data"] as? NSArray {
+          for singleResult in array {
+            let dic = singleResult as! NSDictionary
+            let genre =
+              GenreRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String,image:dic["image"]!["identifier40"] as! String)
+            genres.append(genre)
+          }
+        }
+        completion(genres)
+      }
+    }
+  }
+  
+  func requestStatesWithSearch(word:String,pageNumber:Int,pageSize:Int,completion: ([StateRealm]) -> Void) {
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch/state?name=\(wordEncoded)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        var states = [StateRealm]()
+        if let array = result["data"] as? NSArray {
+          for singleResult in array {
+            let dic = singleResult as! NSDictionary
+            let state = StateRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, acronym: dic["acronym"] as! String)
+            states.append(state)
+          }
+        }
+        completion(states)
+      }
+    }
+  }
+  
+  func requestCitiesWithSearch(word:String,pageNumber:Int,pageSize:Int,completion: ([CityRealm]) -> Void) {
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch/city?name=\(wordEncoded)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        var cities = [CityRealm]()
+        if let array = result["data"]?["records"] as? NSArray {
+          for singleResult in array {
+            let dic = singleResult as! NSDictionary
+            let city = CityRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String)
+            cities.append(city)
+          }
+        }
+        completion(cities)
+      }
+    }
+  }
+  
+  func requestUsersWithSearch(word:String,pageNumber:Int,pageSize:Int,completion: ([UserRealm]) -> Void) {
+    if let encodedString = word.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet()),
+      wordEncoded = NSURL(string: encodedString)
+    {
+      self.requestJson("app/smartsearch/user?name=\(wordEncoded)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        var usersArray = [UserRealm]()
+        if let array = result["data"]?["records"] as? NSArray {
+          for singleResult in array {
+            let dic = singleResult as! NSDictionary
+            var imageIdentifier = ImageObject()
+            if let image = singleResult["image"] as? NSDictionary {
+              imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: dic["image"]!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+            }
+            var user = UserRealm()
+            if let address = singleResult["shortAddress"] as? String {
+              user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: address)
+            } else {
+              user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
+            }
+            usersArray.append(user)
+          }
+        }
+        completion(usersArray)
+      }
+    }
   }
   
   func genericRequest(method:Alamofire.Method,parameters:[String:AnyObject],urlTerminationWithoutInitialCharacter:String,completion: (result: Dictionary<String,AnyObject>) -> Void) {
@@ -593,7 +708,7 @@ class RequestManager: NSObject {
   }
   
   func requestCitiesInState(stateId:String,completion: (resultCities: [CityRealm]) -> Void) {
-    requestJson("address/city?stateId=\(stateId)") { (result) in
+    requestJson("address/city/containingstation?stateid=\(stateId)") { (result) in
       if let array = result["data"] as? NSArray {
         var cities = [CityRealm]()
         for singleResult in array {

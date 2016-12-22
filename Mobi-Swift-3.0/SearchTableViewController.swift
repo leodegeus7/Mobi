@@ -23,6 +23,14 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   
   var isOneTimeSearched = false
   
+  
+  var radiosIsExpanted = false
+  var statesIsExpanted = false
+  var citiesIsExpanted = false
+  var genreIsExpanted = false
+  var usersIsExpanted = false
+  
+  
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
   var selectedRadio = RadioRealm()
@@ -52,7 +60,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
-
+    
     self.navigationController? .setNavigationBarHidden(false, animated:true)
     let backButton = UIButton(type: UIButtonType.Custom)
     backButton.addTarget(self, action: #selector(SearchTableViewController.backFunction), forControlEvents: UIControlEvents.TouchUpInside)
@@ -160,20 +168,55 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         return 0
       }
     case .Radios:
-      return searchRadios.count
+      if searchRadios.count == 0 {
+        return 0
+      }
+      else if !radiosIsExpanted && searchRadios.count == 5  {
+        return searchRadios.count + 1
+      } else {
+        return searchRadios.count
+      }
     case .Genre:
-      return searchGenre.count
+      if searchGenre.count == 0 {
+        return 0
+      }
+      else if !genreIsExpanted  && searchGenre.count == 5 {
+        return searchGenre.count + 1
+      } else {
+        return searchGenre.count
+      }
     case .Local:
       switch section {
       case 0:
-        return searchStates.count
+        if searchStates.count == 0 {
+          return 0
+        }
+        else if !statesIsExpanted && searchStates.count == 5  {
+          return searchStates.count + 1
+        } else {
+          return searchStates.count
+        }
       case 1:
-        return searchCities.count
+        if searchCities.count == 0 {
+          return 0
+        }
+        else if !citiesIsExpanted  && searchCities.count == 5  {
+          return searchCities.count + 1
+        } else {
+          return searchCities.count
+        }
       default:
         return 0
       }
     case .Users:
-      return searchUsers.count
+      if searchUsers.count == 0 {
+        return 0
+      }
+      else if !usersIsExpanted && searchUsers.count == 5 {
+        return searchUsers.count + 1
+      } else {
+        return searchUsers.count
+      }
     default:
       return 0
     }
@@ -188,7 +231,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       case 0:
         if searchRadios.count == 0 {
           let cell = tableView.dequeueReusableCellWithIdentifier("descrCell", forIndexPath: indexPath) as! ShortDescriptionTableViewCell
-          cell.labelDescr.text = "Não há radios para mostrar com o termo pesquisado"
+          cell.labelDescr.text = "Não há rádios para mostrar com o termo pesquisado"
           cell.tag = 1000
           cell.selectionStyle = .None
           return cell
@@ -305,44 +348,120 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     case .Local:
       switch indexPath.section {
       case 0:
-        let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
-        cell.labelTitle.text = searchStates[indexPath.row].name
-        return cell
+        if !statesIsExpanted {
+          if indexPath.row < 5 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+            cell.labelTitle.text = searchStates[indexPath.row].name
+            return cell
+          } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+            cell.tag = 1061
+            return cell
+          }
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = searchStates[indexPath.row].name
+          return cell
+        }
       case 1:
-        let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
-        cell.labelTitle.text = searchCities[indexPath.row].name
-        return cell
+        if !citiesIsExpanted {
+          if indexPath.row < 5 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+            cell.labelTitle.text = searchCities[indexPath.row].name
+            return cell
+          } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+            cell.tag = 1060
+            return cell
+          }
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = searchCities[indexPath.row].name
+          return cell
+        }
       default:
         let cell = UITableViewCell()
         return cell
       }
     case .Genre:
-      let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
-      cell.labelTitle.text = searchGenre[indexPath.row].name
-      return cell
-    case .Radios:
-      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
-      cell.labelName.text = searchRadios[indexPath.row].name
-      if let address = searchRadios[indexPath.row].address {
-        cell.labelLocal.text = address.formattedLocal
-      }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
-      cell.imageSmallOne.image = UIImage(named: "heart.png")
-      cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
-      cell.widthTextOne.constant = 30
-      cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
-      cell.labelDescriptionTwo.text = ""
-      return cell
-    case .Users:
-      let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
-      cell.nameUser.text = searchUsers[indexPath.row].name
-      cell.localUser.text = searchUsers[indexPath.row].shortAddress
-      if searchUsers[indexPath.row].userImage == "avatar.png" {
-        cell.imageUser.image = UIImage(named: "avatar.png")
+      
+      if !genreIsExpanted {
+        if indexPath.row < 5 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = searchGenre[indexPath.row].name
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+          cell.tag = 1059
+          return cell
+        }
       } else {
-        cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
+        let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+        cell.labelTitle.text = searchGenre[indexPath.row].name
+        return cell
       }
-      return cell
+    case .Radios:
+      if !radiosIsExpanted {
+        if indexPath.row < 5 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+          cell.labelName.text = searchRadios[indexPath.row].name
+          if let address = searchRadios[indexPath.row].address {
+            cell.labelLocal.text = address.formattedLocal
+          }
+          cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
+          cell.imageSmallOne.image = UIImage(named: "heart.png")
+          cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
+          cell.widthTextOne.constant = 30
+          cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+          cell.labelDescriptionTwo.text = ""
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+          cell.tag = 1058
+          return cell
+        }
+      } else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+        cell.labelName.text = searchRadios[indexPath.row].name
+        if let address = searchRadios[indexPath.row].address {
+          cell.labelLocal.text = address.formattedLocal
+        }
+        cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
+        cell.imageSmallOne.image = UIImage(named: "heart.png")
+        cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
+        cell.widthTextOne.constant = 30
+        cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+        cell.labelDescriptionTwo.text = ""
+        return cell
+      }
+    case .Users:
+      if !usersIsExpanted {
+        if indexPath.row < 5 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
+          cell.nameUser.text = searchUsers[indexPath.row].name
+          cell.localUser.text = searchUsers[indexPath.row].shortAddress
+          if searchUsers[indexPath.row].userImage == "avatar.png" {
+            cell.imageUser.image = UIImage(named: "avatar.png")
+          } else {
+            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
+          }
+          return cell
+        } else {
+          let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
+          cell.tag = 1057
+          return cell
+        }
+      } else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserTableViewCell
+        cell.nameUser.text = searchUsers[indexPath.row].name
+        cell.localUser.text = searchUsers[indexPath.row].shortAddress
+        if searchUsers[indexPath.row].userImage == "avatar.png" {
+          cell.imageUser.image = UIImage(named: "avatar.png")
+        } else {
+          cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
+        }
+        return cell
+      }
     default:
       break
     }
@@ -418,6 +537,53 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let tag = tableView.cellForRowAtIndexPath(indexPath)?.tag
+    if tag == 1058 {
+      let request = RequestManager()
+      request.requestRadiosWithSearch(searchBar.text!, pageNumber: 0, pageSize: 20, completion: { (radios) in
+        self.radiosIsExpanted = true
+        self.searchAll[.Radios] = radios
+        self.searchRadios = radios
+        self.tableView.reloadData()
+      })
+      return
+    } else if tag == 1059 {
+      let request = RequestManager()
+      request.requestGenreWithSearch(searchBar.text!, pageNumber: 0, pageSize: 20, completion: { (genres) in
+        self.genreIsExpanted = true
+        self.searchAll[.Genre] = genres
+        self.searchGenre = genres
+        self.tableView.reloadData()
+      })
+      return
+    } else if tag == 1060 {
+      let request = RequestManager()
+      request.requestCitiesWithSearch(searchBar.text!, pageNumber: 0, pageSize: 20, completion: { (cities) in
+        self.citiesIsExpanted = true
+        self.searchAll[.Cities] = cities
+        self.searchCities = cities
+        self.tableView.reloadData()
+      })
+      return
+    } else if tag == 1061 {
+      let request = RequestManager()
+      request.requestStatesWithSearch(searchBar.text!, pageNumber: 0, pageSize: 20, completion: { (states) in
+        self.statesIsExpanted = true
+        self.searchAll[.States] = states
+        self.searchStates = states
+        self.tableView.reloadData()
+      })
+      return
+    } else if tag == 1057 {
+      let request = RequestManager()
+      request.requestUsersWithSearch(searchBar.text!, pageNumber: 0, pageSize: 20, completion: { (users) in
+        self.usersIsExpanted = true
+        self.searchAll[.Users] = users
+        self.searchUsers = users
+        self.tableView.reloadData()
+      })
+      return
+    }
     if tableView.cellForRowAtIndexPath(indexPath)?.tag != 1000 {
       view.addSubview(activityIndicator)
       activityIndicator.hidden = false
@@ -644,7 +810,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       } else if selectedMode == .Users {
         str = "Nenhum usuário foi encontrado"
       } else {
-        str = "Nenhuma radio para mostrar"
+        str = "Nenhuma rádio para mostrar"
       }
     }
     let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
@@ -660,15 +826,15 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     } else {
       
       if selectedMode == .All {
-        str = "Nenhum resultado encontrado para o termo pesquisado"
+        str = "Tente digitar outro termo"
       } else if selectedMode == .Genre {
-        str = "Nenhum gênero foi encontrado com o texto digitado, tente digitar outro termo"
+        str = "Tente digitar outro termo"
       } else if selectedMode == .Local {
-        str = "Nenhum local foi encontrado com o texto digitado, tente digitar outro termo"
+        str = "Tente digitar outro termo"
       } else if selectedMode == .Radios {
-        str = "Nenhuma râdio foi encontrada com o texto digitado, tente digitar outro termo"
+        str = "Tente digitar outro termo"
       } else if selectedMode == .Users {
-        str = "Nenhum usário foi encontrado com o texto digitado, tente digitar outro termo"
+        str = "Tente digitar outro termo"
       } else {
         str = ""
       }

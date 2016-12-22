@@ -15,6 +15,7 @@ class AboutViewController: UIViewController {
   @IBOutlet weak var openMenu: UIBarButtonItem!
   @IBOutlet weak var textViewAbout: UITextView!
   
+  @IBOutlet weak var buttonTerms: UIButton!
   override func viewDidLoad() {
     super.viewDidLoad()
     openMenu.target = self.revealViewController()
@@ -23,6 +24,7 @@ class AboutViewController: UIViewController {
       openMenu.target = self.revealViewController()
       openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
+    buttonTerms.backgroundColor = UIColor.clearColor()
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     self.title = "Sobre"
     buttonLink.backgroundColor = UIColor.clearColor()
@@ -47,5 +49,8 @@ class AboutViewController: UIViewController {
   }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  @IBAction func termsTap(sender: AnyObject) {
+    UIApplication.sharedApplication().openURL(NSURL(string: "http://mobilize-se.net.br/mobi/terms.pdf")!)
   }
 }

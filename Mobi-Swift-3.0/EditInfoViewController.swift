@@ -34,7 +34,7 @@ class EditInfoViewController: FormViewController {
         $0.value = NSDate()
         let formatter = NSDateFormatter()
         formatter.locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages().first!)
-        formatter.dateStyle = .ShortStyle
+        formatter.dateStyle = .MediumStyle
         $0.dateFormatter = formatter
         if let birth = DataManager.sharedInstance.myUser.birthDate {
           $0.value = birth

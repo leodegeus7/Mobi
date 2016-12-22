@@ -250,6 +250,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     connectToFCM()
   }
   
+  class func getDelegate() -> AppDelegate {
+    return UIApplication.sharedApplication().delegate as! AppDelegate
+  }
+  
   func connectToFCM() {
     let notf = FIRMessaging.messaging()
     notf.connectWithCompletion { (error) in

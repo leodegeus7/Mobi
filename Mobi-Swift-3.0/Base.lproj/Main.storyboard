@@ -2333,7 +2333,7 @@
                             <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             <scopeButtonTitles>
                                 <string>Tudo</string>
-                                <string>Radios</string>
+                                <string>Rádios</string>
                                 <string>Gêneros</string>
                                 <string>Locais</string>
                                 <string>Usuários</string>
@@ -2351,13 +2351,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pih-yf-anx">
-                                            <rect key="frame" x="18" y="13" width="191" height="92"/>
+                                            <rect key="frame" x="18" y="13" width="564" height="92"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="191" id="IRR-zI-G8D"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="IRR-zI-G8D"/>
+                                                </mask>
+                                            </variation>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhc-hO-vA5">
                                             <rect key="frame" x="554" y="44" width="30" height="30"/>
@@ -2373,6 +2378,7 @@
                                         <constraint firstItem="dhc-hO-vA5" firstAttribute="centerY" secondItem="6Ox-Ug-fYh" secondAttribute="centerY" id="172-gT-dCa"/>
                                         <constraint firstItem="Pih-yf-anx" firstAttribute="centerY" secondItem="6Ox-Ug-fYh" secondAttribute="centerY" id="Cxs-yz-gvz"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="dhc-hO-vA5" secondAttribute="trailing" constant="8" id="Gj5-Yg-4Xc"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Pih-yf-anx" secondAttribute="trailing" constant="10" id="I1u-rm-ULW"/>
                                         <constraint firstItem="Pih-yf-anx" firstAttribute="top" secondItem="6Ox-Ug-fYh" secondAttribute="topMargin" constant="5" id="gHQ-bU-teG"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Pih-yf-anx" secondAttribute="bottom" constant="5" id="h9K-pU-Mhw"/>
                                         <constraint firstItem="Pih-yf-anx" firstAttribute="leading" secondItem="6Ox-Ug-fYh" secondAttribute="leadingMargin" constant="10" id="qfN-zU-jEd"/>
@@ -2903,10 +2909,9 @@
     Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSn-yW-kRB">
-                                <rect key="frame" x="30" y="286" width="354" height="350"/>
+                                <rect key="frame" x="30" y="226" width="354" height="350"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="QTq-Wr-cRy"/>
                                 </constraints>
@@ -2914,21 +2919,40 @@
                                     <action selector="textTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="5KR-4b-iHO"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Termos de serviço: mobilize-se.net.br/mobi/terms.pdf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teV-bk-65O">
+                                <rect key="frame" x="20" y="698" width="374" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbf-Nk-Ngi">
+                                <rect key="frame" x="20" y="698" width="374" height="30"/>
+                                <connections>
+                                    <action selector="termsTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="NWo-Oe-SBK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="Wfb-gh-pJy" secondAttribute="bottom" constant="30" id="0Va-Hx-NIN"/>
                             <constraint firstItem="032-AP-vdK" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="1L9-RP-Gxs"/>
+                            <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="width" secondItem="teV-bk-65O" secondAttribute="width" id="8kh-T5-R1E"/>
+                            <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="centerX" secondItem="teV-bk-65O" secondAttribute="centerX" id="BuS-W2-Nzk"/>
                             <constraint firstItem="032-AP-vdK" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="40" id="CXF-x7-76o"/>
+                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="teV-bk-65O" secondAttribute="bottom" constant="8" id="HGS-4q-1GI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="teV-bk-65O" secondAttribute="trailing" id="Kj0-nZ-8nL"/>
                             <constraint firstItem="Wfb-gh-pJy" firstAttribute="height" secondItem="47E-N7-N4w" secondAttribute="height" multiplier="0.7" id="NEC-BA-gpC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wfb-gh-pJy" secondAttribute="trailing" id="Njq-Fi-Fwc"/>
+                            <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="height" secondItem="teV-bk-65O" secondAttribute="height" id="S0l-eT-mHE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="032-AP-vdK" secondAttribute="trailing" constant="40" id="V11-43-fMw"/>
                             <constraint firstItem="Wfb-gh-pJy" firstAttribute="top" secondItem="032-AP-vdK" secondAttribute="bottom" constant="24" id="aDH-vo-mOZ"/>
                             <constraint firstItem="032-AP-vdK" firstAttribute="top" secondItem="xge-Gg-sGF" secondAttribute="bottom" constant="24" id="asr-av-Z62"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GSn-yW-kRB" secondAttribute="trailing" constant="10" id="ege-s5-FfA"/>
+                            <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="centerY" secondItem="teV-bk-65O" secondAttribute="centerY" id="gdG-6P-55p"/>
                             <constraint firstItem="GSn-yW-kRB" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="10" id="h8E-v4-vnf"/>
-                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="GSn-yW-kRB" secondAttribute="bottom" constant="100" id="mLy-PO-Tu9"/>
+                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="GSn-yW-kRB" secondAttribute="bottom" constant="160" id="mLy-PO-Tu9"/>
                             <constraint firstItem="GSn-yW-kRB" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="sws-R2-Um8"/>
+                            <constraint firstItem="teV-bk-65O" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" id="tbP-0L-qRL"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Wfb-gh-pJy" secondAttribute="leading" id="v59-hG-NG7"/>
                         </constraints>
                         <variation key="default">
@@ -2943,6 +2967,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="buttonLink" destination="GSn-yW-kRB" id="zDh-GT-i8L"/>
+                        <outlet property="buttonTerms" destination="Kbf-Nk-Ngi" id="Y0R-na-v43"/>
                         <outlet property="openMenu" destination="qsN-EB-ImY" id="Bik-29-DUp"/>
                         <outlet property="textViewAbout" destination="Wfb-gh-pJy" id="zW5-10-z0D"/>
                     </connections>
@@ -3255,8 +3280,15 @@
                                                         <action selector="facebookButtonTap:" destination="EWU-op-Szd" eventType="touchUpInside" id="PLN-0K-5GQ"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPA-nH-UZc">
+                                                    <rect key="frame" x="104" y="0.0" width="45" height="45"/>
+                                                    <state key="normal" backgroundImage="icone-branc-whats.png"/>
+                                                    <connections>
+                                                        <action selector="whatsAppButtonTap:" destination="EWU-op-Szd" eventType="touchUpInside" id="wgX-IC-ofd"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndI-Hc-kdu">
-                                                    <rect key="frame" x="157" y="0.0" width="45" height="45"/>
+                                                    <rect key="frame" x="209" y="0.0" width="45" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="YAy-5B-q3z"/>
                                                         <constraint firstAttribute="height" constant="45" id="ubc-AK-s2R"/>
@@ -3278,6 +3310,10 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uPA-nH-UZc" firstAttribute="height" secondItem="ejB-mO-Xlg" secondAttribute="height" id="8Ng-dj-eIJ"/>
+                                                <constraint firstItem="uPA-nH-UZc" firstAttribute="width" secondItem="ejB-mO-Xlg" secondAttribute="width" id="HaY-oa-czn"/>
+                                            </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
@@ -3298,6 +3334,7 @@
                                     <outlet property="buttonFace" destination="ejB-mO-Xlg" id="tVK-UL-S1A"/>
                                     <outlet property="buttonInsta" destination="ndI-Hc-kdu" id="GbY-zG-7Cl"/>
                                     <outlet property="buttonTwitter" destination="A8s-zz-EE1" id="UST-1g-yhZ"/>
+                                    <outlet property="buttonWhats" destination="uPA-nH-UZc" id="rOL-ko-tSN"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="actualMusic" rowHeight="148" id="JJ9-Of-uxl" customClass="MusicTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
@@ -6694,6 +6731,7 @@
         <image name="background" width="512" height="512"/>
         <image name="hamburgerIcon.png" width="20" height="20"/>
         <image name="heart.png" width="20" height="20"/>
+        <image name="icone-branc-whats.png" width="60" height="60"/>
         <image name="icone-coracao.png" width="24" height="24"/>
         <image name="icone-grafico.png" width="24" height="24"/>
         <image name="icone-historico.png" width="24" height="24"/>

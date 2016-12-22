@@ -277,7 +277,7 @@ class MenuTableViewController: UITableViewController {
   @IBAction func sleepFunction(sender: AnyObject) {
     if DataManager.sharedInstance.isSleepModeEnabled {
       for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as [UILocalNotification] {
-        if notification.alertTitle == "SleepMode" {
+        if notification.alertTitle == "Modo Dormir" {
           UIApplication.sharedApplication().cancelLocalNotification(notification)
         }
       }

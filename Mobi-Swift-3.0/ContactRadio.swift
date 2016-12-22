@@ -17,6 +17,7 @@ class ContactRadio: NSObject {
   var phoneNumbers = [PhoneNumber]()
   var existSocialNew = false
   var arraySocial = [Dictionary<String,String>()]
+  
   convenience init(email:String,facebook:String,twitter:String,instagram:String,phoneNumbers:[PhoneNumber]) {
     self.init()
     self.email = email

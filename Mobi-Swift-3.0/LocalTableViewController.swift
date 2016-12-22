@@ -83,6 +83,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
       return cell
     } else {
       let cell = UITableViewCell()
+      cell.selectionStyle = .None
       //cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
       return cell
     }

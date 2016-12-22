@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import Kingfisher
 import ImageViewer
+import Contacts
+
 
 class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
@@ -46,6 +48,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   var avAudioPlayer:AVAudioPlayer!
   
+  
+  var contactStore = CNContactStore()
   static var selectedImageButton:UIImage!
   
   var existAudioChannel = false
@@ -124,37 +128,38 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       }
     }
     
-    
-    let requestSocial = RequestManager()
-    requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
-      self.activityIndicator.hidden = true
-      self.activityIndicator.removeFromSuperview()
-      var face = ""
-      var twitter = ""
-      var instagram = ""
-      var email = ""
-      for social in resultSocial {
-        if social.type == "Facebook" {
-          face = social.text
+    let requestContact = RequestManager()
+    requestContact.requestPhonesOfStation(actualRadio) { (resultPhones) in
+      let requestSocial = RequestManager()
+      requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        var face = ""
+        var twitter = ""
+        var instagram = ""
+        var email = ""
+        for social in resultSocial {
+          if social.type == "Facebook" {
+            face = social.text
+          }
+          else if social.type == "Instagram" {
+            instagram = social.text
+          }
+          else if social.type == "Twitter" {
+            twitter = social.text
+          }
+          else if social.type == "E-mail" {
+            email = social.text
+          }
         }
-        else if social.type == "Instagram" {
-          instagram = social.text
+        let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: resultPhones)
+        self.contactRadio = contact
+        if self.selectedMode == .DetailRadio {
+          self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
         }
-        else if social.type == "Twitter" {
-          twitter = social.text
-        }
-        else if social.type == "E-mail" {
-          email = social.text
-        }
-      }
-      let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: [PhoneNumber()])
-      self.contactRadio = contact
-      if self.selectedMode == .DetailRadio {
-        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
-      }
-    })
-    
-    
+      })
+    }
+
     
     let programRequest = RequestManager()
     let idRadio = actualRadio.id
@@ -314,8 +319,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           let cell = tableView.dequeueReusableCellWithIdentifier("socialNetCell", forIndexPath: indexPath) as! SocialNetworkTableViewCell
           cell.separatorInset = UIEdgeInsetsMake(0, 10000, 0, 0)
           cell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-          let socialNewtorks = ["Facebook","Instagram","Twitter"]
-          for socialNetworkTitle in socialNewtorks {
+          let socialNetworks = ["Facebook","Instagram","Twitter"]
+          for socialNetworkTitle in socialNetworks {
             var hasSocial = false
             for social in contactRadio.arraySocial {
               let type = (social["Type"])!
@@ -342,8 +347,34 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                 }
               }
             }
+            var existWhats = false
+            
+            for number in contactRadio.phoneNumbers {
+              if let _ = number.phoneNumber {
+                if number.phoneType.name == "WhatsApp" {
+                  existWhats = true
+                  let contactAuth = CNContactStore.authorizationStatusForEntityType(CNEntityType.Contacts)
+                  switch contactAuth {
+                  case .Authorized:
+                    print("Contatos autorizados")
+                  case .NotDetermined:
+                    contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (succeeded, err) in
+                      guard err == nil && succeeded else {
+                        print("Contatos autorizados")
+                        return
+                      }
+                    })
+                  default:
+                    break
+                  }
+                }
+              }
+            }
+            if !existWhats {
+              cell.buttonWhats.removeFromSuperview()
+            }
+            
           }
-          
           return cell
         }
       case 1:
@@ -563,126 +594,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               
             }
             
-            
-            
-            
-            
-            //cell.imageAttachment.image = nil
-            //            if let _ = cell.imageInCell {
-            //              if let _ = cell.sizeImage {
-            //                let updateCell = tableView.cellForRowAtIndexPath(indexPath)
-            //                if updateCell != nil {
-            //                  let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
-            //                  cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: cell.sizeImage)
-            //                  cell.imageAttachment.image = cell.imageInCell
-            //                  cell.heightImage.constant = ratio*cell.frame.width
-            //                  cell.widthImage.constant = cell.frame.width
-            //                  cell.layoutIfNeeded()
-            //                  cell.layoutSubviews()
-            //                }
-            //              }
-            //            }
-            //            else {
-            //              if let _ = cell.imageObject {
-            //
-            //                for imageObj in DataManager.sharedInstance.images {
-            //                  if imageObj.urlImage == RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image) {
-            //                    cell.imageObject = imageObj
-            //
-            //                    break
-            //                  }
-            //                }
-            //
-            //
-            //                if let _ = cell.imageObject.imageFile {
-            //                  let updateCell = tableView.cellForRowAtIndexPath(indexPath)
-            //                  if updateCell != nil {
-            //                    cell.stateImage = .ImageOk
-            //                    let ratio = (cell.imageObject.imageFile.size.height)/(cell.imageObject.imageFile.size.width)
-            //                    cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: CGSize(width: cell.frame.width, height: ratio*cell.frame.width))
-            //                    cell.imageAttachment.image = cell.imageObject.imageFile
-            //                    cell.heightImage.constant = ratio*cell.frame.width
-            //                    cell.widthImage.constant = cell.frame.width
-            //                    cell.layoutIfNeeded()
-            //                    cell.layoutSubviews()
-            //                  }
-            //                }
-            //              } else {
-            //                cell.imageObject = ImageManager()
-            //                cell.imageObject.setImageInWallCell(self.tableView,indexPath: indexPath, cell: cell, imageCacheName: "WallImage-\(self.actualComments[indexPath.row].image)", urlImage: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image), completion: { (imageReturn) in
-            //                  let updateCell = tableView.cellForRowAtIndexPath(indexPath)
-            //                  if updateCell != nil {
-            //                    cell.stateImage = .ImageOk
-            //                    cell.layoutIfNeeded()
-            //                    cell.layoutSubviews()
-            //                    print("imagem de \(indexPath.row) certa")
-            //                  }
-            //                })
-            //              }
-            //            }
-            
-            
-            
-            
-            
-            
-            //            cell.imageAttachment.kf_showIndicatorWhenLoading = true
-            //            cell.imageAttachment.image = nil
-            //
-            //                        if let _ = cell.imageInCell {
-            //                          if let _ = cell.sizeImage {
-            //                            let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
-            //                            cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: cell.sizeImage)
-            //                            cell.imageAttachment.image = cell.imageInCell
-            //                            cell.heightImage.constant = ratio*cell.frame.width
-            //                            cell.widthImage.constant = cell.frame.width
-            //                          }
-            //                        }
-            //                        else {
-            //                          if let _ = cell.imageObject {
-            //                            if let _ = cell.imageObject.imageFile {
-            //                              cell.imageAttachment.image = cell.imageObject.imageFile
-            //                              cell.stateImage = .ImageOk
-            //                            }
-            //                          } else {
-            //                            cell.imageObject = ImageManager()
-            //                            cell.imageObject.setImageInWallCell(self.tableView,indexPath: indexPath, cell: cell, imageCacheName: "WallImage-\(indexPath.row)", urlImage: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image), completion: { (imageReturn) in
-            //                              cell.stateImage = .ImageOk
-            //                              print("imagem de \(indexPath.row) certa")
-            //                            })
-            //                          }
-            //                        }
-            //                        if !cell.isReloadCell {
-            //                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //
-            //                            cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2)), .ForceRefresh], progressBlock: { (receivedSize, totalSize) in
-            //
-            //                              }, completionHandler: { (image, error, cacheType, imageURL) in
-            //
-            //                                dispatch_async(dispatch_get_main_queue(), {
-            //                                  if self.selectedMode == .Wall {
-            //                                    if let image3 = image {
-            //                                      if let image2 = image3 as? UIImage {
-            //                                        if cell.tag == indexPath.row && !cell.isReloadCell{
-            //                                          let ratio = (image2.size.height)/(image2.size.width)
-            //
-            //                                          cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-            //                                          cell.heightImage.constant = ratio*cell.frame.width
-            //                                          cell.widthImage.constant = cell.frame.width
-            //                                          //cell.imageAttachment.image = image
-            //                                          tableView.beginUpdates()
-            //                                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            //                                          tableView.endUpdates()
-            //                                          cell.tag = 1000
-            //                                          cell.isReloadCell = true
-            //                                        }
-            //                                      }
-            //                                    }
-            //                                  }
-            //                                })
-            //                            })
-            //                          })
-            //                        }
             cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
             return cell
           } else {
@@ -789,28 +700,147 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     }
   }
   
-  @IBAction func buttonNLike(sender: AnyObject) {
-    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-    cell?.buttonLike.alpha = 0.3
-    cell?.buttonNLike.alpha = 1
-    let likeRequest = RequestManager()
-    likeRequest.unlikeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
-      self.actualMusic.setNegative()
-      if !resultUnlike {
-        Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+  @IBAction func whatsAppButtonTap(sender: AnyObject) {
+  
+
+    var numberWhats = ""
+    for number in contactRadio.phoneNumbers {
+      if number.phoneType.name == "WhatsApp" {
+        numberWhats = number.phoneNumber
       }
+    }
+    sendWhats(numberWhats)
+    
+  }
+  
+  func sendWhats(number:String) {
+    var newPhone = ""
+    
+    for caracter in number.characters {
+      switch caracter {
+      case "0","1","2","3","4","5","6","7","8","9":
+        let string = "\(caracter)"
+        
+        newPhone.appendContentsOf(string)
+      default:
+        print("Removed invalid character.")
+      }
+    }
+    
+    
+    let auth = CNContactStore.authorizationStatusForEntityType(CNEntityType.Contacts)
+    
+    switch auth {
+    case .Denied:
+      Util.displayAlert(self, title: "Atenção", message: "Não foi possivel criar uma conversa", action: "Ok")
+    case .Authorized:
+      let contact = CNMutableContact()
+      contact.givenName = "Rádio \(actualRadio.name)"
+      let phone = CNPhoneNumber(stringValue: newPhone)
+      let phoneLabel = CNLabeledValue(label: CNLabelWork, value: phone)
+      contact.phoneNumbers.append(phoneLabel)
+      
+      let predicate = CNContact.predicateForContactsMatchingName(actualRadio.name)
+      let toFetch = [CNContactIdentifierKey]
+      
+      do {
+        let contacts = try contactStore.unifiedContactsMatchingPredicate(predicate, keysToFetch: toFetch)
+        if let fist = contacts.first {
+          if let phoneCallURL:NSURL = NSURL(string: "whatsapp://send?abid=\(fist.identifier)") {
+            let application:UIApplication = UIApplication.sharedApplication()
+            if (application.canOpenURL(phoneCallURL)) {
+              Util.displayAlert(self, title: "Atenção", message: "Rádio \(actualRadio.name) foi adicionada à sua agenda de contatos. Basta localizar para abrir a conversa", okTitle: "Procurar Contato", cancelTitle: "Cancelar", okAction: {
+                application.openURL(phoneCallURL)
+                }, cancelAction: {
+                  self.dismissViewControllerAnimated(true, completion: {
+                    
+                  })
+              })
+            } else {
+              Util.displayAlert(self, title: "Atenção", message: "Não foi possível localizar o aplicativo WhatsApp em seu dispositivo!", action: "Ok")
+            }
+          }
+        } else {
+          do {
+            let saveRequest = CNSaveRequest()
+            saveRequest.addContact(contact, toContainerWithIdentifier: nil)
+            try contactStore.executeSaveRequest(saveRequest)
+            if let phoneCallURL:NSURL = NSURL(string: "whatsapp://send?abid=\(contact.identifier)") {
+              let application:UIApplication = UIApplication.sharedApplication()
+              if (application.canOpenURL(phoneCallURL)) {
+                Util.displayAlert(self, title: "Atenção", message: "Rádio \(actualRadio.name)/ foi adicionada à sua agenda de contatos. Basta localizar para abrir a conversa", okTitle: "Procurar Contato", cancelTitle: "Cancelar", okAction: {
+                  application.openURL(phoneCallURL)
+                  }, cancelAction: { 
+                    self.dismissViewControllerAnimated(true, completion: {
+                      
+                    })
+                })
+                
+                
+              } else {
+                Util.displayAlert(self, title: "Atenção", message: "Não foi possível abrir uma conversa de WhatsApp com este número atravês deste dispositivo", action: "Ok")
+              }
+            }
+            //navigationController?.popViewControllerAnimated(true)
+          } catch {
+            Util.displayAlert(self, title: "Atenção", message: "Não foi possível abrir uma conversa de WhatsApp com este número atravês deste dispositivo", action: "Ok")
+          }
+        }
+      } catch {
+        Util.displayAlert(self, title: "Atenção", message: "Não foi possível abrir uma conversa de WhatsApp com este número atravês deste dispositivo", action: "Ok")
+      }
+
+    default:
+      break
+    }
+    
+
+  }
+  
+  @IBAction func buttonNLike(sender: AnyObject) {
+    if DataManager.sharedInstance.isLogged {
+      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+      cell?.buttonLike.alpha = 0.3
+      cell?.buttonNLike.alpha = 1
+      let likeRequest = RequestManager()
+      likeRequest.unlikeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultUnlike) in
+        self.actualMusic.setNegative()
+        if !resultUnlike {
+          Util.displayAlert(title: "Atenção", message: "Problemas ao dar unlike na musica", action: "Ok")
+        }
+      }
+      
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário fazer login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     }
   }
   @IBAction func buttonLike(sender: AnyObject) {
-    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
-    cell?.buttonLike.alpha = 1
-    cell?.buttonNLike.alpha = 0.3
-    let likeRequest = RequestManager()
-    likeRequest.likeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
-      self.actualMusic.setPositive()
-      if !resultLike {
-        Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+    if DataManager.sharedInstance.isLogged {
+      
+      let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MusicTableViewCell
+      cell?.buttonLike.alpha = 1
+      cell?.buttonNLike.alpha = 0.3
+      let likeRequest = RequestManager()
+      likeRequest.likeMusic(actualRadio, title: actualMusic.name, singer: actualMusic.composer) { (resultLike) in
+        self.actualMusic.setPositive()
+        if !resultLike {
+          Util.displayAlert(title: "Atenção", message: "Problemas ao dar like na musica", action: "Ok")
+        }
       }
+      
+      
+    } else {
+      func okAction() {
+        DataManager.sharedInstance.instantiateProfile(self.navigationController!)
+      }
+      func cancelAction() {
+      }
+      self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário fazer login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     }
   }
   

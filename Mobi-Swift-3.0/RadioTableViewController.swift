@@ -159,7 +159,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
       })
     }
-
+    
     
     let programRequest = RequestManager()
     let idRadio = actualRadio.id
@@ -565,7 +565,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             //                        cell.heightImage.constant = 200
             //                        cell.widthImage.constant = cell.frame.width
             
-            
+            cell.imageAttachment.backgroundColor = UIColor(colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)
             cell.imageAttachment.image = cell.imageInCell
             if cell.imageInCell.size.height > 5 {
               cell.imageAttachment.image = cell.imageInCell
@@ -641,7 +641,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       case 3:
         return "Outros"
       case 4:
-        return "Rádios semelhantes"
+        if similarRadios.count == 0 {
+          return ""
+        } else {
+          return "Rádios semelhantes"
+        }
       default:
         return ""
       }
@@ -701,8 +705,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   @IBAction func whatsAppButtonTap(sender: AnyObject) {
-  
-
+    
+    
     var numberWhats = ""
     for number in contactRadio.phoneNumbers {
       if number.phoneType.name == "WhatsApp" {
@@ -770,7 +774,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               if (application.canOpenURL(phoneCallURL)) {
                 Util.displayAlert(self, title: "Atenção", message: "Rádio \(actualRadio.name)/ foi adicionada à sua agenda de contatos. Basta localizar para abrir a conversa", okTitle: "Procurar Contato", cancelTitle: "Cancelar", okAction: {
                   application.openURL(phoneCallURL)
-                  }, cancelAction: { 
+                  }, cancelAction: {
                     self.dismissViewControllerAnimated(true, completion: {
                       
                     })
@@ -789,12 +793,12 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       } catch {
         Util.displayAlert(self, title: "Atenção", message: "Não foi possível abrir uma conversa de WhatsApp com este número atravês deste dispositivo", action: "Ok")
       }
-
+      
     default:
       break
     }
     
-
+    
   }
   
   @IBAction func buttonNLike(sender: AnyObject) {
@@ -1105,14 +1109,15 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   @IBAction func zoomImageButtonTap(sender: AnyObject) {
     let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: sender.tag, inSection: 0)) as! WallImageTableViewCell
-    
-    RadioTableViewController.selectedImageButton = cell.imageAttachment.image!
-    let imageProvider: ImageProvider = PoorManProvider()
-    let buttonAssets = CloseButtonAssets(normal: UIImage(named:"arrowWhite")!, highlighted: UIImage(named: "arrowWhite"))
-    
-    let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets, backgroundColor: UIColor.blackColor())
-    let imageViewer = ImageViewerController(imageProvider: imageProvider, configuration: configuration, displacedView: sender as! UIView)
-    self.presentImageViewer(imageViewer)
+    if let _ = cell.imageAttachment.image {
+      RadioTableViewController.selectedImageButton = cell.imageAttachment.image!
+      let imageProvider: ImageProvider = PoorManProvider()
+      let buttonAssets = CloseButtonAssets(normal: UIImage(named:"arrowWhite")!, highlighted: UIImage(named: "arrowWhite"))
+      
+      let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets, backgroundColor: UIColor.blackColor())
+      let imageViewer = ImageViewerController(imageProvider: imageProvider, configuration: configuration, displacedView: sender as! UIView)
+      self.presentImageViewer(imageViewer)
+    }
   }
 }
 

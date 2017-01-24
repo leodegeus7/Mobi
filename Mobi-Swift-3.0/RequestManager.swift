@@ -1548,7 +1548,7 @@ class RequestManager: NSObject {
               
               let stationUnit = dic["stationUnit"] as? NSDictionary
               let imageIdentifier = ImageObject(id:stationUnit!["image"]!["id"] as! Int,identifier100: stationUnit!["image"]!["identifier100"] as! String, identifier80: stationUnit!["image"]!["identifier80"] as! String, identifier60: stationUnit!["image"]!["identifier60"] as! String, identifier40: stationUnit!["image"]!["identifier40"] as! String, identifier20: stationUnit!["image"]!["identifier20"] as! String)
-              let radio = RadioRealm(id: "\((stationUnit!["id"] as! Int))", name: stationUnit!["name"] as! String, thumbnailObject: imageIdentifier, repository: false)
+              let radio = RadioRealm(id: "\((stationUnit!["id"] as! Int))", name: stationUnit!["name"] as! String, thumbnailObject: imageIdentifier, shortAddress:dic["shortAddress"] as! String, repository: false)
               
               let review = Review(id: dic["id"] as! Int, date: Util.convertStringToNSDate(dic["dateTime"] as! String), user: user, text: dic["text"] as! String, score: dic["score"] as! Int,radio:radio)
               

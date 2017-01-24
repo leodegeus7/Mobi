@@ -6,7 +6,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -18,10 +18,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -176,10 +176,10 @@
                value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
             <PersistentString
-               value = "cell.labelTitle.text">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "cell.labelTitle.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -276,58 +276,7 @@
          contextName = "RadioTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "contactRadio.arraySocial">
-            </PersistentString>
-            <PersistentString
-               value = "actualProgram">
-            </PersistentString>
-            <PersistentString
-               value = "cell.imageObject ">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.images">
-            </PersistentString>
-            <PersistentString
-               value = "cell.imageSocial.image">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row].text">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row].image">
-            </PersistentString>
-            <PersistentString
-               value = "cell.textViewWall.text">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row].user.userImage">
-            </PersistentString>
-            <PersistentString
-               value = "UIImage(named: &quot;\(type)Icon.png&quot;)">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row]">
-            </PersistentString>
-            <PersistentString
-               value = "contactRadio.phoneNumbers">
-            </PersistentString>
-            <PersistentString
-               value = "cell.adsButton.state">
-            </PersistentString>
-            <PersistentString
-               value = "cell.imageAttachment.image">
-            </PersistentString>
-            <PersistentString
-               value = "cell.adsButton.frame">
-            </PersistentString>
-            <PersistentString
-               value = "cell.adsButton">
-            </PersistentString>
-            <PersistentString
-               value = "cell.labelName.text">
-            </PersistentString>
-            <PersistentString
-               value = "cell.sizeImage">
+               value = "actualRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1761,6 +1710,9 @@
                value = "searchUsers.count == 0">
             </PersistentString>
             <PersistentString
+               value = "isOneTimeSearched">
+            </PersistentString>
+            <PersistentString
                value = "searchUsers">
             </PersistentString>
             <PersistentString
@@ -1783,10 +1735,10 @@
          contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1).(closure #1):ProgramsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
-               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
                value = "self.weekDays[dayOfWeekInt-1]">

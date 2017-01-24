@@ -215,6 +215,9 @@
 		B7F8C1061D9ED74A00848351 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */; };
 		B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F8C1091D9EF16C00848351 /* logo-mobi.png */; };
 		B7F9EC001D67A7F600E06D26 /* RadioListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */; };
+		B7FD44921E36611400631C02 /* RssTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FD44911E36611400631C02 /* RssTableViewCell.swift */; };
+		B7FD44941E3661DD00631C02 /* logoABERT.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FD44931E3661DD00631C02 /* logoABERT.png */; };
+		B7FD44961E3661E500631C02 /* g1.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FD44951E3661E500631C02 /* g1.png */; };
 		CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65021D904B9D002B88EA /* ColorRealm.swift */; };
 		CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */; };
 		CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */; };
@@ -450,6 +453,9 @@
 		B7F8C1051D9ED74A00848351 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B7F8C1091D9EF16C00848351 /* logo-mobi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-mobi.png"; sourceTree = "<group>"; };
 		B7F9EBFF1D67A7F600E06D26 /* RadioListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioListTableViewController.swift; sourceTree = "<group>"; };
+		B7FD44911E36611400631C02 /* RssTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssTableViewCell.swift; sourceTree = "<group>"; };
+		B7FD44931E3661DD00631C02 /* logoABERT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoABERT.png; sourceTree = "<group>"; };
+		B7FD44951E3661E500631C02 /* g1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g1.png; sourceTree = "<group>"; };
 		CD0B65021D904B9D002B88EA /* ColorRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorRealm.swift; sourceTree = "<group>"; };
 		CD0B65041D904D52002B88EA /* NavigationControllerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerModel.swift; sourceTree = "<group>"; };
 		CD44898E1D75FF5400A500A2 /* DataBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseTest.swift; sourceTree = "<group>"; };
@@ -574,6 +580,7 @@
 				B74ECF1E1D5BBE1C001AFC32 /* SecondNewTableViewCell.swift */,
 				B74ECF201D5BBE57001AFC32 /* ThirdNewTableViewCell.swift */,
 				B7B7234F1DCD1D2500DF2D12 /* NewTableViewCell.swift */,
+				B7FD44911E36611400631C02 /* RssTableViewCell.swift */,
 			);
 			name = "News Cells";
 			sourceTree = "<group>";
@@ -841,6 +848,8 @@
 				B764CE181DB7F75D00BFCE76 /* PlayButton@2x.png */,
 				B764CE191DB7F75D00BFCE76 /* StopButton@2x.png */,
 				B74EABD11DF73CD9005D9B25 /* logoAnuncio.png */,
+				B7FD44931E3661DD00631C02 /* logoABERT.png */,
+				B7FD44951E3661E500631C02 /* g1.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1000,6 +1009,7 @@
 				B74EABD21DF73CDA005D9B25 /* logoAnuncio.png in Resources */,
 				B764F5111DBA9ED30073D268 /* musicIcon.png in Resources */,
 				B77D31551DE8CBDF0034CB2B /* heartNoFill.png in Resources */,
+				B7FD44941E3661DD00631C02 /* logoABERT.png in Resources */,
 				B7D3713B1DF1FE4F00F60F2A /* logo-cinzaAbert-1.png in Resources */,
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
 				B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */,
@@ -1029,6 +1039,7 @@
 				B7F8C10A1D9EF16C00848351 /* logo-mobi.png in Resources */,
 				B702CF511DA2CA2A007FB335 /* avatar.png in Resources */,
 				B78FE41D1DD4CD7D00D7551B /* logo-pretaAbert.png in Resources */,
+				B7FD44961E3661E500631C02 /* g1.png in Resources */,
 				B7842AD51DB685BB002550F3 /* photo_64x64.png in Resources */,
 				B7BB84A41D9C47030033D823 /* View.xib in Resources */,
 				B7842AD41DB685BB002550F3 /* audio_64x64.png in Resources */,
@@ -1171,6 +1182,7 @@
 				B784D2C21DAD787C0016A405 /* ReviewTableViewController.swift in Sources */,
 				B7842ACE1DB53C54002550F3 /* GracenoteManager.swift in Sources */,
 				B769B6281D664ABA005A00B3 /* FavoriteTableViewCell.swift in Sources */,
+				B7FD44921E36611400631C02 /* RssTableViewCell.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,

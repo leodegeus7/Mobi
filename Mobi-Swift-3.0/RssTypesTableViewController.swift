@@ -81,12 +81,16 @@ class RssTypesTableViewController: UITableViewController {
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RssTableViewCell
     let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     cell.selectedBackgroundView = viewSelected
-    cell.textLabel?.text = newsType[indexPath.row].desc
+    if newsType[indexPath.row].desc == "Abert" {
+      cell.imageRSS.image = UIImage(named: "logoABERT.png")
+    } else if newsType[indexPath.row].desc.containsString("G1"){
+      cell.imageRSS.image = UIImage(named: "g1.png")
+    }
     
     return cell
   }

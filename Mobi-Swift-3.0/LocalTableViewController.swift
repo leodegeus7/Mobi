@@ -30,7 +30,7 @@ class LocalTableViewController: UITableViewController,UISearchBarDelegate {
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     navigationController?.navigationBar.hidden = false
     self.navigationController?.setNavigationBarHidden(false, animated: false)
-    self.title = "Locais"
+    self.title = "Estados"
     
     ///////////////////////////////////////////////////////////
     //MARK: --- REQUEST STATES ---

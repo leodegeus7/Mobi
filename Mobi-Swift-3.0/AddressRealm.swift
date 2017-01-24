@@ -90,6 +90,11 @@ class AddressRealm: Object  {
     }
   }
   
+  convenience init(shortAddress:String) {
+    self.init()
+    self.formattedLocal = shortAddress
+  }
+  
   override class func primaryKey() -> String? {
     return "id"
   }

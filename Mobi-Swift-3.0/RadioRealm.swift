@@ -84,6 +84,21 @@ class RadioRealm: Object {
     }
   }
   
+  convenience init(id:String,name:String,thumbnailObject:ImageObject,shortAddress:String,repository:Bool) {
+    //WithoutDate
+    self.init()
+    self.name = name
+    self.id = Int(id)!
+    self.thumbnail = thumbnailObject.getImageIdentifier()
+    let address = AddressRealm(shortAddress: shortAddress)
+    self.address = address
+    if(repository) {
+      try! DataManager.sharedInstance.realm.write {
+        DataManager.sharedInstance.realm.add(self, update: true)
+      }
+    }
+  }
+  
   convenience init(id:String,name:String,thumbnail:String,repository:Bool) {
     self.init()
     self.name = name

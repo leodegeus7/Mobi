@@ -10,9 +10,6 @@ import UIKit
 import MWFeedParser
 
 class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, MWFeedParserDelegate {
-  
-  
-  
   var xmlParser: NSXMLParser!
   var entryTitle: String!
   var entryDescription: String!
@@ -24,7 +21,6 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
   var firstTimeShowed = true
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   var feedParser = MWFeedParser()
-  
   var rss = RSS()
   
   override func viewDidLoad() {
@@ -34,23 +30,17 @@ class NewsTableViewController: UITableViewController, UITextViewDelegate,DZNEmpt
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
     
-    
-    
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 400
-    self.title = "Notícias"
+    self.title = "Notícias \(rss.desc)"
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
-    
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = false
     view.addSubview(activityIndicator)
-    
     DataManager.sharedInstance.allNews = []
-
-    
   }
   
   override func didReceiveMemoryWarning() {

@@ -83,7 +83,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .All:
-      return 5
+      return 6
     case .Local:
       return 2
     default:
@@ -163,6 +163,12 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           return searchUsers.count
         } else {
           return 4
+        }
+      case 5:
+        if !(searchRadios.count == 0 && searchGenre.count == 0 && searchStates.count == 0 && searchCities.count == 0 && searchUsers.count == 0) {
+          return 1
+        } else {
+          return 0
         }
       default:
         return 0
@@ -342,6 +348,10 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           let cell = tableView.dequeueReusableCellWithIdentifier("readMoreCell", forIndexPath: indexPath) as! ReadMoreTableViewCell
           return cell
         }
+      case 5:
+        let cell = UITableViewCell()
+        cell.selectionStyle = .None
+        return cell
       default:
         break
       }

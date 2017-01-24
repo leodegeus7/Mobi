@@ -24,8 +24,6 @@ import TwitterKit
 import ChameleonFramework
 import SwiftyJSON
 
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
   var window: UIWindow?
@@ -334,7 +332,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
-      let colorBlue = ColorRealm(name: 1, red: 144/255, green: 189/255, blue: 220/255, alpha: 1)
+      let colorBlue = ColorRealm(name: 1, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
       Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), withContentStyle: UIContentStyle.Contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true

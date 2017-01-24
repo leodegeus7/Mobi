@@ -99,7 +99,9 @@ class GracenoteManager: NSObject,GnLookupLocalStreamIngestEventsDelegate,GnStatu
       }
       
     } catch _ {
-      completion(resultGracenote: Music())
+      dispatch_async(dispatch_get_main_queue()) {
+        completion(resultGracenote: Music(id: "", name: trackTitle, albumName: "", composer: albumArtistName, coverArt: ""))
+      }
     }
     
   }

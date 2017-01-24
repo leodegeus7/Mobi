@@ -2059,27 +2059,42 @@
         <scene sceneID="pFx-7o-ybq">
             <objects>
                 <tableViewController id="Xlx-la-7rg" customClass="RssTypesTableViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0RI-OX-996">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="316" sectionHeaderHeight="28" sectionFooterHeight="28" id="0RI-OX-996">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="CZX-xq-E8k" style="IBUITableViewCellStyleDefault" id="DzN-Y5-Hne">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="316" id="DzN-Y5-Hne" customClass="RssTableViewCell" customModule="Mobi_Swift_3_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="600" height="316"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DzN-Y5-Hne" id="HZ9-wm-w9b">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="315"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CZX-xq-E8k">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="loa-rC-O7r">
+                                            <rect key="frame" x="171" y="28" width="259" height="259"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="259" id="TNj-SU-EZI"/>
+                                                <constraint firstAttribute="width" secondItem="loa-rC-O7r" secondAttribute="height" multiplier="1:1" id="b8A-Vh-uge"/>
+                                                <constraint firstAttribute="height" constant="128" id="zSV-jt-hpn"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="zSV-jt-hpn"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="loa-rC-O7r" secondAttribute="bottom" constant="20" id="7nm-r8-Xuc"/>
+                                        <constraint firstItem="loa-rC-O7r" firstAttribute="centerX" secondItem="HZ9-wm-w9b" secondAttribute="centerX" id="QKL-xB-kVB"/>
+                                        <constraint firstItem="loa-rC-O7r" firstAttribute="centerY" secondItem="HZ9-wm-w9b" secondAttribute="centerY" id="SFY-w5-ZYd"/>
+                                        <constraint firstItem="loa-rC-O7r" firstAttribute="top" secondItem="HZ9-wm-w9b" secondAttribute="topMargin" constant="20" id="fY7-2X-mTK"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageRSS" destination="loa-rC-O7r" id="wJt-ch-Xyh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2895,7 +2910,7 @@
                                 </variation>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
-                                <rect key="frame" x="20" y="131" width="374" height="575"/>
+                                <rect key="frame" x="20" y="131" width="374" height="547"/>
                                 <string key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
 
     É composto por três pilares:
@@ -2919,14 +2934,15 @@
                                     <action selector="textTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="5KR-4b-iHO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Termos de serviço: mobilize-se.net.br/mobi/terms.pdf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teV-bk-65O">
-                                <rect key="frame" x="20" y="698" width="374" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Termos: mobilize-se.net.br/mobi/terms.pdf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teV-bk-65O">
+                                <rect key="frame" x="20" y="702" width="374" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbf-Nk-Ngi">
-                                <rect key="frame" x="20" y="698" width="374" height="30"/>
+                                <rect key="frame" x="20" y="702" width="374" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <connections>
                                     <action selector="termsTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="NWo-Oe-SBK"/>
                                 </connections>
@@ -2954,10 +2970,12 @@
                             <constraint firstItem="GSn-yW-kRB" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="sws-R2-Um8"/>
                             <constraint firstItem="teV-bk-65O" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" id="tbP-0L-qRL"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Wfb-gh-pJy" secondAttribute="leading" id="v59-hG-NG7"/>
+                            <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="top" secondItem="Wfb-gh-pJy" secondAttribute="bottom" constant="24" id="x9c-hx-4nL"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="NEC-BA-gpC"/>
+                                <exclude reference="0Va-Hx-NIN"/>
                             </mask>
                         </variation>
                     </view>
@@ -3088,7 +3106,7 @@
         <scene sceneID="w5h-mt-bzX">
             <objects>
                 <tableViewController storyboardIdentifier="radioTableDetail" id="EWU-op-Szd" customClass="RadioTableViewController" customModule="Mobi_Swift_3_0" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="196" sectionHeaderHeight="28" sectionFooterHeight="28" id="arV-qy-0YI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="196" sectionHeaderHeight="28" sectionFooterHeight="28" id="arV-qy-0YI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5020,7 +5038,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Fd-S8-ENP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4904" y="7560"/>
+            <point key="canvasLocation" x="4864" y="7747"/>
         </scene>
         <!--Review Table View Controller-->
         <scene sceneID="CB4-7k-9q5">

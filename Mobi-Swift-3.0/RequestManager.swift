@@ -231,6 +231,8 @@ class RequestManager: NSObject {
       }
     }
   }
+  
+  
   //"user/autenticatenative?email=\(email)&password=\(password)"
   func loginInServer(token:String,completion: (result: String) -> Void) {
     self.requestJson("app/user/authorize?token=\(token)") { (result) in
@@ -245,6 +247,7 @@ class RequestManager: NSObject {
   func logoutInServer(token:String,completion: (result: String) -> Void) {
     self.requestJson("app/user/logout?token=\(token)") { (result) in
       completion(result: "Logout")
+      StreamingRadioManager.sharedInstance.adsInfo.clean()
     }
   }
   
@@ -327,7 +330,9 @@ class RequestManager: NSObject {
             } else {
               user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
             }
-            usersArray.append(user)
+            if user.id != DataManager.sharedInstance.myUser.id {
+              usersArray.append(user)
+            }
           }
         }
         
@@ -452,7 +457,9 @@ class RequestManager: NSObject {
             } else {
               user = UserRealm(id: "\(singleResult["id"] as! Int)", name: singleResult["name"] as! String, image: imageIdentifier, following: singleResult["following"] as! Bool, shortAddress: "")
             }
-            usersArray.append(user)
+            if user.id != DataManager.sharedInstance.myUser.id {
+              usersArray.append(user)
+            }
           }
         }
         completion(usersArray)
@@ -508,6 +515,78 @@ class RequestManager: NSObject {
             }
           }
           
+        }
+      case .Failure(let error):
+        self.resultText = .ErrorInReturnFromServer
+        var dic = Dictionary<String,AnyObject>()
+        dic["requestResult"] = "\(self.resultText) - \(error.localizedDescription)"
+        dic["data"] = emptyDic
+        completion(result: dic)
+      }
+    }
+  }
+  
+  func genericRequestWithBaseLink(baseLink:String,method:Alamofire.Method,parameters:[String:AnyObject]?,urlTerminationWithoutInitialCharacter:String,completion: (result: Dictionary<String,AnyObject>) -> Void) {
+    let emptyDic:NSDictionary = ["":""]
+    
+    Alamofire.request(method, "http://fierce-bayou-36018.herokuapp.com/\(urlTerminationWithoutInitialCharacter)", parameters: parameters, encoding: .JSON, headers: nil).responseJSON { (response) in
+      switch response.result {
+      case .Success:
+        if let value = response.result.value {
+          if let stringvalue = value as? String {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = stringvalue
+            self.existData = true
+            if !stringvalue.containsString(" ") {
+              completion(result: dic)
+            }
+          }
+          if let data = value as? NSArray {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          } else {
+            let json = JSON(value)
+            
+            if let data = json["data"].dictionaryObject {
+              self.resultText = .OK
+              var dic = Dictionary<String,AnyObject>()
+              dic["requestResult"] = "\(self.resultText)"
+              dic["data"] = data
+              self.existData = true
+              completion(result: dic)
+            } else if let data = json["data"].arrayObject {
+              self.resultText = .OK
+              var dic = Dictionary<String,AnyObject>()
+              dic["requestResult"] = "\(self.resultText)"
+              dic["data"] = data
+              self.existData = true
+              completion(result: dic)
+              json["data"].stringValue
+            } else {
+              self.resultText = .ErrorInDataInformation
+              var dic = Dictionary<String,AnyObject>()
+              dic["requestResult"] = "\(self.resultText)"
+              if let _ = json.error {
+                if let data = json["error"].dictionaryObject!["message"] as? String {
+                  self.existData = true
+                  dic["data"] = data
+                  completion(result: dic)
+                }
+                dic["data"] = emptyDic
+                completion(result: dic)
+              } else {
+                self.existData = false
+                dic["data"] = emptyDic
+                completion(result: dic)
+              }
+            }
+          }
         }
       case .Failure(let error):
         self.resultText = .ErrorInReturnFromServer
@@ -837,6 +916,28 @@ class RequestManager: NSObject {
     }
   }
   
+  func requestRadiosOfUser(user:UserRealm,pageNumber:Int,pageSize:Int,completion: (resultWall: [RadioRealm]) -> Void) {
+    let id = user.id
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.requestJson("app/station/userfavorites?userId=\(id)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+        dispatch_async(dispatch_get_main_queue()) {
+          if let array = result["data"]?["records"] as? NSArray {
+            var radios = [RadioRealm]()
+            for singleResult in array {
+              let dic = singleResult as! NSDictionary
+              let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+              radios.append(radio)
+            }
+            completion(resultWall: radios)
+          } else {
+            completion(resultWall: [])
+          }
+        }
+      }
+    }
+  }
+  
   func requestWallOfUser(user:UserRealm,pageNumber:Int,pageSize:Int,completion: (resultWall: [Comment]) -> Void) {
     let id = user.id
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
@@ -1038,6 +1139,8 @@ class RequestManager: NSObject {
     }
   }
   
+  
+  
   func requestMyUserInfo(completion: (result: Bool) -> Void) {
     requestJson("app/user") { (result) in
       if let resultRequest = result["requestResult"] as?  String {
@@ -1062,6 +1165,7 @@ class RequestManager: NSObject {
             
             if let idAux = resultDic["id"]?.int {
               id = idAux
+              StreamingRadioManager.sharedInstance.adsInfo.updateId("\(id)")
             }
             if let imgAux = resultDic["image"]?.dictionaryObject {
               imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
@@ -1264,6 +1368,78 @@ class RequestManager: NSObject {
     }
   }
   
+  func getIDFirebase(id:String,completion: (result: String) -> Void) {
+    //let parameters = nil
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.genericRequestWithBaseLink("", method: .GET, parameters: nil, urlTerminationWithoutInitialCharacter: "id/\(id)") { (result) in
+        if let data = result["data"] as? String {
+          if !data.containsString(" ") {
+            completion(result: "\(String(result["data"]!))")
+          }
+        }
+      }
+    }
+  }
+  
+  func updateCoord(id:String,lat:String,long:String,completion: (result: Bool) -> Void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    let parameters = [
+      "lat": lat,
+      "long":long
+    ]
+    self.genericRequestWithBaseLink("", method: .PATCH, parameters: parameters, urlTerminationWithoutInitialCharacter: "items/\(id)") { (result) in
+      completion(result: true)
+    }
+    }
+  }
+  
+  func updateName(id:String,name:String,image:String,completion: (result: Bool) -> Void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    var parameters = [:]
+    if image != "" {
+      parameters = [
+        "name": name,
+        "imageUser":image
+      ]
+    } else {
+      parameters = [
+        "name": name
+      ]
+    }
+    self.genericRequestWithBaseLink("", method: .PATCH, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "items/\(id)") { (result) in
+      completion(result: true)
+    }
+    }
+  }
+  
+  func requestUserInfo(completion: (result: [AdsInfo]) -> Void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    self.genericRequestWithBaseLink("", method: .GET, parameters: nil, urlTerminationWithoutInitialCharacter: "items") { (result) in
+      var info = [AdsInfo]()
+      if let array = result["data"] as? NSArray {
+        for unique in array {
+          let id = unique["idServer"] as! String
+          let name = unique["name"] as! String
+          let lat = unique["lat"] as! String
+          let long =  unique["long"] as! String
+          let coordUpdate =  unique["coordUpdate_at"] as! String
+          let imageUser = unique["imageUser"] as! String
+          let infoUnique = AdsInfo()
+          infoUnique.server = id
+          infoUnique.name = name
+          infoUnique.la = lat
+          infoUnique.lo = long
+          infoUnique.lastCoordUpdate = coordUpdate
+          infoUnique.image = imageUser
+          info.append(infoUnique)
+        }
+        info.sortInPlace { $0.id < $1.id }
+        completion(result: info)
+      }
+      
+    }
+    }
+  }
   
   func requestProgramsOfRadio(radio:RadioRealm, pageNumber:Int,pageSize:Int,completion: (resultPrograms: [Program]) -> Void) {
     requestJson("app/station/\(radio.id)/program/?pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
@@ -1583,13 +1759,13 @@ class RequestManager: NSObject {
                 //var genre = ""
                 var city = ""
                 var state = ""
-//                var birthdate = "1900-01-01"
-//                var streetName = ""
-//                var zipCode = ""
-//                var addressID = -1
-//                var latitude:Double = -1
-//                var longitude:Double = -1
-//                var streetNumber = ""
+                //                var birthdate = "1900-01-01"
+                //                var streetName = ""
+                //                var zipCode = ""
+                //                var addressID = -1
+                //                var latitude:Double = -1
+                //                var longitude:Double = -1
+                //                var streetNumber = ""
                 var imageIdentifier = ImageObject()
                 var shortAddress = ""
                 
@@ -1599,39 +1775,39 @@ class RequestManager: NSObject {
                 if let imgAux = resultDic["image"]?.dictionaryObject {
                   imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
                 }
-//                if let emailAux = resultDic["email"]?.string {
-//                  email = emailAux
-//                }
+                //                if let emailAux = resultDic["email"]?.string {
+                //                  email = emailAux
+                //                }
                 if let nameAux = resultDic["name"]?.string {
                   name = nameAux
                 }
-//                if let genreAux = resultDic["genre"]?.string {
-//                  genre = genreAux
-//                }
-//                if let birthdateAux = resultDic["birthdate"]?.string {
-//                  birthdate = birthdateAux
-//                } else {
-//                  birthdate = ""
-//                }
-//                if let addressIDAux = resultDic["address"]?["id"].int {
-//                  addressID = addressIDAux
-//                  
-//                }
-//                if let latitudeAux = resultDic["address"]?["latitude"].double {
-//                  latitude = latitudeAux
-//                }
-//                if let longitudeAux = resultDic["address"]?["longitude"].double {
-//                  longitude = longitudeAux
-//                }
-//                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-//                  streetName = streetNameAux
-//                }
-//                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-//                  zipCode = zipCodeAux
-//                }
-//                if let streetNumberAux = resultDic["address"]?["number"].string {
-//                  streetNumber = streetNumberAux
-//                }
+                //                if let genreAux = resultDic["genre"]?.string {
+                //                  genre = genreAux
+                //                }
+                //                if let birthdateAux = resultDic["birthdate"]?.string {
+                //                  birthdate = birthdateAux
+                //                } else {
+                //                  birthdate = ""
+                //                }
+                //                if let addressIDAux = resultDic["address"]?["id"].int {
+                //                  addressID = addressIDAux
+                //
+                //                }
+                //                if let latitudeAux = resultDic["address"]?["latitude"].double {
+                //                  latitude = latitudeAux
+                //                }
+                //                if let longitudeAux = resultDic["address"]?["longitude"].double {
+                //                  longitude = longitudeAux
+                //                }
+                //                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+                //                  streetName = streetNameAux
+                //                }
+                //                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+                //                  zipCode = zipCodeAux
+                //                }
+                //                if let streetNumberAux = resultDic["address"]?["number"].string {
+                //                  streetNumber = streetNumberAux
+                //                }
                 if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
                   city = cityAux
                   
@@ -1642,7 +1818,7 @@ class RequestManager: NSObject {
                 }
                 
                 if id != -1 {
-//                  user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
+                  //                  user = UserRealm(id: "\(id)", email: email, name: name, gender: genre, address: address, birthDate: birthdate, following: "0", followers: "0",userImage: imageIdentifier)
                   user = UserRealm(id: "\(id)", name: name, image: imageIdentifier, following: false, shortAddress: shortAddress)
                 }
                 followers.append(user)
@@ -1673,13 +1849,13 @@ class RequestManager: NSObject {
                 //var genre = ""
                 var city = ""
                 var state = ""
-//                var birthdate = "1900-01-01"
-//                var streetName = ""
-//                var zipCode = ""
-//                var addressID = -1
-//                var latitude:Double = -1
-//                var longitude:Double = -1
-//                var streetNumber = ""
+                //                var birthdate = "1900-01-01"
+                //                var streetName = ""
+                //                var zipCode = ""
+                //                var addressID = -1
+                //                var latitude:Double = -1
+                //                var longitude:Double = -1
+                //                var streetNumber = ""
                 var imageIdentifier = ImageObject()
                 var shortAddress = ""
                 
@@ -1689,39 +1865,39 @@ class RequestManager: NSObject {
                 if let imgAux = resultDic["image"]?.dictionaryObject {
                   imageIdentifier = ImageObject(id:imgAux["id"] as! Int,identifier100: imgAux["identifier100"] as! String, identifier80: imgAux["identifier80"] as! String, identifier60: imgAux["identifier60"] as! String, identifier40: imgAux["identifier40"] as! String, identifier20: imgAux["identifier20"] as! String)
                 }
-//                if let emailAux = resultDic["email"]?.string {
-//                  email = emailAux
-//                }
+                //                if let emailAux = resultDic["email"]?.string {
+                //                  email = emailAux
+                //                }
                 if let nameAux = resultDic["name"]?.string {
                   name = nameAux
                 }
-//                if let genreAux = resultDic["genre"]?.string {
-//                  genre = genreAux
-//                }
-//                if let birthdateAux = resultDic["birthdate"]?.string {
-//                  birthdate = birthdateAux
-//                } else {
-//                  birthdate = ""
-//                }
-//                if let addressIDAux = resultDic["address"]?["id"].int {
-//                  addressID = addressIDAux
-//                  
-//                }
-//                if let latitudeAux = resultDic["address"]?["latitude"].double {
-//                  latitude = latitudeAux
-//                }
-//                if let longitudeAux = resultDic["address"]?["longitude"].double {
-//                  longitude = longitudeAux
-//                }
-//                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
-//                  streetName = streetNameAux
-//                }
-//                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
-//                  zipCode = zipCodeAux
-//                }
-//                if let streetNumberAux = resultDic["address"]?["number"].string {
-//                  streetNumber = streetNumberAux
-//                }
+                //                if let genreAux = resultDic["genre"]?.string {
+                //                  genre = genreAux
+                //                }
+                //                if let birthdateAux = resultDic["birthdate"]?.string {
+                //                  birthdate = birthdateAux
+                //                } else {
+                //                  birthdate = ""
+                //                }
+                //                if let addressIDAux = resultDic["address"]?["id"].int {
+                //                  addressID = addressIDAux
+                //
+                //                }
+                //                if let latitudeAux = resultDic["address"]?["latitude"].double {
+                //                  latitude = latitudeAux
+                //                }
+                //                if let longitudeAux = resultDic["address"]?["longitude"].double {
+                //                  longitude = longitudeAux
+                //                }
+                //                if let streetNameAux = resultDic["address"]?["street"]["name"].string {
+                //                  streetName = streetNameAux
+                //                }
+                //                if let zipCodeAux = resultDic["address"]?["street"]["zip"].string {
+                //                  zipCode = zipCodeAux
+                //                }
+                //                if let streetNumberAux = resultDic["address"]?["number"].string {
+                //                  streetNumber = streetNumberAux
+                //                }
                 if let cityAux = resultDic["address"]?["street"]["district"]["city"]["name"].string {
                   city = cityAux
                   
@@ -1894,49 +2070,49 @@ class RequestManager: NSObject {
   
   func requestPhonesOfStation(radio:RadioRealm,completion: (resultPhones: [PhoneNumber]) -> Void) {
     let id = radio.id
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-    self.requestJson("stationunit/\(id)/phone") { (result) in
-      if let array = result["data"] as? NSArray {
-        var phoneNumbers = [PhoneNumber]()
-        for phone in array {
-          let id = phone["id"] as! Int
-          let phoneTypeCustom = phone["phone"]!!["phoneTypeCustom"] as! String
-          let phoneNumber = phone["phone"]!!["phonenumber"] as! String
-          let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
-          let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
-          phoneNumbers.append(phoneNumberObject)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestJson("stationunit/\(id)/phone") { (result) in
+        if let array = result["data"] as? NSArray {
+          var phoneNumbers = [PhoneNumber]()
+          for phone in array {
+            let id = phone["id"] as! Int
+            let phoneTypeCustom = phone["phone"]!!["phoneTypeCustom"] as! String
+            let phoneNumber = phone["phone"]!!["phonenumber"] as! String
+            let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
+            let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
+            phoneNumbers.append(phoneNumberObject)
+          }
+          dispatch_async(dispatch_get_main_queue(), {
+            completion(resultPhones: phoneNumbers)
+          })
+        } else {
+          completion(resultPhones: [])
         }
-        dispatch_async(dispatch_get_main_queue(), {
-          completion(resultPhones: phoneNumbers)
-        })
-      } else {
-        completion(resultPhones: [])
       }
-    }
     })
   }
   
   func requestSocialNewtworkOfStation(radio:RadioRealm,completion: (resultSocial: [SocialNetwork]) -> Void) {
     let id = radio.id
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-    self.requestJson("stationunit/socialnetwork/search?station=\(id)") { (result) in
-      if let array = result["data"] as? NSArray {
-        var socialNetworks = [SocialNetwork]()
-        for social in array {
-          let id = social["id"] as! Int
-          let type = social["socialNetwork"]!!["value"] as! String
-          if let value = social["value"] as? String {
-            let socialNet = SocialNetwork(id: id, type: type, text: value)
-            socialNetworks.append(socialNet)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      self.requestJson("stationunit/socialnetwork/search?station=\(id)") { (result) in
+        if let array = result["data"] as? NSArray {
+          var socialNetworks = [SocialNetwork]()
+          for social in array {
+            let id = social["id"] as! Int
+            let type = social["socialNetwork"]!!["value"] as! String
+            if let value = social["value"] as? String {
+              let socialNet = SocialNetwork(id: id, type: type, text: value)
+              socialNetworks.append(socialNet)
+            }
           }
+          dispatch_async(dispatch_get_main_queue(), {
+            completion(resultSocial: socialNetworks)
+          })
+        } else {
+          completion(resultSocial: [])
         }
-        dispatch_async(dispatch_get_main_queue(), {
-          completion(resultSocial: socialNetworks)
-        })
-      } else {
-        completion(resultSocial: [])
       }
-    }
     })
   }
   
@@ -2002,5 +2178,5 @@ class RequestManager: NSObject {
       }
     })
   }
-
+  
 }

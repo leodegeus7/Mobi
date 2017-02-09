@@ -169,4 +169,6 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     }
   }
   
+  var adsInfo = AdsInfo()
+  
 }

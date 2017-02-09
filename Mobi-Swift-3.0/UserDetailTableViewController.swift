@@ -17,6 +17,7 @@ class UserDetailTableViewController: UITableViewController {
   enum UserMode {
     case Reviews
     case Posts
+    case Radios
   }
   var colorBlack : UIColor!
   var colorWhite : UIColor!
@@ -24,6 +25,7 @@ class UserDetailTableViewController: UITableViewController {
   var viewTitle = ""
   var actualReviews = [Review]()
   var actualPosts = [Comment]()
+  var actualRadios = [RadioRealm]()
   var actualArraySegmented = [AnyObject]()
   
   var existFollowers = false
@@ -43,7 +45,7 @@ class UserDetailTableViewController: UITableViewController {
     self.clearsSelectionOnViewWillAppear = true
     tableView.estimatedRowHeight = 40
     tableView.rowHeight = UITableViewAutomaticDimension
-    
+    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     let requestFollowers = RequestManager()
     let requestFollowing = RequestManager()
     let requestReviews = RequestManager()
@@ -94,14 +96,21 @@ class UserDetailTableViewController: UITableViewController {
         } else {
           return 1
         }
-      } else {
+      } else if selectedMode == .Posts {
         if actualPosts.count != 0 {
           return actualPosts.count + 1
         } else {
           return 1
         }
+      } else if selectedMode == .Radios {
+        if actualRadios.count != 0 {
+          return actualRadios.count + 1
+        } else {
+          return 1
+        }
       }
     }
+    return 0
   }
   
   @IBAction func segmentControlChanged(sender: AnyObject) {
@@ -119,7 +128,7 @@ class UserDetailTableViewController: UITableViewController {
         self.actualReviews = resultReview
         self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
       }
-    } else {
+    } else if cell.segmentedControl.selectedSegmentIndex == 1 {
       selectedMode = .Posts
       let requestPosts = RequestManager()
       requestPosts.requestWallOfUser(actualUser, pageNumber: 0, pageSize: 10, completion: { (resultWall) in
@@ -127,6 +136,16 @@ class UserDetailTableViewController: UITableViewController {
         self.activityIndicator.hidden = true
         self.activityIndicator.removeFromSuperview()
         self.actualPosts = resultWall
+        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+      })
+    } else if cell.segmentedControl.selectedSegmentIndex == 2 {
+      selectedMode = .Radios
+      let requestPosts = RequestManager()
+      requestPosts.requestRadiosOfUser(actualUser, pageNumber: 0, pageSize: 10, completion: { (resultWall) in
+        self.tableView.allowsSelection = true
+        self.activityIndicator.hidden = true
+        self.activityIndicator.removeFromSuperview()
+        self.actualRadios = resultWall
         self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
       })
     }
@@ -302,6 +321,35 @@ class UserDetailTableViewController: UITableViewController {
             return cell
           }
         }
+      } else if selectedMode == .Radios {
+        if actualRadios.count == 0 {
+          let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
+          cell.labelTitle.text = "Nenhuma rádio favoritada"
+          cell.textViewDescription.text = "\(actualUser.name) não favoritou nenhuma rádio até o momento"
+          cell.selectionStyle = .None
+          return cell
+        } else {
+          if indexPath.row <= actualRadios.count-1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+            cell.labelName.text = actualRadios[indexPath.row].name
+            cell.labelLocal.text = actualRadios[indexPath.row].address.formattedLocal
+            cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadios[indexPath.row].thumbnail)))
+            if actualRadios[indexPath.row].isFavorite {
+              cell.imageSmallOne.image = UIImage(named: "heartRed.png")
+            } else {
+              cell.imageSmallOne.image = UIImage(named: "heart.png")
+            }
+            cell.labelDescriptionOne.text = "\(actualRadios[indexPath.row].likenumber)"
+            cell.imageSmallTwo.image = UIImage(contentsOfFile: "")
+            cell.labelDescriptionTwo.text = ""
+            return cell
+          } else {
+            let cell = UITableViewCell()
+            cell.tag = 1000
+            cell.selectionStyle = .None
+            return cell
+          }
+        }
       }
     default:
       let cell = UITableViewCell()
@@ -318,8 +366,10 @@ class UserDetailTableViewController: UITableViewController {
       if indexPath.section == 1 {
         if selectedMode == .Posts {
           DataManager.sharedInstance.instantiateSubCommentView(self.navigationController!, comment: actualPosts[indexPath.row])
-        } else {
+        } else if selectedMode == .Reviews {
           DataManager.sharedInstance.instantiateRadioDetailView(self.navigationController!, radio: actualReviews[indexPath.row].radio)
+        } else if selectedMode == .Radios {
+          DataManager.sharedInstance.instantiateRadioDetailView(self.navigationController!, radio: actualRadios[indexPath.row])
         }
       }
     }
@@ -374,7 +424,7 @@ class UserDetailTableViewController: UITableViewController {
           if !follow {
             Util.displayAlert(title: "Atenção", message: "Não foi possivel seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
           } else {
-            Util.displayAlert(title: "Atenção", message: "Você esta seguindo \(self.actualUser.name) agora" , action: "Ok")
+            Util.displayAlert(title: "Atenção", message: "Você está seguindo \(self.actualUser.name) agora" , action: "Ok")
           }
         })
       } else {
@@ -384,7 +434,7 @@ class UserDetailTableViewController: UITableViewController {
           if !follow {
             Util.displayAlert(title: "Atenção", message: "Não foi possivel parar de seguir o usuário \(self.actualUser.name). Contate o administrador da aplicação", action: "Ok")
           } else {
-            Util.displayAlert(title: "Atenção", message: "Você não esta mais seguindo \(self.actualUser.name)" , action: "Ok")
+            Util.displayAlert(title: "Atenção", message: "Você não está mais seguindo \(self.actualUser.name)" , action: "Ok")
           }
         })
       }

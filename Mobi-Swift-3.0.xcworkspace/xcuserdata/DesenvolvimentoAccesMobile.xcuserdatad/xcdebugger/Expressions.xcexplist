@@ -3,38 +3,116 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
+         contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.topRadios">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "modalVC">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SendPublicationViewController.animateTextView(Bool, height : CGFloat) -&gt; ():SendPublicationViewController.swift">
+         contextName = "AdsInfo.updateId(String) -&gt; ():AdsInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.viewBottom.frame.origin.y">
+               value = "isCreating">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "UserRealm.(updatePassword(String) -&gt; ()).(closure #1):UserRealm.swift">
+         contextName = "AppDelegate.application(UIApplication, didReceiveRemoteNotification : [NSObject : AnyObject], fetchCompletionHandler : (UIBackgroundFetchResult) -&gt; ()) -&gt; ():AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.setButtonMusicType(Music) -&gt; ():PlayerViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "myUser">
+            </PersistentString>
+            <PersistentString
+               value = "heightTableView">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.Shar">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(favRadio(RadioRealm, completion : (resultFav : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocalCitiesViewController.viewDidLoad() -&gt; ():LocalCitiesViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "radiosInSelectedState.stateName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;id&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "(Array)[0].key">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;image&quot;]![&quot;identifier40&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "radio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Util.areTheySiblings(AnyObject!, class2 : AnyObject) -&gt; Bool:Util.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "object_getClassName(class1) == object_getClassName(class2)">
+            </PersistentString>
+            <PersistentString
+               value = "object_getClassName(class1)">
+            </PersistentString>
+            <PersistentString
+               value = "object_getClassName(class2)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SearchTableViewController.searchBarSearchButtonClicked(UISearchBar) -&gt; ():SearchTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioListTableViewController.viewDidLoad() -&gt; ():RadioListTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&#xe7;">
+            </PersistentString>
+            <PersistentString
+               value = "radios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StreamingTestViewController.switchChanged(AnyObject) -&gt; ():StreamingTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.actualRadio.streamingLinks[1].link">
+            </PersistentString>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataManager.updateAllOverdueInterval() -&gt; ():DataManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(authUI(FIRAuthUI, didSignInWithUser : FIRUser?, error : NSError?) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
@@ -45,88 +123,81 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
+         contextName = "RequestManager.(genericRequest(Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(requestTopLikesRadios(Int, pageSize : Int, completion : (resultTop : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #2):LoadViewController.swift">
+         contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result[&quot;data&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "actualRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1).(closure #3).(closure #1):LoadViewController.swift">
+         contextName = "DataManager.(updateAllOverdueInterval() -&gt; ()).(closure #1):DataManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.topRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.authPickerViewControllerForAuthUI(FIRAuthUI) -&gt; FIRAuthPickerViewController:ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "backgroudImage">
-            </PersistentString>
-            <PersistentString
-               value = "backgroudImage.image">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RequestManager.sendWallPublication(RadioRealm, text : String, postType : Int, attachmentIdentifier : String, completion : (resultWall : Bool) -&gt; ()) -&gt; ():RequestManager.swift">
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.sendWhats(String) -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "contactStore.unifiedContactWithIdentifier(&quot;\(newPhone)&quot;, keysToFetch: toFetch)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AdsManager.setAdvertisement(AdsManager.ScreenName, completion : (resultAd : Advertisement) -&gt; ()) -&gt; ():AdsManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "isAdsRequested">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GenreViewController.viewDidLoad() -&gt; ():GenreViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AdsManager.(requestAllAds((resultAd : [Advertisement]) -&gt; ()) -&gt; ()).(closure #2).(closure #1):AdsManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1):ProfileViewController.swift">
+         contextName = "RequestManager.(uploadWithAlamofire() -&gt; ()).(closure #2):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(loginInServer(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(requestJson(String, completion : (result : [requestResult : NSDictionary]) -&gt; ()) -&gt; requestResult).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1):LoadViewController.swift">
+         contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [SearchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allMusicGenre">
+               value = "dic[&quot;id&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "results[.Users]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NewsTableViewController.parser(NSXMLParser, didEndElement : String, namespaceURI : String?, qualifiedName : String?) -&gt; ():NewsTableViewController.swift">
+         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1).(closure #3).(closure #1).(closure #1):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.topRadios">
+            </PersistentString>
+            <PersistentString
+               value = "viewInitial">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(requestProgramsOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultPrograms : [Program]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         contextName = "static Util.convertStringToNSDate(String) -&gt; NSDate:Util.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dateFormatter.dateFromString(dateString)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(requestLocalRadios(CGFloat, longitude : CGFloat, pageNumber : Int, pageSize : Int, completion : (resultHistoric : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         contextName = "SendPublicationViewController.(animateTextView(Bool, height : CGFloat) -&gt; ()).(closure #1):SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.bottomConstrain.constant">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.feedParser(MWFeedParser!, didParseFeedItem : MWFeedItem!) -&gt; ():NewsTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NavigationControllerModel.viewWillAppear(Bool) -&gt; ():NavigationControllerModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.interfaceColor.color">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
@@ -140,10 +211,43 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+         contextName = "PlayerViewController.requestGracenote((result : Bool) -&gt; ()) -&gt; ():PlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioPlayer.resetPlayer() -&gt; ():RadioPlayer.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(authUserWithToken(String, completion : (result : [String]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.feedParserDidFinish(MWFeedParser!) -&gt; ():NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allNews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(getStreamingLinksFromRadio(RadioRealm, completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(getIDFirebase(String, completion : (result : String) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result[&quot;data&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "String(result[&quot;data&quot;]!)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -156,43 +260,56 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(sendWallPublication(RadioRealm, text : String, postType : Int, attachmentIdentifier : String, completion : (resultWall : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         contextName = "AppDelegate.application(UIApplication, didReceiveLocalNotification : UILocalNotification) -&gt; ():AppDelegate.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result[&quot;data&quot;][&quot;postType&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "result[&quot;data&quot;][&quot;postType&quot;] as String">
+               value = "notification.alertTitle">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.(viewWillAppear(Bool) -&gt; ()).(closure #1):ProfileViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
+         contextName = "MenuTableViewController.viewWillAppear(Bool) -&gt; ():MenuTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+               value = "tableView">
             </PersistentString>
             <PersistentString
-               value = "cell.textDescription.text">
-            </PersistentString>
-            <PersistentString
-               value = "cell.labelTitle.text">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AudioManager.play(Link, cell : WallAudioPlayerTableViewCell) -&gt; ():AudioManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "InitialTableViewController.tableView(UITableView, editActionsForRowAtIndexPath : NSIndexPath) -&gt; [UITableViewRowAction]?:InitialTableViewController.swift">
+         contextName = "LocalTableViewController.separateInformation() -&gt; ():LocalTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "radio.address.state">
+            </PersistentString>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+            <PersistentString
+               value = "objectArray">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuTableViewController.(sleepFunction(AnyObject) -&gt; ()).(closure #1):MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "action.title!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SearchTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():SearchTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchStates">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.updateCellContent([NSIndexPath]) -&gt; ():RadioTableViewController.swift">
       </ContextState>
       <ContextState
          contextName = "EditInfoViewController.okAction() -&gt; ():EditInfoViewController.swift">
@@ -218,29 +335,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.uploadImage(UIView, imageToUpload : UIImage, completion : (resultIdentifiers : ImageObject) -&gt; ()) -&gt; ():RequestManager.swift">
+         contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #1):ProfileViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "InitialTableViewController.viewDidAppear(Bool) -&gt; ():InitialTableViewController.swift">
+         contextName = "NewsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.allNews">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "cell.labelDate.text">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row].date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocalCitiesViewController.separateInformation() -&gt; ():LocalCitiesViewController.swift">
+         contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #3):ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "citiesArray">
+               value = "">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static Util.removeDuplicateStrings([String]) -&gt; [String]:Util.swift">
       </ContextState>
       <ContextState
          contextName = "GracenoteManager.(findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String, completion : (resultGracenote : Music) -&gt; ()) -&gt; ()).(closure #1):GracenoteManager.swift">
@@ -251,29 +368,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CommentsTableViewController.viewDidLoad() -&gt; ():CommentsTableViewController.swift">
+         contextName = "AppDelegate.(testImage() -&gt; ()).(closure #2).(closure #1):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Radio.resetDistanceFromUser() -&gt; ():Radio.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualComment">
+               value = "DataManager.sharedInstance.userLocation">
+            </PersistentString>
+            <PersistentString
+               value = "self.address.coordinates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MiniPlayerViewController.viewDidLoad() -&gt; ():MiniPlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "modalVC">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.playerClass">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.defineInitialParameters() -&gt; ():AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:RadioTableViewController.swift">
+         contextName = "RadioTableViewController.viewWillAppear(Bool) -&gt; ():RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "actualRadio">
@@ -281,95 +390,110 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "UserDetailTableViewController.(segmentControlChanged(AnyObject) -&gt; ()).(closure #2):UserDetailTableViewController.swift">
+         contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestAdvertisement((resultAd : [Advertisement]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.actualPosts">
+               value = "Util.convertActualDateToString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.requestJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
+         contextName = "RadioTableViewController.(updateInterfaceWithGracenote() -&gt; ()).(closure #1).(closure #1).(closure #1).(closure #1):RadioTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #3).(closure #2):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.uploadImage(UIView, imageToUpload : UIImage, completion : (resultIdentifiers : ImageObject) -&gt; ()) -&gt; ():RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static DataBaseTest.realmUpdate(Realm) -&gt; ():DataBaseTest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "">
+               value = "users">
+            </PersistentString>
+            <PersistentString
+               value = "users.first!">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.interfaceColor">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "PlayerViewController.updateInfoOfView() -&gt; ():PlayerViewController.swift">
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2):RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualRadio">
+               value = "tableView.indexPathForCell(cellUnique)!.row">
             </PersistentString>
             <PersistentString
-               value = "actualRadio.thumbnail">
-            </PersistentString>
-            <PersistentString
-               value = "imageLogo">
+               value = "tableView.indexPathForCell(cellUnique)!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static FileSupport.playAudioFromBundle(String) -&gt; ():FileSupport.swift">
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3):RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "NSBundle.mainBundle().pathForResource(&quot;\(name)&quot;, ofType: &quot;.m4a&quot;)">
+               value = "tableview.visibleCells.count">
             </PersistentString>
             <PersistentString
-               value = "NSBundle.mainBundle().URLForResource(&quot;\(name)&quot;, withExtension: &quot;.m4a&quot;)">
-            </PersistentString>
-            <PersistentString
-               value = "NSBundle.mainBundle().URLForResource(&quot;download&quot;, withExtension: &quot;.m4a&quot;)">
+               value = "indexPathCell.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SearchTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():SearchTableViewController.swift">
+         contextName = "RequestManager.(requestLocalRadios(CGFloat, longitude : CGFloat, pageNumber : Int, pageSize : Int, completion : (resultHistoric : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestSimilarRadios(Int, pageSize : Int, radioToCompare : RadioRealm, completion : (resultSimilar : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocalCitiesViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():LocalCitiesViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "searchStates">
+               value = "radiosInState">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.(viewDidLoad() -&gt; ()).(closure #2):RadioTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.updateIcons() -&gt; ():RadioTableViewController.swift">
+         contextName = "AddressRealm.init(lat : String, long : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, repository : Bool) -&gt; AddressRealm:AddressRealm.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.musicInExecution">
+               value = "DataManager.sharedInstance.realm.write">
+            </PersistentString>
+            <PersistentString
+               value = "self.coordinates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #2):ImageManager.swift">
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4).(closure #1):AppDelegate.swift">
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(uploadWithAlamofire() -&gt; ()).(closure #2):RequestManager.swift">
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #5).(closure #1):AppDelegate.swift">
       </ContextState>
       <ContextState
-         contextName = "SendPublicationViewController.(animateTextView(Bool, height : CGFloat) -&gt; ()).(closure #1):SendPublicationViewController.swift">
+         contextName = "RequestManager.requestCitiesInState(String, completion : (resultCities : [CityRealm]) -&gt; ()) -&gt; ():RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.bottomConstrain.constant">
+               value = "address/city/containingstation?stateId=\(stateId)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NewsTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:NewsTableViewController.swift">
+         contextName = "NewsTableViewController.parserDidEndDocument(NSXMLParser) -&gt; ():NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.allNews">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.application(UIApplication, didReceiveRemoteNotification : [NSObject : AnyObject], fetchCompletionHandler : (UIBackgroundFetchResult) -&gt; ()) -&gt; ():AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "WallAudioPlayerTableViewCell.(buttonPlayTapped(AnyObject) -&gt; ()).(closure #1):WallAudioPlayerTableViewCell.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestMyUserInfo((result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -383,15 +507,730 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static DataBaseTest.separateRadios() -&gt; ():DataBaseTest.swift">
+         contextName = "RadioViewController.init(coder : NSCoder) -&gt; RadioViewController?:RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.realm.objects(UserRealm.self).first">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #1):ProfileViewController.swift">
+         contextName = "SendPublicationViewController.keyboardWillShow(NSNotification) -&gt; ():SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "keyboardSize.height">
+            </PersistentString>
+            <PersistentString
+               value = "notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue)">
+            </PersistentString>
+            <PersistentString
+               value = "self.stackBottom.frame.origin.y">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Radio.resetDistanceFromUser() -&gt; Bool:Radio.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.address.coordinates">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestProgramsOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultPrograms : [Program]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ARNTransitionAnimator.(finishInteractiveTransitionAnimated(Bool) -&gt; ()).(closure #1):ARNTransitionAnimator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "transitionContext">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #3).(closure #2).(closure #1):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static Util.removeDuplicateStrings([String]) -&gt; [String]:Util.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, stars : Int, genre : String, lastAccessDate : NSDate, isFavorite : Bool, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MiniPlayerViewController.viewDidLoad() -&gt; ():MiniPlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "modalVC">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.playerClass">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dic[&quot;approvedDatetime&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;postType&quot;] as! Int">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;text&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;id&quot;] as! Int">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.requestJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactRadioTableViewController.(fillTableView() -&gt; ()).(closure #8):ContactRadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contactRadio.instagram">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(getAudioChannelsFromRadio(RadioRealm, completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImageInWallCell(UITableView, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.labelName.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UserRealm.(updatePassword(String) -&gt; ()).(closure #1):UserRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.updateIcons() -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.separateInformation() -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.viewDidLoad() -&gt; ():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocalCitiesViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():LocalCitiesViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "radios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.viewDidLoad() -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "buttonAdvertisement.frame.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, willDisplayCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SearchTableViewController.searchBar(UISearchBar, selectedScopeButtonIndexDidChange : Int) -&gt; ():SearchTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AddressRealm.setFormattedLocalString() -&gt; ():AddressRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "WallAudioPlayerTableViewCell.buttonPlayTapped(AnyObject) -&gt; ():WallAudioPlayerTableViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestReviewsOfUser(UserRealm, pageSize : Int, pageNumber : Int, completion : (resultReview : [Review]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;app/user/\(id)/reviews?pageNumber=\(pageNumber)&amp;pageSize=\(pageSize)&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:MenuTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.viewDidLoad() -&gt; ():GenreViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.sendWhats(String) -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contactStore.unifiedContactWithIdentifier(&quot;\(newPhone)&quot;, keysToFetch: toFetch)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #2):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result[&quot;data&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ConfigViewController.buttonGridTapped(UIButton?) -&gt; ():ConfigViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestFollowing(UserRealm, pageSize : Int, pageNumber : Int, completion : (resultFollowing : [UserRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GracenoteManager.findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String) -&gt; ():GracenoteManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "info.dataMatches()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(deleteFavRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static Address.(getAddress(Address, completion : (resultAddress : Bool) -&gt; ()) -&gt; ()).(closure #1):Address.swift">
+      </ContextState>
+      <ContextState
+         contextName = "InitialTableViewController.viewDidAppear(Bool) -&gt; ():InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.recentsRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioRealm.resetDistanceFromUser() -&gt; Bool:RadioRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestRadiosWithSearch(String, pageNumber : Int, pageSize : Int, completion : ([RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [searchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "accessToken">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.(viewWillAppear(Bool) -&gt; ()).(closure #1):ProfileViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SendPublicationViewController.(sendPublication() -&gt; ()).(closure #2):SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.actualMode.hashValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestReviewsInRadio(RadioRealm, pageSize : Int, pageNumber : Int, completion : (resultScore : [Review]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dic[&quot;score&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestNumberOfFollowers(UserRealm, completion : (resultNumberFollowers : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.isLogged">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.parser(NSXMLParser, foundCharacters : String) -&gt; ():NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "entryLink.characters.count">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allNews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #1):RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView">
+            </PersistentString>
+            <PersistentString
+               value = "self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(sendWallPublication(RadioRealm, text : String, postType : Int, attachmentIdentifier : String, completion : (resultWall : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result[&quot;data&quot;][&quot;postType&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "result[&quot;data&quot;][&quot;postType&quot;] as String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UserDetailTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:UserDetailTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadios">
+            </PersistentString>
+            <PersistentString
+               value = "detailCell.imageUser">
+            </PersistentString>
+            <PersistentString
+               value = "actualUser">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.buttonFavTap(AnyObject) -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestPhonesOfStation(RadioRealm, completion : (resultPhones : [PhoneNumber]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "phone[&quot;phonenumber&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phone&quot;][&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phone&quot;]!![&quot;phoneTypeCustom&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SendPublicationViewController.viewDidLoad() -&gt; ():SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(updateUserInfo([[String : AnyObject]], completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "labelGenderInfo.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.(requestInitialInformation() -&gt; ()).(closure #1):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StreamingRadioManager.play(RadioRealm) -&gt; ():StreamingRadioManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "predecessorRadio">
+            </PersistentString>
+            <PersistentString
+               value = "actualRadio.audioChannels[0].returnLink()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.buttonFeedback(AnyObject) -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.(buttonLogin(AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(uploadFile(UIProgressView, fileToUpload : NSURL, completion : (resultIdentifier : String) -&gt; ()) -&gt; ()).(closure #2).(closure #2):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(response.result.value)![&quot;data&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "response.result.value">
+            </PersistentString>
+            <PersistentString
+               value = "response.result.value as String">
+            </PersistentString>
+            <PersistentString
+               value = "(response.result.value)![&quot;data&quot;] as! String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CommentsTableViewController.viewDidLoad() -&gt; ():CommentsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualComment">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GracenoteManager.(downloadImageArt(String, completion : (resultImg : UIImage) -&gt; ()) -&gt; ()).(closure #1):GracenoteManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1):ProfileViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AdsManager.findCorrectAd(AdsManager.ScreenName) -&gt; Advertisement:AdsManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocalCities2TableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCities2TableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "citiesArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.updateInterfaceWithGracenote() -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualMusic">
+            </PersistentString>
+            <PersistentString
+               value = "actualMusic.timeWasDiscovered">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #1).(closure #1):RadioTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3).(closure #1):RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.imageAttachment.frame">
+            </PersistentString>
+            <PersistentString
+               value = "image!.size">
+            </PersistentString>
+            <PersistentString
+               value = "cell.imageInCell.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SearchTableViewController.(searchBarSearchButtonClicked(UISearchBar) -&gt; ()).(closure #1):SearchTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.searchAll[.Users]">
+            </PersistentString>
+            <PersistentString
+               value = "searchAll">
+            </PersistentString>
+            <PersistentString
+               value = "self.searchUsers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProgramsTableViewController.updateInterface() -&gt; ():ProgramsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weekDaysActualInt">
+            </PersistentString>
+            <PersistentString
+               value = "weekDays[weekDaysActualInt]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ConfigViewController.motionEnded(UIEventSubtype, withEvent : UIEvent?) -&gt; ():ConfigViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "button.backgroundColor">
+            </PersistentString>
+            <PersistentString
+               value = "colorBlue">
+            </PersistentString>
+            <PersistentString
+               value = "button.tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "FBSDKAccessToken.currentAccessToken()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.defineBarButton() -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2).(closure #2).(closure #1):RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.imageAttachment.frame">
+            </PersistentString>
+            <PersistentString
+               value = "actualComments[indexPath.row].text">
+            </PersistentString>
+            <PersistentString
+               value = "image2.frame">
+            </PersistentString>
+            <PersistentString
+               value = "cell.tag">
+            </PersistentString>
+            <PersistentString
+               value = "image2.size">
+            </PersistentString>
+            <PersistentString
+               value = ".frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RegisterViewController.(registerButtonTap(AnyObject) -&gt; ()).(closure #1):RegisterViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error?.localizedDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.menuTap(AnyObject) -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchBar">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SendPublicationViewController.animateTextView(Bool, height : CGFloat) -&gt; ():SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.viewBottom.frame.origin.y">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UserRealm.updatePassword(String) -&gt; ():UserRealm.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProgramsTableViewController.tableView(UITableView, titleForHeaderInSection : Int) -&gt; String?:ProgramsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualSchedulePrograms[section].timeStart">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GenreViewController.filterContentForSearchText(String) -&gt; ():GenreViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.recentsRadios">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.topRadios">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.labelTitle.text">
+            </PersistentString>
+            <PersistentString
+               value = "cell.textDescription.text">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "mach_msg_trap:(null)">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.viewBottom.frame.origin.y">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.updateMusicViewWithMusic(Music) -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualMusic">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UserDetailTableViewController.(segmentControlChanged(AnyObject) -&gt; ()).(closure #2):UserDetailTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.actualPosts">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AdsManager.(requestAllAds((resultAd : [Advertisement]) -&gt; ()) -&gt; ()).(closure #2).(closure #1):AdsManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SendPublicationViewController.sendPublication() -&gt; ():SendPublicationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualWallType">
+            </PersistentString>
+            <PersistentString
+               value = "actualMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedRadioArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.genericRequestWithBaseLink(String, method : Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ():RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;https://fierce-bayou-36018.herokuapp.com/\(urlTerminationWithoutInitialCharacter)&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AdsInfo.updateCoord(String, long : String) -&gt; ():AdsInfo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "date.timeIntervalSinceNow">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestHistoricRadios(Int, pageSize : Int, completion : (resultHistoric : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -420,118 +1259,48 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ReviewTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:ReviewTableViewController.swift">
+         contextName = "RadioRealm.(resetDistanceFromUser() -&gt; Bool).(closure #1):RadioRealm.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualReviews[indexPath.row]">
+               value = "self.address.coordinates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #3).(closure #2).(closure #1):AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NewsTableViewController.parser(NSXMLParser, foundCharacters : String) -&gt; ():NewsTableViewController.swift">
+         contextName = "MiniPlayerViewController.updatePlayerIcons() -&gt; ():MiniPlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "entryLink.characters.count">
+               value = "StreamingRadioManager.sharedInstance.actualRadio">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews">
+               value = "imageRadio">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ():ProfileViewController.swift">
+         contextName = "static DataBaseTest.separateRadios() -&gt; ():DataBaseTest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "FBSDKAccessToken.currentAccessToken()">
+               value = "DataManager.sharedInstance.realm.objects(UserRealm.self).first">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NewsTableViewController.feedParser(MWFeedParser!, didParseFeedItem : MWFeedItem!) -&gt; ():NewsTableViewController.swift">
+         contextName = "static RadioRealm.distanceBetweenTwoLocationsMeters(CLLocation, destination : CLLocation) -&gt; Int:RadioRealm.swift">
       </ContextState>
       <ContextState
-         contextName = "AdsManager.findCorrectAd(AdsManager.ScreenName) -&gt; Advertisement:AdsManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MenuTableViewController.viewWillAppear(Bool) -&gt; ():MenuTableViewController.swift">
+         contextName = "AdsManager.setAdvertisement(AdsManager.ScreenName, completion : (resultAd : Advertisement) -&gt; ()) -&gt; ():AdsManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "tableView">
+               value = "isAdsRequested">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioViewController.buttonFavTap(AnyObject) -&gt; ():RadioViewController.swift">
+         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualRadio">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataManager.updateAllOverdueInterval() -&gt; ():DataManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestRadiosInGenre(String, pageNumber : Int, pageSize : Int, completion : (resultGenre : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LoginViewController.(buttonLogin(AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "mach_msg_trap:(null)">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.viewBottom.frame.origin.y">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CommentsTableViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():CommentsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "segue.identifier">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2):RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!">
-            </PersistentString>
-            <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!.row">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3):RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tableview.visibleCells.count">
-            </PersistentString>
-            <PersistentString
-               value = "indexPathCell.row">
+               value = "DataManager.sharedInstance.allMusicGenre">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -547,272 +1316,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Radio.resetDistanceFromUser() -&gt; Bool:Radio.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.address.coordinates">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "RequestManager.(loginInServer(String, completion : (result : String) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "citiesArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioRealm.resetDistanceFromUser() -&gt; Bool:RadioRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "EditInfoViewController.(okAction() -&gt; ()).(closure #1):EditInfoViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.defineBarButton() -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "selectedMode">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.viewWillAppear(Bool) -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualRadio">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SendPublicationViewController.(sendPublication() -&gt; ()).(closure #2):SendPublicationViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.actualMode.hashValue">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestStates((resultState : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4).(closure #1):AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #5).(closure #1):AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.viewDidLoad() -&gt; ():ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "StreamingRadioManager.play(RadioRealm) -&gt; ():StreamingRadioManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualRadio">
-            </PersistentString>
-            <PersistentString
-               value = "predecessorRadio">
-            </PersistentString>
-            <PersistentString
-               value = "actualRadio.audioChannels[0].returnLink()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.setButtonMusicType(Music) -&gt; ():PlayerViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "DataManager.(updateAllOverdueInterval() -&gt; ()).(closure #1):DataManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.tokenRefreshNotification(NSNotification) -&gt; ():AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, stars : Int, genre : String, lastAccessDate : NSDate, isFavorite : Bool, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dic[&quot;id&quot;] as! Int">
-            </PersistentString>
-            <PersistentString
-               value = "dic[&quot;postType&quot;] as! Int">
-            </PersistentString>
-            <PersistentString
-               value = "dic[&quot;text&quot;] as! String">
-            </PersistentString>
-            <PersistentString
-               value = "dic[&quot;approvedDatetime&quot;] as! String">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AudioConfig.init(id : String, grave : Int, medio : Int, agudo : Int, audioQuality : String) -&gt; AudioConfig:AudioConfig.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.sendWallPublication(RadioRealm, text : String, postType : Int, attachmentIdentifier : String, completion : (resultWall : Bool) -&gt; ()) -&gt; ():RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(genericRequest(Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #1).(closure #1):RadioTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestAdvertisement((resultAd : [Advertisement]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "Util.convertActualDateToString()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #3).(closure #1):RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.imageAttachment.frame">
-            </PersistentString>
-            <PersistentString
-               value = "cell.imageInCell.size.height">
-            </PersistentString>
-            <PersistentString
-               value = "image!.size">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SearchTableViewController.(searchBarSearchButtonClicked(UISearchBar) -&gt; ()).(closure #1):SearchTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.searchAll[.Users]">
-            </PersistentString>
-            <PersistentString
-               value = "searchAll">
-            </PersistentString>
-            <PersistentString
-               value = "self.searchUsers">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.(requestInitialInformation() -&gt; ()).(closure #1):AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "StreamingTestViewController.switchChanged(AnyObject) -&gt; ():StreamingTestViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "RadioPlayer.sharedInstance.actualRadio">
-            </PersistentString>
-            <PersistentString
-               value = "RadioPlayer.sharedInstance.actualRadio.streamingLinks[1].link">
-            </PersistentString>
-            <PersistentString
-               value = "RadioPlayer.sharedInstance.actualRadio.audioChannels[0].returnLink()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.viewDidLoad() -&gt; ():PlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "buttonAdvertisement.frame.size">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool:AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "myUser">
-            </PersistentString>
-            <PersistentString
-               value = "user">
-            </PersistentString>
-            <PersistentString
-               value = "realm.objects(RadioRealm)">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
-            </PersistentString>
-            <PersistentString
-               value = "realm.objects(UserRealm.self)">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser.email">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static Util.convertStringToNSDate(String) -&gt; NSDate:Util.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dateFormatter.dateFromString(dateString)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ConfigViewController.buttonGridTapped(UIButton?) -&gt; ():ConfigViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "selectedRadioArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocalCitiesViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():LocalCitiesViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "radios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static Util.areTheySiblings(AnyObject!, class2 : AnyObject) -&gt; Bool:Util.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "object_getClassName(class1) == object_getClassName(class2)">
-            </PersistentString>
-            <PersistentString
-               value = "object_getClassName(class2)">
-            </PersistentString>
-            <PersistentString
-               value = "object_getClassName(class1)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(favRadio(RadioRealm, completion : (resultFav : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #4):AppDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "InitialTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:InitialTableViewController.swift">
@@ -838,227 +1342,37 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "PlayerViewController.toggle() -&gt; ():PlayerViewController.swift">
+         contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #2):RadioViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.updateInterfaceWithGracenote() -&gt; ():RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "newRadioToPlay">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
+               value = "actualRadio.audioChannels.first?.linkRds.link">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProgramsTableViewController.tableView(UITableView, titleForHeaderInSection : Int) -&gt; String?:ProgramsTableViewController.swift">
+         contextName = "RequestManager.(requestUserInfo((result : [AdsInfo]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualSchedulePrograms[section].timeStart">
+               value = "unique[&quot;idServer&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "unique[&quot;idServer&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.viewDidLoad() -&gt; ():LoadViewController.swift">
+         contextName = "LocalCitiesViewController.separateInformation() -&gt; ():LocalCitiesViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.interfaceColor">
+               value = "citiesArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [searchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestNumberOfFollowing(UserRealm, completion : (resultNumberFollowing : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "D">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, didEndDisplayingCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.frame.size">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Radio.resetDistanceFromUser() -&gt; ():Radio.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.userLocation">
-            </PersistentString>
-            <PersistentString
-               value = "self.address.coordinates">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.application(UIApplication, didReceiveLocalNotification : UILocalNotification) -&gt; ():AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "notification.alertTitle">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "link">
-            </PersistentString>
-            <PersistentString
-               value = "self.link">
-            </PersistentString>
-            <PersistentString
-               value = "json[&quot;data&quot;]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #1):RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.tableView">
-            </PersistentString>
-            <PersistentString
-               value = "self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #1):RadioViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "SearchTableViewController.searchBarSearchButtonClicked(UISearchBar) -&gt; ():SearchTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2).(closure #2).(closure #1):RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.imageAttachment.frame">
-            </PersistentString>
-            <PersistentString
-               value = "actualComments[indexPath.row].text">
-            </PersistentString>
-            <PersistentString
-               value = "image2.frame">
-            </PersistentString>
-            <PersistentString
-               value = "cell.tag">
-            </PersistentString>
-            <PersistentString
-               value = "image2.size">
-            </PersistentString>
-            <PersistentString
-               value = ".frame">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GenreViewController.filterContentForSearchText(String) -&gt; ():GenreViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "searchResults">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ViewOneViewController.(setupAnimator() -&gt; ()).(closure #1):ViewOneViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "modalVC">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ContactRadio.init(email : String, facebook : String, twitter : String, instagram : String, phoneNumbers : [PhoneNumber]) -&gt; ContactRadio:ContactRadio.swift">
-      </ContextState>
-      <ContextState
-         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #4):EditInfoViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser.gender">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "NewsTableViewController.feedParserDidFinish(MWFeedParser!) -&gt; ():NewsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioRealm.(resetDistanceFromUser() -&gt; Bool).(closure #1):RadioRealm.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.address.coordinates">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SendPublicationViewController.keyboardWillShow(NSNotification) -&gt; ():SendPublicationViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "keyboardSize.height">
-            </PersistentString>
-            <PersistentString
-               value = "notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue)">
-            </PersistentString>
-            <PersistentString
-               value = "self.stackBottom.frame.origin.y">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static Util.(convertCoordinateToAddress(Double, long : Double, completion : (result : [String : String]) -&gt; ()) -&gt; ()).(closure #1):Util.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "placeMark.addressDictionary![&quot;State&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "placeMark.addressDictionary">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1).(closure #3).(closure #1).(closure #1):LoadViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.topRadios">
-            </PersistentString>
-            <PersistentString
-               value = "viewInitial">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.updateInterfaceWithGracenote() -&gt; ():PlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualMusic">
-            </PersistentString>
-            <PersistentString
-               value = "actualMusic.timeWasDiscovered">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MiniPlayerViewController.(setupAnimator() -&gt; ()).(closure #1):MiniPlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.tabBar">
-            </PersistentString>
-            <PersistentString
-               value = "">
-            </PersistentString>
-            <PersistentString
-               value = "self.modalVC">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RequestManager.(genericRequestWithBaseLink(String, method : Method, parameters : [String : AnyObject]?, urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RadioViewController.viewDidLoad() -&gt; ():RadioViewController.swift">
@@ -1069,101 +1383,52 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ConfigViewController.motionEnded(UIEventSubtype, withEvent : UIEvent?) -&gt; ():ConfigViewController.swift">
+         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #4):EditInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "button.backgroundColor">
-            </PersistentString>
-            <PersistentString
-               value = "colorBlue">
-            </PersistentString>
-            <PersistentString
-               value = "button.tag">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GracenoteManager.(downloadImageArt(String, completion : (resultImg : UIImage) -&gt; ()) -&gt; ()).(closure #1):GracenoteManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.(loginButton(FBSDKLoginButton!, didCompleteWithResult : FBSDKLoginManagerLoginResult!, error : NSError!) -&gt; ()).(closure #3):ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestFollowing(UserRealm, pageSize : Int, pageNumber : Int, completion : (resultFollowing : [UserRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #2):EditInfoViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser.birthDate">
-            </PersistentString>
-            <PersistentString
-               value = "$0.value">
-            </PersistentString>
-            <PersistentString
-               value = "$0.tag">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.(updateInterfaceWithGracenote() -&gt; ()).(closure #1).(closure #1).(closure #1).(closure #1):RadioTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LocalCitiesViewController.viewDidLoad() -&gt; ():LocalCitiesViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "radiosInSelectedState.stateName">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(deleteFavRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AddressRealm.setFormattedLocalString() -&gt; ():AddressRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(searchWithWord(String, completion : (searchRequestResult : [SearchMode : [AnyObject]]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dic[&quot;id&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "results[.Users]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RegisterViewController.(registerButtonTap(AnyObject) -&gt; ()).(closure #1):RegisterViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error?.localizedDescription">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestNumberOfFollowers(UserRealm, completion : (resultNumberFollowers : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.isLogged">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.(facebookLoginInButton() -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "accessToken">
+               value = "DataManager.sharedInstance.myUser.gender">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ImageManager.(setImageInWallCell(UITableView, indexPath : NSIndexPath, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1):ImageManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "EditInfoViewController.(okAction() -&gt; ()).(closure #1):EditInfoViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommentsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:CommentsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualComment.text&#10;">
+            </PersistentString>
+            <PersistentString
+               value = "actualSubComments">
+            </PersistentString>
+            <PersistentString
+               value = "contentSize">
+            </PersistentString>
+            <PersistentString
+               value = "cell.heightText">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.toggle() -&gt; ():PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+            <PersistentString
+               value = "newRadioToPlay">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestRadiosInGenre(String, completion : (resultGenre : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestTopLikesRadios(Int, pageSize : Int, completion : (resultTop : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(twitterButtonTap(AnyObject) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
@@ -1175,6 +1440,150 @@
                value = "data as NSDictionary">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(updateUserInfo([[String : AnyObject]], completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1):ImageManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "similarRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;error&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(genericRequestWithBaseLink(String, method : Method, parameters : [String : AnyObject], urlTerminationWithoutInitialCharacter : String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;data&quot;].rawString()!">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;].string">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;].stringValue">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;] as String">
+            </PersistentString>
+            <PersistentString
+               value = "String(value)">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;].rawString()">
+            </PersistentString>
+            <PersistentString
+               value = "value as? String">
+            </PersistentString>
+            <PersistentString
+               value = "String(json[&quot;data&quot;])">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static FileSupport.playAudioFromBundle(String) -&gt; ():FileSupport.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "NSBundle.mainBundle().pathForResource(&quot;\(name)&quot;, ofType: &quot;.m4a&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "NSBundle.mainBundle().URLForResource(&quot;\(name)&quot;, withExtension: &quot;.m4a&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "NSBundle.mainBundle().URLForResource(&quot;download&quot;, withExtension: &quot;.m4a&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImageInWallCell(UITableView, indexPath : NSIndexPath, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.labelName.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.(requestInitialInformation() -&gt; ()).(closure #1).(closure #3).(closure #1):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.topRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.authPickerViewControllerForAuthUI(FIRAuthUI) -&gt; FIRAuthPickerViewController:ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "backgroudImage">
+            </PersistentString>
+            <PersistentString
+               value = "backgroudImage.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.tokenRefreshNotification(NSNotification) -&gt; ():AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommentsTableViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():CommentsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactRadio.init(email : String, facebook : String, twitter : String, instagram : String, phoneNumbers : [PhoneNumber]) -&gt; ContactRadio:ContactRadio.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(downloadRdsInfo(String, completion : (result : [Bool : InfoRds]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool:AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "myUser">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser.email">
+            </PersistentString>
+            <PersistentString
+               value = "realm.objects(RadioRealm)">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.allRadios">
+            </PersistentString>
+            <PersistentString
+               value = "realm.objects(UserRealm.self)">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+            <PersistentString
+               value = "user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WallAudioPlayerTableViewCell.(buttonPlayTapped(AnyObject) -&gt; ()).(closure #1):WallAudioPlayerTableViewCell.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AudioManager.play(Link, cell : WallAudioPlayerTableViewCell) -&gt; ():AudioManager.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(authUI(FIRAuthUI, didSignInWithUser : FIRUser?, error : NSError?) -&gt; ()).(closure #1).(closure #1).(closure #1):ProfileViewController.swift">
@@ -1191,189 +1600,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #1):AppDelegate.swift">
+         contextName = "GracenoteManager.findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String, completion : (resultGracenote : Music) -&gt; ()) -&gt; ():GracenoteManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result">
+               value = "musicId">
             </PersistentString>
             <PersistentString
-               value = "dic[&quot;id&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "(Array)[0].key">
-            </PersistentString>
-            <PersistentString
-               value = "dic[&quot;image&quot;]![&quot;identifier40&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "radio">
+               value = "albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #2):EditInfoViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "row.value">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RequestManager.(requestRadiosInGenre(String, pageNumber : Int, pageSize : Int, completion : (resultGenre : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(requestPhonesOfStation(RadioRealm, completion : (resultPhones : [PhoneNumber]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "phone[&quot;phonenumber&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "phone[&quot;phone&quot;][&quot;phoneTypeCustom&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "phone[&quot;phoneTypeCustom&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "phone[&quot;phone&quot;]!![&quot;phoneTypeCustom&quot;]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(updateUserInfo([[String : AnyObject]], completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "labelGenderInfo.value">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "recentsRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.Shar">
-            </PersistentString>
-            <PersistentString
-               value = "heightTableView">
-            </PersistentString>
-            <PersistentString
-               value = "myUser">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SearchTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SearchTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "searchUsers[indexPath.row]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "624615893/3144980000.0">
-            </PersistentString>
-            <PersistentString
-               value = "myUser.birthDate.timeIntervalSinceNow">
-            </PersistentString>
-            <PersistentString
-               value = "myUser.birthDate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GenreViewController.menuTap(AnyObject) -&gt; ():GenreViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "searchBar">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1):ProgramsTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NewsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:NewsTableViewController.swift">
+         contextName = "NewsTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.allNews">
             </PersistentString>
-            <PersistentString
-               value = "cell.labelDate.text">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].date">
-            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ARNTransitionAnimator.(finishInteractiveTransitionAnimated(Bool) -&gt; ()).(closure #1):ARNTransitionAnimator.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "transitionContext">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(getAudioChannelsFromRadio(RadioRealm, completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestUserFavorites((resultFav : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.requestCitiesInState(String, completion : (resultCities : [CityRealm]) -&gt; ()) -&gt; ():RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "address/city/containingstation?stateId=\(stateId)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestSpecialProgramsOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultSpecialPrograms : [SpecialProgram]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "&quot;\(year)-\(month)-\(day)-\(hour):\(minute) \(timeZone)&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioViewController.buttonPlayTap(AnyObject) -&gt; ():RadioViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.updateMusicViewWithMusic(Music) -&gt; ():PlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualMusic">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "WallAudioPlayerTableViewCell.buttonPlayTapped(AnyObject) -&gt; ():WallAudioPlayerTableViewCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "identifier">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
+         contextName = "RadioTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "actualRadio">
@@ -1381,106 +1630,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioListTableViewController.viewDidLoad() -&gt; ():RadioListTableViewController.swift">
+         contextName = "ReviewTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:ReviewTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "&#xe7;">
-            </PersistentString>
-            <PersistentString
-               value = "radios">
+               value = "actualReviews[indexPath.row]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MiniPlayerViewController.updatePlayerIcons() -&gt; ():MiniPlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "StreamingRadioManager.sharedInstance.actualRadio">
-            </PersistentString>
-            <PersistentString
-               value = "imageRadio">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static AppDelegate.realmUpdate(Realm) -&gt; ():AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.isLogged">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.configApp">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.audioConfig">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.interfaceColor">
-            </PersistentString>
-            <PersistentString
-               value = "appConfigRealm.first!.userToken">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "users">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(getStreamingLinksFromRadio(RadioRealm, completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static Address.(getAddress(Address, completion : (resultAddress : Bool) -&gt; ()) -&gt; ()).(closure #1):Address.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(updateUserInfo([[String : AnyObject]], completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(swiftJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AddressRealm.init(lat : String, long : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, repository : Bool) -&gt; AddressRealm:AddressRealm.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.realm.write">
-            </PersistentString>
-            <PersistentString
-               value = "self.coordinates">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "NewsTableViewController.parserDidEndDocument(NSXMLParser) -&gt; ():NewsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(uploadFile(UIProgressView, fileToUpload : NSURL, completion : (resultIdentifier : String) -&gt; ()) -&gt; ()).(closure #2).(closure #2):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "(response.result.value)![&quot;data&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "response.result.value">
-            </PersistentString>
-            <PersistentString
-               value = "response.result.value as String">
-            </PersistentString>
-            <PersistentString
-               value = "(response.result.value)![&quot;data&quot;] as! String">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestSimilarRadios(Int, pageSize : Int, radioToCompare : RadioRealm, completion : (resultSimilar : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+         contextName = "AudioConfig.init(id : String, grave : Int, medio : Int, agudo : Int, audioQuality : String) -&gt; AudioConfig:AudioConfig.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestActualProgramOfRadio(Int, completion : (resultProgram : Program) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
@@ -1491,197 +1649,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SendPublicationViewController.sendPublication() -&gt; ():SendPublicationViewController.swift">
+         contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1).(closure #1):ProgramsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualWallType">
+               value = "self.weekDays[dayOfWeekInt-1]">
             </PersistentString>
             <PersistentString
-               value = "actualMode">
+               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
+            </PersistentString>
+            <PersistentString
+               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioViewController.init(coder : NSCoder) -&gt; RadioViewController?:RadioViewController.swift">
+         contextName = "RadioTableViewController.updateIcons() -&gt; ():RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.musicInExecution">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "EditInfoViewController.profileUpdateSecondPart([[String : AnyObject]], updateMail : Bool) -&gt; ():EditInfoViewController.swift">
+         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #2):EditInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "labelGenderInfo.value">
-            </PersistentString>
-            <PersistentString
-               value = "labelBirthInfo.value">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static DataBaseTest.realmUpdate(Realm) -&gt; ():DataBaseTest.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "users">
-            </PersistentString>
-            <PersistentString
-               value = "users.first!">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.myUser">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.interfaceColor">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SearchTableViewController.searchBar(UISearchBar, selectedScopeButtonIndexDidChange : Int) -&gt; ():SearchTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "selectedMode">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocalTableViewController.separateInformation() -&gt; ():LocalTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "radio.address.state">
-            </PersistentString>
-            <PersistentString
-               value = "data">
-            </PersistentString>
-            <PersistentString
-               value = "objectArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProgramsTableViewController.updateInterface() -&gt; ():ProgramsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "weekDaysActualInt">
-            </PersistentString>
-            <PersistentString
-               value = "weekDays[weekDaysActualInt]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1):ImageManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(downloadRdsInfo(String, completion : (result : [Bool : InfoRds]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioRealm.(init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm).(closure #1):RadioRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(authUserWithToken(String, completion : (result : [String]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RadioViewController.buttonFeedback(AnyObject) -&gt; ():RadioViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualRadio">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PlayerViewController.requestGracenote((result : Bool) -&gt; ()) -&gt; ():PlayerViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.updateInterfaceWithGracenote() -&gt; ():RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualRadio.audioChannels.first?.linkRds.link">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocalCities2TableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCities2TableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "citiesArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestReviewsOfUser(UserRealm, pageSize : Int, pageNumber : Int, completion : (resultReview : [Review]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "&quot;app/user/\(id)/reviews?pageNumber=\(pageNumber)&amp;pageSize=\(pageSize)&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ImageManager.(setImageInWallCell(UITableView, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.labelName.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GenreViewController.collectionViewBackgroundTapped() -&gt; ():GenreViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "&#xe7;">
-            </PersistentString>
-            <PersistentString
-               value = "searchBar">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ContactRadioTableViewController.(fillTableView() -&gt; ()).(closure #8):ContactRadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "contactRadio.instagram">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "NavigationControllerModel.viewWillAppear(Bool) -&gt; ():NavigationControllerModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "DataManager.sharedInstance.interfaceColor.color">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GracenoteManager.findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String) -&gt; ():GracenoteManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "info.dataMatches()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RadioTableViewController.updateCellContent([NSIndexPath]) -&gt; ():RadioTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CommentsTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:CommentsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "actualComment.text&#10;">
-            </PersistentString>
-            <PersistentString
-               value = "actualSubComments">
-            </PersistentString>
-            <PersistentString
-               value = "contentSize">
-            </PersistentString>
-            <PersistentString
-               value = "cell.heightText">
+               value = "row.value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1721,46 +1714,194 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GracenoteManager.findMatch(String, trackTitle : String, albumArtistName : String, trackArtistName : String, composerName : String, completion : (resultGracenote : Music) -&gt; ()) -&gt; ():GracenoteManager.swift">
+         contextName = "VAdsInfoTableViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():VAdsInfoTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, didEndDisplayingCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "musicId">
-            </PersistentString>
-            <PersistentString
-               value = "albumTeste2.content(kContentTypeImageCover)?.asset(kImageSizeSmall)?.url()">
+               value = "cell.frame.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1).(closure #1):ProgramsTableViewController.swift">
+         contextName = "RequestManager.(requestUserFavorites((resultFav : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImageManager.(setImage(String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #2):ImageManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.completeProfileViewInfo() -&gt; ():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "624615893/3144980000.0">
             </PersistentString>
             <PersistentString
-               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "myUser.birthDate">
             </PersistentString>
             <PersistentString
-               value = "self.weekDays[dayOfWeekInt-1]">
+               value = "myUser.birthDate.timeIntervalSinceNow">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SendPublicationViewController.viewDidLoad() -&gt; ():SendPublicationViewController.swift">
+         contextName = "GenreViewController.collectionView(UICollectionView, cellForItemAtIndexPath : NSIndexPath) -&gt; UICollectionViewCell:GenreViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PlayerViewController.updateInfoOfView() -&gt; ():PlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualMode">
+               value = "actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "actualRadio.thumbnail">
+            </PersistentString>
+            <PersistentString
+               value = "imageLogo">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, willDisplayCell : UITableViewCell, forRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+         contextName = "LoadViewController.viewDidLoad() -&gt; ():LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.interfaceColor">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioPlayer.resetPlayer() -&gt; ():RadioPlayer.swift">
+         contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1):ProgramsTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static AppDelegate.realmUpdate(Realm) -&gt; ():AppDelegate.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.isLogged">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.configApp">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.audioConfig">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.interfaceColor">
+            </PersistentString>
+            <PersistentString
+               value = "appConfigRealm.first!.userToken">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser">
+            </PersistentString>
+            <PersistentString
+               value = "users">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestJson(String, completion : (result : [requestResult : NSDictionary]) -&gt; ()) -&gt; requestResult).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InitialTableViewController.tableView(UITableView, editActionsForRowAtIndexPath : NSIndexPath) -&gt; [UITableViewRowAction]?:InitialTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #1):RadioViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestJson(String, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "link">
+            </PersistentString>
+            <PersistentString
+               value = "self.link">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioViewController.buttonPlayTap(AnyObject) -&gt; ():RadioViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
+            </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataManager.updateOverdueInterval() -&gt; ():DataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "recentsRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocalCitiesViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:LocalCitiesViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "citiesArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestNumberOfFollowing(UserRealm, completion : (resultNumberFollowing : Int) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "D">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RadioTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():RadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.favoriteRadios">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MiniPlayerViewController.(setupAnimator() -&gt; ()).(closure #1):MiniPlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tabBar">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "self.modalVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.parser(NSXMLParser, didEndElement : String, namespaceURI : String?, qualifiedName : String?) -&gt; ():NewsTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "EditInfoViewController.profileUpdateSecondPart([[String : AnyObject]], updateMail : Bool) -&gt; ():EditInfoViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "labelGenderInfo.value">
+            </PersistentString>
+            <PersistentString
+               value = "labelBirthInfo.value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1773,51 +1914,38 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioViewController.updateIcons() -&gt; ():RadioViewController.swift">
+         contextName = "RequestManager.(requestSpecialProgramsOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultSpecialPrograms : [SpecialProgram]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "RadioPlayer.sharedInstance.actualRadio">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
+               value = "&quot;\(year)-\(month)-\(day)-\(hour):\(minute) \(timeZone)&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioViewController.(buttonFavTap(AnyObject) -&gt; ()).(closure #2):RadioViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NewsTableViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():NewsTableViewController.swift">
+         contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #2):EditInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row]">
+               value = "$0.tag">
+            </PersistentString>
+            <PersistentString
+               value = "$0.value">
+            </PersistentString>
+            <PersistentString
+               value = "DataManager.sharedInstance.myUser.birthDate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "json[&quot;error&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RadioTableViewController.(viewDidLoad() -&gt; ()).(closure #2):RadioTableViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "ImageManager.(setImageInWallCell(UITableView, indexPath : NSIndexPath, cell : WallImageTableViewCell, imageCacheName : String, urlImage : String, completion : (imageReturn : UIImage) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):ImageManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.labelName.text">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RadioRealm.init(id : String, name : String, country : String, city : String, state : String, street : String, streetNumber : String, zip : String, lat : String, long : String, thumbnail : String, likenumber : String, lastAccessDate : NSDate, repository : Bool) -&gt; RadioRealm:RadioRealm.swift">
       </ContextState>
       <ContextState
-         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
+         contextName = "ContactRadioTableViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #1):ContactRadioTableViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "AppDelegate.(application(UIApplication, didFinishLaunchingWithOptions : [NSObject : AnyObject]?) -&gt; Bool).(closure #3).(closure #2):AppDelegate.swift">
+         contextName = "AppDelegate.defineInitialParameters() -&gt; ():AppDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "LocalTableViewController.viewDidLoad() -&gt; ():LocalTableViewController.swift">
@@ -1828,84 +1956,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MenuTableViewController.(sleepFunction(AnyObject) -&gt; ()).(closure #1):MenuTableViewController.swift">
+         contextName = "RequestManager.(requestStates((resultState : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SearchTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SearchTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "action.title!">
+               value = "searchUsers[indexPath.row]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GenreViewController.separateInformation() -&gt; ():GenreViewController.swift">
+         contextName = "static Util.(convertCoordinateToAddress(Double, long : Double, completion : (result : [String : String]) -&gt; ()) -&gt; ()).(closure #1):Util.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "placeMark.addressDictionary![&quot;State&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "placeMark.addressDictionary">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "UserRealm.updatePassword(String) -&gt; ():UserRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LocalCitiesViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():LocalCitiesViewController.swift">
+         contextName = "GenreViewController.collectionViewBackgroundTapped() -&gt; ():GenreViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "radiosInState">
+               value = "&#xe7;">
+            </PersistentString>
+            <PersistentString
+               value = "searchBar">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RadioTableViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:RadioTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "similarRadios">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ContactRadioTableViewController.(viewDidLoad() -&gt; ()).(closure #1).(closure #1):ContactRadioTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestReviewsInRadio(RadioRealm, pageSize : Int, pageNumber : Int, completion : (resultScore : [Review]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dic[&quot;score&quot;]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AppDelegate.(testImage() -&gt; ()).(closure #2).(closure #1):AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UserDetailTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:UserDetailTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "detailCell.imageUser">
-            </PersistentString>
-            <PersistentString
-               value = "actualUser">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MenuTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:MenuTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static RadioRealm.distanceBetweenTwoLocationsMeters(CLLocation, destination : CLLocation) -&gt; Int:RadioRealm.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(uploadImage() -&gt; ()).(closure #2):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestRadiosWithSearch(String, pageNumber : Int, pageSize : Int, completion : ([RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestManager.(requestRadiosInGenre(String, completion : (resultGenre : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         contextName = "ProfileViewController.viewWillAppear(Bool) -&gt; ():ProfileViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

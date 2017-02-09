@@ -351,6 +351,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       case 5:
         let cell = UITableViewCell()
         cell.selectionStyle = .None
+        cell.tag = 999
         return cell
       default:
         break
@@ -476,6 +477,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       break
     }
     let cell = UITableViewCell()
+    cell.tag = 999
     return cell
   }
   
@@ -513,6 +515,9 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       self.searchUsers = users as! [UserRealm]
       self.tableView.reloadData()
     }
+    AdsInfo.test(navigationController!, text: searchBar.text!)
+    
+
     isOneTimeSearched = true
   }
   
@@ -594,7 +599,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
       })
       return
     }
-    if tableView.cellForRowAtIndexPath(indexPath)?.tag != 1000 {
+    if tableView.cellForRowAtIndexPath(indexPath)?.tag != 1000 && tableView.cellForRowAtIndexPath(indexPath)!.tag != 999 {
       view.addSubview(activityIndicator)
       activityIndicator.hidden = false
       self.tableView.allowsSelection = false

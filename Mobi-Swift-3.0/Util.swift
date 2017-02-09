@@ -252,7 +252,14 @@ class Util: NSObject {
       let dateFormatter = NSDateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
       let date = dateFormatter.dateFromString(dateString)
-      return date!
+      if date == nil {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date2 = dateFormatter.dateFromString(dateString)
+        return date2!
+      } else {
+        return date!
+      }
     } else if dateString.characters.count == 8 {
       let dateFormatter = NSDateFormatter()
       dateFormatter.dateFormat = "HH:mm:ss"

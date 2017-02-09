@@ -459,6 +459,10 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       print("A string ")
     }
     tableView.reloadData()
+    let requestManager = RequestManager()
+    requestManager.requestUserInfo { (result) in
+      print(result)
+    }
   }
   
   
@@ -475,6 +479,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     let locValue:CLLocationCoordinate2D = manager.location!.coordinate
     let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
     DataManager.sharedInstance.userLocation = myLocation
+    StreamingRadioManager.sharedInstance.adsInfo.updateCoord("\(locValue.latitude)", long: "\(locValue.longitude)")
     
   }
   

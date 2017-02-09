@@ -155,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     let locValue:CLLocationCoordinate2D = manager.location!.coordinate
     let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
     DataManager.sharedInstance.userLocation = myLocation
-    
+    StreamingRadioManager.sharedInstance.adsInfo.updateCoord("\(locValue.latitude)", long: "\(locValue.longitude)")
   }
   
   func downloadFacebookUpdatedInfo() {

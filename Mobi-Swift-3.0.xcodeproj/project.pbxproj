@@ -53,6 +53,13 @@
 		B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */; };
 		B74D652C1D8B1836007798F4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D652B1D8B1836007798F4 /* Comment.swift */; };
 		B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */ = {isa = PBXBuildFile; fileRef = B74D65301D8B3E2B007798F4 /* CellDesign.xib */; };
+		B74E0CF71E4B7ED70046EDE8 /* AdsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */; };
+		B74E0CFB1E4C978F0046EDE8 /* AdsInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */; };
+		B74E0CFD1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */; };
+		B74E0CFF1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */; };
+		B74E0D011E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */; };
+		B74E0D031E4CA1EE0046EDE8 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D021E4CA1EE0046EDE8 /* Artwork.swift */; };
+		B74E0D051E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */; };
 		B74EABD21DF73CDA005D9B25 /* logoAnuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B74EABD11DF73CD9005D9B25 /* logoAnuncio.png */; };
 		B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF161D5BA140001AFC32 /* GenreViewController.swift */; };
 		B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */; };
@@ -276,6 +283,13 @@
 		B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
 		B74D652B1D8B1836007798F4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		B74D65301D8B3E2B007798F4 /* CellDesign.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellDesign.xib; sourceTree = "<group>"; };
+		B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsInfo.swift; sourceTree = "<group>"; };
+		B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdsInfo.storyboard; sourceTree = "<group>"; };
+		B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfoTableViewCell.swift; sourceTree = "<group>"; };
+		B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfoTableViewController.swift; sourceTree = "<group>"; };
+		B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo2ViewController.swift; sourceTree = "<group>"; };
+		B74E0D021E4CA1EE0046EDE8 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo0ViewController.swift; sourceTree = "<group>"; };
 		B74EABD11DF73CD9005D9B25 /* logoAnuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoAnuncio.png; sourceTree = "<group>"; };
 		B74ECF161D5BA140001AFC32 /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTableViewCell.swift; sourceTree = "<group>"; };
@@ -680,6 +694,12 @@
 				B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */,
 				B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */,
 				B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */,
+				B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */,
+				B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */,
+				B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */,
+				B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */,
+				B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */,
+				B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */,
 			);
 			name = SWReveal;
 			sourceTree = "<group>";
@@ -735,6 +755,7 @@
 				B784D2BF1DAD72F50016A405 /* Review.swift */,
 				B784D2CD1DB021720016A405 /* SpecialProgram.swift */,
 				B764F50C1DBA7F260073D268 /* InfoRds.swift */,
+				B74E0D021E4CA1EE0046EDE8 /* Artwork.swift */,
 				B71FA3951DBFF2F60001356F /* Advertisement.swift */,
 				B7842ACD1DB53C54002550F3 /* GracenoteManager.swift */,
 				B7F65DF81D64D86D000EE185 /* RequestManager.swift */,
@@ -1054,6 +1075,7 @@
 				B764CE1B1DB7F75D00BFCE76 /* StopButton@2x.png in Resources */,
 				B76841D71DA58E5400ABBC78 /* like1.png in Resources */,
 				B77D31671DECB6470034CB2B /* TwiterIcon.png in Resources */,
+				B74E0CFB1E4C978F0046EDE8 /* AdsInfo.storyboard in Resources */,
 				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
 				B77D31691DECB6540034CB2B /* InstagramIcon.png in Resources */,
 				B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */,
@@ -1138,6 +1160,7 @@
 				B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */,
 				B7E697341D59162D00EC276F /* LoadViewController.swift in Sources */,
 				B77C49A21D8C68D600AFF826 /* STKDataSource.m in Sources */,
+				B74E0CFD1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift in Sources */,
 				B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */,
 				B7D90DFD1D5A500500D15089 /* InitialTableViewController.swift in Sources */,
 				B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */,
@@ -1159,6 +1182,7 @@
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B78FE4271DD4EB0B00D7551B /* PhoneNumber.swift in Sources */,
 				B764F50F1DBA88A20073D268 /* Music.swift in Sources */,
+				B74E0D051E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
 				B74D652C1D8B1836007798F4 /* Comment.swift in Sources */,
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
@@ -1205,10 +1229,12 @@
 				B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
 				B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */,
+				B74E0D011E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift in Sources */,
 				B77C49A31D8C68D600AFF826 /* STKDataSourceWrapper.m in Sources */,
 				B78FE4291DD4FA4600D7551B /* AudioManager.swift in Sources */,
 				B764CE111DB7D2D600BFCE76 /* WallImageTableViewCell.swift in Sources */,
 				B77C49A41D8C68D600AFF826 /* STKHTTPDataSource.m in Sources */,
+				B74E0D031E4CA1EE0046EDE8 /* Artwork.swift in Sources */,
 				B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */,
 				B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */,
 				B7D584E01D5D1674003D5A1F /* AudioConfig.swift in Sources */,
@@ -1230,7 +1256,9 @@
 				B73532E91D9AD7B0008504BA /* RadioTableViewController.swift in Sources */,
 				B7467F021DE5E5F700FDE9A2 /* ImageManager.swift in Sources */,
 				B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */,
+				B74E0CF71E4B7ED70046EDE8 /* AdsInfo.swift in Sources */,
 				B784D2BC1DAC337C0016A405 /* Program.swift in Sources */,
+				B74E0CFF1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift in Sources */,
 				B784D2CE1DB021720016A405 /* SpecialProgram.swift in Sources */,
 				B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */,
 				B702CF591DA42740007FB335 /* PlayerViewController.swift in Sources */,
@@ -1354,12 +1382,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1379,12 +1409,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Radio Controle Servicos de Comunicacao LTDA - ME (QHJFUMS8K9)";
+				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "Mobi-Swift-3.0/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

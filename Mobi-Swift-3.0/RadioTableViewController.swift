@@ -371,7 +371,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               }
             }
             if !existWhats {
-              cell.buttonWhats.removeFromSuperview()
+              if let whats = cell.buttonWhats {
+                whats.removeFromSuperview()
+              }
             }
             
           }
@@ -567,6 +569,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             
             cell.imageAttachment.backgroundColor = UIColor(colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)
             cell.imageAttachment.image = cell.imageInCell
+            cell.imageAttachment.contentMode = .ScaleAspectFit
             if cell.imageInCell.size.height > 5 {
               cell.imageAttachment.image = cell.imageInCell
               let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
@@ -615,11 +618,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           }
         } else {
           let cell = UITableViewCell()
+          cell.tag = 999
           cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
           return cell
         }
       } else {
         let cell = UITableViewCell()
+        cell.tag = 999
         return cell
       }
     }
@@ -674,7 +679,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     default:
       break
     }
-    if selectedMode == .Wall {
+    if selectedMode == .Wall && tableView.cellForRowAtIndexPath(indexPath)?.tag != 999 {
       selectedComment = actualComments[indexPath.row]
       performSegueWithIdentifier("showSubCommentsSegue", sender: self)
     }

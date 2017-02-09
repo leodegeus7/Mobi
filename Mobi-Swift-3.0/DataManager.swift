@@ -123,6 +123,7 @@ class DataManager: NSObject {
   var pinkColor:ColorRealm!
   
   var menuIsOpen = false
+  var menuClose = true
   
   struct ProgramDays {
     var isSunday:Bool
@@ -242,6 +243,7 @@ class DataManager: NSObject {
     vc!.actualRadio = comment.radio
     navigation.pushViewController(vc!, animated: true)
   }
+  
   
   //  func updateAddressFromRadios(index:Int,radios:[Radio],completion: (resultAddress: Bool) -> Void) -> Bool { //sempre mandar 0 no index para chamar esta função
   //    if radios.count < index {

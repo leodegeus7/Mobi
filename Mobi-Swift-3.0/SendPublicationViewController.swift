@@ -167,7 +167,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
         if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
           requestManager.sendReviewPublication(actualRadio, text: textViewPublication.text, score: numberOfStars, completion: { (resultReview) in
             if resultReview {
-              self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua avaliação sobre a rádio \(self.actualRadio.name) foi enviada", okTitle: "Ok")
+              self.displayAlertWithMessageAndDismiss("Concluído", message: "Sua avaliação sobre a rádio \(self.actualRadio.name) foi enviada", okTitle: "Ok")
             } else {
               Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
             }
@@ -183,7 +183,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
         requestManager.sendComment(actualComment, text: textViewPublication.text, completion: { (resultComment) in
           if resultComment {
-            self.displayAlertWithMessageAndDismiss("Concluido", message: "Seu comentário foi enviada", okTitle: "Ok")
+            self.displayAlertWithMessageAndDismiss("Concluído", message: "Seu comentário foi enviada", okTitle: "Ok")
           } else {
             Util.displayAlert(title: "Atenção", message: "Erro ao realizer o comentário", action: "Ok")
           }
@@ -205,7 +205,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
             requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 2, attachmentIdentifier: resultIdentifiers, completion: { (resultWall) in
               self.viewProgress.hidden = true
               if resultWall {
-                self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
+                self.displayAlertWithMessageAndDismiss("Publicação enviada", message: "Sua mensagem estará visível no mural assim que for aprovada pela rádio", okTitle: "Ok")
               } else {
                 Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
               }

@@ -5568,8 +5568,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="mPE-vl-vCt"/>
                                 <exclude reference="iwd-TV-p7R"/>
+                                <exclude reference="mPE-vl-vCt"/>
                             </mask>
                         </variation>
                     </view>

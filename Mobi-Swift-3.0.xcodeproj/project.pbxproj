@@ -53,13 +53,7 @@
 		B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */; };
 		B74D652C1D8B1836007798F4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74D652B1D8B1836007798F4 /* Comment.swift */; };
 		B74D65311D8B3E2B007798F4 /* CellDesign.xib in Resources */ = {isa = PBXBuildFile; fileRef = B74D65301D8B3E2B007798F4 /* CellDesign.xib */; };
-		B74E0CF71E4B7ED70046EDE8 /* AdsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */; };
-		B74E0CFB1E4C978F0046EDE8 /* AdsInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */; };
-		B74E0CFD1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */; };
-		B74E0CFF1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */; };
-		B74E0D011E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */; };
 		B74E0D031E4CA1EE0046EDE8 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D021E4CA1EE0046EDE8 /* Artwork.swift */; };
-		B74E0D051E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */; };
 		B74EABD21DF73CDA005D9B25 /* logoAnuncio.png in Resources */ = {isa = PBXBuildFile; fileRef = B74EABD11DF73CD9005D9B25 /* logoAnuncio.png */; };
 		B74ECF171D5BA141001AFC32 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF161D5BA140001AFC32 /* GenreViewController.swift */; };
 		B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */; };
@@ -103,9 +97,6 @@
 		B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384A91D7F32A700701070 /* CFNetwork.framework */; };
 		B77384AC1D7F32D300701070 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AB1D7F32D300701070 /* Security.framework */; };
 		B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */; };
-		B7759A601E538EC100BC434C /* LocalVAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A5F1E538EC100BC434C /* LocalVAds.swift */; };
-		B7759A621E54BC4600BC434C /* VAdsInfo3TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */; };
-		B7759A641E54BD6700BC434C /* VAdsInfo3TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */; };
 		B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77892E31D91B346009D6105 /* StreamingRadioManager.swift */; };
 		B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C498C1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m */; };
 		B77C499F1D8C68D600AFF826 /* STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C498E1D8C68D600AFF826 /* STKAudioPlayer.m */; };
@@ -188,6 +179,15 @@
 		B7D371411DF2036300F60F2A /* icone-grafico.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713D1DF2036300F60F2A /* icone-grafico.png */; };
 		B7D371421DF2036300F60F2A /* icone-historico.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713E1DF2036300F60F2A /* icone-historico.png */; };
 		B7D371431DF2036300F60F2A /* icone-local.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D3713F1DF2036300F60F2A /* icone-local.png */; };
+		B7D4EEE01E8B04DB00D10A9D /* AdsInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D4EED71E8B04DB00D10A9D /* AdsInfo.storyboard */; };
+		B7D4EEE11E8B04DB00D10A9D /* AdsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EED81E8B04DB00D10A9D /* AdsInfo.swift */; };
+		B7D4EEE21E8B04DB00D10A9D /* LocalVAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EED91E8B04DB00D10A9D /* LocalVAds.swift */; };
+		B7D4EEE31E8B04DB00D10A9D /* VAdsInfo0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDA1E8B04DB00D10A9D /* VAdsInfo0ViewController.swift */; };
+		B7D4EEE41E8B04DB00D10A9D /* VAdsInfo2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDB1E8B04DB00D10A9D /* VAdsInfo2ViewController.swift */; };
+		B7D4EEE51E8B04DB00D10A9D /* VAdsInfo3TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDC1E8B04DB00D10A9D /* VAdsInfo3TableViewCell.swift */; };
+		B7D4EEE61E8B04DB00D10A9D /* VAdsInfo3TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDD1E8B04DB00D10A9D /* VAdsInfo3TableViewController.swift */; };
+		B7D4EEE71E8B04DB00D10A9D /* VAdsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDE1E8B04DB00D10A9D /* VAdsInfoTableViewCell.swift */; };
+		B7D4EEE81E8B04DB00D10A9D /* VAdsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4EEDF1E8B04DB00D10A9D /* VAdsInfoTableViewController.swift */; };
 		B7D584D81D5CE4C0003D5A1F /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D71D5CE4C0003D5A1F /* New.swift */; };
 		B7D584DA1D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */; };
 		B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */; };
@@ -286,13 +286,7 @@
 		B74D65271D8B0418007798F4 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
 		B74D652B1D8B1836007798F4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		B74D65301D8B3E2B007798F4 /* CellDesign.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellDesign.xib; sourceTree = "<group>"; };
-		B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsInfo.swift; sourceTree = "<group>"; };
-		B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdsInfo.storyboard; sourceTree = "<group>"; };
-		B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfoTableViewCell.swift; sourceTree = "<group>"; };
-		B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfoTableViewController.swift; sourceTree = "<group>"; };
-		B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo2ViewController.swift; sourceTree = "<group>"; };
 		B74E0D021E4CA1EE0046EDE8 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
-		B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo0ViewController.swift; sourceTree = "<group>"; };
 		B74EABD11DF73CD9005D9B25 /* logoAnuncio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoAnuncio.png; sourceTree = "<group>"; };
 		B74ECF161D5BA140001AFC32 /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		B74ECF1A1D5BB406001AFC32 /* LocalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTableViewCell.swift; sourceTree = "<group>"; };
@@ -336,9 +330,6 @@
 		B77384A91D7F32A700701070 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B77384AB1D7F32D300701070 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B7759A5F1E538EC100BC434C /* LocalVAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalVAds.swift; sourceTree = "<group>"; };
-		B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo3TableViewController.swift; sourceTree = "<group>"; };
-		B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo3TableViewCell.swift; sourceTree = "<group>"; };
 		B77892E31D91B346009D6105 /* StreamingRadioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRadioManager.swift; sourceTree = "<group>"; };
 		B77C498B1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+STKAudioPlayer.h"; sourceTree = "<group>"; };
 		B77C498C1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+STKAudioPlayer.m"; sourceTree = "<group>"; };
@@ -435,6 +426,15 @@
 		B7D3713D1DF2036300F60F2A /* icone-grafico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-grafico.png"; sourceTree = "<group>"; };
 		B7D3713E1DF2036300F60F2A /* icone-historico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-historico.png"; sourceTree = "<group>"; };
 		B7D3713F1DF2036300F60F2A /* icone-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icone-local.png"; sourceTree = "<group>"; };
+		B7D4EED71E8B04DB00D10A9D /* AdsInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AdsInfo.storyboard; path = "Mobi-Swift-3.0/AdsInfo.storyboard"; sourceTree = "<group>"; };
+		B7D4EED81E8B04DB00D10A9D /* AdsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdsInfo.swift; path = "Mobi-Swift-3.0/AdsInfo.swift"; sourceTree = "<group>"; };
+		B7D4EED91E8B04DB00D10A9D /* LocalVAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalVAds.swift; path = "Mobi-Swift-3.0/LocalVAds.swift"; sourceTree = "<group>"; };
+		B7D4EEDA1E8B04DB00D10A9D /* VAdsInfo0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfo0ViewController.swift; path = "Mobi-Swift-3.0/VAdsInfo0ViewController.swift"; sourceTree = "<group>"; };
+		B7D4EEDB1E8B04DB00D10A9D /* VAdsInfo2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfo2ViewController.swift; path = "Mobi-Swift-3.0/VAdsInfo2ViewController.swift"; sourceTree = "<group>"; };
+		B7D4EEDC1E8B04DB00D10A9D /* VAdsInfo3TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfo3TableViewCell.swift; path = "Mobi-Swift-3.0/VAdsInfo3TableViewCell.swift"; sourceTree = "<group>"; };
+		B7D4EEDD1E8B04DB00D10A9D /* VAdsInfo3TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfo3TableViewController.swift; path = "Mobi-Swift-3.0/VAdsInfo3TableViewController.swift"; sourceTree = "<group>"; };
+		B7D4EEDE1E8B04DB00D10A9D /* VAdsInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfoTableViewCell.swift; path = "Mobi-Swift-3.0/VAdsInfoTableViewCell.swift"; sourceTree = "<group>"; };
+		B7D4EEDF1E8B04DB00D10A9D /* VAdsInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VAdsInfoTableViewController.swift; path = "Mobi-Swift-3.0/VAdsInfoTableViewController.swift"; sourceTree = "<group>"; };
 		B7D584D71D5CE4C0003D5A1F /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		B7D584D91D5CFFA0003D5A1F /* AudioConfigTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigTableViewCell.swift; sourceTree = "<group>"; };
 		B7D584DB1D5D007A003D5A1F /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
@@ -697,18 +697,18 @@
 		B7B0261B1D6CE65300BFB78A /* SWReveal */ = {
 			isa = PBXGroup;
 			children = (
+				B7D4EED71E8B04DB00D10A9D /* AdsInfo.storyboard */,
+				B7D4EED81E8B04DB00D10A9D /* AdsInfo.swift */,
+				B7D4EED91E8B04DB00D10A9D /* LocalVAds.swift */,
+				B7D4EEDA1E8B04DB00D10A9D /* VAdsInfo0ViewController.swift */,
+				B7D4EEDB1E8B04DB00D10A9D /* VAdsInfo2ViewController.swift */,
+				B7D4EEDC1E8B04DB00D10A9D /* VAdsInfo3TableViewCell.swift */,
+				B7D4EEDD1E8B04DB00D10A9D /* VAdsInfo3TableViewController.swift */,
+				B7D4EEDE1E8B04DB00D10A9D /* VAdsInfoTableViewCell.swift */,
+				B7D4EEDF1E8B04DB00D10A9D /* VAdsInfoTableViewController.swift */,
 				B7B026161D6CD11500BFB78A /* Mobi-Swift-3.0-Bridging-Header.h */,
 				B7B026131D6CD0BA00BFB78A /* SWRevealViewController.h */,
 				B7B026141D6CD0BA00BFB78A /* SWRevealViewController.m */,
-				B74E0CF61E4B7ED70046EDE8 /* AdsInfo.swift */,
-				B74E0CFA1E4C978F0046EDE8 /* AdsInfo.storyboard */,
-				B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */,
-				B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */,
-				B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */,
-				B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */,
-				B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */,
-				B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */,
-				B7759A5F1E538EC100BC434C /* LocalVAds.swift */,
 			);
 			name = SWReveal;
 			sourceTree = "<group>";
@@ -1044,6 +1044,7 @@
 				B764CE151DB7F5BF00BFCE76 /* micImage.png in Resources */,
 				B78FE40D1DD37DDE00D7551B /* pauseWhite.png in Resources */,
 				B702CF571DA2F8CD007FB335 /* logo-mobi-abert-branco-com-sombra.png in Resources */,
+				B7D4EEE01E8B04DB00D10A9D /* AdsInfo.storyboard in Resources */,
 				B77D31711DECBADB0034CB2B /* anuncio3.png in Resources */,
 				B764CE1A1DB7F75D00BFCE76 /* PlayButton@2x.png in Resources */,
 				B72E1AF61DF88FB7003CF4B1 /* icones_branco-ponteiro.png in Resources */,
@@ -1084,7 +1085,6 @@
 				B764CE1B1DB7F75D00BFCE76 /* StopButton@2x.png in Resources */,
 				B76841D71DA58E5400ABBC78 /* like1.png in Resources */,
 				B77D31671DECB6470034CB2B /* TwiterIcon.png in Resources */,
-				B74E0CFB1E4C978F0046EDE8 /* AdsInfo.storyboard in Resources */,
 				B78FE4191DD3B7BB00D7551B /* anuncio2.png in Resources */,
 				B77D31691DECB6540034CB2B /* InstagramIcon.png in Resources */,
 				B7F86D9B1DDF699D00191F2B /* user-add.png in Resources */,
@@ -1162,7 +1162,6 @@
 				B7D90E031D5A53F800D15089 /* LocalTableViewController.swift in Sources */,
 				CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */,
 				B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */,
-				B7759A641E54BD6700BC434C /* VAdsInfo3TableViewCell.swift in Sources */,
 				B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */,
 				B77C49A01D8C68D600AFF826 /* STKAutoRecoveringHTTPDataSource.m in Sources */,
 				B784D2C41DAD798B0016A405 /* ReviewTableViewCell.swift in Sources */,
@@ -1170,9 +1169,9 @@
 				B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */,
 				B7E697341D59162D00EC276F /* LoadViewController.swift in Sources */,
 				B77C49A21D8C68D600AFF826 /* STKDataSource.m in Sources */,
-				B74E0CFD1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift in Sources */,
 				B76198D81D89D9FD00B83B6E /* StateRealm.swift in Sources */,
 				B7D90DFD1D5A500500D15089 /* InitialTableViewController.swift in Sources */,
+				B7D4EEE11E8B04DB00D10A9D /* AdsInfo.swift in Sources */,
 				B7E697421D591F8E00EC276F /* UserRealm.swift in Sources */,
 				B7F86D981DDF58D700191F2B /* AboutViewController.swift in Sources */,
 				CD0B65051D904D52002B88EA /* NavigationControllerModel.swift in Sources */,
@@ -1188,12 +1187,12 @@
 				B77D31591DECA01C0034CB2B /* SocialNetworkTableViewCell.swift in Sources */,
 				B7D90E071D5A542400D15089 /* ProfileViewController.swift in Sources */,
 				B74ECF1B1D5BB406001AFC32 /* LocalTableViewCell.swift in Sources */,
+				B7D4EEE61E8B04DB00D10A9D /* VAdsInfo3TableViewController.swift in Sources */,
 				B764F50D1DBA7F270073D268 /* InfoRds.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B78FE4271DD4EB0B00D7551B /* PhoneNumber.swift in Sources */,
-				B7759A621E54BC4600BC434C /* VAdsInfo3TableViewController.swift in Sources */,
 				B764F50F1DBA88A20073D268 /* Music.swift in Sources */,
-				B74E0D051E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift in Sources */,
+				B7D4EEE21E8B04DB00D10A9D /* LocalVAds.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
 				B74D652C1D8B1836007798F4 /* Comment.swift in Sources */,
 				CD44898F1D75FF5400A500A2 /* DataBaseTest.swift in Sources */,
@@ -1211,7 +1210,6 @@
 				B74285DF1DE34DFC00734AFA /* NoPostsTableViewCell.swift in Sources */,
 				B75E332A1D906C6700713783 /* AudioChannel.swift in Sources */,
 				B76841D01DA568CA00ABBC78 /* EditInfoViewController.swift in Sources */,
-				B7759A601E538EC100BC434C /* LocalVAds.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B7842AD01DB54FA7002550F3 /* SendPublicationViewController.swift in Sources */,
 				B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */,
@@ -1221,6 +1219,7 @@
 				B7FD44921E36611400631C02 /* RssTableViewCell.swift in Sources */,
 				B7F65DF91D64D86D000EE185 /* RequestManager.swift in Sources */,
 				B70DA89A1DB159BE00BFCB34 /* UsersListTableViewController.swift in Sources */,
+				B7D4EEE31E8B04DB00D10A9D /* VAdsInfo0ViewController.swift in Sources */,
 				B7F325661D63A1AE00B3BC42 /* AddressRealm.swift in Sources */,
 				B702CF531DA2F0BC007FB335 /* ProgramsTableViewController.swift in Sources */,
 				B74B0E5E1D6F6B4A00012D8E /* MusicTableViewCell.swift in Sources */,
@@ -1240,11 +1239,12 @@
 				B7880BA41D5E461C002B235A /* Address.swift in Sources */,
 				B76198DC1D89EDF700B83B6E /* LocalCities2TableViewController.swift in Sources */,
 				B769B62A1D664E21005A00B3 /* NewRealm.swift in Sources */,
+				B7D4EEE41E8B04DB00D10A9D /* VAdsInfo2ViewController.swift in Sources */,
 				B74D65281D8B0418007798F4 /* FavoriteTableViewController.swift in Sources */,
-				B74E0D011E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift in Sources */,
 				B77C49A31D8C68D600AFF826 /* STKDataSourceWrapper.m in Sources */,
 				B78FE4291DD4FA4600D7551B /* AudioManager.swift in Sources */,
 				B764CE111DB7D2D600BFCE76 /* WallImageTableViewCell.swift in Sources */,
+				B7D4EEE81E8B04DB00D10A9D /* VAdsInfoTableViewController.swift in Sources */,
 				B77C49A41D8C68D600AFF826 /* STKHTTPDataSource.m in Sources */,
 				B74E0D031E4CA1EE0046EDE8 /* Artwork.swift in Sources */,
 				B76198DA1D89E15D00B83B6E /* CityRealm.swift in Sources */,
@@ -1253,6 +1253,7 @@
 				B7B723501DCD1D2500DF2D12 /* NewTableViewCell.swift in Sources */,
 				B7E697441D59208800EC276F /* DataManager.swift in Sources */,
 				B70AFE621DF0A40100460089 /* RssTypesTableViewController.swift in Sources */,
+				B7D4EEE71E8B04DB00D10A9D /* VAdsInfoTableViewCell.swift in Sources */,
 				B70DFA481D70AC73000DDBD6 /* GenreRealm.swift in Sources */,
 				B77C49A51D8C68D600AFF826 /* STKLocalFileDataSource.m in Sources */,
 				B7EFB40C1DDCEC8400F0158F /* UserDetailTableViewController.swift in Sources */,
@@ -1268,12 +1269,11 @@
 				B73532E91D9AD7B0008504BA /* RadioTableViewController.swift in Sources */,
 				B7467F021DE5E5F700FDE9A2 /* ImageManager.swift in Sources */,
 				B7B4A9F61D5A746400297BF0 /* GenreCollectionViewCell.swift in Sources */,
-				B74E0CF71E4B7ED70046EDE8 /* AdsInfo.swift in Sources */,
 				B784D2BC1DAC337C0016A405 /* Program.swift in Sources */,
-				B74E0CFF1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift in Sources */,
 				B784D2CE1DB021720016A405 /* SpecialProgram.swift in Sources */,
 				B7E697401D591EE400EC276F /* TopMenuTableViewCell.swift in Sources */,
 				B702CF591DA42740007FB335 /* PlayerViewController.swift in Sources */,
+				B7D4EEE51E8B04DB00D10A9D /* VAdsInfo3TableViewCell.swift in Sources */,
 				B70AFE601DF0A26400460089 /* RSS.swift in Sources */,
 				B77DEA6D1D77567700695546 /* FileSupport.swift in Sources */,
 				B797D7941D9AFA1C00ED4DF6 /* ActualProgramTableViewCell.swift in Sources */,

@@ -54,7 +54,6 @@ class UsersListTableViewController: UITableViewController {
       return cell
     } else {
       let cell = UITableViewCell()
-      cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
       cell.selectionStyle = .None
       return cell
     }

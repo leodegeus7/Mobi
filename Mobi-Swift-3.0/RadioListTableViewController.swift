@@ -17,6 +17,10 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   var radios = [RadioRealm]()
   var selectedRadio = RadioRealm()
   var superSegue = String()
+  var idCitySelected = ""
+  var idGenreSelected = ""
+  var pagesLoaded = 1
+  var inProcess = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -57,6 +61,15 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    if indexPath.row == (10*pagesLoaded - 1) && !inProcess {
+      inProcess = true
+      
+      self.pushMoreRadios()
+    } else if indexPath.row == (10*pagesLoaded - 1) && superSegue == "detailGenre" && !inProcess {
+      inProcess = true
+      
+      self.pushMoreRadios()
+    }
     if indexPath.row <= radios.count-1 {
       let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
       cell.labelName.text = radios[indexPath.row].name
@@ -77,7 +90,30 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       cell.selectionStyle = .None
       return cell
     }
+
   }
+  
+  func pushMoreRadios() {
+    if superSegue == "detailCity" {
+    let manager = RequestManager()
+    manager.requestRadiosInCity(idCitySelected,pageNumber:pagesLoaded+1,pageSize:10, completion: { (resultCity) in
+      self.pagesLoaded += 1
+      self.inProcess = false
+      self.radios.appendContentsOf(resultCity)
+      self.tableView.reloadData()
+    })
+    }
+    if superSegue == "detailGenre" {
+    let manager = RequestManager()
+    manager.requestRadiosInGenre(idGenreSelected,pageNumber:pagesLoaded+1,pageSize:10) { (resultGenre) in
+      self.pagesLoaded += 1
+      self.inProcess = false
+      self.radios.appendContentsOf(resultGenre)
+      self.tableView.reloadData()
+    }
+    }
+  }
+
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row <= radios.count-1 {

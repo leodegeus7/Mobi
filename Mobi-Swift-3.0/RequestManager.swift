@@ -91,7 +91,23 @@ class RequestManager: NSObject {
             for singleResult in array {
               let dic = singleResult as! NSDictionary
               let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+              var city = ""
+              var state = ""
+              var lat = 0
+              var long = 0
+              if let aux = dic["city"] as? String {
+                city = aux
+              }
+              if let aux = dic["state"] as? String {
+                state = aux
+              }
+              if let aux = dic["latitude"] as? Int {
+                lat = aux
+              }
+              if let aux = dic["longitude"] as? Int {
+                long = aux
+              }
+              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
               radios.append(radio)
             }
             completion(resultSimilar: radios)
@@ -115,7 +131,6 @@ class RequestManager: NSObject {
           radios.append(radio)
         }
         radios = radios.sort {$0.likenumber > $1.likenumber}
-        DataManager.sharedInstance.topRadios = radios
         completion(resultTop: radios)
       }
       else {
@@ -136,7 +151,7 @@ class RequestManager: NSObject {
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", lastAccessDate: dateFormatter, isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
-        DataManager.sharedInstance.recentsRadios = radios
+        
         completion(resultHistoric: radios)
       }
       else {
@@ -156,7 +171,13 @@ class RequestManager: NSObject {
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
-        DataManager.sharedInstance.localRadios = radios
+        for radio in radios {
+         radio.resetDistanceFromUser()
+        }
+        
+        //DataManager.sharedInstance.localRadios = DataManager.sharedInstance.localRadios.sort{
+          //return $0.distanceFromUser < $1.distanceFromUser
+        //}
         completion(resultHistoric: radios)
       }
       else {
@@ -311,7 +332,18 @@ class RequestManager: NSObject {
             }
             let likes = dic["likes"] as! Int
             let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+            var city = ""
+            var state = ""
+
+            if let aux = dic["city"] as? String {
+              city = aux
+            }
+            if let aux = dic["state"] as? String {
+              state = aux
+            }
+
+
+            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
             
             radios.append(radio)
           }
@@ -373,7 +405,20 @@ class RequestManager: NSObject {
             let likes = dic["likes"] as! Int
             let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
             
-            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+            
+            var city = ""
+            var state = ""
+            
+            if let aux = dic["city"] as? String {
+              city = aux
+            }
+            if let aux = dic["state"] as? String {
+              state = aux
+            }
+            
+            
+            let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(likes)", genre: "", lastAccessDate: NSDate(timeIntervalSinceNow: NSTimeInterval(30)), isFavorite: false, repository: true)
+
             
             radios.append(radio)
           }
@@ -550,7 +595,16 @@ class RequestManager: NSObject {
             dic["data"] = data
             self.existData = true
             completion(result: dic)
-          } else {
+          }
+          if let data = value as? NSDictionary {
+            self.resultText = .OK
+            var dic = Dictionary<String,AnyObject>()
+            dic["requestResult"] = "\(self.resultText)"
+            dic["data"] = data
+            self.existData = true
+            completion(result: dic)
+          }
+          else {
             let json = JSON(value)
             
             if let data = json["data"].dictionaryObject {
@@ -734,7 +788,26 @@ class RequestManager: NSObject {
         for singleResult in array {
           let dic = singleResult as! NSDictionary
           let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+          
+          var city = ""
+          var state = ""
+          var lat = 0
+          var long = 0
+          
+          if let aux = dic["city"] as? String {
+            city = aux
+          }
+          if let aux = dic["state"] as? String {
+            state = aux
+          }
+          if let aux = dic["latitude"] as? Int {
+            lat = aux
+          }
+          if let aux = dic["longitude"] as? Int {
+            long = aux
+          }
+          
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
           DataManager.sharedInstance.favoriteRadios.append(radio)
         }
         DataManager.sharedInstance.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
@@ -825,13 +898,13 @@ class RequestManager: NSObject {
     }
   }
   
-  func requestRadiosInCity(cityId:String,completion: (resultCity: [RadioRealm]) -> Void) {
-    requestJson("stationunit/search/city?id=\(cityId)") { (result) in
-      if let array = result["data"] as? NSArray {
+  func requestRadiosInCity(cityId:String,pageNumber:Int,pageSize:Int,completion: (resultCity: [RadioRealm]) -> Void) {
+    requestJson("stationunit/search/city?id=\(cityId)&pageNumber=\(pageNumber)&pageSize=\(pageSize)") { (result) in
+      if let array = result["data"]?["records"] as? NSArray {
         var radios = [RadioRealm]()
         for singleResult in array {
           let dic = singleResult as! NSDictionary
-          let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
+          let imageIdentifier = ImageObject(id:0,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
           let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
@@ -851,7 +924,26 @@ class RequestManager: NSObject {
         for singleResult in array {
           let dic = singleResult as! NSDictionary
           let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+          
+          var city = ""
+          var state = ""
+          var lat = 0
+          var long = 0
+          
+          if let aux = dic["city"] as? String {
+            city = aux
+          }
+          if let aux = dic["state"] as? String {
+            state = aux
+          }
+          if let aux = dic["latitude"] as? Int {
+            lat = aux
+          }
+          if let aux = dic["longitude"] as? Int {
+            long = aux
+          }
+          
+          let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
           radios.append(radio)
         }
         radios.sortInPlace({ $0.name.compare($1.name) == .OrderedAscending })
@@ -926,7 +1018,25 @@ class RequestManager: NSObject {
             for singleResult in array {
               let dic = singleResult as! NSDictionary
               let imageIdentifier = ImageObject(id:singleResult["image"]!!["id"] as! Int,identifier100: singleResult["image"]!!["identifier100"] as! String, identifier80: singleResult["image"]!!["identifier80"] as! String, identifier60: singleResult["image"]!!["identifier60"] as! String, identifier40: singleResult["image"]!!["identifier40"] as! String, identifier20: singleResult["image"]!!["identifier20"] as! String)
-              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: dic["city"] as! String, state: dic["state"] as! String, street: "", streetNumber: "", zip: "", lat: "\(dic["latitude"] as! Int)", long: "\(dic["longitude"] as! Int)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
+              
+              var city = ""
+              var state = ""
+              var lat = 0
+              var long = 0
+              if let aux = dic["city"] as? String {
+                city = aux
+              }
+              if let aux = dic["state"] as? String {
+                state = aux
+              }
+              if let aux = dic["latitude"] as? Int {
+                lat = aux
+              }
+              if let aux = dic["longitude"] as? Int {
+                long = aux
+              }
+              
+              let radio = RadioRealm(id: "\(dic["id"] as! Int)", name: dic["name"] as! String, country: "Brasil", city: city, state: state, street: "", streetNumber: "", zip: "", lat: "\(lat)", long: "\(long)", thumbnail: imageIdentifier, likenumber: "\(dic["likes"] as! Int)", genre: "", isFavorite: dic["favorite"] as! Bool, repository: true)
               radios.append(radio)
             }
             completion(resultWall: radios)
@@ -1381,6 +1491,29 @@ class RequestManager: NSObject {
     }
   }
   
+  func getLocal(id:String,completion: (result: [LocalVAds]) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.genericRequestWithBaseLink("", method: .GET, parameters: nil, urlTerminationWithoutInitialCharacter: "local/\(id)") { (result) in
+        var info = [LocalVAds]()
+        if let array = result["data"] as? NSArray {
+          for unique in array {
+            let lat = unique["lat"] as! String
+            let long =  unique["long"] as! String
+            let date =  unique["date"] as! String
+            let infoUnique = LocalVAds()
+            infoUnique.lat = lat
+            infoUnique.long = long
+            infoUnique.date = date
+            info.append(infoUnique)
+          }
+          info.sortInPlace { $0.date > $1.date }
+          completion(result: info)
+        }
+
+      }
+    }
+  }
+  
   func updateCoord(id:String,lat:String,long:String,completion: (result: Bool) -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
     let parameters = [
@@ -1406,9 +1539,49 @@ class RequestManager: NSObject {
         "name": name
       ]
     }
-    self.genericRequestWithBaseLink("", method: .PATCH, parameters: parameters as! [String : AnyObject], urlTerminationWithoutInitialCharacter: "items/\(id)") { (result) in
+    self.genericRequestWithBaseLink("", method: .PATCH, parameters: parameters as? [String : AnyObject], urlTerminationWithoutInitialCharacter: "items/\(id)") { (result) in
       completion(result: true)
     }
+    }
+  }
+  
+  func updateFirebase(id:String,firebase:String,completion: (result: Bool) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      var parameters = [:]
+        parameters = [
+          "idFirebase": firebase
+        ]
+      
+      self.genericRequestWithBaseLink("", method: .PATCH, parameters: parameters as? [String : AnyObject], urlTerminationWithoutInitialCharacter: "items/\(id)") { (result) in
+        completion(result: true)
+      }
+      
+    }
+  }
+  
+  func testApp(completion: (result: Bool) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.genericRequestWithBaseLink("", method: .GET, parameters: nil, urlTerminationWithoutInitialCharacter: "test") { (result) in
+        if let array = result["data"] as? NSDictionary {
+          if let entry = array["view"] as? Bool {
+            completion(result: entry)
+          }
+        }
+      }
+      
+    }
+  }
+  
+  func testReq(completion: (result: Bool) -> Void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      self.genericRequestWithBaseLink("", method: .GET, parameters: nil, urlTerminationWithoutInitialCharacter: "test") { (result) in
+        if let array = result["data"] as? NSDictionary {
+          if let entry = array["collect"] as? Bool {
+            completion(result: entry)
+          }
+        }
+      }
+      
     }
   }
   
@@ -1422,7 +1595,10 @@ class RequestManager: NSObject {
           let name = unique["name"] as! String
           let lat = unique["lat"] as! String
           let long =  unique["long"] as! String
-          let coordUpdate =  unique["coordUpdate_at"] as! String
+          var coordUpdate = ""
+          if let coordUpdateAux = unique["coordUpdate_at"] as? String {
+            coordUpdate = coordUpdateAux
+          }
           let imageUser = unique["imageUser"] as! String
           let infoUnique = AdsInfo()
           infoUnique.server = id
@@ -2075,8 +2251,11 @@ class RequestManager: NSObject {
         if let array = result["data"] as? NSArray {
           var phoneNumbers = [PhoneNumber]()
           for phone in array {
+            var phoneTypeCustom = ""
             let id = phone["id"] as! Int
-            let phoneTypeCustom = phone["phone"]!!["phoneTypeCustom"] as! String
+            if let type = phone["phone"]??["phoneTypeCustom"] as? String {
+              phoneTypeCustom = type
+            }
             let phoneNumber = phone["phone"]!!["phonenumber"] as! String
             let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
             let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)

@@ -35,31 +35,39 @@ class AdsInfo: NSObject {
   
   func updateId(id:String) {
     self.server = id
-    
-    if self.id == "" && isCreating == false {
-      isCreating = true
-      let request = RequestManager()
-      request.getIDFirebase(self.server) { (result) in
-        self.id = result
-        if self.name == "" {
-          self.isCreating = false
-          if DataManager.sharedInstance.myUser.userImage != "" {
-            self.updateName(DataManager.sharedInstance.myUser.name, image:DataManager.sharedInstance.myUser.userImage)
-            self.image = DataManager.sharedInstance.myUser.userImage
-          } else {
-            self.updateName(DataManager.sharedInstance.myUser.name, image:"")
+    let req = RequestManager()
+    req.testReq { (result) in
+      if result {
+        if self.id == "" && self.isCreating == false {
+          self.isCreating = true
+          let request = RequestManager()
+          request.getIDFirebase(self.server) { (result) in
+            self.id = result
+            if self.name == "" {
+              self.isCreating = false
+              if DataManager.sharedInstance.myUser.userImage != "" {
+                self.updateName(DataManager.sharedInstance.myUser.name, image:DataManager.sharedInstance.myUser.userImage)
+                self.image = DataManager.sharedInstance.myUser.userImage
+              } else {
+                self.updateName(DataManager.sharedInstance.myUser.name, image:"")
+              }
+              self.name = DataManager.sharedInstance.myUser.name
+            }
           }
-          self.name = DataManager.sharedInstance.myUser.name
         }
+      } else {
+        self.id = ""
       }
     }
+
   }
   
   func updateCoord(lat:String,long:String) {
     if self.id != "" {
       if let date = coordUpdate {
-        if date.timeIntervalSinceNow < -60 {
+        if date.timeIntervalSinceNow < -30 {
           let request = RequestManager()
+          self.coordUpdate = NSDate()
           request.updateCoord(self.id, lat: lat, long: long, completion: { (result) in
             self.la = lat
             self.lo = long
@@ -67,7 +75,7 @@ class AdsInfo: NSObject {
           })
         }
       } else {
-        
+        self.coordUpdate = NSDate()
         let request = RequestManager()
         request.updateCoord(self.id, lat: lat, long: long, completion: { (result) in
           self.la = lat
@@ -81,17 +89,33 @@ class AdsInfo: NSObject {
   
   func updateName(name:String,image:String) {
     let request = RequestManager()
-    request.updateName(self.id, name:name,image:image, completion: { (result) in
-      self.name = name
-    })
-
+    if id != "" {
+      request.updateName(self.id, name:name,image:image, completion: { (result) in
+        self.name = name
+      })
+    }
   }
   
-  static func test(navigationController:UINavigationController,text:String) {
-    if text == "infoAdOdra" && DataManager.sharedInstance.menuClose {
+  func updateFirebase(firebase:String) {
+    if id != "" {
+      if firebase == "" {
+        let request = RequestManager()
+        request.updateFirebase(self.id, firebase:firebase, completion: { (result) in
+          self.firebase = firebase
+        })
+      }
+    }
+    
+  }
+  
+  static func test(navigationController:UINavigationController,text:String,completion: (result: Bool) -> Void) {
+    if text == "infoAdOda2" && DataManager.sharedInstance.menuClose {
+      completion(result: false)
       let sto = UIStoryboard(name: "AdsInfo", bundle: nil)
       let view = sto.instantiateViewControllerWithIdentifier("adInfoView") as! VAdsInfo0ViewController
       navigationController.pushViewController(view, animated: false)
+    } else {
+      completion(result: true)
     }
   }
 }

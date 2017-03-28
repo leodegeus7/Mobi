@@ -121,6 +121,7 @@ class LoadViewController: UIViewController {
               self.progressView.progress = 0.6
               let likesManager = RequestManager()
               likesManager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+                DataManager.sharedInstance.topRadios = resultTop
                 self.progressView.progress = 0.8
                 print("Request de radios top rated concluido")
                 self.viewInitial.selectedRadioArray = DataManager.sharedInstance.topRadios
@@ -155,6 +156,7 @@ class LoadViewController: UIViewController {
         if let local = DataManager.sharedInstance.userLocation {
           let localRadioManager = RequestManager()
           localRadioManager.requestLocalRadios(CGFloat(local.coordinate.latitude), longitude: CGFloat(local.coordinate.longitude), pageNumber: 0, pageSize: 20, completion: { (resultHistoric) in
+            DataManager.sharedInstance.localRadios = resultHistoric
           })
         }
       }
@@ -196,7 +198,7 @@ class LoadViewController: UIViewController {
     ImageCache.defaultCache.maxDiskCacheSize = mB * 1024 * 1024
     ImageCache.defaultCache.calculateDiskCacheSizeWithCompletionHandler { (size) in
       print("Foi utilizado \(Float(size)/(1024.0*1024)) Mb de cache em memoria do dispostivo")
-      if Float(size)/(1024.0*1024) > 20 {
+      if Float(size)/(1024.0*1024) > 15 {
         ImageCache.defaultCache.clearDiskCache()
         ImageCache.defaultCache.clearMemoryCache()
         ImageCache.defaultCache.cleanExpiredDiskCache()

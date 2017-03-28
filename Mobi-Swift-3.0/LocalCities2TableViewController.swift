@@ -87,7 +87,7 @@ class LocalCities2TableViewController: UITableViewController {
       tableView.allowsSelection = false
       let manager = RequestManager()
       selectedCity = citiesArray[indexPath.row]
-      manager.requestRadiosInCity(selectedCity.id, completion: { (resultCity) in
+      manager.requestRadiosInCity(selectedCity.id,pageNumber:0,pageSize:10, completion: { (resultCity) in
         self.selectedCity.updateRadiosOfCity(resultCity)
         self.tableView.allowsSelection = true
         self.activityIndicator.hidden = true
@@ -103,7 +103,7 @@ class LocalCities2TableViewController: UITableViewController {
       let radios = selectedCity.radios
       radioListVC.radios = Array(radios)
       radioListVC.superSegue = "detailCity"
-      
+      radioListVC.idCitySelected = selectedCity.id
     }
     
     let backButton = UIBarButtonItem()

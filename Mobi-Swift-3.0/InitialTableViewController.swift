@@ -13,8 +13,6 @@ import Kingfisher
 import Firebase
 import AVFoundation
 import ChameleonFramework
-
-
 class InitialTableViewController: UITableViewController, CLLocationManagerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
   
   
@@ -28,6 +26,15 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   var notificationCenter = NSNotificationCenter.defaultCenter()
   let locationManager = CLLocationManager()
   var selectedRadioArray = [RadioRealm]()
+  
+  var pagesLoadedTop = 1
+  var pagesLoadedLocal = 1
+  var pagesLoadedFavorites = 1
+  var pagesLoadedHistoric = 1
+  
+  var inProcess = false
+  
+  
   enum modes {
     case Top
     case Local
@@ -179,6 +186,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
       switch selectedMode {
       case .Top:
+        
+        if indexPath.row == (20*pagesLoadedTop - 1) && !inProcess {
+          inProcess = true
+          
+          self.pushMoreRadios()
+        }
+        
         cell.labelName.text = selectedRadioArray[indexPath.row].name
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
@@ -195,6 +209,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         }
         break
       case .Local:
+        
+        if indexPath.row == (20*pagesLoadedLocal - 1) && !inProcess {
+          inProcess = true
+          
+          self.pushMoreRadios()
+        }
+        
         cell.labelName.text = selectedRadioArray[indexPath.row].name
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
@@ -214,6 +235,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         cell.labelDescriptionTwo.text = "\(selectedRadioArray[indexPath.row].likenumber)"
         break
       case .Recent:
+        
+        if indexPath.row == (20*pagesLoadedHistoric - 1) && !inProcess {
+          inProcess = true
+          
+          self.pushMoreRadios()
+        }
+        
         cell.labelName.text = selectedRadioArray[indexPath.row].name
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
@@ -235,6 +263,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         cell.widthTextTwo.constant = 30
         break
       case .Favorite:
+        
+        if indexPath.row == (20*pagesLoadedFavorites - 1) && !inProcess {
+          inProcess = true
+          
+          self.pushMoreRadios()
+        }
+        
         cell.labelName.text = selectedRadioArray[indexPath.row].name
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
@@ -271,6 +306,44 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       return "Histórico"
     }
     return ""
+  }
+  
+  func pushMoreRadios() {
+    
+    if selectedMode == .Top {
+
+      let manager = RequestManager()
+    
+    manager.requestTopLikesRadios(pagesLoadedTop+1, pageSize: 20, completion: { (resultTop) in
+      DataManager.sharedInstance.topRadios.appendContentsOf(resultTop)
+      self.selectedRadioArray = DataManager.sharedInstance.topRadios
+      self.pagesLoadedTop += 1
+      self.inProcess = false
+      self.tableView.reloadData()
+    })
+    } else if selectedMode == .Local {
+      if let local = DataManager.sharedInstance.userLocation {
+        let localRadioManager = RequestManager()
+        localRadioManager.requestLocalRadios(CGFloat(local.coordinate.latitude), longitude: CGFloat(local.coordinate.longitude), pageNumber: pagesLoadedLocal+1, pageSize: 20, completion: { (resultHistoric) in
+          DataManager.sharedInstance.localRadios.appendContentsOf(resultHistoric)
+          self.pagesLoadedLocal += 1
+          self.inProcess = false
+          self.selectedRadioArray = DataManager.sharedInstance.localRadios
+          self.tableView.reloadData()
+        })
+      }
+    } else if selectedMode == .Recent {
+      let manager = RequestManager()
+      manager.requestHistoricRadios(pagesLoadedHistoric+1, pageSize: 20, completion: { (resultTop) in
+        DataManager.sharedInstance.recentsRadios.appendContentsOf(resultTop)
+        self.selectedRadioArray = DataManager.sharedInstance.recentsRadios
+        self.pagesLoadedHistoric += 1
+        self.inProcess = false
+        self.tableView.reloadData()
+      })
+    }
+
+    
   }
   
   static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
@@ -358,9 +431,13 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
   }
   
   @IBAction func segmentedAction(sender: UISegmentedControl) {
+    pagesLoadedTop = 1
+    pagesLoadedLocal = 1
+    inProcess = false
     switch segmentedControlMenu.selectedSegmentIndex {
     case 0:
       selectedMode = .Top
+
     case 1:
       if let local = DataManager.sharedInstance.userLocation {
         print(local)
@@ -431,6 +508,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     if (selectedMode == .Top) {
       selectedRadioArray = DataManager.sharedInstance.topRadios
       manager.requestTopLikesRadios(0, pageSize: 20, completion: { (resultTop) in
+        DataManager.sharedInstance.topRadios = resultTop
         self.selectedRadioArray = DataManager.sharedInstance.topRadios
         self.tableView.reloadData()
       })
@@ -439,6 +517,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       if let local = DataManager.sharedInstance.userLocation {
         let localRadioManager = RequestManager()
         localRadioManager.requestLocalRadios(CGFloat(local.coordinate.latitude), longitude: CGFloat(local.coordinate.longitude), pageNumber: 0, pageSize: 20, completion: { (resultHistoric) in
+          DataManager.sharedInstance.localRadios = resultHistoric
           self.selectedRadioArray = DataManager.sharedInstance.localRadios
           self.tableView.reloadData()
         })
@@ -452,6 +531,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
     } else if (selectedMode == .Recent) {
       selectedRadioArray = DataManager.sharedInstance.recentsRadios
       manager.requestHistoricRadios(0, pageSize: 20, completion: { (resultTop) in
+        DataManager.sharedInstance.recentsRadios = resultTop
         self.selectedRadioArray = DataManager.sharedInstance.recentsRadios
         self.tableView.reloadData()
       })
@@ -459,10 +539,6 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       print("A string ")
     }
     tableView.reloadData()
-    let requestManager = RequestManager()
-    requestManager.requestUserInfo { (result) in
-      print(result)
-    }
   }
   
   

@@ -2353,6 +2353,8 @@
                         <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" showsScopeBar="YES" id="YsJ-a5-Stc">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             <scopeButtonTitles>
                                 <string>Tudo</string>
@@ -2932,6 +2934,7 @@
     Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSn-yW-kRB">
                                 <rect key="frame" x="30" y="226" width="354" height="350"/>

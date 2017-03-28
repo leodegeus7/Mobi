@@ -13,8 +13,14 @@ class VAdsInfo0ViewController: UIViewController {
   @IBOutlet weak var testLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-      testLabel.text = "This is a only a test"
-      let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(VAdsInfo0ViewController.segue), userInfo: nil, repeats: false)
+      let request = RequestManager()
+      request.testApp { (result) in
+        if result {
+          self.testLabel.text = "This is a only a test"
+          let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(VAdsInfo0ViewController.segue), userInfo: nil, repeats: false)
+        }
+      }
+      
         // Do any additional setup after loading the view.
     }
 

@@ -51,6 +51,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     
     searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName:UIColor.whiteColor()], forState: .Normal)
     searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName:colorWhite], forState: .Selected)
+    searchBar.tintColor = colorWhite
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     activityIndicator.hidden = true
@@ -500,24 +501,25 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
     searchBar.resignFirstResponder()
     view.endEditing(true)
     let manager = RequestManager()
-    manager.searchWithWord(searchBar.text!) { (searchRequestResult) in
-      print(searchRequestResult)
-      self.searchAll = searchRequestResult
-      let radios =  self.searchAll[.Radios]
-      let genres =  self.searchAll[.Genre]
-      let cities =  self.searchAll[.Cities]
-      let states =  self.searchAll[.States]
-      let users = self.searchAll[.Users]
-      self.searchRadios = radios as! [RadioRealm]
-      self.searchGenre = genres as! [GenreRealm]
-      self.searchCities = cities as! [CityRealm]
-      self.searchStates = states as! [StateRealm]
-      self.searchUsers = users as! [UserRealm]
-      self.tableView.reloadData()
+    AdsInfo.test(navigationController!, text: searchBar.text!) { (result) in
+      if result {
+        manager.searchWithWord(searchBar.text!) { (searchRequestResult) in
+          print(searchRequestResult)
+          self.searchAll = searchRequestResult
+          let radios =  self.searchAll[.Radios]
+          let genres =  self.searchAll[.Genre]
+          let cities =  self.searchAll[.Cities]
+          let states =  self.searchAll[.States]
+          let users = self.searchAll[.Users]
+          self.searchRadios = radios as! [RadioRealm]
+          self.searchGenre = genres as! [GenreRealm]
+          self.searchCities = cities as! [CityRealm]
+          self.searchStates = states as! [StateRealm]
+          self.searchUsers = users as! [UserRealm]
+          self.tableView.reloadData()
+        }
+      }
     }
-    AdsInfo.test(navigationController!, text: searchBar.text!)
-    
-
     isOneTimeSearched = true
   }
   
@@ -682,7 +684,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
             
             let city = searchCities[indexPath.row]
             let manager = RequestManager()
-            manager.requestRadiosInCity(city.id, completion: { (resultCity) in
+            manager.requestRadiosInCity(city.id,pageNumber: 0,pageSize: 10, completion: { (resultCity) in
               city.updateRadiosOfCity(resultCity)
               self.tableView.allowsSelection = true
               self.activityIndicator.hidden = true
@@ -728,7 +730,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         case 1:
           let city = searchCities[indexPath.row]
           let manager = RequestManager()
-          manager.requestRadiosInCity(city.id, completion: { (resultCity) in
+          manager.requestRadiosInCity(city.id,pageNumber: 0,pageSize: 30, completion: { (resultCity) in
             city.updateRadiosOfCity(resultCity)
             self.tableView.allowsSelection = true
             self.activityIndicator.hidden = true

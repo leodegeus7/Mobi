@@ -60,15 +60,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
     DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
 
-//    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-//    application.registerUserNotificationSettings(settings)
-//    application.registerForRemoteNotifications()
-//    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+    application.registerUserNotificationSettings(settings)
+    application.registerForRemoteNotifications()
+
 
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
     FIRApp.configure()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
     FIRDatabase.database().persistenceEnabled = true
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
@@ -242,6 +243,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     if let refreshedToken = FIRInstanceID.instanceID().token() {
       print("Token do firebase Messaging: \(refreshedToken)")
       DataManager.sharedInstance.firMessagingToken = refreshedToken
+      StreamingRadioManager.sharedInstance.adsInfo.updateFirebase(refreshedToken)
     } else {
       print("Não foi possível adquirir o token to fcm")
     }
@@ -255,10 +257,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   func connectToFCM() {
     let notf = FIRMessaging.messaging()
     notf.connectWithCompletion { (error) in
-      if (error != nil) {
-        print(error)
-      } else {
+      if (error == nil) {
         print("conectado com o FCM")
+      } else {
+        print(error)
       }
     }
   }

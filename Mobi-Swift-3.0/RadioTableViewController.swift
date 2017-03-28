@@ -48,7 +48,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   var avAudioPlayer:AVAudioPlayer!
   
-  
+  var updateFistCell = false
   var contactStore = CNContactStore()
   static var selectedImageButton:UIImage!
   
@@ -58,6 +58,14 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     case DetailRadio
     case Wall
   }
+  
+  
+  struct ImageWithSize {
+    var image:UIImage!
+    var size:CGSize!
+  }
+  
+  var sizesImage = Dictionary<NSIndexPath,ImageWithSize>()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -375,8 +383,10 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
                 whats.removeFromSuperview()
               }
             }
-            
           }
+          cell.updateConstraintsIfNeeded()
+          cell.layoutIfNeeded()
+          cell.selectionStyle = .None
           return cell
         }
       case 1:
@@ -555,11 +565,18 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
             cell.labelName.text = actualComments[indexPath.row].user.name
             cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+            
             cell.textViewWall.text = actualComments[indexPath.row].text
+            if actualComments[indexPath.row].text == "" {
+              cell.textViewWall.removeFromSuperview()
+            }
             if actualComments[indexPath.row].user.userImage == "avatar.png" {
               cell.imageUser.image = UIImage(named: "avatar.png")
             } else {
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+              let userImage = actualComments[indexPath.row].user.userImage
+              let resource = Resource(downloadURL: (NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(userImage)))!)
+              cell.imageUser.kf_setImageWithResource(resource)
+              
             }
             cell.buttonZoomImage.tag = indexPath.row
             cell.tag = indexPath.row
@@ -567,38 +584,104 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             //                        cell.heightImage.constant = 200
             //                        cell.widthImage.constant = cell.frame.width
             
-            cell.imageAttachment.backgroundColor = UIColor(colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)
-            cell.imageAttachment.image = cell.imageInCell
-            cell.imageAttachment.contentMode = .ScaleAspectFit
-            if cell.imageInCell.size.height > 5 {
-              cell.imageAttachment.image = cell.imageInCell
-              let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
-              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-              cell.heightImage.constant = ratio*cell.frame.width
+            
+            //cell.imageAttachment.image = cell.imageInCell
+            if let image = sizesImage[indexPath]?.image {
+              if let size = sizesImage[indexPath]?.size {
+                if size.height > 5 {
+                  //cell.imageAttachment.image = sizesImage[indexPath].image
+                  let point = CGPoint(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y)
+                  cell.imageAttachment.contentMode = .ScaleAspectFit
+                  cell.imageAttachment.frame = CGRect(origin: point, size: size)
+                  cell.imageAttachment.image = sizesImage[indexPath]?.image
+                  //let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
+                  //cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+                  cell.heightImage.constant = self.sizesImage[indexPath]!.size.height
+                }
+              }
             } else {
-              cell.imageAttachment.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: nil, optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
+              let userImage = NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image))
+              let resource = Resource(downloadURL: userImage!)
+              cell.imageAttachment.kf_setImageWithResource(resource, placeholderImage: nil, optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
                 
                 }, completionHandler: { (image, error, cacheType, imageURL) in
                   if let _ = error {
                     print("Error to reload image in cell \(indexPath.row)")
                   } else {
                     if cell.tag == indexPath.row {
+                      
                       let ratio = (image!.size.height)/(image!.size.width)
                       let newHeight = ratio*cell.frame.width
                       cell.heightImage.constant = newHeight
                       cell.setNeedsLayout()
-                      dispatch_async(dispatch_get_main_queue(), {
+                      let imageWithSize = ImageWithSize(image: image, size: CGSize(width: cell.frame.width, height: newHeight))
+                      self.sizesImage[indexPath] = imageWithSize
+                      dispatch_async(dispatch_get_main_queue()) {
                         cell.heightImage.constant = ratio*cell.frame.width
                         cell.imageAttachment.layoutIfNeeded()
-                      })
+                        if indexPath == NSIndexPath(forRow: 0, inSection: 0) && !self.updateFistCell {
+                          self.updateFistCell = true
+                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                          
+                        }
+                      }
                     }
                   }
               })
+              
               
             }
             
             cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
             return cell
+//          if actualComments[indexPath.row].postType == .Image {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
+//            cell.labelName.text = actualComments[indexPath.row].user.name
+//            cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
+//            cell.textViewWall.text = actualComments[indexPath.row].text
+//            if actualComments[indexPath.row].user.userImage == "avatar.png" {
+//              cell.imageUser.image = UIImage(named: "avatar.png")
+//            } else {
+//              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+//            }
+//            cell.buttonZoomImage.tag = indexPath.row
+//            cell.tag = indexPath.row
+//            cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: CGSize(width: cell.frame.width, height: 200))
+//            //                        cell.heightImage.constant = 200
+//            //                        cell.widthImage.constant = cell.frame.width
+//            
+//            cell.imageAttachment.backgroundColor = UIColor(colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)
+//            cell.imageAttachment.image = cell.imageInCell
+//            cell.imageAttachment.contentMode = .ScaleAspectFit
+//            if cell.imageInCell.size.height > 5 {
+//              cell.imageAttachment.image = cell.imageInCell
+//              let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
+//              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
+//              cell.heightImage.constant = ratio*cell.frame.width
+//            } else {
+//              cell.imageAttachment.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: nil, optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
+//                
+//                }, completionHandler: { (image, error, cacheType, imageURL) in
+//                  if let _ = error {
+//                    print("Error to reload image in cell \(indexPath.row)")
+//                  } else {
+//                    if cell.tag == indexPath.row {
+//                      let ratio = (image!.size.height)/(image!.size.width)
+//                      let newHeight = ratio*cell.frame.width
+//                      cell.heightImage.constant = newHeight
+//                      cell.setNeedsLayout()
+//                      dispatch_async(dispatch_get_main_queue(), {
+//                        cell.heightImage.constant = ratio*cell.frame.width
+//                        cell.imageAttachment.layoutIfNeeded()
+//                      })
+//                    }
+//                  }
+//              })
+//              
+//            }
+//            
+//            cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+//            return cell
           } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
             cell.labelName.text = actualComments[indexPath.row].user.name

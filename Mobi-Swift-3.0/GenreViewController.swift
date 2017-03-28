@@ -98,7 +98,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
       }
       cell.backgroundColor = UIColor.whiteColor()
       cell.imageGenre.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
-      cell.imageGenre.alpha = 0.8
+      cell.imageGenre.alpha = 0.9
       cell.labelText.textColor = UIColor.whiteColor()
       return cell
     
@@ -114,7 +114,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
       self.selectedGenre = searchResults[indexPath.row]
     }
     let manager = RequestManager()
-    manager.requestRadiosInGenre(selectedGenre.id,pageNumber:0,pageSize:20) { (resultGenre) in
+    manager.requestRadiosInGenre(selectedGenre.id,pageNumber:0,pageSize:10) { (resultGenre) in
       self.selectedGenre.updateRadiosOfGenre(resultGenre)
       self.collectionView.allowsSelection = true
       self.activityIndicator.hidden = true
@@ -185,6 +185,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
       let radioVC = (segue.destinationViewController as! RadioListTableViewController)
       radioVC.radios = Array(selectedGenre.radios)
       radioVC.superSegue = "detailGenre"
+      radioVC.idGenreSelected = selectedGenre.id
     }
   }
   

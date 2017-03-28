@@ -103,6 +103,9 @@
 		B77384AA1D7F32A700701070 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384A91D7F32A700701070 /* CFNetwork.framework */; };
 		B77384AC1D7F32D300701070 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AB1D7F32D300701070 /* Security.framework */; };
 		B77384AE1D7F32DB00701070 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */; };
+		B7759A601E538EC100BC434C /* LocalVAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A5F1E538EC100BC434C /* LocalVAds.swift */; };
+		B7759A621E54BC4600BC434C /* VAdsInfo3TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */; };
+		B7759A641E54BD6700BC434C /* VAdsInfo3TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */; };
 		B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77892E31D91B346009D6105 /* StreamingRadioManager.swift */; };
 		B77C499E1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C498C1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m */; };
 		B77C499F1D8C68D600AFF826 /* STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C498E1D8C68D600AFF826 /* STKAudioPlayer.m */; };
@@ -333,6 +336,9 @@
 		B77384A91D7F32A700701070 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B77384AB1D7F32D300701070 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B77384AD1D7F32DB00701070 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B7759A5F1E538EC100BC434C /* LocalVAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalVAds.swift; sourceTree = "<group>"; };
+		B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo3TableViewController.swift; sourceTree = "<group>"; };
+		B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAdsInfo3TableViewCell.swift; sourceTree = "<group>"; };
 		B77892E31D91B346009D6105 /* StreamingRadioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRadioManager.swift; sourceTree = "<group>"; };
 		B77C498B1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+STKAudioPlayer.h"; sourceTree = "<group>"; };
 		B77C498C1D8C68D600AFF826 /* NSMutableArray+STKAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+STKAudioPlayer.m"; sourceTree = "<group>"; };
@@ -482,6 +488,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
 				B784D2CC1DB002010016A405 /* libstdc++.tbd in Frameworks */,
 				B784D2CA1DB001F20016A405 /* CoreMedia.framework in Frameworks */,
 				B7880BA61D5E491F002B235A /* CoreLocation.framework in Frameworks */,
@@ -492,7 +499,6 @@
 				B75E34161D90823500713783 /* libxml2.2.tbd in Frameworks */,
 				B75E34141D90822500713783 /* libxml2.tbd in Frameworks */,
 				B75404BA1DC8ECE400E8B694 /* StoreKit.framework in Frameworks */,
-				B77384A61D7F309A00701070 /* libicucore.tbd in Frameworks */,
 				B7842AC81DB52AC5002550F3 /* GnSDKObjC.framework in Frameworks */,
 				B75404BC1DC8ECE900E8B694 /* GameKit.framework in Frameworks */,
 				B77384A81D7F30A800701070 /* libc++.tbd in Frameworks */,
@@ -699,7 +705,10 @@
 				B74E0CFC1E4C98780046EDE8 /* VAdsInfoTableViewCell.swift */,
 				B74E0CFE1E4C9A260046EDE8 /* VAdsInfoTableViewController.swift */,
 				B74E0D001E4C9FEB0046EDE8 /* VAdsInfo2ViewController.swift */,
+				B7759A611E54BC4600BC434C /* VAdsInfo3TableViewController.swift */,
+				B7759A631E54BD6700BC434C /* VAdsInfo3TableViewCell.swift */,
 				B74E0D041E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift */,
+				B7759A5F1E538EC100BC434C /* LocalVAds.swift */,
 			);
 			name = SWReveal;
 			sourceTree = "<group>";
@@ -1153,6 +1162,7 @@
 				B7D90E031D5A53F800D15089 /* LocalTableViewController.swift in Sources */,
 				CD0B65031D904B9D002B88EA /* ColorRealm.swift in Sources */,
 				B7D584DC1D5D007A003D5A1F /* ConfigViewController.swift in Sources */,
+				B7759A641E54BD6700BC434C /* VAdsInfo3TableViewCell.swift in Sources */,
 				B77892E41D91B346009D6105 /* StreamingRadioManager.swift in Sources */,
 				B77C49A01D8C68D600AFF826 /* STKAutoRecoveringHTTPDataSource.m in Sources */,
 				B784D2C41DAD798B0016A405 /* ReviewTableViewCell.swift in Sources */,
@@ -1181,6 +1191,7 @@
 				B764F50D1DBA7F270073D268 /* InfoRds.swift in Sources */,
 				B74ECF1D1D5BBC9A001AFC32 /* FirstNewTableViewCell.swift in Sources */,
 				B78FE4271DD4EB0B00D7551B /* PhoneNumber.swift in Sources */,
+				B7759A621E54BC4600BC434C /* VAdsInfo3TableViewController.swift in Sources */,
 				B764F50F1DBA88A20073D268 /* Music.swift in Sources */,
 				B74E0D051E4CC9CF0046EDE8 /* VAdsInfo0ViewController.swift in Sources */,
 				B7F325641D63993900B3BC42 /* RadioRealm.swift in Sources */,
@@ -1200,6 +1211,7 @@
 				B74285DF1DE34DFC00734AFA /* NoPostsTableViewCell.swift in Sources */,
 				B75E332A1D906C6700713783 /* AudioChannel.swift in Sources */,
 				B76841D01DA568CA00ABBC78 /* EditInfoViewController.swift in Sources */,
+				B7759A601E538EC100BC434C /* LocalVAds.swift in Sources */,
 				B7E6973A1D591C1C00EC276F /* MenuTableViewController.swift in Sources */,
 				B7842AD01DB54FA7002550F3 /* SendPublicationViewController.swift in Sources */,
 				B7B026151D6CD0BA00BFB78A /* SWRevealViewController.m in Sources */,

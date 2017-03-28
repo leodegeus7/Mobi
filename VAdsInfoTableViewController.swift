@@ -14,7 +14,7 @@ class VAdsInfoTableViewController: UITableViewController {
   var adClicked = AdsInfo()
   var isFirstTime = true
   var adsInfo = [AdsInfo]()
-  
+  var local = [LocalVAds]()
   override func viewDidLoad() {
     super.viewDidLoad()
     let request = RequestManager()
@@ -49,9 +49,12 @@ class VAdsInfoTableViewController: UITableViewController {
     if ident == "show" {
       let createVC = (segue.destinationViewController as! VAdsInfo2ViewController)
       createVC.adsInfo = adsInfo
+      
     } else if ident == "show2" {
       let createVC = (segue.destinationViewController as! VAdsInfo2ViewController)
       createVC.adsInfo = adsInfo
+      createVC.local = local
+      createVC.titleVar = adClicked.name
       createVC.initialCoordinate = CLLocation(latitude: Double(adClicked.la)!, longitude: Double(adClicked.lo)!)
     }
   }
@@ -72,8 +75,15 @@ class VAdsInfoTableViewController: UITableViewController {
     cell?.nameU.text = "\(adsInfo[indexPath.row].server)  -  \(adsInfo[indexPath.row].name)"
     cell?.firstU.text = "\(adsInfo[indexPath.row].la)"
     cell?.firstU2.text = "\(adsInfo[indexPath.row].lo)"
-    cell?.secondU.text = "\(Util.getOverdueInterval(Util.convertStringToNSDate(adsInfo[indexPath.row].lastCoordUpdate)))"
+    if adsInfo[indexPath.row].lastCoordUpdate != "" {
+      cell?.secondU.text = "\(Util.getOverdueInterval(Util.convertStringToNSDate(adsInfo[indexPath.row].lastCoordUpdate)))"
     // Configure the cell...
+    } else {
+      cell?.secondU.text = "Não compartilhou"
+    }
+    if adsInfo[indexPath.row].image != "" && adsInfo[indexPath.row].image != "avatar.png" {
+      cell?.imageU.backgroundColor = UIColor.flatNavyBlueColor()
+    }
     
     return cell!
   }
@@ -87,7 +97,12 @@ class VAdsInfoTableViewController: UITableViewController {
     } else {
       if adsInfo[indexPath.row] == adClicked {
         isFirstTime = true
-        self.performSegueWithIdentifier("show2", sender: self)
+        let request = RequestManager()
+        request.getLocal(adClicked.server, completion: { (result) in
+          self.local = result
+          self.performSegueWithIdentifier("show2", sender: self)
+        })
+        
       } else {
         tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: true)
         adClicked = adsInfo[indexPath.row]

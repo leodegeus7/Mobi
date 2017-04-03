@@ -2921,17 +2921,17 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
                                 <rect key="frame" x="20" y="131" width="374" height="547"/>
-                                <string key="text">    O MOBI ABERT é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
+                                <string key="text">    O Mobi Abert é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel. 
 
     É composto por três pilares:
 
-        • o integrador MOBI ABERT, um aplicativo que reúne cerca de 2 mil emissoras brasileiras e oferece possibilidades de interação entre ouvinte e radiodifusor
+        • o integrador Mobi Abert, um aplicativo que reúne cerca de 2 mil emissoras brasileiras e oferece possibilidades de interação entre ouvinte e radiodifusor
 
         • os apps exclusivos para as rádios
 
         • o portal MOBI PLAY
 
-    Para entender melhor sobre as outras frentes do MOBI ABERT e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
+    Para entender melhor sobre as outras frentes do Mobi Abert e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -5568,8 +5568,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="iwd-TV-p7R"/>
                                 <exclude reference="mPE-vl-vCt"/>
+                                <exclude reference="iwd-TV-p7R"/>
                             </mask>
                         </variation>
                     </view>

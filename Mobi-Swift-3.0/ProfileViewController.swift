@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
-  var kFacebookAppID = "1673692689618704"
+  var kFacebookAppID = "1768503930105725"
   var db = FIRDatabaseReference.init()
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
   
@@ -611,6 +611,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     //let options = FIRApp.defaultApp()?.options
     //let clientId = options?.clientID
     //FIRFacebookAuthUI(appID: kFacebookAppID)
+    
     authUI?.delegate = self
     authUI?.providers = [FIRFacebookAuthUI()]
     //authUI?.signInProviders = [facebookProvider!]

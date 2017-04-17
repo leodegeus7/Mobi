@@ -30,6 +30,6 @@ class ImageObject: NSObject {
     if id == -1 {
       return "avatar.png"
     }
-    return identifier40
+    return identifier100
   }
 }

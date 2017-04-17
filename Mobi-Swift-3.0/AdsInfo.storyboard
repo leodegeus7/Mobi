@@ -150,9 +150,12 @@
                             <outlet property="delegate" destination="vHh-yU-LW5" id="49n-sG-z5b"/>
                         </connections>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="256-x8-O7A"/>
+                    </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonInfoUsers" destination="256-x8-O7A" id="FDR-kk-EsJ"/>
                         <segue destination="ahr-UF-5JF" kind="show" identifier="show" id="cbW-v1-DzE"/>
                         <segue destination="ahr-UF-5JF" kind="show" identifier="show2" id="y8x-Cp-Og9"/>
                     </connections>
@@ -188,6 +191,7 @@
                             <constraint firstItem="leA-xr-0P2" firstAttribute="centerY" secondItem="0bS-5g-zDm" secondAttribute="centerY" id="kJa-8y-fAH"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <connections>
                         <outlet property="viewMap" destination="leA-xr-0P2" id="Mxf-4t-7M1"/>
                         <segue destination="hx8-2s-sRX" kind="show" identifier="show" id="JVB-qL-QW3"/>
@@ -219,7 +223,7 @@
                                                 <constraint firstAttribute="width" constant="400" id="FNG-yb-fVT"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lba-GT-0Zd">
@@ -228,7 +232,7 @@
                                                 <constraint firstAttribute="width" constant="400" id="cFW-v4-lfu"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFg-4P-7gq">

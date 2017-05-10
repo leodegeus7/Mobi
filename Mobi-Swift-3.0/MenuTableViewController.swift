@@ -180,7 +180,7 @@ class MenuTableViewController: UITableViewController {
       let secondTypeCell = tableView.dequeueReusableCellWithIdentifier("SecondCell", forIndexPath: indexPath) as! SecondMenuTypeTableViewCell
       secondTypeCell.tag = 102
       secondTypeCell.labelText.text = menuArray[4]
-      secondTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+      secondTypeCell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
       secondTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
       return secondTypeCell
     }
@@ -189,7 +189,7 @@ class MenuTableViewController: UITableViewController {
       if (indexPath.row == 8) {
         let firstTypeCell = tableView.dequeueReusableCellWithIdentifier("FirstCell", forIndexPath: indexPath) as! FirstTypeMenuTableViewCell
         firstTypeCell.labelText.text = "Logout"
-        firstTypeCell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        firstTypeCell.backgroundColor = DataManager.sharedInstance.interfaceColor.color
         firstTypeCell.selectionStyle = UITableViewCellSelectionStyle.None
         return firstTypeCell
       }

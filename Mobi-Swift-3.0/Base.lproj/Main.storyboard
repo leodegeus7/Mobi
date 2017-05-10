@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ato-Xa-1Ua">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ato-Xa-1Ua">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -2921,7 +2921,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfb-gh-pJy">
                                 <rect key="frame" x="20" y="131" width="374" height="547"/>
-                                <mutableString key="text">   O MobiAbert é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel.
+                                <string key="text">   O MobiAbert é um projeto da Associação Brasileira de Emissoras de Rádio e Televisão (ABERT), criado para possibilitar a entrada das rádios no universo digital móvel.
 
   É composto por três pilares:
 
@@ -2931,20 +2931,11 @@
 
  - o portal MobiAbert PLAY
 
-  Para entender melhor sobre as outras frentes do MobiAbert e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</mutableString>
+  Para entender melhor sobre as outras frentes do MobiAbert e conhecer o maior projeto de inclusão mobile digital de rádios brasileiras, acesse www.mobilize-se.net.br</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSn-yW-kRB">
-                                <rect key="frame" x="30" y="226" width="354" height="350"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="QTq-Wr-cRy"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="textTap:" destination="uoQ-pF-ljb" eventType="touchUpInside" id="5KR-4b-iHO"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Termos: mobilize-se.net.br/mobi/terms.pdf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teV-bk-65O">
                                 <rect key="frame" x="20" y="702" width="374" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -2974,11 +2965,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="032-AP-vdK" secondAttribute="trailing" constant="40" id="V11-43-fMw"/>
                             <constraint firstItem="Wfb-gh-pJy" firstAttribute="top" secondItem="032-AP-vdK" secondAttribute="bottom" constant="24" id="aDH-vo-mOZ"/>
                             <constraint firstItem="032-AP-vdK" firstAttribute="top" secondItem="xge-Gg-sGF" secondAttribute="bottom" constant="24" id="asr-av-Z62"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GSn-yW-kRB" secondAttribute="trailing" constant="10" id="ege-s5-FfA"/>
                             <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="centerY" secondItem="teV-bk-65O" secondAttribute="centerY" id="gdG-6P-55p"/>
-                            <constraint firstItem="GSn-yW-kRB" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" constant="10" id="h8E-v4-vnf"/>
-                            <constraint firstItem="jGp-OT-p2h" firstAttribute="top" secondItem="GSn-yW-kRB" secondAttribute="bottom" constant="160" id="mLy-PO-Tu9"/>
-                            <constraint firstItem="GSn-yW-kRB" firstAttribute="centerX" secondItem="47E-N7-N4w" secondAttribute="centerX" id="sws-R2-Um8"/>
                             <constraint firstItem="teV-bk-65O" firstAttribute="leading" secondItem="47E-N7-N4w" secondAttribute="leadingMargin" id="tbP-0L-qRL"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Wfb-gh-pJy" secondAttribute="leading" id="v59-hG-NG7"/>
                             <constraint firstItem="Kbf-Nk-Ngi" firstAttribute="top" secondItem="Wfb-gh-pJy" secondAttribute="bottom" constant="24" id="x9c-hx-4nL"/>
@@ -2995,7 +2982,6 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="buttonLink" destination="GSn-yW-kRB" id="zDh-GT-i8L"/>
                         <outlet property="buttonTerms" destination="Kbf-Nk-Ngi" id="Y0R-na-v43"/>
                         <outlet property="openMenu" destination="qsN-EB-ImY" id="Bik-29-DUp"/>
                         <outlet property="textViewAbout" destination="Wfb-gh-pJy" id="zW5-10-z0D"/>
@@ -5568,8 +5554,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="mPE-vl-vCt"/>
                                 <exclude reference="iwd-TV-p7R"/>
+                                <exclude reference="mPE-vl-vCt"/>
                             </mask>
                         </variation>
                     </view>

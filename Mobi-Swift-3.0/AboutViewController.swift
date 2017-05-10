@@ -11,7 +11,6 @@ import ChameleonFramework
 
 class AboutViewController: UIViewController {
   
-  @IBOutlet weak var buttonLink: UIButton!
   @IBOutlet weak var openMenu: UIBarButtonItem!
   @IBOutlet weak var textViewAbout: UITextView!
   
@@ -27,7 +26,6 @@ class AboutViewController: UIViewController {
     buttonTerms.backgroundColor = UIColor.clearColor()
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     self.title = "Sobre"
-    buttonLink.backgroundColor = UIColor.clearColor()
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     let colorRose = DataManager.sharedInstance.pinkColor.color
     let colorBlue = DataManager.sharedInstance.blueColor.color

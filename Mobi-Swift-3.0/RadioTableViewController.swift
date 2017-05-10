@@ -237,7 +237,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           return 4 + 1
         }
       } else if section == 3 {
-        return 2
+        if actualRadio.iosLink != "" {
+          return 3
+        } else {
+          return 2
+        }
       } else {
         return 1
       }
@@ -536,6 +540,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           cell.labelTitle.text = "Contato"
           cell.tag = 130
           return cell
+        case 2:
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = "Download \(actualRadio.name)"
+          cell.tag = 160
+          return cell
         default:
           let cell = UITableViewCell()
           return cell
@@ -759,6 +768,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       performSegueWithIdentifier("contactSegue", sender: self)
     case 150:
       performSegueWithIdentifier("programSegue", sender: self)
+    case 160:
+      UIApplication.sharedApplication().openURL(NSURL(string: actualRadio.iosLink)!)
     default:
       break
     }
@@ -1184,7 +1195,12 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+    if let _ = imageView.image {
     return Util.imageResize(imageView.image!, sizeChange: CGSize(width: 100, height: 100))
+    } else {
+      return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
+    }
+
   }
   
   func emptyDataSetDidTapButton(scrollView: UIScrollView) {

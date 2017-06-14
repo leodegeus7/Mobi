@@ -165,6 +165,14 @@ class RadioRealm: Object {
     }
   }
   
+  func updateAddress(address:AddressRealm) {
+    if address.state != "" {
+      try! DataManager.sharedInstance.realm.write {
+        self.address = address
+      }
+    }
+  }
+  
   func updateAudioChannels(audioChannels:[AudioChannel]) {
         self.audioChannels = audioChannels
   }

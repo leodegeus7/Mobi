@@ -752,6 +752,8 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
       }
       sendWhats(numberWhats)
+    case .Denied:
+      Util.displayAlert(title: "Atenção", message: "Permita os Contatos nos ajustes do dispositivo", action: "Ok")
     case .NotDetermined:
       contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (succeeded, err) in
         guard err == nil && succeeded else {
@@ -1093,11 +1095,21 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
     if actualRadio.isFavorite {
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartNoFill.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       actualRadio.updateIsFavorite(false)
+      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? RadioDetailTableViewCell
+      if let _ = cell {
+        cell?.labelLikes.text = "\(Int((cell?.labelLikes.text)!)! - 1)"
+        self.actualRadio.removeOneLikesNumber()
+      }
       manager.deleteFavRadio(actualRadio, completion: { (result) in
       })
     } else {
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "heartRedFilled.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.buttonFavTap))
       actualRadio.updateIsFavorite(true)
+      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? RadioDetailTableViewCell
+      if let _ = cell {
+        cell?.labelLikes.text = "\(Int((cell?.labelLikes.text)!)! + 1)"
+        self.actualRadio.addOneLikesNumber()
+      }
       manager.favRadio(actualRadio, completion: { (resultFav) in
       })
     }

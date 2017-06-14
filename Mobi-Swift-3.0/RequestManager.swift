@@ -254,6 +254,58 @@ class RequestManager: NSObject {
     }
   }
   
+  func requestAddressOfStation(radio:RadioRealm,completion: (resultAddress: AddressRealm) -> Void) {
+    requestJson("stationunit/\(radio.id)/address") { (result) in
+      dispatch_async(dispatch_get_main_queue(), {
+        var street = ""
+        var number = ""
+        let country = "Brasil"
+        var lat = ""
+        var long = ""
+        var state = ""
+        var zip = ""
+        var city = ""
+        if let dic1 = result["data"] as? NSArray {
+        if let dic = dic1.firstObject!["address"] as? NSDictionary {
+          
+          if let num = dic["number"] as? String {
+            number = num
+          }
+          if let la = dic["latitude"] as? String {
+            lat = la
+          }
+          if let lo = dic["longitude"] as? String {
+            long = lo
+          }
+          if let str = dic["street"]?["name"] as? String  {
+            street = str
+          }
+          if let zi = dic["street"]?["zip"] as? String  {
+            zip = zi
+          }
+          if let ci = dic["street"]?["district"]??["city"]??["name"] as? String {
+            city = ci
+          }
+          if let stat = dic["street"]?["district"]??["city"]??["state"]??["name"] as? String {
+            state = stat
+          }
+          
+          
+          
+
+        }
+        
+          let address = AddressRealm(id: "\(dic1.firstObject!["id"] as! Int)", lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: number, zip: zip, repository: true)
+        
+        radio.updateAddress(address)
+        
+        completion(resultAddress: address)
+        } else {
+          completion(resultAddress: AddressRealm())
+        }
+      })
+    }
+  }
   
   //"user/autenticatenative?email=\(email)&password=\(password)"
   func loginInServer(token:String,completion: (result: String) -> Void) {

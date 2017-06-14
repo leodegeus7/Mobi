@@ -28,13 +28,13 @@
          contextName = "ProfileViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "myUser">
+               value = "DataManager.Shar">
             </PersistentString>
             <PersistentString
                value = "heightTableView">
             </PersistentString>
             <PersistentString
-               value = "DataManager.Shar">
+               value = "myUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -76,10 +76,10 @@
                value = "object_getClassName(class1) == object_getClassName(class2)">
             </PersistentString>
             <PersistentString
-               value = "object_getClassName(class1)">
+               value = "object_getClassName(class2)">
             </PersistentString>
             <PersistentString
-               value = "object_getClassName(class2)">
+               value = "object_getClassName(class1)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -118,10 +118,10 @@
          contextName = "ProfileViewController.(authUI(FIRAuthUI, didSignInWithUser : FIRUser?, error : NSError?) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.configApp">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
+               value = "DataManager.sharedInstance.configApp">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -204,6 +204,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.bottomConstrain.constant">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.(requestAddressOfStation(RadioRealm, completion : (resultAddress : AddressRealm) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result[&quot;data&quot;]! as! NSArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -298,10 +306,10 @@
          contextName = "MenuTableViewController.viewWillAppear(Bool) -&gt; ():MenuTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "tableView">
+               value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser">
+               value = "tableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -465,10 +473,10 @@
          contextName = "RadioTableViewController.(tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell).(closure #2):RadioTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!.row">
+               value = "tableView.indexPathForCell(cellUnique)!">
             </PersistentString>
             <PersistentString
-               value = "tableView.indexPathForCell(cellUnique)!">
+               value = "tableView.indexPathForCell(cellUnique)!.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -620,7 +628,7 @@
          contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : (resultWall : [Comment]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dic[&quot;approvedDatetime&quot;] as! String">
+               value = "dic[&quot;id&quot;] as! Int">
             </PersistentString>
             <PersistentString
                value = "dic[&quot;postType&quot;] as! Int">
@@ -629,7 +637,7 @@
                value = "dic[&quot;text&quot;] as! String">
             </PersistentString>
             <PersistentString
-               value = "dic[&quot;id&quot;] as! Int">
+               value = "dic[&quot;approvedDatetime&quot;] as! String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -674,6 +682,14 @@
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StreamingRadioManager.playActualRadio() -&gt; Bool:StreamingRadioManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio.audioChannels[0].returnLink()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -917,13 +933,13 @@
          contextName = "UserDetailTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:UserDetailTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "actualRadios">
+               value = "actualUser">
             </PersistentString>
             <PersistentString
                value = "detailCell.imageUser">
             </PersistentString>
             <PersistentString
-               value = "actualUser">
+               value = "actualRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1072,10 +1088,10 @@
                value = "cell.imageAttachment.frame">
             </PersistentString>
             <PersistentString
-               value = "image!.size">
+               value = "cell.imageInCell.size.height">
             </PersistentString>
             <PersistentString
-               value = "cell.imageInCell.size.height">
+               value = "image!.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1218,7 +1234,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -1230,10 +1246,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1241,13 +1257,13 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
+            </PersistentString>
+            <PersistentString
                value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
                value = "cell.textDescription.text">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1329,7 +1345,7 @@
          contextName = "RequestManager.(requestHistoricRadios(Int, pageSize : Int, completion : (resultHistoric : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dic[&quot;state&quot;] as! String">
+               value = "dic[&quot;city&quot;] as! String">
             </PersistentString>
             <PersistentString
                value = "dic[&quot;iosStoreLink&quot;]!">
@@ -1359,7 +1375,7 @@
                value = "dic[&quot;iosStoreLinK&quot;]!">
             </PersistentString>
             <PersistentString
-               value = "dic[&quot;city&quot;] as! String">
+               value = "dic[&quot;state&quot;] as! String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1406,6 +1422,17 @@
          <PersistentStrings>
             <PersistentString
                value = "DataManager.sharedInstance.allMusicGenre">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactRadioTableViewController.(fillTableView() -&gt; ()).(closure #4):ContactRadioTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actualRadio">
+            </PersistentString>
+            <PersistentString
+               value = "address.streetNumber">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1522,10 +1549,10 @@
          contextName = "PlayerViewController.toggle() -&gt; ():PlayerViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
+               value = "newRadioToPlay">
             </PersistentString>
             <PersistentString
-               value = "newRadioToPlay">
+               value = "DataManager.sharedInstance.radioInExecution">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1534,6 +1561,14 @@
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestTopLikesRadios(Int, pageSize : Int, completion : (resultTop : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dic[&quot;street&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;state&quot;] as! String">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.(twitterButtonTap(AnyObject) -&gt; ()).(closure #1).(closure #1):ProfileViewController.swift">
@@ -1564,10 +1599,10 @@
          contextName = "RequestManager.(favRadio(Int, completion : (result : [String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
+               value = "json[&quot;error&quot;]">
             </PersistentString>
             <PersistentString
-               value = "json[&quot;error&quot;]">
+               value = "json[&quot;data&quot;][&quot;dateTim&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1665,7 +1700,7 @@
                value = "myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.email">
+               value = "user">
             </PersistentString>
             <PersistentString
                value = "realm.objects(RadioRealm)">
@@ -1680,7 +1715,7 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "user">
+               value = "DataManager.sharedInstance.myUser.email">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1757,13 +1792,13 @@
          contextName = "ProgramsTableViewController.(organizeSchedule() -&gt; ()).(closure #1).(closure #1):ProgramsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.weekDays[dayOfWeekInt-1]">
+               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
                value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
-               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "self.weekDays[dayOfWeekInt-1]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1842,10 +1877,10 @@
                value = "624615893/3144980000.0">
             </PersistentString>
             <PersistentString
-               value = "myUser.birthDate">
+               value = "myUser.birthDate.timeIntervalSinceNow">
             </PersistentString>
             <PersistentString
-               value = "myUser.birthDate.timeIntervalSinceNow">
+               value = "myUser.birthDate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1932,13 +1967,13 @@
                value = "self.link">
             </PersistentString>
             <PersistentString
-               value = "link">
+               value = "response.result">
             </PersistentString>
             <PersistentString
                value = "json[&quot;data&quot;]">
             </PersistentString>
             <PersistentString
-               value = "response.result">
+               value = "link">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -2033,13 +2068,13 @@
          contextName = "EditInfoViewController.(viewDidLoad() -&gt; ()).(closure #2):EditInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.tag">
+               value = "DataManager.sharedInstance.myUser.birthDate">
             </PersistentString>
             <PersistentString
                value = "$0.value">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.myUser.birthDate">
+               value = "$0.tag">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

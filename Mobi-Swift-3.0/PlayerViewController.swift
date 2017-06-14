@@ -75,6 +75,9 @@ class PlayerViewController: UIViewController {
     } else {
       let newHeight = self.view.frame.size.height * 0.45
       contraintsPropFirstView.constant = newHeight
+      self.labelArtist.font = self.labelArtist.font.fontWithSize(13)
+      self.labelMusicName.font = self.labelMusicName.font.fontWithSize(16)
+      self.labelProgramName.font = self.labelProgramName.font.fontWithSize(16)
     }
     
     if !StreamingRadioManager.sharedInstance.actualRadio.isFavorite {
@@ -290,7 +293,7 @@ class PlayerViewController: UIViewController {
       labelWithoutProgram.text = ""
       labelGuests.text = "Convidados"
       labelProgramName.text = "Sem informação de programação"
-      imagePerson.image = UIImage(named: "logo-brancaAbert.png")
+      imagePerson.image = UIImage(named: "logo-pretaAbert.png")
       labelNamePerson.text = "Apresentador"
       labelWithoutProgram.textColor = DataManager.sharedInstance.interfaceColor.color
       imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
@@ -477,7 +480,12 @@ class PlayerViewController: UIViewController {
                 self.gracenote = gracenote
                 gracenote.findMatch("", trackTitle: resultTest.title, albumArtistName: resultTest.artist, trackArtistName: "", composerName: "", completion: { (resultGracenote) in
                   dispatch_async(dispatch_get_main_queue(), {
-                    self.actualMusic = resultGracenote
+                    if resultGracenote.name == "" {
+                      self.actualMusic = Music()
+                    } else {
+                      self.actualMusic = resultGracenote
+                    }
+                    
                     self.actualMusic.updateRadio(StreamingRadioManager.sharedInstance.actualRadio)
                     if self.actualSegmented == .Music {
                       completion(result: gracenote)

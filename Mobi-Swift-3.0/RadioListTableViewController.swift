@@ -74,6 +74,8 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
       cell.labelName.text = radios[indexPath.row].name
       cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
+      cell.imageBig.kf_showIndicatorWhenLoading = true
+      cell.imageBig.kf_indicatorType = .Activity
       cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
       if radios[indexPath.row].isFavorite {
         cell.imageSmallOne.image = UIImage(named: "heartRed.png")

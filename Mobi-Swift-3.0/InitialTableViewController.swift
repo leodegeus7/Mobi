@@ -197,6 +197,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
+        cell.imageBig.kf_showIndicatorWhenLoading = true
+        cell.imageBig.kf_indicatorType = .Activity
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
         cell.widthTextOne.constant = 30
@@ -220,6 +222,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
+        cell.imageBig.kf_showIndicatorWhenLoading = true
+        cell.imageBig.kf_indicatorType = .Activity
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "marker.png")
         if selectedRadioArray[indexPath.row].resetDistanceFromUser() {
@@ -246,6 +250,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
+        cell.imageBig.kf_showIndicatorWhenLoading = true
+        cell.imageBig.kf_indicatorType = .Activity
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
         if (NSDate().timeIntervalSinceDate(selectedRadioArray[indexPath.row].lastAccessDate) > 1) {
@@ -274,6 +280,8 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
+        cell.imageBig.kf_showIndicatorWhenLoading = true
+        cell.imageBig.kf_indicatorType = .Activity
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         if selectedRadioArray[indexPath.row].isFavorite {
           cell.imageSmallOne.image = UIImage(named: "heartRed.png")

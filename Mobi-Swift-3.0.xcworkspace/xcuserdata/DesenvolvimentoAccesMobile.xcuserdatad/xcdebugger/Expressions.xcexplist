@@ -271,6 +271,14 @@
          contextName = "RequestManager.(getStreamingLinksFromRadio(RadioRealm, completion : (result : Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
       </ContextState>
       <ContextState
+         contextName = "PlayerViewController.(requestGracenote((result : GracenoteManager) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1).(closure #1):PlayerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.actualMusic">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "InitialTableViewController.(changeTableViewStatus() -&gt; ()).(closure #1):InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -1210,7 +1218,7 @@
          contextName = "InitialTableViewController.changeTableViewStatus() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "DataManager.sharedInstance.recentsRadios">
+               value = "DataManager.sharedInstance.allRadios">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.topRadios">
@@ -1222,10 +1230,10 @@
                value = "DataManager.sharedInstance.myUser">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.allRadios">
+               value = "DataManager.sharedInstance.favoriteRadios">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.favoriteRadios">
+               value = "DataManager.sharedInstance.recentsRadios">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1233,10 +1241,10 @@
          contextName = "OneTableViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:OneTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "cell.textDescription.text">
+               value = "cell.labelTitle.text">
             </PersistentString>
             <PersistentString
-               value = "cell.labelTitle.text">
+               value = "cell.textDescription.text">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.allNews[indexPath.row].newDescription">
@@ -1321,13 +1329,22 @@
          contextName = "RequestManager.(requestHistoricRadios(Int, pageSize : Int, completion : (resultHistoric : [RadioRealm]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dic[&quot;city&quot;] as! String">
+               value = "dic[&quot;state&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;iosStoreLink&quot;]!">
             </PersistentString>
             <PersistentString
                value = "dic[&quot;image&quot;]![&quot;identifier40&quot;] as! String">
             </PersistentString>
             <PersistentString
                value = "dic[&quot;latitude&quot;] as! Int">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;iosStoreLink&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;iosStoreLink&quot;] as! String">
             </PersistentString>
             <PersistentString
                value = "(dic[&quot;likes&quot;] as! Int)">
@@ -1339,7 +1356,10 @@
                value = "dic[&quot;id&quot;] as! Int">
             </PersistentString>
             <PersistentString
-               value = "dic[&quot;state&quot;] as! String">
+               value = "dic[&quot;iosStoreLinK&quot;]!">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;city&quot;] as! String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1740,10 +1760,10 @@
                value = "self.weekDays[dayOfWeekInt-1]">
             </PersistentString>
             <PersistentString
-               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
             <PersistentString
-               value = "self.schedule[self.weekDays[dayOfWeekInt-1]]">
+               value = " self.schedule[self.weekDays[dayOfWeekInt-1]]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

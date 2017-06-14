@@ -207,7 +207,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     switch selectedMode {
     case .DetailRadio:
@@ -365,20 +365,6 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
               if let _ = number.phoneNumber {
                 if number.phoneType.name == "WhatsApp" {
                   existWhats = true
-                  let contactAuth = CNContactStore.authorizationStatusForEntityType(CNEntityType.Contacts)
-                  switch contactAuth {
-                  case .Authorized:
-                    print("Contatos autorizados")
-                  case .NotDetermined:
-                    contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (succeeded, err) in
-                      guard err == nil && succeeded else {
-                        print("Contatos autorizados")
-                        return
-                      }
-                    })
-                  default:
-                    break
-                  }
                 }
               }
             }
@@ -542,7 +528,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           return cell
         case 2:
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
-          cell.labelTitle.text = "Download \(actualRadio.name)"
+          cell.labelTitle.text = "Baixe o app exclusivo"
           cell.tag = 160
           return cell
         default:
@@ -564,7 +550,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             if actualComments[indexPath.row].user.userImage == "avatar.png" {
               cell.imageUser.image = UIImage(named: "avatar.png")
             } else {
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)), placeholderImage: Image(named:"avatar.png"), optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             }
             cell.identifier = actualComments[indexPath.row].audio
             return cell
@@ -582,10 +568,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             if actualComments[indexPath.row].user.userImage == "avatar.png" {
               cell.imageUser.image = UIImage(named: "avatar.png")
             } else {
-              let userImage = actualComments[indexPath.row].user.userImage
-              let resource = Resource(downloadURL: (NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(userImage)))!)
-              cell.imageUser.kf_setImageWithResource(resource)
-              
+                            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)), placeholderImage: Image(named:"avatar.png"), optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             }
             cell.buttonZoomImage.tag = indexPath.row
             cell.tag = indexPath.row
@@ -643,54 +626,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             
             cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
             return cell
-//          if actualComments[indexPath.row].postType == .Image {
-//            let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
-//            cell.labelName.text = actualComments[indexPath.row].user.name
-//            cell.labelDate.text = Util.getOverdueInterval(actualComments[indexPath.row].date)
-//            cell.textViewWall.text = actualComments[indexPath.row].text
-//            if actualComments[indexPath.row].user.userImage == "avatar.png" {
-//              cell.imageUser.image = UIImage(named: "avatar.png")
-//            } else {
-//              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
-//            }
-//            cell.buttonZoomImage.tag = indexPath.row
-//            cell.tag = indexPath.row
-//            cell.imageAttachment.frame = CGRect(origin: CGPoint(x: cell.imageAttachment.frame.origin.x,y: cell.imageAttachment.frame.origin.y), size: CGSize(width: cell.frame.width, height: 200))
-//            //                        cell.heightImage.constant = 200
-//            //                        cell.widthImage.constant = cell.frame.width
-//            
-//            cell.imageAttachment.backgroundColor = UIColor(colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)
-//            cell.imageAttachment.image = cell.imageInCell
-//            cell.imageAttachment.contentMode = .ScaleAspectFit
-//            if cell.imageInCell.size.height > 5 {
-//              cell.imageAttachment.image = cell.imageInCell
-//              let ratio = (cell.imageInCell.size.height)/(cell.imageInCell.size.width)
-//              cell.imageAttachment.frame = CGRect(x: cell.imageAttachment.frame.origin.x, y: cell.imageAttachment.frame.origin.y, width: cell.frame.width, height: ratio*cell.frame.width)
-//              cell.heightImage.constant = ratio*cell.frame.width
-//            } else {
-//              cell.imageAttachment.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComments[indexPath.row].image)), placeholderImage: nil, optionsInfo: [], progressBlock: { (receivedSize, totalSize) in
-//                
-//                }, completionHandler: { (image, error, cacheType, imageURL) in
-//                  if let _ = error {
-//                    print("Error to reload image in cell \(indexPath.row)")
-//                  } else {
-//                    if cell.tag == indexPath.row {
-//                      let ratio = (image!.size.height)/(image!.size.width)
-//                      let newHeight = ratio*cell.frame.width
-//                      cell.heightImage.constant = newHeight
-//                      cell.setNeedsLayout()
-//                      dispatch_async(dispatch_get_main_queue(), {
-//                        cell.heightImage.constant = ratio*cell.frame.width
-//                        cell.imageAttachment.layoutIfNeeded()
-//                      })
-//                    }
-//                  }
-//              })
-//              
-//            }
-//            
-//            cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
-//            return cell
+
           } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
             cell.labelName.text = actualComments[indexPath.row].user.name
@@ -704,7 +640,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
             if actualComments[indexPath.row].user.userImage == "avatar.png" {
               cell.imageUser.image = UIImage(named: "avatar.png")
             } else {
-              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)))
+              cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComments[indexPath.row].user.userImage)), placeholderImage: Image(named:"avatar.png"), optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             }
             return cell
           }
@@ -805,15 +741,38 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   
   @IBAction func whatsAppButtonTap(sender: AnyObject) {
     
-    
-    var numberWhats = ""
-    for number in contactRadio.phoneNumbers {
-      if number.phoneType.name == "WhatsApp" {
-        numberWhats = number.phoneNumber
+    let contactAuth = CNContactStore.authorizationStatusForEntityType(CNEntityType.Contacts)
+    switch contactAuth {
+    case .Authorized:
+      print("Contatos autorizados")
+      var numberWhats = ""
+      for number in contactRadio.phoneNumbers {
+        if number.phoneType.name == "WhatsApp" {
+          numberWhats = number.phoneNumber
+        }
       }
+      sendWhats(numberWhats)
+    case .NotDetermined:
+      contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (succeeded, err) in
+        guard err == nil && succeeded else {
+          print("Contatos autorizados")
+          var numberWhats = ""
+          for number in self.contactRadio.phoneNumbers {
+            if number.phoneType.name == "WhatsApp" {
+              numberWhats = number.phoneNumber
+            }
+          }
+          self.sendWhats(numberWhats)
+          return
+        }
+        if err != nil {
+          Util.displayAlert(title: "Atenção", message: "Não foi possível acessar seus contatos! Permita este aplicativo nos ajustes do Dispositivo", action: "Ok")
+        }
+      })
+    default:
+      break
     }
-    sendWhats(numberWhats)
-    
+
   }
   
   func sendWhats(number:String) {

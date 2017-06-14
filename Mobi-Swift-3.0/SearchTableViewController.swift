@@ -255,6 +255,7 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
             dispatch_async(dispatch_get_main_queue()) {
               if let imageAd = resultAd.image {
                 let imageView = UIImageView(frame: cell.adsButton.frame)
+
                 imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
                 cell.adsButton.setBackgroundImage(imageView.image, forState: .Normal)
               }
@@ -268,6 +269,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           if let address = searchRadios[indexPath.row-1].address {
             cell.labelLocal.text = address.formattedLocal
           }
+          cell.imageBig.kf_showIndicatorWhenLoading = true
+          cell.imageBig.kf_indicatorType = .Activity
           cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row-1].thumbnail)))
           cell.imageSmallOne.image = UIImage(named: "heart.png")
           cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row-1].likenumber)"
@@ -342,6 +345,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           if searchUsers[indexPath.row].userImage  == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
+            cell.imageUser.kf_showIndicatorWhenLoading = true
+            cell.imageUser.kf_indicatorType = .Activity
             cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
           }
           return cell
@@ -420,6 +425,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           if let address = searchRadios[indexPath.row].address {
             cell.labelLocal.text = address.formattedLocal
           }
+          cell.imageBig.kf_showIndicatorWhenLoading = true
+          cell.imageBig.kf_indicatorType = .Activity
           cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
           cell.imageSmallOne.image = UIImage(named: "heart.png")
           cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
@@ -438,6 +445,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         if let address = searchRadios[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
+        cell.imageBig.kf_showIndicatorWhenLoading = true
+        cell.imageBig.kf_indicatorType = .Activity
         cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchRadios[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "heart.png")
         cell.labelDescriptionOne.text = "\(searchRadios[indexPath.row].likenumber)"
@@ -455,6 +464,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
           if searchUsers[indexPath.row].userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
+            cell.imageUser.kf_showIndicatorWhenLoading = true
+            cell.imageUser.kf_indicatorType = .Activity
             cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
           }
           return cell
@@ -470,6 +481,8 @@ class SearchTableViewController: UITableViewController,UISearchBarDelegate,UISea
         if searchUsers[indexPath.row].userImage == "avatar.png" {
           cell.imageUser.image = UIImage(named: "avatar.png")
         } else {
+          cell.imageUser.kf_showIndicatorWhenLoading = true
+          cell.imageUser.kf_indicatorType = .Activity
           cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(searchUsers[indexPath.row].userImage)))
         }
         return cell

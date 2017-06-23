@@ -586,6 +586,17 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   }
 
   
+  func login() {
+    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
+    
+    authUI?.delegate = self
+    authUI?.providers = [FIRFacebookAuthUI()]
+    let authViewController = authUI?.authViewController()
+    authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    
+    self.presentViewController(authViewController!, animated: false, completion: nil)
+  }
+  
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
     authUI.customStringsBundle = NSBundle.mainBundle()
     
@@ -595,32 +606,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     UIImage(named: "login-1.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
     let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    
     fir2.view.backgroundColor = UIColor(patternImage: image2)
-    //UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
-    
-    
-    
-    
     return fir2
-  }
-  
-  
-  func login() {
-    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
-    //let options = FIRApp.defaultApp()?.options
-    //let clientId = options?.clientID
-    //FIRFacebookAuthUI(appID: kFacebookAppID)
-    
-    authUI?.delegate = self
-    authUI?.providers = [FIRFacebookAuthUI()]
-    //authUI?.signInProviders = [facebookProvider!]
-    let authViewController = authUI?.authViewController()
-    authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    
-    
-    //UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
-    self.presentViewController(authViewController!, animated: false, completion: nil)
   }
   
   func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {

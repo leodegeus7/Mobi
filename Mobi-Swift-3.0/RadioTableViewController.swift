@@ -238,9 +238,9 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
         }
       } else if section == 3 {
         if actualRadio.iosLink != "" {
-          return 3
+          return 4
         } else {
-          return 2
+          return 3
         }
       } else {
         return 1
@@ -528,6 +528,11 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
           return cell
         case 2:
           let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
+          cell.labelTitle.text = "Compartilhar"
+          cell.tag = 170
+          return cell
+        case 3:
+          let cell = tableView.dequeueReusableCellWithIdentifier("flagCell", forIndexPath: indexPath) as! SimpleFlagTableViewCell
           cell.labelTitle.text = "Baixe o app exclusivo"
           cell.tag = 160
           return cell
@@ -706,6 +711,13 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
       performSegueWithIdentifier("programSegue", sender: self)
     case 160:
       UIApplication.sharedApplication().openURL(NSURL(string: actualRadio.iosLink)!)
+    case 170:
+      let message = "Escute a \(actualRadio.name) no MobiAbert. Ainda não tem o app? Então baixe aqui http://onelink.to/mobiabert"
+      let link:NSURL = NSURL(string: "http://onelink.to/mobiabert")!
+      let activityView = UIActivityViewController(activityItems: [message,link], applicationActivities: nil)
+      self.presentViewController(activityView, animated: true, completion: {
+        
+      })
     default:
       break
     }

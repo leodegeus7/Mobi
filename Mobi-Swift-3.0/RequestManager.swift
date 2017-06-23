@@ -289,7 +289,9 @@ class RequestManager: NSObject {
           if let stat = dic["street"]?["district"]??["city"]??["state"]??["name"] as? String {
             state = stat
           }
-          
+          if let acronym = dic["street"]?["district"]??["city"]??["state"]??["acronym"] as? String {
+            city += " - \(acronym)"
+          }
           
           
 
@@ -311,6 +313,7 @@ class RequestManager: NSObject {
   func loginInServer(token:String,completion: (result: String) -> Void) {
     self.requestJson("app/user/authorize?token=\(token)") { (result) in
       if let token = result["data"] as? String {
+        print("Nova token \(token)")
         completion(result: token)
       } else {
         completion(result: "nil")
@@ -1370,6 +1373,12 @@ class RequestManager: NSObject {
             if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
               state = stateAux
             }
+            if let cityAux = resultDic["city"]?["name"].string {
+              city = cityAux
+            }
+            if let stateAux = resultDic["city"]?["state"]["acronym"].string {
+              state = stateAux
+            }
             
             
             if email != "" && id != -1 {
@@ -1488,6 +1497,12 @@ class RequestManager: NSObject {
                         city = cityAux
                       }
                       if let stateAux = resultDic["address"]?["street"]["district"]["city"]["state"]["acronym"].string {
+                        state = stateAux
+                      }
+                      if let cityAux = resultDic["city"]?["name"].string {
+                        city = cityAux
+                      }
+                      if let stateAux = resultDic["city"]?["state"]["acronym"].string {
                         state = stateAux
                       }
                       
@@ -1666,6 +1681,31 @@ class RequestManager: NSObject {
       }
       
     }
+    }
+  }
+  
+
+  
+  func requestAllCitiesInState(idState:Int,completion: (resultCities: [City]) -> Void) {
+    requestJson("address/city?stateId=\(idState)") { (result) in
+      var cities = [City]()
+      if let city = result["data"] as? NSArray {
+        for cityUnique in city {
+        var name = ""
+          var id = -1
+        if let n = cityUnique["name"] as? String {
+          name = n
+        }
+        if let i = cityUnique["id"] as? Int  {
+          id = i
+        }
+          let c = City(name: name, id:id)
+          cities.append(c)
+        }
+        
+        
+      }
+      completion(resultCities: cities)
     }
   }
   

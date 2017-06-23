@@ -66,6 +66,11 @@ struct MusicRadio {
   var music:Music!
 }
 
+struct City {
+  var name:String
+  var id:Int
+}
+
 
 class DataManager: NSObject {
 

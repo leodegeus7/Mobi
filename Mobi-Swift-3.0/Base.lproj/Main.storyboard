@@ -5554,8 +5554,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="iwd-TV-p7R"/>
                                 <exclude reference="mPE-vl-vCt"/>
+                                <exclude reference="iwd-TV-p7R"/>
                             </mask>
                         </variation>
                     </view>
@@ -5929,12 +5929,12 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="FKu-56-QqF"/>
-                                                <exclude reference="QAV-0o-xGp"/>
-                                                <exclude reference="Gx6-gu-xTY"/>
                                                 <exclude reference="svG-rb-pYD"/>
                                                 <exclude reference="y9h-wv-Jo9"/>
                                                 <exclude reference="8c7-eK-amx"/>
+                                                <exclude reference="FKu-56-QqF"/>
+                                                <exclude reference="QAV-0o-xGp"/>
+                                                <exclude reference="Gx6-gu-xTY"/>
                                             </mask>
                                         </variation>
                                     </view>

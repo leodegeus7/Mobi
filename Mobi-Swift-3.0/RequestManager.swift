@@ -2256,10 +2256,12 @@ class RequestManager: NSObject {
             if let type = phone["phone"]??["phoneTypeCustom"] as? String {
               phoneTypeCustom = type
             }
-            let phoneNumber = phone["phone"]!!["phonenumber"] as! String
-            let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
-            let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
-            phoneNumbers.append(phoneNumberObject)
+            
+            if let phoneNumber = phone["phone"]??["phonenumber"] as? String {
+                let phoneType = PhoneType(id: phone["phone"]!!["phoneType"]!!["id"] as! Int, name: phone["phone"]!!["phoneType"]!!["name"] as! String)
+                let phoneNumberObject = PhoneNumber(id: id, phoneTypeCustom: phoneTypeCustom, phoneNumber: phoneNumber , phoneType: phoneType)
+                phoneNumbers.append(phoneNumberObject)
+            }
           }
           dispatch_async(dispatch_get_main_queue(), {
             completion(resultPhones: phoneNumbers)

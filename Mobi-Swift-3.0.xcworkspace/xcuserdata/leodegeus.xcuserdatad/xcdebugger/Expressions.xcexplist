@@ -46,6 +46,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RequestManager.(requestPhonesOfStation(RadioRealm, completion : (resultPhones : [PhoneNumber]) -&gt; ()) -&gt; ()).(closure #1).(closure #1):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "phone as! NSDictionary">
+            </PersistentString>
+            <PersistentString
+               value = "phone[&quot;phone&quot;]!![&quot;phonenumber&quot;]!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "InitialTableViewController.viewDidAppear(Bool) -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -68,13 +79,13 @@
          contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "DataManager.sharedInstance.radioInExecution">
+            </PersistentString>
+            <PersistentString
                value = "RadioPlayer.sharedInstance.currentlyPlaying()">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution == actualRadio">
-            </PersistentString>
-            <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

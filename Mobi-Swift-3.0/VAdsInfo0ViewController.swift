@@ -32,6 +32,10 @@ class VAdsInfo0ViewController: UIViewController {
   func segue() {
     self.performSegueWithIdentifier("show", sender: self)
   }
+  
+  override func viewDidAppear(animated: Bool) {
+            self.navigationController?.setToolbarHidden(true, animated: true)
+  }
 
     /*
     // MARK: - Navigation

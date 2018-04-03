@@ -59,12 +59,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
     DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
-
+    
     let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
     application.registerUserNotificationSettings(settings)
     application.registerForRemoteNotifications()
-
-
+    
+    
     downloadFacebookUpdatedInfo()
     Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
     Fabric.with([Twitter.self])
@@ -91,18 +91,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
           profileManager.requestMyUserInfo({ (result) in
             
           })
-//          user?.getTokenWithCompletion({ (token, erro) in
-//            let loginManager = RequestManager()
-//            loginManager.loginInServer(token!) { (result) in
-//              DataManager.sharedInstance.userToken = result
-//              DataManager.sharedInstance.configApp.updateUserToken(result)
-//              DataManager.sharedInstance.isLogged = true
-//              
-//
-//              
-//              
-//            }
-//          })
+          //          user?.getTokenWithCompletion({ (token, erro) in
+          //            let loginManager = RequestManager()
+          //            loginManager.loginInServer(token!) { (result) in
+          //              DataManager.sharedInstance.userToken = result
+          //              DataManager.sharedInstance.configApp.updateUserToken(result)
+          //              DataManager.sharedInstance.isLogged = true
+          //
+          //
+          //
+          //
+          //            }
+          //          })
         }
       } else {
         DataManager.sharedInstance.isLogged = false
@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       }
     }
     
-    
+    deleteCacheData()
     //uploadProfilePicture(UIImage(named: "play.png")!)
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -220,9 +220,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
           
           
           let notification = UILocalNotification()
-            notification.alertBody = "Durma bem"
-              notification.alertTitle = "Sua rádio foi pausada!"
-            
+          notification.alertBody = "Durma bem"
+          notification.alertTitle = "Sua rádio foi pausada!"
+          
           
           notification.alertAction = "Ok"
           notification.fireDate = NSDate(timeIntervalSinceNow: 1)
@@ -290,8 +290,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         print("Mensagem remota recebida = \(userInfo)")
       }
     }
-
-
+    
+    
   }
   
   static func realmUpdate(realm:Realm) {
@@ -405,7 +405,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     })
   }
   
-  
+  func deleteCacheData() {
+    
+    let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    
+    
+    let directoryUrls = try!  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+    let extensionTypes =  ["m4a","jpeg","jpg","png","avi"]
+    for ext in extensionTypes {
+      let files = directoryUrls.filter{ $0.pathExtension == ext }.map{ $0.path }
+      
+      for file in files {
+        print("Removido item de cache em \(file)")
+        let _ = try? NSFileManager.defaultManager().removeItemAtPath(file!)
+      }
+    }
+    
+  }
   
   
 }

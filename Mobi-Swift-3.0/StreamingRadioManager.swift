@@ -80,8 +80,8 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
   
   func audioPlayer(audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
-    print("Erro ao reproduzir o  stremaing")
-    Util.displayAlert(title: "Erro", message: "Não foi possível iniciar o streamign - ErroCode: \(errorCode)", action: "Ok")
+    print("Erro ao reproduzir o  streaming")
+    Util.displayAlert(title: "Erro", message: "Não foi possível iniciar o streaming - ErroCode: \(errorCode)", action: "Ok")
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, logInfo line: String) {

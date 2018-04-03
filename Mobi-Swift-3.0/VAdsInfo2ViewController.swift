@@ -24,7 +24,7 @@ class VAdsInfo2ViewController: UIViewController, MKMapViewDelegate {
     }
     viewMap.delegate = self
     putMarker()
-      self.title = titleVar
+    self.title = titleVar
     center(initialCoordinate)
     if let _ = local {
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(VAdsInfo2ViewController.goView))

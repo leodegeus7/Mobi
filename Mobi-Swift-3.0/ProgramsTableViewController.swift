@@ -108,7 +108,11 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         cell.labelName.text = actualSchedulePrograms[indexPath.section].name
         cell.labelSecondName.text = ""
         let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
-        cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        if identifierImage == "avatar.png" {
+          cell.imagePerson.image = UIImage(named: "avatar.png")
+        } else {
+          cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        }
         cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
         cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
         cell.imagePerson.layer.borderWidth = 0
@@ -122,7 +126,11 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         
         cell.labelName.text = actualSchedulePrograms[indexPath.section].name
         let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
-        cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        if identifierImage == "avatar.png" {
+          cell.imagePerson.image = UIImage(named: "avatar.png")
+        } else {
+          cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+        }
         cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
         cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
         cell.imagePerson.layer.borderWidth = 0

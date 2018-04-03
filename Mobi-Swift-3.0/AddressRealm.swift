@@ -56,7 +56,6 @@ class AddressRealm: Object  {
     self.zip = zip
     self.lat = lat
     self.long = long
-    self.coordinates = CLLocation(latitude: Double(lat)!, longitude: Double(long)!)
     setFormattedLocalString()
     if verifyInformation() {
       completeAddress = true

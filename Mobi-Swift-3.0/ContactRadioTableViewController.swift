@@ -48,10 +48,16 @@ class ContactRadioTableViewController: FormViewController {
         }
         let contact = ContactRadio(email: email, facebook: face, twitter: twitter, instagram: instagram, phoneNumbers: resultPhones)
         self.contactRadio = contact
-        self.fillTableView()
+        let requestAddress = RequestManager()
+        requestAddress.requestAddressOfStation(self.actualRadio) { (resultAddress) in
+          self.fillTableView()
+        }
+        
       })
       
     }
+    
+
   }
   
   override func didReceiveMemoryWarning() {

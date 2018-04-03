@@ -11,6 +11,10 @@ import Kingfisher
 import MapKit
 
 class VAdsInfoTableViewController: UITableViewController {
+  
+  
+  @IBOutlet weak var buttonInfoUsers: UIBarButtonItem!
+  
   var adClicked = AdsInfo()
   var isFirstTime = true
   var adsInfo = [AdsInfo]()
@@ -22,6 +26,16 @@ class VAdsInfoTableViewController: UITableViewController {
       dispatch_async(dispatch_get_main_queue()) {
         self.adsInfo = result
         self.tableView.reloadData()
+        var count = 0
+        for user in result {
+          if user.lastCoordUpdate != "" {
+            if Util.convertStringToNSDate(user.lastCoordUpdate).timeIntervalSinceDate(NSDate()) > -86400 {
+              count+=1
+            }
+          }
+        }
+        self.buttonInfoUsers.title = "User online in last 24 hours: \(count)"
+        
       }
     }
     
@@ -35,6 +49,10 @@ class VAdsInfoTableViewController: UITableViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    self.navigationController?.setToolbarHidden(false, animated: true)
   }
   
   // MARK: - Table view data source
@@ -75,9 +93,15 @@ class VAdsInfoTableViewController: UITableViewController {
     cell?.nameU.text = "\(adsInfo[indexPath.row].server)  -  \(adsInfo[indexPath.row].name)"
     cell?.firstU.text = "\(adsInfo[indexPath.row].la)"
     cell?.firstU2.text = "\(adsInfo[indexPath.row].lo)"
+    
+    if adsInfo[indexPath.row].image  == "avatar.png" {
+      cell?.imageU.image = UIImage(named: "avatar.png")
+    } else {
+      cell?.imageU.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(adsInfo[indexPath.row].image)))
+    }
     if adsInfo[indexPath.row].lastCoordUpdate != "" {
       cell?.secondU.text = "\(Util.getOverdueInterval(Util.convertStringToNSDate(adsInfo[indexPath.row].lastCoordUpdate)))"
-    // Configure the cell...
+      // Configure the cell...
     } else {
       cell?.secondU.text = "Não compartilhou"
     }
@@ -89,26 +113,12 @@ class VAdsInfoTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if isFirstTime {
-      isFirstTime = false
-      let cell = tableView.cellForRowAtIndexPath(indexPath) as! VAdsInfoTableViewCell
-      adClicked = adsInfo[indexPath.row]
-      cell.imageU.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(adsInfo[indexPath.row].image)))
-    } else {
-      if adsInfo[indexPath.row] == adClicked {
-        isFirstTime = true
-        let request = RequestManager()
-        request.getLocal(adClicked.server, completion: { (result) in
-          self.local = result
-          self.performSegueWithIdentifier("show2", sender: self)
-        })
-        
-      } else {
-        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: true)
-        adClicked = adsInfo[indexPath.row]
-      }
-    }
-    
+    adClicked = adsInfo[indexPath.row]
+    let request = RequestManager()
+    request.getLocal(adClicked.server, completion: { (result) in
+      self.local = result
+      self.performSegueWithIdentifier("show2", sender: self)
+    })
   }
   
   /*

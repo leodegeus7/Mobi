@@ -27,9 +27,10 @@ class RadioRealm: Object {
   dynamic var genre:String!
   dynamic var isFavorite = false
   dynamic var audioChannels = [AudioChannel]()
+  dynamic var iosLink = ""
   
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,lastAccessDate:NSDate,isFavorite:Bool,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,lastAccessDate:NSDate,isFavorite:Bool,iosLink:String,repository:Bool) {
     self.init()
     self.name = name
     self.id = Int(id)!
@@ -40,9 +41,10 @@ class RadioRealm: Object {
     self.isFavorite = isFavorite
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
+    self.iosLink = iosLink
     if(repository) {
       try! DataManager.sharedInstance.realm.write {
-          DataManager.sharedInstance.realm.add(self, update: true)
+        DataManager.sharedInstance.realm.add(self, update: true)
       }
     }
     try! DataManager.sharedInstance.realm.write {
@@ -50,7 +52,7 @@ class RadioRealm: Object {
     }
   }
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,isFavorite:Bool,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,isFavorite:Bool,iosLink:String,repository:Bool) {
     //WithoutDate
     self.init()
     self.name = name
@@ -61,6 +63,7 @@ class RadioRealm: Object {
     self.isFavorite = isFavorite
     let addressVar = AddressRealm(id:id,lat: lat, long: long, country: country, city: city, state: state, street: street, streetNumber: streetNumber, zip: zip,repository: true)
     self.address = addressVar
+    self.iosLink = iosLink
     if(repository) {
       try! DataManager.sharedInstance.realm.write {
         DataManager.sharedInstance.realm.add(self, update: true)
@@ -158,6 +161,14 @@ class RadioRealm: Object {
     if link != "" {
       try! DataManager.sharedInstance.realm.write {
         self.streamingLink = link
+      }
+    }
+  }
+  
+  func updateAddress(address:AddressRealm) {
+    if address.state != "" {
+      try! DataManager.sharedInstance.realm.write {
+        self.address = address
       }
     }
   }

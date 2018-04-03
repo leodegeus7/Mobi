@@ -117,6 +117,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     
+
     let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
     let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
     buttonAdvertisement.backgroundColor = colorWhite
@@ -210,6 +211,29 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       requestManager.requestMyUserInfo { (result) in
         self.myUser = DataManager.sharedInstance.myUser
         self.completeProfileViewInfo()
+        
+        if let _ = DataManager.sharedInstance.myUser.address {
+          if DataManager.sharedInstance.myUser.address.city == "" {
+            Util.displayAlert(title: "Atenção", message: "Olá! Complete seu cadastro. Preencha as informações que faltam para que possamos conhecer você melhor.", okTitle: "Completar", cancelTitle: "Cancelar", okAction: {
+              self.buttonEdit.sendActionsForControlEvents(.TouchUpInside)
+            }) {
+              self.dismissViewControllerAnimated(true, completion: {
+                
+              })
+            }
+          }
+        } else {
+          
+          Util.displayAlert(title: "Atenção", message: "Olá! Complete seu cadastro. Preencha as informações que faltam para que possamos conhecer você melhor.", okTitle: "Completar", cancelTitle: "Cancelar", okAction: {
+            self.buttonEdit.sendActionsForControlEvents(.TouchUpInside)
+          }) {
+            self.dismissViewControllerAnimated(true, completion: {
+              
+            })
+          }
+          
+        }
+        
       }
       
       let requestFollowers = RequestManager()
@@ -516,66 +540,66 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
           if token == "nil" {
             Util.displayAlert(self, title: "Atenção", message: "Não foi possivel logar em sua conta", action: "Ok")
           } else {
-          DataManager.sharedInstance.userToken = result
-          DataManager.sharedInstance.isLogged = true
-          DataManager.sharedInstance.needUpdateMenu = true
-          DataManager.sharedInstance.configApp.updateUserToken(result)
-          let requestManagerUser = RequestManager()
-          requestManagerUser.requestMyUserInfo { (result) in
-            self.myUser = DataManager.sharedInstance.myUser
-            if self.myUser.name == "" {
-              var changesArray = [Dictionary<String,AnyObject>]()
-              var dicPara = Dictionary<String,AnyObject>()
-              dicPara["parameter"] = "name"
-              dicPara["value"] = user?.displayName
-              changesArray.append(dicPara)
-              let editManager = RequestManager()
-              editManager.updateUserInfo(changesArray) { (result) in
-                requestManagerUser.requestMyUserInfo { (result) in
-                  self.myUser = DataManager.sharedInstance.myUser
-                  self.completeProfileViewInfo()
-                  self.buttonLogin.setTitle("Logout", forState: .Normal)
-                  self.viewLoading.hidden = true
-                  
-                  let requestFollowers = RequestManager()
-                  requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
-                    if resultNumberFollowers >= 0 {
-                      self.existFollowers = true
+            DataManager.sharedInstance.userToken = result
+            DataManager.sharedInstance.isLogged = true
+            DataManager.sharedInstance.needUpdateMenu = true
+            DataManager.sharedInstance.configApp.updateUserToken(result)
+            let requestManagerUser = RequestManager()
+            requestManagerUser.requestMyUserInfo { (result) in
+              self.myUser = DataManager.sharedInstance.myUser
+              if self.myUser.name == "" {
+                var changesArray = [Dictionary<String,AnyObject>]()
+                var dicPara = Dictionary<String,AnyObject>()
+                dicPara["parameter"] = "name"
+                dicPara["value"] = user?.displayName
+                changesArray.append(dicPara)
+                let editManager = RequestManager()
+                editManager.updateUserInfo(changesArray) { (result) in
+                  requestManagerUser.requestMyUserInfo { (result) in
+                    self.myUser = DataManager.sharedInstance.myUser
+                    self.completeProfileViewInfo()
+                    self.buttonLogin.setTitle("Logout", forState: .Normal)
+                    self.viewLoading.hidden = true
+                    
+                    let requestFollowers = RequestManager()
+                    requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                      if resultNumberFollowers >= 0 {
+                        self.existFollowers = true
+                      }
+                      self.labelFollowers.text = "\(resultNumberFollowers)"
                     }
-                    self.labelFollowers.text = "\(resultNumberFollowers)"
-                  }
-                  let requestFollowing = RequestManager()
-                  requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
-                    if resultNumberFollowing >= 0 {
-                      self.existFollowing = true
+                    let requestFollowing = RequestManager()
+                    requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                      if resultNumberFollowing >= 0 {
+                        self.existFollowing = true
+                      }
+                      
+                      self.labelFollowing.text = "\(resultNumberFollowing)"
                     }
                     
-                    self.labelFollowing.text = "\(resultNumberFollowing)"
+                  }
+                }
+              } else {
+                self.completeProfileViewInfo()
+                self.buttonLogin.setTitle("Logout", forState: .Normal)
+                self.viewLoading.hidden = true
+                
+                let requestFollowers = RequestManager()
+                requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                  if resultNumberFollowers > 0 {
+                    self.existFollowers = true
                   }
                   
+                  self.labelFollowers.text = "\(resultNumberFollowers)"
+                }
+                let requestFollowing = RequestManager()
+                requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                  if resultNumberFollowing > 0 {
+                    self.existFollowing = true
+                  }
+                  self.labelFollowing.text = "\(resultNumberFollowing)"
                 }
               }
-            } else {
-              self.completeProfileViewInfo()
-              self.buttonLogin.setTitle("Logout", forState: .Normal)
-              self.viewLoading.hidden = true
-              
-              let requestFollowers = RequestManager()
-              requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
-                if resultNumberFollowers > 0 {
-                  self.existFollowers = true
-                }
-                
-                self.labelFollowers.text = "\(resultNumberFollowers)"
-              }
-              let requestFollowing = RequestManager()
-              requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
-                if resultNumberFollowing > 0 {
-                  self.existFollowing = true
-                }
-                self.labelFollowing.text = "\(resultNumberFollowing)"
-              }
-            }
             }
           }
         })
@@ -584,7 +608,18 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
       
     }
   }
-
+  
+  
+  func login() {
+    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
+    
+    authUI?.delegate = self
+    authUI?.providers = [FIRFacebookAuthUI()]
+    let authViewController = authUI?.authViewController()
+    authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+    
+    self.presentViewController(authViewController!, animated: false, completion: nil)
+  }
   
   func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
     authUI.customStringsBundle = NSBundle.mainBundle()
@@ -595,32 +630,8 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     UIImage(named: "login-1.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
     let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    
     fir2.view.backgroundColor = UIColor(patternImage: image2)
-    //UIColor(gradientStyle: .TopToBottom, withFrame: iphoneFrame, andColors: [colorRose,colorBlue])
-    
-    
-    
-    
     return fir2
-  }
-  
-  
-  func login() {
-    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
-    //let options = FIRApp.defaultApp()?.options
-    //let clientId = options?.clientID
-    //FIRFacebookAuthUI(appID: kFacebookAppID)
-    
-    authUI?.delegate = self
-    authUI?.providers = [FIRFacebookAuthUI()]
-    //authUI?.signInProviders = [facebookProvider!]
-    let authViewController = authUI?.authViewController()
-    authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    
-    
-    //UINavigationBar.appearance().backgroundColor = UIColor.flatBlackColor()
-    self.presentViewController(authViewController!, animated: false, completion: nil)
   }
   
   func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {

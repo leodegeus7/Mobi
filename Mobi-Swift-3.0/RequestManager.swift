@@ -192,7 +192,7 @@ class RequestManager: NSObject {
     existData = false
     let emptyDic:NSDictionary = ["":""]
     Alamofire.request(.GET, "\(DataManager.sharedInstance.baseURL)\(link)", headers: headers).responseJSON { (response) in
-      
+      print("t")
       switch response.result {
       case .Success:
         if let value = response.result.value {
@@ -244,7 +244,7 @@ class RequestManager: NSObject {
           dic["data"] = emptyDic
           completion(result: dic)
         }
-      case .Failure( _):
+      case .Failure( let error):
         self.resultText = .ErrorInAccessToURL
         var dic = Dictionary<String,AnyObject>()
         dic["requestResult"] = "\(self.resultText)"
@@ -1726,20 +1726,31 @@ class RequestManager: NSObject {
               active = true
             }
             let week = DataManager.ProgramDays(isSunday: programDic["day0"] as! Bool, isMonday: programDic["day1"] as! Bool, isTuesday: programDic["day2"] as! Bool, isWednesday: programDic["day3"] as! Bool, isThursday: programDic["day4"] as! Bool, isFriday: programDic["day5"] as! Bool, isSaturday: programDic["day6"] as! Bool)
-            let idUser = programDic["announcer"]!["id"] as! Int
-            let emailUser = programDic["announcer"]!["email"] as! String
-            let nameUser = programDic["announcer"]!["name"] as! String
-            var user = UserRealm()
-            if let image = programDic["announcer"]?["image"] as? NSDictionary {
-              let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
-              user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: imageIdentifier)
+
+            
+            if let annoucer = programDic["announcer"] as? NSNull {
+                let user = UserRealm(id: "", email: "", name: "", image: ImageObject())
+                let programClass = Program(id: id, name: name, announcer: user, timeStart: timeStart, timeEnd: timeEnd, days: week, active: active)
+                programsArray.append(programClass)
+
             } else {
-              user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: ImageObject())
+                let idUser = programDic["announcer"]!["id"] as! Int
+                let emailUser = programDic["announcer"]!["email"] as! String
+                let nameUser = programDic["announcer"]!["name"] as! String
+                var user = UserRealm()
+                if let image = programDic["announcer"]?["image"] as? NSDictionary {
+                    let imageIdentifier = ImageObject(id:image["id"] as! Int,identifier100: image["identifier100"] as! String, identifier80: image["identifier80"] as! String, identifier60: image["identifier60"] as! String, identifier40: image["identifier40"] as! String, identifier20: image["identifier20"] as! String)
+                    user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: imageIdentifier)
+                } else {
+                    user = UserRealm(id: "\(idUser)", email: emailUser, name: nameUser, image: ImageObject())
+                }
+                let programClass = Program(id: id, name: name, announcer: user, timeStart: timeStart, timeEnd: timeEnd, days: week, active: active)
+                programsArray.append(programClass)
+                
+                
             }
             
-            
-            let programClass = Program(id: id, name: name, announcer: user, timeStart: timeStart, timeEnd: timeEnd, days: week, active: active)
-            programsArray.append(programClass)
+
           }
         }
       }

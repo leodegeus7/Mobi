@@ -18,6 +18,18 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   var actualRadio = RadioRealm()
   internal var predecessorRadio = RadioRealm()
   var notificationCenter = NSNotificationCenter.defaultCenter()
+    
+    enum Mode {
+        case M3U8
+        case Normal
+        case Unknown
+    }
+    
+    var mode:Mode = .Unknown
+    
+    //M3U8
+    var audioPlayerAux = AVPlayer()
+    
   
   class var sharedInstance: StreamingRadioManager {
     struct Static {
@@ -53,6 +65,10 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     audioPlayer.meteringEnabled = true
     audioPlayer.volume = 1
     audioPlayer.delegate = self
+    
+    audioPlayerAux.volume = 1
+    
+    
   }
   
   func audioPlayer(audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
@@ -91,14 +107,42 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   func stop() {
-    audioPlayer.stop()
+    if mode == .M3U8 {
+        audioPlayerAux.pause()
+    } else if mode == .Normal {
+        audioPlayer.stop()
+    }
     isPlaying = false
   }
   
   func play(radio:RadioRealm) {
     predecessorRadio = actualRadio
     actualRadio = radio
-    audioPlayer.play(actualRadio.audioChannels[0].returnLink())
+    
+    
+    
+    let link = actualRadio.audioChannels[0].returnLink()
+    
+    
+    if (testIfLinkIsM3U8(link)) {
+        if isPlaying && mode == .Normal {
+            audioPlayer.pause()
+        }
+        
+        mode = .M3U8
+
+        let url = NSURL(string: link)!
+        audioPlayerAux = AVPlayer(URL: url)
+        audioPlayerAux.play()
+    } else {
+        
+        if isPlaying && mode == .M3U8 {
+            audioPlayerAux.pause()
+        }
+        
+        mode = .Normal
+        audioPlayer.play(link)
+    }
     
     defineInfoCenter()
     isPlaying = true
@@ -106,12 +150,47 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     historicManager.markRadioHistoric(radio) { (resultFav) in
     }
   }
+    
+    func testIfLinkIsM3U8(link:String) -> Bool {
+        let components = link.componentsSeparatedByString(".")
+        if components.count > 1 {
+            let last = components.last
+            print(components.last)
+            if last == "m3u8" {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
   
   func playWithLink(radio:RadioRealm,link:String) {
     
     
     defineInfoCenter()
-    audioPlayer.play(link)
+    
+    if (testIfLinkIsM3U8(link)) {
+        if isPlaying && mode == .Normal {
+            audioPlayer.pause()
+        }
+        
+        mode = .M3U8
+        
+        let url = NSURL(string: link)!
+        audioPlayerAux = AVPlayer(URL: url)
+        audioPlayerAux.play()
+    } else {
+        
+        if isPlaying && mode == .M3U8 {
+            audioPlayerAux.pause()
+        }
+        
+        mode = .Normal
+        audioPlayer.play(link)
+    }
+
     
     isPlaying = true
     let historicManager = RequestManager()
@@ -121,7 +200,28 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
   func playActualRadio() -> Bool {
     if actualRadio.name != "" {
-      audioPlayer.play(actualRadio.audioChannels[0].returnLink())
+        let link = actualRadio.audioChannels[0].returnLink()
+        if (testIfLinkIsM3U8(link)) {
+            if isPlaying && mode == .Normal {
+                audioPlayer.pause()
+            }
+            
+            mode = .M3U8
+            
+            let url = NSURL(string: link)!
+            audioPlayerAux = AVPlayer(URL: url)
+            audioPlayerAux.play()
+        } else {
+            
+            if isPlaying && mode == .M3U8 {
+                audioPlayerAux.pause()
+            }
+            
+            mode = .Normal
+            audioPlayer.play(link)
+        }
+
+
       isPlaying = true
       let historicManager = RequestManager()
       historicManager.markRadioHistoric(actualRadio) { (resultFav) in

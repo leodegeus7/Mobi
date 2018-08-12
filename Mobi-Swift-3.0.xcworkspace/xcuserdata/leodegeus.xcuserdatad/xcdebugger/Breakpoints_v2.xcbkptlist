@@ -9,29 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/InitialTableViewController.swift"
-            timestampString = "550811702.069536"
+            filePath = "Mobi-Swift-3.0/StreamingRadioManager.swift"
+            timestampString = "555736210.546527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
-            landmarkName = "changeTableViewStatus()"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "play(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mobi-Swift-3.0/RequestManager.swift"
-            timestampString = "550811718.670115"
+            filePath = "Mobi-Swift-3.0/StreamingRadioManager.swift"
+            timestampString = "555736210.546527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "requestJson(_:completion:)"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "testIfLinkIsM3U8(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

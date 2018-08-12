@@ -85,13 +85,14 @@ PODS:
   - Kingfisher (2.6.1)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
-    - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
-    - MWFeedParser/NSString+HTML (= 1.0.1)
+    - "MWFeedParser/NSDate+InternetDateTime (= 1.0.1)"
+    - "MWFeedParser/NSString+HTML (= 1.0.1)"
   - MWFeedParser/FeedParser (1.0.1):
-    - MWFeedParser/NSDate+InternetDateTime
-    - MWFeedParser/NSString+HTML
-  - MWFeedParser/NSDate+InternetDateTime (1.0.1)
-  - MWFeedParser/NSString+HTML (1.0.1)
+    - "MWFeedParser/NSDate+InternetDateTime"
+    - "MWFeedParser/NSString+HTML"
+  - "MWFeedParser/NSDate+InternetDateTime (1.0.1)"
+  - "MWFeedParser/NSString+HTML (1.0.1)"
+  - Pantomime (0.1.3)
   - PocketSVG (2.0.0)
   - PullToRefresh (0.0.1)
   - Realm (2.0.3):
@@ -125,6 +126,7 @@ DEPENDENCIES:
   - ImageViewer (~> 2.0)
   - Kingfisher (~> 2.5)
   - MWFeedParser
+  - Pantomime
   - PocketSVG
   - PullToRefresh
   - RealmSwift
@@ -132,6 +134,44 @@ DEPENDENCIES:
   - SwiftyJSON
   - TwitterCore
   - TwitterKit
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - ARNTransitionAnimator
+    - Bolts
+    - ChameleonFramework
+    - Cosmos
+    - Eureka
+    - Fabric
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCrash
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FirebaseUI
+    - GoogleInterchangeUtilities
+    - GoogleIPhoneUtilities
+    - GoogleNetworkingUtilities
+    - GoogleParsingUtilities
+    - GoogleSymbolUtilities
+    - GoogleUtilities
+    - ImageViewer
+    - Kingfisher
+    - MWFeedParser
+    - Pantomime
+    - PocketSVG
+    - PullToRefresh
+    - Realm
+    - RealmSwift
+    - SideMenu
+    - SwiftyJSON
+    - TwitterCore
+    - TwitterKit
 
 SPEC CHECKSUMS:
   Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
@@ -146,7 +186,7 @@ SPEC CHECKSUMS:
   Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
   FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
-  FirebaseCrash: 2efeb3715b76ac843b841529ce413efb67e5fd4d
+  FirebaseCrash: 6da801151873302587122163393c99e57d1fd2fc
   FirebaseDatabase: 59bea2e7dfd81b3b8b2f8e396caf1a52c2ced6f7
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   FirebaseMessaging: 6bc7cd2ecb875c1a9c0f8b94956398aa3145bbb8
@@ -160,6 +200,7 @@ SPEC CHECKSUMS:
   ImageViewer: c09d86c780c8dd45d00d2a95bcf11e1ca8c4935f
   Kingfisher: 7e5515bf6c4f2acad91f6400955d2257549cab7b
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
+  Pantomime: 54370f70443f04fe07a3a333966f00c895fb87ab
   PocketSVG: 5924c20ec9220fe1717087e56c3d5da27ca76863
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
@@ -169,6 +210,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: 36c1e7d1b60ca5a721ff990ce0a47bc024cc6eb4
+PODFILE CHECKSUM: c0fd29774227721ec0f2e8139e443c5be6426066
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.5.0

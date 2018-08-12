@@ -28,6 +28,7 @@ pod ‘FirebaseUI/Twitter‘
 pod 'Firebase/Messaging'
 pod ‘Firebase/Crash’
 pod ‘PocketSVG‘
+pod 'Pantomime'
 end 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

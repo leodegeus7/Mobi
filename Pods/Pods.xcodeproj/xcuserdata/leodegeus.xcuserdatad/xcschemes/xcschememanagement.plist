@@ -59,11 +59,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pantomime.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PocketSVG.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,17 +102,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1FD1B0EF188CADC04660AFB4D795A271</key>
+		<key>10EC2BD4FAA07C8A1307457067B264C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>22C7767732F14CFD4B870E45CA20BB62</key>
+		<key>1202333085C27A8952BD6159D0A2233E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>25090F2104BC59837F9CF3B62527C2A1</key>
+		<key>1A9FF168E1C4CB85DDD5F071D9D08E80</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EF256B4A942E96CCEC2299E394F3B0E</key>
+		<key>4AFFD492EFB503135E9558F5238A31B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>638FA9E1FCDA1D14683EF0916EF43F57</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>69BBE0E72E6C9B2884C09D6A685C39E3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6E2345EB96E8048219BD454D3A35A5B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,7 +152,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99EFE0DB849E3A69E57D710D7BA9024F</key>
+		<key>9E878A7B12DC371E9B9F728A92FBBDA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,17 +182,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6DB79C5AE374B8060BEA489D6FB8779</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>D98986199D4F04C546E0E25C7DC731EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E9FFD127902E99EF11B39CF6AB13D9C8</key>
+		<key>DE173E30E637C274C3895AEB405ABA3E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

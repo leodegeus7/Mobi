@@ -20,7 +20,7 @@ pod 'Kingfisher', '~> 2.5’
 pod 'FirebaseUI/Auth'
 pod 'FirebaseUI/Database’
 pod 'FirebaseUI/Facebook’
-pod 'Eureka'
+pod 'Eureka', '~> 1.7.0’
 pod 'Cosmos', '~> 1.2’
 pod 'ImageViewer’, '~> 2.0’
 pod ‘MWFeedParser’
@@ -28,7 +28,6 @@ pod ‘FirebaseUI/Twitter‘
 pod 'Firebase/Messaging'
 pod ‘Firebase/Crash’
 pod ‘PocketSVG‘
-pod 'Pantomime'
 end 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

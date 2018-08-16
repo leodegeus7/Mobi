@@ -92,7 +92,6 @@ PODS:
     - "MWFeedParser/NSString+HTML"
   - "MWFeedParser/NSDate+InternetDateTime (1.0.1)"
   - "MWFeedParser/NSString+HTML (1.0.1)"
-  - Pantomime (0.1.3)
   - PocketSVG (2.0.0)
   - PullToRefresh (0.0.1)
   - Realm (2.0.3):
@@ -112,7 +111,7 @@ DEPENDENCIES:
   - ARNTransitionAnimator
   - ChameleonFramework/Swift
   - Cosmos (~> 1.2)
-  - Eureka
+  - Eureka (~> 1.7.0)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -126,7 +125,6 @@ DEPENDENCIES:
   - ImageViewer (~> 2.0)
   - Kingfisher (~> 2.5)
   - MWFeedParser
-  - Pantomime
   - PocketSVG
   - PullToRefresh
   - RealmSwift
@@ -163,7 +161,6 @@ SPEC REPOS:
     - ImageViewer
     - Kingfisher
     - MWFeedParser
-    - Pantomime
     - PocketSVG
     - PullToRefresh
     - Realm
@@ -200,7 +197,6 @@ SPEC CHECKSUMS:
   ImageViewer: c09d86c780c8dd45d00d2a95bcf11e1ca8c4935f
   Kingfisher: 7e5515bf6c4f2acad91f6400955d2257549cab7b
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
-  Pantomime: 54370f70443f04fe07a3a333966f00c895fb87ab
   PocketSVG: 5924c20ec9220fe1717087e56c3d5da27ca76863
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
@@ -210,6 +206,6 @@ SPEC CHECKSUMS:
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-PODFILE CHECKSUM: c0fd29774227721ec0f2e8139e443c5be6426066
+PODFILE CHECKSUM: 08f08677869993e13442c9c6b289e7b1fd1d5221
 
 COCOAPODS: 1.5.0

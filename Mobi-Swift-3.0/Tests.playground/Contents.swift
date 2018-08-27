@@ -3,6 +3,6 @@
 import UIKit
 
 
-let dateFormatter = NSDateFormatter()
+let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000'Z"
-let now = dateFormatter.stringFromDate(NSDate())
+let now = dateFormatter.string(from: Date())

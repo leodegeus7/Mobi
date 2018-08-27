@@ -18,7 +18,7 @@ class Music: Object {
   dynamic var isPositive = false
   dynamic var isNegative = false
   dynamic var coverArt:String!
-  dynamic var timeWasDiscovered:NSDate!
+  dynamic var timeWasDiscovered:Date!
   dynamic var imageCover:UIImage!
   
   convenience init(id:String,name:String,albumName:String,composer:String,coverArt:String) {
@@ -28,7 +28,7 @@ class Music: Object {
     self.albumName = albumName
     self.composer = composer
     self.coverArt = coverArt
-    self.timeWasDiscovered = NSDate()
+    self.timeWasDiscovered = Date()
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
     }
@@ -56,17 +56,17 @@ class Music: Object {
   
   func updateDate() {
     try! DataManager.sharedInstance.realm.write {
-      self.timeWasDiscovered = NSDate()
+      self.timeWasDiscovered = Date()
     }
   }
   
-  func updateImage(image:UIImage) {
+  func updateImage(_ image:UIImage) {
     try! DataManager.sharedInstance.realm.write {
       self.imageCover = image
     }
   }
   
-  func updateRadio(radio:RadioRealm) {
+  func updateRadio(_ radio:RadioRealm) {
     try! DataManager.sharedInstance.realm.write {
       self.respectiveRadio = radio
     }

@@ -11,11 +11,11 @@ import UIKit
 class Review: NSObject {
   var id = -1
   var score = -1
-  var date = NSDate()
+  var date = Date()
   var text = ""
   var user = UserRealm()
   var radio = RadioRealm()
-  init(id:Int,date:NSDate,user:UserRealm,text:String,score:Int,radio:RadioRealm) {
+  init(id:Int,date:Date,user:UserRealm,text:String,score:Int,radio:RadioRealm) {
     super.init()
     self.id = id
     self.date = date

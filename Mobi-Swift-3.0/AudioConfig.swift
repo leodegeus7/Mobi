@@ -15,7 +15,7 @@ class AudioConfig: Object {
   dynamic var medio = 0
   dynamic var agudo = 0
   dynamic var audioType = 0
-  var streamingQuality:StremingQuality = .Undefined
+  var streamingQuality:StremingQuality = .undefined
   
   convenience init(id:String,grave: Int,medio: Int, agudo: Int, audioType:Int) {
     self.init()
@@ -34,37 +34,37 @@ class AudioConfig: Object {
     return "id"
   }
   
-  func setGraveParameter(grave: Int) {
+  func setGraveParameter(_ grave: Int) {
     try! DataManager.sharedInstance.realm.write {
       self.grave = grave
     }
     
   }
   
-  func setAgudoParameter(agudo: Int) {
+  func setAgudoParameter(_ agudo: Int) {
     try! DataManager.sharedInstance.realm.write {
       self.agudo = agudo
     }
     
   }
   
-  func setMedioParameter(medio: Int) {
+  func setMedioParameter(_ medio: Int) {
     try! DataManager.sharedInstance.realm.write {
       self.medio = medio
     }
     
   }
   
-  func setAudioTypeQuality(audioType: Int) {
+  func setAudioTypeQuality(_ audioType: Int) {
     switch audioType {
     case 0:
-      streamingQuality = .Automatic
+      streamingQuality = .automatic
     case 1:
-      streamingQuality = .Low
+      streamingQuality = .low
     case 2:
-      streamingQuality = .High
+      streamingQuality = .high
     default:
-      streamingQuality = .Undefined
+      streamingQuality = .undefined
     }
     try! DataManager.sharedInstance.realm.write {
       self.audioType = audioType

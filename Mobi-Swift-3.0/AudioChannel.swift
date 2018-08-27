@@ -23,7 +23,7 @@ class AudioChannel: NSObject {
     self.id = id
     self.desc = desc
     if linkRds != ""{
-      self.linkRds = Link(link: linkRds, linkType: .Rds)
+      self.linkRds = Link(link: linkRds, linkType: .rds)
       self.existRdsLink = true
     }
     self.streamings = streamings
@@ -33,22 +33,22 @@ class AudioChannel: NSObject {
     return returnLink(0)
   }
   
-  func returnLink(number:Int) -> String {
+  func returnLink(_ number:Int) -> String {
     if number <= streamings.count-1 {
       switch  DataManager.sharedInstance.audioConfig.streamingQuality  {
-      case .Low:
+      case .low:
         if streamings[number].existLowLink {
           return streamings[number].linkLow.link
         } else {
           return streamings[number].linkHigh.link
         }
-      case .High:
+      case .high:
         if streamings[number].existHighLink {
           return streamings[number].linkHigh.link
         } else if streamings[number].existLowLink {
           return streamings[number].linkLow.link
         }
-      case .Automatic:
+      case .automatic:
         if streamings[number].existHighLink {
           return streamings[number].linkHigh.link
         } else if streamings[number].existLowLink {

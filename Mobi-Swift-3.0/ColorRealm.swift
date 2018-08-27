@@ -38,11 +38,11 @@ class ColorRealm: Object {
     self.init()
     self.name = name
     self.color = color
-    let components = CGColorGetComponents(color.CGColor)
-    self.red = components[0]
-    self.green = components[1]
-    self.blue = components[2]
-    self.alpha = CGColorGetAlpha(color.CGColor)
+    let components = color.cgColor.components
+    self.red = (components?[0])!
+    self.green = (components?[1])!
+    self.blue = (components?[2])!
+    self.alpha = color.cgColor.alpha
     try! DataManager.sharedInstance.realm.write {
       DataManager.sharedInstance.realm.add(self, update: true)
     }

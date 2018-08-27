@@ -118,6 +118,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nós precisamos de sua localização para assim localizar rádios proximas!</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Nós precisamos acessar seus contatos</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -125,6 +127,8 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Nós precisamos acesso a sua galeria de fotos.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

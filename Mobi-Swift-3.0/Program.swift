@@ -27,16 +27,16 @@ class Program: NSObject {
     
     
     let timeStartDate = Util.convertStringToNSDate(timeStart)
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = .NoStyle
-    formatter.timeStyle = .ShortStyle
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = .short
     
-    let compo = NSCalendar.currentCalendar().components([.Hour,.Minute], fromDate: timeStartDate)
+    let compo = (Calendar.current as NSCalendar).components([.hour,.minute], from: timeStartDate)
     let hour = compo.hour
-    let minut:Float = Float(compo.minute)/60.0
-    sortVar = Float(hour) + minut
+    let minut:Float = Float(compo.minute!)/60.0
+    sortVar = Float(hour!) + minut
     
-    self.timeStart = formatter.stringFromDate(timeStartDate)
+    self.timeStart = formatter.string(from: timeStartDate)
     self.timeEnd = timeEnd
     self.days = days
     self.active = active

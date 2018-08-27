@@ -10,7 +10,7 @@ import UIKit
 
 class Link: NSObject {
   var link :String!
-  var linkType = StreamingLinkType.Undefined
+  var linkType = StreamingLinkType.undefined
   
   convenience init(link:String,linkType:StreamingLinkType) {
     self.init()

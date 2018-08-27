@@ -20,7 +20,7 @@ class RadioRealm: Object {
 
   dynamic var streamingLink = ""
   dynamic var typeOfStreaming = ""
-  dynamic var lastAccessDate = NSDate()
+  dynamic var lastAccessDate = Date()
   dynamic var lastAccessString = ""
   dynamic var address:AddressRealm!
   dynamic var score = -1
@@ -30,7 +30,7 @@ class RadioRealm: Object {
   dynamic var iosLink = ""
   
   
-  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,lastAccessDate:NSDate,isFavorite:Bool,iosLink:String,repository:Bool) {
+  convenience init(id:String,name:String,country:String,city:String,state:String,street:String,streetNumber:String,zip:String,lat:String,long:String,thumbnail:ImageObject,likenumber:String,genre:String,lastAccessDate:Date,isFavorite:Bool,iosLink:String,repository:Bool) {
     self.init()
     self.name = name
     self.id = Int(id)!
@@ -118,20 +118,20 @@ class RadioRealm: Object {
     return "id"
   }
   
-  func setThumbnailImage(image:String) {
+  func setThumbnailImage(_ image:String) {
     try! DataManager.sharedInstance.realm.write {
         self.thumbnail = image
     }
   }
   
-  func setRadioGenre(genre:String) {
+  func setRadioGenre(_ genre:String) {
     try! DataManager.sharedInstance.realm.write {
       self.genre = genre
     }
   }
   
-  static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
-    let distanceMeters = source.distanceFromLocation(destination)
+  static func distanceBetweenTwoLocationsMeters(_ source:CLLocation,destination:CLLocation) -> Int{
+    let distanceMeters = source.distance(from: destination)
     return Int(distanceMeters)
   }
   
@@ -157,7 +157,7 @@ class RadioRealm: Object {
     //}
   }
   
-  func updateStremingLink(link:String) {
+  func updateStremingLink(_ link:String) {
     if link != "" {
       try! DataManager.sharedInstance.realm.write {
         self.streamingLink = link
@@ -165,7 +165,7 @@ class RadioRealm: Object {
     }
   }
   
-  func updateAddress(address:AddressRealm) {
+  func updateAddress(_ address:AddressRealm) {
     if address.state != "" {
       try! DataManager.sharedInstance.realm.write {
         self.address = address
@@ -173,11 +173,11 @@ class RadioRealm: Object {
     }
   }
   
-  func updateAudioChannels(audioChannels:[AudioChannel]) {
+  func updateAudioChannels(_ audioChannels:[AudioChannel]) {
         self.audioChannels = audioChannels
   }
   
-  func updateIsFavorite(fav:Bool) {
+  func updateIsFavorite(_ fav:Bool) {
       try! DataManager.sharedInstance.realm.write {
         self.isFavorite = fav
     }
@@ -195,7 +195,7 @@ class RadioRealm: Object {
     }
   }
   
-  func updateScore(score:Int) {
+  func updateScore(_ score:Int) {
     try! DataManager.sharedInstance.realm.write {
       self.score = score
     }

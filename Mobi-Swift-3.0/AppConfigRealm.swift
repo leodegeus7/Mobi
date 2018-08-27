@@ -22,13 +22,13 @@ class AppConfigRealm: Object {
     }
   }
   
-  func updatecoordColorConfig(coord:Int) {
+  func updatecoordColorConfig(_ coord:Int) {
     try! DataManager.sharedInstance.realm.write {
       self.coordColorConfig = coord
     }
   }
   
-  func updateUserToken(userToken:String) {
+  func updateUserToken(_ userToken:String) {
     try! DataManager.sharedInstance.realm.write {
       self.userToken = userToken
     }

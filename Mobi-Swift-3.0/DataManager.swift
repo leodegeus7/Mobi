@@ -16,49 +16,49 @@ import AVFoundation
 
 
 enum NSComparisonResult : Int {
-  case OrderedAscending
-  case OrderedSame
-  case OrderedDescending
+  case orderedAscending
+  case orderedSame
+  case orderedDescending
 }
 
 enum SearchMode {
-  case All
-  case Radios
-  case Genre
-  case Local
-  case States
-  case Cities
-  case Users
+  case all
+  case radios
+  case genre
+  case local
+  case states
+  case cities
+  case users
 }
 
 enum PostType : Int {
-  case Text = 0
-  case Image = 1
-  case Audio = 2
-  case Video = 3
-  case Undefined = -1
+  case text = 0
+  case image = 1
+  case audio = 2
+  case video = 3
+  case undefined = -1
 }
 
 enum StreamingLinkType : Int {
-  case Low = 0
-  case High = 1
-  case Rds = 2
-  case Undefined = -1
-  case Audio = 3
+  case low = 0
+  case high = 1
+  case rds = 2
+  case undefined = -1
+  case audio = 3
 }
 
 enum StremingQuality : Int {
-  case Automatic = 0
-  case Low = 1
-  case High = 2
-  case Undefined = 3
+  case automatic = 0
+  case low = 1
+  case high = 2
+  case undefined = 3
 }
 
 enum StatusApp : Int {
-  case CorrectyStatus = 0
-  case ProblemWithRealm = 1
-  case ProblemWithServer = 2
-  case ProblemWithInternet = 3
+  case correctyStatus = 0
+  case problemWithRealm = 1
+  case problemWithServer = 2
+  case problemWithInternet = 3
 }
 
 struct MusicRadio {
@@ -74,13 +74,15 @@ struct City {
 
 class DataManager: NSObject {
 
+static let sharedInstance = DataManager()
+
   var configApp:AppConfigRealm!
   
-  var statusApp:StatusApp = .CorrectyStatus
+  var statusApp:StatusApp = .correctyStatus
   
   let baseURL = "https://wsmobi.mobiabert.com.br:8180/radiocontrole-web/api/"
   //let baseURL = "http://feroxhome.mooo.com:8080/radiocontrole-web/api/"
-  var userToken:String!
+  var userToken = ""
   var myUser = UserRealm()
   var userLocation:CLLocation!
   var audioConfig:AudioConfig!
@@ -109,9 +111,9 @@ class DataManager: NSObject {
   
   var isLogged = false
   
-  var sleepTimer = NSTimer()
+  var sleepTimer = Timer()
   var isSleepModeEnabled  = false
-  var dateSleep = NSDate()
+  var dateSleep = Date()
   
   var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
   
@@ -141,8 +143,8 @@ class DataManager: NSObject {
   }
   
   enum actualCondition {
-    case Ok
-    case Without
+    case ok
+    case without
   }
   
   var firMessagingToken = ""
@@ -154,23 +156,13 @@ class DataManager: NSObject {
   
   var needUpdateMenu = true
   
-  class var sharedInstance: DataManager {
-    struct Static {
-      static var instance: DataManager?
-      static var token: dispatch_once_t = 0
-    }
-    
-    dispatch_once(&Static.token) {
-      Static.instance = DataManager()
-    }
-    return Static.instance!
-  }
+
   
   func updateRadioDistance() {
     for radio in localRadios {
       radio.resetDistanceFromUser()
     }
-    localRadios.sortInPlace({ $0.distanceFromUser < $1.distanceFromUser })
+    localRadios.sort(by: { $0.distanceFromUser < $1.distanceFromUser })
   }
   
   func updateAllOverdueInterval() {
@@ -186,15 +178,15 @@ class DataManager: NSObject {
   }
   
   
-  func instantiateSearch(navigation:UINavigationController) {
+  func instantiateSearch(_ navigation:UINavigationController) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("searchView") as? SearchTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "searchView") as? SearchTableViewController
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateRadioDetailView(navigation:UINavigationController,radio:RadioRealm) {
+  func instantiateRadioDetailView(_ navigation:UINavigationController,radio:RadioRealm) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("radioTableDetail") as? RadioTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "radioTableDetail") as? RadioTableViewController
     vc?.actualRadio = radio
     
     let backButton = UIBarButtonItem()
@@ -204,46 +196,46 @@ class DataManager: NSObject {
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateListOfRadios(navigation:UINavigationController,radios:[RadioRealm],title:String) {
+  func instantiateListOfRadios(_ navigation:UINavigationController,radios:[RadioRealm],title:String) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("radioListView") as? RadioListTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "radioListView") as? RadioListTableViewController
     vc?.radios = radios
     vc?.title = title
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateCitiesInStateView(navigation:UINavigationController,state:StateRealm) {
+  func instantiateCitiesInStateView(_ navigation:UINavigationController,state:StateRealm) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("citiesView") as? LocalCities2TableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "citiesView") as? LocalCities2TableViewController
     vc?.selectedState = state
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateListOfUsers(navigation:UINavigationController,userList:[UserRealm],title:String) {
+  func instantiateListOfUsers(_ navigation:UINavigationController,userList:[UserRealm],title:String) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("userView") as? UsersListTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "userView") as? UsersListTableViewController
     vc?.actualUsers = userList
     vc?.viewTitle = title
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateProfile(navigation:UINavigationController) {
+  func instantiateProfile(_ navigation:UINavigationController) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("profileView") as? ProfileViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "profileView") as? ProfileViewController
     navigation.pushViewController(vc!, animated: true)
   }
 
-  func instantiateUserDetail(navigation:UINavigationController, user:UserRealm) {
+  func instantiateUserDetail(_ navigation:UINavigationController, user:UserRealm) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("userDetailView") as? UserDetailTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "userDetailView") as? UserDetailTableViewController
     vc!.actualUser = user
     vc!.viewTitle = user.name
     navigation.pushViewController(vc!, animated: true)
   }
   
-  func instantiateSubCommentView(navigation:UINavigationController, comment:Comment) {
+  func instantiateSubCommentView(_ navigation:UINavigationController, comment:Comment) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("commentsView") as? CommentsTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "commentsView") as? CommentsTableViewController
     vc!.actualComment = comment
     vc!.actualRadio = comment.radio
     navigation.pushViewController(vc!, animated: true)

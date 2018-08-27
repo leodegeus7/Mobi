@@ -37,7 +37,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
         self.title = radios[0].address.city
       }
     }
-    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    tableView.register(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
@@ -52,15 +52,15 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return radios.count + 1
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == (10*pagesLoaded - 1) && !inProcess {
       inProcess = true
       
@@ -71,12 +71,11 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
       self.pushMoreRadios()
     }
     if indexPath.row <= radios.count-1 {
-      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "baseCell", for: indexPath) as! InitialTableViewCell
       cell.labelName.text = radios[indexPath.row].name
       cell.labelLocal.text = radios[indexPath.row].address.formattedLocal
-      cell.imageBig.kf_showIndicatorWhenLoading = true
-      cell.imageBig.kf_indicatorType = .Activity
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
+      cell.imageBig.kf_indicatorType = .activity
+      cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(radios[indexPath.row].thumbnail)))
       if radios[indexPath.row].isFavorite {
         cell.imageSmallOne.image = UIImage(named: "heartRed.png")
       } else {
@@ -89,7 +88,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     } else {
       let cell = UITableViewCell()
       cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
-      cell.selectionStyle = .None
+      cell.selectionStyle = .none
       return cell
     }
 
@@ -101,7 +100,7 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     manager.requestRadiosInCity(idCitySelected,pageNumber:pagesLoaded+1,pageSize:10, completion: { (resultCity) in
       self.pagesLoaded += 1
       self.inProcess = false
-      self.radios.appendContentsOf(resultCity)
+      self.radios.append(contentsOf: resultCity)
       self.tableView.reloadData()
     })
     }
@@ -110,41 +109,41 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
     manager.requestRadiosInGenre(idGenreSelected,pageNumber:pagesLoaded+1,pageSize:10) { (resultGenre) in
       self.pagesLoaded += 1
       self.inProcess = false
-      self.radios.appendContentsOf(resultGenre)
+      self.radios.append(contentsOf: resultGenre)
       self.tableView.reloadData()
     }
     }
   }
 
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row <= radios.count-1 {
     selectedRadio = radios[indexPath.row]
-          performSegueWithIdentifier("detailRadio2", sender: self)
+          performSegue(withIdentifier: "detailRadio2", sender: self)
     }
   }
   
-  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+  override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     let manager = RequestManager()
     if radios[indexPath.row].isFavorite {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
+      let favorite = UITableViewRowAction(style: .normal, title: "Desfavoritar") { action, index in
         self.radios[indexPath.row].updateIsFavorite(false)
         self.radios[indexPath.row].removeOneLikesNumber()
         manager.deleteFavRadio(self.radios[indexPath.row], completion: { (result) in
           manager.requestUserFavorites({ (resultFav) in
           })
         })
-        self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
       }
-      favorite.backgroundColor = UIColor.orangeColor()
+      favorite.backgroundColor = UIColor.orange
       return [favorite]
     } else {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
+      let favorite = UITableViewRowAction(style: .normal, title: "Favoritar") { action, index in
         if DataManager.sharedInstance.isLogged {
           self.radios[indexPath.row].updateIsFavorite(true)
           self.radios[indexPath.row].addOneLikesNumber()
           manager.favRadio(self.radios[indexPath.row], completion: { (result) in
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
           })
         } else {
           func okAction() {
@@ -155,15 +154,15 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
           self.displayAlert(title: "Atenção", message: "Para utilizar este recurso é necessário efetuar login. Deseja fazer isso agora?", okTitle: "Logar", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
         }
       }
-      favorite.backgroundColor = UIColor.orangeColor()
+      favorite.backgroundColor = UIColor.orange
       return [favorite]
     }
   }
   
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
   }
   
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
@@ -171,9 +170,9 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   //MARK: --- OTHER FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "detailRadio2" {
-      let radioVC = (segue.destinationViewController as! RadioTableViewController)
+      let radioVC = (segue.destination as! RadioTableViewController)
       radioVC.actualRadio = selectedRadio
     }
     let backButton = UIBarButtonItem()
@@ -185,29 +184,29 @@ class RadioListTableViewController: UITableViewController,DZNEmptyDataSetSource,
   //MARK: --- EMPTYDATA DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     let str = "Sem registros"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     if superSegue == "detailGenre" {
       str = "Não foi possivel localizar nenhuma rádio com este gênero"
     } else if superSegue == "detailCity" {
       str = "Não foi possível localizar nenhuma rádio com este local"
     }
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+  func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
     return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
   }
   
-  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) {
+  func emptyDataSetDidTapButton(_ scrollView: UIScrollView) {
+    dismiss(animated: true) {
     }
   }
   

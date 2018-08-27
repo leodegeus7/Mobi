@@ -8,8 +8,8 @@
 
 import UIKit
 
-class Data: NSObject {
-  static func response(dic:NSDictionary) -> NSDictionary {
+class DataType: NSObject {
+  static func response(_ dic:NSDictionary) -> NSDictionary {
     if let data = dic["data"] as? NSDictionary {
       return data
     } else {

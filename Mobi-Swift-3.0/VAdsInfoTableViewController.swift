@@ -23,13 +23,13 @@ class VAdsInfoTableViewController: UITableViewController {
     super.viewDidLoad()
     let request = RequestManager()
     request.requestUserInfo { (result) in
-      dispatch_async(dispatch_get_main_queue()) {
+      DispatchQueue.main.async {
         self.adsInfo = result
         self.tableView.reloadData()
         var count = 0
         for user in result {
           if user.lastCoordUpdate != "" {
-            if Util.convertStringToNSDate(user.lastCoordUpdate).timeIntervalSinceDate(NSDate()) > -86400 {
+            if Util.convertStringToNSDate(user.lastCoordUpdate).timeIntervalSince(Date()) > -86400 {
               count+=1
             }
           }
@@ -43,7 +43,7 @@ class VAdsInfoTableViewController: UITableViewController {
     // self.clearsSelectionOnViewWillAppear = false
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(VAdsInfoTableViewController.goView))
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(VAdsInfoTableViewController.goView))
   }
   
   override func didReceiveMemoryWarning() {
@@ -51,7 +51,7 @@ class VAdsInfoTableViewController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     self.navigationController?.setToolbarHidden(false, animated: true)
   }
   
@@ -59,17 +59,17 @@ class VAdsInfoTableViewController: UITableViewController {
   
   
   func goView() {
-    self.performSegueWithIdentifier("show", sender: self)
+    self.performSegue(withIdentifier: "show", sender: self)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let ident = (segue.identifier)!
     if ident == "show" {
-      let createVC = (segue.destinationViewController as! VAdsInfo2ViewController)
+      let createVC = (segue.destination as! VAdsInfo2ViewController)
       createVC.adsInfo = adsInfo
       
     } else if ident == "show2" {
-      let createVC = (segue.destinationViewController as! VAdsInfo2ViewController)
+      let createVC = (segue.destination as! VAdsInfo2ViewController)
       createVC.adsInfo = adsInfo
       createVC.local = local
       createVC.titleVar = adClicked.name
@@ -77,19 +77,19 @@ class VAdsInfoTableViewController: UITableViewController {
     }
   }
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
     return adsInfo.count
   }
   
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("adsCell", forIndexPath: indexPath) as? VAdsInfoTableViewCell
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "adsCell", for: indexPath) as? VAdsInfoTableViewCell
     cell?.nameU.text = "\(adsInfo[indexPath.row].server)  -  \(adsInfo[indexPath.row].name)"
     cell?.firstU.text = "\(adsInfo[indexPath.row].la)"
     cell?.firstU2.text = "\(adsInfo[indexPath.row].lo)"
@@ -97,7 +97,7 @@ class VAdsInfoTableViewController: UITableViewController {
     if adsInfo[indexPath.row].image  == "avatar.png" {
       cell?.imageU.image = UIImage(named: "avatar.png")
     } else {
-      cell?.imageU.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(adsInfo[indexPath.row].image)))
+      cell?.imageU.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(adsInfo[indexPath.row].image)))
     }
     if adsInfo[indexPath.row].lastCoordUpdate != "" {
       cell?.secondU.text = "\(Util.getOverdueInterval(Util.convertStringToNSDate(adsInfo[indexPath.row].lastCoordUpdate)))"
@@ -106,18 +106,18 @@ class VAdsInfoTableViewController: UITableViewController {
       cell?.secondU.text = "Não compartilhou"
     }
     if adsInfo[indexPath.row].image != "" && adsInfo[indexPath.row].image != "avatar.png" {
-      cell?.imageU.backgroundColor = UIColor.flatNavyBlueColor()
+      cell?.imageU.backgroundColor = UIColor.flatNavyBlue
     }
     
     return cell!
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     adClicked = adsInfo[indexPath.row]
     let request = RequestManager()
     request.getLocal(adClicked.server, completion: { (result) in
       self.local = result
-      self.performSegueWithIdentifier("show2", sender: self)
+      self.performSegue(withIdentifier: "show2", sender: self)
     })
   }
   

@@ -20,16 +20,16 @@ class Address2: NSObject {
   dynamic var long = ""
   dynamic var localName = ""
   dynamic var completeAddress = false
-  var currentClassState = classState.Initial
+  var currentClassState = classState.initial
   dynamic var coordinates:CLLocation!
   
   enum classState {
-    case CompleteAddress
-    case IncompleteAddressWithoutCoordinates
-    case IncompleteAddressWithoutAddressJustCoordinates
-    case InconclusiveClass
-    case Initial
-    case LocalJustWithLocalName
+    case completeAddress
+    case incompleteAddressWithoutCoordinates
+    case incompleteAddressWithoutAddressJustCoordinates
+    case inconclusiveClass
+    case initial
+    case localJustWithLocalName
   }
   
   required init(lat: String,long:String,country:String ,city:String, state:String, street:String, streetNumber:String,zip:String) {
@@ -69,26 +69,26 @@ class Address2: NSObject {
   
   func verifyInformation() -> Bool {
     if (lat != "" && long != "" && city != "" && state != "" && country != "") {
-      self.currentClassState = .CompleteAddress
+      self.currentClassState = .completeAddress
       self.completeAddress = true
       return true
     } else if (lat == "" && long == "" && city != "" && state != "" && country != "") {
-      self.currentClassState = .IncompleteAddressWithoutCoordinates
+      self.currentClassState = .incompleteAddressWithoutCoordinates
       self.completeAddress = false
     } else if (lat != "" && long != "" && city == "" && state == "" && country == "") {
-      self.currentClassState = .IncompleteAddressWithoutAddressJustCoordinates
+      self.currentClassState = .incompleteAddressWithoutAddressJustCoordinates
       self.completeAddress = false
     } else if (lat != "" && long != "" && city == "" && state == "" && country == "" && localName != "") {
-      self.currentClassState = .LocalJustWithLocalName
+      self.currentClassState = .localJustWithLocalName
       self.completeAddress = false
     } else {
-      self.currentClassState = .InconclusiveClass
+      self.currentClassState = .inconclusiveClass
       self.completeAddress = false
     }
     return false
   }
   
-  static func getAddress(address:AddressRealm,completion: (resultAddress: Bool) -> Void) {
+  static func getAddress(_ address:AddressRealm,completion: @escaping (_ resultAddress: Bool) -> Void) {
     if let coord = address.coordinates {
       Util.convertCoordinateToAddress(coord.coordinate.latitude, long: coord.coordinate.longitude, completion: { (result) in
         if result["City"] != nil {
@@ -118,10 +118,10 @@ class Address2: NSObject {
         } else {
           address.completeAddress = false
         }
-        completion(resultAddress: true)
+        completion(true)
       })
     } else {
-      completion(resultAddress: false)
+      completion(false)
     }
   }
   

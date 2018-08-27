@@ -12,36 +12,27 @@ import Kingfisher
 
 class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   
+    static let sharedInstance = StreamingRadioManager()
+  
   var options = STKAudioPlayerOptions()
   var audioPlayer = STKAudioPlayer()
   var isPlaying = false
   var actualRadio = RadioRealm()
   internal var predecessorRadio = RadioRealm()
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  var notificationCenter = NotificationCenter.default
     
     enum Mode {
-        case M3U8
-        case Normal
-        case Unknown
+        case m3U8
+        case normal
+        case unknown
     }
     
-    var mode:Mode = .Unknown
+    var mode:Mode = .unknown
     
     //M3U8
     var audioPlayerAux = AVPlayer()
     
-  
-  class var sharedInstance: StreamingRadioManager {
-    struct Static {
-      static var instance: StreamingRadioManager?
-      static var token: dispatch_once_t = 0
-    }
-    
-    dispatch_once(&Static.token) {
-      Static.instance = StreamingRadioManager()
-    }
-    return Static.instance!
-  }
+
   
   override init() {
     super.init()
@@ -58,7 +49,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     //MARK: --- AUDIOPLAYER CONFIG ---
     ///////////////////////////////////////////////////////////
     
-    UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+    UIApplication.shared.beginReceivingRemoteControlEvents()
     
     audioPlayer = STKAudioPlayer(options: options)
     audioPlayer.equalizerEnabled = true
@@ -71,17 +62,17 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
     
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didFinishPlayingQueueItemId queueItemId: NSObject, withReason stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishPlayingQueueItemId queueItemId: NSObject, with stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
     
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
     //let stateMine:STKAudioPlayerState = state
-    if audioPlayer.state == .Error {
+    if audioPlayer.state == .error {
       audioPlayer.stop()
       let link = actualRadio.audioChannels.first!.linkIsWrongReturnOther()
       playWithLink(actualRadio,link: link)
@@ -90,32 +81,32 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
     
   }
   
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
     print("Erro ao reproduzir o  streaming")
     Util.displayAlert(title: "Erro", message: "Não foi possível iniciar o streaming - ErroCode: \(errorCode)", action: "Ok")
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, logInfo line: String) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, logInfo line: String) {
     if line == "" {
       
     }
   }
   
   func stop() {
-    if mode == .M3U8 {
+    if mode == .m3U8 {
         audioPlayerAux.pause()
-    } else if mode == .Normal {
+    } else if mode == .normal {
         audioPlayer.stop()
     }
     isPlaying = false
   }
   
-  func play(radio:RadioRealm) {
+  func play(_ radio:RadioRealm) {
     predecessorRadio = actualRadio
     actualRadio = radio
     
@@ -125,22 +116,22 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     
     
     if (testIfLinkIsM3U8(link)) {
-        if isPlaying && mode == .Normal {
+        if isPlaying && mode == .normal {
             audioPlayer.pause()
         }
         
-        mode = .M3U8
+        mode = .m3U8
 
-        let url = NSURL(string: link)!
-        audioPlayerAux = AVPlayer(URL: url)
+        let url = URL(string: link)!
+        audioPlayerAux = AVPlayer(url: url)
         audioPlayerAux.play()
     } else {
         
-        if isPlaying && mode == .M3U8 {
+        if isPlaying && mode == .m3U8 {
             audioPlayerAux.pause()
         }
         
-        mode = .Normal
+        mode = .normal
         audioPlayer.play(link)
     }
     
@@ -151,8 +142,8 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     }
   }
     
-    func testIfLinkIsM3U8(link:String) -> Bool {
-        let components = link.componentsSeparatedByString(".")
+    func testIfLinkIsM3U8(_ link:String) -> Bool {
+        let components = link.components(separatedBy: ".")
         if components.count > 1 {
             let last = components.last
             print(components.last)
@@ -166,28 +157,28 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
         }
     }
   
-  func playWithLink(radio:RadioRealm,link:String) {
+  func playWithLink(_ radio:RadioRealm,link:String) {
     
     
     defineInfoCenter()
     
     if (testIfLinkIsM3U8(link)) {
-        if isPlaying && mode == .Normal {
+        if isPlaying && mode == .normal {
             audioPlayer.pause()
         }
         
-        mode = .M3U8
+        mode = .m3U8
         
-        let url = NSURL(string: link)!
-        audioPlayerAux = AVPlayer(URL: url)
+        let url = URL(string: link)!
+        audioPlayerAux = AVPlayer(url: url)
         audioPlayerAux.play()
     } else {
         
-        if isPlaying && mode == .M3U8 {
+        if isPlaying && mode == .m3U8 {
             audioPlayerAux.pause()
         }
         
-        mode = .Normal
+        mode = .normal
         audioPlayer.play(link)
     }
 
@@ -202,22 +193,22 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     if actualRadio.name != "" {
         let link = actualRadio.audioChannels[0].returnLink()
         if (testIfLinkIsM3U8(link)) {
-            if isPlaying && mode == .Normal {
+            if isPlaying && mode == .normal {
                 audioPlayer.pause()
             }
             
-            mode = .M3U8
+            mode = .m3U8
             
-            let url = NSURL(string: link)!
-            audioPlayerAux = AVPlayer(URL: url)
+            let url = URL(string: link)!
+            audioPlayerAux = AVPlayer(url: url)
             audioPlayerAux.play()
         } else {
             
-            if isPlaying && mode == .M3U8 {
+            if isPlaying && mode == .m3U8 {
                 audioPlayerAux.pause()
             }
             
-            mode = .Normal
+            mode = .normal
             audioPlayer.play(link)
         }
 
@@ -241,7 +232,7 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
     }
   }
   
-  func isRadioInViewCurrentyPlaying(radioInView:RadioRealm) -> Bool {
+  func isRadioInViewCurrentyPlaying(_ radioInView:RadioRealm) -> Bool {
     if radioInView == actualRadio {
       return true
     } else {
@@ -250,22 +241,24 @@ class StreamingRadioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   func sendNotification() {
-    notificationCenter.postNotificationName("updateIcons", object: nil)
+    notificationCenter.post(name: Notification.Name(rawValue: "updateIcons"), object: nil)
   }
   
   func defineInfoCenter() {
     let albumDict = [MPMediaItemPropertyTitle: "\(self.actualRadio.name)"]
     let thumbnailRadio = self.actualRadio.thumbnail
     let nameRadio = self.actualRadio.name
-    MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-      ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(thumbnailRadio))!, options: [], progressBlock: nil) { (image, error, imageURL, originalData) in
-        if let imageAux = image {
-          let albumArt = MPMediaItemArtwork(image: imageAux)
-          let albumDict = [MPMediaItemPropertyTitle: "\(nameRadio)", MPMediaItemPropertyArtwork: albumArt]
-          MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = albumDict
-        }
-      }
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = albumDict
+    DispatchQueue.global().async {
+        ImageDownloader.default.downloadImage(with: URL(string: RequestManager.getLinkFromImageWithIdentifierString(thumbnailRadio!))!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) in
+            if let imageAux = image {
+                let albumArt = MPMediaItemArtwork(image: imageAux)
+                let albumDict = [MPMediaItemPropertyTitle: "\(nameRadio)", MPMediaItemPropertyArtwork: albumArt] as [String : Any]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = albumDict
+            }
+
+        })
+        
     }
   }
   

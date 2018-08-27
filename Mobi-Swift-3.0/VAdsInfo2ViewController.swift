@@ -27,7 +27,7 @@ class VAdsInfo2ViewController: UIViewController, MKMapViewDelegate {
     self.title = titleVar
     center(initialCoordinate)
     if let _ = local {
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(VAdsInfo2ViewController.goView))
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(VAdsInfo2ViewController.goView))
     }
     // Do any additional setup after loading the view.
   }
@@ -39,18 +39,18 @@ class VAdsInfo2ViewController: UIViewController, MKMapViewDelegate {
   
   let regionRadious:CLLocationDistance = 300
   
-  func center(location:CLLocation) {
+  func center(_ location:CLLocation) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadious * 2.0, regionRadious * 2.0)
     viewMap.setRegion(coordinateRegion, animated: true)
   }
   
   func goView() {
-    self.performSegueWithIdentifier("show", sender: self)
+    self.performSegue(withIdentifier: "show", sender: self)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "show" {
-      let createVC = (segue.destinationViewController as! VAdsInfo3TableViewController)
+      let createVC = (segue.destination as! VAdsInfo3TableViewController)
       createVC.local = local
       createVC.viewBack = self
     }
@@ -77,11 +77,11 @@ class VAdsInfo2ViewController: UIViewController, MKMapViewDelegate {
     }
   }
   
-  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     if let annotation = annotation as? Artwork {
       let identifier = "pin"
       var view: MKPinAnnotationView
-      if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+      if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         as? MKPinAnnotationView { // 2
         dequeuedView.annotation = annotation
         view = dequeuedView
@@ -90,7 +90,7 @@ class VAdsInfo2ViewController: UIViewController, MKMapViewDelegate {
         view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         view.canShowCallout = true
         view.calloutOffset = CGPoint(x: -5, y: 5)
-        view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
       }
       return view
     }

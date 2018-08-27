@@ -22,7 +22,7 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   var todayWeekDay = ""
   var actualScheduleWeekday = ""
   var actualSchedulePrograms = [Program]()
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,14 +33,14 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
+    activityIndicator.isHidden = true
     organizeSchedule()
     self.title = "Programação"
-    leftButtonWeek.backgroundColor = UIColor.clearColor()
-    rightButtonWeek.backgroundColor = UIColor.clearColor()
-    leftButtonWeek.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-    rightButtonWeek.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-    let dayOfWeekInt = Util.getDayOfWeek(NSDate())
+    leftButtonWeek.backgroundColor = UIColor.clear
+    rightButtonWeek.backgroundColor = UIColor.clear
+    leftButtonWeek.setTitleColor(UIColor.black, for: UIControlState())
+    rightButtonWeek.setTitleColor(UIColor.black, for: UIControlState())
+    let dayOfWeekInt = Util.getDayOfWeek(Date())
     todayWeekDay = weekDays[dayOfWeekInt-1]
     weekDaysActualInt = dayOfWeekInt-1
     labelWeekend.text = todayWeekDay
@@ -49,10 +49,10 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     tableView.estimatedRowHeight = 400
     
     let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-    swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+    swipeRight.direction = UISwipeGestureRecognizerDirection.right
     self.view.addGestureRecognizer(swipeRight)
     let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-    swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+    swipeLeft.direction = UISwipeGestureRecognizerDirection.left
     self.view.addGestureRecognizer(swipeLeft)
   }
   
@@ -62,7 +62,7 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   
   // MARK: - Table view data source
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     if actualSchedulePrograms.count == 0 {
       return 0
     } else {
@@ -70,22 +70,22 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
   
-  func respondToSwipeGesture(gesture:UIGestureRecognizer) {
+  func respondToSwipeGesture(_ gesture:UIGestureRecognizer) {
     
     if let swipeGesture = gesture as? UISwipeGestureRecognizer {
       switch swipeGesture.direction {
-      case UISwipeGestureRecognizerDirection.Right:
+      case UISwipeGestureRecognizerDirection.right:
         if weekDaysActualInt >= 0 {
           if !(weekDaysActualInt-1 < 0) {
             weekDaysActualInt -= 1
           }
           updateInterface()
         }
-      case UISwipeGestureRecognizerDirection.Left:
+      case UISwipeGestureRecognizerDirection.left:
         if weekDaysActualInt < 6 {
           if !(weekDaysActualInt-1 > 6) {
             weekDaysActualInt += 1
@@ -98,10 +98,10 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section <= actualSchedulePrograms.count-1 {
-      if actualSchedulePrograms[indexPath.section].dynamicType == SpecialProgram.self {
-        let cell = tableView.dequeueReusableCellWithIdentifier("actualProgram", forIndexPath: indexPath) as! ActualProgramTableViewCell
+      if type(of: actualSchedulePrograms[indexPath.section]) == SpecialProgram.self {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "actualProgram", for: indexPath) as! ActualProgramTableViewCell
         
         let programSpecial2 = actualSchedulePrograms[indexPath.section] as! SpecialProgram
         
@@ -111,32 +111,32 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         if identifierImage == "avatar.png" {
           cell.imagePerson.image = UIImage(named: "avatar.png")
         } else {
-          cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+          cell.imagePerson.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
         }
         cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-        cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        cell.imagePerson.layer.borderColor = UIColor.black.cgColor
         cell.imagePerson.layer.borderWidth = 0
         cell.imagePerson.clipsToBounds = true
         cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
         cell.labelGuests.text = programSpecial2.guests
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
       } else {
-        let cell = tableView.dequeueReusableCellWithIdentifier("normalProgram", forIndexPath: indexPath) as! NormalProgramTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "normalProgram", for: indexPath) as! NormalProgramTableViewCell
         
         cell.labelName.text = actualSchedulePrograms[indexPath.section].name
         let identifierImage = actualSchedulePrograms[indexPath.section].announcer.userImage
         if identifierImage == "avatar.png" {
           cell.imagePerson.image = UIImage(named: "avatar.png")
         } else {
-          cell.imagePerson.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
+          cell.imagePerson.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(identifierImage)))
         }
         cell.imagePerson.layer.cornerRadius = cell.imagePerson.bounds.height / 2
-        cell.imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+        cell.imagePerson.layer.borderColor = UIColor.black.cgColor
         cell.imagePerson.layer.borderWidth = 0
         cell.imagePerson.clipsToBounds = true
         cell.labelNamePerson.text = actualSchedulePrograms[indexPath.section].announcer.name
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
       }
     } else {
@@ -149,7 +149,7 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   
   func organizeSchedule() {
     view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
+    activityIndicator.isHidden = false
     tableView.allowsSelection = false
     let requestProgramas = RequestManager()
     requestProgramas.requestProgramsOfRadio(actualRadio, pageNumber: 0, pageSize: 1000) { (resultPrograms) in
@@ -202,23 +202,23 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
       self.schedule[friday] = fridayProg
       self.schedule[saturday] = saturdayProg
       
-      let actualDayOfWeek = Util.getDayOfWeek(NSDate())
-      let fistDayOfWeek = NSDate().dateByAddingTimeInterval(-Double(((actualDayOfWeek)))*60*60*24)
-      let lastDayOfWeek = NSDate().dateByAddingTimeInterval(Double((7-(actualDayOfWeek-1)))*60*60*24)
+      let actualDayOfWeek = Util.getDayOfWeek(Date())
+      let fistDayOfWeek = Date().addingTimeInterval(-Double(((actualDayOfWeek)))*60*60*24)
+      let lastDayOfWeek = Date().addingTimeInterval(Double((7-(actualDayOfWeek-1)))*60*60*24)
       
       let requestSpecial = RequestManager()
       requestSpecial.requestSpecialProgramsOfRadio(self.actualRadio, pageNumber: 0, pageSize: 30, completion: { (resultSpecialPrograms) in
         for specialProgram in resultSpecialPrograms {
           
-          if specialProgram.date.timeIntervalSinceDate(fistDayOfWeek) > 0 && specialProgram.date.timeIntervalSinceDate(lastDayOfWeek) < 0 {
+          if specialProgram.date.timeIntervalSince(fistDayOfWeek) > 0 && specialProgram.date.timeIntervalSince(lastDayOfWeek) < 0 {
             let dayOfWeekInt = Util.getDayOfWeek(specialProgram.date)
             let specialProgramAux = specialProgram
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.timeStyle = .ShortStyle
-            dateFormatter.dateStyle = .NoStyle
-            dateFormatter.timeZone = NSTimeZone.localTimeZone()
-            print(dateFormatter.stringFromDate(specialProgramAux.date))
-            specialProgramAux.timeStart = dateFormatter.stringFromDate(specialProgramAux.date)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+            dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+            print(dateFormatter.string(from: specialProgramAux.date))
+            specialProgramAux.timeStart = dateFormatter.string(from: specialProgramAux.date)
             self.schedule[self.weekDays[dayOfWeekInt-1]]?.append(specialProgramAux)
             
             let programIdToDelete = specialProgram.referenceIdProgram
@@ -230,20 +230,20 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
                 break
               }
             }
-            scheduleDay.removeAtIndex(scheduleDay.indexOf(programToDelete)!)
+            scheduleDay.remove(at: scheduleDay.index(of: programToDelete)!)
             self.schedule[self.weekDays[dayOfWeekInt-1]] = scheduleDay
           }
         }
         
         for programsArray in self.schedule {
           var programs = programsArray.1
-          programs.sortInPlace({ $0.sortVar < $1.sortVar })
+          programs.sort(by: { $0.sortVar < $1.sortVar })
           self.schedule[programsArray.0] = programs
           
         }
         
         self.tableView.allowsSelection = true
-        self.activityIndicator.hidden = true
+        self.activityIndicator.isHidden = true
         self.activityIndicator.removeFromSuperview()
         
         self.updateInterface()
@@ -254,14 +254,14 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
   }
   
-  @IBAction func leftMenuButtonClick(sender: AnyObject) {
+  @IBAction func leftMenuButtonClick(_ sender: AnyObject) {
     if !(weekDaysActualInt-1 < 0) {
       weekDaysActualInt -= 1
     }
     updateInterface()
   }
   
-  @IBAction func rightMenuButtonClick(sender: AnyObject) {
+  @IBAction func rightMenuButtonClick(_ sender: AnyObject) {
     if !(weekDaysActualInt-1 > 6) {
       weekDaysActualInt += 1
     }
@@ -271,17 +271,17 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   func updateInterface() {
     if weekDaysActualInt == 0 {
       leftButtonWeek.alpha = 0.5
-      leftButtonWeek.enabled = false
+      leftButtonWeek.isEnabled = false
     } else {
       leftButtonWeek.alpha = 1
-      leftButtonWeek.enabled = true
+      leftButtonWeek.isEnabled = true
     }
     if weekDaysActualInt == 6 {
       rightButtonWeek.alpha = 0.5
-      rightButtonWeek.enabled = false
+      rightButtonWeek.isEnabled = false
     }else {
       rightButtonWeek.alpha = 1
-      rightButtonWeek.enabled = true
+      rightButtonWeek.isEnabled = true
     }
     labelWeekend.text = weekDays[weekDaysActualInt]
     actualScheduleWeekday = weekDays[weekDaysActualInt]
@@ -289,7 +289,7 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     self.tableView.reloadData()
   }
   
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if section <= actualSchedulePrograms.count-1 {
         return actualSchedulePrograms[section].timeStart
       
@@ -302,20 +302,20 @@ class ProgramsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   //MARK: --- EMPTY TABLE VIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     let str = "Sem Programação"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     let str = "A rádio não disponibilizou nenhuma programação para o período"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) {
+  func emptyDataSetDidTapButton(_ scrollView: UIScrollView) {
+    dismiss(animated: true) {
     }
   }
   

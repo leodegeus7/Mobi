@@ -13,24 +13,24 @@ class RssTypesTableViewController: UITableViewController {
   @IBOutlet weak var backButton: UIBarButtonItem!
   @IBOutlet weak var searchButton: UIBarButtonItem!
   
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   var newsType = [RSS]()
   var selectRSS:RSS!
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  var notificationCenter = NotificationCenter.default
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Notícias"
-    notificationCenter.addObserver(self, selector: #selector(RssTypesTableViewController.freezeView), name: "freezeViews", object: nil)
+    notificationCenter.addObserver(self, selector: #selector(RssTypesTableViewController.freezeView), name: NSNotification.Name(rawValue: "freezeViews"), object: nil)
     
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = false
+    activityIndicator.isHidden = false
     self.view.addSubview(activityIndicator)
     backButton.target = self.revealViewController()
     backButton.action = #selector(SWRevealViewController.revealToggle(_:))
-    backButton.tintColor = UIColor.whiteColor()
-    searchButton.tintColor = UIColor.whiteColor()
+    backButton.tintColor = UIColor.white
+    searchButton.tintColor = UIColor.white
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
@@ -39,7 +39,7 @@ class RssTypesTableViewController: UITableViewController {
     // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     let rssmanager = RequestManager()
     rssmanager.requestRSS { (resultRSS) in
-      self.activityIndicator.hidden = true
+      self.activityIndicator.isHidden = true
       self.activityIndicator.removeFromSuperview()
       self.newsType = resultRSS
       self.tableView.reloadData()
@@ -51,10 +51,10 @@ class RssTypesTableViewController: UITableViewController {
     
     if DataManager.sharedInstance.menuIsOpen {
       self.tableView.allowsSelection = false
-      self.tableView.scrollEnabled = false
+      self.tableView.isScrollEnabled = false
     } else {
       self.tableView.allowsSelection = true
-      self.tableView.scrollEnabled = true
+      self.tableView.isScrollEnabled = true
     }
   }
   
@@ -63,46 +63,46 @@ class RssTypesTableViewController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  @IBAction func searchButtonTap(sender: AnyObject) {
+  @IBAction func searchButtonTap(_ sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   
   // MARK: - Table view data source
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
     return newsType.count
   }
   
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RssTableViewCell
-    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RssTableViewCell
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     cell.selectedBackgroundView = viewSelected
     if newsType[indexPath.row].desc == "Abert" {
       cell.imageRSS.image = UIImage(named: "logoABERT.png")
-    } else if newsType[indexPath.row].desc.containsString("G1"){
+    } else if newsType[indexPath.row].desc.contains("G1"){
       cell.imageRSS.image = UIImage(named: "g1.png")
     }
     
     return cell
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectRSS = newsType[indexPath.row]
-    self.performSegueWithIdentifier("segueRSS", sender: self)
+    self.performSegue(withIdentifier: "segueRSS", sender: self)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "segueRSS" {
-      let radioVC = (segue.destinationViewController as! NewsTableViewController)
+      let radioVC = (segue.destination as! NewsTableViewController)
       radioVC.rss = selectRSS
     }
   }

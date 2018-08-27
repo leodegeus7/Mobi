@@ -8,25 +8,26 @@
 
 import UIKit
 import Eureka
+import Kingfisher
 
 class ContactRadioTableViewController: FormViewController {
   var actualRadio:RadioRealm!
   var contactRadio:ContactRadio!
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     activityIndicator.center = self.view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
-    tableView?.separatorStyle = .None
+    activityIndicator.isHidden = true
+    tableView?.separatorStyle = .none
     self.view.addSubview(activityIndicator)
     self.title = "Contato"
     let requestContact = RequestManager()
     requestContact.requestPhonesOfStation(actualRadio) { (resultPhones) in
       let requestSocial = RequestManager()
       requestSocial.requestSocialNewtworkOfStation(self.actualRadio, completion: { (resultSocial) in
-        self.activityIndicator.hidden = true
+        self.activityIndicator.isHidden = true
         self.activityIndicator.removeFromSuperview()
         var face = ""
         var twitter = ""
@@ -67,9 +68,10 @@ class ContactRadioTableViewController: FormViewController {
   func fillTableView() {
     form +++
       Section() {row in
-        var header = HeaderFooterView<EurekaCustomViewHeader>(.NibFile(name:"HeaderViewContact", bundle:nil))
+        var header = HeaderFooterView<EurekaCustomViewHeader>(.nibFile(name:"HeaderViewContact", bundle:nil))
         header.onSetupView = { (view, selection) -> () in
-          view.imageLogo.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualRadio.thumbnail)))
+            
+            view.imageLogo.kf.setImage(with: ImageResource(downloadURL: NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualRadio.thumbnail)) as! URL))
         }
         row.header = header
       }
@@ -122,7 +124,7 @@ class ContactRadioTableViewController: FormViewController {
         section
           <<< LabelRow(){ row in
             row.title = "Facebook"
-            let arrayOfSubString = contactRadio.facebook.componentsSeparatedByString("/")
+            let arrayOfSubString = contactRadio.facebook.components(separatedBy: "/")
             if arrayOfSubString.count > 0 {
               if (arrayOfSubString.last)!.characters.count > 0 {
                 row.value = "@\((arrayOfSubString.last)!)"
@@ -139,7 +141,7 @@ class ContactRadioTableViewController: FormViewController {
             }
             row.onCellSelection({ (cell, row) in
               if let url = NSURL(string: self.contactRadio.facebook) {
-                UIApplication.sharedApplication().openURL(url)
+                UIApplication.shared.openURL(url as URL)
               } else {
                 self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.facebook)!", action: "Ok")
               }
@@ -151,7 +153,7 @@ class ContactRadioTableViewController: FormViewController {
         section
           <<< LabelRow(){ row in
             row.title = "Twitter"
-            let arrayOfSubString = contactRadio.twitter.componentsSeparatedByString("/")
+            let arrayOfSubString =  contactRadio.twitter.components(separatedBy: "/")
             if arrayOfSubString.count > 0 {
               if (arrayOfSubString.last)!.characters.count > 0 {
                 row.value = "@\((arrayOfSubString.last)!)"
@@ -168,7 +170,7 @@ class ContactRadioTableViewController: FormViewController {
             }
               row.onCellSelection({ (cell, row) in
                 if let url = NSURL(string: self.contactRadio.twitter) {
-                  UIApplication.sharedApplication().openURL(url)
+                  UIApplication.shared.openURL(url as URL)
                 } else {
                   self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.twitter)!", action: "Ok")
                 }
@@ -180,7 +182,7 @@ class ContactRadioTableViewController: FormViewController {
           section
             <<< LabelRow(){ row in
               row.title = "Instagram"
-              let arrayOfSubString = contactRadio.instagram.componentsSeparatedByString("/")
+              let arrayOfSubString =  contactRadio.instagram.components(separatedBy: "/")
               if arrayOfSubString.count > 0 {
                 if (arrayOfSubString.last)!.characters.count > 0 {
                   row.value = "@\((arrayOfSubString.last)!)"
@@ -197,7 +199,7 @@ class ContactRadioTableViewController: FormViewController {
               }
               row.onCellSelection({ (cell, row) in
                 if let url = NSURL(string: self.contactRadio.instagram) {
-                  UIApplication.sharedApplication().openURL(url)
+                  UIApplication.shared.openURL(url as URL)
                 } else {
                   self.displayAlert(title: "Atenção", message: "Não foi possível abrir a página \(self.contactRadio.instagram)!", action: "Ok")
                 }

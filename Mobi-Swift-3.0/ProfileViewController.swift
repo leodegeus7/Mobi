@@ -8,20 +8,18 @@
 
 import UIKit
 import Alamofire
-import TwitterKit
 import Firebase
 import FirebaseAuthUI
 import FirebaseDatabaseUI
 import ChameleonFramework
 //import FirebaseGoogleAuthUI
-import FirebaseTwitterAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Kingfisher
 import FirebaseMessaging
 
-class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FIRAuthUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, FUIAuthDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   //FBSDKLoginButtonDelegate
   @IBOutlet weak var imageUser: UIImageView!
   @IBOutlet weak var labelName: UILabel!
@@ -57,7 +55,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBOutlet weak var viewLoading: UIView!
   
   var viewControllerNew = UIViewController()
-  let notificationCenter = NSNotificationCenter.defaultCenter()
+  let notificationCenter = NotificationCenter.default
   let imagePicker = UIImagePickerController()
   
   var existFollowers = false
@@ -67,7 +65,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   var myUser = DataManager.sharedInstance.myUser
   var kFacebookAppID = "1768503930105725"
   var db = FIRDatabaseReference.init()
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   
   
@@ -75,9 +73,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   override func viewDidLoad() {
     if !DataManager.sharedInstance.isLogged {
-      viewLoading.hidden = false
+      viewLoading.isHidden = false
     } else {
-      viewLoading.hidden = true
+      viewLoading.isHidden = true
     }
     super.viewDidLoad()
     //viewControllerNew = self.copy() as! ProfileViewController
@@ -90,9 +88,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     
-    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "logoAnuncio.png"), forState: .Normal)
-    let components2 = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let colorWhite2 =  ColorRealm(name: 45, red: components2[0]+0.1, green: components2[1]+0.1, blue: components2[2]+0.1, alpha: 1).color
+    self.buttonAdvertisement.setBackgroundImage(UIImage(named: "logoAnuncio.png"), for: UIControlState())
+    let components2 = DataManager.sharedInstance.interfaceColor.color.cgColor.components
+    let colorWhite2 =  ColorRealm(name: 45, red: (components2?[0])!+0.1, green: (components2?[1])!+0.1, blue: (components2?[2])!+0.1, alpha: 1).color
     self.buttonAdvertisement.backgroundColor = colorWhite2
     navigationController?.title = "Perfil"
     tableViewFavorites.rowHeight = 130
@@ -100,39 +98,39 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     backButton.action = #selector(SWRevealViewController.revealToggle(_:))
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     imageUser.layer.cornerRadius = imageUser.bounds.height / 2
-    imageUser.layer.borderColor = UIColor.blackColor().CGColor
+    imageUser.layer.borderColor = UIColor.black.cgColor
     imageUser.layer.borderWidth = 3.0
     imageUser.clipsToBounds = true
     self.title = "Perfil"
-    tableViewFavorites.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    tableViewFavorites.register(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
     imagePicker.delegate = self
-    buttonChangePhoto.backgroundColor = UIColor.clearColor()
-    followingButton.backgroundColor = UIColor.clearColor()
-    followerButton.backgroundColor = UIColor.clearColor()
+    buttonChangePhoto.backgroundColor = UIColor.clear
+    followingButton.backgroundColor = UIColor.clear
+    followerButton.backgroundColor = UIColor.clear
     
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
-    buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
-    buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Selected)
-    buttonEdit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+    activityIndicator.isHidden = true
+    buttonEdit.titleLabel?.textColor = UIColor.white
+    buttonEdit.setTitleColor(UIColor.white, for: .selected)
+    buttonEdit.setTitleColor(UIColor.white, for: UIControlState())
     
 
-    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
-    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 0.2).color
+    let components = DataManager.sharedInstance.interfaceColor.color.cgColor.components
+    let colorWhite =  ColorRealm(name: 45, red: (components?[0])!+0.1, green: (components?[1])!+0.1, blue: (components?[2])!+0.1, alpha: 0.2).color
     buttonAdvertisement.backgroundColor = colorWhite
     
-    AdsManager.sharedInstance.setAdvertisement(.ProfileScreen, completion: { (resultAd) in
-      dispatch_async(dispatch_get_main_queue()) {
+    AdsManager.sharedInstance.setAdvertisement(.profileScreen, completion: { (resultAd) in
+      DispatchQueue.main.async {
         if let imageAd = resultAd.image {
           let imageView = UIImageView(frame: self.buttonAdvertisement.frame)
-          imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
-          self.buttonAdvertisement.setBackgroundImage(imageView.image, forState: .Normal)
+          imageView.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(imageAd)))
+          self.buttonAdvertisement.setBackgroundImage(imageView.image, for: UIControlState())
         }
       }
     })
     
-    viewLoading.hidden = true
+    viewLoading.isHidden = true
   }
   
   
@@ -140,70 +138,70 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- VIEW FUNCTIONS ---
   ///////////////////////////////////////////////////////////
   
-  override func viewDidAppear(animated: Bool) {
-    notificationCenter.addObserver(self, selector: #selector(ProfileViewController.backToInital), name: "backToInital", object: nil)
+  override func viewDidAppear(_ animated: Bool) {
+    notificationCenter.addObserver(self, selector: #selector(ProfileViewController.backToInital), name: NSNotification.Name(rawValue: "backToInital"), object: nil)
     buttonEdit.layer.cornerRadius = buttonEdit.frame.height/2
     buttonEdit.clipsToBounds = true
-    buttonEdit.titleLabel?.textColor = UIColor.whiteColor()
+    buttonEdit.titleLabel?.textColor = UIColor.white
     buttonLogin.layer.cornerRadius = buttonLogin.frame.height/2
     buttonLogin.clipsToBounds = true
-    buttonReadMore.backgroundColor = UIColor.clearColor()
-    buttonLogin.titleLabel?.textColor = UIColor.whiteColor()
+    buttonReadMore.backgroundColor = UIColor.clear
+    buttonLogin.titleLabel?.textColor = UIColor.white
     buttonLogin.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     buttonEdit.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    backButton.tintColor = UIColor.whiteColor()
-    searchButton.tintColor = UIColor.whiteColor()
+    backButton.tintColor = UIColor.white
+    searchButton.tintColor = UIColor.white
     
   }
   
-  override func viewDidDisappear(animated: Bool) {
-    notificationCenter.removeObserver(self, name: "backToInital", object: nil)
+  override func viewDidDisappear(_ animated: Bool) {
+    notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: "backToInital"), object: nil)
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     if self.navigationController?.navigationBar.backgroundColor != DataManager.sharedInstance.interfaceColor.color {
       self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     }
     if !DataManager.sharedInstance.isLogged {
-      viewLoading.hidden = false
+      viewLoading.isHidden = false
       loginButtonTap(self)
     } else {
-      viewLoading.hidden = true
+      viewLoading.isHidden = true
     }
     selectedRadioArray = myUser.favoritesRadios
     tableViewFavorites.reloadData()
     if DataManager.sharedInstance.isLogged == true {
-      buttonLogin.setTitle("Logout", forState: .Normal)
-      buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      buttonLogin.setTitle("Logout", for: UIControlState())
+      buttonLogin.setTitleColor(UIColor.white, for: UIControlState())
     } else {
-      buttonLogin.setTitle("Login", forState: .Normal)
-      buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      buttonLogin.setTitle("Login", for: UIControlState())
+      buttonLogin.setTitleColor(UIColor.white, for: UIControlState())
     }
     
     let testManager = RequestManager()
     testManager.testUserLogged { (result) in
       if result {
-        dispatch_async(dispatch_get_main_queue()) {
-          self.buttonLogin.setTitle("Logout", forState: .Normal)
+        DispatchQueue.main.async {
+          self.buttonLogin.setTitle("Logout", for: UIControlState())
           DataManager.sharedInstance.isLogged = true
-          self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+          self.buttonLogin.setTitleColor(UIColor.white, for: UIControlState())
         }
       } else {
-        self.buttonLogin.setTitle("Login", forState: .Normal)
+        self.buttonLogin.setTitle("Login", for: UIControlState())
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
         DataManager.sharedInstance.configApp.updateUserToken("")
-        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.buttonLogin.setTitleColor(UIColor.white, for: UIControlState())
       }
     }
     
-    let store = Twitter.sharedInstance().sessionStore
-    if let _ = store.session()?.userID {
-      buttonTwitter.setTitle("Logout Twitter", forState: .Normal)
-    } else {
-      buttonTwitter.setTitle("Login Twitter", forState: .Normal)
-    }
-    
+//    let store = Twitter.sharedInstance().sessionStore
+//    if let _ = store.session()?.userID {
+//      buttonTwitter.setTitle("Logout Twitter", for: UIControlState())
+//    } else {
+//      buttonTwitter.setTitle("Login Twitter", for: UIControlState())
+//    }
+//    
     
     
     if DataManager.sharedInstance.isLogged {
@@ -215,9 +213,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         if let _ = DataManager.sharedInstance.myUser.address {
           if DataManager.sharedInstance.myUser.address.city == "" {
             Util.displayAlert(title: "Atenção", message: "Olá! Complete seu cadastro. Preencha as informações que faltam para que possamos conhecer você melhor.", okTitle: "Completar", cancelTitle: "Cancelar", okAction: {
-              self.buttonEdit.sendActionsForControlEvents(.TouchUpInside)
+              self.buttonEdit.sendActions(for: .touchUpInside)
             }) {
-              self.dismissViewControllerAnimated(true, completion: {
+              self.dismiss(animated: true, completion: {
                 
               })
             }
@@ -225,9 +223,9 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         } else {
           
           Util.displayAlert(title: "Atenção", message: "Olá! Complete seu cadastro. Preencha as informações que faltam para que possamos conhecer você melhor.", okTitle: "Completar", cancelTitle: "Cancelar", okAction: {
-            self.buttonEdit.sendActionsForControlEvents(.TouchUpInside)
+            self.buttonEdit.sendActions(for: .touchUpInside)
           }) {
-            self.dismissViewControllerAnimated(true, completion: {
+            self.dismiss(animated: true, completion: {
               
             })
           }
@@ -263,7 +261,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if DataManager.sharedInstance.isLogged{
       if let favorites = myUser.favoritesRadios {
         heightTableView.constant = 130*CGFloat(favorites.count)
@@ -282,17 +280,17 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "baseCell", for: indexPath) as! InitialTableViewCell
     cell.labelName.text = selectedRadioArray[indexPath.row].name
     if let _ = selectedRadioArray[indexPath.row].address {
       cell.labelLocal.text = selectedRadioArray[indexPath.row].address.formattedLocal
     }
-    cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
+    cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
     if selectedRadioArray[indexPath.row].isFavorite {
       cell.imageSmallOne.image = UIImage(named: "heartRed.png")
     } else {
@@ -303,7 +301,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadioArray[indexPath.row])
   }
   
@@ -438,7 +436,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     if DataManager.sharedInstance.myUser.userImage == "avatar.png" {
       imageUser.image = UIImage(named: "avatar.png")
     } else {
-      imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+      imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
     }
     
     self.myUser.updateFavorites(DataManager.sharedInstance.favoriteRadios)
@@ -466,7 +464,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   func backToInital() {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: "initialScreenView") as? InitialTableViewController
     self.navigationController!.pushViewController(vc!, animated: true)
   }
   ///////////////////////////////////////////////////////////
@@ -519,128 +517,132 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //    loginManager.logOut()
   //  }
   
-  func authUI(authUI: FIRAuthUI, didSignInWithUser user: FIRUser?, error: NSError?) {
-    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withContentStyle: .Contrast)
-    self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
-    
-    if error != nil {
-      if !DataManager.sharedInstance.isLogged {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
-        self.navigationController!.pushViewController(vc!, animated: false)
-      } else {
-        Util.displayAlert(title: "Problema", message: "Tivemos problemas ao logar em sua conta, tente novamente!", action: "Ok")
-      }
-      //Problem signing in
-    }else {
-      
-      user?.getTokenWithCompletion({ (token, error) in
-        let requestManager = RequestManager()
-        requestManager.loginInServer(token!, completion: { (result) in
-          if token == "nil" {
-            Util.displayAlert(self, title: "Atenção", message: "Não foi possivel logar em sua conta", action: "Ok")
-          } else {
-            DataManager.sharedInstance.userToken = result
-            DataManager.sharedInstance.isLogged = true
-            DataManager.sharedInstance.needUpdateMenu = true
-            DataManager.sharedInstance.configApp.updateUserToken(result)
-            let requestManagerUser = RequestManager()
-            requestManagerUser.requestMyUserInfo { (result) in
-              self.myUser = DataManager.sharedInstance.myUser
-              if self.myUser.name == "" {
-                var changesArray = [Dictionary<String,AnyObject>]()
-                var dicPara = Dictionary<String,AnyObject>()
-                dicPara["parameter"] = "name"
-                dicPara["value"] = user?.displayName
-                changesArray.append(dicPara)
-                let editManager = RequestManager()
-                editManager.updateUserInfo(changesArray) { (result) in
-                  requestManagerUser.requestMyUserInfo { (result) in
-                    self.myUser = DataManager.sharedInstance.myUser
-                    self.completeProfileViewInfo()
-                    self.buttonLogin.setTitle("Logout", forState: .Normal)
-                    self.viewLoading.hidden = true
-                    
-                    let requestFollowers = RequestManager()
-                    requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
-                      if resultNumberFollowers >= 0 {
-                        self.existFollowers = true
-                      }
-                      self.labelFollowers.text = "\(resultNumberFollowers)"
-                    }
-                    let requestFollowing = RequestManager()
-                    requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
-                      if resultNumberFollowing >= 0 {
-                        self.existFollowing = true
-                      }
-                      
-                      self.labelFollowing.text = "\(resultNumberFollowing)"
-                    }
-                    
-                  }
-                }
-              } else {
-                self.completeProfileViewInfo()
-                self.buttonLogin.setTitle("Logout", forState: .Normal)
-                self.viewLoading.hidden = true
-                
-                let requestFollowers = RequestManager()
-                requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
-                  if resultNumberFollowers > 0 {
-                    self.existFollowers = true
-                  }
-                  
-                  self.labelFollowers.text = "\(resultNumberFollowers)"
-                }
-                let requestFollowing = RequestManager()
-                requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
-                  if resultNumberFollowing > 0 {
-                    self.existFollowing = true
-                  }
-                  self.labelFollowing.text = "\(resultNumberFollowing)"
-                }
-              }
+    func authUI(_ authUI: FUIAuth, didSignInWith user: FIRUser?, error: Error?) {
+        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .contrast)
+        self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
+        
+        if error != nil {
+            if !DataManager.sharedInstance.isLogged {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "initialScreenView") as? InitialTableViewController
+                self.navigationController!.pushViewController(vc!, animated: false)
+            } else {
+                Util.displayAlert(title: "Problema", message: "Tivemos problemas ao logar em sua conta, tente novamente!", action: "Ok")
             }
-          }
-        })
-      })
-      
-      
+            //Problem signing in
+        }else {
+            
+            user?.getTokenWithCompletion({ (token, error) in
+                let requestManager = RequestManager()
+                requestManager.loginInServer(token!, completion: { (result) in
+                    if token == "nil" {
+                        Util.displayAlert(self, title: "Atenção", message: "Não foi possivel logar em sua conta", action: "Ok")
+                    } else {
+                        DataManager.sharedInstance.userToken = result
+                        DataManager.sharedInstance.isLogged = true
+                        DataManager.sharedInstance.needUpdateMenu = true
+                        DataManager.sharedInstance.configApp.updateUserToken(result)
+                        let requestManagerUser = RequestManager()
+                        requestManagerUser.requestMyUserInfo { (result) in
+                            self.myUser = DataManager.sharedInstance.myUser
+                            if self.myUser.name == "" {
+                                var changesArray = [Dictionary<String,AnyObject>]()
+                                var dicPara = Dictionary<String,AnyObject>()
+                                dicPara["parameter"] = "name" as AnyObject?
+                                dicPara["value"] = user?.displayName as AnyObject?
+                                changesArray.append(dicPara)
+                                let editManager = RequestManager()
+                                editManager.updateUserInfo(changesArray) { (result) in
+                                    requestManagerUser.requestMyUserInfo { (result) in
+                                        self.myUser = DataManager.sharedInstance.myUser
+                                        self.completeProfileViewInfo()
+                                        self.buttonLogin.setTitle("Logout", for: UIControlState())
+                                        self.viewLoading.isHidden = true
+                                        
+                                        let requestFollowers = RequestManager()
+                                        requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                                            if resultNumberFollowers >= 0 {
+                                                self.existFollowers = true
+                                            }
+                                            self.labelFollowers.text = "\(resultNumberFollowers)"
+                                        }
+                                        let requestFollowing = RequestManager()
+                                        requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                                            if resultNumberFollowing >= 0 {
+                                                self.existFollowing = true
+                                            }
+                                            
+                                            self.labelFollowing.text = "\(resultNumberFollowing)"
+                                        }
+                                        
+                                    }
+                                }
+                            } else {
+                                self.completeProfileViewInfo()
+                                self.buttonLogin.setTitle("Logout", for: UIControlState())
+                                self.viewLoading.isHidden = true
+                                
+                                let requestFollowers = RequestManager()
+                                requestFollowers.requestNumberOfFollowers(self.myUser) { (resultNumberFollowers) in
+                                    if resultNumberFollowers > 0 {
+                                        self.existFollowers = true
+                                    }
+                                    
+                                    self.labelFollowers.text = "\(resultNumberFollowers)"
+                                }
+                                let requestFollowing = RequestManager()
+                                requestFollowing.requestNumberOfFollowing(self.myUser) { (resultNumberFollowing) in
+                                    if resultNumberFollowing > 0 {
+                                        self.existFollowing = true
+                                    }
+                                    self.labelFollowing.text = "\(resultNumberFollowing)"
+                                }
+                            }
+                        }
+                    }
+                })
+            })
+            
+            
+        }
     }
-  }
-  
+    
+
   
   func login() {
-    let authUI = FIRAuthUI.init(auth: FIRAuth.auth()!)
+    
+    let authUI = FUIAuth.init(uiWith: FIRAuth.auth()!)
+    
     
     authUI?.delegate = self
-    authUI?.providers = [FIRFacebookAuthUI()]
+    authUI?.providers = [FUIFacebookAuth()]
     let authViewController = authUI?.authViewController()
     authViewController?.view.backgroundColor = DataManager.sharedInstance.interfaceColor.color
     
-    self.presentViewController(authViewController!, animated: false, completion: nil)
+    self.present(authViewController!, animated: false, completion: nil)
   }
   
-  func authPickerViewControllerForAuthUI(authUI: FIRAuthUI) -> FIRAuthPickerViewController {
-    authUI.customStringsBundle = NSBundle.mainBundle()
+    func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+        authUI.customStringsBundle = Bundle.main
+        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.contrast)
+        let fir2 = FUIAuthPickerViewController(authUI: authUI)
+        UIGraphicsBeginImageContext((UIApplication.shared.windows.first?.frame.size)!)
+        UIImage(named: "login-1.png")?.draw(in: (UIApplication.shared.windows.first?.bounds)!)
+        let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        fir2.view.backgroundColor = UIColor(patternImage: image2)
+        return fir2
+    }
     
-    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.Contrast)
-    let fir2 = FIRAuthPickerViewController(authUI: authUI)
-    UIGraphicsBeginImageContext((UIApplication.sharedApplication().windows.first?.frame.size)!)
-    UIImage(named: "login-1.png")?.drawInRect((UIApplication.sharedApplication().windows.first?.bounds)!)
-    let image2:UIImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    fir2.view.backgroundColor = UIColor(patternImage: image2)
-    return fir2
-  }
-  
-  func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
-    let sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
     
-    return (FIRAuthUI.defaultAuthUI()?.handleOpenURL(url, sourceApplication: sourceApplication))!
-  }
+
+//  func application(_ app: UIApplication, openURL url: URL, options: [String: AnyObject]) -> Bool {
+//    let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String
+//    
+//    return (FIRAuthUI.default()?.handleOpen(url, sourceApplication: sourceApplication))!
+//  }
   
-  @IBAction func loginButtonTap(sender: AnyObject) {
+  @IBAction func loginButtonTap(_ sender: AnyObject) {
     if DataManager.sharedInstance.isLogged {
       func okAction() {
         try! FIRAuth.auth()?.signOut()
@@ -653,17 +655,17 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.needUpdateMenu = true
-        self.buttonLogin.setTitle("Logout", forState: .Normal)
-        self.buttonLogin.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.dismissViewControllerAnimated(true, completion: {
+        self.buttonLogin.setTitle("Logout", for: UIControlState())
+        self.buttonLogin.setTitleColor(UIColor.white, for: UIControlState())
+        self.dismiss(animated: true, completion: {
         })
         DataManager.sharedInstance.favoriteRadios = []
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "initialScreenView") as? InitialTableViewController
         self.navigationController!.pushViewController(vc!, animated: true)
       }
       func cancelAction() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
       }
       self.displayAlert(title: "Atenção", message: "Você deseja fazer logout?", okTitle: "Sim", cancelTitle: "Cancelar", okAction: okAction, cancelAction: cancelAction)
     } else {
@@ -676,98 +678,98 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //MARK: --- IBACTIONS ---
   ///////////////////////////////////////////////////////////
   
-  @IBAction func searchButtonTap(sender: AnyObject) {
+  @IBAction func searchButtonTap(_ sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   
   func twitterButtonTap2() {
-    let store = Twitter.sharedInstance().sessionStore
-    if let userID = store.session()?.userID {
-      store.logOutUserID(userID)
-      buttonTwitter.setTitle("Login Twitter", forState: .Normal)
-    } else {
-      Twitter.sharedInstance().logInWithCompletion { session, error in
-        if (session != nil) {
-          self.buttonTwitter.setTitle("Logout Twitter", forState: .Normal)
-          print("signed in as \(session!.userName)")
-          print("sessao token \((session?.authToken)!)")
-          
-          let cretential = FIRTwitterAuthProvider.credentialWithToken(session!.authToken, secret: session!.authTokenSecret)
-          FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
-            if error == nil {
-              print("Login pelo twitter feito corretamente")
-              DataManager.sharedInstance.isLogged = true
-              self.displayAlert(title: "Tudo certo \((user?.displayName)!)", message: "Logado com sucesso", action: "Ok")
-            } else {
-              self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
-            }
-          })
-        } else {
-          print("error: \(error!.localizedDescription)")
-        }
-      }
-    }
+//    let store = Twitter.sharedInstance().sessionStore
+//    if let userID = store.session()?.userID {
+//      store.logOutUserID(userID)
+//      buttonTwitter.setTitle("Login Twitter", for: UIControlState())
+//    } else {
+//      Twitter.sharedInstance().logIn { session, error in
+//        if (session != nil) {
+//          self.buttonTwitter.setTitle("Logout Twitter", for: UIControlState())
+//          print("signed in as \(session!.userName)")
+//          print("sessao token \((session?.authToken)!)")
+//          
+//          let cretential = FIRTwitterAuthProvider.credential(withToken: session!.authToken, secret: session!.authTokenSecret)
+//          FIRAuth.auth()?.signIn(with: cretential, completion: { (user, error) in
+//            if error == nil {
+//              print("Login pelo twitter feito corretamente")
+//              DataManager.sharedInstance.isLogged = true
+//              self.displayAlert(title: "Tudo certo \((user?.displayName)!)", message: "Logado com sucesso", action: "Ok")
+//            } else {
+//              self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
+//            }
+//          })
+//        } else {
+//          print("error: \(error!.localizedDescription)")
+//        }
+//      }
+//    }
   }
-  @IBAction func twitterButtonTap(sender: AnyObject) {
-    let store = Twitter.sharedInstance().sessionStore
-    if let userID = store.session()?.userID {
-      store.logOutUserID(userID)
-      buttonTwitter.setTitle("Login Twitter", forState: .Normal)
-    } else {
-      Twitter.sharedInstance().logInWithCompletion { session, error in
-        if (session != nil) {
-          self.buttonTwitter.setTitle("Logout Twitter", forState: .Normal)
-          print("signed in as \(session!.userName)")
-          print("sessao token \((session?.authToken)!)")
-          
-          let cretential = FIRTwitterAuthProvider.credentialWithToken(session!.authToken, secret: session!.authTokenSecret)
-          FIRAuth.auth()?.signInWithCredential(cretential, completion: { (user, error) in
-            if error == nil {
-              print("Login pelo twitter feito corretamente")
-              DataManager.sharedInstance.isLogged = true
-              self.displayAlert(title: "Tudo certo \((user?.displayName)!)", message: "Logado com sucesso", action: "Ok")
-            } else {
-              self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
-            }
-          })
-        } else {
-          print("error: \(error!.localizedDescription)")
-        }
-      }
-    }
+  @IBAction func twitterButtonTap(_ sender: AnyObject) {
+//    let store = Twitter.sharedInstance().sessionStore
+//    if let userID = store.session()?.userID {
+//      store.logOutUserID(userID)
+//      buttonTwitter.setTitle("Login Twitter", for: UIControlState())
+//    } else {
+//      Twitter.sharedInstance().logIn { session, error in
+//        if (session != nil) {
+//          self.buttonTwitter.setTitle("Logout Twitter", for: UIControlState())
+//          print("signed in as \(session!.userName)")
+//          print("sessao token \((session?.authToken)!)")
+//          
+//          let cretential = FIRTwitterAuthProvider.credential(withToken: session!.authToken, secret: session!.authTokenSecret)
+//          FIRAuth.auth()?.signIn(with: cretential, completion: { (user, error) in
+//            if error == nil {
+//              print("Login pelo twitter feito corretamente")
+//              DataManager.sharedInstance.isLogged = true
+//              self.displayAlert(title: "Tudo certo \((user?.displayName)!)", message: "Logado com sucesso", action: "Ok")
+//            } else {
+//              self.displayAlert(title: "Erro ao logar pelo twitter", message: (error?.localizedDescription)!, action: "Ok")
+//            }
+//          })
+//        } else {
+//          print("error: \(error!.localizedDescription)")
+//        }
+//      }
+//    }
   }
   
   
-  @IBAction func uploadNewPhoto(sender: AnyObject) {
-    let optionMenu = UIAlertController(title: nil, message: "Trocar sua foto de perfil", preferredStyle: .ActionSheet)
-    let cameraOption = UIAlertAction(title: "Tirar Foto", style: .Default) { (alert) in
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+  @IBAction func uploadNewPhoto(_ sender: AnyObject) {
+    let optionMenu = UIAlertController(title: nil, message: "Trocar sua foto de perfil", preferredStyle: .actionSheet)
+    let cameraOption = UIAlertAction(title: "Tirar Foto", style: .default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.allowsEditing = false
-        self.presentViewController(imagePicker, animated: true, completion: {
+        self.present(imagePicker, animated: true, completion: {
           
         })
       } else {
         Util.displayAlert(title: "Erro", message: "Não foi possível abrir a câmera", action: "Ok")
       }
     }
-    let photoGalleryOption = UIAlertAction(title: "Escolher Imagem", style: .Default) { (alert) in
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+    let photoGalleryOption = UIAlertAction(title: "Escolher Imagem", style: .default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = true
-        self.presentViewController(imagePicker, animated: true, completion: {
+        self.present(imagePicker, animated: true, completion: {
           
         })
       } else {
         Util.displayAlert(title: "Erro", message: "Não foi possível abrir a galeria", action: "Ok")
       }
     }
-    let cancelOption = UIAlertAction(title: "Cancelar", style: .Cancel) { (alert) in
-      self.dismissViewControllerAnimated(true, completion: {
+    let cancelOption = UIAlertAction(title: "Cancelar", style: .cancel) { (alert) in
+      self.dismiss(animated: true, completion: {
         
       })
     }
@@ -775,30 +777,30 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
     optionMenu.addAction(cameraOption)
     optionMenu.addAction(photoGalleryOption)
     optionMenu.addAction(cancelOption)
-    self.presentViewController(optionMenu, animated: true) {
+    self.present(optionMenu, animated: true) {
     }
   }
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
     let requestImage = RequestManager()
     requestImage.changeUserPhoto(image) { (result) in
-      self.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
+      self.imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.myUser.userImage)))
     }
     
-    self.dismissViewControllerAnimated(true) {
+    self.dismiss(animated: true) {
     }
     Util.displayAlert(title: "Concluido", message: "Imagem editada com sucesso", action: "Ok")
   }
   
-  @IBAction func tapFollowersButton(sender: AnyObject) {
+  @IBAction func tapFollowersButton(_ sender: AnyObject) {
     if existFollowers {
       view.addSubview(activityIndicator)
-      view.userInteractionEnabled = false
-      activityIndicator.hidden = false
+      view.isUserInteractionEnabled = false
+      activityIndicator.isHidden = false
       let requestManager = RequestManager()
       requestManager.requestFollowers(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowers) in
-        self.view.userInteractionEnabled = true
-        self.activityIndicator.hidden = true
+        self.view.isUserInteractionEnabled = true
+        self.activityIndicator.isHidden = true
         self.activityIndicator.removeFromSuperview()
         DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowers, title: "Seguidores")
       }
@@ -807,28 +809,28 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   
   
-  @IBAction func tapFollowingButton(sender: AnyObject) {
+  @IBAction func tapFollowingButton(_ sender: AnyObject) {
     if existFollowing {
       view.addSubview(activityIndicator)
-      activityIndicator.hidden = false
+      activityIndicator.isHidden = false
       let requestManager = RequestManager()
       requestManager.requestFollowing(DataManager.sharedInstance.myUser, pageSize: 100, pageNumber: 0) { (resultFollowing) in
-        self.view.userInteractionEnabled = true
-        self.activityIndicator.hidden = true
+        self.view.isUserInteractionEnabled = true
+        self.activityIndicator.isHidden = true
         self.activityIndicator.removeFromSuperview()
         DataManager.sharedInstance.instantiateListOfUsers(self.navigationController!, userList: resultFollowing, title: "Seguindo")
       }
     }
   }
   
-  override func canBecomeFirstResponder() -> Bool {
+  override var canBecomeFirstResponder : Bool {
     return true
   }
   
   
   
-  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if motion == .MotionShake {
+  override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    if motion == .motionShake {
       if DataManager.sharedInstance.firMessagingToken != "" {
         self.displayAlert(title: "Token", message: DataManager.sharedInstance.firMessagingToken, action: "Recebido")
       }

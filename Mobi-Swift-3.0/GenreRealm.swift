@@ -37,7 +37,7 @@ class GenreRealm: Object {
     }
   }
  
-  func updateRadiosOfGenre(radios:[RadioRealm]) {
+  func updateRadiosOfGenre(_ radios:[RadioRealm]) {
     try! DataManager.sharedInstance.realm.write {
       self.radios = List(radios)
     }

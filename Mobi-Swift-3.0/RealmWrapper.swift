@@ -10,9 +10,9 @@ import UIKit
 import RealmSwift
 
 class RealmWrapper: NSObject {
-  static func realmStart(fileName:String) -> Bool {
+  static func realmStart(_ fileName:String) -> Bool {
       var config = Realm.Configuration()
-      config.fileURL = config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("\(fileName).realm")
+      config.fileURL = config.fileURL?.deletingLastPathComponent().appendingPathComponent("\(fileName).realm")
       Realm.Configuration.defaultConfiguration = config
       do {
         let realm = try Realm()
@@ -24,20 +24,21 @@ class RealmWrapper: NSObject {
       return true
   }
   
-  static func eraseRealmFile(fileName:String) -> Bool {
+  static func eraseRealmFile(_ fileName:String) -> Bool {
     print("Erase realm Data")
     let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
     let realmURLs = [
       realmURL,
-      realmURL.URLByAppendingPathExtension("lock"),
-      realmURL.URLByAppendingPathExtension("log_a"),
-      realmURL.URLByAppendingPathExtension("log_b"),
-      realmURL.URLByAppendingPathExtension("note")
+      realmURL.appendingPathExtension("lock"),
+      realmURL.appendingPathExtension("log_a"),
+            realmURL.appendingPathExtension("log_b"),
+                  realmURL.appendingPathExtension("note")
+                  
     ]
-    let manager = NSFileManager.defaultManager()
+    let manager = FileManager.default
     for URL in realmURLs {
       do {
-        try manager.removeItemAtURL(URL)
+        try manager.removeItem(at: URL)
         return true
       } catch _{
         print("Error 2000")

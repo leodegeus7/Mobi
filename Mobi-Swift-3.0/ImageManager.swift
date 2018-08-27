@@ -12,84 +12,88 @@ import Kingfisher
 class ImageManager: NSObject {
   
   enum ImageState {
-    case NoImage
-    case Retrieving
-    case Downloading
-    case ErrorDownloading
-    case ImageOk
+    case noImage
+    case retrieving
+    case downloading
+    case errorDownloading
+    case imageOk
   }
   var imageFile:UIImage!
   var imageCacheName = ""
   var urlImage = ""
-  var state:ImageState = .NoImage
+  var state:ImageState = .noImage
   var progressImageDownload:CGFloat = 0.0
   var errorMessage:String!
   var cellIsReloaded = false
   var cellIsProcessing = false
   var sizeImage:CGSize!
-  var indexPathCell:NSIndexPath!
+  var indexPathCell:IndexPath!
   
-  func setImage(imageCacheName:String,urlImage:String,completion: (imageReturn: UIImage) -> Void) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-      if self.state != .ImageOk {
-        self.state = .Retrieving
+  func setImage(_ imageCacheName:String,urlImage:String,completion: @escaping (_ imageReturn: UIImage) -> Void) {
+    DispatchQueue.global().async {
+
+      if self.state != .imageOk {
+        self.state = .retrieving
         self.imageCacheName = imageCacheName
         self.urlImage = urlImage
-        ImageCache.defaultCache.retrieveImageForKey(imageCacheName, options: []) { (image, cacheType) in
+
+        ImageCache.default.retrieveImage(forKey: imageCacheName, options: []) { (image, cacheType) in
           if let _ = image {
             self.imageFile = image!
-            self.state == .ImageOk
-            completion(imageReturn: image!)
+            self.state = .imageOk
+            completion(image!)
           } else {
             if urlImage != "" {
-              self.state = .Downloading
-              ImageDownloader.defaultDownloader.downloadImageWithURL(NSURL(string: urlImage)!, options: [], progressBlock: { (receivedSize, totalSize) in
-                self.progressImageDownload = CGFloat(receivedSize/totalSize)
+              self.state = .downloading
+                ImageDownloader.default.downloadImage(with: URL(string: urlImage)!, retrieveImageTask: nil, options: [], progressBlock: { (receivedSize, totalSize) in
+                     self.progressImageDownload = CGFloat(receivedSize/totalSize)
                 }, completionHandler: { (image, error, imageURL, originalData) in
-                  if let errorMessage = error {
-                    self.errorMessage = errorMessage.localizedDescription
-                    print("Erro para baixar imagem \(imageCacheName) com erro \(error?.code) e descrição \(error?.localizedDescription)")
-                    self.state = .ErrorDownloading
-                  }
-                  if let _ = image {
-                    ImageCache.defaultCache.storeImage(image!, forKey: imageCacheName)
-                    self.imageFile = image!
-                    self.state = .ImageOk
-                    completion(imageReturn: image!)
-                  }
-              })
+                    if let errorMessage = error {
+                        self.errorMessage = errorMessage.localizedDescription
+                        print("Erro para baixar imagem \(imageCacheName) com erro \(error?.code) e descrição \(error?.localizedDescription)")
+                        self.state = .errorDownloading
+                    }
+                    if let _ = image {
+                        ImageCache.default.store(image!, forKey: imageCacheName)
+                        self.imageFile = image!
+                        self.state = .imageOk
+                        completion(image!)
+                    }
+                })
+              
             }
           }
         }
       } else {
         
         if let _ = self.imageFile {
-          completion(imageReturn: self.imageFile)
+          completion(self.imageFile)
         } else {
-          ImageCache.defaultCache.retrieveImageForKey(imageCacheName, options: []) { (image, cacheType) in
-            if let _ = image {
-              self.imageFile = image!
-              completion(imageReturn: image!)
-            } else {
-              
-            }
-          }
+            ImageCache.default.retrieveImage(forKey: imageCacheName, options: [], completionHandler: { (image, cacheType) in
+                if let _ = image {
+                    self.imageFile = image!
+                    completion(image!)
+                } else {
+                    
+                }
+            })
+          
         }
       }
-    })
+    }
   }
   
-  func setImageInWallCell(tableView:UITableView,indexPath:NSIndexPath,cell:WallImageTableViewCell, imageCacheName:String,urlImage:String,completion: (imageReturn: UIImage) -> Void) {
+  func setImageInWallCell(_ tableView:UITableView,indexPath:IndexPath,cell:WallImageTableViewCell, imageCacheName:String,urlImage:String,completion: (_ imageReturn: UIImage) -> Void) {
     if !cellIsProcessing {
       cellIsProcessing = true
       indexPathCell = indexPath
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-      cell.stateImage = .Retrieving
+    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+      cell.stateImage = .retrieving
       self.setImage(imageCacheName, urlImage: urlImage, completion: { (imageReturn) in
         if !self.cellIsReloaded {
           
-          if self.state == .ImageOk {
-            dispatch_async(dispatch_get_main_queue(), {
+          if self.state == .imageOk {
+            DispatchQueue.main.async(execute: {
               cell.imageInCell = imageReturn
               if indexPath.row == cell.tag {
                 let ratio = (imageReturn.size.height)/(imageReturn.size.width)
@@ -110,15 +114,15 @@ class ImageManager: NSObject {
                 cell.imageObject = self
                 cell.imageAttachment.image = imageReturn
                 DataManager.sharedInstance.images.append(self)
-                tableView.reloadRowsAtIndexPaths([self.indexPathCell], withRowAnimation: .Automatic)
+                tableView.reloadRows(at: [self.indexPathCell], with: .automatic)
               }
             })
           } else {
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
               if indexPath.row == cell.tag {
-                let indexPathCell = tableView.indexPathForCell(cell)
+                let indexPathCell = tableView.indexPath(for: cell)
                 cell.imageAttachment.image = UIImage(named: "anuncio.png")
-                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
               }
             })
             

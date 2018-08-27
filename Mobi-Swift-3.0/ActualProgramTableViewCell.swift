@@ -22,15 +22,15 @@ class ActualProgramTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
-    self.selectionStyle = .None
+    self.selectionStyle = .none
 
   }
   
-  override func setSelected(selected: Bool, animated: Bool) {
+  override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
     // Configure the view for the selected state
@@ -38,7 +38,7 @@ class ActualProgramTableViewCell: UITableViewCell {
   
   func lockView() {
     viewLocked.alpha = 0.8
-    viewLocked.hidden = false
+    viewLocked.isHidden = false
     labelLocked.text = ""
     labelGuests.text = "Convidados"
     labelName.text = "Sem programação da rádio"
@@ -46,7 +46,7 @@ class ActualProgramTableViewCell: UITableViewCell {
     labelSecondName.text = ""
     labelLocked.textColor = DataManager.sharedInstance.interfaceColor.color
     imagePerson.layer.cornerRadius = imagePerson.bounds.height / 2
-    imagePerson.layer.borderColor = UIColor.blackColor().CGColor
+    imagePerson.layer.borderColor = UIColor.black.cgColor
     imagePerson.layer.borderWidth = 0
     let imageCD = UIImage(named: "logo-brancaAbert.png")
     var imageCDView = UIImageView(frame: imagePerson.frame)
@@ -57,7 +57,7 @@ class ActualProgramTableViewCell: UITableViewCell {
   
   func unlockView() {
     viewLocked.alpha = 0
-    viewLocked.hidden = true
+    viewLocked.isHidden = true
     
   }
   

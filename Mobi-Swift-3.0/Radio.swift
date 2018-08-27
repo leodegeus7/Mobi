@@ -18,16 +18,16 @@ class Radio2: NSObject, CLLocationManagerDelegate {
   dynamic var distanceFromUser = -1
   dynamic var formattedLocal = ""
   dynamic var thumbnail:UIImage!
-  dynamic var streamingLink:NSURL!
+  dynamic var streamingLink:URL!
   dynamic var typeOfStreaming = ""
-  dynamic var lastAccessDate:NSDate!
+  dynamic var lastAccessDate:Date!
   dynamic var lastAccessString = ""
   
-  init(id:String,name:String,lat:String,long:String, completionSuper: (result: Bool) -> Void) {
+  init(id:String,name:String,lat:String,long:String, completionSuper: (_ result: Bool) -> Void) {
     super.init()
     self.name = name
     self.id = Int(id)!
-    completionSuper(result: true)
+    completionSuper(true)
     
     
 //    self.address = Address(latitude: lat, longitude: long, convert: true, completionSuper: { (result) in
@@ -47,16 +47,16 @@ class Radio2: NSObject, CLLocationManagerDelegate {
   }
   
   
-  func setThumbnailImage(image:String) {
+  func setThumbnailImage(_ image:String) {
     self.thumbnail = UIImage(named: image)
   }
   
-  func setFormattedLocalString(address:Address2) -> String {
+  func setFormattedLocalString(_ address:Address2) -> String {
     return address.city + " - " + address.state
   }
   
-  static func distanceBetweenTwoLocationsMeters(source:CLLocation,destination:CLLocation) -> Int{
-    let distanceMeters = source.distanceFromLocation(destination)
+  static func distanceBetweenTwoLocationsMeters(_ source:CLLocation,destination:CLLocation) -> Int{
+    let distanceMeters = source.distance(from: destination)
     return Int(distanceMeters)
   }
   

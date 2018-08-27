@@ -10,20 +10,32 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SVGBezierPath;
+
+FOUNDATION_EXTERN CGRect SVGAdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
+FOUNDATION_EXTERN CGRect SVGBoundingRectForPaths(NSArray<SVGBezierPath*> *paths);
+FOUNDATION_EXTERN void SVGDrawPaths(NSArray<SVGBezierPath*> *paths, CGContextRef ctx, CGRect rect,
+                                    __nullable CGColorRef defaultFillColor,
+                                    __nullable CGColorRef defaultStrokeColor);
+FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const paths,
+                                             CGContextRef const ctx,
+                                             CGRect rect,
+                                             void (^drawingBlock)(SVGBezierPath *path));
+
 /// A NSBezierPath or UIBezierPath subclass that represents an SVG path
 /// and its SVG attributes
 @interface SVGBezierPath : PSVGBezierPath
 
 
 /*!
- *  @discussion A set of paths and their attributes.
+ * @brief A set of paths and their attributes.
  *
  */
 @property(nonatomic, readonly) NSDictionary<NSString*, id> *svgAttributes;
 
 
 /*!
- *  @discussion The string representation of an SVG.
+ * @brief The string representation of an SVG.
  *
  */
 @property(nonatomic, readonly) NSString *SVGRepresentation;
@@ -31,20 +43,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*!
- *  Returns an array of SVGBezierPaths given an SVG's URL.
+ * @brief Returns an array of SVGBezierPaths given an SVG's URL.
  *
- *  @param aURL The URL from which to load an SVG.
+ * @param aURL The URL from which to load an SVG.
  *
  */
 + (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL;
 
 
 /*!
- *  Returns an array of paths given the XML string of an SVG.
+ * @brief Returns an array of paths given the XML string of an SVG.
  *
  */
 + (NSArray *)pathsFromSVGString:(NSString *)svgString;
 
+/*!
+ * @brief Returns a new path with the values of `attributes` added to `svgAttributes`
+ *
+ * @param attributes A dictionary of SVG attributes to set.
+ *
+ */
+- (SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes;
 
 #if !TARGET_OS_IPHONE
 @property(nonatomic, readonly) CGPathRef CGPath;
@@ -59,3 +78,4 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 @end
 NS_ASSUME_NONNULL_END
+

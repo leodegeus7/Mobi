@@ -16,7 +16,7 @@ class LocalCities2TableViewController: UITableViewController {
   var selectedState = StateRealm()
   var selectedCity = CityRealm()
   
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   
   override func viewDidLoad() {
@@ -24,9 +24,9 @@ class LocalCities2TableViewController: UITableViewController {
     self.title = "Cidades"
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
+    activityIndicator.isHidden = true
     
-    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Voltar", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Voltar", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     
     ///////////////////////////////////////////////////////////
     //MARK: --- INITIAL REQUEST ---
@@ -49,11 +49,11 @@ class LocalCities2TableViewController: UITableViewController {
   //MARK: --- TABLEVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if citiesArray.count == 0 {
       return 0
     }
@@ -61,45 +61,45 @@ class LocalCities2TableViewController: UITableViewController {
     
   }
   
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
     return 40
   }
   
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row <= citiesArray.count-1 {
-      let cell = tableView.dequeueReusableCellWithIdentifier("localCityCell", forIndexPath: indexPath) as! LocalCitiesTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "localCityCell", for: indexPath) as! LocalCitiesTableViewCell
       cell.labelLocal.text = citiesArray[indexPath.row].name
       return cell
     } else {
       let cell = UITableViewCell()
       //cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0)
-      cell.selectionStyle = .None
+      cell.selectionStyle = .none
       return cell
     }
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.row <= citiesArray.count-1 {
       view.addSubview(activityIndicator)
-      activityIndicator.hidden = false
+      activityIndicator.isHidden = false
       tableView.allowsSelection = false
       let manager = RequestManager()
       selectedCity = citiesArray[indexPath.row]
       manager.requestRadiosInCity(selectedCity.id,pageNumber:0,pageSize:10, completion: { (resultCity) in
         self.selectedCity.updateRadiosOfCity(resultCity)
         self.tableView.allowsSelection = true
-        self.activityIndicator.hidden = true
+        self.activityIndicator.isHidden = true
         self.activityIndicator.removeFromSuperview()
-        self.performSegueWithIdentifier("detailCity", sender: self)
+        self.performSegue(withIdentifier: "detailCity", sender: self)
       })
     }
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "detailCity" {
-      let radioListVC = (segue.destinationViewController as! RadioListTableViewController)
+      let radioListVC = (segue.destination as! RadioListTableViewController)
       let radios = selectedCity.radios
       radioListVC.radios = Array(radios)
       radioListVC.superSegue = "detailCity"

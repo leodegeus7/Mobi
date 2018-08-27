@@ -13,11 +13,11 @@ import Kingfisher
 
 class LoadViewController: UIViewController {
   var initialView = MiniPlayerViewController()
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  var notificationCenter = NotificationCenter.default
   
   var requestInfo = true
   
-  var loadTimer = NSTimer()
+  var loadTimer = Timer()
   var viewInitial:InitialTableViewController!
   
   @IBOutlet weak var progressView: UIProgressView!
@@ -28,16 +28,16 @@ class LoadViewController: UIViewController {
     if DataManager.sharedInstance.existInterfaceColor {
       let rect = view.frame
       
-      let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+      let components = DataManager.sharedInstance.interfaceColor.color.cgColor.components
       let colorBlack = DataManager.sharedInstance.interfaceColor.color
-      let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
-      view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: rect, andColors: [colorWhite,colorBlack])
+      let colorWhite =  ColorRealm(name: 45, red: (components?[0])!+0.1, green: (components?[1])!+0.1, blue: (components?[2])!+0.1, alpha: 1).color
+      view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: rect, andColors: [colorWhite,colorBlack])
       
     }
-    progressView.tintColor = UIColor.blackColor()
+    progressView.tintColor = UIColor.black
     progressView.progress = 0
     LoadViewController.activateCacheLimit(30)
-    loadTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
+    loadTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(LoadViewController.timerExplode), userInfo: nil, repeats: true)
     let indicator = UIActivityIndicatorView()
     indicator.startAnimating()
     indicator.center = view.center
@@ -51,13 +51,13 @@ class LoadViewController: UIViewController {
     
     
     if (requestInfo) {
-      if DataManager.sharedInstance.statusApp == .ProblemWithRealm {
+      if DataManager.sharedInstance.statusApp == .problemWithRealm {
         Util.displayAlert(title: "Problemas", message: "Tivermos problemas ao acessar o banco de dados local. Reinstale o app para voltar ao funcionamento", action: "OK")
       } else {
         requestInitialInformation()
       }
     } else {
-      self.dismissViewControllerAnimated(true, completion: {
+      self.dismiss(animated: true, completion: {
         
       })
     }
@@ -69,7 +69,7 @@ class LoadViewController: UIViewController {
   }
   
   
-  @IBAction func onClickSegueButton(sender: AnyObject) {
+  @IBAction func onClickSegueButton(_ sender: AnyObject) {
   }
   
   func requestInitialInformation() {
@@ -96,7 +96,7 @@ class LoadViewController: UIViewController {
         self.progressView.progress = 0.2
         print("Servidor testado")
         DataBaseTest.infoWithoutRadios()
-        self.notificationCenter.postNotificationName("reloadData", object: nil)
+        self.notificationCenter.post(name: Notification.Name(rawValue: "reloadData"), object: nil)
         
         let genreManager = RequestManager()
         genreManager.requestMusicGenre({ (resultGenre) in  //valida sem userToken
@@ -176,8 +176,8 @@ class LoadViewController: UIViewController {
     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
     transition.type = kCATransitionFromBottom
     transition.subtype = kCATransitionFromRight
-    self.view.window?.layer.addAnimation(transition, forKey: nil)
-    self.dismissViewControllerAnimated(false) { 
+    self.view.window?.layer.add(transition, forKey: nil)
+    self.dismiss(animated: false) { 
       
     }
   }
@@ -194,15 +194,17 @@ class LoadViewController: UIViewController {
     loadTimer.invalidate()
   }
   
-  static func activateCacheLimit(mB:UInt) {
-    ImageCache.defaultCache.maxDiskCacheSize = mB * 1024 * 1024
-    ImageCache.defaultCache.calculateDiskCacheSizeWithCompletionHandler { (size) in
-      print("Foi utilizado \(Float(size)/(1024.0*1024)) Mb de cache em memoria do dispostivo")
-      if Float(size)/(1024.0*1024) > 15 {
-        ImageCache.defaultCache.clearDiskCache()
-        ImageCache.defaultCache.clearMemoryCache()
-        ImageCache.defaultCache.cleanExpiredDiskCache()
-      }
+  static func activateCacheLimit(_ mB:UInt) {
+
+    ImageCache.default.maxDiskCacheSize = mB * 1024 * 1024
+    ImageCache.default.calculateDiskCacheSize { (size) in
+        print("Foi utilizado \(Float(size)/(1024.0*1024)) Mb de cache em memoria do dispostivo")
+        
+        if Float(size)/(1024.0*1024) > 15 {
+            ImageCache.default.clearDiskCache()
+            ImageCache.default.clearMemoryCache()
+            ImageCache.default.cleanExpiredDiskCache()
+        }
     }
   }
   

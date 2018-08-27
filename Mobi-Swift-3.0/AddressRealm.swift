@@ -24,17 +24,17 @@ class AddressRealm: Object  {
   dynamic var localName = ""
   dynamic var formattedLocal = ""
   dynamic var completeAddress = false
-  var currentClassState = classState.Initial
+  var currentClassState = classState.initial
   dynamic var coordinates:CLLocation!
   
   
   enum classState {
-    case CompleteAddress
-    case IncompleteAddressWithoutCoordinates
-    case IncompleteAddressWithoutAddressJustCoordinates
-    case InconclusiveClass
-    case Initial
-    case LocalJustWithLocalName
+    case completeAddress
+    case incompleteAddressWithoutCoordinates
+    case incompleteAddressWithoutAddressJustCoordinates
+    case inconclusiveClass
+    case initial
+    case localJustWithLocalName
   }
 
   
@@ -69,7 +69,7 @@ class AddressRealm: Object  {
     }
   }
   
-  convenience init(id:String,latitude:String,longitude:String,convert:Bool,repository:Bool,completionSuper: (result: AddressRealm) -> Void) {
+  convenience init(id:String,latitude:String,longitude:String,convert:Bool,repository:Bool,completionSuper: @escaping (_ result: AddressRealm) -> Void) {
     self.init(id:id, lat: latitude,long:longitude,country:"" ,city:"", state:"", street:"", streetNumber:"",zip:"",repository:false)
     if (convert) {
       AddressRealm.getAddress(self, completion: { (resultAddress) in
@@ -79,13 +79,13 @@ class AddressRealm: Object  {
               DataManager.sharedInstance.realm.add(self)
             }
           }
-          completionSuper(result: self)
+          completionSuper(self)
         } else {
           //completionSuper(result: completionSuper)
         }
       })
     } else {
-      completionSuper(result: self)
+      completionSuper(self)
     }
   }
   
@@ -100,26 +100,26 @@ class AddressRealm: Object  {
   
   func verifyInformation() -> Bool {
     if (lat != "" && long != "" && city != "" && state != "" && country != "") {
-      self.currentClassState = .CompleteAddress
+      self.currentClassState = .completeAddress
       self.completeAddress = true
       return true
     } else if (lat == "" && long == "" && city != "" && state != "" && country != "") {
-      self.currentClassState = .IncompleteAddressWithoutCoordinates
+      self.currentClassState = .incompleteAddressWithoutCoordinates
       self.completeAddress = false
     } else if (lat != "" && long != "" && city == "" && state == "" && country == "") {
-      self.currentClassState = .IncompleteAddressWithoutAddressJustCoordinates
+      self.currentClassState = .incompleteAddressWithoutAddressJustCoordinates
       self.completeAddress = false
     } else if (lat != "" && long != "" && city == "" && state == "" && country == "" && localName != "") {
-      self.currentClassState = .LocalJustWithLocalName
+      self.currentClassState = .localJustWithLocalName
       self.completeAddress = false
     } else {
-      self.currentClassState = .InconclusiveClass
+      self.currentClassState = .inconclusiveClass
       self.completeAddress = false
     }
     return false
   }
   
-  static func getAddress(address:AddressRealm,completion: (resultAddress: Bool) -> Void) {
+  static func getAddress(_ address:AddressRealm,completion: @escaping (_ resultAddress: Bool) -> Void) {
     if let coord = address.coordinates {
       Util.convertCoordinateToAddress(coord.coordinate.latitude, long: coord.coordinate.longitude, completion: { (result) in
         if result["City"] != nil {
@@ -149,10 +149,10 @@ class AddressRealm: Object  {
         } else {
           address.completeAddress = false
         }
-        completion(resultAddress: true)
+        completion(true)
       })
     } else {
-      completion(resultAddress: false)
+      completion(false)
     }
   }
   

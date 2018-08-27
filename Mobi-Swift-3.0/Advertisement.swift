@@ -12,8 +12,8 @@ class Advertisement: NSObject {
   var id = -1
   var image:String!
   var url = ""
-  var datetimeEnd:NSDate!
-  var datetimeStart:NSDate!
+  var datetimeEnd:Date!
+  var datetimeStart:Date!
   var descriptionAd:String!
   var playerScreen = false
   var profileScreen = false

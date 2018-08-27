@@ -18,12 +18,12 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   var isSearchOn = false
   var searchResults = [GenreRealm]()
   var selectedGenre = GenreRealm()
-  private let reuseIdentifier = "GenreCell"
-  private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+  fileprivate let reuseIdentifier = "GenreCell"
+  fileprivate let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
   var buttonLateralMenu = UIBarButtonItem()
   
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+  var notificationCenter = NotificationCenter.default
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,8 +31,8 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     ///////////////////////////////////////////////////////////
     //MARK: --- BASIC CONFIG ---
     ///////////////////////////////////////////////////////////
-    notificationCenter.addObserver(self, selector: #selector(GenreViewController.freezeView), name: "freezeViews", object: nil)
-    collectionView.backgroundView?.backgroundColor = UIColor.clearColor()
+    notificationCenter.addObserver(self, selector: #selector(GenreViewController.freezeView), name: NSNotification.Name(rawValue: "freezeViews"), object: nil)
+    collectionView.backgroundView?.backgroundColor = UIColor.clear
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     buttonLateralMenu.target = self.revealViewController()
     buttonLateralMenu.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -43,7 +43,7 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     self.title = "Gêneros"
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
+    activityIndicator.isHidden = true
     
     ///////////////////////////////////////////////////////////
     //MARK: --- REQUEST GENRE ---
@@ -67,21 +67,21 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     
     if DataManager.sharedInstance.menuIsOpen {
       self.collectionView.allowsSelection = false
-      self.collectionView.scrollEnabled = false
+      self.collectionView.isScrollEnabled = false
     } else {
       self.collectionView.allowsSelection = true
-      self.collectionView.scrollEnabled = true
+      self.collectionView.isScrollEnabled = true
     }
   }
   ///////////////////////////////////////////////////////////
   //MARK: --- COLECTIONVIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
   
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if isSearchOn == true && !searchResults.isEmpty {
       return searchResults.count
     } else {
@@ -89,24 +89,24 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     }
   }
   
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GenreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenreCell", for: indexPath) as! GenreCollectionViewCell
       if isSearchOn == true && !searchResults.isEmpty {
         cell.labelText.text = searchResults[indexPath.item].name
       } else {
         cell.labelText.text = DataManager.sharedInstance.allMusicGenre[indexPath.item].name
       }
-      cell.backgroundColor = UIColor.whiteColor()
-      cell.imageGenre.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
+      cell.backgroundColor = UIColor.white
+      cell.imageGenre.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.allMusicGenre[indexPath.row].image)))
       cell.imageGenre.alpha = 0.9
-      cell.labelText.textColor = UIColor.whiteColor()
+      cell.labelText.textColor = UIColor.white
       return cell
     
   }
   
-  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
+    activityIndicator.isHidden = false
     collectionView.allowsSelection = false
     if !isSearchOn {
       self.selectedGenre = DataManager.sharedInstance.allMusicGenre[indexPath.row]
@@ -117,12 +117,12 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     manager.requestRadiosInGenre(selectedGenre.id,pageNumber:0,pageSize:10) { (resultGenre) in
       self.selectedGenre.updateRadiosOfGenre(resultGenre)
       self.collectionView.allowsSelection = true
-      self.activityIndicator.hidden = true
+      self.activityIndicator.isHidden = true
       self.activityIndicator.removeFromSuperview()
       for radio in resultGenre {
         radio.setRadioGenre(DataManager.sharedInstance.allMusicGenre[indexPath.row].name)
       }
-      self.performSegueWithIdentifier("detailGenre", sender: self)
+      self.performSegue(withIdentifier: "detailGenre", sender: self)
     }
   }
   
@@ -130,15 +130,15 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   //MARK: --- COLLECTIOVIEW LAYOUT DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    return CGSizeMake((collectionView.frame.size.width / 3)-4, (collectionView.frame.size.width / 3)-4)
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    return CGSize(width: (collectionView.frame.size.width / 3)-4, height: (collectionView.frame.size.width / 3)-4)
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
     return UIEdgeInsetsMake(3, 3, 3, 3)
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
     return 3
   }
   
@@ -146,14 +146,14 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
   //MARK: --- SEARCH BAR DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func searchBarCancelButtonClicked(searchBar: UISearchBar!) {
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar!) {
     searchBar.text = nil
     searchBar.resignFirstResponder()
     isSearchOn = false
     self.collectionView.reloadData()
   }
   
-  func searchBar(searchBar: UISearchBar!, textDidChange searchText: String!) {
+  func searchBar(_ searchBar: UISearchBar!, textDidChange searchText: String!) {
     searchBar.showsCancelButton = true
     if !searchText.isEmpty {
       isSearchOn = true
@@ -162,11 +162,11 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     }
   }
   
-  func filterContentForSearchText(text: String) {
-    searchResults.removeAll(keepCapacity: false)
+  func filterContentForSearchText(_ text: String) {
+    searchResults.removeAll(keepingCapacity: false)
     for genre in DataManager.sharedInstance.allMusicGenre {
       let stringToLookFor = genre.name as NSString
-      if stringToLookFor.localizedCaseInsensitiveContainsString(text as String) {
+      if stringToLookFor.localizedCaseInsensitiveContains(text as String) {
         searchResults.append(genre)
       }
     }
@@ -176,31 +176,31 @@ class GenreViewController: UIViewController,UICollectionViewDataSource,UICollect
     searchBar.resignFirstResponder()
   }
   
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "detailGenre" {
-      let radioVC = (segue.destinationViewController as! RadioListTableViewController)
+      let radioVC = (segue.destination as! RadioListTableViewController)
       radioVC.radios = Array(selectedGenre.radios)
       radioVC.superSegue = "detailGenre"
       radioVC.idGenreSelected = selectedGenre.id
     }
   }
   
-  @IBAction func menuTap(sender: AnyObject) {
+  @IBAction func menuTap(_ sender: AnyObject) {
     searchBar.resignFirstResponder()
     view.endEditing(true)
-    UIApplication.sharedApplication().sendAction(buttonLateralMenu.action, to: buttonLateralMenu.target, from: self, forEvent: nil)
+    UIApplication.shared.sendAction(buttonLateralMenu.action!, to: buttonLateralMenu.target, from: self, for: nil)
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
   }
   
-  @IBAction func searchbuttonTap(sender: AnyObject) {
+  @IBAction func searchbuttonTap(_ sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
 }

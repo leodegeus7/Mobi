@@ -25,28 +25,28 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
   
   @IBOutlet weak var cosmosView: CosmosView!
   enum ModeType {
-    case Review
-    case Wall
-    case Comment
-    case Undefined
+    case review
+    case wall
+    case comment
+    case undefined
   }
   
   enum AttachmentType:Int {
-    case Image = 1
-    case Audio = 2
-    case Video = 3
-    case UndefinedYet = -1
+    case image = 1
+    case audio = 2
+    case video = 3
+    case undefinedYet = -1
   }
   
-  var actualMode:ModeType = .Undefined
+  var actualMode:ModeType = .undefined
   var actualRadio:RadioRealm!
-  var actualWallType:AttachmentType = .UndefinedYet
+  var actualWallType:AttachmentType = .undefinedYet
   var actualComment:Comment!
   let imagePicker = UIImagePickerController()
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   var photoToUpload:UIImage!
-  var audioToUploadPath:NSURL!
-  var videoToUpload:NSURL!
+  var audioToUploadPath:URL!
+  var videoToUpload:URL!
   var numberOfStars = -1
   
   @IBOutlet weak var viewProgress: UIView!
@@ -57,50 +57,50 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     
     
     super.viewDidLoad()
-    viewProgress.hidden = true
-    viewProgress.backgroundColor = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.7)
+    viewProgress.isHidden = true
+    viewProgress.backgroundColor = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.7)
     viewProgress.layer.cornerRadius = viewProgress.frame.height/4
     viewProgress.clipsToBounds = true
-    let sendButton = UIBarButtonItem(title: "Enviar", style: .Done, target: self, action: #selector(SendPublicationViewController.sendPublication))
+    let sendButton = UIBarButtonItem(title: "Enviar", style: .done, target: self, action: #selector(SendPublicationViewController.sendPublication))
     textViewPublication.delegate = self
-    self.navigationItem.setRightBarButtonItem(sendButton, animated: false)
-    let cancelButton = UIBarButtonItem(title: "Cancelar", style: .Done, target: self, action: #selector(SendPublicationViewController.cancelPublication))
-    self.navigationItem.setLeftBarButtonItem(cancelButton, animated: false)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+    self.navigationItem.setRightBarButton(sendButton, animated: false)
+    let cancelButton = UIBarButtonItem(title: "Cancelar", style: .done, target: self, action: #selector(SendPublicationViewController.cancelPublication))
+    self.navigationItem.setLeftBarButton(cancelButton, animated: false)
+    NotificationCenter.default.addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(SendPublicationViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     textViewPublication.becomeFirstResponder()
-    textViewPublication.autocorrectionType = UITextAutocorrectionType.No
-    textViewPublication.selectedTextRange = textViewPublication.textRangeFromPosition(textViewPublication.beginningOfDocument, toPosition: textViewPublication.beginningOfDocument)
+    textViewPublication.autocorrectionType = UITextAutocorrectionType.no
+    textViewPublication.selectedTextRange = textViewPublication.textRange(from: textViewPublication.beginningOfDocument, to: textViewPublication.beginningOfDocument)
     textViewPublication.text = "Digite uma publicação"
-    textViewPublication.textColor = UIColor.lightGrayColor()
+    textViewPublication.textColor = UIColor.lightGray
     let amountOfLinesToBeShown = 4
     let maxheight = (textViewPublication.font?.lineHeight)! * CGFloat(amountOfLinesToBeShown)
-    textViewPublication.sizeThatFits(CGSizeMake(textViewPublication.frame.size.width, maxheight))
-    viewUploadFile.hidden = true
-    if actualMode == .Wall {
+    textViewPublication.sizeThatFits(CGSize(width: textViewPublication.frame.size.width, height: maxheight))
+    viewUploadFile.isHidden = true
+    if actualMode == .wall {
       self.title = "Criar publicação"
       cosmosView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-      cosmosView.hidden = true
-    } else if actualMode == .Review {
+      cosmosView.isHidden = true
+    } else if actualMode == .review {
       self.title = "Criar review"
-      viewIcons.hidden = true
+      viewIcons.isHidden = true
       viewIcons.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
       viewUploadFile.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     } else {
       self.title = "Criar comentario"
-      viewIcons.hidden = true
+      viewIcons.isHidden = true
       viewIcons.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
       viewUploadFile.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
       cosmosView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-      cosmosView.hidden = true
+      cosmosView.isHidden = true
     }
     imagePicker.delegate = self
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
-    activityIndicator.hidden = true
+    activityIndicator.isHidden = true
     
-    audioButton.backgroundColor = UIColor.clearColor()
-    photoButton.backgroundColor = UIColor.clearColor()
+    audioButton.backgroundColor = UIColor.clear
+    photoButton.backgroundColor = UIColor.clear
 
     
     audioButton.tintColor = DataManager.sharedInstance.interfaceColor.color
@@ -113,11 +113,11 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     let imageAudioView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imageAudio!)
     let imagePhotoView = Util.tintImageWithColor(DataManager.sharedInstance.interfaceColor.color, image: imagePhoto!)
 
-    audioButton.setImage(imageAudioView.image, forState: .Normal)
-    photoButton.setImage(imagePhotoView.image, forState: .Normal)
+    audioButton.setImage(imageAudioView.image, for: UIControlState())
+    photoButton.setImage(imagePhotoView.image, for: UIControlState())
 
     
-    cosmosView.settings.fillMode = .Full
+    cosmosView.settings.fillMode = .full
     cosmosView.didFinishTouchingCosmos = { rating in
       self.numberOfStars = Int(rating)
     }
@@ -126,26 +126,26 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     cosmosView.settings.filledBorderColor = DataManager.sharedInstance.interfaceColor.color
   }
   
-  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-    let currentText:NSString = textViewPublication.text
-    let updatedText = currentText.stringByReplacingCharactersInRange(range, withString: text)
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    let currentText:NSString = textViewPublication.text as NSString
+    let updatedText = currentText.replacingCharacters(in: range, with: text)
     if updatedText.isEmpty {
       textViewPublication.text = "Digite uma publicação"
-      textViewPublication.textColor = UIColor.lightGrayColor()
-      textViewPublication.selectedTextRange = textViewPublication.textRangeFromPosition(textViewPublication.beginningOfDocument, toPosition: textViewPublication.beginningOfDocument)
+      textViewPublication.textColor = UIColor.lightGray
+      textViewPublication.selectedTextRange = textViewPublication.textRange(from: textViewPublication.beginningOfDocument, to: textViewPublication.beginningOfDocument)
       return false
-    } else if textViewPublication.textColor == UIColor.lightGrayColor() && !text.isEmpty {
+    } else if textViewPublication.textColor == UIColor.lightGray && !text.isEmpty {
       textViewPublication.text = nil
-      textViewPublication.textColor = UIColor.blackColor()
+      textViewPublication.textColor = UIColor.black
     }
     return true
   }
   
-  func textViewShouldEndEditing(textView: UITextView) -> Bool {
+  func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
     return true
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
         textViewPublication.becomeFirstResponder()
   }
   
@@ -160,16 +160,16 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       self.textViewPublication.text = ""
     }
     switch actualMode {
-    case .Review:
+    case .review:
       if numberOfStars == -1 {
         Util.displayAlert(title: "Atenção", message: "Selecione um numero de estrelas para concluir o review", action: "Ok")
       } else {
-        if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
+        if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGray {
           requestManager.sendReviewPublication(actualRadio, text: textViewPublication.text, score: numberOfStars, completion: { (resultReview) in
             if resultReview {
               self.displayAlertWithMessageAndDismiss("Concluído", message: "Sua avaliação sobre a rádio \(self.actualRadio.name) foi enviada", okTitle: "Ok")
             } else {
-              Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
+              Util.displayAlert(title: "Atenção", message: "Erro ao realizar review, talvez você ja tenha o realizado", action: "Ok")
             }
             
             
@@ -178,9 +178,9 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
           Util.displayAlert(title: "Atenção", message: "Digite um texto para podermos enviar sua publicação no mural", action: "Ok")
         }
       }
-    case .Comment:
+    case .comment:
       
-      if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
+      if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGray {
         requestManager.sendComment(actualComment, text: textViewPublication.text, completion: { (resultComment) in
           if resultComment {
             self.displayAlertWithMessageAndDismiss("Concluído", message: "Seu comentário foi enviada", okTitle: "Ok")
@@ -193,21 +193,21 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       }
       
       
-    case .Wall:
+    case .wall:
       
       switch actualWallType {
-      case .Audio:
-        viewProgress.hidden = false
+      case .audio:
+        viewProgress.isHidden = false
         if let audio = audioToUploadPath {
           let audioRequest = RequestManager()
           audioRequest.uploadFile(progressBar,fileToUpload:audio, completion: { (resultIdentifiers) in
             
             requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 2, attachmentIdentifier: resultIdentifiers, completion: { (resultWall) in
-              self.viewProgress.hidden = true
+              self.viewProgress.isHidden = true
               if resultWall {
                 self.displayAlertWithMessageAndDismiss("Publicação enviada", message: "Sua mensagem estará visível no mural assim que for aprovada pela rádio", okTitle: "Ok")
               } else {
-                Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
+                Util.displayAlert(title: "Atenção", message: "Erro ao realizar review, talvez você ja tenha o realizado", action: "Ok")
               }
               
             })
@@ -215,29 +215,29 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
         }
         
         break
-      case .Video:
+      case .video:
         break
-      case .Image:
-        viewProgress.hidden = false
+      case .image:
+        viewProgress.isHidden = false
         if let photo = photoToUpload {
           let imageRequest = RequestManager()
           imageRequest.uploadImage(progressBar,imageToUpload:photo, completion: { (resultIdentifiers) in
             
             requestManager.sendWallPublication(self.actualRadio, text: self.textViewPublication.text, postType: 1, attachmentIdentifier: resultIdentifiers.getImageIdentifier(), completion: { (resultWall) in
-              self.viewProgress.hidden = true
+              self.viewProgress.isHidden = true
               if resultWall {
-                self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
+                self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua mensagem estará visível no mural assim que for aprovada pela rádio", okTitle: "Ok")
               } else {
-                Util.displayAlert(title: "Atenção", message: "Erro ao realizer review, talvez você ja tenha o realizado", action: "Ok")
+                Util.displayAlert(title: "Atenção", message: "Erro ao realizar review, talvez você ja tenha o realizado", action: "Ok")
               }
               
             })
           })
         }
       default:
-        if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGrayColor() {
+        if textViewPublication.text != "" && textViewPublication.textColor != UIColor.lightGray {
           requestManager.sendWallPublication(actualRadio, text: textViewPublication.text, postType: 0, attachmentIdentifier: "", completion: { (resultWall) in
-            self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua publicação no mural foi concluida com sucesso", okTitle: "Ok")
+            self.displayAlertWithMessageAndDismiss("Concluido", message: "Sua mensagem estará visível no mural assim que for aprovada pela rádio", okTitle: "Ok")
           })
         } else {
           Util.displayAlert(title: "Atenção", message: "Digite um texto ou anexe algum conteúdo para podermos enviar seu Review", action: "Ok")
@@ -248,61 +248,61 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     }
   }
   
-  func animateTextView(up:Bool,height:CGFloat) {
+  func animateTextView(_ up:Bool,height:CGFloat) {
     let movementDuracion = 0.3
-    UIView.animateWithDuration(movementDuracion) {
+    UIView.animate(withDuration: movementDuracion, animations: {
       self.bottomConstrain.constant = height
-    }
+    }) 
   }
   
-  func keyboardWillShow(notification:NSNotification) {
-    let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+  func keyboardWillShow(_ notification:Notification) {
+    let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
     
     animateTextView(true, height: keyboardSize.height)
   }
   
-  func keyboardWillHide(notification:NSNotification) {
-    let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+  func keyboardWillHide(_ notification:Notification) {
+    let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
     animateTextView(false, height: keyboardSize.height)
   }
   
-  @IBAction func audioButtonTap(sender: AnyObject) {
+  @IBAction func audioButtonTap(_ sender: AnyObject) {
     let controller = AudioRecorderViewController()
     controller.audioRecorderDelegate = self
-    presentViewController(controller, animated: true) {
+    present(controller, animated: true) {
     }
   }
   
-  @IBAction func photoButtonTap(sender: AnyObject) {
-    let optionMenu = UIAlertController(title: nil, message: "Como deseja anexar uma foto a publicação?", preferredStyle: .ActionSheet)
-    let cameraOption = UIAlertAction(title: "Tirar Foto", style: .Default) { (alert) in
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+  @IBAction func photoButtonTap(_ sender: AnyObject) {
+    let optionMenu = UIAlertController(title: nil, message: "Como deseja anexar uma foto a publicação?", preferredStyle: .actionSheet)
+    let cameraOption = UIAlertAction(title: "Tirar Foto", style: .default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.allowsEditing = false
-        self.presentViewController(imagePicker, animated: true, completion: {
+        self.present(imagePicker, animated: true, completion: {
           
         })
       } else {
         Util.displayAlert(title: "Erro", message: "Não foi possível abrir a câmera", action: "Ok")
       }
     }
-    let photoGalleryOption = UIAlertAction(title: "Escolher Imagem da Galeria", style: .Default) { (alert) in
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+    let photoGalleryOption = UIAlertAction(title: "Escolher Imagem da Galeria", style: .default) { (alert) in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = true
-        self.presentViewController(imagePicker, animated: true, completion: {
+        self.present(imagePicker, animated: true, completion: {
           
         })
       } else {
         Util.displayAlert(title: "Erro", message: "Não foi possível abrir a galeria", action: "Ok")
       }
     }
-    let cancelOption = UIAlertAction(title: "Cancelar", style: .Cancel) { (alert) in
-      self.dismissViewControllerAnimated(true, completion: {
+    let cancelOption = UIAlertAction(title: "Cancelar", style: .cancel) { (alert) in
+      self.dismiss(animated: true, completion: {
         
       })
     }
@@ -310,7 +310,7 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
     optionMenu.addAction(cameraOption)
     optionMenu.addAction(photoGalleryOption)
     optionMenu.addAction(cancelOption)
-    self.presentViewController(optionMenu, animated: true) {
+    self.present(optionMenu, animated: true) {
     }
     
   }
@@ -320,90 +320,90 @@ class SendPublicationViewController: UIViewController,UITextViewDelegate, UIImag
       
     }
     func cancelAction() {
-      self.navigationController?.popViewControllerAnimated(true)
+      self.navigationController?.popViewController(animated: true)
     }
     
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: "Você deseja cancelar sua publicação? Assim, você irá perder tudo o que escreveu",
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: "Voltar a publicação",
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
         okAction()
     }
     let noAction: UIAlertAction = UIAlertAction(
       title: "Cancelar edição",
-      style: UIAlertActionStyle.Destructive,
+      style: UIAlertActionStyle.destructive,
       handler: { (action: UIAlertAction!) -> Void in
         cancelAction()
       }
     )
     alert.addAction(yesAction)
     alert.addAction(noAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
     
   }
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-    viewUploadFile.hidden = false
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    viewUploadFile.isHidden = false
     photoToUpload = image
     textViewPublication.becomeFirstResponder()
     let imageResized = Util.imageResize(image, sizeChange: CGSize(width: 40, height: 40))
     //self.buttonAttachment.setImage(imageResized, forState: .Normal)
-    self.buttonAttachment.setBackgroundImage(imageResized, forState: .Normal)
+    self.buttonAttachment.setBackgroundImage(imageResized, for: UIControlState())
     //self.buttonAttachment.imageView?.image = imageResized
-    actualWallType = .Image
-    self.dismissViewControllerAnimated(true) {
+    actualWallType = .image
+    self.dismiss(animated: true) {
     }
   }
   
-  @IBAction func cancelAttachmentButton(sender: AnyObject) {
-    viewUploadFile.hidden = true
+  @IBAction func cancelAttachmentButton(_ sender: AnyObject) {
+    viewUploadFile.isHidden = true
     audioToUploadPath = nil
     photoToUpload = nil
     videoToUpload = nil
-    actualWallType = .UndefinedYet
+    actualWallType = .undefinedYet
   }
   
-  @IBAction func attachmentButtonTap(sender: AnyObject) {
+  @IBAction func attachmentButtonTap(_ sender: AnyObject) {
   }
   
-  @IBAction func videoButtonTap(sender: AnyObject) {
+  @IBAction func videoButtonTap(_ sender: AnyObject) {
   }
   
-  func displayAlertWithMessageAndDismiss(text:String,message:String,okTitle:String) {
+  func displayAlertWithMessageAndDismiss(_ text:String,message:String,okTitle:String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: okTitle,
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
-        self.dismissViewControllerAnimated(true, completion: {
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
+        self.dismiss(animated: true, completion: {
           
         })
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     alert.addAction(yesAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
-  func audioRecorderViewControllerDismissed(withFileURL fileURL: NSURL?) {
+  func audioRecorderViewControllerDismissed(withFileURL fileURL: URL?) {
     if fileURL != nil {
-      viewUploadFile.hidden = false
+      viewUploadFile.isHidden = false
       audioToUploadPath = fileURL
       textViewPublication.becomeFirstResponder()
       let imageResized = Util.imageResize(UIImage(named: "micImage.png")!, sizeChange: CGSize(width: 40, height: 40))
-      self.buttonAttachment.setImage(imageResized, forState: .Normal)
-      self.buttonAttachment.setBackgroundImage(imageResized, forState: .Normal)
+      self.buttonAttachment.setImage(imageResized, for: UIControlState())
+      self.buttonAttachment.setBackgroundImage(imageResized, for: UIControlState())
       self.buttonAttachment.imageView?.image = imageResized
-      self.buttonAttachment.backgroundColor = UIColor.clearColor()
-      actualWallType = .Audio
+      self.buttonAttachment.backgroundColor = UIColor.clear
+      actualWallType = .audio
     }
-    self.dismissViewControllerAnimated(true) {
+    self.dismiss(animated: true) {
     }
   }
   

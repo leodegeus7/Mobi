@@ -24,11 +24,11 @@ class MusicTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     self.selectedBackgroundView = viewSelected
-    imageMusic.backgroundColor = UIColor.clearColor()
+    imageMusic.backgroundColor = UIColor.clear
     
 //    var imageLike = UIImage(named: "like1.png")
 //    imageLike = Util.imageResize(imageLike!, sizeChange: CGSize(width: 50, height: 50))
@@ -56,7 +56,7 @@ class MusicTableViewCell: UITableViewCell {
     }
   }
   
-  override func setSelected(selected: Bool, animated: Bool) {
+  override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
     // Configure the view for the selected state
@@ -84,7 +84,7 @@ class MusicTableViewCell: UITableViewCell {
     viewWithoutMusic.alpha = 0.8
     viewWithMusic.alpha = 0.6
     imageMusic.image = UIImage()
-    imageMusic.backgroundColor = UIColor.clearColor()
+    imageMusic.backgroundColor = UIColor.clear
     imageMusic.alpha = 0.6
     labelArtist.text = "Artista"
     labelMusicName.text = "Sem informações da rádio"

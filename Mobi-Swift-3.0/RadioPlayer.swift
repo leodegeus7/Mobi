@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol errorMessageDelegate {
-  func errorMessageChanged(newVal: String)
+  func errorMessageChanged(_ newVal: String)
 }
 
 class RadioPlayer : NSObject {
@@ -27,10 +27,9 @@ class RadioPlayer : NSObject {
     }
   }
   
-  private var player = AVPlayer()
-  private var playerItem = AVPlayerItem?()
-  private var isPlaying = false
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  fileprivate var player = AVPlayer()
+  fileprivate var isPlaying = false
+  var notificationCenter = NotificationCenter.default
   
   var errorDelegate:errorMessageDelegate? = nil
   var errorMessage = "" {
@@ -46,17 +45,17 @@ class RadioPlayer : NSObject {
     
     errorMessage = ""
 //    let url = DataManager.sharedInstance.radioInExecution.streamingLinks[0].link
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: "")!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(url: URL(string: "")!, options: nil)
     
     let statusKey = "tracks"
     
-    asset.loadValuesAsynchronouslyForKeys([statusKey], completionHandler: {
+    asset.loadValuesAsynchronously(forKeys: [statusKey], completionHandler: {
       var error: NSError? = nil
       
-      dispatch_async(dispatch_get_main_queue(), {
-        let status: AVKeyValueStatus = asset.statusOfValueForKey(statusKey, error: &error)
+      DispatchQueue.main.async(execute: {
+        let status: AVKeyValueStatus = asset.statusOfValue(forKey: statusKey, error: &error)
         
-        if status == AVKeyValueStatus.Loaded{
+        if status == AVKeyValueStatus.loaded{
           
           let playerItem = AVPlayerItem(asset: asset)
           
@@ -73,11 +72,11 @@ class RadioPlayer : NSObject {
       
     })
     
-    NSNotificationCenter.defaultCenter().addObserverForName(
-      AVPlayerItemFailedToPlayToEndTimeNotification,
+    NotificationCenter.default.addObserver(
+      forName: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime,
       object: nil,
       queue: nil,
-      usingBlock: { notification in
+      using: { notification in
         print("Status: Failed to continue")
         self.errorMessage = "Stream was interrupted"
     })
@@ -92,17 +91,17 @@ class RadioPlayer : NSObject {
     errorMessage = ""
     
     let link = actualRadio.audioChannels[0].returnLink()
-    let asset: AVURLAsset = AVURLAsset(URL: NSURL(string: link)!, options: nil)
+    let asset: AVURLAsset = AVURLAsset(url: URL(string: link)!, options: nil)
     
     let statusKey = "tracks"
     
-    asset.loadValuesAsynchronouslyForKeys([statusKey], completionHandler: {
+    asset.loadValuesAsynchronously(forKeys: [statusKey], completionHandler: {
       var error: NSError? = nil
       
-      dispatch_async(dispatch_get_main_queue(), {
-        let status: AVKeyValueStatus = asset.statusOfValueForKey(statusKey, error: &error)
+      DispatchQueue.main.async(execute: {
+        let status: AVKeyValueStatus = asset.statusOfValue(forKey: statusKey, error: &error)
         
-        if status == AVKeyValueStatus.Loaded{
+        if status == AVKeyValueStatus.loaded{
           
           let playerItem = AVPlayerItem(asset: asset)
           //playerItem.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: &ItemStatusContext)
@@ -127,21 +126,21 @@ class RadioPlayer : NSObject {
     return bufferAvailableSeconds() > 45.0
   }
   
-  func bufferAvailableSeconds() -> NSTimeInterval {
+  func bufferAvailableSeconds() -> TimeInterval {
     // Check if there is a player instance
     if ((player.currentItem) != nil) {
       
       // Get current AVPlayerItem
       let item: AVPlayerItem = player.currentItem!
-      if (item.status == AVPlayerItemStatus.ReadyToPlay) {
+      if (item.status == AVPlayerItemStatus.readyToPlay) {
         
-        let timeRangeArray: NSArray = item.loadedTimeRanges
+        let timeRangeArray: NSArray = item.loadedTimeRanges as NSArray
         if timeRangeArray.count < 1 { return(CMTimeGetSeconds(kCMTimeInvalid)) }
-        let aTimeRange: CMTimeRange = timeRangeArray.objectAtIndex(0).CMTimeRangeValue
+        let aTimeRange: CMTimeRange = (timeRangeArray.object(at: 0) as AnyObject).timeRangeValue
         //let startTime = CMTimeGetSeconds(aTimeRange.end)
         let loadedDuration = CMTimeGetSeconds(aTimeRange.duration)
         
-        return (NSTimeInterval)(loadedDuration);
+        return (TimeInterval)(loadedDuration);
       }
       else {
         return(CMTimeGetSeconds(kCMTimeInvalid))
@@ -169,10 +168,10 @@ class RadioPlayer : NSObject {
   }
   
   func sendNotification() {
-    notificationCenter.postNotificationName("updateIcons", object: nil)
+    notificationCenter.post(name: Notification.Name(rawValue: "updateIcons"), object: nil)
   }
   
 }
 protocol sharedInstanceDelegate {
-  func sharedInstanceChanged(newVal: Bool)
+  func sharedInstanceChanged(_ newVal: Bool)
 }

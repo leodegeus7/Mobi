@@ -1,11 +1,9 @@
 # Cosmos, a star rating control for iOS and tvOS
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)][carthage]
-[![CocoaPods Version](https://img.shields.io/cocoapods/v/Cosmos.svg?style=flat)][cocoadocs]
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods Version](https://img.shields.io/cocoapods/v/Cosmos.svg?style=flat)](http://cocoadocs.org/docsets/Cosmos)
 [![License](https://img.shields.io/cocoapods/l/Cosmos.svg?style=flat)](LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/Cosmos.svg?style=flat)][cocoadocs]
-[cocoadocs]: http://cocoadocs.org/docsets/Cosmos
-[carthage]: https://github.com/Carthage/Carthage
+[![Platform](https://img.shields.io/cocoapods/p/Cosmos.svg?style=flat)](http://cocoadocs.org/docsets/Cosmos)
 
 <img src='https://raw.githubusercontent.com/marketplacer/Cosmos/master/graphics/Screenshots/star_screenshot_dark.png' alt='Cosmos, star rating control for iOS / Swift' width='300'>
 
@@ -16,6 +14,7 @@ This is a UI control for iOS and tvOS written in Swift. It shows a star rating a
 * Cosmos view can be customized in the Storyboard without writing code.
 * Includes different star filling modes: full, half-filled and precise.
 * Cosmos is accessible and works with voice-over.
+* Supports right-to-left languages.
 
 
 <img src='https://raw.githubusercontent.com/marketplacer/Cosmos/master/graphics/Drawings/1280px-Sirius_A_and_B_artwork.jpg'
@@ -24,35 +23,30 @@ This is a UI control for iOS and tvOS written in Swift. It shows a star rating a
 *Picture of binary star system of Sirius A and Sirius B by [NASA](http://www.nasa.gov), [ESA](http://www.esa.int/ESA) and G. Bacon ([STScI](http://www.stsci.edu/portal/)). Source: [spacetelescope.org](http://www.spacetelescope.org/images/heic0516b/).*
 
 
-## Setup
+## Setup (Swift 3.0 / Xcode 8)
 
 There are three ways you can add Cosmos to your Xcode project.
 
-**Add source (iOS 8+)**
+#### Add source (iOS 8+)
 
 Simply add [CosmosDistrib.swift](https://github.com/marketplacer/Cosmos/blob/master/Distrib/CosmosDistrib.swift) file into your Xcode project.
 
-**Setup with Carthage (iOS 8+)**
+#### Setup with Carthage (iOS 8+)
 
-Alternatively, add `github "marketplacer/Cosmos" ~> 1.2` to your Cartfile and run `carthage update`.
+Alternatively, add `github "marketplacer/Cosmos" ~> 9.0` to your Cartfile and run `carthage update`.
 
-**Setup with CocoaPods (iOS 8+)**
+#### Setup with CocoaPods (iOS 8+)
 
 If you are using CocoaPods add this text to your Podfile and run `pod install`.
 
     use_frameworks!
-    
-    target "Your app target name" do
-      pod 'Cosmos', '~> 1.2'
-    end
+    target 'Your target name'
+    pod 'Cosmos', '~> 9.0'
 
-**Setup in Xcode 6 / Swift 1.2 project**
+#### Legacy Swift versions
 
-Cosmos is written in Swift 2.0 and requires Xcode 7 or newer. Use the [previous version of the library](https://github.com/marketplacer/Cosmos/wiki/Swift-1.2-setup) in Xcode 6 projects.
+Setup a [previous version](https://github.com/marketplacer/Cosmos/wiki/Legacy-Swift-versions) of the library if you use an older version of Swift.
 
-**iOS 7 support**
-
-Please use the [separate iOS 7 setup method](https://github.com/marketplacer/Cosmos/wiki/iOS-7-support) if you need to support iOS 7.
 
 ## Usage
 
@@ -108,12 +102,13 @@ cosmosView.didTouchCosmos = { rating in }
 One can customize Cosmos from code by changing its `settings`. See the [Cosmos configuration manual](https://github.com/marketplacer/Cosmos/wiki/Cosmos-configuration) for the complete list of configuration options.
 
 ```Swift
-// Do not change rating when touched.
-// Use if you need just to show the stars.
+// Do not change rating when touched
+// Use if you need just to show the stars without getting user's input
 cosmosView.settings.updateOnTouch = false
 
 // Show only fully filled stars
-cosmosView.settings.fillMode = .Full
+cosmosView.settings.fillMode = .full
+// Other fill modes: .half, .precise
 
 // Change the size of the stars
 cosmosView.settings.starSize = 30
@@ -122,21 +117,33 @@ cosmosView.settings.starSize = 30
 cosmosView.settings.starMargin = 5
 
 // Set the color of a filled star
-cosmosView.settings.filledColor = UIColor.orangeColor()
+cosmosView.settings.filledColor = UIColor.orange
 
 // Set the border color of an empty star
-cosmosView.settings.emptyBorderColor = UIColor.orangeColor()
+cosmosView.settings.emptyBorderColor = UIColor.orange
 
 // Set the border color of a filled star
-cosmosView.settings.filledBorderColor = UIColor.orangeColor()
+cosmosView.settings.filledBorderColor = UIColor.orange
 ```
 
+## Using Cosmos in a scroll/table view
+
+[Here](https://github.com/marketplacer/Cosmos/wiki/Using-Cosmos-in-a-scroll-view) is how to use Cosmos in a scroll view or a table view.
+
+## Using Cosmos settings from Objective-C
+
+[This manual](https://github.com/marketplacer/Cosmos/wiki/Using-Cosmos-settings-in-Objective-C) describes how to set/read Cosmos settings in Objective-C apps.
 
 ## Demo app
 
 This project includes a demo iOS app.
 
-<img src='https://raw.githubusercontent.com/marketplacer/Cosmos/master/graphics/Screenshots/cosmos_star_rating.gif' alt='five star rating control for iOS written in Swift' width='250'>
+<img src='https://raw.githubusercontent.com/marketplacer/Cosmos/master/graphics/Screenshots/cosmos_star_rating.gif' alt='Five star rating control for iOS written in Swift' width='250'>
+
+#### Using cosmos in a table view
+
+<img src='https://raw.githubusercontent.com/marketplacer/Cosmos/master/graphics/Screenshots/cosmos_star_rating_swift_performance.gif' alt='Using cosmos in a table view' width='250'>
+
 
 ## Version 1.2 upgrade guide
 
@@ -159,9 +166,14 @@ Here are some other star rating controls for iOS:
 
 We would like to thank the following people for their valuable contributions.
 
+* [0x7fffffff](https://github.com/0x7fffffff) for changing `public` access-level modifiers to `open`.
+* [ali-zahedi](https://github.com/ali-zahedi) for updating to the latest version of Swift 3.0.
 * [augmentedworks](https://github.com/augmentedworks) for adding borders to filled stars.
+* [craiggrummitt](https://github.com/craiggrummitt) for Xcode 8 beta 4 support.
+* [JimiSmith](https://github.com/JimiSmith) for Xcode 8 beta 6 support.
 * [nickhart](https://github.com/nickhart) for adding compatibility with Xcode 6.
 * [staticdreams](https://github.com/staticdreams) for bringing tvOS support.
+* [wagnersouz4](https://github.com/wagnersouz4) for Swift 3.1 update.
 
 
 ## License

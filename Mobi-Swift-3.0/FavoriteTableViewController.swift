@@ -20,7 +20,7 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
-    tableView.registerNib(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
+    tableView.register(UINib(nibName: "CellDesign",bundle:nil), forCellReuseIdentifier: "baseCell")
   }
   
   override func didReceiveMemoryWarning() {
@@ -31,7 +31,7 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   //MARK: --- TABLE VIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
     let manager = RequestManager()
     manager.requestUserFavorites({ (resultFav) in
@@ -39,11 +39,11 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     })
   }
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if DataManager.sharedInstance.favoriteRadios.count > 0 {
       return DataManager.sharedInstance.favoriteRadios.count + 1
     } else {
@@ -52,14 +52,14 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
 
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row <= DataManager.sharedInstance.favoriteRadios.count-1 {
-      let cell = tableView.dequeueReusableCellWithIdentifier("baseCell", forIndexPath: indexPath) as! InitialTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "baseCell", for: indexPath) as! InitialTableViewCell
       cell.labelName.text = DataManager.sharedInstance.favoriteRadios[indexPath.row].name
       if let address = DataManager.sharedInstance.favoriteRadios[indexPath.row].address {
         cell.labelLocal.text = address.formattedLocal
       }
-      cell.imageBig.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.favoriteRadios[indexPath.row].thumbnail)))
+      cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(DataManager.sharedInstance.favoriteRadios[indexPath.row].thumbnail)))
       if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
         cell.imageSmallOne.image = UIImage(named: "heartRed.png")
       } else {
@@ -77,31 +77,31 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectedRadio = DataManager.sharedInstance.favoriteRadios[indexPath.row]
     DataManager.sharedInstance.instantiateRadioDetailView(navigationController!, radio: selectedRadio)
   }
   
-  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+  override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     let manager = RequestManager()
     if DataManager.sharedInstance.favoriteRadios[indexPath.row].isFavorite {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Desfavoritar") { action, index in
+      let favorite = UITableViewRowAction(style: .normal, title: "Desfavoritar") { action, index in
         DataManager.sharedInstance.favoriteRadios[indexPath.row].updateIsFavorite(false)
         DataManager.sharedInstance.favoriteRadios[indexPath.row].removeOneLikesNumber()
         manager.deleteFavRadio(DataManager.sharedInstance.favoriteRadios[indexPath.row], completion: { (result) in
           manager.requestUserFavorites({ (resultFav) in
           })
         })
-        DataManager.sharedInstance.favoriteRadios.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        DataManager.sharedInstance.favoriteRadios.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
         if DataManager.sharedInstance.favoriteRadios.count == 0 {
           tableView.reloadData()
         }
       }
-      favorite.backgroundColor = UIColor.orangeColor()
+      favorite.backgroundColor = UIColor.orange
       return [favorite]
     } else {
-      let favorite = UITableViewRowAction(style: .Normal, title: "Favoritar") { action, index in
+      let favorite = UITableViewRowAction(style: .normal, title: "Favoritar") { action, index in
         DataManager.sharedInstance.favoriteRadios[indexPath.row].updateIsFavorite(true)
         DataManager.sharedInstance.favoriteRadios[indexPath.row].addOneLikesNumber()
         manager.favRadio(DataManager.sharedInstance.favoriteRadios[indexPath.row], completion: { (result) in
@@ -111,15 +111,15 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
         
       }
       
-      favorite.backgroundColor = UIColor.orangeColor()
+      favorite.backgroundColor = UIColor.orange
       return [favorite]
     }
   }
   
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
   }
   
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
@@ -127,24 +127,24 @@ class FavoriteTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   //MARK: --- EMPTY TABLE VIEW DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     let str = "Sem Favoritos"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     let str = "Você não marcou nenhuma rádio como favorito, retorne a início e marque algumas!"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+  func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
     return Util.imageResize(UIImage(named: "logo-pretaAbert.png")!, sizeChange: CGSize(width: 100, height: 100))
   }
   
-  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    dismissViewControllerAnimated(true) {
+  func emptyDataSetDidTapButton(_ scrollView: UIScrollView) {
+    dismiss(animated: true) {
     }
   }
   

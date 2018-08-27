@@ -10,8 +10,8 @@ import UIKit
 
 class Comment: NSObject {
   var id = ""
-  var date = NSDate()
-  var postType = PostType.Undefined
+  var date = Date()
+  var postType = PostType.undefined
   var text = ""
   var image = ""
   var video = ""
@@ -19,33 +19,33 @@ class Comment: NSObject {
   var user = UserRealm()
   var radio:RadioRealm!
   
-  init(id:String,date:NSDate,user:UserRealm,text:String,radio:RadioRealm) {
+  init(id:String,date:Date,user:UserRealm,text:String,radio:RadioRealm) {
     super.init()
     self.id = id
     self.date = date
     self.user = user
     self.text = text
-    self.postType = .Text
+    self.postType = .text
     self.radio = radio
   }
   
-  func updateText(text:String) {
+  func updateText(_ text:String) {
     self.text = text
-    self.postType = .Text
+    self.postType = .text
   }
   
-  func addImageReference(image:String) {
+  func addImageReference(_ image:String) {
     self.image = image
-    self.postType = .Image
+    self.postType = .image
   }
   
-  func addAudioReference(audio:String) {
+  func addAudioReference(_ audio:String) {
     self.audio = audio
-    self.postType = .Audio
+    self.postType = .audio
   }
   
-  func addVideoReference(video:String) {
+  func addVideoReference(_ video:String) {
     self.video = video
-    self.postType = .Video
+    self.postType = .video
   }
 }

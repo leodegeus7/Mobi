@@ -12,26 +12,26 @@ import RealmSwift
 
 public enum newType {
   case inProcess
-  case Simple
-  case JustImage
-  case Complex
+  case simple
+  case justImage
+  case complex
 }
 
-class NewRealm: Object {
+class PaperRealm: Object {
 
   dynamic var id = ""
   dynamic var title = ""
   dynamic var img:String!
   dynamic var type:String!
   var typeCase = newType.inProcess
-  dynamic var newDescription = ""
+  dynamic var descriptionNew = ""
   dynamic var date: String!
   
   convenience init(id:String, newTitle:String, newDescription: String, date:String) {
     self.init()
     self.id = id
     self.title = newTitle
-    self.newDescription = newDescription
+    self.descriptionNew = newDescription
     self.type = "Simple"
     self.date = date
     separateType()
@@ -63,7 +63,7 @@ class NewRealm: Object {
     self.id = id
     self.title = newTitle
     self.img = img
-    self.newDescription = newDescription
+    self.descriptionNew = newDescription
     self.type = "Complex"
     self.date = date
     separateType()
@@ -76,11 +76,11 @@ class NewRealm: Object {
   
   func separateType() {
     if (self.type == "Simple") {
-      typeCase = .Simple
+      typeCase = .simple
     } else if (self.type == "JustImage") {
-      typeCase = .JustImage
+      typeCase = .justImage
     } else if (self.type == "Complex") {
-      typeCase = .Complex
+      typeCase = .complex
     }
   }
 

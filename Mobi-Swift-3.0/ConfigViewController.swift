@@ -45,7 +45,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   let colorArray1:[UIColor] = [FlatLimeDark(),FlatOrangeDark(),FlatBlackDark(),FlatPinkDark(),FlatPlumDark(),FlatLime(),FlatPowderBlue(),FlatBlue(),FlatWhite(),FlatSand(),FlatMint(),FlatGreen(),FlatYellow(),FlatOrange(),FlatGray()]
   let colorArray2:[UIColor] = [DataManager.sharedInstance.blueColor.color,FlatWatermelonDark(),FlatPinkDark(),FlatRed(),FlatPurple(),FlatPlumDark(),FlatNavyBlue(),FlatTealDark(),FlatSkyBlueDark(),FlatBlackDark(),FlatMint(),FlatGreen(),FlatYellowDark(),FlatOrange(),FlatGray()]
   var colorArray:[UIColor] = []
-  var notificationCenter = NSNotificationCenter.defaultCenter()
+  var notificationCenter = NotificationCenter.default
   
   @IBOutlet weak var scrollView: UIScrollView!
   
@@ -53,14 +53,14 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   override func viewDidLoad() {
     super.viewDidLoad()
     colorArray = colorArray2
-    self.view.userInteractionEnabled = true
+    self.view.isUserInteractionEnabled = true
     menuButton.target = self.revealViewController()
     menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
     
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     //define color buttons in bottom of view
     
-    notificationCenter.addObserver(self, selector: #selector(ConfigViewController.freezeView), name: "freezeViews", object: nil)
+    notificationCenter.addObserver(self, selector: #selector(ConfigViewController.freezeView), name: NSNotification.Name(rawValue: "freezeViews"), object: nil)
     
     colorButtons.append(button1X1)
     colorButtons.append(button1x2)
@@ -86,24 +86,24 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       
       
       button.backgroundColor = colorArray[i]
-      button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), forControlEvents: .TouchUpInside)
+      button.addTarget(self, action: #selector(ConfigViewController.buttonGridTapped), for: .touchUpInside)
       i += 1
     }
     
     self.title = "Configurações"
     
     // define audio tableview parameters
-    tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    tableViewAudio.separatorStyle = UITableViewCellSeparatorStyle.singleLine
     
     if (DataManager.sharedInstance.audioConfig.audioType == 1) {
-      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 0, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
-      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 1, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
-      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 2, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     }
     
     //define sliders config
@@ -119,15 +119,15 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     for button in colorButtons {
-      button.setImage(UIImage(), forState: .Normal)
-      button.setBackgroundImage(UIImage(), forState: .Normal)
+      button.setImage(UIImage(), for: UIControlState())
+      button.setBackgroundImage(UIImage(), for: UIControlState())
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
         
         let image = UIImageView(frame: button.frame)
         image.image = UIImage(named: "check.png")
         image.frame = button.frame
         
-        button.setBackgroundImage(image.image, forState: .Normal)
+        button.setBackgroundImage(image.image, for: UIControlState())
       }
     }
     
@@ -148,26 +148,26 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   func freezeView() {
     
     if DataManager.sharedInstance.menuIsOpen {
-      scrollView.scrollEnabled = false
-      scrollView.userInteractionEnabled = false
+      scrollView.isScrollEnabled = false
+      scrollView.isUserInteractionEnabled = false
     } else {
-      scrollView.scrollEnabled = true
-      scrollView.userInteractionEnabled = true
+      scrollView.isScrollEnabled = true
+      scrollView.isUserInteractionEnabled = true
     }
   }
   
   //MARK: --- Table View DataSource and Table View Delegate Function ---
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 3
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("audioCell", forIndexPath: indexPath) as! AudioConfigTableViewCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "audioCell", for: indexPath) as! AudioConfigTableViewCell
     if (indexPath.row == 0) {
       cell.labelAudio.text = "Baixa"
     } else if (indexPath.row == 1) {
@@ -176,14 +176,14 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       cell.labelAudio.text = "Automática"
     }
     cell.labelAudio.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
-    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+    let colorAlpha = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.2)
     let viewSelected = UIView()
     viewSelected.backgroundColor = colorAlpha
     cell.selectedBackgroundView = viewSelected
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if (indexPath.row == 0) {
       DataManager.sharedInstance.audioConfig.setAudioTypeQuality(2)
     } else if (indexPath.row == 1) {
@@ -195,71 +195,69 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
   
   //MARK: --- Button Color Click Function ---
   
-  func buttonGridTapped(sender: UIButton?) { //to know the selected color
+  func buttonGridTapped(_ sender: UIButton?) { //to know the selected color
     DataManager.sharedInstance.interfaceColor = ColorRealm(name: 1, color: (sender?.backgroundColor)!)
     
     
     switch (sender?.tag)! {
     case 11:
       if colorArray2 == colorArray {
-        Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color, withContentStyle: UIContentStyle.Contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue?.color, with: UIContentStyle.contrast)
 
-        DataManager.sharedInstance.interfaceColor = colorBlue
-        self.setStatusBarStyle(.LightContent)
+        DataManager.sharedInstance.interfaceColor = colorBlue!
+        self.setStatusBarStyle(.lightContent)
         
-        if ContrastColorOf(colorBlue.color, returnFlat: true) == FlatWhite() {
+        if ContrastColorOf((colorBlue?.color)!, returnFlat: true) == FlatWhite() {
           print("branco")
         } else {
         print("nao")
         }
       }
       else {
-        Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], withContentStyle: UIContentStyle.Contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], with: UIContentStyle.contrast)
       }
     case 12:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], withContentStyle: UIContentStyle.Contrast)
-      if ContrastColorOf(colorBlue.color, returnFlat: true) == FlatWhite() {
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], with: UIContentStyle.contrast)
+      if ContrastColorOf((colorBlue?.color)!, returnFlat: true) == FlatWhite() {
         print("branco")
       } else {
         print("nao")
       }
     case 13:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], with: UIContentStyle.contrast)
     case 14:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[3], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[3], with: UIContentStyle.contrast)
     case 15:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[4], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[4], with: UIContentStyle.contrast)
     case 21:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[5], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[5], with: UIContentStyle.contrast)
     case 22:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[6], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[6], with: UIContentStyle.contrast)
     case 23:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[7], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[7], with: UIContentStyle.contrast)
     case 24:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], with: UIContentStyle.contrast)
     case 25:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  with: UIContentStyle.contrast)
     case 31:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[10],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[10],  with: UIContentStyle.contrast)
     case 32:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[11],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[11],  with: UIContentStyle.contrast)
     case 33:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[12],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[12],  with: UIContentStyle.contrast)
     case 34:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[13],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[13],  with: UIContentStyle.contrast)
     case 35:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[14],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[14],  with: UIContentStyle.contrast)
     default:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  with: UIContentStyle.contrast)
     }
     
     
     self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
     print("Selected Color \(sender?.backgroundColor)")
     DataManager.sharedInstance.existInterfaceColor = true
-    print(sender?.tag)
-    
-    
+
     
     tableViewAudio.reloadData()
     sliderAgudos.thumbTintColor = DataManager.sharedInstance.interfaceColor.color
@@ -276,8 +274,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     //      imageCheckView.center.y = sender!.center.y + (sender?.frame)!.maxY - (sender?.frame)!.minY
     //    }
     for button in colorButtons {
-      button.setImage(UIImage(), forState: .Normal)
-      button.setBackgroundImage(UIImage(), forState: .Normal)
+      button.setImage(UIImage(), for: UIControlState())
+      button.setBackgroundImage(UIImage(), for: UIControlState())
       if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
         
         // button.setImage(UIImage"check.png"), forState: .Normal)
@@ -285,28 +283,28 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         image.image = UIImage(named: "check.png")
         image.frame = button.frame
         
-        button.setBackgroundImage(image.image, forState: .Normal)
+        button.setBackgroundImage(image.image, for: UIControlState())
       }
     }
     
     if (DataManager.sharedInstance.audioConfig.audioType == 1) {
-      let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 0, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
-      let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 1, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
-      let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
-      tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+      let indexPathTableView = IndexPath(row: 2, section: 0)
+      tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
     }
     //stackColors.addSubview(imageCheckView)
-    self.setStatusBarStyle(.LightContent)
+    self.setStatusBarStyle(.lightContent)
   }
   
   
   //MARK: --- Slider Events Function ---
   
-  @IBAction func sliderGraveChanged(sender: AnyObject) {
+  @IBAction func sliderGraveChanged(_ sender: AnyObject) {
     let value = sliderGraves.value as Float
     let maxValueScroll = Float(sliderGraves.maximumValue)
     let minValueScroll = Float(sliderGraves.minimumValue)
@@ -329,7 +327,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.audioConfig.setGraveParameter(currentValue)
   }
   
-  @IBAction func sliderMedioChanged(sender: AnyObject) {
+  @IBAction func sliderMedioChanged(_ sender: AnyObject) {
     let value = sliderMedios.value as Float
     let maxValueScroll = Float(sliderMedios.maximumValue)
     let minValueScroll = Float(sliderMedios.minimumValue)
@@ -350,7 +348,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.audioConfig.setMedioParameter(currentValue)
   }
   
-  @IBAction func sliderAgudoChanged(sender: AnyObject) {
+  @IBAction func sliderAgudoChanged(_ sender: AnyObject) {
     let value = sliderAgudos.value as Float
     let maxValueScroll = Float(sliderAgudos.maximumValue)
     let minValueScroll = Float(sliderAgudos.minimumValue)
@@ -373,19 +371,19 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     DataManager.sharedInstance.audioConfig.setAgudoParameter(currentValue)
   }
   
-  @IBAction func searchButtonTap(sender: AnyObject) {
+  @IBAction func searchButtonTap(_ sender: AnyObject) {
     DataManager.sharedInstance.instantiateSearch(self.navigationController!)
   }
   
-  override func canBecomeFirstResponder() -> Bool {
+  override var canBecomeFirstResponder : Bool {
     return true
   }
   
   
   
-  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+  override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
     //if motion == .MotionShake {
-    if motion == .MotionShake {
+    if motion == .motionShake {
       if colorArray == colorArray2 {
         colorArray = colorArray1
       } else if colorArray == colorArray1 {
@@ -404,8 +402,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         i += 1
       }
       
-      let randomColor = UIColor.init(randomColorInArray: colorArray)
-      Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, withContentStyle: UIContentStyle.Contrast)
+      let randomColor = UIColor.init(randomColorIn: colorArray)
+      Chameleon.setGlobalThemeUsingPrimaryColor(randomColor, with: UIContentStyle.contrast)
       
       DataManager.sharedInstance.interfaceColor = ColorRealm(name: 2, color: randomColor!)
       self.navigationController?.navigationBar.barTintColor = DataManager.sharedInstance.interfaceColor.color
@@ -414,14 +412,14 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       tableViewAudio.reloadData()
       
       if (DataManager.sharedInstance.audioConfig.audioType == 1) {
-        let indexPathTableView = NSIndexPath(forRow: 0, inSection: 0)
-        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+        let indexPathTableView = IndexPath(row: 0, section: 0)
+        tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
       } else if (DataManager.sharedInstance.audioConfig.audioType == 2) {
-        let indexPathTableView = NSIndexPath(forRow: 1, inSection: 0)
-        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+        let indexPathTableView = IndexPath(row: 1, section: 0)
+        tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
       } else if (DataManager.sharedInstance.audioConfig.audioType == 0) {
-        let indexPathTableView = NSIndexPath(forRow: 2, inSection: 0)
-        tableViewAudio.selectRowAtIndexPath(indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.None)
+        let indexPathTableView = IndexPath(row: 2, section: 0)
+        tableViewAudio.selectRow(at: indexPathTableView, animated: false, scrollPosition: UITableViewScrollPosition.none)
       }
       
       sliderAgudos.thumbTintColor = randomColor
@@ -446,8 +444,8 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
       StreamingRadioManager.sharedInstance.sendNotification()
       
       for button in colorButtons {
-        button.setImage(UIImage(), forState: .Normal)
-        button.setBackgroundImage(UIImage(), forState: .Normal)
+        button.setImage(UIImage(), for: UIControlState())
+        button.setBackgroundImage(UIImage(), for: UIControlState())
         if button.tag == DataManager.sharedInstance.configApp.coordColorConfig {
           
           // button.setImage(UIImage"check.png"), forState: .Normal)
@@ -455,7 +453,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
           image.image = UIImage(named: "check.png")
           image.frame = button.frame
           
-          button.setBackgroundImage(image.image, forState: .Normal)
+          button.setBackgroundImage(image.image, for: UIControlState())
         }
       }
     }

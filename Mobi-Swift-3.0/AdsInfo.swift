@@ -15,7 +15,7 @@ class AdsInfo: NSObject {
   var server:String = ""
   var firebase:String = ""
   var id:String = ""
-  var coordUpdate:NSDate!
+  var coordUpdate:Date!
   var lastCoordUpdate = ""
   var image = ""
   
@@ -33,7 +33,7 @@ class AdsInfo: NSObject {
     image = ""
   }
   
-  func updateId(id:String) {
+  func updateId(_ id:String) {
     self.server = id
     let req = RequestManager()
     req.testReq { (result) in
@@ -62,32 +62,32 @@ class AdsInfo: NSObject {
 
   }
   
-  func updateCoord(lat:String,long:String) {
+  func updateCoord(_ lat:String,long:String) {
     if self.id != "" {
       if let date = coordUpdate {
         if date.timeIntervalSinceNow < -30 {
           let request = RequestManager()
-          self.coordUpdate = NSDate()
+          self.coordUpdate = Date()
           request.updateCoord(self.id, lat: lat, long: long, completion: { (result) in
             self.la = lat
             self.lo = long
-            self.coordUpdate = NSDate()
+            self.coordUpdate = Date()
           })
         }
       } else {
-        self.coordUpdate = NSDate()
+        self.coordUpdate = Date()
         let request = RequestManager()
         request.updateCoord(self.id, lat: lat, long: long, completion: { (result) in
           self.la = lat
           self.lo = long
-          self.coordUpdate = NSDate()
+          self.coordUpdate = Date()
         })
         
       }
     }
   }
   
-  func updateName(name:String,image:String) {
+  func updateName(_ name:String,image:String) {
     let request = RequestManager()
     if id != "" {
       request.updateName(self.id, name:name,image:image, completion: { (result) in
@@ -96,7 +96,7 @@ class AdsInfo: NSObject {
     }
   }
   
-  func updateFirebase(firebase:String) {
+  func updateFirebase(_ firebase:String) {
     if id != "" {
       if firebase == "" {
         let request = RequestManager()
@@ -108,14 +108,14 @@ class AdsInfo: NSObject {
     
   }
   
-  static func test(navigationController:UINavigationController,text:String,completion: (result: Bool) -> Void) {
+  static func test(_ navigationController:UINavigationController,text:String,completion: (_ result: Bool) -> Void) {
     if text == "infoAdOda2" && DataManager.sharedInstance.menuClose {
-      completion(result: false)
+      completion(false)
       let sto = UIStoryboard(name: "AdsInfo", bundle: nil)
-      let view = sto.instantiateViewControllerWithIdentifier("adInfoView") as! VAdsInfo0ViewController
+      let view = sto.instantiateViewController(withIdentifier: "adInfoView") as! VAdsInfo0ViewController
       navigationController.pushViewController(view, animated: false)
     } else {
-      completion(result: true)
+      completion(true)
     }
   }
 }

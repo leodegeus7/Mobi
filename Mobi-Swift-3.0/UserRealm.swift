@@ -16,7 +16,7 @@ class UserRealm: Object {
   dynamic var gender = ""
   dynamic var address:AddressRealm!
   var favoritesRadios:[RadioRealm]!
-  dynamic var birthDate:NSDate!
+  dynamic var birthDate:Date!
   dynamic var userImage = ""
   dynamic var following = -1
   dynamic var followers = -1
@@ -75,30 +75,30 @@ class UserRealm: Object {
     return "id"
   }
   
-  func updateFollowing(bool:Bool) {
+  func updateFollowing(_ bool:Bool) {
     try! DataManager.sharedInstance.realm.write {
       self.isFollowing = bool
     }
   }
   
-  func updateFavorites(favorites:[RadioRealm]) {
+  func updateFavorites(_ favorites:[RadioRealm]) {
       self.favoritesRadios = favorites
   }
   
-  func updatePassword(password:String) -> UserRealm {
+  func updatePassword(_ password:String) -> UserRealm {
     DataManager.sharedInstance.realm.beginWrite()
        self.password = password
     try! DataManager.sharedInstance.realm.commitWrite()
     return self
   }
   
-  func updateImageIdentifier(imageID:String) {
+  func updateImageIdentifier(_ imageID:String) {
     try! DataManager.sharedInstance.realm.write {
       self.userImage = imageID
     }
   }
   
-  func updateFollowers(following:String,followers:String) {
+  func updateFollowers(_ following:String,followers:String) {
     try! DataManager.sharedInstance.realm.write {
       self.followers = Int(followers)!
       self.following = Int(following)!

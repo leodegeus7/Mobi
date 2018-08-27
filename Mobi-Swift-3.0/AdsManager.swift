@@ -11,64 +11,57 @@ import GameplayKit
 
 class AdsManager: NSObject {
   
+    static let sharedInstance = AdsManager()
+  
   var advertisement = [Advertisement]()
   var isAdsRequested = false
-  var timeWasRequested:NSDate!
+  var timeWasRequested:Date!
   
   internal enum ScreenName {
-    case PlayerScreen
-    case ProfileScreen
-    case SearchScreen
+    case playerScreen
+    case profileScreen
+    case searchScreen
   }
   
-  class var sharedInstance: AdsManager {
-    struct Static {
-      static var instance: AdsManager?
-      static var token: dispatch_once_t = 0
-    }
-    dispatch_once(&Static.token) {
-      Static.instance = AdsManager()
-    }
-    return Static.instance!
-  }
+
   
-  func setAdvertisement(screenName:ScreenName,completion: (resultAd: Advertisement) -> Void) {
+  func setAdvertisement(_ screenName:ScreenName,completion: @escaping (_ resultAd: Advertisement) -> Void) {
     requestAllAds { (resultAd) in
-      completion(resultAd: self.findCorrectAd(screenName))
+      completion(self.findCorrectAd(screenName))
     }
   }
   
-  func requestAllAds(completion: (resultAd: [Advertisement]) -> Void) {
+  func requestAllAds(_ completion: @escaping (_ resultAd: [Advertisement]) -> Void) {
     if isAdsRequested {
-      if NSDate().timeIntervalSinceDate(timeWasRequested) > 120 {    //tento manter um intervalo de 120 segundos em cada requisição de request
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { //trabalhando no threat de background
+      if Date().timeIntervalSince(timeWasRequested) > 120 {    //tento manter um intervalo de 120 segundos em cada requisição de request
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async { //trabalhando no threat de background
           let adsRequest = RequestManager()
           adsRequest.requestAdvertisement { (result) in
             self.advertisement = result
-            self.timeWasRequested = NSDate()
-            completion(resultAd: self.advertisement)
+            self.timeWasRequested = Date()
+            completion(self.advertisement)
           }
         }
       } else {
-        completion(resultAd: advertisement)
+        completion(advertisement)
       }
     } else {
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
         let adsRequest = RequestManager()
         adsRequest.requestAdvertisement { (result) in
           self.advertisement = result
           self.isAdsRequested = true
-          self.timeWasRequested = NSDate()
-          completion(resultAd: self.advertisement)
+          self.timeWasRequested = Date()
+          completion(self.advertisement)
         }
       }
     }
   }
   
-  func findCorrectAd(screenName:ScreenName) -> Advertisement {
-    let suffledArray = GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(advertisement) as! [Advertisement] //em caso que existam ads que utilizem a mesma tela e estejam no mesmo período de tempo, faço um shuffle no array para sempre variar qual ad mostrar - SITUAÇÃO IMPOSSÍVEL
+  func findCorrectAd(_ screenName:ScreenName) -> Advertisement {
+    let suffledArray = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: advertisement) as! [Advertisement] //em caso que existam ads que utilizem a mesma tela e estejam no mesmo período de tempo, faço um shuffle no array para sempre variar qual ad mostrar - SITUAÇÃO IMPOSSÍVEL
     switch screenName {
-    case .PlayerScreen:
+    case .playerScreen:
       for ad in suffledArray {
         if ad.playerScreen {
           if adIsInDateInterval(ad) {
@@ -76,7 +69,7 @@ class AdsManager: NSObject {
           }
         }
       }
-    case .ProfileScreen:
+    case .profileScreen:
       for ad in suffledArray {
         if ad.profileScreen {
           if adIsInDateInterval(ad) {
@@ -84,7 +77,7 @@ class AdsManager: NSObject {
           }
         }
       }
-    case .SearchScreen:
+    case .searchScreen:
       for ad in suffledArray {
         if ad.searchScreen {
           if adIsInDateInterval(ad) {
@@ -96,7 +89,7 @@ class AdsManager: NSObject {
     return Advertisement()
   }
   
-  func adIsInDateInterval(ad:Advertisement) -> Bool {
+  func adIsInDateInterval(_ ad:Advertisement) -> Bool {
     if let dateEnd = ad.datetimeEnd {
       if dateEnd.timeIntervalSinceNow > 0 && ad.datetimeStart.timeIntervalSinceNow < 0 {
         return true

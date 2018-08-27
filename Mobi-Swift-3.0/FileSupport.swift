@@ -12,33 +12,33 @@ import AVFoundation
 class FileSupport: NSObject {
   
   static func findDocsDirectory() -> String{
-    return "\(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])/"
+    return "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/"
   }
   
-  static func saveJPGImageInDocs(image:UIImage, name:String) -> String {
-    let destinationPath = FileSupport.findDocsDirectory().stringByAppendingString("\(name).jpg")
-    UIImageJPEGRepresentation(image, 1.0)?.writeToFile(destinationPath, atomically: true)
+  static func saveJPGImageInDocs(_ image:UIImage, name:String) -> String {
+    let destinationPath = FileSupport.findDocsDirectory() + "\(name).jpg"
+    try? UIImageJPEGRepresentation(image, 1.0)?.write(to: URL(fileURLWithPath: destinationPath), options: [.atomic])
     return "\(name).jpg"
   }
   
-  static func testIfFileExistInDocuments (name:String) -> Bool {
+  static func testIfFileExistInDocuments (_ name:String) -> Bool {
     let docs = findDocsDirectory()
-    let destinatonPath = docs.stringByAppendingString("/\(name)")
-    let fileManager = NSFileManager.defaultManager()
-    if fileManager.fileExistsAtPath(destinatonPath) {
+    let destinatonPath = docs + "/\(name)"
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: destinatonPath) {
       return true
     } else {
       return false
     }
   }
   
-  static func playAudioFromDocs(name:String) {
+  static func playAudioFromDocs(_ name:String) {
     var player:AVAudioPlayer?
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
     try! AVAudioSession.sharedInstance().setActive(true)
     print("url")
-    let urlAudio = NSURL(fileURLWithPath: "\(FileSupport.findDocsDirectory())\(name)")
-    player = try! AVAudioPlayer(contentsOfURL: urlAudio, fileTypeHint: AVFileTypeAppleM4A)
+    let urlAudio = URL(fileURLWithPath: "\(FileSupport.findDocsDirectory())\(name)")
+    player = try! AVAudioPlayer(contentsOf: urlAudio, fileTypeHint: AVFileTypeAppleM4A)
     //guard let player = self.player else { print("Nao carregou o audio") }
     player!.prepareToPlay()
     player!.play()

@@ -12,9 +12,9 @@ class SpecialProgram: Program {
   var guests = ""
   var specialTitle = ""
   var referenceIdProgram = -1
-  var date = NSDate()
+  var date = Date()
   
-  convenience init(id:Int,name:String,date:NSDate,referenceIdProgram:Int,announcer:UserRealm,timeStart:String,timeEnd:String,guests:String,active:Bool) {
+  convenience init(id:Int,name:String,date:Date,referenceIdProgram:Int,announcer:UserRealm,timeStart:String,timeEnd:String,guests:String,active:Bool) {
     self.init()
     self.id = id
     self.name = name
@@ -26,10 +26,10 @@ class SpecialProgram: Program {
     self.referenceIdProgram = referenceIdProgram
     self.date = date
     
-    let compo = NSCalendar.currentCalendar().components([.Hour,.Minute], fromDate: date)
+    let compo = (Calendar.current as NSCalendar).components([.hour,.minute], from: date)
     let hour = compo.hour
-    let minut:Float = Float(compo.minute)/60.0
-    sortVar = Float(hour) + minut
+    let minut:Float = Float(compo.minute!)/60.0
+    sortVar = Float(hour!) + minut
   }
   
 }

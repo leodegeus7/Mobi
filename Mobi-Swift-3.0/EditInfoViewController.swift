@@ -17,7 +17,7 @@ class EditInfoViewController: FormViewController {
     
     
     
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Atualizar", style: .Done, target: self, action: #selector(EditInfoViewController.okAction))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Atualizar", style: .done, target: self, action: #selector(EditInfoViewController.okAction))
     
     form = Section("Informações básicas")
       <<< TextRow(){
@@ -29,23 +29,27 @@ class EditInfoViewController: FormViewController {
         }
         
         let textBefore = DataManager.sharedInstance.myUser.name
-        $0.onCellHighlight({ (cell, row) in
-          row.value = ""
+        
+        $0.onCellHighlightChanged({ (cell, row) in
+            if row.isHighlighted {
+                row.value = ""
+            } else {
+                if row.value == "" {
+                    row.value = textBefore
+                }
+            }
+          
         })
-        $0.onCellUnHighlight({ (cell, row) in
-          if row.value == "" {
-            row.value = textBefore
-          }
-        })
+
         
       }
       <<< DateRow(){
         $0.tag = "birth"
         $0.title = "Data de Nasc."
-        $0.value = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages().first!)
-        formatter.dateStyle = .MediumStyle
+        $0.value = Date()
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+        formatter.dateStyle = .medium
         $0.dateFormatter = formatter
         if let birth = DataManager.sharedInstance.myUser.birthDate {
           $0.value = birth
@@ -62,14 +66,18 @@ class EditInfoViewController: FormViewController {
           $0.value = DataManager.sharedInstance.myUser.email
         }
         let textBefore = DataManager.sharedInstance.myUser.email
-        $0.onCellHighlight({ (cell, row) in
-          row.value = ""
+        
+        $0.onCellHighlightChanged({ (cell, row) in
+            if row.isHighlighted {
+                row.value = ""
+            } else {
+                if row.value == "" {
+                    row.value = textBefore
+                }
+            }
+            
         })
-        $0.onCellUnHighlight({ (cell, row) in
-          if row.value == "" {
-            row.value = textBefore
-          }
-        })
+        
       }
       
       <<< SegmentedRow<String>(){
@@ -85,13 +93,15 @@ class EditInfoViewController: FormViewController {
         }
         
         let textBefore = DataManager.sharedInstance.myUser.gender
-        $0.onCellHighlight({ (cell, row) in
-          row.value = ""
-        })
-        $0.onCellUnHighlight({ (cell, row) in
-          if row.value == "" {
-            row.value = textBefore
-          }
+        $0.onCellHighlightChanged({ (cell, row) in
+            if row.isHighlighted {
+                row.value = ""
+            } else {
+                if row.value == "" {
+                    row.value = textBefore
+                }
+            }
+            
         })
       }
       
@@ -108,7 +118,6 @@ class EditInfoViewController: FormViewController {
         
         
         $0.cellUpdate({ (cell, row) in
-          print(row.value)
           var idSelected:Int!
           if let v = row.value {
             let acronym = v
@@ -198,7 +207,7 @@ class EditInfoViewController: FormViewController {
               break
             }
             
-            self.view.userInteractionEnabled = false
+            self.view.isUserInteractionEnabled = false
             if self.idSelected2 != idSelected {
               self.idSelected2 = idSelected
               let requestManager = RequestManager()
@@ -220,7 +229,7 @@ class EditInfoViewController: FormViewController {
                     
                   }
                 }
-                self.view.userInteractionEnabled = true
+                self.view.isUserInteractionEnabled = true
                 
                 
               })
@@ -231,13 +240,15 @@ class EditInfoViewController: FormViewController {
         })
         
         let textBefore = DataManager.sharedInstance.myUser.address.state
-        $0.onCellHighlight({ (cell, row) in
-          row.value = ""
-        })
-        $0.onCellUnHighlight({ (cell, row) in
-          if row.value == "" {
-            row.value = textBefore
-          }
+        $0.onCellHighlightChanged({ (cell, row) in
+            if row.isHighlighted {
+                row.value = ""
+            } else {
+                if row.value == "" {
+                    row.value = textBefore
+                }
+            }
+            
         })
       }
       <<< PushRow<String>(){
@@ -252,15 +263,15 @@ class EditInfoViewController: FormViewController {
         
         let textBefore = DataManager.sharedInstance.myUser.address.city
         
-        $0.onCellHighlight({ (cell, row) in
-          row.value = ""
-          
-          
-        })
-        $0.onCellUnHighlight({ (cell, row) in
-          if row.value == "" {
-            row.value = textBefore
-          }
+        $0.onCellHighlightChanged({ (cell, row) in
+            if row.isHighlighted {
+                row.value = ""
+            } else {
+                if row.value == "" {
+                    row.value = textBefore
+                }
+            }
+            
         })
         
         
@@ -313,7 +324,7 @@ class EditInfoViewController: FormViewController {
       //        $0.tag = "photo"
       //        $0.title = "Foto"
       //        $0.hidden = .Function(["set_photo"], { form -> Bool in
-      //          let row: RowOf<Bool>! = form.rowByTag("set_photo")
+      //          let row: RowOf<Bool>! = form.rowBy(tag: "set_photo")
       //          return row.value ?? false == false
       //        })
       //      }
@@ -326,8 +337,8 @@ class EditInfoViewController: FormViewController {
         $0.tag = "key"
         $0.title = "Senha"
         $0.placeholder = "Digite sua senha"
-        $0.hidden = .Function(["set_key"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_key")
+        $0.hidden = Condition.function(["set_key"], { form -> Bool in
+          let row: RowOf<Bool>! = form.rowBy(tag: "set_key")!
           return row.value ?? false == false
         })
       }
@@ -335,8 +346,8 @@ class EditInfoViewController: FormViewController {
         $0.tag = "rekey"
         $0.title = "Confirmar Senha"
         $0.placeholder = "Confirme sua senha"
-        $0.hidden = .Function(["set_key"], { form -> Bool in
-          let row: RowOf<Bool>! = form.rowByTag("set_key")
+        $0.hidden = Condition.function(["set_key"], { form -> Bool in
+          let row: RowOf<Bool>! = form.rowBy(tag: "set_key")!
           return row.value ?? false == false
         })
     }
@@ -349,19 +360,19 @@ class EditInfoViewController: FormViewController {
   func okAction() {
     
     //
-    let labelCity : PushRow<String> = form.rowByTag("city")!
-    let labelState : PushRow<String> = form.rowByTag("state")!
-    //    let labelZip : TextRow = form.rowByTag("zip")!
-    //    let labelStreet : TextRow = form.rowByTag("street")!
-    //    let labelNumber : TextRow = form.rowByTag("number")!
-    //    let labelComple : TextRow = form.rowByTag("complem")!
+    let labelCity : PushRow<String> = form.rowBy(tag: "city")!
+    let labelState : PushRow<String> = form.rowBy(tag: "state")!
+    //    let labelZip : TextRow = form.rowBy(tag: "zip")!
+    //    let labelStreet : TextRow = form.rowBy(tag: "street")!
+    //    let labelNumber : TextRow = form.rowBy(tag: "number")!
+    //    let labelComple : TextRow = form.rowBy(tag: "complem")!
     //
     
     
-    let labelEmail : EmailRow = form.rowByTag("email")!
+    let labelEmail : EmailRow = form.rowBy(tag: "email")!
     //
-    let labelKey : PasswordRow = form.rowByTag("key")!
-    let labelReKey : PasswordRow =  form.rowByTag("rekey")!
+    let labelKey : PasswordRow = form.rowBy(tag: "key")!
+    let labelReKey : PasswordRow =  form.rowBy(tag: "rekey")!
     
     
     
@@ -386,8 +397,8 @@ class EditInfoViewController: FormViewController {
             
             
             var dicPara = Dictionary<String,AnyObject>()
-            dicPara["parameter"] = "city"
-            dicPara["value"] = dicInt
+            dicPara["parameter"] = "city" as AnyObject?
+            dicPara["value"] = dicInt as AnyObject?
             changesArray.append(dicPara)
           } else {
             self.displayAlertWithMessageAndDismiss("Atenção", message: "Não foi possível alterar sua cidade", okTitle: "Ok")
@@ -398,7 +409,7 @@ class EditInfoViewController: FormViewController {
     
     if let _ = labelReKey.value {
       if labelReKey.value != "" {
-        if labelReKey.value?.characters.count > 6 {
+        if (labelReKey.value?.characters.count)! > 6 {
           if labelKey.value == labelReKey.value {
             
             let user = FIRAuth.auth()?.currentUser
@@ -422,8 +433,8 @@ class EditInfoViewController: FormViewController {
     
     if labelEmail.value != "" && labelEmail.value != DataManager.sharedInstance.myUser.email {
       var dicPara2 = Dictionary<String,AnyObject>()
-      dicPara2["parameter"] = "email"
-      dicPara2["value"] = labelEmail.value!
+      dicPara2["parameter"] = "email" as AnyObject?
+      dicPara2["value"] = labelEmail.value! as AnyObject?
       changesArray.append(dicPara2)
       let user = FIRAuth.auth()?.currentUser
       user?.updateEmail(labelEmail.value!, completion: { (error) in
@@ -439,36 +450,36 @@ class EditInfoViewController: FormViewController {
     }
   }
   
-  func profileUpdateSecondPart(changesArrayAux:[Dictionary<String,AnyObject>],updateMail:Bool) {
+  func profileUpdateSecondPart(_ changesArrayAux:[Dictionary<String,AnyObject>],updateMail:Bool) {
     
     var changesArray = changesArrayAux
-    let labelNameInfo : TextRow = form.rowByTag("name")!
-    let labelBirthInfo : DateRow = form.rowByTag("birth")!
-    let labelGenderInfo : SegmentedRow<String>  = form.rowByTag("gender")!
+    let labelNameInfo : TextRow = form.rowBy(tag: "name")!
+    let labelBirthInfo : DateRow = form.rowBy(tag: "birth")!
+    let labelGenderInfo : SegmentedRow<String>  = form.rowBy(tag: "gender")!
     
     
     
     
     if labelNameInfo.value != "" {
       var dicPara = Dictionary<String,AnyObject>()
-      dicPara["parameter"] = "name"
-      dicPara["value"] = labelNameInfo.value!
+      dicPara["parameter"] = "name" as AnyObject?
+      dicPara["value"] = labelNameInfo.value! as AnyObject?
       changesArray.append(dicPara)
     }
     
     if let _ = labelGenderInfo.value {
       if labelGenderInfo.value != "" {
         var dicPara3 = Dictionary<String,AnyObject>()
-        dicPara3["parameter"] = "genre"
+        dicPara3["parameter"] = "genre" as AnyObject?
         if labelGenderInfo.value == "Masc" {
-          dicPara3["value"] = "M"
+          dicPara3["value"] = "M" as AnyObject?
         } else if labelGenderInfo.value == "Fem" {
-          dicPara3["value"] = "F"
+          dicPara3["value"] = "F" as AnyObject?
         }
         changesArray.append(dicPara3)
       }
     }
-    if labelBirthInfo.value == NSDate() {
+    if labelBirthInfo.value == Date() {
       print("Aqui")
     } else {
       print("AquiN")
@@ -476,8 +487,8 @@ class EditInfoViewController: FormViewController {
     
     
     var dicPara4 = Dictionary<String,AnyObject>()
-    dicPara4["parameter"] = "birthdate"
-    dicPara4["value"] = Util.convertDateToShowString(labelBirthInfo.value!)
+    dicPara4["parameter"] = "birthdate" as AnyObject?
+    dicPara4["value"] = Util.convertDateToShowString(labelBirthInfo.value!) as AnyObject?
     changesArray.append(dicPara4)
     
     let editManager = RequestManager()
@@ -486,10 +497,10 @@ class EditInfoViewController: FormViewController {
         
         
         func dismissAction() {
-          self.dismissViewControllerAnimated(true, completion: {
+          self.dismiss(animated: true, completion: {
           })
           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          let vc = storyboard.instantiateViewControllerWithIdentifier("initialScreenView") as? InitialTableViewController
+          let vc = storyboard.instantiateViewController(withIdentifier: "initialScreenView") as? InitialTableViewController
           self.navigationController!.pushViewController(vc!, animated: true)
         }
         
@@ -498,15 +509,15 @@ class EditInfoViewController: FormViewController {
           let alert: UIAlertController = UIAlertController(
             title: "Atenção",
             message: "Alterações realizadas com sucesso. Na próxima vez que for logar, logue com seu novo e-mail",
-            preferredStyle: UIAlertControllerStyle.Alert
+            preferredStyle: UIAlertControllerStyle.alert
           )
           let yesAction: UIAlertAction = UIAlertAction(
             title: "Ok",
-            style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+            style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
               dismissAction()
           }
           alert.addAction(yesAction)
-          self.presentViewController(alert, animated: true, completion: nil)
+          self.present(alert, animated: true, completion: nil)
           
           
         } else {
@@ -514,15 +525,15 @@ class EditInfoViewController: FormViewController {
           let alert: UIAlertController = UIAlertController(
             title: "Atenção",
             message: "Alterações realizadas com sucesso.",
-            preferredStyle: UIAlertControllerStyle.Alert
+            preferredStyle: UIAlertControllerStyle.alert
           )
           let yesAction: UIAlertAction = UIAlertAction(
             title: "Ok",
-            style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+            style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
               dismissAction()
           }
           alert.addAction(yesAction)
-          self.presentViewController(alert, animated: true, completion: nil)
+          self.present(alert, animated: true, completion: nil)
           
           
         }
@@ -532,22 +543,22 @@ class EditInfoViewController: FormViewController {
     }
   }
   
-  func displayAlertWithMessageAndDismiss(text:String,message:String,okTitle:String) {
+  func displayAlertWithMessageAndDismiss(_ text:String,message:String,okTitle:String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: okTitle,
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
-        self.dismissViewControllerAnimated(true, completion: {
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
+        self.dismiss(animated: true, completion: {
           
         })
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     alert.addAction(yesAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
 }
 

@@ -33,7 +33,7 @@ class CityRealm: Object {
     }
   }
   
-  func updateRadiosOfCity(radios:[RadioRealm]) {
+  func updateRadiosOfCity(_ radios:[RadioRealm]) {
     try! DataManager.sharedInstance.realm.write {
       self.radios = List(radios)
     }

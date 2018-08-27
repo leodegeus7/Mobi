@@ -73,7 +73,7 @@ extension GnConfig
 
 extension GnDataObject
 {
-	public func isType( type:String ) throws -> Bool
+	public func isType( _ type:String ) throws -> Bool
 	{
 		var error:NSError?
 		let tmp = __isType( type, error: &error )
@@ -88,7 +88,7 @@ extension GnDataObject
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func locale( locale:GnLocale ) throws -> Bool
+	public func locale( _ locale:GnLocale ) throws -> Bool
 	{
 		var error:NSError?
 		__locale( locale, error: &error )
@@ -103,7 +103,7 @@ extension GnDataObject
 
 extension GnList
 {
-	public func update( user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
+	public func update( _ user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
 	{
 		var error:NSError?
 		let tmp = __update( user, statusEventsDelegate:statusEventsDelegate, error: &error )
@@ -115,7 +115,7 @@ extension GnList
 		return tmp
 	}
 	
-	public func updateCheck( user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
+	public func updateCheck( _ user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
 	{
 		var error:NSError?
 		let tmp = __updateCheck( user, statusEventsDelegate:statusEventsDelegate, error: &error )
@@ -205,7 +205,7 @@ extension GnListElement
 	public func idForSubmit() throws -> UInt
 	{
 		var error:NSError?
-        let tmp = __idForSubmit( &error )
+        let tmp = __id( forSubmit: &error )
 		if nil != error
 		{
 			throw error!
@@ -229,7 +229,7 @@ extension GnListElement
 
 extension GnLocale
 {
-	public func update( user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
+	public func update( _ user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __update( user, statusEventsDelegate:statusEventsDelegate, error: &error )
@@ -241,7 +241,7 @@ extension GnLocale
 		return tmp
 	}
 
-	public func updateCheck( user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
+	public func updateCheck( _ user:GnUser, statusEventsDelegate:GnStatusEventsDelegate! ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __updateCheck( user, statusEventsDelegate:statusEventsDelegate, error: &error )
@@ -340,7 +340,7 @@ extension GnLookupLocalStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func storageLocation( location:String ) throws -> Bool
+	public func storageLocation( _ location:String ) throws -> Bool
 	{
 		var error:NSError?
 		__storageLocation( location, error: &error )
@@ -355,7 +355,7 @@ extension GnLookupLocalStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func engineType( engineType:GnLocalStreamEngineType ) throws -> Bool
+	public func engineType( _ engineType:GnLocalStreamEngineType ) throws -> Bool
 	{
 		var error:NSError?
 		__engineType( engineType, error: &error )
@@ -370,7 +370,7 @@ extension GnLookupLocalStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprintProcessingMethod( processingMethod:GnLocalStreamFingerprintProcessingMethod ) throws -> Bool
+	public func fingerprintProcessingMethod( _ processingMethod:GnLocalStreamFingerprintProcessingMethod ) throws -> Bool
 	{
 		var error:NSError?
 		__fingerprintProcessingMethod( processingMethod, error: &error )
@@ -395,7 +395,7 @@ extension GnLookupLocalStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func storageRemove( bundleItemId:String ) throws -> Bool
+	public func storageRemove( _ bundleItemId:String ) throws -> Bool
 	{
 		var error:NSError?
 		__storageRemove( bundleItemId, error: &error )
@@ -413,7 +413,7 @@ extension GnLookupLocalStreamIngest
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func write( data:NSData ) throws -> Bool
+	public func write( _ data:Foundation.Data ) throws -> Bool
 	{
 		var error:NSError?
 		__write( data, error: &error )
@@ -441,7 +441,7 @@ extension GnManager
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func testGracenoteConnection( user:GnUser ) throws -> Bool
+	public func testGracenoteConnection( _ user:GnUser ) throws -> Bool
 	{
 		var error:NSError?
 		__testGracenoteConnection( user, error: &error )
@@ -459,7 +459,7 @@ extension GnMoodgridPresentation
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func addFilter( uniqueIdentifier:String, elistType:GnMoodgridFilterListType, strValueId:String, eConditionType:GnMoodgridFilterConditionType ) throws -> Bool
+	public func addFilter( _ uniqueIdentifier:String, elistType:GnMoodgridFilterListType, strValueId:String, eConditionType:GnMoodgridFilterConditionType ) throws -> Bool
 	{
 		var error:NSError?
 		__addFilter( uniqueIdentifier, elistType: elistType, strValueId: strValueId, eConditionType: eConditionType, error: &error )
@@ -474,7 +474,7 @@ extension GnMoodgridPresentation
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func removeFilter( uniqueIdentifier:String ) throws -> Bool
+	public func removeFilter( _ uniqueIdentifier:String ) throws -> Bool
 	{
 		var error:NSError?
 		__removeFilter( uniqueIdentifier, error: &error )
@@ -520,7 +520,7 @@ extension GnMoodgridPresentation
 		return tmp
 	}
 
-	public func findRecommendationsEstimate( provider:GnMoodgridProvider, position:GnMoodgridDataPoint ) throws -> UInt
+	public func findRecommendationsEstimate( _ provider:GnMoodgridProvider, position:GnMoodgridDataPoint ) throws -> UInt
 	{
 		var error:NSError?
         let tmp = __findRecommendationsEstimate(provider, position:position, error: &error)
@@ -568,7 +568,7 @@ extension GnMusicId
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprintBegin( fpType:GnFingerprintType, audioSampleRate:UInt, audioSampleSize:UInt, audioChannels:UInt ) throws -> Bool
+	public func fingerprintBegin( _ fpType:GnFingerprintType, audioSampleRate:UInt, audioSampleSize:UInt, audioChannels:UInt ) throws -> Bool
 	{
 		var error:NSError?
 		__fingerprintBegin( fpType, audioSampleRate: audioSampleRate, audioSampleSize: audioSampleSize, audioChannels: audioChannels, error: &error )
@@ -580,7 +580,7 @@ extension GnMusicId
 		return true
 	}
 
-	public func fingerprintWrite( data:NSData ) throws -> Bool
+	public func fingerprintWrite( _ data:Foundation.Data ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __fingerprintWrite( data, error: &error )
@@ -605,10 +605,10 @@ extension GnMusicId
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprintFromSource( audioSource:GnAudioSourceDelegate, fpType:GnFingerprintType ) throws -> Bool
+	public func fingerprintFromSource( _ audioSource:GnAudioSourceDelegate, fpType:GnFingerprintType ) throws -> Bool
 	{
 		var error:NSError?
-		__fingerprintFromSource( audioSource, fpType: fpType, error: &error )
+		__fingerprint( fromSource: audioSource, fpType: fpType, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -623,7 +623,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doTrackId( processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doTrackId( _ processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doTrackId( processType, responseType: responseType, error: &error )
@@ -638,7 +638,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doTrackIdAsync( processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doTrackIdAsync( _ processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doTrackIdAsync( processType, responseType: responseType, error: &error )
@@ -653,7 +653,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doAlbumId( processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doAlbumId( _ processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doAlbumId( processType, responseType: responseType, error: &error )
@@ -668,7 +668,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doAlbumIdAsync( processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doAlbumIdAsync( _ processType:GnMusicIdFileProcessType, responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doAlbumIdAsync( processType, responseType: responseType, error: &error )
@@ -683,7 +683,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doLibraryId( responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doLibraryId( _ responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doLibraryId( responseType, error: &error )
@@ -698,7 +698,7 @@ extension GnMusicIdFile
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func doLibraryIdAsync( responseType:GnMusicIdFileResponseType ) throws -> Bool
+	public func doLibraryIdAsync( _ responseType:GnMusicIdFileResponseType ) throws -> Bool
 	{
 		var error:NSError?
 		__doLibraryIdAsync( responseType, error: &error )
@@ -710,10 +710,10 @@ extension GnMusicIdFile
 		return true
 	}
 
-	public func waitForComplete( timeoutValue:UInt ) throws -> Bool
+	public func waitForComplete( _ timeoutValue:UInt ) throws -> Bool
 	{
 		var error:NSError?
-		__waitForComplete( timeoutValue, error: &error )
+		__wait( forComplete: timeoutValue, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -725,7 +725,7 @@ extension GnMusicIdFile
 	public func waitForComplete() throws
 	{
 		var error:NSError?
-		__waitForComplete( &error )
+		__wait( forComplete: &error )
 		if nil != error
 		{
 			throw error!
@@ -748,7 +748,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprintBegin( audioSampleRate:UInt, audioSampleSize:UInt, audioChannels:UInt ) throws -> Bool
+	public func fingerprintBegin( _ audioSampleRate:UInt, audioSampleSize:UInt, audioChannels:UInt ) throws -> Bool
 	{
 		var error:NSError?
 		__fingerprintBegin( audioSampleRate, audioSampleSize: audioSampleSize, audioChannels: audioChannels, error: &error )
@@ -760,7 +760,7 @@ extension GnMusicIdFileInfo
 		return true
 	}
 
-	public func fingerprintWrite( data:NSData ) throws -> Bool
+	public func fingerprintWrite( _ data:Foundation.Data ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __fingerprintWrite( data, error: &error )
@@ -785,10 +785,10 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprintFromSource( audioSource:GnAudioSourceDelegate) throws -> Bool
+	public func fingerprintFromSource( _ audioSource:GnAudioSourceDelegate) throws -> Bool
 	{
 		var error:NSError?
-		__fingerprintFromSource( audioSource, error: &error )
+		__fingerprint( fromSource: audioSource, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -800,7 +800,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fileName( value:String ) throws -> Bool
+	public func fileName( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __fileName( value, error: &error )
@@ -815,7 +815,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func cddbId( value:String ) throws -> Bool
+	public func cddbId( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __cddbId( value, error: &error )
@@ -830,7 +830,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func albumArtist( value:String ) throws -> Bool
+	public func albumArtist( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __albumArtist( value, error: &error )
@@ -845,7 +845,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func albumTitle( value:String ) throws -> Bool
+	public func albumTitle( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __albumTitle( value, error: &error )
@@ -860,7 +860,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func trackArtist( value:String ) throws -> Bool
+	public func trackArtist( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __trackArtist( value, error: &error )
@@ -875,7 +875,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func trackTitle( value:String ) throws -> Bool
+	public func trackTitle( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __trackTitle( value, error: &error )
@@ -890,7 +890,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func trackNumber( value:UInt ) throws -> Bool
+	public func trackNumber( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __trackNumber( value, error: &error )
@@ -905,7 +905,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func discNumber( value:UInt ) throws -> Bool
+	public func discNumber( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __discNumber( value, error: &error )
@@ -920,7 +920,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func tagId( value:String ) throws -> Bool
+	public func tagId( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __tagId( value, error: &error )
@@ -935,7 +935,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func fingerprint( value:String ) throws -> Bool
+	public func fingerprint( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __fingerprint( value, error: &error )
@@ -950,7 +950,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func mediaId( value:String ) throws -> Bool
+	public func mediaId( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __mediaId( value, error: &error )
@@ -965,7 +965,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func mui( value:String ) throws -> Bool
+	public func mui( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __mui( value, error: &error )
@@ -980,7 +980,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func cdToc( value:String ) throws -> Bool
+	public func cdToc( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __cdToc( value, error: &error )
@@ -995,7 +995,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func tui( value:String ) throws -> Bool
+	public func tui( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __tui( value, error: &error )
@@ -1010,7 +1010,7 @@ extension GnMusicIdFileInfo
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func tuiTag( value:String ) throws -> Bool
+	public func tuiTag( _ value:String ) throws -> Bool
 	{
 		var error:NSError?
         __tuiTag( value, error: &error )
@@ -1061,10 +1061,10 @@ extension GnMusicIdFileInfo
 
 extension GnMusicIdFileInfoManager
 {
-	public func addFromXml( xmlStr:String ) throws -> UInt
+	public func addFromXml( _ xmlStr:String ) throws -> UInt
 	{
 		var error:NSError?
-        let tmp = __addFromXml( xmlStr, error: &error )
+        let tmp = __add( fromXml: xmlStr, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -1076,7 +1076,7 @@ extension GnMusicIdFileInfoManager
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func remove( fileInfo:GnMusicIdFileInfo ) throws -> Bool
+	public func remove( _ fileInfo:GnMusicIdFileInfo ) throws -> Bool
 	{
 		var error:NSError?
         __remove( fileInfo, error: &error )
@@ -1094,7 +1094,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupMode( lookupMode:GnLookupMode ) throws -> Bool
+	public func lookupMode( _ lookupMode:GnLookupMode ) throws -> Bool
 	{
 		var error:NSError?
         __lookupMode( lookupMode, error: &error )
@@ -1109,7 +1109,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupData( val:GnLookupData, enable:Bool ) throws -> Bool
+	public func lookupData( _ val:GnLookupData, enable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __lookupData( val, enable: enable, error: &error )
@@ -1124,7 +1124,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func batchSize( size:UInt ) throws -> Bool
+	public func batchSize( _ size:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __batchSize( size, error: &error )
@@ -1139,7 +1139,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func customOptionEnable( option:String, enable:Bool ) throws -> Bool
+	public func customOptionEnable( _ option:String, enable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __customOptionEnable( option, enable: enable, error: &error )
@@ -1154,7 +1154,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func customOptionValue( option:String, value:String ) throws -> Bool
+	public func customOptionValue( _ option:String, value:String ) throws -> Bool
 	{
 		var error:NSError?
         __customOptionValue( option, value: value, error: &error )
@@ -1169,7 +1169,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkInterface( intfName:String ) throws -> Bool
+	public func networkInterface( _ intfName:String ) throws -> Bool
 	{
 		var error:NSError?
         __networkInterface( intfName, error: &error )
@@ -1184,7 +1184,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func onlineProcessing( enable:Bool ) throws -> Bool
+	public func onlineProcessing( _ enable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __onlineProcessing( enable, error: &error )
@@ -1199,7 +1199,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultLanguage( preferredLangauge:GnLanguage ) throws -> Bool
+	public func preferResultLanguage( _ preferredLangauge:GnLanguage ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultLanguage( preferredLangauge, error: &error )
@@ -1214,7 +1214,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultExternalId( preferredExternalId:String ) throws -> Bool
+	public func preferResultExternalId( _ preferredExternalId:String ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultExternalId( preferredExternalId, error: &error )
@@ -1229,7 +1229,7 @@ extension GnMusicIdFileOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func threadPriority( threadPriority:GnThreadPriority ) throws -> Bool
+	public func threadPriority( _ threadPriority:GnThreadPriority ) throws -> Bool
 	{
 		var error:NSError?
         __threadPriority( threadPriority, error: &error )
@@ -1248,7 +1248,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func customOptionEnable( option:String, enable:Bool ) throws -> Bool
+	public func customOptionEnable( _ option:String, enable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __customOptionEnable( option, enable: enable, error: &error )
@@ -1263,7 +1263,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func customOptionValue( option:String, value:String ) throws -> Bool
+	public func customOptionValue( _ option:String, value:String ) throws -> Bool
 	{
 		var error:NSError?
         __customOptionValue( option, value: value, error: &error )
@@ -1278,7 +1278,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupMode( lookupMode:GnLookupMode ) throws -> Bool
+	public func lookupMode( _ lookupMode:GnLookupMode ) throws -> Bool
 	{
 		var error:NSError?
         __lookupMode( lookupMode, error: &error )
@@ -1293,7 +1293,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupData( lookupData:GnLookupData, bEnable:Bool ) throws -> Bool
+	public func lookupData( _ lookupData:GnLookupData, bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __lookupData( lookupData, bEnable: bEnable, error: &error )
@@ -1308,7 +1308,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultLanguage( preferredLanguage:GnLanguage ) throws -> Bool
+	public func preferResultLanguage( _ preferredLanguage:GnLanguage ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultLanguage( preferredLanguage, error: &error )
@@ -1323,7 +1323,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultExternalId( strExternalId:String ) throws -> Bool
+	public func preferResultExternalId( _ strExternalId:String ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultExternalId( strExternalId, error: &error )
@@ -1338,7 +1338,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultCoverart( bEnable:Bool ) throws -> Bool
+	public func preferResultCoverart( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultCoverart( bEnable, error: &error )
@@ -1353,7 +1353,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultSingle( bEnable:Bool ) throws -> Bool
+	public func resultSingle( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __resultSingle( bEnable, error: &error )
@@ -1368,7 +1368,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func revisionCheck( bEnable:Bool ) throws -> Bool
+	public func revisionCheck( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __revisionCheck( bEnable, error: &error )
@@ -1383,7 +1383,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultRangeStart( resultStart:UInt ) throws -> Bool
+	public func resultRangeStart( _ resultStart:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __resultRangeStart( resultStart, error: &error )
@@ -1398,7 +1398,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultCount( resultCount:UInt ) throws -> Bool
+	public func resultCount( _ resultCount:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __resultCount( resultCount, error: &error )
@@ -1413,7 +1413,7 @@ extension GnMusicIdOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkInterface( intfName:String ) throws -> Bool
+	public func networkInterface( _ intfName:String ) throws -> Bool
 	{
 		var error:NSError?
         __networkInterface( intfName, error: &error )
@@ -1431,7 +1431,7 @@ extension GnMusicIdStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func audioProcessStart( audioSource:GnAudioSourceDelegate ) throws -> Bool
+	public func audioProcessStart( _ audioSource:GnAudioSourceDelegate ) throws -> Bool
 	{
 		var error:NSError?
         __audioProcessStart( audioSource, error: &error )
@@ -1446,7 +1446,7 @@ extension GnMusicIdStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func audioProcessStart( samplesPerSecond:UInt, bitsPerSample:UInt, numberOfChannels:UInt ) throws -> Bool
+	public func audioProcessStart( _ samplesPerSecond:UInt, bitsPerSample:UInt, numberOfChannels:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __audioProcessStart( samplesPerSecond, bitsPerSample: bitsPerSample, numberOfChannels: numberOfChannels, error: &error )
@@ -1471,7 +1471,7 @@ extension GnMusicIdStream
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func audioProcess( data:NSData ) throws -> Bool
+	public func audioProcess( _ data:Foundation.Data ) throws -> Bool
 	{
 		var error:NSError?
         __audioProcess( data, error: &error )
@@ -1545,10 +1545,10 @@ extension GnMusicIdStream
 	}
 #endif
 
-	public func waitForIdentify( timeout:UInt ) throws -> Bool
+	public func waitForIdentify( _ timeout:UInt ) throws -> Bool
 	{
 		var error:NSError?
-        let tmp = __waitForIdentify( timeout, error: &error )
+        let tmp = __wait( forIdentify: timeout, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -1577,7 +1577,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupMode( lookupMode:GnLookupMode ) throws -> Bool
+	public func lookupMode( _ lookupMode:GnLookupMode ) throws -> Bool
 	{
 		var error:NSError?
         __lookupMode( lookupMode, error: &error )
@@ -1592,7 +1592,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupData( val:GnLookupData, enable:Bool ) throws -> Bool
+	public func lookupData( _ val:GnLookupData, enable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __lookupData( val, enable: enable, error: &error )
@@ -1607,7 +1607,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultLanguage( preferredLanguage:GnLanguage ) throws -> Bool
+	public func preferResultLanguage( _ preferredLanguage:GnLanguage ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultLanguage( preferredLanguage, error: &error )
@@ -1622,7 +1622,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultExternalId( preferredExternalId:String ) throws -> Bool
+	public func preferResultExternalId( _ preferredExternalId:String ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultExternalId( preferredExternalId, error: &error )
@@ -1637,7 +1637,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func preferResultCoverart( bEnable:Bool ) throws -> Bool
+	public func preferResultCoverart( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __preferResultCoverart( bEnable, error: &error )
@@ -1652,7 +1652,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultSingle( bEnable:Bool ) throws -> Bool
+	public func resultSingle( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __resultSingle( bEnable, error: &error )
@@ -1667,7 +1667,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultRangeStart( resultStart:UInt ) throws -> Bool
+	public func resultRangeStart( _ resultStart:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __resultRangeStart( resultStart, error: &error )
@@ -1682,7 +1682,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func resultCount( resultCount:UInt ) throws -> Bool
+	public func resultCount( _ resultCount:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __resultCount( resultCount, error: &error )
@@ -1697,7 +1697,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkInterface( intfName:String ) throws -> Bool
+	public func networkInterface( _ intfName:String ) throws -> Bool
 	{
 		var error:NSError?
         __networkInterface( intfName, error: &error )
@@ -1712,7 +1712,7 @@ extension GnMusicIdStreamOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func custom( optionKey:String, value:String ) throws -> Bool
+	public func custom( _ optionKey:String, value:String ) throws -> Bool
 	{
 		var error:NSError?
         __custom( optionKey, value: value, error: &error )
@@ -1730,7 +1730,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func name( updatedName:String ) throws -> Bool
+	public func name( _ updatedName:String ) throws -> Bool
 	{
 		var error:NSError?
         __name( updatedName, error: &error )
@@ -1745,7 +1745,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func add( mediaIdentifier:String ) throws -> Bool
+	public func add( _ mediaIdentifier:String ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, error: &error )
@@ -1760,7 +1760,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func add( mediaIdentifier:String, album:GnAlbum ) throws -> Bool
+	public func add( _ mediaIdentifier:String, album:GnAlbum ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, album: album, error: &error )
@@ -1772,7 +1772,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func add( mediaIdentifier:String, track:GnTrack ) throws -> Bool
+	public func add( _ mediaIdentifier:String, track:GnTrack ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, track: track, error: &error )
@@ -1784,7 +1784,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func add( mediaIdentifier:String, contributor:GnContributor ) throws -> Bool
+	public func add( _ mediaIdentifier:String, contributor:GnContributor ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, contributor: contributor, error: &error )
@@ -1796,7 +1796,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func add( mediaIdentifier:String, playlistAttributes:GnPlaylistAttributes ) throws -> Bool
+	public func add( _ mediaIdentifier:String, playlistAttributes:GnPlaylistAttributes ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, playlistAttributes: playlistAttributes, error: &error )
@@ -1808,7 +1808,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func add( mediaIdentifier:String, listElement:GnListElement ) throws -> Bool
+	public func add( _ mediaIdentifier:String, listElement:GnListElement ) throws -> Bool
 	{
 		var error:NSError?
         __add( mediaIdentifier, listElement: listElement, error: &error )
@@ -1823,7 +1823,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func remove( mediaIdentifier:String ) throws -> Bool
+	public func remove( _ mediaIdentifier:String ) throws -> Bool
 	{
 		var error:NSError?
         __remove( mediaIdentifier, error: &error )
@@ -1838,7 +1838,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func join( toJoin:GnPlaylistCollection ) throws -> Bool
+	public func join( _ toJoin:GnPlaylistCollection ) throws -> Bool
 	{
 		var error:NSError?
         __join( toJoin, error: &error )
@@ -1853,7 +1853,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func joinRemove( toRemove:GnPlaylistCollection ) throws -> Bool
+	public func joinRemove( _ toRemove:GnPlaylistCollection ) throws -> Bool
 	{
 		var error:NSError?
         __joinRemove( toRemove, error: &error )
@@ -1865,7 +1865,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func serialize( data:NSData ) throws -> UInt
+	public func serialize( _ data:Foundation.Data ) throws -> UInt
 	{
 		var error:NSError?
         let tmp = __serialize( data, error: &error )
@@ -1892,7 +1892,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func syncProcessAdd( mediaIdentifier:String ) throws -> Bool
+	public func syncProcessAdd( _ mediaIdentifier:String ) throws -> Bool
 	{
 		var error:NSError?
         __syncProcessAdd( mediaIdentifier, error: &error )
@@ -1907,7 +1907,7 @@ extension GnPlaylistCollection
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func syncProcessExecute( syncEvents:GnPlaylistCollectionSyncEventsDelegate ) throws -> Bool
+	public func syncProcessExecute( _ syncEvents:GnPlaylistCollectionSyncEventsDelegate ) throws -> Bool
 	{
 		var error:NSError?
         __syncProcessExecute( syncEvents, error: &error )
@@ -1919,7 +1919,7 @@ extension GnPlaylistCollection
 		return true
 	}
 
-	public func contains( mediaIdentifier:String ) throws -> Bool
+	public func contains( _ mediaIdentifier:String ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __contains( mediaIdentifier, error: &error )
@@ -1931,7 +1931,7 @@ extension GnPlaylistCollection
 		return tmp
 	}
 
-	public func statementRequiresSeed( pdlStatement:String ) throws -> Bool
+	public func statementRequiresSeed( _ pdlStatement:String ) throws -> Bool
 	{
 		var error:NSError?
         let tmp = __statementRequiresSeed( pdlStatement, error: &error )
@@ -1949,7 +1949,7 @@ extension GnPlaylistMoreLikeThisOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func maxTracks( value:UInt ) throws -> Bool
+	public func maxTracks( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __maxTracks( value, error: &error )
@@ -1976,7 +1976,7 @@ extension GnPlaylistMoreLikeThisOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func maxPerArtist( value:UInt ) throws -> Bool
+	public func maxPerArtist( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __maxPerArtist( value, error: &error )
@@ -2003,7 +2003,7 @@ extension GnPlaylistMoreLikeThisOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func maxPerAlbum( value:UInt ) throws -> Bool
+	public func maxPerAlbum( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __maxPerAlbum( value, error: &error )
@@ -2030,7 +2030,7 @@ extension GnPlaylistMoreLikeThisOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func randomSeed( value:UInt ) throws -> Bool
+	public func randomSeed( _ value:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __randomSeed( value, error: &error )
@@ -2070,7 +2070,7 @@ extension GnPlaylistStorage
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func store( collection:GnPlaylistCollection ) throws -> Bool
+	public func store( _ collection:GnPlaylistCollection ) throws -> Bool
 	{
 		var error:NSError?
         __store( collection, error: &error )
@@ -2082,7 +2082,7 @@ extension GnPlaylistStorage
 		return true
 	}
 
-	public func location( location:String ) throws -> Bool
+	public func location( _ location:String ) throws -> Bool
 	{
 		var error:NSError?
         __location( location, error: &error )
@@ -2097,10 +2097,10 @@ extension GnPlaylistStorage
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func removeWithCollection( collection:GnPlaylistCollection ) throws -> Bool
+	public func removeWithCollection( _ collection:GnPlaylistCollection ) throws -> Bool
 	{
 		var error:NSError?
-        __removeWithCollection( collection, error: &error )
+        __remove( with: collection, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -2112,10 +2112,10 @@ extension GnPlaylistStorage
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func removeWithCollectionName( collectionName:String ) throws -> Bool
+	public func removeWithCollectionName( _ collectionName:String ) throws -> Bool
 	{
 		var error:NSError?
-        __removeWithCollectionName( collectionName, error: &error )
+        __remove( withCollectionName: collectionName, error: &error )
 		if nil != error
 		{
 			throw error!
@@ -2159,7 +2159,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func storageLocation( folderPath:String ) throws -> Bool
+	public func storageLocation( _ folderPath:String ) throws -> Bool
 	{
 		var error:NSError?
         __storageLocation( folderPath, error: &error )
@@ -2174,7 +2174,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func temporaryStorageLocation( folderPath:String ) throws -> Bool
+	public func temporaryStorageLocation( _ folderPath:String ) throws -> Bool
 	{
 		var error:NSError?
         __temporaryStorageLocation( folderPath, error: &error )
@@ -2189,7 +2189,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func maximumCacheFileSize( maxCacheSize:UInt ) throws -> Bool
+	public func maximumCacheFileSize( _ maxCacheSize:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __maximumCacheFileSize( maxCacheSize, error: &error )
@@ -2204,7 +2204,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func maximumCacheMemory( maxMemSize:UInt ) throws -> Bool
+	public func maximumCacheMemory( _ maxMemSize:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __maximumCacheMemory( maxMemSize, error: &error )
@@ -2219,7 +2219,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func synchronousMode( mode:String ) throws -> Bool
+	public func synchronousMode( _ mode:String ) throws -> Bool
 	{
 		var error:NSError?
         __synchronousMode( mode, error: &error )
@@ -2234,7 +2234,7 @@ extension GnStorageSqlite
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func journalMode( mode:String ) throws -> Bool
+	public func journalMode( _ mode:String ) throws -> Bool
 	{
 		var error:NSError?
         __journalMode( mode, error: &error )
@@ -2276,7 +2276,7 @@ extension GnStoreOps
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func location( location:String ) throws -> Bool
+	public func location( _ location:String ) throws -> Bool
 	{
 		var error:NSError?
         __location( location, error: &error )
@@ -2291,7 +2291,7 @@ extension GnStoreOps
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func flush( bAsync:Bool ) throws -> Bool
+	public func flush( _ bAsync:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __flush( bAsync, error: &error )
@@ -2306,7 +2306,7 @@ extension GnStoreOps
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func compact( bAsync:Bool ) throws -> Bool
+	public func compact( _ bAsync:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __compact( bAsync, error: &error )
@@ -2321,7 +2321,7 @@ extension GnStoreOps
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func cleanup( bAsync:Bool ) throws -> Bool
+	public func cleanup( _ bAsync:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __cleanup( bAsync, error: &error )
@@ -2354,7 +2354,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func lookupMode( lookupMode:GnLookupMode ) throws -> Bool
+	public func lookupMode( _ lookupMode:GnLookupMode ) throws -> Bool
 	{
 		var error:NSError?
         __lookupMode( lookupMode, error: &error )
@@ -2369,7 +2369,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkProxy( hostname:String, username:String, password:String ) throws -> Bool
+	public func networkProxy( _ hostname:String, username:String, password:String ) throws -> Bool
 	{
 		var error:NSError?
         __networkProxy( hostname, username: username, password: password, error: &error )
@@ -2384,7 +2384,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkTimeout( timeout_ms:UInt ) throws -> Bool
+	public func networkTimeout( _ timeout_ms:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __networkTimeout( timeout_ms, error: &error )
@@ -2399,7 +2399,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkLoadBalance( bEnable:Bool ) throws -> Bool
+	public func networkLoadBalance( _ bEnable:Bool ) throws -> Bool
 	{
 		var error:NSError?
         __networkLoadBalance( bEnable, error: &error )
@@ -2414,7 +2414,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func networkInterface( intfName:String ) throws -> Bool
+	public func networkInterface( _ intfName:String ) throws -> Bool
 	{
 		var error:NSError?
         __networkInterface( intfName, error: &error )
@@ -2429,7 +2429,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func userInfo( location_id:String, mfg:String, os:String, uid:String ) throws -> Bool
+	public func userInfo( _ location_id:String, mfg:String, os:String, uid:String ) throws -> Bool
 	{
 		var error:NSError?
         __userInfo( location_id, mfg: mfg, os: os, uid: uid, error: &error )
@@ -2444,7 +2444,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func deviceModel( model:String ) throws -> Bool
+	public func deviceModel( _ model:String ) throws -> Bool
 	{
 		var error:NSError?
         __deviceModel( model, error: &error )
@@ -2459,7 +2459,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func cacheExpiration( durationSec:UInt ) throws -> Bool
+	public func cacheExpiration( _ durationSec:UInt ) throws -> Bool
 	{
 		var error:NSError?
         __cacheExpiration( durationSec, error: &error )
@@ -2474,7 +2474,7 @@ extension GnUserOptions
 	/* Returns a bool instead of void as having Objective-C selector conflicts from 
      * NS_REFINED_FOR_SWIFT hidden '__' method, only with functions with same signature.
      */
-	public func custom( key:String, value:String ) throws -> Bool
+	public func custom( _ key:String, value:String ) throws -> Bool
 	{
 		var error:NSError?
         __custom( key, value: value, error: &error )

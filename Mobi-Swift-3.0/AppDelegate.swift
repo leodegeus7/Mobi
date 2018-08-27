@@ -20,7 +20,7 @@ import FirebaseAuth
 import FirebaseMessaging
 import FirebaseInstanceID
 import Fabric
-import TwitterKit
+//import TwitterKit
 import ChameleonFramework
 import SwiftyJSON
 
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   var player = AVAudioPlayer()
   
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
     UILabel.appearance().tintColor = FlatWhite()
     
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       //let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
       DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
       DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 248/255, green: 196/255, blue: 211/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.blueColor.color.flatten(), withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.blueColor.color.flatten(), with: UIContentStyle.contrast)
       DataManager.sharedInstance.interfaceColor = DataManager.sharedInstance.blueColor
       DataManager.sharedInstance.existInterfaceColor = true
       defineInitialParameters()
@@ -60,24 +60,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
     DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
     
-    let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+    let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
     application.registerUserNotificationSettings(settings)
     application.registerForRemoteNotifications()
     
     
     downloadFacebookUpdatedInfo()
-    Twitter.sharedInstance().startWithConsumerKey("TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
-    Fabric.with([Twitter.self])
+//    Twitter.sharedInstance().start(withConsumerKey: "TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
+//    Fabric.with([Twitter.self])
     FIRApp.configure()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification), name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
     FIRDatabase.database().persistenceEnabled = true
     if let user = FIRAuth.auth()?.currentUser {
       print(user.email)
     }
     connectToFCM()
     
-    if (UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:)))) {
-      UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert, categories: nil))
+    if (UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:)))) {
+      UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: .alert, categories: nil))
     }
     
     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     let testManager = RequestManager()
     testManager.testUserLogged { (result) in
       if result {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
           DataManager.sharedInstance.isLogged = true
           let profileManager = RequestManager()
           profileManager.requestMyUserInfo({ (result) in
@@ -116,34 +116,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
   
-  func applicationWillResignActive(application: UIApplication) {
+  func applicationWillResignActive(_ application: UIApplication) {
     try! FIRAuth.auth()?.signOut()
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
   }
   
-  func applicationDidEnterBackground(application: UIApplication) {
+  func applicationDidEnterBackground(_ application: UIApplication) {
     
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
   
-  func applicationWillEnterForeground(application: UIApplication) {
+  func applicationWillEnterForeground(_ application: UIApplication) {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
   
-  func applicationDidBecomeActive(application: UIApplication) {
+  func applicationDidBecomeActive(_ application: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
   
-  func applicationWillTerminate(application: UIApplication) {
+  func applicationWillTerminate(_ application: UIApplication) {
     let loginManager: FBSDKLoginManager = FBSDKLoginManager()
     loginManager.logOut()
   }
   
-  func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
+  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
   {
-    return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
   }
   
   
@@ -152,7 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataManager.sharedInstance.audioConfig = audioConfig
   }
   
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let locValue:CLLocationCoordinate2D = manager.location!.coordinate
     let myLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
     DataManager.sharedInstance.userLocation = myLocation
@@ -160,16 +160,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func downloadFacebookUpdatedInfo() {
-    if (FBSDKAccessToken.currentAccessToken() != nil) {
+    if (FBSDKAccessToken.current() != nil) {
       //aqui consigo informacoes para dar update em algo do face
       
     }
   }
   
-  func loginWithUserRealm(user:UserRealm,completion: (result: Bool) -> Void) {
+  func loginWithUserRealm(_ user:UserRealm,completion: @escaping (_ result: Bool) -> Void) {
     FIRDatabase.database().reference()
     
-    FIRAuth.auth()?.signInWithEmail(user.email, password: user.password, completion: { (user, error) in
+    FIRAuth.auth()?.signIn(withEmail: user.email, password: user.password, completion: { (user, error) in
       if error == nil {
         user?.getTokenWithCompletion({ (token, erro) in
           let loginManager = RequestManager()
@@ -182,37 +182,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         print(user?.displayName)
         print(user)
         DataManager.sharedInstance.isLogged = true
-        completion(result: true)
+        completion(true)
       }
     })
   }
   
-  func registerForPushNotifications(application: UIApplication) {
+  func registerForPushNotifications(_ application: UIApplication) {
     let notificationSettings = UIUserNotificationSettings(
-      forTypes: [.Badge, .Sound, .Alert], categories: nil)
+      types: [.badge, .sound, .alert], categories: nil)
     application.registerUserNotificationSettings(notificationSettings)
   }
   
-  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    if notificationSettings.types != .None {
+  func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+    if notificationSettings.types != UIUserNotificationType() {
       application.registerForRemoteNotifications()
     }
   }
   
-  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-    let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    
+    let tokenChars = NSData(data: deviceToken).bytes.bindMemory(to: CChar.self, capacity: deviceToken.count)
     var tokenString = ""
     
-    for i in 0..<deviceToken.length {
+    for i in 0..<deviceToken.count {
       tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
     }
     
     
-    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Unknown)
+    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.unknown)
     print("Device Token:", tokenString)
   }
   
-  func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+  func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
     if notification.alertTitle == "SleepMode" {
       if DataManager.sharedInstance.isSleepModeEnabled {
         if StreamingRadioManager.sharedInstance.currentlyPlaying() {
@@ -225,8 +226,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
           
           
           notification.alertAction = "Ok"
-          notification.fireDate = NSDate(timeIntervalSinceNow: 1)
-          UIApplication.sharedApplication().scheduleLocalNotification(notification)
+          notification.fireDate = Date(timeIntervalSinceNow: 1)
+          UIApplication.shared.scheduleLocalNotification(notification)
           
           
           
@@ -239,7 +240,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
   }
   
-  func tokenRefreshNotification(notification: NSNotification) {
+  func tokenRefreshNotification(_ notification: Notification) {
     if let refreshedToken = FIRInstanceID.instanceID().token() {
       print("Token do firebase Messaging: \(refreshedToken)")
       DataManager.sharedInstance.firMessagingToken = refreshedToken
@@ -251,12 +252,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   class func getDelegate() -> AppDelegate {
-    return UIApplication.sharedApplication().delegate as! AppDelegate
+    return UIApplication.shared.delegate as! AppDelegate
   }
   
   func connectToFCM() {
     let notf = FIRMessaging.messaging()
-    notf.connectWithCompletion { (error) in
+    notf.connect { (error) in
       if (error == nil) {
         print("conectado com o FCM")
       } else {
@@ -265,7 +266,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
   }
   
-  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     if let _ = userInfo["sendOk"] as? String {
       if let msgId = userInfo["from"] as? String {
         print("Mensagem de id \(msgId) recebida remotamente. Possivelemente firebase")
@@ -284,8 +285,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
           assert(false)
         }
         notification.alertAction = "Ok"
-        notification.fireDate = NSDate(timeIntervalSinceNow: 1)
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        notification.fireDate = Date(timeIntervalSinceNow: 1)
+        UIApplication.shared.scheduleLocalNotification(notification)
       } else {
         print("Mensagem remota recebida = \(userInfo)")
       }
@@ -294,7 +295,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
   }
   
-  static func realmUpdate(realm:Realm) {
+  static func realmUpdate(_ realm:Realm) {
     let configRealm = realm.objects(AudioConfig.self).filter("id == 1")
     if configRealm.count > 0 {
       for config in configRealm {
@@ -329,13 +330,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         let color2 = ColorRealm(name: 1, red: red, green: green, blue: blue, alpha: alpha)
         colors.append(color2)
       }
-      Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, with: UIContentStyle.contrast)
       
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
       let colorBlue = ColorRealm(name: 1, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), withContentStyle: UIContentStyle.Contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), with: UIContentStyle.contrast)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
     }
@@ -354,10 +355,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     DataBaseTest.infoWithoutRadios()
   }
   
-  func startRealm(numberOfTryTimes:Int) {
+  func startRealm(_ numberOfTryTimes:Int) {
     RealmWrapper.realmStart("default")
     var config = Realm.Configuration()
-    config.fileURL = config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("default.realm")
+    
+    config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("default.realm")
     Realm.Configuration.defaultConfiguration = config
     do{
       let realm = try Realm(configuration: config)
@@ -366,7 +368,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       return
     } catch let error as NSError {
       if numberOfTryTimes == 1 {
-        DataManager.sharedInstance.statusApp = .ProblemWithRealm
+        DataManager.sharedInstance.statusApp = .problemWithRealm
         return
       } else {
         if error.code == 10 {
@@ -377,47 +379,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
   }
   
-  override func remoteControlReceivedWithEvent(event: UIEvent?) {
+  override func remoteControlReceived(with event: UIEvent?) {
     let rc = (event?.subtype)! as UIEventSubtype
     switch rc {
-    case .RemoteControlPause:
+    case .remoteControlPause:
       StreamingRadioManager.sharedInstance.stop()
-    case .RemoteControlPlay:
+    case .remoteControlPlay:
       StreamingRadioManager.sharedInstance.playActualRadio()
     default:
       break
     }
   }
   
-  func uploadProfilePicture(photo: UIImage){
+  func uploadProfilePicture(_ photo: UIImage){
     
-    
-    Alamofire.upload(.POST, "http://feroxhome.mooo.com:8080/radiocontrole-web/api/image/upload", multipartFormData: { multipartFormData in
-      if let imageData = UIImageJPEGRepresentation(photo, 0.8) {
-        multipartFormData.appendBodyPart(data: imageData, name: "upload", fileName: "userphoto.jpg", mimeType: "image/jpeg")
-      }
-      
-      }, encodingCompletion: {
-        encodingResult in
-        
+    Alamofire.upload(multipartFormData: { (multipartFormData) in
+        if let imageData = UIImageJPEGRepresentation(photo, 0.8) {
+            multipartFormData.append(imageData, withName: "upload", fileName: "upload", mimeType: "image/jpeg")
+           
+        }
+    }, to: URL(string:"http://feroxhome.mooo.com:8080/radiocontrole-web/api/image/upload")!) { (encodingResult) in
         debugPrint(encodingResult)
-        
-    })
-  }
+    }
+    }
   
   func deleteCacheData() {
     
-    let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     
-    let directoryUrls = try!  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+    let directoryUrls = try!  FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
     let extensionTypes =  ["m4a","jpeg","jpg","png","avi"]
     for ext in extensionTypes {
       let files = directoryUrls.filter{ $0.pathExtension == ext }.map{ $0.path }
       
       for file in files {
         print("Removido item de cache em \(file)")
-        let _ = try? NSFileManager.defaultManager().removeItemAtPath(file!)
+        let _ = try? FileManager.default.removeItem(atPath: file)
       }
     }
     

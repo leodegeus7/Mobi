@@ -31,19 +31,19 @@ class VAdsInfo3TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return local.count
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("local", forIndexPath: indexPath) as! VAdsInfo3TableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "local", for: indexPath) as! VAdsInfo3TableViewCell
         cell.timeLabel.text = "\(Util.getOverdueInterval(Util.convertStringToNSDate(local[indexPath.row].date))) atrás - \(Util.convertDateToShowStringWithHour(Util.convertStringToNSDate(local[indexPath.row].date)))"
         cell.lat.text = "\(local[indexPath.row].lat)  -  \(local[indexPath.row].long)"
         
@@ -53,10 +53,10 @@ class VAdsInfo3TableViewController: UITableViewController {
         return cell
     }
 
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let coord = CLLocation(latitude: Double(local[indexPath.row].lat)!, longitude: Double(local[indexPath.row].long)!)
     viewBack.center(coord)
-    navigationController?.popViewControllerAnimated(true)
+    navigationController?.popViewController(animated: true)
   }
   
 

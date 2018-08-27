@@ -19,62 +19,62 @@ class Util: NSObject {
     return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
   }
   
-  static func getDayOfWeek(date:NSDate) -> Int {
-    let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let myComponents = myCalendar.components(.Weekday, fromDate: date)
+  static func getDayOfWeek(_ date:Date) -> Int {
+    let myCalendar = Calendar(identifier: Calendar.Identifier.gregorian)
+    let myComponents = (myCalendar as NSCalendar).components(.weekday, from: date)
     let weekDay = myComponents.weekday
-    return weekDay
+    return weekDay!
   }
   
-  static func tintImageWithColor(color:UIColor,image:UIImage) -> UIImageView {
-    let tintedImage = image.imageWithRenderingMode(.AlwaysTemplate)
+  static func tintImageWithColor(_ color:UIColor,image:UIImage) -> UIImageView {
+    let tintedImage = image.withRenderingMode(.alwaysTemplate)
     let imageView = UIImageView(image: tintedImage)
     imageView.tintColor = color
     return imageView
     
   }
   
-  static func displayAlert(view:UIViewController,title: String, message: String, action: String) {
+  static func displayAlert(_ view:UIViewController,title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let defaultAction: UIAlertAction = UIAlertAction(
       title: action,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: nil
     )
     alert.addAction(defaultAction)
-    view.presentViewController(alert, animated: true, completion: nil)
+    view.present(alert, animated: true, completion: nil)
   }
   
-  static func displayAlert(view:UIViewController, title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+  static func displayAlert(_ view:UIViewController, title: String, message: String, okTitle: String, cancelTitle: String, okAction: @escaping () -> Void, cancelAction: @escaping () -> ()) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: okTitle,
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
         okAction()
     }
     let noAction: UIAlertAction = UIAlertAction(
       title: cancelTitle,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: { (action: UIAlertAction!) -> Void in
         cancelAction()
       }
     )
     alert.addAction(yesAction)
     alert.addAction(noAction)
-    view.presentViewController(alert, animated: true, completion: nil)
+    view.present(alert, animated: true, completion: nil)
   }
 
   
   
-  static func convertCoordinateToAddress(lat:CLLocationDegrees,long:CLLocationDegrees, completion: (result: [String:String]) -> Void){
+  static func convertCoordinateToAddress(_ lat:CLLocationDegrees,long:CLLocationDegrees, completion: @escaping (_ result: [String:String]) -> Void){
     let geoCoder = CLGeocoder()
     let location = CLLocation(latitude: lat, longitude: long)
     
@@ -104,49 +104,49 @@ class Util: NSObject {
       if let state = placeMark.addressDictionary!["State"] as? NSString {
         infoDic["State"] = state as String
       }
-      completion(result: infoDic)
+      completion(infoDic)
     })
   }
   
   
   
-  static func getOverdueInterval(date:NSDate) -> String {
+  static func getOverdueInterval(_ date:Date) -> String {
     
-    var interval = NSCalendar.currentCalendar().components(.Year, fromDate: date, toDate: NSDate(), options: []).year
+    var interval = (Calendar.current as NSCalendar).components(.year, from: date, to: Date(), options: []).year
     
-    if interval > 0 {
-      return interval == 1 ? "\(interval)" + " " + "ano" :
-        "\(interval)" + " " + "anos"
+    if interval! > 0 {
+      return interval == 1 ? "\(interval!)" + " " + "ano" :
+        "\(interval!)" + " " + "anos"
     }
     
-    interval = NSCalendar.currentCalendar().components(.Month, fromDate: date, toDate: NSDate(), options: []).month
-    if interval > 0 {
-      return interval == 1 ? "\(interval)" + " " + "mês" :
-        "\(interval)" + " " + "meses"
+    interval = (Calendar.current as NSCalendar).components(.month, from: date, to: Date(), options: []).month
+    if interval! > 0 {
+      return interval == 1 ? "\(interval!)" + " " + "mês" :
+        "\(interval!)" + " " + "meses"
     }
     
-    interval = NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: NSDate(), options: []).day
-    if interval > 1 {
-      return interval == 1 ? "\(interval)" + " " + "dia" :
-        "\(interval)" + " " + "dias"
+    interval = (Calendar.current as NSCalendar).components(.day, from: date, to: Date(), options: []).day
+    if interval! > 1 {
+      return interval == 1 ? "\(interval!)" + " " + "dia" :
+        "\(interval!)" + " " + "dias"
     }
     
-    interval = NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: NSDate(), options: []).hour
-    if interval > 0 {
-      return interval == 1 ? "\(interval)" + " " + "hora" :
-        "\(interval)" + " " + "horas"
+    interval = (Calendar.current as NSCalendar).components(.hour, from: date, to: Date(), options: []).hour
+    if interval! > 0 {
+      return interval == 1 ? "\(interval!)" + " " + "hora" :
+        "\(interval!)" + " " + "horas"
     }
     
-    interval = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: NSDate(), options: []).minute
-    if interval > 0 {
-      return interval == 1 ? "\(interval)" + " " + "minuto" :
-        "\(interval)" + " " + "minutos"
+    interval = (Calendar.current as NSCalendar).components(.minute, from: date, to: Date(), options: []).minute
+    if interval! > 0 {
+      return interval == 1 ? "\(interval!)" + " " + "minuto" :
+        "\(interval!)" + " " + "minutos"
     }
     
     return "poucos segundos"
   }
   
-  static func getDistanceString(meters:Int) -> String {
+  static func getDistanceString(_ meters:Int) -> String {
     if meters < 1000 {
       return "\(meters) m"
     } else {
@@ -155,11 +155,11 @@ class Util: NSObject {
     }
   }
   
-  static func areTheySiblings(class1: AnyObject!, class2: AnyObject) -> Bool {
+  static func areTheySiblings(_ class1: AnyObject!, class2: AnyObject) -> Bool {
     return object_getClassName(class1) == object_getClassName(class2)
   }
   
-  static func removeDuplicateStrings(array: [String]) -> [String] {
+  static func removeDuplicateStrings(_ array: [String]) -> [String] {
     var encountered = Set<String>()
     var result: [String] = []
     for value in array {
@@ -177,7 +177,7 @@ class Util: NSObject {
   }
   
   
-  static func imageResize(image: UIImage, sizeChange: CGSize) -> UIImage {
+  static func imageResize(_ image: UIImage, sizeChange: CGSize) -> UIImage {
     let size = image.size
     
     let widthRatio  = sizeChange.width  / image.size.width
@@ -186,21 +186,21 @@ class Util: NSObject {
     // Figure out what our orientation is, and use that to form the rectangle
     var newSize: CGSize
     if(widthRatio > heightRatio) {
-      newSize = CGSizeMake(size.width*heightRatio, size.height*heightRatio)
+      newSize = CGSize(width: size.width*heightRatio, height: size.height*heightRatio)
     } else {
-      newSize = CGSizeMake(size.width*widthRatio,  size.height*widthRatio)
+      newSize = CGSize(width: size.width*widthRatio,  height: size.height*widthRatio)
     }
     
     // This is the rect that we've calculated out and this is what is actually used below
-    let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
     
     // Actually do the resizing to the rect using the ImageContext stuff
     UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-    image.drawInRect(rect)
+    image.draw(in: rect)
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
   
 //  static func imageResize(image:UIImage, sizeChange:CGSize) -> UIImage {
@@ -215,93 +215,93 @@ class Util: NSObject {
 //    return resizedImage
 //  }
   
-  static func convertStringToNSDate(dateString:String) -> NSDate{
+  static func convertStringToNSDate(_ dateString:String) -> Date{
     if dateString.characters.count == 31 {
-      let formatter = NSDateFormatter()
+      let formatter = DateFormatter()
       formatter.dateFormat = "EEE, dd MM yyyy HH:mm:ss zzz"
-      return formatter.dateFromString(dateString)!
+      return formatter.date(from: dateString)!
     }
     if dateString.characters.count <= 9 {
-      if dateString.containsString("/") {
-        let dateFormatter = NSDateFormatter()
+      if dateString.contains("/") {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/M/yyyy"
-        let date = dateFormatter.dateFromString(dateString)
+        let date = dateFormatter.date(from: dateString)
         if let dateAux = date {
          return dateAux
         }
-        let dateFormatter2 = NSDateFormatter()
+        let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "d/MM/yyyy"
-        let date2 = dateFormatter.dateFromString(dateString)
+        let date2 = dateFormatter.date(from: dateString)
         if let dateAux = date2 {
           return dateAux
         }
       }
     }
     if dateString.characters.count == 10 {
-      if !dateString.containsString("/") {
-        let formatter = NSDateFormatter()
+      if !dateString.contains("/") {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.dateFromString(dateString)!
+        return formatter.date(from: dateString)!
       } else {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        let date = dateFormatter.dateFromString(dateString)
+        let date = dateFormatter.date(from: dateString)
         return date!
       }
     } else if dateString.characters.count == 24 {
-      let dateFormatter = NSDateFormatter()
+      let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-      let date = dateFormatter.dateFromString(dateString)
+      let date = dateFormatter.date(from: dateString)
       if date == nil {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        let date2 = dateFormatter.dateFromString(dateString)
+        let date2 = dateFormatter.date(from: dateString)
         return date2!
       } else {
         return date!
       }
     } else if dateString.characters.count == 8 {
-      let dateFormatter = NSDateFormatter()
+      let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "HH:mm:ss"
-      let date = dateFormatter.dateFromString(dateString)
+      let date = dateFormatter.date(from: dateString)
       return date!
     } else if dateString.characters.count == 5 {
-      let dateFormatter = NSDateFormatter()
+      let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "HH:mm"
-      let date = dateFormatter.dateFromString(dateString)
+      let date = dateFormatter.date(from: dateString)
       return date!
     } else {
-      let dateFormatter = NSDateFormatter()
+      let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000'Z"
-      let date = dateFormatter.dateFromString(dateString)
+      let date = dateFormatter.date(from: dateString)
       return date!
     }
   }
   
-  static func convertDateToShowString(date:NSDate) -> String {
-    let calender = NSCalendar.currentCalendar()
-    let components = calender.components([.Day, .Month, . Year], fromDate: date)
-    let dateString = "\(components.day)/\(components.month)/\(components.year)"
+  static func convertDateToShowString(_ date:Date) -> String {
+    let calender = Calendar.current
+    let components = (calender as NSCalendar).components([.day, .month, . year], from: date)
+    let dateString = "\(components.day!)/\(components.month!)/\(components.year!)"
     return dateString
   }
   
-  static func convertDateToShowStringWithHour(date:NSDate) -> String {
-    let dateFormatter = NSDateFormatter()
+  static func convertDateToShowStringWithHour(_ date:Date) -> String {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm dd/MM/yyyy"
-    let dateString = dateFormatter.stringFromDate(date)
+    let dateString = dateFormatter.string(from: date)
     return dateString
   }
   
-  static func convertDateToShowHour(date:NSDate) -> String {
-    let dateFormatter = NSDateFormatter()
+  static func convertDateToShowHour(_ date:Date) -> String {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm:ss"
-    let dateString = dateFormatter.stringFromDate(date)
+    let dateString = dateFormatter.string(from: date)
     return dateString
   }
   
-  static func convertDateToServerBirthString(date:NSDate) -> String {
-    let calender = NSCalendar.currentCalendar()
-    let components = calender.components([.Day, .Month, . Year], fromDate: date)
+  static func convertDateToServerBirthString(_ date:Date) -> String {
+    let calender = Calendar.current
+    let components = (calender as NSCalendar).components([.day, .month, . year], from: date)
     let dateString = "\(components.year)-\(components.month)-\(components.day)"
     return dateString
   }
@@ -309,32 +309,32 @@ class Util: NSObject {
 
   
   static func convertActualDateToString() -> String {
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-    let now = dateFormatter.stringFromDate(NSDate())
+    let now = dateFormatter.string(from: Date())
     return now
   }
   
-  static func sleepNotification(seconds:Int) {
+  static func sleepNotification(_ seconds:Int) {
     if StreamingRadioManager.sharedInstance.currentlyPlaying() {
       let title:String = "Modo Dormir"
-      let date = NSDate(timeIntervalSinceNow: Double(seconds))
+      let date = Date(timeIntervalSinceNow: Double(seconds))
       let notification = UILocalNotification()
       let dict:NSDictionary = ["ID" : "your ID goes here"]
       notification.userInfo = dict as! [String : String]
       notification.alertBody = "Modo dormir ativado. Suas rádios foram desligadas!"
       notification.alertAction = "Abrir"
       notification.alertTitle = "Modo Dormir"
-      notification.timeZone = NSTimeZone.defaultTimeZone()
+      notification.timeZone = TimeZone.current
       notification.fireDate = date
       notification.soundName = UILocalNotificationDefaultSoundName
-      UIApplication.sharedApplication().scheduleLocalNotification(notification)
+      UIApplication.shared.scheduleLocalNotification(notification)
       DataManager.sharedInstance.dateSleep = date
       DataManager.sharedInstance.isSleepModeEnabled = true
       
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-        NSThread.sleepForTimeInterval(Double(date.timeIntervalSinceDate(NSDate())))
-        dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+        Thread.sleep(forTimeInterval: Double(date.timeIntervalSince(Date())))
+        DispatchQueue.main.async(execute: {
             StreamingRadioManager.sharedInstance.stop()
         })
       })
@@ -348,47 +348,47 @@ class Util: NSObject {
   
 
   
-  static func displayAlert(title title: String, message: String, action: String) {
+  static func displayAlert(title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let defaultAction: UIAlertAction = UIAlertAction(
       title: action,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: nil
     )
     alert.addAction(defaultAction)
-    Util.findTopView().presentViewController(alert, animated: true, completion: nil)
+    Util.findTopView().present(alert, animated: true, completion: nil)
   }
   
-  static func displayAlert(title title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+  static func displayAlert(title: String, message: String, okTitle: String, cancelTitle: String, okAction: @escaping () -> Void, cancelAction: @escaping () -> ()) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: okTitle,
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
         okAction()
     }
     let noAction: UIAlertAction = UIAlertAction(
       title: cancelTitle,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: { (action: UIAlertAction!) -> Void in
         cancelAction()
       }
     )
     alert.addAction(yesAction)
     alert.addAction(noAction)
-    Util.findTopView().presentViewController(alert, animated: true, completion: nil)
+    Util.findTopView().present(alert, animated: true, completion: nil)
   }
   
   static func findTopView() -> UIViewController {
     
-    return (UIApplication.sharedApplication().keyWindow?.rootViewController)!
+    return (UIApplication.shared.keyWindow?.rootViewController)!
   }
   
   static func applyEqualizerToStreamingInBaseOfSliders() {
@@ -447,10 +447,10 @@ class Util: NSObject {
   
   }
   
-  static func createServerOffNotification(view:UIViewController,tryAgainAction:()->Void) {
+  static func createServerOffNotification(_ view:UIViewController,tryAgainAction:@escaping ()->Void) {
     
     func cancelAction() {
-      view.dismissViewControllerAnimated(true, completion: nil)
+      view.dismiss(animated: true, completion: nil)
     }
     self.displayAlert(title: "Server OFF", message: "Estamos tendo dificuldades ao conectar aos servidores, tente novamente mais tarde", okTitle: "Tentar novamente", cancelTitle: "Entrar modo offline", okAction: tryAgainAction, cancelAction: cancelAction)
   }
@@ -458,59 +458,59 @@ class Util: NSObject {
 
 extension NSLayoutConstraint {
   
-  override public var description: String {
+  override open var description: String {
     let id = identifier ?? ""
     return "id: \(id), constant: \(constant)"
   }
 }
 
 extension UIView {
-  func loadFromNibNamed(nibNamed:String, bundle: NSBundle?
+  func loadFromNibNamed(_ nibNamed:String, bundle: Bundle?
     = nil) -> UIView? {
-    return UINib(nibName: nibNamed, bundle: bundle).instantiateWithOwner(nil, options: nil).first as? UIView
+    return UINib(nibName: nibNamed, bundle: bundle).instantiate(withOwner: nil, options: nil).first as? UIView
   }
 }
 
 extension UIViewController {
   
   // Simple alert, OK only
-  func displayAlert(title title: String, message: String, action: String) {
+  func displayAlert(title: String, message: String, action: String) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let defaultAction: UIAlertAction = UIAlertAction(
       title: action,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: nil
     )
     alert.addAction(defaultAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
   // OK/Cancel alert type
-  func displayAlert(title title: String, message: String, okTitle: String, cancelTitle: String, okAction: () -> Void, cancelAction: () -> ()) {
+  func displayAlert(title: String, message: String, okTitle: String, cancelTitle: String, okAction: @escaping () -> Void, cancelAction: @escaping () -> ()) {
     let alert: UIAlertController = UIAlertController(
       title: title,
       message: message,
-      preferredStyle: UIAlertControllerStyle.Alert
+      preferredStyle: UIAlertControllerStyle.alert
     )
     let yesAction: UIAlertAction = UIAlertAction(
       title: okTitle,
-      style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+      style: UIAlertActionStyle.default) { (action: UIAlertAction!) -> Void in
         okAction()
     }
     let noAction: UIAlertAction = UIAlertAction(
       title: cancelTitle,
-      style: UIAlertActionStyle.Default,
+      style: UIAlertActionStyle.default,
       handler: { (action: UIAlertAction!) -> Void in
         cancelAction()
       }
     )
     alert.addAction(yesAction)
     alert.addAction(noAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
 }

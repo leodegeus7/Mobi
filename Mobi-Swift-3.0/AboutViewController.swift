@@ -23,32 +23,32 @@ class AboutViewController: UIViewController {
       openMenu.target = self.revealViewController()
       openMenu.action = #selector(SWRevealViewController.revealToggle(_:))
     }
-    buttonTerms.backgroundColor = UIColor.clearColor()
+    buttonTerms.backgroundColor = UIColor.clear
     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     self.title = "Sobre"
-    let components = CGColorGetComponents(DataManager.sharedInstance.interfaceColor.color.CGColor)
+    let components = DataManager.sharedInstance.interfaceColor.color.cgColor.components
     let colorRose = DataManager.sharedInstance.pinkColor.color
     let colorBlue = DataManager.sharedInstance.blueColor.color
     let colorBlack = DataManager.sharedInstance.interfaceColor.color
-    let colorWhite =  ColorRealm(name: 45, red: components[0]+0.1, green: components[1]+0.1, blue: components[2]+0.1, alpha: 1).color
+    let colorWhite =  ColorRealm(name: 45, red: (components?[0])!+0.1, green: (components?[1])!+0.1, blue: (components?[2])!+0.1, alpha: 1).color
     
     if DataManager.sharedInstance.interfaceColor.color == colorBlue {
       
-      self.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: [colorBlue,colorRose])
-      textViewAbout.textColor = UIColor.blackColor()
+      self.view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: [colorBlue,colorRose])
+      textViewAbout.textColor = UIColor.black
     } else {
-      self.view.backgroundColor = UIColor(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: [colorBlack,colorWhite])
-      textViewAbout.textColor = UIColor.whiteColor()
+      self.view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: [colorBlack,colorWhite])
+      textViewAbout.textColor = UIColor.white
     }
   }
   
-  @IBAction func textTap(sender: AnyObject) {
-    UIApplication.sharedApplication().openURL(NSURL(string: "http://mobilize-se.net.br")!)
+  @IBAction func textTap(_ sender: AnyObject) {
+    UIApplication.shared.openURL(URL(string: "http://mobilize-se.net.br")!)
   }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
-  @IBAction func termsTap(sender: AnyObject) {
-    UIApplication.sharedApplication().openURL(NSURL(string: "http://mobilize-se.net.br/mobi/terms.pdf")!)
+  @IBAction func termsTap(_ sender: AnyObject) {
+    UIApplication.shared.openURL(URL(string: "http://mobilize-se.net.br/mobi/terms.pdf")!)
   }
 }

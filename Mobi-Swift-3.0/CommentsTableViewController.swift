@@ -13,19 +13,19 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   var actualComment :Comment!
   var actualSubComments : [Comment]!
   
-  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+  var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   var firstTimeToShow = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Comentários"
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "plus.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.Done, target: self, action: #selector(RadioTableViewController.createComment))
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Util.imageResize(UIImage(named: "plus.png")!, sizeChange: CGSize(width: 20, height: 20)), style: UIBarButtonItemStyle.done, target: self, action: #selector(RadioTableViewController.createComment))
     let requestManager = RequestManager()
     requestManager.requestComments(actualComment, pageNumber: 0, pageSize: 20, completion: { (resultWall) in
       self.actualSubComments = resultWall
       self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
+      self.activityIndicator.isHidden = true
       self.self.activityIndicator.removeFromSuperview()
       self.tableView.reloadData()
     })
@@ -42,20 +42,20 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     firstTimeToShow = true
     self.tableView.reloadData()
     activityIndicator.center = view.center
     activityIndicator.startAnimating()
     view.addSubview(activityIndicator)
-    activityIndicator.hidden = false
+    activityIndicator.isHidden = false
     tableView.allowsSelection = false
     self.clearsSelectionOnViewWillAppear = true
     let requestManager = RequestManager()
     requestManager.requestComments(actualComment, pageNumber: 0, pageSize: 20, completion: { (resultWall) in
       self.actualSubComments = resultWall
       self.tableView.allowsSelection = true
-      self.activityIndicator.hidden = true
+      self.activityIndicator.isHidden = true
       self.self.activityIndicator.removeFromSuperview()
       self.tableView.reloadData()
     })
@@ -68,14 +68,14 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   
   // MARK: - Table view data source
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
     return 2
   }
   
   func createComment() {
     if DataManager.sharedInstance.isLogged {
-      performSegueWithIdentifier("createPublicacionSegue", sender: self)
+      performSegue(withIdentifier: "createPublicacionSegue", sender: self)
     } else {
       func okAction() {
         DataManager.sharedInstance.instantiateProfile(self.navigationController!)
@@ -86,16 +86,16 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let ident = (segue.identifier)!
     if ident == "createPublicacionSegue" {
-      let createVC = (segue.destinationViewController as! SendPublicationViewController)
-      createVC.actualMode = .Comment
+      let createVC = (segue.destination as! SendPublicationViewController)
+      createVC.actualMode = .comment
       createVC.actualComment = actualComment
     }
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
     if firstTimeToShow {
       return 1
@@ -114,7 +114,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   }
   
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if firstTimeToShow {
       let cell = UITableViewCell()
       firstTimeToShow = false
@@ -122,42 +122,42 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     }
     else {
       if indexPath.section == 0 {
-        if actualComment.postType == .Audio {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallAudioCell", forIndexPath: indexPath) as! WallAudioPlayerTableViewCell
+        if actualComment.postType == .audio {
+          let cell = tableView.dequeueReusableCell(withIdentifier: "wallAudioCell", for: indexPath) as! WallAudioPlayerTableViewCell
           cell.labelName.text = actualComment.user.name
-          cell.selectionStyle = .None
+          cell.selectionStyle = .none
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
           if actualComment.user.userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+            cell.imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
           }
           cell.identifier = actualComment.audio
           return cell
           
         }
-        if actualComment.postType == .Image {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallImageCell", forIndexPath: indexPath) as! WallImageTableViewCell
-          cell.selectionStyle = .None
+        if actualComment.postType == .image {
+          let cell = tableView.dequeueReusableCell(withIdentifier: "wallImageCell", for: indexPath) as! WallImageTableViewCell
+          cell.selectionStyle = .none
           cell.labelName.text = actualComment.user.name
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
           if actualComment.user.userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+            cell.imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
           }
           cell.buttonZoomImage.tag = indexPath.row
           cell.tag = indexPath.row
-          cell.imageAttachment.kf_showIndicatorWhenLoading = true
+            cell.imageAttachment.kf.indicatorType = .activity
           if !cell.isReloadCell {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-              cell.imageAttachment?.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComment.image)), placeholderImage: UIImage(), optionsInfo: [.Transition(.Fade(0.2))], progressBlock: { (receivedSize, totalSize) in
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+              cell.imageAttachment?.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(self.actualComment.image)), placeholder: UIImage(), options: [.transition(.fade(0.2))], progressBlock: { (receivedSize, totalSize) in
                 
                 }, completionHandler: { (image, error, cacheType, imageURL) in
                   
-                  dispatch_async(dispatch_get_main_queue(), {
+                  DispatchQueue.main.async(execute: {
                     
                     if let image3 = image {
                       if let image2 = image3 as? UIImage {
@@ -169,7 +169,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
                           cell.widthImage.constant = cell.frame.width
                           //cell.imageAttachment.image = image
                           tableView.beginUpdates()
-                          tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                          tableView.reloadRows(at: [indexPath], with: .automatic)
                           tableView.endUpdates()
                           cell.tag = 1000
                           cell.isReloadCell = true
@@ -181,11 +181,11 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
               })
             })
           }
-          cell.buttonZoomImage.backgroundColor = UIColor.clearColor()
+          cell.buttonZoomImage.backgroundColor = UIColor.clear
           return cell
         } else {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
-          cell.selectionStyle = .None
+          let cell = tableView.dequeueReusableCell(withIdentifier: "wallCell", for: indexPath) as! WallTableViewCell
+          cell.selectionStyle = .none
           cell.labelName.text = actualComment.user.name
           cell.labelDate.text = Util.getOverdueInterval(actualComment.date)
           cell.textViewWall.text = actualComment.text
@@ -197,29 +197,29 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
           if actualComment.user.userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
+            cell.imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(actualComment.user.userImage)))
           }
           return cell
         }
       } else if indexPath.section == 1 {
         if let _ = actualSubComments {
           if actualSubComments.count == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("noPostsCell", forIndexPath: indexPath) as! NoPostsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noPostsCell", for: indexPath) as! NoPostsTableViewCell
             cell.labelTitle.text = "Nenhum comentário realizada"
             cell.textViewDescription.text = "Não há nenhum comentário nesta publicação, clique no + a cima para criar"
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
           }
         }
         if let _ = actualSubComments  {
-          let cell = tableView.dequeueReusableCellWithIdentifier("wallCell", forIndexPath: indexPath) as! WallTableViewCell
+          let cell = tableView.dequeueReusableCell(withIdentifier: "wallCell", for: indexPath) as! WallTableViewCell
           cell.labelName.text = actualSubComments[indexPath.row].user.name
           cell.labelDate.text = Util.getOverdueInterval(actualSubComments[indexPath.row].date)
           cell.textViewWall.text = actualSubComments[indexPath.row].text
           if actualSubComments[indexPath.row].user.userImage == "avatar.png" {
             cell.imageUser.image = UIImage(named: "avatar.png")
           } else {
-            cell.imageUser.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualSubComments[indexPath.row].user.userImage)))
+            cell.imageUser.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(actualSubComments[indexPath.row].user.userImage)))
           }
           return cell
         } else {
@@ -232,7 +232,7 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
     return cell
   }
   
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if section == 0 {
       return "Postagem atual"
     } else {
@@ -244,28 +244,28 @@ class CommentsTableViewController: UITableViewController,DZNEmptyDataSetSource,D
   //MARK: --- EMPTYDATA DELEGATE ---
   ///////////////////////////////////////////////////////////
   
-  func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     
     let str = "Nenhuma comentario na publicação"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString? {
+  func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
     var str = ""
     str = "Clique aqui para comentar no comentário"
-    let attr = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+    let attr = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
     return NSAttributedString(string: str, attributes: attr)
   }
   
-  func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage? {
+  func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    imageView.kf_setImageWithURL(NSURL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
+    imageView.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(actualRadio.thumbnail)))
     return Util.imageResize(imageView.image!, sizeChange: CGSize(width: 100, height: 100))
   }
   
-  func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-    performSegueWithIdentifier("createPublicationSegue", sender: self)
+  func emptyDataSetDidTapButton(_ scrollView: UIScrollView) {
+    performSegue(withIdentifier: "createPublicationSegue", sender: self)
   }
   
 }

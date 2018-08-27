@@ -19,11 +19,11 @@ class Streaming: NSObject {
     self.init()
     self.id = id
     if linkLow != ""{
-      self.linkLow = Link(link: linkLow, linkType: .Low)
+      self.linkLow = Link(link: linkLow, linkType: .low)
       self.existLowLink = true
     }
     if linkHigh != ""{
-      self.linkHigh = Link(link: linkHigh, linkType: .High)
+      self.linkHigh = Link(link: linkHigh, linkType: .high)
       self.existHighLink = true
     }
   }

@@ -9,13 +9,13 @@
 import UIKit
 
 class AnimationSupport: NSObject {
-  static func shakeTextField(textField:UITextField) {
+  static func shakeTextField(_ textField:UITextField) {
     let animation = CABasicAnimation(keyPath: "position")
     animation.duration = 0.07
     animation.repeatCount = 4
     animation.autoreverses = true
-    animation.fromValue = NSValue(CGPoint: CGPointMake(textField.center.x - 10, textField.center.y))
-    animation.toValue = NSValue(CGPoint: CGPointMake(textField.center.x - 10, textField.center.y))
-    textField.layer.addAnimation(animation, forKey: "position")
+    animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 10, y: textField.center.y))
+    animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 10, y: textField.center.y))
+    textField.layer.add(animation, forKey: "position")
   }
 }

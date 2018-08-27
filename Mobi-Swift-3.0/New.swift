@@ -20,7 +20,7 @@ class New {
   dynamic var link = ""
   
 
-  convenience init(title:String, descr:String,link:String,date:NSDate) {
+  convenience init(title:String, descr:String,link:String,date:Date) {
     self.init()
     self.newDescription = descr
     self.type = "Simple"

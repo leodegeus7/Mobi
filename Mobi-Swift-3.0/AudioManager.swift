@@ -40,17 +40,17 @@ class AudioManager: NSObject,STKAudioPlayerDelegate {
   }
   
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
-    cellToReproduce.buttonPlay.setBackgroundImage(UIImage(named: "pause4.png"), forState: .Normal)
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
+    cellToReproduce.buttonPlay.setBackgroundImage(UIImage(named: "pause4.png"), for: UIControlState())
     isPlaying = false
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didFinishPlayingQueueItemId queueItemId: NSObject, withReason stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
-    cellToReproduce.buttonPlay.setBackgroundImage(UIImage(named: "play3.png"), forState: .Normal)
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishPlayingQueueItemId queueItemId: NSObject, with stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
+    cellToReproduce.buttonPlay.setBackgroundImage(UIImage(named: "play3.png"), for: UIControlState())
     isPlaying = false
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
 //    if audioPlayer.state == .Error {
 //      audioPlayer.stop()
 //      print("Nao conseguiu rodar")
@@ -70,30 +70,30 @@ class AudioManager: NSObject,STKAudioPlayerDelegate {
     
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
     
   }
   
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
     print("Erro ao reproduzir o  streaming")
     Util.displayAlert(title: "Erro", message: "Erro ao reproduzir o audio - ErroCode: \(errorCode)", action: "Ok")
   }
   
-  func audioPlayer(audioPlayer: STKAudioPlayer, logInfo line: String) {
+  func audioPlayer(_ audioPlayer: STKAudioPlayer, logInfo line: String) {
   }
   
   
-  func play(link:Link,cell:WallAudioPlayerTableViewCell) {
+  func play(_ link:Link,cell:WallAudioPlayerTableViewCell) {
     
-    let playerItem = AVPlayerItem(URL: NSURL(string: link.link)!)
+    let playerItem = AVPlayerItem(url: URL(string: link.link)!)
     var player = AVPlayer()
     player = AVPlayer(playerItem: playerItem)
     player.rate = 1
     player.play()
     
     self.cellToReproduce = cell
-    cell.buttonPlay.setBackgroundImage(UIImage(named: "pause4.png"), forState: .Normal)
+    cell.buttonPlay.setBackgroundImage(UIImage(named: "pause4.png"), for: UIControlState())
 //    audioPlayer.play(link.link)
     isPlaying = true
   }

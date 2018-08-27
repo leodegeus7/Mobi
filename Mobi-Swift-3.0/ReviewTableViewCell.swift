@@ -36,13 +36,13 @@ class ReviewTableViewCell: UITableViewCell {
         star.image = UIImage(named: "starOFF.png")
       }
       
-      let colorAlpha = DataManager.sharedInstance.interfaceColor.color.colorWithAlphaComponent(0.2)
+      let colorAlpha = DataManager.sharedInstance.interfaceColor.color.withAlphaComponent(0.2)
       let viewSelected = UIView()
       viewSelected.backgroundColor = colorAlpha
       self.selectedBackgroundView = viewSelected
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -412,8 +412,8 @@ class EditInfoViewController: FormViewController {
         if (labelReKey.value?.characters.count)! > 6 {
           if labelKey.value == labelReKey.value {
             
-            let user = FIRAuth.auth()?.currentUser
-            user?.updatePassword(labelKey.value!, completion: { (error) in
+            let user = Auth.auth().currentUser
+            user?.updatePassword(to: labelKey.value!, completion: { (error) in
               if error != nil {
                 self.displayAlertWithMessageAndDismiss("Atenção", message: "Não conseguimos alterar sua senha", okTitle: "Ok")
               } else {
@@ -436,8 +436,8 @@ class EditInfoViewController: FormViewController {
       dicPara2["parameter"] = "email" as AnyObject?
       dicPara2["value"] = labelEmail.value! as AnyObject?
       changesArray.append(dicPara2)
-      let user = FIRAuth.auth()?.currentUser
-      user?.updateEmail(labelEmail.value!, completion: { (error) in
+        let user = Auth.auth().currentUser
+        user?.updateEmail(to: labelEmail.value!, completion: { (error) in
         if (error != nil) {
           self.displayAlertWithMessageAndDismiss("Atenção", message: "Não conseguimos alterar seu e-mail: \(error?.localizedDescription)", okTitle: "Ok")
         } else {

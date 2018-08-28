@@ -99,6 +99,7 @@ open class SegmentedCell<T: Equatable> : Cell<T>, CellType {
 
     open override func setup() {
         super.setup()
+        height = { BaseRow.estimatedRowHeight }
         selectionStyle = .none
         segmentedControl.addTarget(self, action: #selector(SegmentedCell.valueChanged), for: .valueChanged)
     }

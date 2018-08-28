@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
-  - ARNTransitionAnimator (3.0.7)
+  - ARNTransitionAnimator (2.2.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -11,57 +11,61 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - Cosmos (9.0.0)
-  - Eureka (3.1.0)
+  - Eureka (3.0.0)
   - Fabric (1.7.11)
   - FBSDKCoreKit (4.24.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.24.0):
     - FBSDKCoreKit
-  - Firebase/Auth (3.17.0):
+  - Firebase/Auth (4.13.0):
     - Firebase/Core
-    - FirebaseAuth (= 3.1.1)
-  - Firebase/Core (3.17.0):
-    - FirebaseAnalytics (= 3.9.0)
-    - FirebaseCore (= 3.6.0)
-  - Firebase/Crash (3.17.0):
+    - FirebaseAuth (= 4.6.1)
+  - Firebase/Core (4.13.0):
+    - FirebaseAnalytics (= 4.2.0)
+    - FirebaseCore (= 4.0.20)
+  - Firebase/Crash (4.13.0):
     - Firebase/Core
-    - FirebaseCrash (= 1.1.6)
-  - Firebase/Database (3.17.0):
+    - FirebaseCrash (= 2.0.2)
+  - Firebase/Database (4.13.0):
     - Firebase/Core
-    - FirebaseDatabase (= 3.1.2)
-  - Firebase/Messaging (3.17.0):
+    - FirebaseDatabase (= 4.1.5)
+  - Firebase/Messaging (4.13.0):
     - Firebase/Core
-    - FirebaseMessaging (= 1.2.3)
-  - FirebaseAnalytics (3.9.0):
-    - FirebaseCore (~> 3.6)
-    - FirebaseInstanceID (~> 1.0)
+    - FirebaseMessaging (= 2.2.0)
+  - FirebaseAnalytics (4.2.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseAuth (3.1.1):
-    - FirebaseAnalytics (~> 3.7)
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.6.1):
+    - FirebaseAnalytics (~> 4.2)
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (3.6.0):
+  - FirebaseCore (4.0.20):
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseCrash (1.1.6):
-    - FirebaseAnalytics (~> 3.7)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseCrash (2.0.2):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - Protobuf (~> 3.1)
-  - FirebaseDatabase (3.1.2):
-    - FirebaseAnalytics (~> 3.7)
-  - FirebaseInstanceID (1.0.10):
-    - FirebaseCore (~> 3.6)
-  - FirebaseMessaging (1.2.3):
-    - FirebaseAnalytics (~> 3.8)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseDatabase (4.1.5):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.2.0):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.1)
-  - FirebaseUI/Auth (3.1.1):
-    - Firebase/Auth
-  - FirebaseUI/Database (3.1.1):
-    - Firebase/Database
-  - FirebaseUI/Facebook (3.1.1):
+    - Protobuf (~> 3.5)
+  - FirebaseUI/Auth (4.5.5):
+    - Firebase/Auth (~> 4.2)
+  - FirebaseUI/Database (4.5.5):
+    - Firebase/Database (~> 4.0)
+  - FirebaseUI/Facebook (4.5.5):
     - FBSDKLoginKit (~> 4.0)
     - FirebaseUI/Auth
   - GoogleToolboxForMac/DebugUtils (2.1.4):
@@ -78,7 +82,8 @@ PODS:
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
   - GTMSessionFetcher/Core (1.2.0)
   - ImageViewer (4.1.0)
-  - Kingfisher (3.13.1)
+  - Kingfisher (4.5.0)
+  - leveldb-library (1.20)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
     - "MWFeedParser/NSDate+InternetDateTime (= 1.0.1)"
@@ -88,42 +93,47 @@ PODS:
     - "MWFeedParser/NSString+HTML"
   - "MWFeedParser/NSDate+InternetDateTime (1.0.1)"
   - "MWFeedParser/NSString+HTML (1.0.1)"
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - PocketSVG (2.4.0)
   - Protobuf (3.6.1)
   - PullToRefresh (0.0.1)
-  - Realm (2.8.3):
-    - Realm/Headers (= 2.8.3)
-  - Realm/Headers (2.8.3)
-  - RealmSwift (2.8.3):
-    - Realm (= 2.8.3)
-  - SideMenu (2.3.4)
-  - SwiftyJSON (3.1.4)
+  - Realm (3.0.2):
+    - Realm/Headers (= 3.0.2)
+  - Realm/Headers (3.0.2)
+  - RealmSwift (3.0.2):
+    - Realm (= 3.0.2)
+  - SideMenu (3.1.7)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.0)
-  - ARNTransitionAnimator (~> 3.0.0)
+  - Alamofire (~> 4.7)
+  - ARNTransitionAnimator (~> 2.2.0)
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Cosmos (~> 9.0)
-  - Eureka (~> 3.1.0)
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `Swift-3.3`)
   - Fabric
-  - FBSDKCoreKit (= 4.24.0)
-  - FBSDKLoginKit (= 4.24.0)
-  - Firebase/Auth (~> 3.0)
-  - Firebase/Core (~> 3.0)
-  - Firebase/Crash (~> 3.0)
-  - Firebase/Database (~> 3.0)
-  - Firebase/Messaging (~> 3.0)
-  - FirebaseUI/Auth (~> 3.0)
-  - FirebaseUI/Database (~> 3.0)
-  - FirebaseUI/Facebook (~> 3.0)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - Firebase/Auth (~> 4.0)
+  - Firebase/Core (~> 4.0)
+  - Firebase/Crash (~> 4.0)
+  - Firebase/Database (~> 4.0)
+  - Firebase/Messaging (~> 4.0)
+  - FirebaseUI/Auth (~> 4.0)
+  - FirebaseUI/Database (~> 4.0)
+  - FirebaseUI/Facebook (~> 4.0)
   - ImageViewer (~> 4.0)
-  - Kingfisher (~> 3.13.1)
+  - Kingfisher (~> 4.5.0)
   - MWFeedParser
   - PocketSVG
   - PullToRefresh
-  - RealmSwift (~> 2.8.0)
-  - SideMenu (~> 2.3.4)
-  - SwiftyJSON (~> 3.1.4)
+  - RealmSwift (~> 3.0.0)
+  - SideMenu (~> 3.1)
+  - SwiftyJSON (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -131,7 +141,6 @@ SPEC REPOS:
     - ARNTransitionAnimator
     - Bolts
     - Cosmos
-    - Eureka
     - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -148,7 +157,9 @@ SPEC REPOS:
     - GTMSessionFetcher
     - ImageViewer
     - Kingfisher
+    - leveldb-library
     - MWFeedParser
+    - nanopb
     - PocketSVG
     - Protobuf
     - PullToRefresh
@@ -160,44 +171,52 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ChameleonFramework:
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Eureka:
+    :branch: Swift-3.3
+    :git: https://github.com/xmartlabs/Eureka.git
 
 CHECKOUT OPTIONS:
   ChameleonFramework:
     :commit: 6dd284bde21ea2e7f9fd89bc36f40df16e16369d
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Eureka:
+    :commit: 8fcc11477411b1ac96339d3d9d0973956ed05151
+    :git: https://github.com/xmartlabs/Eureka.git
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  ARNTransitionAnimator: 1adc6856ff23e245cadbf624d37cace9a1a1b6a9
+  ARNTransitionAnimator: 7953f37521247ad251564d9bdee295f1f4f77a5c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Cosmos: 33eee62b2a0418452aef470f711f83c3ea061b7b
-  Eureka: d6725c38d0dcdceaa331d1468f75e76315715ae0
+  Eureka: 5b9418d7bfdc21ca977d69d124a6409f3e9af2c7
   Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   FBSDKCoreKit: f8c9eb0dd34a9cd277c7b60da4b32226d142502d
   FBSDKLoginKit: 1214c6d5a1c4995b694d8db8a9ba6910c6028acf
-  Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
-  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
-  FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
-  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
-  FirebaseCrash: 2f0facf656f4a8e948e77a852e6c475dde88ef59
-  FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
-  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
-  FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
-  FirebaseUI: 6e99ff95e369f5858232e4f65bff215458fe8469
+  Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
+  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
+  FirebaseAuth: bf22cacf22c60ab454bf2636f556d8892b10b53f
+  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
+  FirebaseCrash: a7d980468dc8aa2db9792493c3e02722d601f6ab
+  FirebaseDatabase: 5f0bc6134c5c237cf55f9e1249d406770a75eafd
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseMessaging: 75cdb862e86c30e0913a2ff307e48d49357c5b73
+  FirebaseUI: 7f149d40db1a67c459df16540256b66d8f8e8c70
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   ImageViewer: 163e5832e0a09e31a3e3482cce6e5e9029356174
-  Kingfisher: ed9707a409cc47fddafbcd12a43a9757e3600af5
+  Kingfisher: 26ae0473102b77b575da51960c932431e3745407
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   PocketSVG: 8ac7b20a881ca1a3d46ba1e54ee2b0f2307c3d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
-  Realm: 3601ef091c8c499a31101d8563b991e75546cdce
-  RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
-  SideMenu: 2ea1a015d14ffb96110af43fe3232d995943e726
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
+  RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
+  SideMenu: 93aefac046e861875abe260d8ae3578acdd75427
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 957b2ae06e2fba62a3082dee40c8a72916c9a491
+PODFILE CHECKSUM: 6c457c3bcf3f84a748dc25b1f514a479907e6d98
 
 COCOAPODS: 1.5.0

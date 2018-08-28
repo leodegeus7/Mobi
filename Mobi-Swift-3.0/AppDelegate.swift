@@ -68,10 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     downloadFacebookUpdatedInfo()
 //    Twitter.sharedInstance().start(withConsumerKey: "TZE17eCoHF3PqmXNQnQqhIXBV", consumerSecret: "3NINz0hXeFrtudSo6kSIJCLn8Z8TVW16fylD4OrkagZL2IJknJ")
 //    Fabric.with([Twitter.self])
-    FIRApp.configure()
-    NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification), name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
-    FIRDatabase.database().persistenceEnabled = true
-    if let user = FIRAuth.auth()?.currentUser {
+    FirebaseApp.configure()
+    NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+    Database.database().isPersistenceEnabled = true
+    if let user = Auth.auth().currentUser {
       print(user.email)
     }
     connectToFCM()
@@ -113,15 +113,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     
     deleteCacheData()
     //uploadProfilePicture(UIImage(named: "play.png")!)
-    return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+            FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+    return true
   }
   
   func applicationWillResignActive(_ application: UIApplication) {
-    try! FIRAuth.auth()?.signOut()
+    try! Auth.auth().signOut()
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
   }
   
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
+        return handled
+    }
+    
+    
   func applicationDidEnterBackground(_ application: UIApplication) {
     
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -141,11 +149,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     loginManager.logOut()
   }
   
-  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
-  {
-    return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-  }
-  
+//  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
+//  {
+//    return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+//  }
+//
   
   func defineInitialParameters() {
     let audioConfig = AudioConfig(id: "1", grave: 0, medio: 0, agudo: 0,audioType: 0)
@@ -167,11 +175,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func loginWithUserRealm(_ user:UserRealm,completion: @escaping (_ result: Bool) -> Void) {
-    FIRDatabase.database().reference()
+    Database.database().reference()
     
-    FIRAuth.auth()?.signIn(withEmail: user.email, password: user.password, completion: { (user, error) in
+    Auth.auth().signIn(withEmail: user.email, password: user.password, completion: { (user, error) in
       if error == nil {
-        user?.getTokenWithCompletion({ (token, erro) in
+        user?.getToken(completion: { (token, erro) in
           let loginManager = RequestManager()
           loginManager.loginInServer(token!) { (result) in
             DataManager.sharedInstance.userToken = result
@@ -209,7 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
     }
     
     
-    FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.unknown)
+    InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.unknown)
     print("Device Token:", tokenString)
   }
   
@@ -241,7 +249,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func tokenRefreshNotification(_ notification: Notification) {
-    if let refreshedToken = FIRInstanceID.instanceID().token() {
+    if let refreshedToken = InstanceID.instanceID().token() {
       print("Token do firebase Messaging: \(refreshedToken)")
       DataManager.sharedInstance.firMessagingToken = refreshedToken
       StreamingRadioManager.sharedInstance.adsInfo.updateFirebase(refreshedToken)
@@ -256,7 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
   }
   
   func connectToFCM() {
-    let notf = FIRMessaging.messaging()
+    let notf = Messaging.messaging()
     notf.connect { (error) in
       if (error == nil) {
         print("conectado com o FCM")

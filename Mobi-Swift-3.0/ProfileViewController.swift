@@ -64,7 +64,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   var selectedRadioArray:[RadioRealm]!
   var myUser = DataManager.sharedInstance.myUser
   var kFacebookAppID = "1768503930105725"
-  var db = FIRDatabaseReference.init()
+    var db = DatabaseReference.init()
   var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
   
@@ -517,7 +517,12 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   //    loginManager.logOut()
   //  }
   
-    func authUI(_ authUI: FUIAuth, didSignInWith user: FIRUser?, error: Error?) {
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        print(authUI.auth)
+    }
+
+
+    func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .contrast)
         self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
         
@@ -532,7 +537,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
             //Problem signing in
         }else {
             
-            user?.getTokenWithCompletion({ (token, error) in
+            user?.getToken(completion: { (token, error) in
                 let requestManager = RequestManager()
                 requestManager.loginInServer(token!, completion: { (result) in
                     if token == "nil" {
@@ -611,7 +616,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
   func login() {
     
-    let authUI = FUIAuth.init(uiWith: FIRAuth.auth()!)
+    let authUI = FUIAuth.init(uiWith: Auth.auth())
     
     
     authUI?.delegate = self
@@ -645,7 +650,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   @IBAction func loginButtonTap(_ sender: AnyObject) {
     if DataManager.sharedInstance.isLogged {
       func okAction() {
-        try! FIRAuth.auth()?.signOut()
+        try! Auth.auth().signOut()
         let logoutManger = RequestManager()
         DataManager.sharedInstance.userToken = ""
         logoutManger.logoutInServer(DataManager.sharedInstance.userToken, completion: { (result) in

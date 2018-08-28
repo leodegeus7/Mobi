@@ -259,7 +259,7 @@ class RadioTableViewController: UITableViewController,DZNEmptyDataSetSource,DZNE
   }
   
   override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    cell.imageView?.kf_cancelDownloadTask()
+    cell.imageView?.kf.cancelDownloadTask()
     
   }
   

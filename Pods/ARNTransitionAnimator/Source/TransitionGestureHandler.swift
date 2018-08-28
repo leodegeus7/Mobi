@@ -32,9 +32,7 @@ public final class TransitionGestureHandler : NSObject {
     
     public var panStartThreshold: CGFloat = 10.0
     public var panCompletionThreshold: CGFloat = 30.0
-    public var velocityThreshold: CGFloat = 0.0
     public var panBoundsPoint: CGPoint?
-    public var panFrameSize: CGSize?
     
     fileprivate let targetView: UIView
     
@@ -117,17 +115,14 @@ public final class TransitionGestureHandler : NSObject {
             
             var velocityForSelectedDirection: CGFloat = 0.0
             switch self.direction {
-            case .top:
-                velocityForSelectedDirection = velocity.y * -1.0
-            case .bottom:
+            case .top, .bottom:
                 velocityForSelectedDirection = velocity.y
-            case .left:
-                velocityForSelectedDirection = velocity.x * -1.0
-            case .right:
+            case .left, .right:
                 velocityForSelectedDirection = velocity.x
             }
             
-            if velocityForSelectedDirection > self.velocityThreshold && (self.percentComplete * 100) > self.panCompletionThreshold {
+            print(velocityForSelectedDirection)
+            if velocityForSelectedDirection > 0.0 && (self.percentComplete * 100) > self.panCompletionThreshold {
                 self.updateGestureHandler?(.finish)
             } else {
                 self.updateGestureHandler?(.cancel)
@@ -148,9 +143,6 @@ public final class TransitionGestureHandler : NSObject {
             if scrollView.contentOffset.y <= 0 && scrollView.isTracking {
                 return true
             }
-            if scrollView.contentSize.height < scrollView.frame.size.height {
-                return true
-            }
         } else {
             return true
         }
@@ -163,6 +155,7 @@ public final class TransitionGestureHandler : NSObject {
             self.panLocationStart = location.y
         case .bottom:
             if self.targetView is UIScrollView {
+                self.panLocationStart = 0
                 self.panLocationStart = location.y
             } else {
                 self.panLocationStart = location.y
@@ -184,7 +177,7 @@ public final class TransitionGestureHandler : NSObject {
     }
     
     fileprivate func updatePercentComplete(_ location: CGPoint) {
-        var bounds: CGFloat = 0.0
+        var bounds = CGFloat(0)
         if let boundsPoint = panBoundsPoint {
             switch self.direction {
             case .top, .bottom:
@@ -195,9 +188,9 @@ public final class TransitionGestureHandler : NSObject {
         } else {
             switch self.direction {
             case .top, .bottom:
-                bounds = self.panFrameSize != nil ? self.panFrameSize!.height : self.targetView.bounds.height
+                bounds = self.targetView.bounds.height
             case .left, .right:
-                bounds = self.panFrameSize != nil ? self.panFrameSize!.width : self.targetView.bounds.width
+                bounds = self.targetView.bounds.width
             }
         }
         switch self.direction {
@@ -219,7 +212,11 @@ public final class TransitionGestureHandler : NSObject {
         case .top:
             if (self.panLocationStart - location.y) < self.panStartThreshold { return }
         case .bottom:
-            if (location.y - self.panLocationStart) < self.panStartThreshold { return }
+            if self.targetView is UIScrollView {
+                if (location.y - self.panLocationStart) < self.panStartThreshold { return }
+            } else {
+                if location.y > 0 { return }
+            }
         case .left:
             if (self.panLocationStart - location.x) < self.panStartThreshold { return }
         case .right:

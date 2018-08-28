@@ -197,7 +197,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
-        cell.imageBig.kf_indicatorType = .activity
+        cell.imageBig.kf.indicatorType = .activity
         cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.labelDescriptionOne.text = "\(selectedRadioArray[indexPath.row].likenumber)"
         cell.widthTextOne.constant = 30
@@ -221,7 +221,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
-        cell.imageBig.kf_indicatorType = .activity
+        cell.imageBig.kf.indicatorType = .activity
         cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "marker.png")
         if selectedRadioArray[indexPath.row].resetDistanceFromUser() {
@@ -248,7 +248,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
         if let address = selectedRadioArray[indexPath.row].address {
           cell.labelLocal.text = address.formattedLocal
         }
-        cell.imageBig.kf_indicatorType = .activity
+        cell.imageBig.kf.indicatorType = .activity
         cell.imageBig.kf.setImage(with:URL(string: RequestManager.getLinkFromImageWithIdentifierString(selectedRadioArray[indexPath.row].thumbnail)))
         cell.imageSmallOne.image = UIImage(named: "clock-icon.png")
         if (Date().timeIntervalSince(selectedRadioArray[indexPath.row].lastAccessDate as Date) > 1) {
@@ -278,7 +278,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
           cell.labelLocal.text = address.formattedLocal
         }
 
-        cell.imageBig.kf_indicatorType = .activity
+        cell.imageBig.kf.indicatorType = .activity
         
         
 

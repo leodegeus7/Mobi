@@ -122,34 +122,9 @@ class RadioPlayer : NSObject {
     })
   }
   
-  func bufferFull() -> Bool {
-    return bufferAvailableSeconds() > 45.0
-  }
+
   
-  func bufferAvailableSeconds() -> TimeInterval {
-    // Check if there is a player instance
-    if ((player.currentItem) != nil) {
-      
-      // Get current AVPlayerItem
-      let item: AVPlayerItem = player.currentItem!
-      if (item.status == AVPlayerItemStatus.readyToPlay) {
-        
-        let timeRangeArray: NSArray = item.loadedTimeRanges as NSArray
-        if timeRangeArray.count < 1 { return(CMTimeGetSeconds(kCMTimeInvalid)) }
-        let aTimeRange: CMTimeRange = (timeRangeArray.object(at: 0) as AnyObject).timeRangeValue
-        //let startTime = CMTimeGetSeconds(aTimeRange.end)
-        let loadedDuration = CMTimeGetSeconds(aTimeRange.duration)
-        
-        return (TimeInterval)(loadedDuration);
-      }
-      else {
-        return(CMTimeGetSeconds(kCMTimeInvalid))
-      }
-    }
-    else {
-      return(CMTimeGetSeconds(kCMTimeInvalid))
-    }
-  }
+
   
   func play() {
     player.play()

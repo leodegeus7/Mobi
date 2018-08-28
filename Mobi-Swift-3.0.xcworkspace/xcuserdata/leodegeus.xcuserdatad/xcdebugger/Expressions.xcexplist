@@ -161,10 +161,10 @@
          contextName = "RequestManager.(requestMusicGenre((Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "(singleResult as! JSON).dictionaryObject">
+               value = "result[&quot;data&quot;] as? [[String:JSON]]">
             </PersistentString>
             <PersistentString
-               value = "result[&quot;data&quot;] as? [[String:JSON]]">
+               value = "(singleResult as! JSON).dictionaryObject">
             </PersistentString>
             <PersistentString
                value = "singleResult as! JSON">
@@ -181,6 +181,9 @@
                value = "(result[&quot;data&quot;] as! JSon)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestManager.requestJson(_:completion:):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "RequestManager.(requestJson(String, completion : ([String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
@@ -238,6 +241,38 @@
             </PersistentString>
             <PersistentString
                value = "singleResult as! NSDictionary">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestManager.requestTopLikesRadios(_:pageSize:completion:):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;\(dic[&quot;longitude&quot;] as! Int)&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;city&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;name&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;favorite&quot;] as! Bool">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;iosStoreLink&quot;] as! String">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;latitude&quot;] as! Double">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;likes&quot;] as! Int">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;id&quot;] as! Int">
+            </PersistentString>
+            <PersistentString
+               value = "dic[&quot;state&quot;] as! String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -300,9 +335,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestManager.(testServer((Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
-      </ContextState>
-      <ContextState
          contextName = "RequestManager.(requestReviewsInRadio(RadioRealm, pageSize : Int, pageNumber : Int, completion : ([Review]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -317,6 +349,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RequestManager.(testServer((Bool) -&gt; ()) -&gt; ()).(closure #1):RequestManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "InitialTableViewController.reloadData() -&gt; ():InitialTableViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -328,10 +363,10 @@
          contextName = "RadioViewController.changeButtonIcon() -&gt; ():RadioViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
+               value = "DataManager.sharedInstance.radioInExecution == actualRadio">
             </PersistentString>
             <PersistentString
-               value = "DataManager.sharedInstance.radioInExecution == actualRadio">
+               value = "RadioPlayer.sharedInstance.currentlyPlaying()">
             </PersistentString>
             <PersistentString
                value = "DataManager.sharedInstance.radioInExecution">
@@ -345,6 +380,20 @@
                value = "(resultRadios[&quot;data&quot;] as! NSDictionary)[&quot;records&quot;]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestManager.testUserLogged(_:):RequestManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(result[&quot;data&quot;] as! NSDictionary)[&quot;error&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "result[&quot;data&quot;] as! NSDictionary">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestManager.requestJson(_:completion:):RequestManager.swift">
       </ContextState>
       <ContextState
          contextName = "ViewOneViewController.updatePlayerIcons() -&gt; ():ViewOneViewController.swift">
@@ -405,10 +454,10 @@
          contextName = "RequestManager.(requestWallOfRadio(RadioRealm, pageNumber : Int, pageSize : Int, completion : ([Comment]) -&gt; ()) -&gt; ()).(closure #1).(closure #1).(closure #1):RequestManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "author[&quot;name&quot;] as! String">
+               value = "author[&quot;email&quot;] as! String">
             </PersistentString>
             <PersistentString
-               value = "author[&quot;email&quot;] as! String">
+               value = "author[&quot;name&quot;] as! String">
             </PersistentString>
             <PersistentString
                value = "UserRealm(id: &quot;\(author[&quot;id&quot;])&quot;, email: author[&quot;email&quot;] as! String, name: author[&quot;name&quot;] as! String, image: imageIdentifier)">

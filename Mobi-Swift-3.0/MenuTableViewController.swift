@@ -250,7 +250,7 @@ class MenuTableViewController: UITableViewController {
       self.performSegue(withIdentifier: "aboutScreen", sender: self)
     } else if (indexPath.row == 8) {
       func okAction() {
-        try! FIRAuth.auth()?.signOut()
+        try! Auth.auth().signOut()
         DataManager.sharedInstance.isLogged = false
         DataManager.sharedInstance.userToken = ""
         DataManager.sharedInstance.configApp.updateUserToken("")

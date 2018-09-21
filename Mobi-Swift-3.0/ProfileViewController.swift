@@ -523,7 +523,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
 
 
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
-        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .light)
         self.navigationController?.navigationBar.backgroundColor = DataManager.sharedInstance.interfaceColor.color
         
         if error != nil {
@@ -629,7 +629,7 @@ class ProfileViewController: UIViewController,UITableViewDataSource,UITableViewD
   
     func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
         authUI.customStringsBundle = Bundle.main
-        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, withSecondaryColor: nil, andContentStyle: UIContentStyle.light)
         let fir2 = FUIAuthPickerViewController(authUI: authUI)
         UIGraphicsBeginImageContext((UIApplication.shared.windows.first?.frame.size)!)
         UIImage(named: "login-1.png")?.draw(in: (UIApplication.shared.windows.first?.bounds)!)

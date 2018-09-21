@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
       //let colorRose = ColorRealm(name: 2, red: 240/255, green: 204/255, blue: 239/255, alpha: 1)
       DataManager.sharedInstance.blueColor = ColorRealm(name: 455, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
       DataManager.sharedInstance.pinkColor = ColorRealm(name: 456, red: 248/255, green: 196/255, blue: 211/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.blueColor.color.flatten(), with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.blueColor.color.flatten(), with: UIContentStyle.light)
       DataManager.sharedInstance.interfaceColor = DataManager.sharedInstance.blueColor
       DataManager.sharedInstance.existInterfaceColor = true
       defineInitialParameters()
@@ -338,13 +338,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         let color2 = ColorRealm(name: 1, red: red, green: green, blue: blue, alpha: alpha)
         colors.append(color2)
       }
-      Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colors.first?.color, with: UIContentStyle.light)
       
       DataManager.sharedInstance.interfaceColor = colors.first!
       DataManager.sharedInstance.existInterfaceColor = true
     } else {
       let colorBlue = ColorRealm(name: 1, red: 135/255, green: 206/255, blue: 235/255, alpha: 1)
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue.color.flatten(), with: UIContentStyle.light)
       DataManager.sharedInstance.interfaceColor = colorBlue
       DataManager.sharedInstance.existInterfaceColor = true
     }

@@ -501,7 +501,7 @@ class InitialTableViewController: UITableViewController, CLLocationManagerDelega
       DataManager.sharedInstance.updateAllOverdueInterval()
     }
     
-    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .contrast)
+    Chameleon.setGlobalThemeUsingPrimaryColor(DataManager.sharedInstance.interfaceColor.color, with: .light)
     self.setStatusBarStyle(.lightContent)
     navigationController?.navigationBar.shadowImage = nil
     navigationController?.navigationBar.isTranslucent = false

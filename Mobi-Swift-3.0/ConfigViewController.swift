@@ -202,7 +202,7 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
     switch (sender?.tag)! {
     case 11:
       if colorArray2 == colorArray {
-        Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue?.color, with: UIContentStyle.contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorBlue?.color, with: UIContentStyle.light)
 
         DataManager.sharedInstance.interfaceColor = colorBlue!
         self.setStatusBarStyle(.lightContent)
@@ -214,43 +214,43 @@ class ConfigViewController: UIViewController, UITableViewDataSource, UITableView
         }
       }
       else {
-        Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], with: UIContentStyle.contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0], with: UIContentStyle.light)
       }
     case 12:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[1], with: UIContentStyle.light)
       if ContrastColorOf((colorBlue?.color)!, returnFlat: true) == FlatWhite() {
         print("branco")
       } else {
         print("nao")
       }
     case 13:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[2], with: UIContentStyle.light)
     case 14:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[3], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[3], with: UIContentStyle.light)
     case 15:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[4], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[4], with: UIContentStyle.light)
     case 21:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[5], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[5], with: UIContentStyle.light)
     case 22:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[6], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[6], with: UIContentStyle.light)
     case 23:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[7], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[7], with: UIContentStyle.light)
     case 24:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[8], with: UIContentStyle.light)
     case 25:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[9],  with: UIContentStyle.light)
     case 31:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[10],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[10],  with: UIContentStyle.light)
     case 32:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[11],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[11],  with: UIContentStyle.light)
     case 33:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[12],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[12],  with: UIContentStyle.light)
     case 34:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[13],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[13],  with: UIContentStyle.light)
     case 35:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[14],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[14],  with: UIContentStyle.light)
     default:
-      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  with: UIContentStyle.contrast)
+      Chameleon.setGlobalThemeUsingPrimaryColor(colorArray[0],  with: UIContentStyle.light)
     }
     
     
